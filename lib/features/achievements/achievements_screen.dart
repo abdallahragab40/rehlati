@@ -40,13 +40,8 @@ class BadgeGrid extends StatelessWidget {
   final bool small;
 
   @override
-  Widget build(BuildContext context) => GridView.extent(
-        maxCrossAxisExtent: small ? 96 : 120,
-        mainAxisSpacing: 10,
-        crossAxisSpacing: 10,
-        childAspectRatio: .9,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
+  Widget build(BuildContext context) => TileWrap(
+        minTileWidth: small ? 84 : 100,
         children: [
           for (final b in badges)
             Opacity(
@@ -58,7 +53,7 @@ class BadgeGrid extends StatelessWidget {
                   borderRadius: BorderRadius.circular(18),
                   border: Border.all(color: earned.contains(b.id) ? AppColors.gold : AppColors.line, width: 3),
                 ),
-                child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                child: Column(children: [
                   Text(earned.contains(b.id) ? b.icon : '🔒', style: TextStyle(fontSize: small ? 24 : 30)),
                   const SizedBox(height: 4),
                   Text(b.name,

@@ -12,10 +12,11 @@ import 'core/widgets/fx_layer.dart';
 import 'domain/progress/badges.dart';
 import 'domain/progress/progress_controller.dart';
 import 'features/achievements/achievements_screen.dart';
-import 'features/coming_soon_screen.dart';
 import 'features/game/game_screen.dart';
 import 'features/home/home_screen.dart';
 import 'features/letter_board/letter_board_screen.dart';
+import 'features/parent/dashboard_screen.dart';
+import 'features/parent/guide_screen.dart';
 import 'features/quran/quran_check_screen.dart';
 import 'features/quran/quran_modes.dart';
 import 'features/quran/quran_screens.dart';
@@ -40,8 +41,8 @@ final _router = GoRouter(initialLocation: _start, routes: [
     path: '/quran/:surah/:mode',
     builder: (_, s) => QuranModeScreen(surah: int.parse(s.pathParameters['surah']!), mode: s.pathParameters['mode']!),
   ),
-  GoRoute(path: '/parent', builder: (_, _) => const ComingSoonScreen(title: 'لوحة ولي الأمر', icon: '👨‍👩‍👦')),
-  GoRoute(path: '/guide', builder: (_, _) => const ComingSoonScreen(title: 'دليل الوالدين', icon: '📘')),
+  GoRoute(path: '/parent', builder: (_, _) => const DashboardScreen()),
+  GoRoute(path: '/guide', builder: (_, _) => const GuideScreen()),
 ]);
 
 class RehlatiApp extends StatelessWidget {

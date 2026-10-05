@@ -243,13 +243,10 @@ class SurahScreen extends ConsumerWidget {
         const SizedBox(height: 20),
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 560),
-          child: GridView.count(
-            crossAxisCount: 2,
-            mainAxisSpacing: 12,
-            crossAxisSpacing: 12,
-            childAspectRatio: 1.05,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
+          child: TileWrap(
+            minTileWidth: 150,
+            spacing: 12,
+            maxColumns: 2,
             children: [
               for (final m in quranModes)
                 Pressable3D(
@@ -257,6 +254,7 @@ class SurahScreen extends ConsumerWidget {
                   radius: 24,
                   shadowColor: AppColors.shadow,
                   semanticLabel: m.name,
+                  padding: const EdgeInsets.symmetric(vertical: 18),
                   child: Stack(children: [
                     Center(
                       child: Column(mainAxisSize: MainAxisSize.min, children: [

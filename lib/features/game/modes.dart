@@ -306,43 +306,46 @@ class QuestionBody extends StatelessWidget {
 
   Widget _pairs(BuildContext context) {
     final size = q.wide ? TileSize.pairText : TileSize.pair;
-    Widget col(List<Widget> c) => Column(children: [for (final w in c) Padding(padding: const EdgeInsets.only(bottom: 10), child: w)]);
+    Widget col(List<Widget> c) => Column(
+          crossAxisAlignment: q.wide ? CrossAxisAlignment.stretch : CrossAxisAlignment.center,
+          children: [for (final w in c) Padding(padding: const EdgeInsets.only(bottom: 10), child: w)],
+        );
+    final left = col([
+      for (var i = 0; i < q.items.length; i++)
+        KeyedSubtree(
+          key: keyFor('l$i'),
+          child: ChoiceTile(
+            label: '${q.items[i]}',
+            color: color,
+            size: size,
+            onTap: () => engine.pairPick(left: true, i: i),
+            selected: s.sel == i,
+            matched: s.matchedLeft.contains(i),
+          ),
+        ),
+    ]);
+    final right = col([
+      for (var i = 0; i < q.right.length; i++)
+        KeyedSubtree(
+          key: keyFor('r$i'),
+          child: ChoiceTile(
+            label: q.right[i],
+            color: const Color(0xFF8FB9E8),
+            size: size,
+            onTap: () => engine.pairPick(left: false, i: i),
+            matched: s.matchedRight.contains(i),
+            wrongTick: _wrong('r$i'),
+          ),
+        ),
+    ]);
+    // الكلمات الطويلة: العمودين بياخدوا العرض بالنص عشان مايطلعوش بره الشاشة
+    final gap = SizedBox(width: q.wide ? context.clampVw(10, 4, 26) : context.clampVw(18, 8, 70));
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          col([
-            for (var i = 0; i < q.items.length; i++)
-              KeyedSubtree(
-                key: keyFor('l$i'),
-                child: ChoiceTile(
-                  label: '${q.items[i]}',
-                  color: color,
-                  size: size,
-                  onTap: () => engine.pairPick(left: true, i: i),
-                  selected: s.sel == i,
-                  matched: s.matchedLeft.contains(i),
-                ),
-              ),
-          ]),
-          SizedBox(width: q.wide ? context.clampVw(10, 4, 26) : context.clampVw(18, 8, 70)),
-          col([
-            for (var i = 0; i < q.right.length; i++)
-              KeyedSubtree(
-                key: keyFor('r$i'),
-                child: ChoiceTile(
-                  label: q.right[i],
-                  color: const Color(0xFF8FB9E8),
-                  size: size,
-                  onTap: () => engine.pairPick(left: false, i: i),
-                  matched: s.matchedRight.contains(i),
-                  wrongTick: _wrong('r$i'),
-                ),
-              ),
-          ]),
-        ],
+        children: q.wide ? [Expanded(child: left), gap, Expanded(child: right)] : [left, gap, right],
       ),
     );
   }

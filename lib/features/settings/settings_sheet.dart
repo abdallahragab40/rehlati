@@ -81,15 +81,18 @@ class _SettingsPanelState extends ConsumerState<_SettingsPanel> {
               })),
               if (_showVoice && speech is SpeechService) _VoiceReport(speech),
               row('👨‍👩‍👦 لوحة ولي الأمر', smallBtn('افتح', () async {
+                // الراوتر بيتمسك قبل ما الدايالوج يتقفل — context بتاعه بيموت بعد pop
+                final router = GoRouter.of(context);
                 final ok = await askParent(context);
                 if (ok && context.mounted) {
                   context.pop();
-                  context.push('/parent');
+                  router.push('/parent');
                 }
               })),
               row('📘 دليل الوالدين', smallBtn('افتح', () {
+                final router = GoRouter.of(context);
                 context.pop();
-                context.push('/guide');
+                router.push('/guide');
               })),
               // فتح كل المراحل للتجربة — ورا بوابة الأهل عشان الطفل مايدخلش مراحل أصعب من مستواه
               row('🔓 فتح كل المراحل (للتطوير)', Switch(
@@ -132,9 +135,10 @@ class _SettingsPanelState extends ConsumerState<_SettingsPanel> {
       ),
     );
     if (ok != true || !context.mounted) return;
+    final router = GoRouter.of(context);
     ref.read(progressProvider.notifier).reset();
     context.pop();
-    context.go('/');
+    router.go('/');
   }
 }
 

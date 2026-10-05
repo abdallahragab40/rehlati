@@ -51,7 +51,15 @@ abstract class _ModeState<T extends ConsumerStatefulWidget> extends ConsumerStat
   int lionTick = 0;
 
   QuranChapter get chapter;
-  RecitationPlayer get player => ref.read(recitationProvider);
+
+  /// بيتمسك في initState — ref مينفعش يتقري في dispose.
+  late final RecitationPlayer player;
+
+  @override
+  void initState() {
+    player = ref.read(recitationProvider);
+    super.initState();
+  }
 
   void say(String text, [BubbleKind kind = BubbleKind.plain]) => setState(() {
         bubble = text;
@@ -425,7 +433,7 @@ class _MemorizeState extends _ModeState<_Memorize> {
         key: ValueKey('m$idx'),
         child: Column(children: [
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Text('رتّب كلمات الآية', style: kidText(context.clampVw(22, 6, 30))),
+            Flexible(child: Text('رتّب كلمات الآية', style: kidText(context.clampVw(22, 6, 30)))),
             const SizedBox(width: 10),
             PlayerButton('🔊', semantic: 'اسمع الآية', onTap: () => play(widget.ayahs[idx].number)),
           ]),
@@ -596,7 +604,7 @@ class _ReviewState extends _ModeState<_Review> {
         key: ValueKey('r$q'),
         child: Column(children: [
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Text('إيه الآية اللي بعدها؟', style: kidText(context.clampVw(22, 6, 30))),
+            Flexible(child: Text('إيه الآية اللي بعدها؟', style: kidText(context.clampVw(22, 6, 30)))),
             const SizedBox(width: 10),
             PlayerButton('🔊', semantic: 'اسمع الآية', onTap: () => play(widget.ayahs[i].number)),
           ]),

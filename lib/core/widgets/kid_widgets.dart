@@ -325,3 +325,24 @@ class HeroText extends StatelessWidget {
         ),
       );
 }
+
+/// شبكة كروت بعرض أدنى وارتفاع طبيعي — بدل GridView بنسبة ثابتة اللي بتقطع
+/// النص لو خط الجهاز كبير.
+class TileWrap extends StatelessWidget {
+  const TileWrap({super.key, required this.minTileWidth, required this.children, this.spacing = 10, this.maxColumns = 6});
+  final double minTileWidth;
+  final double spacing;
+  final int maxColumns;
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) => LayoutBuilder(builder: (context, box) {
+        final cols = ((box.maxWidth + spacing) / (minTileWidth + spacing)).floor().clamp(1, maxColumns);
+        final w = (box.maxWidth - spacing * (cols - 1)) / cols;
+        return Wrap(
+          spacing: spacing,
+          runSpacing: spacing,
+          children: [for (final c in children) SizedBox(width: w, child: c)],
+        );
+      });
+}
