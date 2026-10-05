@@ -10,6 +10,7 @@ import '../../core/widgets/fx_layer.dart';
 import '../../core/widgets/kid_widgets.dart';
 import '../../domain/engine/game_engine.dart';
 import '../parent/avatar.dart';
+import '../world_map/world_map_screen.dart';
 
 /// شاشة النتيجة: الدرجة، النجوم، المرحلة اللي اتفتحت، والتدريب على الأخطاء.
 class ResultView extends ConsumerStatefulWidget {
@@ -90,7 +91,7 @@ class _ResultViewState extends ConsumerState<ResultView> {
               if (r.mistakes.isNotEmpty) KidButton('❤️ تدريب على الأخطاء', kind: BtnKind.train, onTap: widget.engine.trainMistakes),
               KidButton('🔁 العب تاني', onTap: widget.engine.replay),
               if (unlocked != null)
-                KidButton('▶️ المرحلة التالية', kind: BtnKind.go, onTap: () => context.pushReplacement('/play/${unlocked.id}')),
+                KidButton('▶️ المرحلة التالية', kind: BtnKind.go, onTap: () => context.pushReplacement(stageRoute(unlocked))),
               KidButton('🗺️ الخريطة', kind: BtnKind.ghost, onTap: () => context.pop()),
             ],
           ),

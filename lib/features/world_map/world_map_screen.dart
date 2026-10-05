@@ -38,7 +38,7 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
           : ref.read(speechProvider).speak('المرحلة دي مقفولة، خلص اللي قبلها الأول', clips: ['locked']);
       return;
     }
-    context.push(s.isLearn ? '/learn/${s.id}' : '/play/${s.id}');
+    context.push(stageRoute(s));
   }
 
   @override
@@ -65,7 +65,10 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 26),
               child: Column(children: [
-                for (var i = 0; i < stages.length; i++)
+                for (var i = 0; i < stages.length; i++) ...[
+                  // عنوان مجموعة (زي المدود) بيظهر مرة قبل أول مرحلة فيها
+                  if (stages[i].group != null && (i == 0 || stages[i - 1].group != stages[i].group))
+                    _GroupHeader(stages[i].groupName ?? ''),
                   // المراحل بتتعرّج يمين وشمال — عرض الكارت min(300, 86%)
                   LayoutBuilder(
                     builder: (context, box) => Align(
@@ -84,6 +87,7 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
                       ),
                     ),
                   ),
+                ],
               ]),
             ),
           ]),
@@ -151,4 +155,25 @@ class _StageCard extends StatelessWidget {
       child: ColorFiltered(colorFilter: ColorFilter.matrix(saturation(.25)), child: card),
     );
   }
+}
+
+/// المسار اللي المرحلة بتفتح عليه: لوحة حروف، درس مدود، أو لعب على طول.
+String stageRoute(Stage s) => s.isLearn ? '/learn/${s.id}' : (s.isMadd ? '/madd/${s.id}' : '/play/${s.id}');
+
+class _GroupHeader extends StatelessWidget {
+  const _GroupHeader(this.name);
+  final String name;
+
+  @override
+  Widget build(BuildContext context) => Container(
+        width: 300,
+        margin: const EdgeInsets.only(top: 6, bottom: 18),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: AppColors.paper,
+          borderRadius: BorderRadius.circular(999),
+          boxShadow: const [BoxShadow(color: AppColors.shadow, offset: Offset(0, 5))],
+        ),
+        child: Text(name, textAlign: TextAlign.center, style: kidText(context.clampVw(16, 4.4, 20))),
+      );
 }

@@ -89,6 +89,11 @@ class _SettingsPanelState extends ConsumerState<_SettingsPanel> {
                   router.push('/parent');
                 }
               })),
+              row('❤️ دليل ولي الأمر', smallBtn('افتح', () {
+                final router = GoRouter.of(context);
+                context.pop();
+                router.push('/pg');
+              })),
               row('📘 دليل الوالدين', smallBtn('افتح', () {
                 final router = GoRouter.of(context);
                 context.pop();

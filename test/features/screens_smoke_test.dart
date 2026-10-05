@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,7 +12,10 @@ import 'package:rehlati/domain/stages.dart';
 import 'package:rehlati/features/achievements/achievements_screen.dart';
 import 'package:rehlati/features/game/game_screen.dart';
 import 'package:rehlati/features/home/home_screen.dart';
+import 'package:rehlati/content/parent_guide.dart';
 import 'package:rehlati/features/letter_board/letter_board_screen.dart';
+import 'package:rehlati/features/madd/madd_lesson_screen.dart';
+import 'package:rehlati/features/parent_guide/pg_screens.dart';
 import 'package:rehlati/features/parent/dashboard_screen.dart';
 import 'package:rehlati/features/parent/guide_screen.dart';
 import 'package:rehlati/features/quran/quran_modes.dart';
@@ -26,16 +31,16 @@ void main() {
   // عينات قصيرة للاختبار بس
   const ayahs = [Ayah(1, 'كلمة أولى طويلة شوية'), Ayah(2, 'كلمة تانية'), Ayah(3, 'كلمة تالتة ۚ هنا'), Ayah(4, 'رابعة')];
 
-  Future<void> pump(WidgetTester tester, Widget screen) async {
+  Future<void> pump(WidgetTester tester, Widget screen, {Map<String, Object> prefs = const {}}) async {
     tester.view
       ..physicalSize = const Size(360 * 3, 780 * 3)
       ..devicePixelRatio = 3;
     addTearDown(tester.view.reset);
-    SharedPreferences.setMockInitialValues({});
-    final prefs = await SharedPreferences.getInstance();
+    SharedPreferences.setMockInitialValues(prefs);
+    final sp = await SharedPreferences.getInstance();
     await tester.pumpWidget(ProviderScope(
       overrides: [
-        sharedPrefsProvider.overrideWithValue(prefs),
+        sharedPrefsProvider.overrideWithValue(sp),
         speechProvider.overrideWithValue(FakeSpeech()),
         sfxProvider.overrideWithValue(FakeSfx()),
         rngProvider.overrideWithValue(Rng.seeded(5)),
@@ -65,7 +70,8 @@ void main() {
   final screens = <String, Widget>{
     'home': const HomeScreen(),
     for (final w in ['math', 'arabic', 'english']) 'world $w': WorldMapScreen(world: w),
-    for (final s in packs.values.where((s) => s.gen != null)) 'play ${s.id}': GameScreen(stageId: s.id),
+    for (final s in packs.values.where((s) => !s.isLearn)) 'play ${s.id}': GameScreen(stageId: s.id),
+    for (final s in packs.values.where((s) => s.isMadd)) 'madd lesson ${s.id}': MaddLessonScreen(stageId: s.id),
     for (final s in packs.values.where((s) => s.isLearn)) 'learn ${s.id}': LetterBoardScreen(stageId: s.id),
     'achievements': const AchievementsScreen(),
     'dashboard': const DashboardScreen(),
@@ -73,9 +79,26 @@ void main() {
     'quran home': const QuranHomeScreen(),
     'surah': const SurahScreen(surah: 112),
     for (final m in quranModes) 'quran ${m.id}': QuranModeScreen(surah: 112, mode: m.id),
+    'parent guide home': const PgHomeScreen(),
+    for (final b in pgBehaviors) 'parent guide ${b.id}': PgDetailScreen(id: b.id),
+    'parent guide goals': const PgGoalsScreen(),
+    'kid hub': const KidHubScreen(),
+    'kid play': KidPlayScreen(ids: [for (final b in pgBehaviors.take(3)) b.id]),
   };
 
   for (final e in screens.entries) {
     testWidgets('${e.key} renders on a small phone with large text', (tester) => pump(tester, e.value));
   }
+
+  // تدريب صغير: الطفل غلط ٣ مرات في المد بالواو، ومعاه هدف في دليل ولي الأمر
+  testWidgets('madd small practice and dashboard with data render', (tester) async {
+    final blob = jsonEncode({
+      'skills': {'madd_alif|madd:waw': 3},
+      'best': {'ar_table': 2, 'madd_alif': 2},
+      'madd': {'types': {'alif': {'ok': 9, 'tries': 10}}, 'words': {'باب': {'ok': 2, 'tries': 2}}},
+      'parentGuide': {'focus': {'hit': {'start': 1, 'days': [true, true, false, false, false, false, false], 'paused': false}}},
+    });
+    await pump(tester, const MaddLessonScreen(stageId: 'madd_waw'), prefs: {ProgressRepository.key: blob});
+    await pump(tester, const DashboardScreen(), prefs: {ProgressRepository.key: blob});
+  });
 }

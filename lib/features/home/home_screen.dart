@@ -77,8 +77,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
           ),
           const SizedBox(height: 18),
-          KidButton('🏆 إنجازاتي (${ar(p.achievements.length)} / ${ar(badges.length)})',
-              kind: BtnKind.ghost, onTap: () => context.push('/achievements')),
+          Wrap(alignment: WrapAlignment.center, spacing: 10, runSpacing: 4, children: [
+            KidButton('🏆 إنجازاتي (${ar(p.achievements.length)} / ${ar(badges.length)})',
+                kind: BtnKind.ghost, onTap: () => context.push('/achievements')),
+            KidButton('🧒 أتعلم أتصرف إزاي؟', kind: BtnKind.ghost, onTap: () => context.push('/pg/kids')),
+          ]),
           const SizedBox(height: 8),
           const LionMascot(),
         ],

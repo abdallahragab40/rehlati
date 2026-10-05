@@ -1,26 +1,33 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rehlati/content/math_data.dart';
 import 'package:rehlati/core/utils/rng.dart';
+import 'package:rehlati/domain/progress/progress_data.dart';
 import 'package:rehlati/domain/question.dart';
 import 'package:rehlati/domain/stages.dart';
 
 /// كل مولّد × كل مستوى × ٥٠٠ سؤال: الإجابة لازم تكون ممكنة دايمًا.
 void main() {
-  final playable = packs.values.where((s) => s.gen != null).toList();
+  // كل مرحلة، وكل نوع لعبة مدود لوحده (اللي "تدريب على الأخطاء" بيستخدمه)
+  final types = [
+    for (final s in packs.values.where((s) => !s.isLearn)) ...[
+      s.id,
+      if (s.madd != null) for (final k in s.madd!.kinds) '${s.id}:$k',
+    ],
+  ];
 
   test('registry has the same stage counts as the web app', () {
     expect(worldStages['math']!.length, 11);
-    expect(worldStages['arabic']!.length, 11);
+    expect(worldStages['arabic']!.length, 11 + 8, reason: '11 + 8 madd stages');
     expect(worldStages['english']!.length, 14);
   });
 
-  for (final stage in playable) {
-    test('${stage.id} always produces solvable questions', () {
-      final r = Rng.seeded(stage.id.hashCode);
+  for (final type in types) {
+    test('$type always produces solvable questions', () {
+      final r = Rng.seeded(type.hashCode);
+      final p = ProgressData();
       for (var lv = 1; lv <= 4; lv++) {
         for (var i = 0; i < 500; i++) {
-          final q = stage.gen!(lv, r);
-          _checkSolvable(q, lv, stage.id);
+          _checkSolvable(makeQuestion(type, lv, r, progress: p), lv, type);
         }
       }
     });
@@ -45,12 +52,15 @@ void main() {
 
   test('adaptive focus steers the question', () {
     final r = Rng.seeded(1);
-    final add = packs['addition']!.gen!(2, r, focus: '7+2');
+    final p = ProgressData();
+    final add = makeQuestion('addition', 2, r, focus: '7+2', progress: p);
     expect(add.skill, startsWith('add:7+'));
-    final pick = packs['ar_pick']!.gen!(1, r, focus: 'ب');
+    final pick = makeQuestion('ar_pick', 1, r, focus: 'ب', progress: p);
     expect(pick.answer, 'ب');
-    final pairs = packs['en_pairs']!.gen!(1, r, focus: 'D');
+    final pairs = makeQuestion('en_pairs', 1, r, focus: 'D', progress: p);
     expect(pairs.items, contains('D'));
+    final madd = makeQuestion('madd_types:type', 2, r, focus: 'waw', progress: p);
+    expect(madd.mtype, 'waw');
   });
 }
 
@@ -79,6 +89,14 @@ void _checkSolvable(Question q, int lv, String id) {
       }
     case QMode.find:
       expect(q.cells.where((c) => c.hit).length, q.hits, reason: reason);
+    case QMode.read:
+      expect(q.yes, isNotNull, reason: reason);
+      expect(q.visuals, isNotEmpty, reason: reason);
+    case QMode.sort:
+      final boxKeys = q.boxes.map((b) => b.key).toSet();
+      expect(q.sortCards.every((c) => boxKeys.contains(c.type)), isTrue, reason: reason);
+      expect(q.sortCards.map((c) => c.type).toSet(), boxKeys, reason: '$reason: every box used');
+      expect(q.sortCards.map((c) => c.text).toSet().length, q.sortCards.length, reason: '$reason: unique cards');
     case QMode.memory:
       expect(q.cards.length, q.pairs * 2, reason: reason);
       final keys = <String, int>{};

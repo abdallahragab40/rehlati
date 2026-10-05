@@ -1,6 +1,7 @@
 /// نظام الإنجازات (Badges) — منقول من js/rewards.js.
 library;
 
+import '../stages.dart';
 import 'progress_data.dart';
 
 class Achievement {
@@ -24,6 +25,8 @@ final badges = <Achievement>[
   Achievement('ar_letters', '🔤', 'إتقان الحروف', (p) => p.learned('ar_learn').length >= 28),
   Achievement('en_words10', '🇬🇧', 'أول ١٠ كلمات English', (p) => p.learned('en_learn').length >= 10),
   Achievement('quran5', '🕌', '٥ أنشطة قرآن', (p) => p.quran.length >= 5),
+  Achievement('madd_champion', '🏆', 'بطل المدود',
+      (p) => packs.values.where((s) => s.isMadd).every((s) => (p.best[s.id] ?? 0) >= 2)),
 ];
 
 /// يضيف الإنجازات الجديدة للملف ويرجّعها (عشان نعرض لها toast).

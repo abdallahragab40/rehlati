@@ -22,6 +22,12 @@ enum QMode {
 
   /// لعبة ذاكرة — اقلب كارتين.
   memory,
+
+  /// اقرأ وأكّد — مفيش إجابة غلط (المدود).
+  read,
+
+  /// صنّف البطاقات في صناديق (المدود).
+  sort,
 }
 
 // ---------------------------------------------------------------------------
@@ -108,6 +114,29 @@ class TableVisual extends Visual {
 
 enum TableKind { numbers, arLetters, enLetters }
 
+/// مقطع أو كلمة مدّ — حرف المد ([hl]) بيتلوّن بلون نوعه.
+class MaddTextVisual extends Visual {
+  const MaddTextVisual(this.text, {this.hl, this.typeKey, this.big = false, this.pop = false, this.say});
+  final String text;
+
+  /// موضع حرف المد اللي بيتلوّن (null = من غير تلوين).
+  final int? hl;
+  final String? typeKey;
+  final bool big;
+
+  /// نطّة صغيرة لما المقطع يتكشف بعد الإجابة الصح.
+  final bool pop;
+
+  /// لو موجود بيظهر زرار 🔊 جنب النص بينطق ده.
+  final String? say;
+}
+
+/// زرار 🔊 كبير لوحده (اسمع ثم اختر).
+class ListenVisual extends Visual {
+  const ListenVisual(this.say);
+  final String say;
+}
+
 // ---------------------------------------------------------------------------
 // أجزاء الأوضاع الخاصة
 // ---------------------------------------------------------------------------
@@ -116,6 +145,19 @@ class FindCell {
   const FindCell(this.ch, {required this.hit});
   final String ch;
   final bool hit;
+}
+
+class SortBox {
+  const SortBox(this.key, this.label);
+  final String key;
+  final String label;
+}
+
+class SortCard {
+  const SortCard(this.text, this.say, this.type);
+  final String text;
+  final String say;
+  final String type;
 }
 
 class MemoryCard {
@@ -156,6 +198,16 @@ class Question {
     this.wide = false,
     this.rtlSlots = false,
     this.orderHint,
+    this.gentle = false,
+    this.bigChoices = false,
+    this.okMsg,
+    this.sayRight,
+    this.revealVisuals,
+    this.yes,
+    this.boxes = const [],
+    this.sortCards = const [],
+    this.mtype,
+    this.mword,
   });
 
   final String type;
@@ -212,6 +264,32 @@ class Question {
   /// خانات الترتيب من اليمين.
   final bool rtlSlots;
   final String? orderHint;
+
+  /// غلطة = تشجيع لطيف (💪) من غير ومضة حمرا.
+  final bool gentle;
+
+  /// اختيارات بخط أكبر (مقاطع مشكولة).
+  final bool bigChoices;
+
+  /// رسالة الفقاعة بعد الإجابة الصح بدل التشجيع العام.
+  final String? okMsg;
+
+  /// اللي يتنطق بعد الإجابة الصح بدل قيمة الإجابة.
+  final String? sayRight;
+
+  /// المرئيات بعد الإجابة الصح (المقطع بحرف المد ملوّن).
+  final List<Visual>? revealVisuals;
+
+  /// نص زرار التأكيد في وضع read.
+  final String? yes;
+
+  /// وضع sort.
+  final List<SortBox> boxes;
+  final List<SortCard> sortCards;
+
+  /// نوع المد والكلمة — لإحصائيات المدود.
+  final String? mtype;
+  final String? mword;
 
   bool get isEnglish => lang == 'en';
 

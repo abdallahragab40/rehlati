@@ -10,11 +10,12 @@ import '../../core/widgets/dashed_box.dart';
 import '../../core/widgets/kid_widgets.dart';
 import '../../domain/engine/game_engine.dart';
 import '../../domain/question.dart';
+import '../madd/madd_style.dart';
 import 'visuals.dart';
 
 typedef KeyFor = GlobalKey Function(String anchor);
 
-enum TileSize { number, text, wide, pair, pairText }
+enum TileSize { number, text, wide, pair, pairText, madd, maddWide }
 
 /// زرار الإجابة (.choice) بكل حالاته: صح، غلط، تلميح، مستخدم، متحدد، متوصّل.
 class ChoiceTile extends StatelessWidget {
@@ -53,6 +54,9 @@ class ChoiceTile extends StatelessWidget {
       TileSize.wide => (double.infinity, 66.0, context.clampVw(22, 5.6, 30), 18.0),
       TileSize.pair => (context.clampVw(74, 19, 96), context.clampVw(60, 15, 76), context.clampVw(28, 8, 40), 8.0),
       TileSize.pairText => (context.clampVw(120, 34, 190), 62.0, context.clampVw(20, 5, 27), 12.0),
+      // مقاطع وكلمات مشكولة: خط كبير (.choice.mbig)
+      TileSize.madd => (context.clampVw(92, 26, 130), context.clampVw(86, 24, 112), context.clampVw(40, 11, 58), 16.0),
+      TileSize.maddWide => (double.infinity, 84.0, context.clampVw(40, 11, 58), 16.0),
     };
     final wrong = wrongTick != null;
     Widget tile = Pressable3D(
@@ -63,11 +67,11 @@ class ChoiceTile extends StatelessWidget {
       border: selected ? Border.all(color: AppColors.gold, width: 6) : null,
       semanticLabel: label,
       child: ConstrainedBox(
-        constraints: BoxConstraints(minWidth: minW == double.infinity ? 0 : minW, minHeight: minH),
+        constraints: BoxConstraints(minWidth: minW.isInfinite ? 0 : minW, minHeight: minH),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: padH, vertical: 6),
           child: Center(
-            widthFactor: minW == double.infinity ? null : 1,
+            widthFactor: minW.isInfinite ? null : 1,
             child: ExcludeSemantics(
               child: Text(
                 ar(label),
@@ -80,7 +84,7 @@ class ChoiceTile extends StatelessWidget {
         ),
       ),
     );
-    if (minW == double.infinity) tile = SizedBox(width: double.infinity, child: tile);
+    if (minW.isInfinite) tile = SizedBox(width: double.infinity, child: tile);
     if (used) return Opacity(opacity: .25, child: tile);
     if (matched) return Opacity(opacity: .35, child: tile);
     if (selected) return Transform.translate(offset: const Offset(0, 3), child: tile);
@@ -191,8 +195,10 @@ class QuestionBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dir = q.ltr ? TextDirection.ltr : TextDirection.rtl;
+    // بعد الإجابة الصح بعض أسئلة المدود بتكشف المقطع بحرف المد ملوّن
+    final shown = s.revealed && q.revealVisuals != null ? q.revealVisuals! : q.visuals;
     final visuals = [
-      for (final v in q.visuals) VisualView(v, ltr: q.ltr, picked: s.picked),
+      for (final v in shown) VisualView(v, ltr: q.ltr, picked: s.picked),
     ];
     final body = switch (q.mode) {
       QMode.choice => _choices(context),
@@ -208,6 +214,11 @@ class QuestionBody extends StatelessWidget {
       QMode.pairs => Column(children: [_Hint(q.hint), _pairs(context)]),
       QMode.find => Column(children: [_Hint(q.hint), _find(context)]),
       QMode.memory => Column(children: [_Hint(q.hint), _memory(context)]),
+      QMode.read => Column(children: [
+          _Hint(q.hint),
+          KidButton(q.yes ?? 'نعم ⭐', kind: BtnKind.go, onTap: s.locked ? null : engine.readDone),
+        ]),
+      QMode.sort => _sort(context),
     };
     return Column(children: [
       AskRow(q: q, onSpeak: engine.repeat),
@@ -225,7 +236,11 @@ class QuestionBody extends StatelessWidget {
           child: ChoiceTile(
             label: '${q.choices[i]}',
             color: color,
-            size: wide ? TileSize.wide : ('${q.choices[i]}'.characters.length > 1 && q.choices[i] is String ? TileSize.text : TileSize.number),
+            size: q.bigChoices
+                ? (wide ? TileSize.maddWide : TileSize.madd)
+                : wide
+                    ? TileSize.wide
+                    : ('${q.choices[i]}'.characters.length > 1 && q.choices[i] is String ? TileSize.text : TileSize.number),
             onTap: s.locked ? null : () => engine.answer(i),
             right: s.rightAnchor == 'c$i',
             wrongTick: _wrong('c$i'),
@@ -293,7 +308,7 @@ class QuestionBody extends StatelessWidget {
             child: ChoiceTile(
               label: '${q.items[i]}',
               color: color,
-              size: q.numeric ? TileSize.number : TileSize.text,
+              size: q.bigChoices ? TileSize.madd : (q.numeric ? TileSize.number : TileSize.text),
               onTap: s.locked ? null : () => engine.pick(i),
               used: s.used.contains(i),
               wrongTick: _wrong('i$i'),
@@ -348,6 +363,108 @@ class QuestionBody extends StatelessWidget {
         children: q.wide ? [Expanded(child: left), gap, Expanded(child: right)] : [left, gap, right],
       ),
     );
+  }
+
+  /// صنّف: اضغط المقطع ثم الصندوق، أو اسحبه للصندوق.
+  Widget _sort(BuildContext context) {
+    final cardFont = context.clampVw(32, 9, 44);
+    Widget card(int i, {bool feedback = false}) {
+      final c = q.sortCards[i];
+      final sel = s.sel == i;
+      return Material(
+        color: Colors.transparent,
+        child: Container(
+          constraints: BoxConstraints(minWidth: context.clampVw(78, 22, 104), minHeight: context.clampVw(68, 18, 84)),
+          padding: const EdgeInsets.symmetric(horizontal: 14),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: AppColors.grape,
+            borderRadius: BorderRadius.circular(22),
+            border: sel ? Border.all(color: AppColors.gold, width: 5) : null,
+            boxShadow: feedback ? null : const [BoxShadow(color: Color(0x38000000), offset: Offset(0, 6))],
+          ),
+          child: Text(c.text, textDirection: TextDirection.rtl, style: kidText(cardFont, color: Colors.white, height: 1.5)),
+        ),
+      );
+    }
+
+    final boxes = [
+      for (final b in q.boxes)
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: context.clampVw(4, 1, 7)),
+            child: DragTarget<int>(
+              onWillAcceptWithDetails: (d) => !s.locked,
+              onAcceptWithDetails: (d) => engine.sortPlace(b.key, card: d.data),
+              builder: (context, candidates, _) {
+                final (tc, tb) = maddColors(b.key);
+                final over = candidates.isNotEmpty;
+                Widget box = GestureDetector(
+                  key: keyFor('b${b.key}'),
+                  onTap: () => engine.sortPlace(b.key),
+                  child: AnimatedScale(
+                    scale: over ? 1.04 : 1,
+                    duration: const Duration(milliseconds: 120),
+                    child: DashedBox(
+                      color: tc,
+                      radius: 22,
+                      dash: over ? 400 : 8,
+                      constraints: BoxConstraints(minHeight: context.clampVw(120, 32, 160)),
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                      child: Container(
+                        color: tb.withValues(alpha: .6),
+                        child: Column(children: [
+                          Text(b.label, textAlign: TextAlign.center, style: kidText(context.clampVw(14, 3.8, 18), color: tc, height: 1.3)),
+                          const SizedBox(height: 6),
+                          Wrap(alignment: WrapAlignment.center, spacing: 6, runSpacing: 6, children: [
+                            for (final e in s.placed.entries.where((e) => e.value == b.key))
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                decoration: BoxDecoration(
+                                  color: AppColors.paper,
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(color: tc, width: 3),
+                                ),
+                                child: Text(q.sortCards[e.key].text,
+                                    textDirection: TextDirection.rtl, style: kidText(context.clampVw(22, 6, 28), height: 1.5)),
+                              ).animate().scaleXY(begin: 1.18, end: 1, duration: 300.ms),
+                          ]),
+                        ]),
+                      ),
+                    ),
+                  ),
+                );
+                if (_wrong('b${b.key}') != null) {
+                  box = box.animate(key: ValueKey('bw${s.wrongTick}')).shakeX(hz: 5, amount: 9, duration: 400.ms);
+                }
+                return Semantics(button: true, label: b.label, child: box);
+              },
+            ),
+          ),
+        ),
+    ];
+
+    return Column(children: [
+      Directionality(textDirection: TextDirection.rtl, child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: boxes)),
+      const SizedBox(height: 14),
+      _Hint(q.orderHint ?? ''),
+      Wrap(alignment: WrapAlignment.center, spacing: context.clampVw(8, 2.4, 14), runSpacing: 10, children: [
+        for (var i = 0; i < q.sortCards.length; i++)
+          if (!s.placed.containsKey(i))
+            Semantics(
+              button: true,
+              label: q.sortCards[i].text,
+              child: Draggable<int>(
+                data: i,
+                maxSimultaneousDrags: s.locked ? 0 : 1,
+                onDragStarted: () => engine.sortSelect(i),
+                feedback: Transform.scale(scale: 1.08, child: card(i, feedback: true)),
+                childWhenDragging: Opacity(opacity: .3, child: card(i)),
+                child: GestureDetector(onTap: () => engine.sortSelect(i), child: card(i)),
+              ),
+            ),
+      ]),
+    ]);
   }
 
   Widget _find(BuildContext context) {

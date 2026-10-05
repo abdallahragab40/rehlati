@@ -62,10 +62,15 @@ class _GameScreenState extends ConsumerState<GameScreen> {
             ..confetti(26)
             ..sparkle(at);
         }
-      case FxWrong():
-        fx
-          ..flash(ok: false)
-          ..popMsg(ref.read(rngProvider).sample(const ['😔', '🙁', '💭']), sad: true);
+      case FxWrong(:final gentle):
+        // المدود: تشجيع لطيف من غير ومضة حمرا
+        if (gentle) {
+          fx.popMsg('💪');
+        } else {
+          fx
+            ..flash(ok: false)
+            ..popMsg(ref.read(rngProvider).sample(const ['😔', '🙁', '💭']), sad: true);
+        }
       case FxFill(:final anchor):
         fx.burst(FxController.centerOf(_keys[anchor]), 3, '✨');
     }

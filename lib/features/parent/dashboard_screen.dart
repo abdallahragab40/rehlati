@@ -15,6 +15,8 @@ import '../../domain/progress/progress_data.dart';
 import '../../domain/stages.dart';
 import '../achievements/achievements_screen.dart';
 import '../quran/quran_repository.dart';
+import '../madd/madd_dashboard_card.dart';
+import '../parent_guide/pg_screens.dart';
 import 'avatar.dart';
 
 String fmtTime(int ms) {
@@ -79,6 +81,10 @@ class DashboardScreen extends ConsumerWidget {
                     : '${ar(p.worldPct(w.id))}٪',
               ],
           ]),
+          h3('🟦 المدود'),
+          MaddDashboardCard(p),
+          h3('⭐ السلوكيات التي تعمل عليها'),
+          const PgGoalsList(),
           h3('🧠 مهارات محتاجة تدريب'),
           _WeakSkills(p),
           h3('📖 سور تحتاج مراجعة'),
@@ -94,7 +100,8 @@ class DashboardScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 16),
           Wrap(alignment: WrapAlignment.center, spacing: 10, runSpacing: 4, children: [
-            KidButton('📘 دليل الوالدين', onTap: () => context.push('/guide')),
+            KidButton('❤️ دليل ولي الأمر', onTap: () => context.push('/pg')),
+            KidButton('📘 دليل الوالدين', kind: BtnKind.ghost, onTap: () => context.push('/guide')),
             KidButton('🔍 التحقق من نص القرآن', kind: BtnKind.go, onTap: () => context.push('/quran-check')),
             KidButton('رجوع', kind: BtnKind.ghost, onTap: () => context.pop()),
           ]),

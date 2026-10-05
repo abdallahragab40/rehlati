@@ -339,10 +339,20 @@ class TileWrap extends StatelessWidget {
   Widget build(BuildContext context) => LayoutBuilder(builder: (context, box) {
         final cols = ((box.maxWidth + spacing) / (minTileWidth + spacing)).floor().clamp(1, maxColumns);
         final w = (box.maxWidth - spacing * (cols - 1)) / cols;
-        return Wrap(
-          spacing: spacing,
-          runSpacing: spacing,
-          children: [for (final c in children) SizedBox(width: w, child: c)],
-        );
+        // كل صف بارتفاع أطول كارت فيه عشان الكروت تبان متساوية
+        return Column(children: [
+          for (var r = 0; r < children.length; r += cols)
+            Padding(
+              padding: EdgeInsets.only(top: r == 0 ? 0 : spacing),
+              child: IntrinsicHeight(
+                child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                  for (var i = r; i < r + cols && i < children.length; i++) ...[
+                    if (i > r) SizedBox(width: spacing),
+                    SizedBox(width: w, child: children[i]),
+                  ],
+                ]),
+              ),
+            ),
+        ]);
       });
 }

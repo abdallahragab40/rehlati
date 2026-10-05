@@ -17,6 +17,7 @@ import '../../core/utils/arabic.dart';
 import '../../core/utils/rng.dart';
 import '../../core/ui_state.dart';
 import '../progress/progress_controller.dart';
+import '../progress/progress_data.dart';
 import '../question.dart';
 import '../stages.dart';
 
@@ -55,8 +56,11 @@ class FxCorrect extends GameFx {
 }
 
 class FxWrong extends GameFx {
-  const FxWrong(this.anchor);
+  const FxWrong(this.anchor, {this.gentle = false});
   final String? anchor;
+
+  /// المدود: تشجيع لطيف (💪) من غير ومضة حمرا.
+  final bool gentle;
 }
 
 class FxFill extends GameFx {
@@ -86,6 +90,12 @@ class GameSession {
   int? memFirst;
   bool memLock = false;
   bool locked = false;
+
+  /// المرئيات اتبدّلت بـ revealVisuals بعد الإجابة الصح.
+  bool revealed = false;
+
+  /// وضع sort: البطاقة ← الصندوق اللي اتحطت فيه.
+  final placed = <int, String>{};
   Object? hintTarget;
   String? wrongAnchor, rightAnchor;
   int wrongTick = 0, shakeTick = 0;
@@ -113,6 +123,8 @@ class GameSession {
     memFirst = null;
     memLock = false;
     locked = false;
+    revealed = false;
+    placed.clear();
     hintTarget = null;
     wrongAnchor = null;
     rightAnchor = null;
@@ -179,7 +191,7 @@ class GameEngine extends Notifier<GameSession?> {
     final list = <Question>[];
     if (practice && types != null && types.isNotEmpty) {
       for (var i = 0; i < count; i++) {
-        list.add(packs[_rng.sample(types)]!.gen!(level, _rng));
+        list.add(makeQuestion(_rng.sample(types), level, _rng, progress: p));
       }
     } else {
       final focus = p.focus(stage.id);
@@ -188,7 +200,7 @@ class GameEngine extends Notifier<GameSession?> {
         final lv = i >= count - 2 ? math.min(level + 1, 4) : level;
         // تعلّم متكيّف: لو فيه مهارة الطفل بيغلط فيها، نرجّعها له
         final f = (focus != null && _rng.chance(.45)) ? focus : null;
-        list.add(stage.gen!(lv, _rng, focus: f));
+        list.add(makeQuestion(stage.id, lv, _rng, focus: f, progress: p));
       }
     }
     state = GameSession(stage, level, practice, list);
@@ -225,12 +237,24 @@ class GameEngine extends Notifier<GameSession?> {
   // ------------------------------------------------------------------ النجوم والإحصاء
 
   /// إجابة صح من أول محاولة: نجمة محسوبة على عالم المرحلة + إحصائية فورية.
-  void _award() => _progress.update((p) => p
-    ..addStar(1, _s.stage.world)
-    ..addAnswer(ok: true));
+  void _award() => _progress.update((p) {
+        p
+          ..addStar(1, _s.stage.world)
+          ..addAnswer(ok: true);
+        _maddRecord(p, ok: true);
+      });
 
   /// أول غلطة في السؤال بس — عشان السؤال الواحد ما يتحسبش غلط أكتر من مرة.
-  void _penalize() => _progress.update((p) => p.addAnswer(ok: false));
+  void _penalize() => _progress.update((p) {
+        p.addAnswer(ok: false);
+        _maddRecord(p, ok: false);
+      });
+
+  /// المدود ليها إحصائيات خاصة: نتيجة أول محاولة لكل نوع وكل كلمة.
+  void _maddRecord(ProgressData p, {required bool ok}) {
+    if (!_s.stage.isMadd) return;
+    p.madd.record(type: _s.q.mtype, word: _s.q.mword, stageId: _s.stage.id, ok: ok);
+  }
 
   void _hit(String? skill) => _progress.update((p) => p.hit(_s.stage.id, skill));
   void _miss(String? skill) => _progress.update((p) => p.miss(_s.stage.id, skill));
@@ -254,8 +278,9 @@ class GameEngine extends Notifier<GameSession?> {
       ..hintTarget = null
       ..rightAnchor = anchor
       ..dots[s.idx] = first ? DotState.done : DotState.miss
-      ..bubble = first ? _rng.sample(praise) : 'أحسنت! وصلت للإجابة 👏'
+      ..bubble = s.q.okMsg ?? (first ? _rng.sample(praise) : 'أحسنت! وصلت للإجابة 👏')
       ..bubbleKind = BubbleKind.ok
+      ..revealed = s.q.revealVisuals != null
       ..lion = LionMood.cheer
       ..lionTick += 1;
     _emit();
@@ -278,7 +303,7 @@ class GameEngine extends Notifier<GameSession?> {
       s.hintTarget = q.answer is List ? q.answerList[s.picked.length] : q.answer;
     }
     _emit();
-    _fx.add(FxWrong(anchor));
+    _fx.add(FxWrong(anchor, gentle: q.gentle));
     _sfx.bad();
     final tick = s.wrongTick;
     _later(420, () {
@@ -301,7 +326,9 @@ class GameEngine extends Notifier<GameSession?> {
     if (value == q.answer) {
       final pr = _rng.sample(praiseSay);
       _solved(anchor: 'c$i', skill: q.skill);
-      _say(q, [said, pr.$1], clips: [valueClip, pr.$2], en: ['$value', 'Very good!']);
+      q.sayRight != null
+          ? _say(q, [q.sayRight!, pr.$1])
+          : _say(q, [said, pr.$1], clips: [valueClip, pr.$2], en: ['$value', 'Very good!']);
     } else {
       s.tries++;
       s.streak = 0;
@@ -333,7 +360,9 @@ class GameEngine extends Notifier<GameSession?> {
       if (s.picked.length == q.answerList.length) {
         final pr = _rng.sample(praiseSay);
         _solved(skill: q.skill, playSfx: false);
-        _say(q, [said, pr.$1], clips: [nk(value), pr.$2], en: [said, 'Very good!']);
+        q.sayRight != null
+            ? _say(q, [q.sayRight!, pr.$1])
+            : _say(q, [said, pr.$1], clips: [nk(value), pr.$2], en: [said, 'Very good!']);
       } else {
         _emit();
         _say(q, [said], clips: [nk(value)]);
@@ -481,6 +510,65 @@ class GameEngine extends Notifier<GameSession?> {
     }
   }
 
+  /// اقرأ المقطع: مفيش إجابة غلط — الطفل يسمع ويقرأ ويؤكد.
+  void readDone() {
+    final s = _s;
+    if (s.locked) return;
+    final pr = _rng.sample(praiseSay);
+    _solved(skill: s.q.skill, delay: 1200);
+    _speech.speak(pr.$1, clips: [pr.$2]);
+  }
+
+  /// صنّف: اختار بطاقة (بالضغط أو بالسحب).
+  void sortSelect(int i) {
+    final s = _s;
+    if (s.locked || s.placed.containsKey(i)) return;
+    s.sel = i;
+    _emit();
+    _speech.speak(s.q.sortCards[i].say);
+  }
+
+  /// صنّف: حط البطاقة المختارة في صندوق. الغلطة = تلميح لطيف مش عقاب.
+  void sortPlace(String box, {int? card}) {
+    final s = _s, q = s.q;
+    if (s.locked) return;
+    final sel = card ?? s.sel;
+    if (sel == null || s.placed.containsKey(sel)) {
+      s
+        ..bubble = 'اختر مقطعًا أولًا 👆'
+        ..bubbleKind = BubbleKind.plain;
+      _emit();
+      return;
+    }
+    final c = q.sortCards[sel], sk = 'madd:${c.type}';
+    if (c.type == box) {
+      s
+        ..placed[sel] = box
+        ..sel = null;
+      _hit(sk);
+      _fx.add(FxFill('b$box'));
+      _speech.speak(c.say);
+      if (s.placed.length == q.sortCards.length) {
+        _solved(delay: 1200);
+      } else {
+        s
+          ..bubble = '${ar(s.placed.length)} / ${ar(q.sortCards.length)} ✅'
+          ..bubbleKind = BubbleKind.ok;
+        _emit();
+        _sfx.good();
+      }
+    } else {
+      s
+        ..tries += 1
+        ..streak = 0
+        ..sel = null;
+      _markMistake(q);
+      if (s.tries == 1) _penalize();
+      _miss(sk);
+      _wrongUi(q, 'b$box', allowHint: false);
+    }
+  }
+
   // ------------------------------------------------------------------ التالي والنهاية
 
   void _next() {
@@ -501,8 +589,15 @@ class GameEngine extends Notifier<GameSession?> {
     Stage? unlocked;
     if (!s.practice) {
       _progress.update((p) {
+        final before = p.best[s.stage.id] ?? 0;
         p.addResult(s.stage.id, s.correct, s.total);
         if (s.correct / s.total >= .8) unlocked = p.unlockNext(s.stage.id);
+        // المدود: +٢ لكل جولة، و +٥ أول مرة تنجح فيها المرحلة
+        if (s.stage.isMadd) {
+          p.madd.rounds[s.stage.id] = (p.madd.rounds[s.stage.id] ?? 0) + 1;
+          p.addStar(2, s.stage.world);
+          if (before < 2 && s.correct / s.total >= .8) p.addStar(5, s.stage.world);
+        }
       });
     }
     _progress.checkRewards();

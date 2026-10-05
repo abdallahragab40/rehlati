@@ -8,6 +8,7 @@ import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/dashed_box.dart';
 import '../../domain/question.dart';
+import '../madd/madd_style.dart';
 
 class VisualView extends StatelessWidget {
   const VisualView(
@@ -52,6 +53,8 @@ class VisualView extends StatelessWidget {
         ),
         LetterChipsVisual v => _LetterChips(v),
         TableVisual v => _Table(v, picked),
+        MaddTextVisual v => MaddTextView(v),
+        ListenVisual v => Center(child: ListenButton(v.say)),
       },
     );
   }

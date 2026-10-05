@@ -6,6 +6,9 @@ library;
 import 'dart:math' as math;
 
 import '../stages.dart';
+import 'extras.dart';
+
+export 'extras.dart';
 
 class Settings {
   Settings({this.speech = true, this.sfx = true, this.dev = false});
@@ -43,6 +46,8 @@ class ProgressData {
     Map<String, int>? skills,
     List<String>? achievements,
     Settings? settings,
+    MaddStats? madd,
+    Map<String, PgGoal>? pgFocus,
   })  : unlocked = unlocked ?? [...initiallyUnlocked],
         best = best ?? {},
         starsBy = starsBy ?? {},
@@ -50,7 +55,9 @@ class ProgressData {
         learn = learn ?? {},
         skills = skills ?? {},
         achievements = achievements ?? [],
-        settings = settings ?? Settings();
+        settings = settings ?? Settings(),
+        madd = madd ?? MaddStats(),
+        pgFocus = pgFocus ?? {};
 
   static const schemaVersion = 1;
 
@@ -81,6 +88,12 @@ class ProgressData {
   final List<String> achievements;
   final Settings settings;
 
+  /// إحصائيات قسم المدود (progress.madd في الويب).
+  final MaddStats madd;
+
+  /// أهداف دليل ولي الأمر (progress.parentGuide.focus في الويب).
+  final Map<String, PgGoal> pgFocus;
+
   // ---------------------------------------------------------------- JSON
 
   factory ProgressData.fromJson(Map<String, dynamic> j) {
@@ -106,6 +119,13 @@ class ProgressData {
       skills: ints(j['skills']),
       achievements: strs(j['achievements']),
       settings: j['settings'] is Map ? Settings.fromJson((j['settings'] as Map).cast<String, dynamic>()) : null,
+      madd: MaddStats.fromJson(j['madd']),
+      pgFocus: (j['parentGuide'] is Map && (j['parentGuide'] as Map)['focus'] is Map)
+          ? {
+              for (final e in ((j['parentGuide'] as Map)['focus'] as Map).entries)
+                '${e.key}': PgGoal.fromJson(e.value),
+            }
+          : {},
     );
   }
 
@@ -127,13 +147,22 @@ class ProgressData {
         'skills': skills,
         'achievements': achievements,
         'settings': settings.toJson(),
+        'madd': madd.toJson(),
+        'parentGuide': {
+          'focus': {for (final e in pgFocus.entries) e.key: e.value.toJson()},
+        },
       };
 
   // ---------------------------------------------------------------- التقدّم
 
   int _now() => DateTime.now().millisecondsSinceEpoch;
 
-  bool isUnlocked(String id) => settings.dev || unlocked.contains(id);
+  bool isUnlocked(String id) {
+    if (settings.dev || unlocked.contains(id)) return true;
+    // مرحلة ليها after بتتفتح أول ما المرحلة دي تتنجح (٨٠٪+) — بتشتغل للتقدّم القديم كمان
+    final after = packs[id]?.after;
+    return after != null && (best[after] ?? 0) >= 2;
+  }
 
   /// يفتح المرحلة اللي بعد دي في نفس العالم — ويرجّعها لو اتفتحت جديد.
   Stage? unlockNext(String id) {

@@ -15,8 +15,10 @@ import 'features/achievements/achievements_screen.dart';
 import 'features/game/game_screen.dart';
 import 'features/home/home_screen.dart';
 import 'features/letter_board/letter_board_screen.dart';
+import 'features/madd/madd_lesson_screen.dart';
 import 'features/parent/dashboard_screen.dart';
 import 'features/parent/guide_screen.dart';
+import 'features/parent_guide/pg_screens.dart';
 import 'features/quran/quran_check_screen.dart';
 import 'features/quran/quran_modes.dart';
 import 'features/quran/quran_screens.dart';
@@ -32,6 +34,7 @@ final _router = GoRouter(initialLocation: _start, routes: [
     path: '/play/:stage',
     builder: (_, s) => GameScreen(key: ValueKey(s.pathParameters['stage']), stageId: s.pathParameters['stage']!),
   ),
+  GoRoute(path: '/madd/:stage', builder: (_, s) => MaddLessonScreen(stageId: s.pathParameters['stage']!)),
   GoRoute(path: '/learn/:stage', builder: (_, s) => LetterBoardScreen(stageId: s.pathParameters['stage']!)),
   GoRoute(path: '/achievements', builder: (_, _) => const AchievementsScreen()),
   GoRoute(path: '/quran', builder: (_, _) => const QuranHomeScreen()),
@@ -43,6 +46,11 @@ final _router = GoRouter(initialLocation: _start, routes: [
   ),
   GoRoute(path: '/parent', builder: (_, _) => const DashboardScreen()),
   GoRoute(path: '/guide', builder: (_, _) => const GuideScreen()),
+  GoRoute(path: '/pg', builder: (_, _) => const PgHomeScreen()),
+  GoRoute(path: '/pg/b/:id', builder: (_, s) => PgDetailScreen(id: s.pathParameters['id']!)),
+  GoRoute(path: '/pg/goals', builder: (_, _) => const PgGoalsScreen()),
+  GoRoute(path: '/pg/kids', builder: (_, _) => const KidHubScreen()),
+  GoRoute(path: '/pg/play', builder: (_, s) => KidPlayScreen(ids: (s.extra as List?)?.cast<String>() ?? const ['hit'])),
 ]);
 
 class RehlatiApp extends StatelessWidget {

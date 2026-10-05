@@ -10,7 +10,9 @@ import '../content/math_data.dart';
 import '../core/utils/rng.dart';
 import 'generators/arabic_generators.dart';
 import 'generators/english_generators.dart';
+import 'generators/madd_generators.dart';
 import 'generators/math_generators.dart';
+import 'progress/progress_data.dart';
 import 'question.dart';
 
 typedef Generator = Question Function(int lv, Rng r, {String? focus});
@@ -41,7 +43,7 @@ const worlds = [
   WorldMeta(id: 'math', icon: '🧮', name: 'الحساب', color: Color(0xFF7A5CFF), tone: Color(0xFF5B3FD6),
       title: '🔢 عالم الحساب', desc: 'الأرقام والجمع والطرح'),
   WorldMeta(id: 'arabic', icon: '🔤', name: 'العربي', color: Color(0xFFFF9F1C), tone: Color(0xFFCC7A00),
-      title: '🔤 عالم العربي', desc: 'الحروف والكلمات والقراءة'),
+      title: '🔤 عالم العربي', desc: 'الحروف والمدود والكلمات والقراءة'),
   WorldMeta(id: 'english', icon: '🇬🇧', name: 'English', color: Color(0xFF4CB8FF), tone: Color(0xFF1E86CC),
       title: '🇬🇧 English World', desc: 'Letters, words and sounds'),
 ];
@@ -60,6 +62,10 @@ class Stage {
     this.gen,
     this.learnItems,
     this.lang = 'ar',
+    this.after,
+    this.group,
+    this.groupName,
+    this.madd,
   });
 
   final String id;
@@ -79,7 +85,18 @@ class Stage {
   final List<Letter>? learnItems;
   final String lang;
 
+  /// المرحلة دي بتتفتح كمان لما المرحلة [after] تتنجح (٨٠٪+).
+  final String? after;
+
+  /// مجموعة مراحل جوه العالم (زي المدود) بعنوان بيظهر مرة على الخريطة.
+  final String? group;
+  final String? groupName;
+
+  /// إعدادات المدود — المرحلة دي بتفتح على شاشة درس قبل اللعب.
+  final MaddStage? madd;
+
   bool get isLearn => learnItems != null;
+  bool get isMadd => madd != null;
   bool get isEnglish => lang == 'en';
 }
 
@@ -147,10 +164,21 @@ final _english = _register('english', [
   _Def('en_daily', '💬', 'Everyday words', 3, 0xFF216BB2, gen: enDailyGame, lang: 'en'),
 ]);
 
+/// المدود بتتضاف في آخر عالم العربي من غير ما نلمس مراحله الأصلية (appendStages في الويب).
+/// أول مرحلة بس بتتفتح بعد "أكمل جدول الحروف"؛ الباقي بالترتيب.
+final _madd = [
+  for (final (i, (id, icon, name, base, color, cfg)) in maddStageDefs.indexed)
+    Stage(
+      id: id, world: 'arabic', n: _arabic.length + i + 1, icon: icon, name: name, base: base,
+      color: Color(color), madd: cfg, group: maddGroup, groupName: maddGroupName,
+      after: i == 0 ? 'ar_table' : null,
+    ),
+];
+
 /// world -> ترتيب مراحله.
 final Map<String, List<Stage>> worldStages = {
   'math': _math,
-  'arabic': _arabic,
+  'arabic': [..._arabic, ..._madd],
   'english': _english,
 };
 
@@ -162,3 +190,14 @@ final Map<String, Stage> packs = {
 
 /// المراحل المفتوحة من الأول.
 const initiallyUnlocked = ['counting', 'ar_learn', 'en_learn'];
+
+/// السؤال الجاي لأي نوع: id مرحلة ("counting"، "madd_alif") أو نوع لعبة مدود ("madd_alif:letter").
+/// "تدريب على الأخطاء" بيستخدم النوع الكامل عشان يرجّع نفس قيود المرحلة.
+Question makeQuestion(String type, int lv, Rng r, {String? focus, required ProgressData progress}) {
+  final i = type.indexOf(':');
+  final stage = packs[i < 0 ? type : type.substring(0, i)]!;
+  final cfg = stage.madd;
+  if (cfg == null) return stage.gen!(lv, r, focus: focus);
+  final kind = i < 0 ? r.sample(cfg.kinds) : type.substring(i + 1);
+  return maddQuestion(stage.id, kind, cfg, lv, r, focus, progress.madd);
+}
