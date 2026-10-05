@@ -6,7 +6,7 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
-// مفتاح التوقيع بيتقري من android/key.properties (مش متسجّل في git) — docs/RELEASE.md
+// مفتاح التوقيع بيتقري من android/key.properties (مش متسجّل في git) — الخطوات في README
 val keystoreProperties = Properties().apply {
     val f = rootProject.file("key.properties")
     if (f.exists()) f.inputStream().use { load(it) }
