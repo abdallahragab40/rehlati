@@ -1,0 +1,219 @@
+/// شكل السؤال الموحّد اللي كل المولّدات بترجّعه والمحرك بيفهمه.
+///
+/// في نسخة الويب كان `visual` نص HTML. هنا بقى بيانات مكتوبة (sealed classes)
+/// والواجهة هي اللي بترسمها.
+library;
+
+enum QMode {
+  /// اختار إجابة واحدة.
+  choice,
+
+  /// اضغط العناصر بالترتيب في خانات.
+  order,
+
+  /// املا خانات جدول (١–٢٠ أو الحروف) بالترتيب.
+  grid,
+
+  /// وصّل عمودين.
+  pairs,
+
+  /// لاقي كل تكرارات الحرف في الشبكة.
+  find,
+
+  /// لعبة ذاكرة — اقلب كارتين.
+  memory,
+}
+
+// ---------------------------------------------------------------------------
+// المرئيات
+// ---------------------------------------------------------------------------
+
+sealed class Visual {
+  const Visual();
+}
+
+/// صور متكررة للعد — `goneFrom` بيشطب الصور من الرقم ده وطالع (للطرح).
+class PicsVisual extends Visual {
+  const PicsVisual(this.emoji, this.count, {this.goneFrom, this.big = false});
+  final String emoji;
+  final int count;
+  final int? goneFrom;
+  final bool big;
+}
+
+/// تعبير رياضي أو تسلسل: بلاطات أرقام وعلامات — دايمًا من اليمين.
+class ExprVisual extends Visual {
+  const ExprVisual(this.parts);
+  final List<ExprPart> parts;
+}
+
+sealed class ExprPart {
+  const ExprPart();
+}
+
+/// بلاطة رقم — `null` يعني خانة فاضية "؟".
+class ExprTile extends ExprPart {
+  const ExprTile(this.value);
+  final Object? value;
+}
+
+class ExprOp extends ExprPart {
+  const ExprOp(this.op, {this.separator = false});
+  final String op;
+  final bool separator;
+}
+
+/// مجموعة صور فوق رقمها (للجمع والمقارنة في المستويات الأولى).
+class ExprSide extends ExprPart {
+  const ExprSide(this.emoji, this.count, {this.number});
+  final String emoji;
+  final int count;
+  final int? number;
+}
+
+class BigLetterVisual extends Visual {
+  const BigLetterVisual(this.text);
+  final String text;
+}
+
+/// سطر توضيحي صغير زي "؟ مثل أسد".
+class CaptionVisual extends Visual {
+  const CaptionVisual(this.text);
+  final String text;
+}
+
+/// كلمة كاملة أو كلمة فيها حرف ناقص (`null` = الخانة الناقصة).
+class WordLineVisual extends Visual {
+  const WordLineVisual.text(String text, {this.big = false})
+      : letters = null,
+        word = text;
+  const WordLineVisual.letters(List<String?> this.letters, {this.big = false}) : word = null;
+  final String? word;
+  final List<String?>? letters;
+  final bool big;
+}
+
+/// حروف منفصلة بينها + (ك + ت + ب).
+class LetterChipsVisual extends Visual {
+  const LetterChipsVisual(this.letters);
+  final List<String> letters;
+}
+
+/// جدول بخانات ناقصة — `null` = خانة بتتملا بالترتيب.
+class TableVisual extends Visual {
+  const TableVisual(this.cells, {required this.kind});
+  final List<String?> cells;
+  final TableKind kind;
+}
+
+enum TableKind { numbers, arLetters, enLetters }
+
+// ---------------------------------------------------------------------------
+// أجزاء الأوضاع الخاصة
+// ---------------------------------------------------------------------------
+
+class FindCell {
+  const FindCell(this.ch, {required this.hit});
+  final String ch;
+  final bool hit;
+}
+
+class MemoryCard {
+  const MemoryCard(this.key, this.ch);
+  final String key;
+  final String ch;
+}
+
+// ---------------------------------------------------------------------------
+// السؤال
+// ---------------------------------------------------------------------------
+
+class Question {
+  const Question({
+    required this.type,
+    required this.mode,
+    required this.ask,
+    required this.speak,
+    required this.hint,
+    this.speakHint,
+    this.lang = 'ar',
+    this.clips,
+    this.clipsHint,
+    this.visuals = const [],
+    this.choices = const [],
+    this.answer,
+    this.items = const [],
+    this.right = const [],
+    this.pairMap = const {},
+    this.cells = const [],
+    this.hits = 0,
+    this.cards = const [],
+    this.pairs = 0,
+    this.skill,
+    this.skillOf,
+    this.numeric = true,
+    this.ltr = false,
+    this.wide = false,
+    this.rtlSlots = false,
+    this.orderHint,
+  });
+
+  final String type;
+  final QMode mode;
+
+  /// 'ar' أو 'en' — بيحدد صوت النطق.
+  final String lang;
+
+  final String ask;
+  final String speak;
+  final String hint;
+  final String? speakHint;
+
+  /// مفاتيح المقاطع المسجّلة للسؤال والتلميح — لو أي مفتاح ناقص بنرجع للـ TTS.
+  final List<String?>? clips;
+  final List<String?>? clipsHint;
+
+  final List<Visual> visuals;
+
+  /// وضع الاختيار.
+  final List<Object> choices;
+
+  /// قيمة (int/String) في وضع الاختيار، أو `List<Object>` في order/grid.
+  final Object? answer;
+
+  /// بنك العناصر في order/grid، والعمود الأول في pairs.
+  final List<Object> items;
+
+  /// العمود التاني في pairs والخريطة بينهم.
+  final List<String> right;
+  final Map<String, String> pairMap;
+
+  /// وضع find.
+  final List<FindCell> cells;
+  final int hits;
+
+  /// وضع memory.
+  final List<MemoryCard> cards;
+  final int pairs;
+
+  /// المهارة للتعلّم المتكيّف — و`skillOf` لو المهارة بتتحدد بالعنصر نفسه.
+  final String? skill;
+  final String Function(String value)? skillOf;
+
+  /// في order/grid: القيم أرقام ولا نصوص.
+  final bool numeric;
+
+  /// النص والاختيارات من الشمال لليمين (English).
+  final bool ltr;
+
+  /// اختيارات نصية طويلة — عمود واحد عريض.
+  final bool wide;
+
+  /// خانات الترتيب من اليمين.
+  final bool rtlSlots;
+  final String? orderHint;
+
+  bool get isEnglish => lang == 'en';
+
+  List<Object> get answerList => (answer as List).cast<Object>();
+}
