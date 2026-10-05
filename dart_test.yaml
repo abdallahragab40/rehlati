@@ -1,0 +1,3 @@
+tags:
+  network:
+    skip: "Hits live Quran APIs. Run with: flutter test --tags network --run-skipped"

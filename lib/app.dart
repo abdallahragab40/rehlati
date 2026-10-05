@@ -16,6 +16,9 @@ import 'features/coming_soon_screen.dart';
 import 'features/game/game_screen.dart';
 import 'features/home/home_screen.dart';
 import 'features/letter_board/letter_board_screen.dart';
+import 'features/quran/quran_check_screen.dart';
+import 'features/quran/quran_modes.dart';
+import 'features/quran/quran_screens.dart';
 import 'features/world_map/world_map_screen.dart';
 
 /// للتجربة: `flutter run --dart-define=START=/play/counting` يفتح على شاشة معيّنة.
@@ -30,7 +33,13 @@ final _router = GoRouter(initialLocation: _start, routes: [
   ),
   GoRoute(path: '/learn/:stage', builder: (_, s) => LetterBoardScreen(stageId: s.pathParameters['stage']!)),
   GoRoute(path: '/achievements', builder: (_, _) => const AchievementsScreen()),
-  GoRoute(path: '/quran', builder: (_, _) => const ComingSoonScreen(title: 'عالم القرآن', icon: '📖')),
+  GoRoute(path: '/quran', builder: (_, _) => const QuranHomeScreen()),
+  GoRoute(path: '/quran-check', builder: (_, _) => const QuranCheckScreen()),
+  GoRoute(path: '/quran/:surah', builder: (_, s) => SurahScreen(surah: int.parse(s.pathParameters['surah']!))),
+  GoRoute(
+    path: '/quran/:surah/:mode',
+    builder: (_, s) => QuranModeScreen(surah: int.parse(s.pathParameters['surah']!), mode: s.pathParameters['mode']!),
+  ),
   GoRoute(path: '/parent', builder: (_, _) => const ComingSoonScreen(title: 'لوحة ولي الأمر', icon: '👨‍👩‍👦')),
   GoRoute(path: '/guide', builder: (_, _) => const ComingSoonScreen(title: 'دليل الوالدين', icon: '📘')),
 ]);
