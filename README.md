@@ -2,7 +2,9 @@
 
 Flutter (Android + iOS, phones and tablets) port of the رحلتي التعليمية web app: an Egyptian-Arabic learning app for kids aged 4–6, with four worlds (Quran, Math, Arabic, English).
 
-- Port plan and roadmap: [docs/PLAN.md](docs/PLAN.md)
+- Port plan and status: [docs/PLAN.md](docs/PLAN.md)
+- Building and publishing: [docs/RELEASE.md](docs/RELEASE.md)
+- Privacy policy: [docs/PRIVACY.md](docs/PRIVACY.md)
 - Original web app: github.com/MahmoudRabea93/rehlati, by Mahmoud Rabea Hassan
 
 ## Run
@@ -10,7 +12,9 @@ Flutter (Android + iOS, phones and tablets) port of the رحلتي التعلي�
 ```bash
 flutter pub get
 flutter run
-flutter test
+flutter test                                   # unit, widget and screen smoke tests
+flutter test --tags network --run-skipped      # live check of both Quran text sources
+flutter run --dart-define=START=/quran/112     # open directly on any route
 ```
 
 ## Layout

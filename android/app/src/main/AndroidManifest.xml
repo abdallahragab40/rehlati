@@ -1,4 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- عالم القرآن بيجيب النص والتلاوة من النت (فلاتر بيضيفها في الـ debug بس) -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:label="رحلتي"
         android:name="${applicationName}"

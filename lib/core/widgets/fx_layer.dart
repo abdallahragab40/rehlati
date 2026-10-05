@@ -19,6 +19,9 @@ class _Fx {
 
 class FxController extends ChangeNotifier {
   final _items = <_Fx>[];
+
+  /// "تقليل الحركة" في إعدادات الجهاز — بنلغي النجوم الطايرة والكونفيتي.
+  bool reduceMotion = false;
   final _rnd = math.Random();
   int _seq = 0;
 
@@ -43,7 +46,7 @@ class FxController extends ChangeNotifier {
 
   /// نجوم/إيموجي بتتطاير من نقطة.
   void burst(Offset? at, int n, String ch) {
-    if (at == null) return;
+    if (at == null || reduceMotion) return;
     for (var i = 0; i < n; i++) {
       final dx = _r(-130, 130), dy = _r(-170, -50), rot = _r(-220, 220) / 360;
       _add(950.ms, (_) => Positioned(
@@ -106,7 +109,7 @@ class FxController extends ChangeNotifier {
 
   /// حلقات لامعة حوالين العنصر.
   void sparkle(Offset? at) {
-    if (at == null) return;
+    if (at == null || reduceMotion) return;
     for (var i = 0; i < 3; i++) {
       _add(1300.ms, (_) => Positioned(
             left: at.dx - 15,
@@ -124,6 +127,7 @@ class FxController extends ChangeNotifier {
   }
 
   void confetti(int n) {
+    if (reduceMotion) return;
     for (var i = 0; i < n; i++) {
       final x = _r(0, 1), dur = _r(1.8, 3.4), delay = _r(0, .9);
       final color = AppColors.confetti[_rnd.nextInt(AppColors.confetti.length)];
@@ -152,7 +156,7 @@ class FxLayer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final fx = ref.watch(fxProvider);
+    final fx = ref.watch(fxProvider)..reduceMotion = MediaQuery.disableAnimationsOf(context);
     final size = MediaQuery.sizeOf(context);
     return Stack(
       children: [

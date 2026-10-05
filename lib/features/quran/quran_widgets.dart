@@ -31,7 +31,11 @@ class _QuranSkyState extends State<QuranSky> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    _ticker = createTicker((d) => _t.value = d.inMicroseconds / 1e6)..start();
+    // ٣٠ إطار في الثانية كفاية لحركة هادية — نص الشغل والبطارية
+    _ticker = createTicker((d) {
+      final t = d.inMicroseconds / 1e6;
+      if (t - _t.value >= 1 / 30) _t.value = t;
+    })..start();
   }
 
   @override
