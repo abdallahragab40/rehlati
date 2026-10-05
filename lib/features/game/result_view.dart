@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,6 +11,7 @@ import '../../core/utils/arabic.dart';
 import '../../core/widgets/fx_layer.dart';
 import '../../core/widgets/kid_widgets.dart';
 import '../../domain/engine/game_engine.dart';
+import '../../domain/progress/progress_controller.dart';
 import '../parent/avatar.dart';
 import '../world_map/world_map_screen.dart';
 
@@ -47,7 +50,30 @@ class _ResultViewState extends ConsumerState<ResultView> {
         if (r.unlocked != null) 'unlocked',
         if (r.mistakes.isNotEmpty) 'practice',
       ]);
+      _goal();
     });
+  }
+
+  /// هدف اليوم اتحقق لأول مرة النهاردة — احتفال صغير مرة واحدة بس.
+  void _goal() {
+    var first = false;
+    ref.read(progressProvider.notifier).update((p) => first = p.celebrateGoal());
+    if (!first) return;
+    final streak = ref.read(progressProvider).streak;
+    Timer(const Duration(milliseconds: 1200), () {
+      if (!mounted) return;
+      ref.read(fxProvider)
+        ..confetti(70)
+        ..popMsg('🎯 خلّصت هدف النهاردة! 🔥 ${ar(streak)} يوم', big: true);
+    });
+    // الويب بينطقها فوق إعلان النتيجة؛ هنا بنستنى الإعلان يخلص
+    final speech = ref.read(speechProvider);
+    void after() {
+      if (speech.speaking.value) return;
+      speech.speaking.removeListener(after);
+      if (mounted) speech.speak('برافو! خلصت هدف النهاردة');
+    }
+    speech.speaking.addListener(after);
   }
 
   @override

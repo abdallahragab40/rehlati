@@ -113,7 +113,7 @@ class QuranRepository {
     final list = await _firstWorking((s) async {
       final all = s.parseChapters(await _grab(s.chaptersUrl));
       final inRange = all.where((x) => x.number >= QuranConfig.from && x.number <= QuranConfig.to).toList()
-        ..sort((a, b) => a.number - b.number);
+        ..sort((a, b) => QuranConfig.descending ? b.number - a.number : a.number - b.number);
       if (inRange.isEmpty) throw QuranException('المصدر رجّع قائمة فاضية');
       return inRange;
     });

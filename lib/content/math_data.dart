@@ -36,7 +36,7 @@ LevelSpec levelSpec(int lv) => levels[lv.clamp(1, 4)]!;
 
 const palette = [
   0xFFFF6B6B, 0xFF7A5CFF, 0xFF2FC9B4, 0xFFFF9F1C, 0xFF4CB8FF, 0xFF1FAE9B,
-  0xFFE05FA8, 0xFF5FBF5F, 0xFFFFC43D, 0xFF6C7BFF, 0xFFFF7A59,
+  0xFFE05FA8, 0xFF5FBF5F, 0xFFFFC43D, 0xFF6C7BFF, 0xFFFF7A59, 0xFF1FA9D6, 0xFFC06BE8,
 ];
 
 const praise = ['ممتاز! 🎉', 'أحسنت! 🌟', 'رائع يا بطل! 👏', 'شاطر جدًا! 🦁'];

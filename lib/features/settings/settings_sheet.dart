@@ -71,6 +71,11 @@ class _SettingsPanelState extends ConsumerState<_SettingsPanel> {
                 ref.read(progressProvider).settings.sfx = v;
                 if (v) ref.read(sfxProvider).good();
               })),
+              row('🎶 موسيقى هادية في الخلفية', toggle(settings.music, (v) {
+                ref.read(progressProvider).settings.music = v;
+                Future.microtask(() => ref.read(musicProvider).refresh());
+              })),
+              const NoteBox(Text('الموسيقى بتسكت لوحدها في عالم القرآن، وبتهدى وقت نطق الأسئلة.')),
               row('🎤 صوت القراءة', smallBtn('جرّب', () {
                 progress.update((p) => p.settings.speech = true);
                 speech.speak(['أهلاً يا بطل، أنا الأسد صاحبك', 'واحد، اتنين، تلاتة']);
@@ -99,15 +104,6 @@ class _SettingsPanelState extends ConsumerState<_SettingsPanel> {
                 context.pop();
                 router.push('/guide');
               })),
-              // فتح كل المراحل للتجربة — ورا بوابة الأهل عشان الطفل مايدخلش مراحل أصعب من مستواه
-              row('🔓 فتح كل المراحل (للتطوير)', Switch(
-                value: settings.dev,
-                activeTrackColor: AppColors.grassDark,
-                onChanged: (v) async {
-                  if (v && !await askParent(context)) return;
-                  progress.update((p) => p.settings.dev = v);
-                },
-              )),
               const SizedBox(height: 16),
               Wrap(
                 alignment: WrapAlignment.center,

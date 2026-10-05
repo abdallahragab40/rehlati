@@ -41,9 +41,17 @@ const maddWords = <MaddWord>[
   MaddWord(plain: "دين", w: "دِين", type: "yaa", madd: "دِي", parts: ["دِي", "ن"], e: "🕌", pic: true, lvl: 1),
   MaddWord(plain: "كبير", w: "كَبِير", type: "yaa", madd: "بِي", parts: ["كَ", "بِي", "ر"], e: "🏔️", pic: false, lvl: 2),
   MaddWord(plain: "جميل", w: "جَمِيل", type: "yaa", madd: "مِي", parts: ["جَ", "مِي", "ل"], e: "🌸", pic: false, lvl: 2),
+  MaddWord(plain: "ساجد", w: "سَاجِد", type: "alif", madd: "سَا", parts: ["سَا", "جِ", "د"], e: "🤲", pic: false, lvl: 2),
+  MaddWord(plain: "كاتب", w: "كَاتِب", type: "alif", madd: "كَا", parts: ["كَا", "تِ", "ب"], e: "✍️", pic: false, lvl: 2),
+  MaddWord(plain: "ساعة", w: "سَاعَة", type: "alif", madd: "سَا", parts: ["سَا", "عَ", "ة"], e: "🕐", pic: true, lvl: 2),
+  MaddWord(plain: "عمود", w: "عَمُود", type: "waw", madd: "مُو", parts: ["عَ", "مُو", "د"], e: "🪵", pic: false, lvl: 2),
+  MaddWord(plain: "سرير", w: "سَرِير", type: "yaa", madd: "رِي", parts: ["سَ", "رِي", "ر"], e: "🛏️", pic: true, lvl: 2),
 ];
 
 /// لو المقطع محتاج نطق مختلف عن شكله المكتوب.
 const maddSay = <String, String>{
 
 };
+
+/// حروف إضافية للاختيارات الخاطئة في أسئلة «الممدود» (مش حروف مد).
+const maddDistractors = ["ب", "ت", "ج", "ح", "د", "ر", "ز", "س", "ش", "ص", "ط", "ع", "ف", "ق", "ك", "ل", "م", "ن", "ه"];

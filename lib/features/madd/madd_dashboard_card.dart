@@ -48,6 +48,7 @@ class MaddDashboardCard extends StatelessWidget {
       ('التمييز بين المدود', _group(['madd_types'])),
       ('المقاطع', _group(['madd_complete', 'madd_compose'])),
       ('الكلمات', _group(['madd_find', 'madd_read'])),
+      ('المد والممدود', _group(['madd_mamdoud'])),
     ];
     final ok = p.madd.types.values.fold(0, (s, t) => s + t.ok);
     final tries = p.madd.types.values.fold(0, (s, t) => s + t.tries);

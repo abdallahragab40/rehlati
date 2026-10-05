@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rehlati/core/audio/audio_providers.dart';
@@ -11,6 +12,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class FakeSpeech implements Speech {
   final said = <Object>[];
+  @override
+  final ValueNotifier<bool> speaking = ValueNotifier(false);
   @override
   void speak(Object text, {List<String?>? clips}) => said.add(text);
   @override

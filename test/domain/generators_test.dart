@@ -16,8 +16,8 @@ void main() {
   ];
 
   test('registry has the same stage counts as the web app', () {
-    expect(worldStages['math']!.length, 11);
-    expect(worldStages['arabic']!.length, 11 + 8, reason: '11 + 8 madd stages');
+    expect(worldStages['math']!.length, 13, reason: 'with neighbors and emptyTable');
+    expect(worldStages['arabic']!.length, 11 + 9, reason: '11 + 9 madd stages');
     expect(worldStages['english']!.length, 14);
   });
 
@@ -77,7 +77,7 @@ void _checkSolvable(Question q, int lv, String id) {
       for (final a in q.answerList) {
         expect(bank.remove(a), isTrue, reason: '$reason: $a missing from bank');
       }
-      expect(bank.length, lessThanOrEqualTo(1), reason: '$reason: at most one distractor');
+      expect(bank.length, lessThanOrEqualTo(3), reason: '$reason: at most three distractors');
       if (q.mode == QMode.grid) {
         final table = q.visuals.whereType<TableVisual>().single;
         expect(table.cells.where((c) => c == null).length, q.answerList.length, reason: reason);
@@ -96,7 +96,10 @@ void _checkSolvable(Question q, int lv, String id) {
       final boxKeys = q.boxes.map((b) => b.key).toSet();
       expect(q.sortCards.every((c) => boxKeys.contains(c.type)), isTrue, reason: reason);
       expect(q.sortCards.map((c) => c.type).toSet(), boxKeys, reason: '$reason: every box used');
-      expect(q.sortCards.map((c) => c.text).toSet().length, q.sortCards.length, reason: '$reason: unique cards');
+      // صناديق أنواع المد: البطاقات مختلفة (في الممدود/المد ممكن ألف تتكرر — زي الويب)
+      if (q.skill == 'madd:sort') {
+        expect(q.sortCards.map((c) => c.text).toSet().length, q.sortCards.length, reason: '$reason: unique cards');
+      }
     case QMode.memory:
       expect(q.cards.length, q.pairs * 2, reason: reason);
       final keys = <String, int>{};

@@ -63,8 +63,15 @@ List<Map<String, dynamic>> _list(Object? o) => [for (final e in (o as List? ?? c
 String _clean(Object? t) => '$t'.replaceAll('﻿', '').trim();
 
 abstract final class QuranConfig {
-  /// نطاق السور المعروضة — جزء عمّ (من النبأ إلى الناس).
-  static const from = 78, to = 114;
+  /// نطاق السور المعروضة — جزء تبارك (٦٧) + جزء عمّ (٧٨) إلى الناس (١١٤).
+  static const from = 67, to = 114;
+
+  /// ترتيب العرض: من الناس للأصغر — السور القصيرة الأول (ترتيب الحفظ المعتاد).
+  static const descending = true;
+
+  /// اسم الجزء حسب رقم السورة — بيظهر كعنوان فاصل في قائمة السور.
+  static String juzOf(int n) => n >= 78 ? 'جزء عمّ' : 'جزء تبارك';
+  static const rangeTitle = 'جزء عمّ وتبارك';
 
   static final sources = <TextSource>[
     TextSource(
@@ -119,5 +126,5 @@ abstract final class QuranConfig {
       'https://everyayah.com/data/$folder/${'$surah'.padLeft(3, '0')}${'$ayah'.padLeft(3, '0')}.mp3');
 
   /// غيّرها لو عايز تمسح الكاش وتعيد التحميل من المصدر.
-  static const cacheVersion = 1;
+  static const cacheVersion = 2;
 }

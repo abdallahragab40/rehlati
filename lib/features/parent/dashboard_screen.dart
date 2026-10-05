@@ -14,6 +14,8 @@ import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
 import '../../domain/stages.dart';
 import '../achievements/achievements_screen.dart';
+import '../achievements/rank_widgets.dart';
+import '../daily/week_card.dart';
 import '../quran/quran_repository.dart';
 import '../madd/madd_dashboard_card.dart';
 import '../parent_guide/pg_screens.dart';
@@ -62,6 +64,8 @@ class DashboardScreen extends ConsumerWidget {
           const SizedBox(height: 10),
           const _ChildRow(),
           const SizedBox(height: 6),
+          RankBar(stars: p.stars),
+          const SizedBox(height: 14),
           _Stats(tiles: [
             (ar(p.stars), 'نجمة'),
             (ar(p.games), 'لعبة'),
@@ -70,6 +74,8 @@ class DashboardScreen extends ConsumerWidget {
             (ar(p.wrong), 'غلط'),
             (fmtTime(p.timeMs), 'وقت التعلّم'),
           ]),
+          h3('📅 تقرير الأسبوع'),
+          const WeekCard(),
           h3('🗺️ العوالم'),
           _Table(header: const ['العالم', 'النجوم', 'الإنجاز'], rows: [
             for (final w in worlds)

@@ -17,15 +17,33 @@ import '../../domain/question.dart';
       'alif' => (const Color(0xFF1E7FBF), const Color(0xFFDDF1FF)),
       'waw' => (const Color(0xFF1F8A49), const Color(0xFFDEF7E5)),
       'yaa' => (const Color(0xFFA66F00), const Color(0xFFFFF0C2)),
+      'mamdoud' => (mamdoudColor, const Color(0xFFEFE7FF)),
+      'maddletter' => (const Color(0xFFC2410C), const Color(0xFFFFE9DC)),
       _ => (const Color(0xFFE8564F), AppColors.paper2),
     };
 
-/// نص فيه حرف المد ملوّن.
-TextSpan maddSpan(String text, {int? hl, String? typeKey, required TextStyle style}) {
+const mamdoudColor = Color(0xFF6B3FC4);
+
+/// نص فيه حرف المد ملوّن — ولو فيه [mamStart] الحرف الممدود بيتعلّم بخط متقطع بنفسجي.
+/// (الويب بيحط إطار حوالين الممدود؛ هنا خط تحته عشان الحروف تفضل موصولة.)
+TextSpan maddSpan(String text, {int? hl, int? mamStart, String? typeKey, required TextStyle style}) {
   if (hl == null || hl < 0 || hl >= text.length) return TextSpan(text: text, style: style);
   final c = maddColors(typeKey).$1;
+  final m = (mamStart != null && mamStart >= 0 && mamStart < hl) ? mamStart : hl;
   return TextSpan(style: style, children: [
-    TextSpan(text: text.substring(0, hl)),
+    TextSpan(text: text.substring(0, m)),
+    if (m < hl)
+      TextSpan(
+        text: text.substring(m, hl),
+        style: const TextStyle(
+          color: mamdoudColor,
+          fontWeight: FontWeight.w900,
+          decoration: TextDecoration.underline,
+          decorationStyle: TextDecorationStyle.dashed,
+          decorationColor: mamdoudColor,
+          decorationThickness: 2.5,
+        ),
+      ),
     TextSpan(text: text.substring(hl, hl + 1), style: TextStyle(color: c, fontWeight: FontWeight.w900)),
     TextSpan(text: text.substring(hl + 1)),
   ]);
@@ -40,7 +58,7 @@ class MaddTextView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final size = v.big ? context.clampVw(72, 22, 120) : context.clampVw(64, 19, 104);
     Widget text = Text.rich(
-      maddSpan(v.text, hl: v.hl, typeKey: v.typeKey, style: kidText(size, height: 1.5)),
+      maddSpan(v.text, hl: v.hl, mamStart: v.mamStart, typeKey: v.typeKey, style: kidText(size, height: 1.5)),
       textAlign: TextAlign.center,
       textDirection: TextDirection.rtl,
     );

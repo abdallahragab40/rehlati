@@ -10,6 +10,8 @@ import '../../core/widgets/top_bar.dart';
 import '../../domain/progress/badges.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/stages.dart';
+import '../../domain/progress/progress_data.dart';
+import '../achievements/rank_widgets.dart';
 import '../parent/avatar.dart';
 
 /// خريطة الرحلة — الصفحة الرئيسية (Shell.home).
@@ -56,25 +58,33 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           const SizedBox(height: 4),
           const HeroText('اختار عالم وابدأ المغامرة'),
           ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 560),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Center(child: _JourneyNode('🏠 البداية')),
-                  for (final w in worlds) ...[
-                    const _JourneyLine(),
-                    _WorldCard(
-                      world: w,
-                      stars: p.starsIn(w.id),
-                      pct: p.worldPct(w.id),
-                      onTap: () => context.push(w.id == 'quran' ? '/quran' : '/world/${w.id}'),
-                    ),
+            constraints: const BoxConstraints(maxWidth: 720),
+            child: Column(children: [
+              const SizedBox(height: 16),
+              _DailyStrip(p),
+              const SizedBox(height: 12),
+              RankBar(stars: p.stars),
+              const SizedBox(height: 18),
+              // كروت العوالم: عمودين، وعمود واحد على الموبايلات الضيقة
+              LayoutBuilder(
+                builder: (context, box) => TileWrap(
+                  minTileWidth: box.maxWidth <= 430 ? box.maxWidth : 260,
+                  maxColumns: 2,
+                  spacing: context.clampVw(10, 2.5, 16),
+                  children: [
+                    for (final w in worlds)
+                      _WorldCard(
+                        world: w,
+                        stars: p.starsIn(w.id),
+                        pct: p.worldPct(w.id),
+                        narrow: box.maxWidth <= 430,
+                        // خلص وقت اللعب النهاردة ← شاشة الراحة
+                        onTap: () => context.push(p.limitReached ? '/timeup' : (w.id == 'quran' ? '/quran' : '/world/${w.id}')),
+                      ),
                   ],
-                ],
+                ),
               ),
-            ),
+            ]),
           ),
           const SizedBox(height: 18),
           Wrap(alignment: WrapAlignment.center, spacing: 10, runSpacing: 4, children: [
@@ -90,79 +100,127 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 }
 
-class _JourneyNode extends StatelessWidget {
-  const _JourneyNode(this.text);
-  final String text;
+/// الهدف اليومي + سلسلة الأيام — فوق كروت العوالم.
+class _DailyStrip extends StatelessWidget {
+  const _DailyStrip(this.p);
+  final ProgressData p;
 
   @override
-  Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 6),
-        decoration: BoxDecoration(
-          color: AppColors.gold,
-          borderRadius: BorderRadius.circular(999),
-          boxShadow: const [BoxShadow(color: AppColors.goldDark, offset: Offset(0, 5))],
-        ),
-        child: Text(text, style: kidText(17, color: const Color(0xFF4A2B00))),
-      );
-}
-
-class _JourneyLine extends StatelessWidget {
-  const _JourneyLine();
-
-  @override
-  Widget build(BuildContext context) => Center(
+  Widget build(BuildContext context) {
+    final st = p.streak, goal = p.settings.goal, got = p.todayStars, left = p.limitLeft;
+    final note = p.goalDone
+        ? '🎉 خلّصت هدف النهاردة — أي نجمة زيادة مكسب!'
+        : 'فاضل ${ar((goal - got).clamp(0, goal))} نجمة';
+    return Semantics(
+      label: 'سلسلة ${ar(st)} يوم، هدف اليوم ${ar(got)} من ${ar(goal)} نجمة',
+      child: ExcludeSemantics(
         child: Container(
-          width: 8,
-          height: 22,
-          margin: const EdgeInsets.symmetric(vertical: 6),
-          decoration: BoxDecoration(color: const Color(0x8CFFFFFF), borderRadius: BorderRadius.circular(99)),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          decoration: BoxDecoration(
+            color: AppColors.paper,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: const [BoxShadow(color: AppColors.shadow, offset: Offset(0, 6))],
+          ),
+          child: IntrinsicHeight(
+            child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+              Container(
+                constraints: const BoxConstraints(minWidth: 86, maxWidth: 110),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: st > 0 ? const Color(0xFFFFE8D6) : AppColors.paper2,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Text(st > 0 ? '🔥' : '🌱', style: const TextStyle(fontSize: 26, height: 1)),
+                  Text(ar(st), style: kidText(26, height: 1.1)),
+                  Text('${st == 1 ? 'يوم' : 'أيام'} متتالية',
+                      textAlign: TextAlign.center, style: kidText(11.5, color: AppColors.inkSoft)),
+                ]),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                  Row(children: [
+                    Expanded(child: Text('🎯 هدف اليوم', style: kidText(14.5))),
+                    Flexible(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: AlignmentDirectional.centerEnd,
+                        child: Text('${ar(got)} / ${ar(goal)} ⭐', style: kidText(14.5)),
+                      ),
+                    ),
+                  ]),
+                  const SizedBox(height: 5),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(999),
+                    child: LinearProgressIndicator(
+                      value: p.goalPct / 100,
+                      minHeight: 14,
+                      color: p.goalDone ? AppColors.mint : AppColors.gold,
+                      backgroundColor: AppColors.line,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text('$note${left != null ? ' • باقي ${ar(left)} دقيقة لعب' : ''}',
+                      style: kidText(12.5, weight: FontWeight.w700, color: AppColors.inkSoft)),
+                ]),
+              ),
+            ]),
+          ),
         ),
-      );
+      ),
+    );
+  }
 }
 
+/// كارت عالم أفقي ومضغوط: أيقونة جنب النص، وشريط لون على الطرف.
 class _WorldCard extends StatelessWidget {
-  const _WorldCard({required this.world, required this.stars, required this.pct, required this.onTap});
+  const _WorldCard({required this.world, required this.stars, required this.pct, required this.onTap, this.narrow = false});
   final WorldMeta world;
   final int stars;
   final int pct;
+  final bool narrow;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) => Pressable3D(
         onTap: onTap,
-        radius: 28,
-        depth: 8,
+        radius: 24,
+        depth: 6,
         shadowColor: AppColors.shadow,
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
-        semanticLabel: '${world.name}، ${ar(stars)} نجمة',
-        child: Row(children: [
+        border: BorderDirectional(end: BorderSide(color: world.color, width: 8)),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
+        semanticLabel: '${world.name}، ${ar(stars)} نجمة، ${ar(pct)}٪',
+        child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           Container(
-            width: 72,
-            height: 72,
+            width: 54,
+            height: 54,
             alignment: Alignment.center,
-            decoration: BoxDecoration(color: world.color, borderRadius: BorderRadius.circular(24)),
-            child: Text(world.icon, style: const TextStyle(fontSize: 36)),
+            decoration: BoxDecoration(color: world.color, borderRadius: BorderRadius.circular(17)),
+            child: Text(world.icon, style: const TextStyle(fontSize: 27)),
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: 12),
           Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(world.name, style: kidText(context.clampVw(20, 5.2, 25), height: 1.25)),
+              Text(world.name, style: kidText(context.clampVw(17, 4, 21), height: 1.2)),
+              const SizedBox(height: 2),
               Text(world.desc,
-                  style: kidText(context.clampVw(13, 3.4, 16), weight: FontWeight.w600, color: AppColors.inkSoft)),
+                  maxLines: narrow ? 1 : 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: kidText(context.clampVw(11.5, 2.9, 13.5), weight: FontWeight.w600, color: AppColors.inkSoft, height: 1.4)),
               const SizedBox(height: 7),
               ClipRRect(
                 borderRadius: BorderRadius.circular(99),
-                child: LinearProgressIndicator(
-                  value: pct / 100,
-                  minHeight: 8,
-                  color: world.color,
-                  backgroundColor: AppColors.line,
-                ),
+                child: LinearProgressIndicator(value: pct / 100, minHeight: 7, color: world.color, backgroundColor: AppColors.line),
               ),
             ]),
           ),
-          const SizedBox(width: 12),
-          Text('⭐ ${ar(stars)}', style: kidText(15, color: AppColors.inkSoft)),
+          const SizedBox(width: 10),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
+            decoration: BoxDecoration(color: const Color(0xFFFFF3CF), borderRadius: BorderRadius.circular(999)),
+            child: Text('⭐ ${ar(stars)}', style: kidText(13, color: const Color(0xFF7A5200))),
+          ),
         ]),
       );
 }

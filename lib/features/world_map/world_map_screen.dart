@@ -9,6 +9,7 @@ import '../../core/widgets/kid_widgets.dart';
 import '../../core/widgets/top_bar.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/stages.dart';
+import '../parent/parent_gate.dart';
 import '../scenes/world_scene.dart';
 
 /// خريطة أي عالم — نفس الكود للحساب والعربي و English.
@@ -26,6 +27,10 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
 
   void _open(Stage s) {
     final p = ref.read(progressProvider);
+    if (p.limitReached) {
+      context.push('/timeup');
+      return;
+    }
     if (!p.isUnlocked(s.id)) {
       final en = widget.world == 'english';
       setState(() {
@@ -92,6 +97,7 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
             ),
           ]),
         ),
+        const _DevRow(),
         LionMascot(mood: _say == null ? LionMood.idle : LionMood.sad, tick: _sadTick),
         if (_say != null) SpeechBubble(_say!, kind: BubbleKind.no),
       ]),
@@ -176,4 +182,36 @@ class _GroupHeader extends StatelessWidget {
         ),
         child: Text(name, textAlign: TextAlign.center, style: kidText(context.clampVw(16, 4.4, 20))),
       );
+}
+
+/// مفتاح "فتح كل المراحل (للتطوير)" — بقى جوه شاشة المستوى زي الويب،
+/// بس تشغيله بيسأل سؤال الأهل عشان الطفل مايدخلش مراحل أصعب من مستواه.
+class _DevRow extends ConsumerWidget {
+  const _DevRow();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final dev = ref.watch(progressProvider.select((p) => p.settings.dev));
+    return Container(
+      constraints: const BoxConstraints(maxWidth: 560),
+      margin: const EdgeInsets.only(top: 18),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      decoration: BoxDecoration(
+        color: const Color(0xBFFFFFFF),
+        borderRadius: BorderRadius.circular(999),
+        boxShadow: const [BoxShadow(color: AppColors.shadow, offset: Offset(0, 4))],
+      ),
+      child: Row(children: [
+        Expanded(child: Text('🔓 فتح كل المراحل (للتطوير)', style: kidText(15, color: AppColors.inkSoft))),
+        Switch(
+          value: dev,
+          activeTrackColor: AppColors.grassDark,
+          onChanged: (v) async {
+            if (v && !await askParent(context)) return;
+            ref.read(progressProvider.notifier).update((p) => p.settings.dev = v);
+          },
+        ),
+      ]),
+    );
+  }
 }

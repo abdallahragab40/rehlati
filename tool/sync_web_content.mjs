@@ -59,6 +59,9 @@ ${words}
 const maddSay = <String, String>{
 ${say}
 };
+
+/// حروف إضافية للاختيارات الخاطئة في أسئلة «الممدود» (مش حروف مد).
+const maddDistractors = ${list(c.MADD_DISTRACTORS || [])};
 `);
   console.log(`madd: ${c.MADD_TYPES.length} types, ${c.MADD_WORDS.length} words`);
 }

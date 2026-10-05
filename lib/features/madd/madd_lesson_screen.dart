@@ -117,6 +117,7 @@ class _MaddLessonScreenState extends ConsumerState<MaddLessonScreen> {
         ]),
       ]);
     }
+    if (lesson == 'mamdoud') return _mamdoudLesson();
     if (lesson == 'find' || lesson == 'read') {
       // المراحل ٧–٨: كلمات
       final words = [for (final t in maddTypes) maddWords.firstWhere((w) => w.type == t.key && w.lvl == 1)];
@@ -138,6 +139,87 @@ class _MaddLessonScreenState extends ConsumerState<MaddLessonScreen> {
     return Column(children: [
       _rule(intro[lesson] ?? ''),
       for (final t in maddTypes) _TypeRow(t, onTap: () => _say(saySyl(t.result))),
+    ]);
+  }
+
+  /// المرحلة ٩: في كل مد حرفان — حرف نمدّه (الممدود)، وحرف يمدّه (حرف المد).
+  Widget _mamdoudLesson() {
+    final demo = maddWords.where((w) => w.plain == 'ساجد').firstOrNull ?? maddWords.first;
+    final mam = mamdoudOf(demo.madd), mad = maddCharOf(demo.madd);
+    final big = kidText(context.clampVw(56, 16, 92), height: 1.8);
+    final pair = pairHl(demo.w, demo.madd, demo.type);
+    Widget chip(String label, String value, Color c, Color bg, String say, {bool dashed = false}) => Pressable3D(
+          onTap: () => _say(say),
+          color: bg,
+          radius: 22,
+          depth: 5,
+          shadowColor: AppColors.shadow,
+          border: Border.all(color: c, width: 3),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+          semanticLabel: label,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minWidth: context.clampVw(118, 32, 150)),
+            child: Column(children: [
+              Text(label, style: kidText(context.clampVw(14, 3.8, 17), color: c)),
+              Text(value,
+                  style: kidText(context.clampVw(34, 10, 48), height: 1.5).copyWith(
+                    decoration: dashed ? TextDecoration.underline : null,
+                    decorationStyle: TextDecorationStyle.dashed,
+                    decorationColor: mamdoudColor,
+                    decorationThickness: 2.5,
+                  )),
+            ]),
+          ),
+        );
+    final (madColor, madBg) = maddColors(demo.type);
+    return Column(children: [
+      _rule('في كل مد حرفان: حرف نمدّه، وحرف يمدّه'),
+      Text.rich(maddSpan(pair.text, hl: pair.hl, mamStart: pair.mamStart, typeKey: pair.typeKey, style: big),
+          textDirection: TextDirection.rtl),
+      Wrap(alignment: WrapAlignment.center, spacing: 10, runSpacing: 10, children: [
+        chip('الحرف المَمْدود', mam, mamdoudColor, maddColors('mamdoud').$2, '$mam الممدود', dashed: true),
+        chip('حرف المد', mad, madColor, madBg, '${mad == 'ا' ? 'ألف' : mad} حرف المد'),
+      ]),
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Text.rich(
+          TextSpan(style: kidText(context.clampVw(15, 4, 18), weight: FontWeight.w700, color: AppColors.inkSoft, height: 1.8), children: [
+            const TextSpan(text: 'نمدّ صوت '),
+            TextSpan(text: mam, style: const TextStyle(fontWeight: FontWeight.w900, color: AppColors.ink)),
+            const TextSpan(text: ' بـ'),
+            TextSpan(text: mad, style: const TextStyle(fontWeight: FontWeight.w900, color: AppColors.ink)),
+            const TextSpan(text: ' فتصير '),
+            TextSpan(text: demo.madd, style: const TextStyle(fontWeight: FontWeight.w900, color: AppColors.ink)),
+            TextSpan(text: ' — ${demo.w}'),
+          ]),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      KidButton('🔊 اسمع الكلمة', onTap: () => _say(demo.w)),
+      _hint('اضغط أي مقطع لتسمعه'),
+      const SizedBox(height: 10),
+      Wrap(alignment: WrapAlignment.center, spacing: 12, runSpacing: 12, children: [
+        for (final t in maddTypes)
+          () {
+            final syl = normalizeSyl(t.examples.length > 2 ? t.examples[2] : t.examples.first, t.key);
+            final (tc, tb) = maddColors(t.key);
+            return Pressable3D(
+              onTap: () => _say(saySyl(syl)),
+              color: tb,
+              radius: 22,
+              depth: 5,
+              shadowColor: AppColors.shadow,
+              border: Border.all(color: tc, width: 3),
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 2),
+              semanticLabel: syl,
+              child: Text.rich(
+                maddSpan(syl, hl: syl.length - 1, mamStart: 0, typeKey: t.key,
+                    style: kidText(context.clampVw(26, 7, 36), height: 1.8)),
+                textDirection: TextDirection.rtl,
+              ),
+            );
+          }(),
+      ]),
     ]);
   }
 

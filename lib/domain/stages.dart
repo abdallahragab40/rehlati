@@ -66,6 +66,7 @@ class Stage {
     this.group,
     this.groupName,
     this.madd,
+    this.count,
   });
 
   final String id;
@@ -95,19 +96,24 @@ class Stage {
   /// إعدادات المدود — المرحلة دي بتفتح على شاشة درس قبل اللعب.
   final MaddStage? madd;
 
+  /// عدد أسئلة الجولة لو مختلف عن الافتراضي (الجدول الفاضي = ٣).
+  final int? count;
+
   bool get isLearn => learnItems != null;
   bool get isMadd => madd != null;
   bool get isEnglish => lang == 'en';
 }
 
 class _Def {
-  const _Def(this.id, this.icon, this.name, this.base, this.color, {this.gen, this.learn, this.lang = 'ar'});
+  const _Def(this.id, this.icon, this.name, this.base, this.color,
+      {this.gen, this.learn, this.lang = 'ar', this.count});
   final String id, icon, name;
   final int base;
   final int color;
   final Generator? gen;
   final List<Letter>? learn;
   final String lang;
+  final int? count;
 }
 
 List<Stage> _register(String world, List<_Def> defs) => [
@@ -115,7 +121,7 @@ List<Stage> _register(String world, List<_Def> defs) => [
         Stage(
           id: defs[i].id, world: world, n: i + 1, icon: defs[i].icon, name: defs[i].name,
           base: defs[i].base, color: Color(defs[i].color), gen: defs[i].gen,
-          learnItems: defs[i].learn, lang: defs[i].lang,
+          learnItems: defs[i].learn, lang: defs[i].lang, count: defs[i].count,
         ),
     ];
 
@@ -124,13 +130,15 @@ final _math = _register('math', [
   _Def('chooseNumber', '🎯', 'اختر الرقم', 1, palette[1], gen: chooseNumber),
   _Def('nextNumber', '➡️', 'العدد التالي', 1, palette[2], gen: nextNumber),
   _Def('previousNumber', '⬅️', 'العدد السابق', 1, palette[3], gen: previousNumber),
-  _Def('sequence', '🔗', 'أكمل التسلسل', 2, palette[4], gen: sequence),
-  _Def('completeTable', '🧮', 'أكمل الجدول', 2, palette[5], gen: completeTable),
-  _Def('ascending', '📈', 'ترتيب تصاعدي', 2, palette[6], gen: ascending),
-  _Def('descending', '📉', 'ترتيب تنازلي', 3, palette[7], gen: descending),
-  _Def('comparison', '⚖️', 'أكبر وأصغر', 2, palette[8], gen: comparison),
-  _Def('addition', '➕', 'الجمع', 3, palette[9], gen: addition),
-  _Def('subtraction', '➖', 'الطرح', 3, palette[10], gen: subtraction),
+  _Def('neighbors', '↔️', 'السابق والتالي', 2, palette[4], gen: neighbors),
+  _Def('sequence', '🔗', 'أكمل التسلسل', 2, palette[5], gen: sequence),
+  _Def('completeTable', '🧮', 'أكمل الجدول', 2, palette[6], gen: completeTable),
+  _Def('emptyTable', '🗒️', 'الجدول الفاضي', 2, palette[7], gen: emptyTable, count: 3),
+  _Def('ascending', '📈', 'ترتيب تصاعدي', 2, palette[8], gen: ascending),
+  _Def('descending', '📉', 'ترتيب تنازلي', 3, palette[9], gen: descending),
+  _Def('comparison', '⚖️', 'أكبر وأصغر', 2, palette[10], gen: comparison),
+  _Def('addition', '➕', 'الجمع', 3, palette[11], gen: addition),
+  _Def('subtraction', '➖', 'الطرح', 3, palette[12], gen: subtraction),
 ]);
 
 final _arabic = _register('arabic', [

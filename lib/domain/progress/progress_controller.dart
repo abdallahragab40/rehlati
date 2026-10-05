@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'badges.dart';
 import 'progress_data.dart';
+import 'ranks.dart';
 
 /// بيتعمل له override في main() بعد ما الـ prefs تتحمّل.
 final sharedPrefsProvider = Provider<SharedPreferences>((ref) => throw UnimplementedError('override in main'));
@@ -22,7 +23,7 @@ class ProgressRepository {
   ProgressData load() {
     try {
       final raw = _prefs.getString(key);
-      if (raw != null) return ProgressData.fromJson((jsonDecode(raw) as Map).cast<String, dynamic>());
+      if (raw != null) return ProgressData.fromJson((jsonDecode(raw) as Map).cast<String, dynamic>())..pruneDays();
     } catch (_) {
       // ملف تالف — نبدأ من جديد بدل ما التطبيق يقع
     }
@@ -37,6 +38,13 @@ final progressRepositoryProvider = Provider((ref) => ProgressRepository(ref.watc
 /// الإنجازات الجديدة — الواجهة بتسمع وتعرض toast.
 final badgeEventsProvider = Provider<StreamController<Achievement>>((ref) {
   final c = StreamController<Achievement>.broadcast();
+  ref.onDispose(c.close);
+  return c;
+});
+
+/// كأس جديد — الواجهة بتحتفل بيه.
+final rankEventsProvider = Provider<StreamController<Rank>>((ref) {
+  final c = StreamController<Rank>.broadcast();
   ref.onDispose(c.close);
   return c;
 });
@@ -64,6 +72,11 @@ class ProgressController extends Notifier<ProgressData> {
 
   /// يشيّك الإنجازات ويبعت الجديد منها للـ toasts.
   List<Achievement> checkRewards() {
+    // الكأس الأول (زي Rewards.check في الويب)
+    final seen = state.rankSeen;
+    final up = rankCheck(state);
+    if (up != null) ref.read(rankEventsProvider).add(up);
+    if (state.rankSeen != seen) _commit();
     final fresh = checkBadges(state);
     if (fresh.isNotEmpty) {
       _commit();

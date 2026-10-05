@@ -8,6 +8,7 @@ import '../../core/widgets/kid_widgets.dart';
 import '../../core/widgets/top_bar.dart';
 import '../../domain/progress/badges.dart';
 import '../../domain/progress/progress_controller.dart';
+import 'rank_widgets.dart';
 
 class AchievementsScreen extends ConsumerWidget {
   const AchievementsScreen({super.key});
@@ -15,12 +16,22 @@ class AchievementsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final got = ref.watch(progressProvider.select((p) => [...p.achievements]));
+    final stars = ref.watch(progressProvider.select((p) => p.stars));
+    Widget h3(String t) => Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: Padding(padding: const EdgeInsets.only(top: 16, bottom: 8), child: Text(t, style: kidText(19))),
+        );
     return ScreenFrame(
       onBack: () => context.pop(),
       title: '🏆 إنجازاتي',
       child: QCard(
         child: Column(children: [
           Text('🏆 إنجازاتي', style: kidText(26)),
+          const SizedBox(height: 8),
+          RankBar(stars: stars),
+          h3('🏅 مراحل التقدّم'),
+          CupsGrid(stars: stars),
+          h3('⭐ الإنجازات'),
           Padding(
             padding: const EdgeInsets.only(bottom: 14),
             child: Text('${ar(got.length)} من ${ar(badges.length)}',
@@ -33,7 +44,6 @@ class AchievementsScreen extends ConsumerWidget {
   }
 }
 
-/// شبكة الإنجازات — بتتعرض هنا وفي لوحة ولي الأمر.
 class BadgeGrid extends StatelessWidget {
   const BadgeGrid({super.key, required this.earned, this.small = false});
   final List<String> earned;

@@ -13,6 +13,8 @@ import 'package:rehlati/features/achievements/achievements_screen.dart';
 import 'package:rehlati/features/game/game_screen.dart';
 import 'package:rehlati/features/home/home_screen.dart';
 import 'package:rehlati/content/parent_guide.dart';
+import 'package:rehlati/domain/progress/progress_data.dart';
+import 'package:rehlati/features/daily/time_up_screen.dart';
 import 'package:rehlati/features/letter_board/letter_board_screen.dart';
 import 'package:rehlati/features/madd/madd_lesson_screen.dart';
 import 'package:rehlati/features/parent_guide/pg_screens.dart';
@@ -62,7 +64,7 @@ void main() {
     for (var i = 0; i < 6; i++) {
       await tester.pump(const Duration(milliseconds: 200));
     }
-    expect(tester.takeException(), isNull);
+    expect(tester.takeException()?.toString(), isNull);
     // نشيل الشاشة عشان المؤقتات والـ tickers تتقفل
     await tester.pumpWidget(const SizedBox());
   }
@@ -83,6 +85,7 @@ void main() {
     for (final b in pgBehaviors) 'parent guide ${b.id}': PgDetailScreen(id: b.id),
     'parent guide goals': const PgGoalsScreen(),
     'kid hub': const KidHubScreen(),
+    'time up': const TimeUpScreen(),
     'kid play': KidPlayScreen(ids: [for (final b in pgBehaviors.take(3)) b.id]),
   };
 
@@ -97,8 +100,16 @@ void main() {
       'best': {'ar_table': 2, 'madd_alif': 2},
       'madd': {'types': {'alif': {'ok': 9, 'tries': 10}}, 'words': {'باب': {'ok': 2, 'tries': 2}}},
       'parentGuide': {'focus': {'hit': {'start': 1, 'days': [true, true, false, false, false, false, false], 'paused': false}}},
+      'stars': 420,
+      'settings': {'speech': true, 'sfx': true, 'goal': 25, 'limitMin': 30},
+      'days': {
+        for (var i = 0; i < 10; i++)
+          ProgressData.dayKey(DateTime.now().subtract(Duration(days: i))): {'stars': 3 * i, 'correct': 5, 'wrong': 1, 'games': 2, 'ms': 600000},
+      },
     });
     await pump(tester, const MaddLessonScreen(stageId: 'madd_waw'), prefs: {ProgressRepository.key: blob});
     await pump(tester, const DashboardScreen(), prefs: {ProgressRepository.key: blob});
+    await pump(tester, const HomeScreen(), prefs: {ProgressRepository.key: blob});
+    await pump(tester, const AchievementsScreen(), prefs: {ProgressRepository.key: blob});
   });
 }

@@ -71,6 +71,7 @@ flutter:
     - assets/svg/
     - assets/audio/clips/
     - assets/audio/sfx/
+    - assets/audio/music/
 
   fonts:
     - family: Baloo

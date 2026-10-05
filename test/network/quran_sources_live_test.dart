@@ -11,10 +11,10 @@ import 'package:rehlati/features/quran/quran_repository.dart';
 /// بيكلم المصادر الحقيقية — مش بيشتغل في الاختبارات العادية:
 ///   flutter test --tags network
 void main() {
-  test('both sources agree on every letter of Juz Amma', () async {
+  test('both sources agree on every letter of Juz Tabarak and Amma', () async {
     final repo = QuranRepository(client: http.Client(), cacheFile: () async => File('${Directory.systemTemp.path}/q_live.json'));
     var marksOnly = 0;
-    for (var s = 78; s <= 114; s++) {
+    for (var s = 67; s <= 114; s++) {
       final all = (await repo.fetchAll(s)).values.toList();
       expect(all[0].length, all[1].length, reason: 'surah $s ayah count');
       for (var i = 0; i < all[0].length; i++) {

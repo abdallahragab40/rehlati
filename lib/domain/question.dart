@@ -49,8 +49,11 @@ class PicsVisual extends Visual {
 
 /// تعبير رياضي أو تسلسل: بلاطات أرقام وعلامات — دايمًا من اليمين.
 class ExprVisual extends Visual {
-  const ExprVisual(this.parts);
+  const ExprVisual(this.parts, {this.fillFromPicked = false});
   final List<ExprPart> parts;
+
+  /// وضع الترتيب: الخانات الفاضية نفسها بتتملا بإجابات الطفل بدل صف خانات منفصل.
+  final bool fillFromPicked;
 }
 
 sealed class ExprPart {
@@ -59,8 +62,18 @@ sealed class ExprPart {
 
 /// بلاطة رقم — `null` يعني خانة فاضية "؟".
 class ExprTile extends ExprPart {
-  const ExprTile(this.value);
+  const ExprTile(this.value, {this.mid = false});
   final Object? value;
+
+  /// الرقم اللي في النص (السابق والتالي) — حدود بنفسجي.
+  final bool mid;
+}
+
+/// خانة بعنوان صغير فوقها (السابق / الرقم / التالي).
+class ExprCaption extends ExprPart {
+  const ExprCaption(this.caption, this.inner);
+  final String caption;
+  final ExprPart inner;
 }
 
 class ExprOp extends ExprPart {
@@ -116,8 +129,11 @@ enum TableKind { numbers, arLetters, enLetters }
 
 /// مقطع أو كلمة مدّ — حرف المد ([hl]) بيتلوّن بلون نوعه.
 class MaddTextVisual extends Visual {
-  const MaddTextVisual(this.text, {this.hl, this.typeKey, this.big = false, this.pop = false, this.say});
+  const MaddTextVisual(this.text, {this.hl, this.mamStart, this.typeKey, this.big = false, this.pop = false, this.say});
   final String text;
+
+  /// بداية الحرف الممدود (لحد [hl]) — بيتعلّم بخط متقطع بنفسجي (درس المد والممدود).
+  final int? mamStart;
 
   /// موضع حرف المد اللي بيتلوّن (null = من غير تلوين).
   final int? hl;

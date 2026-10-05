@@ -203,12 +203,13 @@ class QuestionBody extends StatelessWidget {
     final body = switch (q.mode) {
       QMode.choice => _choices(context),
       QMode.order => Column(children: [
-          _slots(context),
+          // لو الخانات جوه التعبير نفسه (السابق والتالي) مفيش داعي لصف خانات تاني
+          if (!q.visuals.any((v) => v is ExprVisual && v.fillFromPicked)) _slots(context),
           _Hint(q.orderHint ?? 'اضغط الأرقام بالترتيب'),
           _bank(context),
         ]),
       QMode.grid => Column(children: [
-          _Hint(q.isEnglish ? 'Tap the missing letter' : (q.numeric ? 'اضغط الرقم الناقص' : 'اضغط الحرف الناقص')),
+          _Hint(q.orderHint ?? (q.isEnglish ? 'Tap the missing letter' : (q.numeric ? 'اضغط الرقم الناقص' : 'اضغط الحرف الناقص'))),
           _bank(context),
         ]),
       QMode.pairs => Column(children: [_Hint(q.hint), _pairs(context)]),

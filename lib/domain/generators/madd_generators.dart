@@ -60,6 +60,28 @@ MaddTextVisual _sylHl(String syl, String key, {bool big = false, bool pop = fals
 MaddTextVisual _wordHl(MaddWord w, {bool pop = false}) =>
     MaddTextVisual(w.w, hl: maddIndexIn(w), typeKey: w.type, big: true, pop: pop, say: w.w);
 
+// ---------------------------------------------------------------- المد والممدود
+// الممدود = الحرف المتحرّك اللي بنمدّ صوته (أول حرف في المقطع)
+// المد    = حرف المد بعده مباشرة (آخر حرف في المقطع)   مثال: سَا ← س ممدود، ا مد
+
+String mamdoudOf(String syl) => syl[0];
+String maddCharOf(String syl) => syl.substring(syl.length - 1);
+
+/// الممدود والمد مع بعض جوه نص (مقطع أو كلمة).
+MaddTextVisual pairHl(String text, String syl, String key, {bool pop = false, String? say}) {
+  final i = text.indexOf(syl);
+  return MaddTextVisual(text, hl: i + syl.length - 1, mamStart: i, typeKey: key, big: true, pop: pop, say: say);
+}
+
+/// اختيارات بعدد مناسب حتى لو الكلمة حروفها قليلة (زي باب).
+List<Object> _choicesOf(String answer, List<String> must, List<String> pool, int n, Rng r) {
+  final out = {answer, ...must, ...pool}.take(n).toList();
+  if (out.length < n) {
+    out.addAll(r.shuffle(maddDistractors.where((c) => !out.contains(c)).toList()).take(n - out.length));
+  }
+  return r.shuffle(<Object>[...out]);
+}
+
 final Map<String, _Kind> _kinds = {
   // اختر حرف المد: بَ _ ← ا ← بَا
   'letter': (type, cfg, lv, r, focus, stats) {
@@ -203,6 +225,93 @@ final Map<String, _Kind> _kinds = {
     );
   },
 
+  // من الحرف الممدود في المقطع؟  سَا ← س
+  'mamdoudSyl': (type, cfg, lv, r, focus, stats) {
+    final key = _pickType(cfg, focus, r), t = maddType(key);
+    final syl = _pickSyl(key, lv, stats, r);
+    final ans = mamdoudOf(syl), mad = maddCharOf(syl);
+    return Question(
+      type: type, mode: QMode.choice, skill: 'madd:$key', mtype: key, gentle: true, bigChoices: true,
+      ask: 'من الحرف المَمْدود؟', speak: '${saySyl(syl)} . من الحرف الممدود؟',
+      visuals: [MaddTextVisual(syl, big: true, say: saySyl(syl))],
+      revealVisuals: [pairHl(syl, syl, key, pop: true, say: saySyl(syl))],
+      choices: _choicesOf(ans, [mad], const [], lv >= 3 ? 4 : 3, r), answer: ans,
+      hint: 'الممدود هو الحرف الأول الذي نمدّ صوته 👆', speakHint: 'الممدود هو الحرف الأول الذي نمد صوته',
+      okMsg: '⭐ أحسنت! $ans هو الممدود، و$mad هو حرف المد — ${t.name}', sayRight: saySyl(syl),
+    );
+  },
+
+  // ومن حرف المد في المقطع؟  سَا ← ا
+  'maddInSyl': (type, cfg, lv, r, focus, stats) {
+    final key = _pickType(cfg, focus, r), t = maddType(key);
+    final syl = _pickSyl(key, lv, stats, r);
+    final ans = maddCharOf(syl);
+    return Question(
+      type: type, mode: QMode.choice, skill: 'madd:$key', mtype: key, gentle: true, bigChoices: true,
+      ask: 'من حرف المد؟', speak: '${saySyl(syl)} . من حرف المد؟',
+      visuals: [MaddTextVisual(syl, big: true, say: saySyl(syl))],
+      revealVisuals: [pairHl(syl, syl, key, pop: true, say: saySyl(syl))],
+      choices: r.shuffle(<Object>{mamdoudOf(syl), ...maddLetters}.toList()), answer: ans,
+      hint: 'حرف المد هو الحرف الأخير: ا أو و أو ي 👀', speakHint: 'حرف المد هو الحرف الأخير',
+      okMsg: '⭐ ممتاز! $ans هو ${t.letterWord} — حرف المد', sayRight: saySyl(syl),
+    );
+  },
+
+  // من الحرف الممدود في الكلمة؟  سَاجِد ← س
+  'mamdoudWord': (type, cfg, lv, r, focus, stats) {
+    final w = _pickWord(lv, focus, r), t = maddType(w.type);
+    final ans = mamdoudOf(w.madd), mad = maddCharOf(w.madd);
+    final others = w.plain.split('').toSet().where((c) => c != ans && c != mad).toList();
+    return Question(
+      type: type, mode: QMode.choice, skill: 'madd_word:${w.plain}', mword: w.plain, mtype: w.type,
+      gentle: true, bigChoices: true,
+      ask: 'من الحرف المَمْدود في الكلمة؟', speak: '${w.w} . من الحرف الممدود؟',
+      visuals: [PicsVisual(w.e, 1), MaddTextVisual(w.w, big: true, say: w.w)],
+      revealVisuals: [PicsVisual(w.e, 1), pairHl(w.w, w.madd, w.type, pop: true, say: w.w)],
+      choices: _choicesOf(ans, [mad], others, 4, r), answer: ans,
+      hint: 'الحرف الذي نمدّ صوته، وبعده حرف المد 🔎', speakHint: 'ابحث عن الحرف الذي نمد صوته',
+      okMsg: 'أحسنت! $ans ممدود بـ${t.letterWord} ← ${w.madd} ⭐', sayRight: w.w,
+    );
+  },
+
+  // ومن حرف المد في الكلمة؟  سَاجِد ← ا
+  'maddWord': (type, cfg, lv, r, focus, stats) {
+    final w = _pickWord(lv, focus, r), t = maddType(w.type);
+    final ans = maddCharOf(w.madd), mam = mamdoudOf(w.madd);
+    final others = w.plain.split('').toSet().where((c) => c != ans && c != mam).toList();
+    return Question(
+      type: type, mode: QMode.choice, skill: 'madd_word:${w.plain}', mword: w.plain, mtype: w.type,
+      gentle: true, bigChoices: true,
+      ask: 'من حرف المد في الكلمة؟', speak: '${w.w} . من حرف المد؟',
+      visuals: [PicsVisual(w.e, 1), MaddTextVisual(w.w, big: true, say: w.w)],
+      revealVisuals: [PicsVisual(w.e, 1), pairHl(w.w, w.madd, w.type, pop: true, say: w.w)],
+      choices: _choicesOf(ans, [mam], others, 4, r), answer: ans,
+      hint: 'حرف المد هو: ا أو و أو ي 👀', speakHint: 'حرف المد هو ألف أو واو أو ياء',
+      okMsg: 'ممتاز! $ans هو حرف المد — ${t.name} 👏', sayRight: w.w,
+    );
+  },
+
+  // صنّف: صندوق للممدود وصندوق لحرف المد
+  'pairSort': (type, cfg, lv, r, focus, stats) {
+    final n = lv >= 3 ? 4 : 3;
+    final keys = r.shuffle([for (final t in maddTypes) t.key, r.sample(maddTypes).key]).take(n);
+    final cards = <SortCard>[];
+    for (final k in keys) {
+      final syl = normalizeSyl(r.sample(maddType(k).examples), k);
+      cards
+        ..add(SortCard(baseOf(syl), saySyl(syl), 'mamdoud'))
+        ..add(SortCard(maddCharOf(syl), maddType(k).letterWord, 'maddletter'));
+    }
+    return Question(
+      type: type, mode: QMode.sort, skill: 'madd:pair', gentle: true,
+      ask: 'ضع كل حرف في صندوقه', speak: 'ضع الحرف الممدود في صندوقه، وحرف المد في صندوقه',
+      orderHint: 'اضغط الحرف ثم اضغط الصندوق (أو اسحبه)',
+      boxes: const [SortBox('mamdoud', '🔤 الحرف الممدود'), SortBox('maddletter', '〰️ حرف المد')],
+      sortCards: r.shuffle(cards),
+      hint: 'حروف المد ثلاثة فقط: ا و ي — والباقي ممدود 👀', speakHint: 'حروف المد ثلاثة فقط: ألف وواو وياء',
+    );
+  },
+
   // من الصورة إلى الكلمة
   'wordpic': (type, cfg, lv, r, focus, stats) {
     final pics = maddWords.where((x) => x.pic).toList();
@@ -235,6 +344,9 @@ const maddStageDefs = <(String, String, String, int, int, MaddStage)>[
   ('madd_compose', '🧩', 'كوّن المقطع', 2, 0xFFFF7A59, MaddStage(lesson: 'compose', types: _all, kinds: ['compose', 'sort', 'read'])),
   ('madd_find', '🕵️', 'اكتشف المد في الكلمة', 3, 0xFF1FAE9B, MaddStage(lesson: 'find', types: _all, kinds: ['find', 'wordtype'])),
   ('madd_read', '📖', 'اقرأ كلمات المدود', 3, 0xFF4C6FFF, MaddStage(lesson: 'read', types: _all, kinds: ['wordread', 'wordpic', 'wordtype'])),
+  // المرحلة ٩ — التمييز بين الحرف الممدود وحرف المد (سَاجِد: الممدود س، المد ا)
+  ('madd_mamdoud', '🎯', 'المد والممدود', 3, 0xFF7A4FD1,
+      MaddStage(lesson: 'mamdoud', types: _all, kinds: ['mamdoudSyl', 'maddInSyl', 'pairSort', 'mamdoudWord', 'maddWord'])),
 ];
 
 // ---------------------------------------------------------------- التعلّم المتكيّف الخاص بالمدود

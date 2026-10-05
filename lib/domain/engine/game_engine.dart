@@ -187,7 +187,8 @@ class GameEngine extends Notifier<GameSession?> {
     final p = _progress.data;
     final childLv = p.level(stage.world);
     final level = math.min(math.max(stage.base, math.min(childLv, stage.base + 1)), 4);
-    final count = practice ? practiceCount : questionsPerRound;
+    // مراحل طويلة (زي الجدول الفاضي) ممكن تحدّد عدد أسئلتها بنفسها
+    final count = practice ? practiceCount : (stage.count ?? questionsPerRound);
     final list = <Question>[];
     if (practice && types != null && types.isNotEmpty) {
       for (var i = 0; i < count; i++) {

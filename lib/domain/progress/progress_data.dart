@@ -11,21 +11,54 @@ import 'extras.dart';
 export 'extras.dart';
 
 class Settings {
-  Settings({this.speech = true, this.sfx = true, this.dev = false});
+  Settings({this.speech = true, this.sfx = true, this.music = true, this.dev = false, this.goal = 20, this.limitMin = 0});
 
   factory Settings.fromJson(Map<String, dynamic> j) => Settings(
         speech: j['speech'] as bool? ?? true,
         sfx: j['sfx'] as bool? ?? true,
+        // إعدادات جديدة للمستخدمين القدام: الموسيقى شغالة والهدف ٢٠ ومفيش حد للوقت
+        music: j['music'] as bool? ?? true,
         dev: j['dev'] as bool? ?? false,
+        goal: (j['goal'] as num?)?.toInt() ?? 20,
+        limitMin: (j['limitMin'] as num?)?.toInt() ?? 0,
       );
 
   bool speech;
   bool sfx;
 
+  /// موسيقى هادية في الخلفية.
+  bool music;
+
   /// فتح كل المراحل — للتجربة بس.
   bool dev;
 
-  Map<String, dynamic> toJson() => {'speech': speech, 'sfx': sfx, 'dev': dev};
+  /// هدف اليوم بالنجوم.
+  int goal;
+
+  /// حد أقصى لوقت اللعب بالدقايق — ٠ = مفيش حد.
+  int limitMin;
+
+  Map<String, dynamic> toJson() =>
+      {'speech': speech, 'sfx': sfx, 'music': music, 'dev': dev, 'goal': goal, 'limitMin': limitMin};
+}
+
+/// سجل يوم واحد: 'YYYY-MM-DD' ← نجوم وإجابات وألعاب ووقت، و done = اتحتفل بالهدف.
+class DayLog {
+  DayLog({this.stars = 0, this.correct = 0, this.wrong = 0, this.games = 0, this.ms = 0, this.done = false});
+  int stars, correct, wrong, games, ms;
+  bool done;
+
+  bool get active => games > 0 || stars > 0;
+
+  factory DayLog.fromJson(Object? j) {
+    final m = j is Map ? j : const {};
+    int n(String k) => (m[k] as num?)?.toInt() ?? 0;
+    return DayLog(stars: n('stars'), correct: n('correct'), wrong: n('wrong'), games: n('games'), ms: n('ms'),
+        done: m['done'] == true || m['done'] == 1);
+  }
+
+  Map<String, dynamic> toJson() =>
+      {'stars': stars, 'correct': correct, 'wrong': wrong, 'games': games, 'ms': ms, 'done': done ? 1 : 0};
 }
 
 class ProgressData {
@@ -48,6 +81,8 @@ class ProgressData {
     Settings? settings,
     MaddStats? madd,
     Map<String, PgGoal>? pgFocus,
+    Map<String, DayLog>? days,
+    this.rankSeen,
   })  : unlocked = unlocked ?? [...initiallyUnlocked],
         best = best ?? {},
         starsBy = starsBy ?? {},
@@ -57,7 +92,8 @@ class ProgressData {
         achievements = achievements ?? [],
         settings = settings ?? Settings(),
         madd = madd ?? MaddStats(),
-        pgFocus = pgFocus ?? {};
+        pgFocus = pgFocus ?? {},
+        days = days ?? {};
 
   static const schemaVersion = 1;
 
@@ -94,6 +130,12 @@ class ProgressData {
   /// أهداف دليل ولي الأمر (progress.parentGuide.focus في الويب).
   final Map<String, PgGoal> pgFocus;
 
+  /// سجل يومي مختصر — بيغذّي السلسلة والهدف اليومي والتقرير الأسبوعي.
+  final Map<String, DayLog> days;
+
+  /// آخر كأس اتحتفل بيه (null = لسه — بنسجّل الحالي من غير احتفال عشان التقدّم القديم).
+  int? rankSeen;
+
   // ---------------------------------------------------------------- JSON
 
   factory ProgressData.fromJson(Map<String, dynamic> j) {
@@ -120,6 +162,8 @@ class ProgressData {
       achievements: strs(j['achievements']),
       settings: j['settings'] is Map ? Settings.fromJson((j['settings'] as Map).cast<String, dynamic>()) : null,
       madd: MaddStats.fromJson(j['madd']),
+      days: j['days'] is Map ? {for (final e in (j['days'] as Map).entries) '${e.key}': DayLog.fromJson(e.value)} : {},
+      rankSeen: (j['rankSeen'] as num?)?.toInt(),
       pgFocus: (j['parentGuide'] is Map && (j['parentGuide'] as Map)['focus'] is Map)
           ? {
               for (final e in ((j['parentGuide'] as Map)['focus'] as Map).entries)
@@ -148,6 +192,8 @@ class ProgressData {
         'achievements': achievements,
         'settings': settings.toJson(),
         'madd': madd.toJson(),
+        'days': {for (final e in days.entries) e.key: e.value.toJson()},
+        'rankSeen': rankSeen,
         'parentGuide': {
           'focus': {for (final e in pgFocus.entries) e.key: e.value.toJson()},
         },
@@ -181,17 +227,20 @@ class ProgressData {
   void addStar(int n, [String? world]) {
     stars += n;
     if (world != null) starsBy[world] = (starsBy[world] ?? 0) + n;
+    today.stars += n;
     lastActivity = _now();
   }
 
   /// كل إجابة تتحسب لحظتها — لو الطفل ساب الجولة في النص، اللي عمله ما يضيعش.
   void addAnswer({required bool ok}) {
     ok ? correct++ : wrong++;
+    ok ? today.correct++ : today.wrong++;
     lastActivity = _now();
   }
 
   void addResult(String id, int correctCount, int total) {
     games++;
+    today.games++;
     lastActivity = _now();
     final medals = correctCount == total ? 3 : (correctCount / total >= .8 ? 2 : 1);
     best[id] = math.max(best[id] ?? 0, medals);
@@ -221,7 +270,89 @@ class ProgressData {
 
   void addTime(int ms) {
     timeMs += ms;
+    today.ms += ms;
     lastActivity = _now();
+  }
+
+  // ---------------------------------------------------------------- السجل اليومي
+
+  /// الساعة — الاختبارات بتبدّلها.
+  static DateTime Function() clock = DateTime.now;
+
+  /// مفتاح اليوم بتوقيت الجهاز (مش UTC) عشان "النهاردة" تبقى نهاردة فعلًا.
+  static String dayKey(DateTime d) =>
+      '${d.year}-${'${d.month}'.padLeft(2, '0')}-${'${d.day}'.padLeft(2, '0')}';
+
+  static String shiftKey(int days) {
+    final n = clock();
+    return dayKey(DateTime(n.year, n.month, n.day + days));
+  }
+
+  DayLog get today => days.putIfAbsent(dayKey(clock()), DayLog.new);
+
+  /// بنحتفظ بآخر ٧٠ يوم بس — التقرير أسبوعي.
+  void pruneDays() {
+    final keys = days.keys.toList()..sort();
+    if (keys.length > 70) {
+      for (final k in keys.take(keys.length - 70)) {
+        days.remove(k);
+      }
+    }
+  }
+
+  /// سلسلة الأيام: من النهاردة (أو من إمبارح لو لسه ملعبش النهاردة)
+  /// عشان الطفل ما يفقدش السلسلة بمجرد ما يصحى الصبح.
+  int get streak {
+    // أي يوم ليه سجل (لعب فيه أي حاجة) بيتحسب — زي الويب
+    bool played(int i) => days.containsKey(shiftKey(i));
+    var i = played(0) ? 0 : -1;
+    if (i == -1 && !played(-1)) return 0;
+    var n = 0;
+    while (played(i)) {
+      n++;
+      i--;
+    }
+    return n;
+  }
+
+  int get todayStars => days[dayKey(clock())]?.stars ?? 0;
+  int get goalPct => settings.goal == 0 ? 0 : math.min(100, (todayStars / settings.goal * 100).round());
+  bool get goalDone => settings.goal > 0 && todayStars >= settings.goal;
+
+  /// بترجّع true مرة واحدة بس في اليوم — عشان الاحتفال ما يتكررش.
+  bool celebrateGoal() {
+    if (!goalDone || today.done) return false;
+    today.done = true;
+    return true;
+  }
+
+  int get todayMin => ((days[dayKey(clock())]?.ms ?? 0) / 60000).round();
+
+  /// الدقايق الفاضلة النهاردة (null = مفيش حد).
+  int? get limitLeft => settings.limitMin == 0 ? null : math.max(0, settings.limitMin - todayMin);
+  bool get limitReached => settings.limitMin > 0 && limitLeft == 0;
+
+  /// آخر ٧ أيام بالترتيب (الأقدم الأول) — [offset] ١ = الأسبوع اللي قبله.
+  List<(DateTime, DayLog)> week([int offset = 0]) {
+    final n = clock();
+    return [
+      for (var i = 6 + offset * 7; i >= offset * 7; i--)
+        () {
+          final d = DateTime(n.year, n.month, n.day - i);
+          return (d, days[dayKey(d)] ?? DayLog());
+        }(),
+    ];
+  }
+
+  ({int stars, int correct, int wrong, int games, int ms, int days}) weekSum([int offset = 0]) {
+    var s = (stars: 0, correct: 0, wrong: 0, games: 0, ms: 0, days: 0);
+    for (final (_, d) in week(offset)) {
+      s = (
+        stars: s.stars + d.stars, correct: s.correct + d.correct, wrong: s.wrong + d.wrong,
+        games: s.games + d.games, ms: s.ms + d.ms, days: s.days + (d.active ? 1 : 0),
+      );
+    }
+    return s;
   }
 
   /// لوحة الحروف — يرجّع true لو الحرف ده جديد.
@@ -237,7 +368,7 @@ class ProgressData {
   // ---------------------------------------------------------------- القرآن
 
   static const quranModes = ['listen', 'repeat', 'memorize', 'review'];
-  static const quranSurahCount = 37; // جزء عمّ: ٧٨–١١٤
+  static const quranSurahCount = 48; // جزء تبارك وعمّ: ٦٧–١١٤
 
   bool quranDone(int surah, String mode) => (quran['$surah:$mode'] ?? 0) > 0;
 
@@ -252,7 +383,7 @@ class ProgressData {
 
   int surahStars(int surah) => quranModes.where((m) => quranDone(surah, m)).length;
 
-  /// نسبة حقيقية: الأنشطة المكتملة من ٣٧ × ٤ (الويب كان بيستخدم النجوم × ٤).
+  /// نسبة حقيقية: الأنشطة المكتملة من ٤٨ × ٤ (الويب بيستخدم النجوم × ٤).
   int get quranPct => (quran.values.where((v) => v > 0).length / (quranSurahCount * 4) * 100).round();
 
   /// سور فيها حفظ من غير مراجعة.

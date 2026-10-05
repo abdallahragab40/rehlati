@@ -75,6 +75,41 @@ Question previousNumber(int lv, Rng r, {String? focus}) {
   );
 }
 
+/// لعبة السابق والتالي: الرقم في النص، والطفل يحط السابق (يمين) والتالي (شمال).
+Question neighbors(int lv, Rng r, {String? focus}) {
+  final l = levelSpec(lv);
+  final n = r.rnd(2, l.max - 1); // لازم يكون ليه سابق وتالي جوه المدى
+  final prev = n - 1, next = n + 1;
+  // الاختيارات: الإجابتان + مشتتات قريبة (الرقم نفسه مشتت ممتاز)
+  final set = <int>{prev, next};
+  final extra = l.choices >= 4 ? 3 : 2;
+  for (final c in [n, n - 2, n + 2, n - 3, n + 3]) {
+    if (set.length < 2 + extra && c >= 1 && c <= l.max && c != prev && c != next) set.add(c);
+  }
+  return Question(
+    type: 'neighbors', mode: QMode.order, rtlSlots: true,
+    clips: ['before', nk(n), 'after'],
+    ask: 'مين السابق ومين التالي؟',
+    speak: 'الرقم ${arNum(n)}. مين الرقم اللي قبله ومين الرقم اللي بعده؟',
+    orderHint: 'اضغط السابق الأول (يمين) وبعدين التالي (شمال)',
+    visuals: [
+      ExprVisual([
+        const ExprCaption('السابق', ExprTile(null)),
+        const ExprOp('←'),
+        ExprCaption('الرقم', ExprTile(n, mid: true)),
+        const ExprOp('←'),
+        const ExprCaption('التالي', ExprTile(null)),
+      ], fillFromPicked: true),
+    ],
+    items: r.shuffle(<Object>[...set]),
+    answer: <Object>[prev, next],
+    hint: 'السابق أقل بواحد 👈 والتالي أكبر بواحد 👉',
+    speakHint: 'السابق أقل بواحد، والتالي أكبر بواحد',
+    okMsg: '⭐ أحسنت! ${ar(prev)} ثم ${ar(n)} ثم ${ar(next)}',
+    sayRight: '${arNum(prev)} ، ${arNum(n)} ، ${arNum(next)}',
+  );
+}
+
 /// لعبة أكمل التسلسل.
 Question sequence(int lv, Rng r, {String? focus}) {
   final l = levelSpec(lv), step = r.sample(l.steps);
@@ -131,6 +166,24 @@ Question completeTable(int lv, Rng r, {String? focus}) {
     answer: sorted,
     hint: 'عُدّ من أول الصف لحد الخانة الفاضية 👆',
     speakHint: 'عُد من أول الصف لحد الخانة الفاضية',
+  );
+}
+
+/// لعبة الجدول الفاضي: الجدول كله فاضي، والطفل يملاه بالترتيب من ١ (لحد ١٠ أو ٢٠).
+Question emptyTable(int lv, Rng r, {String? focus}) {
+  final max = lv <= 2 ? 10 : 20;
+  final nums = [for (var i = 1; i <= max; i++) i];
+  return Question(
+    type: 'emptyTable', mode: QMode.grid,
+    clips: ['complete_table'],
+    ask: 'املأ الجدول بالترتيب',
+    speak: 'املأ الجدول من واحد لحد ${arNum(max)}',
+    orderHint: 'اضغط الأرقام بالترتيب: واحد، اتنين، تلاتة… لحد ${ar(max)}',
+    visuals: [TableVisual(List<String?>.filled(max, null), kind: TableKind.numbers)],
+    items: r.shuffle(<Object>[...nums]),
+    answer: nums,
+    hint: 'ابدأ من ١ وكمّل بالترتيب 👆',
+    speakHint: 'ابدأ من واحد وكمّل بالترتيب',
   );
 }
 

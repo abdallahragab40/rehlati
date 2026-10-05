@@ -95,7 +95,7 @@ class QuranHomeScreen extends ConsumerWidget {
         const SizedBox(height: 6),
         const Banner3D('📖 عالم القرآن', color: quranMint, tone: quranMintDark, ink: Color(0xFF04332C)),
         const SizedBox(height: 14),
-        Text('جزء عمّ',
+        Text(QuranConfig.rangeTitle,
             style: kidText(context.clampVw(22, 6, 32), color: Colors.white)
                 .copyWith(shadows: const [Shadow(color: Color(0x4D1B3557), offset: Offset(0, 3))])),
         const HeroText('اختار سورة وابدأ الرحلة'),
@@ -118,6 +118,11 @@ class _SurahPath extends StatelessWidget {
           const _Pill('🕌 البداية', AppColors.gold, AppColors.goldDark, Color(0xFF4A2B00)),
           for (var i = 0; i < chapters.length; i++) ...[
             const _Link(),
+            // عنوان الجزء بيظهر مرة واحدة قبل أول سورة فيه
+            if (i == 0 || QuranConfig.juzOf(chapters[i - 1].number) != QuranConfig.juzOf(chapters[i].number)) ...[
+              _Pill(QuranConfig.juzOf(chapters[i].number), quranMint, quranMintDark, Colors.white),
+              const _Link(),
+            ],
             LayoutBuilder(
               builder: (context, box) => Align(
                 // محطات متعرّجة: الأولى ناحية الشمال والتانية ناحية اليمين

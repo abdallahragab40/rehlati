@@ -153,6 +153,6 @@ void main() {
     final ids = [for (final s in worldStages['arabic']!) s.id];
     expect(ids.indexOf('madd_alif'), 11, reason: 'appended after the 11 original stages');
     expect(packs['madd_alif']!.after, 'ar_table');
-    expect(packs.values.where((s) => s.isMadd).length, 8);
+    expect(packs.values.where((s) => s.isMadd).length, 9);
   });
 }

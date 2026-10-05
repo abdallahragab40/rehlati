@@ -16,6 +16,9 @@ abstract class Speech {
   void speak(Object text, {List<String?>? clips});
   void speakEn(Object text);
   void stop();
+
+  /// true وقت النطق — الموسيقى بتوطّي صوتها عشان الطفل يسمع السؤال.
+  ValueListenable<bool> get speaking;
 }
 
 class SpeechService implements Speech {
@@ -28,6 +31,10 @@ class SpeechService implements Speech {
   final _clips = AudioPlayer();
   int _token = 0;
   String? _currentLang;
+  final _speaking = ValueNotifier<bool>(false);
+
+  @override
+  ValueListenable<bool> get speaking => _speaking;
   Map<String, String>? _arVoice, _enVoice;
 
   // للتشخيص في الإعدادات
@@ -107,13 +114,19 @@ class SpeechService implements Speech {
         await _clips.setAudioSources([for (final k in clips) AudioSource.asset('assets/audio/clips/$k.m4a')]);
         if (my != _token) return;
         lastEvent = 'مقاطع مسجّلة ✅';
-        unawaited(_clips.play());
+        _speaking.value = true;
+        // play() بيخلص لما المقطع يخلص أو يتوقف
+        unawaited(_clips.play().then((_) {
+          if (my == _token) _speaking.value = false;
+        }));
         return;
       } catch (e) {
         lastEvent = 'المقاطع فشلت، بنرجع للنطق: $e';
       }
     }
+    _speaking.value = true;
     await _say(_parts(text), lang, my);
+    if (my == _token) _speaking.value = false;
   }
 
   Future<void> _say(List<String> parts, String lang, int my) async {
@@ -150,6 +163,7 @@ class SpeechService implements Speech {
   @override
   void stop() {
     _token++;
+    _speaking.value = false;
     unawaited(_halt());
   }
 }

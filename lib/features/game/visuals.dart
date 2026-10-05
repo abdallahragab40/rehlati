@@ -30,7 +30,7 @@ class VisualView extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 16),
       child: switch (visual) {
         PicsVisual v => _Pics(v),
-        ExprVisual v => _Expr(v),
+        ExprVisual v => _Expr(v, picked: v.fillFromPicked ? picked : const []),
         BigLetterVisual v => Directionality(
           textDirection: dir,
           child: Text(
@@ -128,8 +128,17 @@ const _grey = <double>[
 
 /// بلاطة رقم (.num-tile) — فاضية = حدود متقطعة و"؟".
 class NumTile extends StatelessWidget {
-  const NumTile(this.value, {super.key});
+  const NumTile(this.value, {super.key, this.mid = false, this.filled = false, this.next = false});
   final Object? value;
+
+  /// الرقم اللي في النص (السابق والتالي): أبيض بحدود بنفسجي.
+  final bool mid;
+
+  /// إجابة الطفل اتحطت هنا (أخضر).
+  final bool filled;
+
+  /// الخانة الفاضية اللي عليها الدور (حدود بنفسجي).
+  final bool next;
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +147,7 @@ class NumTile extends StatelessWidget {
     const pad = EdgeInsets.symmetric(horizontal: 10, vertical: 2);
     if (value == null) {
       return DashedBox(
-        color: AppColors.line,
+        color: next ? AppColors.grape : AppColors.line,
         constraints: box,
         padding: pad,
         child: Text(
@@ -152,23 +161,35 @@ class NumTile extends StatelessWidget {
       constraints: box,
       padding: pad,
       decoration: BoxDecoration(
-        color: AppColors.paper2,
+        color: filled ? AppColors.mint : (mid ? AppColors.paper : AppColors.paper2),
         borderRadius: BorderRadius.circular(22),
-        border: Border.all(color: AppColors.line, width: 4),
+        border: Border.all(color: filled ? AppColors.mint : (mid ? AppColors.grape : AppColors.line), width: 4),
       ),
-      child: Text(ar(value), textAlign: TextAlign.center, style: style),
+      child: Text(ar(value), textAlign: TextAlign.center, style: filled ? style.copyWith(color: Colors.white) : style),
     );
   }
 }
 
 /// التعبيرات دايمًا من اليمين (العُرف في الكتب العربية).
 class _Expr extends StatelessWidget {
-  const _Expr(this.v);
+  const _Expr(this.v, {this.picked = const []});
   final ExprVisual v;
+
+  /// إجابات الطفل اللي بتملا الخانات الفاضية بالترتيب (من اليمين).
+  final List<Object> picked;
 
   @override
   Widget build(BuildContext context) {
     final opSize = context.clampVw(30, 8, 46);
+    // الخانة الفاضية رقم k بتاخد picked[k] لو الطفل وصلها
+    var blank = 0;
+    Widget tile(ExprTile t) {
+      if (t.value != null || !v.fillFromPicked) return NumTile(t.value, mid: t.mid);
+      final k = blank++;
+      if (k >= picked.length) return NumTile(null, next: k == picked.length);
+      return NumTile(picked[k], filled: true).animate().scaleXY(begin: 1.18, end: 1, duration: 300.ms);
+    }
+
     // سطر واحد دايمًا — لو مش واسع كفاية بيصغر بدل ما يتكسر على كذا سطر
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -176,11 +197,18 @@ class _Expr extends StatelessWidget {
         fit: BoxFit.scaleDown,
         child: Row(
           mainAxisSize: MainAxisSize.min,
+          // خانات بعناوين: الأسهم تتراصّ مع البلاطات مش مع العناوين
+          crossAxisAlignment: v.parts.any((p) => p is ExprCaption) ? CrossAxisAlignment.end : CrossAxisAlignment.center,
           spacing: context.clampVw(8, 2.6, 18),
           children: [
             for (final p in v.parts)
               switch (p) {
-                ExprTile t => NumTile(t.value),
+                ExprTile t => tile(t),
+                ExprCaption c => Column(mainAxisSize: MainAxisSize.min, children: [
+                    Text(c.caption, style: kidText(context.clampVw(12, 3.2, 15), color: AppColors.inkSoft)),
+                    const SizedBox(height: 5),
+                    if (c.inner case final ExprTile t) tile(t),
+                  ]),
                 ExprOp o => Opacity(
                   opacity: o.separator ? .45 : 1,
                   child: Text(
