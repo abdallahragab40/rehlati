@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/audio/audio_providers.dart';
 import '../../core/audio/speech_service.dart';
+import '../../core/audio/voice_lines.dart';
+import '../../core/features.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
@@ -28,7 +30,8 @@ class _SettingsPanelState extends ConsumerState<_SettingsPanel> {
 
   @override
   Widget build(BuildContext context) {
-    final settings = ref.watch(progressProvider.select((p) => p.settings));
+    // الإعدادات بتتعدّل في مكانها (نفس الأوبجكت) فـ select مابيحسّش بالتغيير — لازم نسمع للتقدّم كله
+    final settings = ref.watch(progressProvider).settings;
     final progress = ref.read(progressProvider.notifier);
     final speech = ref.read(speechProvider);
 
@@ -47,6 +50,20 @@ class _SettingsPanelState extends ConsumerState<_SettingsPanel> {
           onChanged: (v) => progress.update((p) => set(v)),
         );
 
+    Widget choices<T>(T value, List<(String, T)> opts, void Function(T) set) => Wrap(
+          spacing: 6,
+          children: [
+            for (final (label, v) in opts)
+              ChoiceChip(
+                label: Text(label, style: kidText(15, weight: FontWeight.w700)),
+                selected: v == value,
+                showCheckmark: false,
+                selectedColor: AppColors.gold,
+                onSelected: (_) => progress.update((p) => set(v)),
+              ),
+          ],
+        );
+
     Widget smallBtn(String label, VoidCallback onTap) =>
         TextButton(onPressed: onTap, child: Text(label, style: kidText(16, color: AppColors.grape)));
 
@@ -63,10 +80,11 @@ class _SettingsPanelState extends ConsumerState<_SettingsPanel> {
             children: [
               Text('⚙️ الإعدادات', style: kidText(24)),
               const SizedBox(height: 10),
-              row('🔊 نطق الأسئلة', toggle(settings.speech, (v) {
-                ref.read(progressProvider).settings.speech = v;
-                if (!v) speech.stop();
-              })),
+              if (voiceEnabled)
+                row('🔊 نطق الأسئلة', toggle(settings.speech, (v) {
+                  ref.read(progressProvider).settings.speech = v;
+                  if (!v) speech.stop();
+                })),
               row('🎵 أصوات اللعبة', toggle(settings.sfx, (v) {
                 ref.read(progressProvider).settings.sfx = v;
                 if (v) ref.read(sfxProvider).good();
@@ -75,15 +93,29 @@ class _SettingsPanelState extends ConsumerState<_SettingsPanel> {
                 ref.read(progressProvider).settings.music = v;
                 Future.microtask(() => ref.read(musicProvider).refresh());
               })),
-              const NoteBox(Text('الموسيقى بتسكت لوحدها في عالم القرآن، وبتهدى وقت نطق الأسئلة.')),
-              row('🎤 صوت القراءة', smallBtn('جرّب', () {
-                progress.update((p) => p.settings.speech = true);
-                speech.speak(['أهلاً يا بطل، أنا الأسد صاحبك', 'واحد، اتنين، تلاتة']);
-                ref.read(sfxProvider).good();
-                Future.delayed(const Duration(milliseconds: 1800), () {
-                  if (mounted) setState(() => _showVoice = true);
-                });
-              })),
+              const NoteBox(Text('الموسيقى بتسكت لوحدها في عالم القرآن.')),
+              if (voiceEnabled)
+                row(
+                  '🐢 سرعة الكلام',
+                  choices(settings.speechRate, const [('بطيء', .8), ('عادي', 1.0), ('أسرع', 1.15)], (v) {
+                    ref.read(progressProvider).settings.speechRate = v;
+                    speech.speak(sayVoiceTest);
+                  }),
+                ),
+              row(
+                '🔢 شكل الأرقام',
+                choices(settings.westernDigits, const [('١٢٣', false), ('123', true)],
+                    (v) => ref.read(progressProvider).settings.westernDigits = v),
+              ),
+              if (voiceEnabled)
+                row('🎤 صوت القراءة', smallBtn('جرّب', () {
+                  progress.update((p) => p.settings.speech = true);
+                  speech.speak(sayVoiceTest);
+                  ref.read(sfxProvider).good();
+                  Future.delayed(const Duration(milliseconds: 1800), () {
+                    if (mounted) setState(() => _showVoice = true);
+                  });
+                })),
               if (_showVoice && speech is SpeechService) _VoiceReport(speech),
               row('👨‍👩‍👦 لوحة ولي الأمر', smallBtn('افتح', () async {
                 // الراوتر بيتمسك قبل ما الدايالوج يتقفل — context بتاعه بيموت بعد pop

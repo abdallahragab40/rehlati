@@ -7,6 +7,9 @@ import 'package:go_router/go_router.dart';
 
 import '../../content/madd.dart';
 import '../../core/audio/audio_providers.dart';
+import '../../core/audio/voice_lines.dart';
+import '../../core/features.dart';
+import '../../core/nav.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
@@ -39,7 +42,7 @@ class _MaddLessonScreenState extends ConsumerState<MaddLessonScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_remedial != null) {
         ref.read(progressProvider.notifier).update((p) => p.madd.review.add(_remedial!));
-        _say('تحتاج إلى تدريب صغير على ${maddType(_remedial!).name}');
+        _say(sayRemedial(maddType(_remedial!).name));
       } else {
         _markLesson();
       }
@@ -59,7 +62,7 @@ class _MaddLessonScreenState extends ConsumerState<MaddLessonScreen> {
   Widget build(BuildContext context) {
     final remedial = _remedial;
     return ScreenFrame(
-      onBack: () => context.pop(),
+      onBack: () => context.back(),
       title: remedial != null ? 'تدريب صغير' : pack.name,
       child: Column(children: [
         const SizedBox(height: 6),
@@ -109,8 +112,8 @@ class _MaddLessonScreenState extends ConsumerState<MaddLessonScreen> {
       return Column(children: [
         _rule(single.rule, single.key),
         _Formula(single, big: true),
-        KidButton('🔊 اسمع', onTap: () => _say(saySyl(single.result))),
-        _hint('اضغط أي مقطع لتسمعه'),
+        if (voiceEnabled) KidButton('🔊 اسمع', onTap: () => _say(saySyl(single.result))),
+        if (voiceEnabled) _hint('اضغط أي مقطع لتسمعه'),
         const SizedBox(height: 10),
         Wrap(alignment: WrapAlignment.center, spacing: 12, runSpacing: 12, children: [
           for (final e in single.examples) _ExampleChip(syl: e, typeKey: single.key, onTap: () => _say(saySyl(e))),
@@ -127,7 +130,7 @@ class _MaddLessonScreenState extends ConsumerState<MaddLessonScreen> {
         Wrap(alignment: WrapAlignment.center, spacing: 12, runSpacing: 12, children: [
           for (final w in words) _WordChip(w, onTap: () => _say(w.w)),
         ]),
-        _hint('اضغط أي كلمة لتسمعها'),
+        if (voiceEnabled) _hint('اضغط أي كلمة لتسمعها'),
       ]);
     }
     // المراحل ٤–٦: تذكير بالأنواع الثلاثة
@@ -177,8 +180,8 @@ class _MaddLessonScreenState extends ConsumerState<MaddLessonScreen> {
       Text.rich(maddSpan(pair.text, hl: pair.hl, mamStart: pair.mamStart, typeKey: pair.typeKey, style: big),
           textDirection: TextDirection.rtl),
       Wrap(alignment: WrapAlignment.center, spacing: 10, runSpacing: 10, children: [
-        chip('الحرف المَمْدود', mam, mamdoudColor, maddColors('mamdoud').$2, '$mam الممدود', dashed: true),
-        chip('حرف المد', mad, madColor, madBg, '${mad == 'ا' ? 'ألف' : mad} حرف المد'),
+        chip('الحرف المَمْدود', mam, mamdoudColor, maddColors('mamdoud').$2, sayMamdoud(mam), dashed: true),
+        chip('حرف المد', mad, madColor, madBg, sayMaddChar(mad)),
       ]),
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -195,8 +198,8 @@ class _MaddLessonScreenState extends ConsumerState<MaddLessonScreen> {
           textAlign: TextAlign.center,
         ),
       ),
-      KidButton('🔊 اسمع الكلمة', onTap: () => _say(demo.w)),
-      _hint('اضغط أي مقطع لتسمعه'),
+      if (voiceEnabled) KidButton('🔊 اسمع الكلمة', onTap: () => _say(demo.w)),
+      if (voiceEnabled) _hint('اضغط أي مقطع لتسمعه'),
       const SizedBox(height: 10),
       Wrap(alignment: WrapAlignment.center, spacing: 12, runSpacing: 12, children: [
         for (final t in maddTypes)

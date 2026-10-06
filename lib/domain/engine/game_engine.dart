@@ -13,9 +13,10 @@ import '../../content/math_data.dart';
 import '../../core/audio/audio_providers.dart';
 import '../../core/audio/sfx_service.dart';
 import '../../core/audio/speech_service.dart';
+import '../../core/audio/voice_lines.dart';
+import '../../core/ui_state.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/utils/rng.dart';
-import '../../core/ui_state.dart';
 import '../progress/progress_controller.dart';
 import '../progress/progress_data.dart';
 import '../question.dart';
@@ -222,7 +223,7 @@ class GameEngine extends Notifier<GameSession?> {
     if (q.isEnglish) {
       _speech.speakEn(q.speak);
     } else {
-      _speech.speak(s.idx == 0 ? ['${s.stage.name}. يلا بينا!', q.speak] : q.speak, clips: q.clips);
+      _speech.speak(s.idx == 0 ? [sayStageIntro(s.stage.name), q.speak] : q.speak, clips: q.clips);
     }
   }
 
@@ -339,8 +340,10 @@ class GameEngine extends Notifier<GameSession?> {
         _penalize();
       }
       _wrongUi(q, 'c$i');
-      _say(q, [said, 'حاول مرة تانية', q.speakHint ?? q.hint],
-          clips: [valueClip, 'retry', ...?q.clipsHint], en: ['$value', 'Try again', q.speakHint ?? '']);
+      // من غير مقاطع للتلميح بنروح لمقاطع الجُمل الكاملة عشان التلميح مايضيعش
+      _say(q, [said, sayRetry, q.speakHint ?? q.hint],
+          clips: q.clipsHint == null ? null : [valueClip, 'retry', ...q.clipsHint!],
+          en: ['$value', 'Try again', q.speakHint ?? '']);
     }
   }
 
@@ -376,8 +379,9 @@ class GameEngine extends Notifier<GameSession?> {
         _penalize();
       }
       _wrongUi(q, 'i$i');
-      _say(q, [said, 'حاول مرة تانية', q.speakHint ?? q.hint],
-          clips: [nk(value), 'retry'], en: [said, 'Try again', q.speakHint ?? '']);
+      _say(q, [said, sayRetry, q.speakHint ?? q.hint],
+          clips: q.clipsHint == null ? null : [nk(value), 'retry', ...q.clipsHint!],
+          en: [said, 'Try again', q.speakHint ?? '']);
     }
   }
 
@@ -431,7 +435,7 @@ class GameEngine extends Notifier<GameSession?> {
       if (s.tries == 1) _penalize();
       _miss(sk);
       _wrongUi(q, 'r$i', allowHint: false);
-      _say(q, ['حاول مرة تانية'], clips: ['retry'], en: ['Try again']);
+      _say(q, [sayRetry], clips: ['retry'], en: ['Try again']);
     }
   }
 
@@ -458,7 +462,7 @@ class GameEngine extends Notifier<GameSession?> {
       if (s.tries == 1) _penalize();
       _miss(q.skill);
       _wrongUi(q, 'f$i', allowHint: false);
-      _say(q, ['مش ده'], en: ['Not this one']);
+      _say(q, [sayNotThis], en: ['Not this one']);
     }
   }
 

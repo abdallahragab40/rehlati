@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
@@ -126,6 +127,59 @@ class FxController extends ChangeNotifier {
     }
   }
 
+  /// مكان عدّاد النجوم فوق — [StarTarget] بيسجّله كل ما يترسم.
+  static Offset? starTarget;
+
+  /// نجوم بتطير في قوس من الإجابة لعدّاد النجوم (النجمة "بتدخل" العدّاد).
+  void flyStars(Offset? from, {int n = 1}) {
+    final to = starTarget;
+    if (from == null || to == null || reduceMotion) return;
+    for (var i = 0; i < n; i++) {
+      // نقطة تحكم فوق الخط بين الاتنين عشان الطيران يبقى قوس مش خط مستقيم
+      final ctrl = Offset((from.dx + to.dx) / 2 + _r(-90, 90), math.min(from.dy, to.dy) - _r(80, 160));
+      _add((850 + i * 110).ms, (_) => Positioned(
+            left: from.dx - 20,
+            top: from.dy - 20,
+            child: const Text('⭐', style: TextStyle(fontSize: 34))
+                .animate()
+                .custom(
+                  delay: (i * 110).ms,
+                  duration: 720.ms,
+                  curve: Curves.easeInCubic,
+                  builder: (_, t, child) {
+                    final u = 1 - t;
+                    final p = from * (u * u) + ctrl * (2 * u * t) + to * (t * t);
+                    return Transform.translate(
+                      offset: p - from,
+                      child: Transform.scale(scale: 1.3 - .7 * t, child: Transform.rotate(angle: t * 6, child: child)),
+                    );
+                  },
+                )
+                .then()
+                .fadeOut(duration: 80.ms),
+          ));
+    }
+  }
+
+  /// لمسة صغيرة بتلمع مكان أي ضغطة — الطفل بيحس إن الشاشة بتستجيب.
+  void tapSparkle(Offset at) {
+    if (reduceMotion) return;
+    const n = 6;
+    for (var i = 0; i < n; i++) {
+      final a = i / n * math.pi * 2 + _r(-.3, .3), d = _r(22, 38);
+      final color = AppColors.confetti[_rnd.nextInt(AppColors.confetti.length)];
+      _add(480.ms, (_) => Positioned(
+            left: at.dx - 4,
+            top: at.dy - 4,
+            child: Container(width: 8, height: 8, decoration: BoxDecoration(color: color, shape: BoxShape.circle))
+                .animate()
+                .move(end: Offset(math.cos(a) * d, math.sin(a) * d), duration: 450.ms, curve: Curves.easeOutCubic)
+                .scaleXY(begin: 1.2, end: .2, duration: 450.ms)
+                .fadeOut(begin: .9, duration: 450.ms),
+          ));
+    }
+  }
+
   void confetti(int n) {
     if (reduceMotion) return;
     for (var i = 0; i < n; i++) {
@@ -160,7 +214,7 @@ class FxLayer extends ConsumerWidget {
     final size = MediaQuery.sizeOf(context);
     return Stack(
       children: [
-        child,
+        Listener(behavior: HitTestBehavior.translucent, onPointerDown: (e) => fx.tapSparkle(e.position), child: child),
         IgnorePointer(
           child: Stack(
             clipBehavior: Clip.hardEdge,
@@ -172,5 +226,22 @@ class FxLayer extends ConsumerWidget {
         ),
       ],
     );
+  }
+}
+
+/// بيسجّل مكان عدّاد النجوم في [FxController.starTarget] كل ما يترسم — الشاشة
+/// اللي قدام بترسم آخر حاجة فهي اللي بتكسب وقت الانتقال بين شاشتين.
+class StarTarget extends SingleChildRenderObjectWidget {
+  const StarTarget({super.key, super.child});
+
+  @override
+  RenderObject createRenderObject(BuildContext context) => _StarTargetBox();
+}
+
+class _StarTargetBox extends RenderProxyBox {
+  @override
+  void paint(PaintingContext context, Offset offset) {
+    super.paint(context, offset);
+    if (attached && hasSize) FxController.starTarget = localToGlobal(size.center(Offset.zero));
   }
 }

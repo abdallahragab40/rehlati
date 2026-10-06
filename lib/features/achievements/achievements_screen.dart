@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
+import '../../core/nav.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
@@ -22,7 +22,7 @@ class AchievementsScreen extends ConsumerWidget {
           child: Padding(padding: const EdgeInsets.only(top: 16, bottom: 8), child: Text(t, style: kidText(19))),
         );
     return ScreenFrame(
-      onBack: () => context.pop(),
+      onBack: () => context.back(),
       title: '🏆 إنجازاتي',
       child: QCard(
         child: Column(children: [

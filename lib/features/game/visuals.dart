@@ -9,6 +9,7 @@ import '../../core/utils/arabic.dart';
 import '../../core/widgets/dashed_box.dart';
 import '../../domain/question.dart';
 import '../madd/madd_style.dart';
+import 'tap_count.dart';
 
 class VisualView extends StatelessWidget {
   const VisualView(
@@ -29,8 +30,9 @@ class VisualView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: switch (visual) {
-        PicsVisual v => _Pics(v),
-        ExprVisual v => _Expr(v, picked: v.fillFromPicked ? picked : const []),
+        // الصور بتتعد باللمس
+        PicsVisual v => TapCountScope(child: _Pics(v)),
+        ExprVisual v => TapCountScope(child: _Expr(v, picked: v.fillFromPicked ? picked : const [])),
         BigLetterVisual v => Directionality(
           textDirection: dir,
           child: Text(
@@ -80,10 +82,10 @@ class _Pics extends StatelessWidget {
             runSpacing: 4,
             children: [
               for (var i = 0; i < v.count; i++)
-                _item(
-                      v.emoji,
-                      size,
-                      gone: v.goneFrom != null && i >= v.goneFrom!,
+                TapCountItem(
+                      id: i,
+                      enabled: v.goneFrom == null || i < v.goneFrom!,
+                      child: _item(v.emoji, size, gone: v.goneFrom != null && i >= v.goneFrom!),
                     )
                     .animate(delay: (i * 40).ms)
                     .fadeIn(duration: 350.ms)
@@ -201,7 +203,7 @@ class _Expr extends StatelessWidget {
           crossAxisAlignment: v.parts.any((p) => p is ExprCaption) ? CrossAxisAlignment.end : CrossAxisAlignment.center,
           spacing: context.clampVw(8, 2.6, 18),
           children: [
-            for (final p in v.parts)
+            for (final (pi, p) in v.parts.indexed)
               switch (p) {
                 ExprTile t => tile(t),
                 ExprCaption c => Column(mainAxisSize: MainAxisSize.min, children: [
@@ -230,10 +232,13 @@ class _Expr extends StatelessWidget {
                         runSpacing: 4,
                         children: [
                           for (var i = 0; i < s.count; i++)
-                            Text(
-                              s.emoji,
-                              style: TextStyle(
-                                fontSize: context.clampVw(22, 6, 34),
+                            TapCountItem(
+                              id: (pi, i),
+                              child: Text(
+                                s.emoji,
+                                style: TextStyle(
+                                  fontSize: context.clampVw(22, 6, 34),
+                                ),
                               ),
                             ),
                         ],

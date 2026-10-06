@@ -65,13 +65,13 @@ class RecitationPlayer {
     try {
       await _p.stop();
       final url = QuranConfig.ayahAudioUrl(r.folder, surah, ayah);
-      final file = await _cacheFile(r.folder, surah, ayah);
+      final file = await cacheFile(r.folder, surah, ayah);
       if (file.existsSync()) {
         await _p.setAudioSource(AudioSource.file(file.path));
       } else {
         await _p.setAudioSource(AudioSource.uri(url));
         // بنشغّل من النت على طول، وبنحفظ نسخة في الخلفية للمرة الجاية
-        unawaited(_download(url, file));
+        unawaited(download(url, file));
       }
       if (my != _token) return;
       _done = _p.processingStateStream.where((s) => s == ProcessingState.completed).listen((_) {
@@ -90,15 +90,17 @@ class RecitationPlayer {
     }
   }
 
-  static Future<File> _cacheFile(String folder, int surah, int ayah) async {
+  static Future<File> cacheFile(String folder, int surah, int ayah) async {
     final dir = await getApplicationSupportDirectory();
     return File('${dir.path}/recitations/$folder/${'$surah'.padLeft(3, '0')}${'$ayah'.padLeft(3, '0')}.mp3');
   }
 
-  final _downloading = <String>{};
+  static final _downloading = <String>{};
 
-  Future<void> _download(Uri url, File file) async {
-    if (!_downloading.add(file.path)) return;
+  /// بيحفظ آية على الجهاز — true لو اتحفظت (أو كانت محفوظة).
+  static Future<bool> download(Uri url, File file) async {
+    if (file.existsSync()) return true;
+    if (!_downloading.add(file.path)) return false;
     try {
       final res = await http.get(url).timeout(const Duration(seconds: 30));
       final type = res.headers['content-type'] ?? '';
@@ -108,9 +110,12 @@ class RecitationPlayer {
         final tmp = File('${file.path}.part');
         await tmp.writeAsBytes(res.bodyBytes, flush: true);
         await tmp.rename(file.path);
+        return true;
       }
+      return false;
     } catch (_) {
       // مش مشكلة — هنحاول تاني المرة الجاية
+      return false;
     } finally {
       _downloading.remove(file.path);
     }

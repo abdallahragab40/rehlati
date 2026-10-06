@@ -7,6 +7,7 @@ import 'dart:ui' show Color;
 
 import '../content/language_data.dart';
 import '../content/math_data.dart';
+import '../core/features.dart';
 import '../core/utils/rng.dart';
 import 'generators/arabic_generators.dart';
 import 'generators/english_generators.dart';
@@ -206,6 +207,9 @@ Question makeQuestion(String type, int lv, Rng r, {String? focus, required Progr
   final stage = packs[i < 0 ? type : type.substring(0, i)]!;
   final cfg = stage.madd;
   if (cfg == null) return stage.gen!(lv, r, focus: focus);
-  final kind = i < 0 ? r.sample(cfg.kinds) : type.substring(i + 1);
+  // من غير صوت مفيش "اسمع ثم اختر" — بنختار نوع تاني من نفس المرحلة
+  final kinds = voiceEnabled ? cfg.kinds : cfg.kinds.where((k) => k != 'listen').toList();
+  var kind = i < 0 ? r.sample(kinds) : type.substring(i + 1);
+  if (!kinds.contains(kind)) kind = r.sample(kinds);
   return maddQuestion(stage.id, kind, cfg, lv, r, focus, progress.madd);
 }

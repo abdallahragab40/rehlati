@@ -6,6 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/audio/audio_providers.dart';
+import '../../core/nav.dart';
+import '../../core/reminder.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
@@ -16,9 +18,11 @@ import '../../domain/stages.dart';
 import '../achievements/achievements_screen.dart';
 import '../achievements/rank_widgets.dart';
 import '../daily/week_card.dart';
-import '../quran/quran_repository.dart';
 import '../madd/madd_dashboard_card.dart';
 import '../parent_guide/pg_screens.dart';
+import '../profiles/profiles.dart';
+import '../quran/quran_download.dart';
+import '../quran/quran_repository.dart';
 import 'avatar.dart';
 
 String fmtTime(int ms) {
@@ -56,7 +60,7 @@ class DashboardScreen extends ConsumerWidget {
         );
 
     return ScreenFrame(
-      onBack: () => context.pop(),
+      onBack: () => context.back(),
       title: 'لوحة ولي الأمر',
       child: QCard(
         child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -74,6 +78,8 @@ class DashboardScreen extends ConsumerWidget {
             (ar(p.wrong), 'غلط'),
             (fmtTime(p.timeMs), 'وقت التعلّم'),
           ]),
+          h3('👧👦 الأطفال'),
+          const _ChildrenCard(),
           h3('📅 تقرير الأسبوع'),
           const WeekCard(),
           h3('🗺️ العوالم'),
@@ -97,6 +103,10 @@ class DashboardScreen extends ConsumerWidget {
           NoteBox(Text(p.surahsNeedingReview.isEmpty
               ? 'مفيش سور متأخرة في المراجعة'
               : p.surahsNeedingReview.map((s) => names[s] ?? 'سورة رقم ${ar(s)}').join(' • '))),
+          h3('📥 القرآن من غير نت'),
+          const QuranDownloadCard(),
+          h3('⏰ تذكير يومي'),
+          const _ReminderCard(),
           h3('🏆 الإنجازات'),
           BadgeGrid(earned: p.achievements, small: true),
           Padding(
@@ -109,7 +119,7 @@ class DashboardScreen extends ConsumerWidget {
             KidButton('❤️ دليل ولي الأمر', onTap: () => context.push('/pg')),
             KidButton('📘 دليل الوالدين', kind: BtnKind.ghost, onTap: () => context.push('/guide')),
             KidButton('🔍 التحقق من نص القرآن', kind: BtnKind.go, onTap: () => context.push('/quran-check')),
-            KidButton('رجوع', kind: BtnKind.ghost, onTap: () => context.pop()),
+            KidButton('رجوع', kind: BtnKind.ghost, onTap: () => context.back()),
           ]),
         ]),
       ),
@@ -297,4 +307,123 @@ class _NameDialogState extends State<_NameDialog> {
           FilledButton(onPressed: () => context.pop(_ctrl.text), child: const Text('حفظ')),
         ],
       );
+}
+
+/// الإخوات: تبديل، إضافة، ومسح — جوه لوحة ولي الأمر عشان الطفل مايمسحش أخوه بالغلط.
+class _ChildrenCard extends ConsumerWidget {
+  const _ChildrenCard();
+
+  Future<void> _remove(BuildContext context, WidgetRef ref, String id, String name) async {
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (c) => AlertDialog(
+        title: Text('تمسح $name؟', style: kidText(20)),
+        content: Text('هيتمسح كل تقدّمه ونجومه. مفيش رجوع.', style: kidText(16, weight: FontWeight.w600)),
+        actions: [
+          TextButton(onPressed: () => c.pop(false), child: const Text('لا')),
+          TextButton(onPressed: () => c.pop(true), child: const Text('امسح', style: TextStyle(color: AppColors.coral))),
+        ],
+      ),
+    );
+    if (ok != true) return;
+    await ref.read(progressProvider.notifier).removeChild(id);
+    await AvatarController.delete(id);
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final kids = ref.watch(childrenProvider);
+    final active = ref.watch(activeChildProvider);
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      for (final (id, p) in kids)
+        Container(
+          margin: const EdgeInsets.only(bottom: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+          decoration: BoxDecoration(
+            color: id == active ? const Color(0xFFFFF3CF) : AppColors.paper2,
+            borderRadius: BorderRadius.circular(18),
+          ),
+          child: Row(children: [
+            Text(id == active ? '✅' : '🧒', style: const TextStyle(fontSize: 22)),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text('${childName(p)}${p.age != null ? ' • ${ar(p.age)} سنين' : ''} • ⭐ ${ar(p.stars)}',
+                  style: kidText(16)),
+            ),
+            if (id != active)
+              TextButton(
+                onPressed: () => ref.read(progressProvider.notifier).switchTo(id),
+                child: Text('بدّل', style: kidText(15, color: AppColors.grape)),
+              ),
+            if (kids.length > 1)
+              IconButton(
+                tooltip: 'امسح',
+                onPressed: () => _remove(context, ref, id, childName(p)),
+                icon: const Text('🗑️', style: TextStyle(fontSize: 18)),
+              ),
+          ]),
+        ),
+      Center(
+        child: KidButton('➕ إضافة طفل', kind: BtnKind.ghost, onTap: () async {
+          final router = GoRouter.of(context);
+          await ref.read(progressProvider.notifier).addChild();
+          router.go('/'); // الصفحة الرئيسية بتفتح على شاشة الاسم والعمر
+        }),
+      ),
+    ]);
+  }
+}
+
+class _ReminderCard extends ConsumerStatefulWidget {
+  const _ReminderCard();
+
+  @override
+  ConsumerState<_ReminderCard> createState() => _ReminderCardState();
+}
+
+class _ReminderCardState extends ConsumerState<_ReminderCard> {
+  String? _note;
+
+  Future<void> _set(int? minute) async {
+    final name = childName(ref.read(progressProvider));
+    if (minute == null) {
+      await Reminder.cancel();
+    } else if (!await Reminder.schedule(minute, childName: name)) {
+      setState(() => _note = '⚠️ الإشعارات مقفولة — افتحها لتطبيق رحلتي من إعدادات الجهاز');
+      return;
+    }
+    ref.read(progressProvider.notifier).update((p) => p.settings.reminder = minute);
+    setState(() => _note = null);
+  }
+
+  Future<void> _pickTime() async {
+    final m = ref.read(progressProvider).settings.reminder ?? 17 * 60;
+    final t = await showTimePicker(context: context, initialTime: TimeOfDay(hour: m ~/ 60, minute: m % 60));
+    if (t != null) await _set(t.hour * 60 + t.minute);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final m = ref.watch(progressProvider.select((p) => p.settings.reminder));
+    final time = m == null ? null : TimeOfDay(hour: m ~/ 60, minute: m % 60).format(context);
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      Row(children: [
+        Expanded(
+          child: Text(m == null ? 'مقفول' : 'كل يوم الساعة ${ar(time)}',
+              style: kidText(16, weight: FontWeight.w700)),
+        ),
+        Switch(
+          value: m != null,
+          activeTrackColor: AppColors.grassDark,
+          onChanged: (v) => v ? _pickTime() : _set(null),
+        ),
+      ]),
+      if (m != null)
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: TextButton(onPressed: _pickTime, child: Text('⏰ غيّر الساعة', style: kidText(15, color: AppColors.grape))),
+        ),
+      if (_note != null) NoteBox(Text(_note!)),
+    ]);
+  }
 }

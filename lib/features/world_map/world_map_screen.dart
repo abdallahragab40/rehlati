@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/audio/audio_providers.dart';
+import '../../core/audio/voice_lines.dart';
+import '../../core/nav.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
@@ -40,7 +42,7 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
       ref.read(sfxProvider).bad();
       en
           ? ref.read(speechProvider).speakEn('This stage is locked. Finish the one before it first.')
-          : ref.read(speechProvider).speak('المرحلة دي مقفولة، خلص اللي قبلها الأول', clips: ['locked']);
+          : ref.read(speechProvider).speak(sayLocked, clips: ['locked']);
       return;
     }
     context.push(stageRoute(s));
@@ -52,7 +54,7 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
     final p = ref.watch(progressProvider);
     final stages = worldStages[widget.world]!;
     return ScreenFrame(
-      onBack: () => context.pop(),
+      onBack: () => context.back(),
       title: 'المستوى ${ar(p.level(widget.world))}',
       background: sceneBackground(widget.world),
       child: Column(children: [

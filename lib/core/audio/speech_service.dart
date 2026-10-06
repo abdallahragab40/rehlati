@@ -1,14 +1,21 @@
 /// النطق: مقاطع مسجّلة لو كلها موجودة، وإلا نطق الجهاز (TTS) — نفس منطق js/audio.js.
+///
+/// العربي ليه نوعين من المقاطع (tool/render_voice.py):
+/// - مقاطع مفاتيح (`n3`، `plus`…) بتتركّب لأسئلة الحساب اللي تركيباتها كتير.
+/// - مقطع لكل جملة كاملة، اسمه [SpeechService.phraseKey] للجملة بعد التنظيف.
 library;
 
 import 'dart:async';
+import 'dart:convert' show utf8;
 import 'dart:io' show Platform;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:just_audio/just_audio.dart';
 
+import '../features.dart';
 import 'clip_manifest.g.dart';
+import 'voice_lines.dart';
 
 /// الواجهة اللي المحرك والشاشات بيستخدموها — بتتبدّل بـ fake في الاختبارات.
 abstract class Speech {
@@ -22,15 +29,19 @@ abstract class Speech {
 }
 
 class SpeechService implements Speech {
-  SpeechService({required this.enabled});
+  SpeechService({required this.enabled, double Function()? speed}) : speed = speed ?? (() => 1.0);
 
   /// بيقرا إعداد "نطق الأسئلة" لحظة النطق.
   final bool Function() enabled;
+
+  /// سرعة النطق من الإعدادات (١ = عادي).
+  final double Function() speed;
 
   final _tts = FlutterTts();
   final _clips = AudioPlayer();
   int _token = 0;
   String? _currentLang;
+  double? _currentSpeed;
   final _speaking = ValueNotifier<bool>(false);
 
   @override
@@ -42,7 +53,7 @@ class SpeechService implements Speech {
   int voiceCount = 0;
   List<String> arVoices = const [];
   String? get arVoiceName => _arVoice == null ? null : '${_arVoice!['name']} (${_arVoice!['locale']})';
-  int get clipCount => clipKeys.length;
+  int get clipCount => clipKeys.length + phraseKeys.length;
 
   Future<void> init() async {
     try {
@@ -90,6 +101,34 @@ class SpeechService implements Speech {
   /// إزالة الإيموجي والرموز قبل النطق.
   static String clean(String t) => t.replaceAll(_emoji, ' ').replaceAll(RegExp(r'\s+'), ' ').trim();
 
+  /// مفتاح مقطع الجملة: p_ + FNV-1a (٣٢ بت) لنصها بعد [clean].
+  static String phraseKey(String cleaned) {
+    var h = 0x811c9dc5;
+    for (final b in utf8.encode(cleaned)) {
+      h = ((h ^ b) * 0x01000193) & 0xffffffff;
+    }
+    return 'p_${h.toRadixString(16).padLeft(8, '0')}';
+  }
+
+  /// المقاطع اللي هتتشغّل بالترتيب، أو null لو أي جزء ناقص (ساعتها الجملة كلها بالـ TTS
+  /// عشان مايتخلطش صوتين في نفس الجملة).
+  static List<String>? clipsFor(Object text, List<String?>? clips) {
+    if (clips != null && clips.isNotEmpty && clips.every((k) => k != null)) {
+      final keys = [
+        for (final k in clips.cast<String>())
+          k.startsWith(sayPrefix) ? phraseKey(clean(k.substring(sayPrefix.length))) : k,
+      ];
+      if (keys.every((k) => clipKeys.contains(k) || phraseKeys.contains(k))) return keys;
+    }
+    final parts = _parts(text);
+    final keys = [for (final p in parts) phraseKey(p)];
+    if (parts.isEmpty || !keys.every(phraseKeys.contains)) {
+      if (kDebugMode) debugPrint('[voice] no recording, using TTS: $parts');
+      return null;
+    }
+    return keys;
+  }
+
   static List<String> _parts(Object text) =>
       (text is List ? text.map((e) => '$e') : ['$text']).map(clean).where((p) => p.isNotEmpty).toList();
 
@@ -100,7 +139,7 @@ class SpeechService implements Speech {
   void speakEn(Object text) => unawaited(_speak(text, null, 'en'));
 
   Future<void> _speak(Object text, List<String?>? clips, String lang) async {
-    if (!enabled()) {
+    if (!voiceEnabled || !enabled()) {
       lastEvent = 'النطق مقفول من الإعدادات';
       return;
     }
@@ -109,9 +148,11 @@ class SpeechService implements Speech {
     if (my != _token) return;
 
     // الأولوية للمقاطع المسجّلة لو كلها متوفرة — الإنجليزي مالوش مقاطع
-    if (lang == 'ar' && clips != null && clips.isNotEmpty && clips.every((k) => k != null && clipKeys.contains(k))) {
+    final keys = lang == 'ar' ? clipsFor(text, clips) : null;
+    if (keys != null) {
       try {
-        await _clips.setAudioSources([for (final k in clips) AudioSource.asset('assets/audio/clips/$k.m4a')]);
+        await _clips.setAudioSources([for (final k in keys) AudioSource.asset('assets/audio/clips/$k.m4a')]);
+        await _clips.setSpeed(speed());
         if (my != _token) return;
         lastEvent = 'مقاطع مسجّلة ✅';
         _speaking.value = true;
@@ -131,7 +172,8 @@ class SpeechService implements Speech {
 
   Future<void> _say(List<String> parts, String lang, int my) async {
     try {
-      if (_currentLang != lang) {
+      final sp = speed();
+      if (_currentLang != lang || _currentSpeed != sp) {
         final v = lang == 'en' ? _enVoice : _arVoice;
         if (v != null) {
           await _tts.setVoice(v);
@@ -140,8 +182,9 @@ class SpeechService implements Speech {
         }
         // iOS: ٠.٥ هي السرعة العادية؛ أندرويد: ١.٠ — والويب كان ٠.٨٢ عربي و ٠.٧٨ إنجليزي
         final base = lang == 'en' ? .78 : .82;
-        await _tts.setSpeechRate(!kIsWeb && Platform.isIOS ? base * .5 : base);
+        await _tts.setSpeechRate((!kIsWeb && Platform.isIOS ? base * .5 : base) * sp);
         _currentLang = lang;
+        _currentSpeed = sp;
       }
       for (final p in parts) {
         if (my != _token) return;

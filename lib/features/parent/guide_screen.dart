@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../content/guide_content.dart';
+import '../../core/nav.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
@@ -21,7 +21,7 @@ class GuideScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ScreenFrame(
-        onBack: () => context.pop(),
+        onBack: () => context.back(),
         title: '📘 دليل الوالدين',
         child: QCard(
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -35,7 +35,7 @@ class GuideScreen extends StatelessWidget {
             const SizedBox(height: 14),
             for (final s in guideSections) _Section(s),
             const SizedBox(height: 10),
-            Center(child: KidButton('رجوع', kind: BtnKind.ghost, onTap: () => context.pop())),
+            Center(child: KidButton('رجوع', kind: BtnKind.ghost, onTap: () => context.back())),
           ]),
         ),
       );

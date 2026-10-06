@@ -180,7 +180,7 @@ class _SkyPainter extends CustomPainter {
 }
 
 /// الأسد صاحب الطفل — بيتنطط لما يجاوب صح وبيميل لما يغلط.
-class LionMascot extends StatelessWidget {
+class LionMascot extends StatefulWidget {
   const LionMascot({super.key, this.mood = LionMood.idle, this.tick = 0, this.emoji = '🦁'});
   final LionMood mood;
 
@@ -189,8 +189,19 @@ class LionMascot extends StatelessWidget {
   final String emoji;
 
   @override
+  State<LionMascot> createState() => _LionMascotState();
+}
+
+/// الأسد بيتلمس: بيتكمّش وينط ويطلّع قلب أو نجمة — لعبة صغيرة في أي وقت.
+class _LionMascotState extends State<LionMascot> {
+  static const _hearts = ['❤️', '⭐', '💛', '😄', '🎈', '💜'];
+  int _pokes = 0;
+
+  @override
   Widget build(BuildContext context) {
-    final lion = Text(emoji, style: TextStyle(fontSize: context.clampVw(54, 14, 78), height: 1));
+    final mood = widget.mood, tick = widget.tick, emoji = widget.emoji;
+    final size = context.clampVw(54, 14, 78);
+    final lion = Text(emoji, style: TextStyle(fontSize: size, height: 1));
     final anim = switch (mood) {
       LionMood.cheer => lion
           .animate(key: ValueKey('c$tick'))
@@ -208,8 +219,36 @@ class LionMascot extends StatelessWidget {
           .rotate(begin: 0, end: -.02, duration: 175.ms, alignment: const Alignment(0, .8)),
       LionMood.idle => lion,
     };
-    return ExcludeSemantics(child: Center(child: anim));
+    return ExcludeSemantics(
+      child: Center(
+        child: GestureDetector(
+          onTap: _poke,
+          child: Stack(clipBehavior: Clip.none, alignment: Alignment.center, children: [
+            anim
+                // قبل أول لمسة الحركة واقفة على البداية (من غير تغيير) عشان شكل الشجرة مايتغيرش
+                .animate(key: ValueKey('p$_pokes'), autoPlay: _pokes > 0)
+                .scaleXY(begin: 1, end: .82, duration: 90.ms, alignment: Alignment.bottomCenter)
+                .then()
+                .scaleXY(begin: 1, end: 1 / .82, duration: 380.ms, curve: Curves.elasticOut, alignment: Alignment.bottomCenter)
+                .moveY(begin: 0, end: -14, duration: 160.ms, curve: Curves.easeOut)
+                .then()
+                .moveY(begin: 0, end: 14, duration: 260.ms, curve: Curves.bounceOut),
+            if (_pokes > 0)
+              Positioned(
+                top: -size * .3,
+                child: Text(_hearts[_pokes % _hearts.length], style: TextStyle(fontSize: size * .45))
+                    .animate(key: ValueKey('h$_pokes'))
+                    .moveY(begin: 0, end: -size * .9, duration: 900.ms, curve: Curves.easeOut)
+                    .scaleXY(begin: .4, end: 1.2, duration: 900.ms)
+                    .fadeOut(delay: 400.ms, duration: 500.ms),
+              ),
+          ]),
+        ),
+      ),
+    );
   }
+
+  void _poke() => setState(() => _pokes++);
 }
 
 /// فقاعة الكلام تحت الأسد.
@@ -264,7 +303,13 @@ class QCard extends StatelessWidget {
       ),
       child: child,
     );
-    if (shakeTick == 0) return card.animate().fadeIn(duration: 300.ms).scaleXY(begin: .94, end: 1);
+    if (shakeTick == 0) {
+      return card
+          .animate()
+          .fadeIn(duration: 250.ms)
+          .slideY(begin: .08, end: 0, duration: 450.ms, curve: Curves.easeOutBack)
+          .scaleXY(begin: .9, end: 1, duration: 450.ms, curve: Curves.easeOutBack);
+    }
     return card.animate(key: ValueKey(shakeTick)).shakeX(hz: 5, amount: 9, duration: 400.ms);
   }
 }
@@ -312,14 +357,15 @@ class Banner3D extends StatelessWidget {
 
 /// سطر الشرح تحت اللافتة (.hero p) — أبيض على السما.
 class HeroText extends StatelessWidget {
-  const HeroText(this.text, {super.key, this.size});
+  const HeroText(this.text, {super.key, this.size, this.align = TextAlign.center});
   final String text;
   final double? size;
+  final TextAlign align;
 
   @override
   Widget build(BuildContext context) => Text(
         text,
-        textAlign: TextAlign.center,
+        textAlign: align,
         style: kidText(size ?? context.clampVw(15, 4, 20), weight: FontWeight.w700, color: Colors.white).copyWith(
           shadows: const [Shadow(color: Color(0x381B3557), offset: Offset(0, 2))],
         ),

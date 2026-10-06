@@ -6,6 +6,7 @@ import '../../domain/progress/progress_controller.dart';
 import '../../features/settings/settings_sheet.dart';
 import '../theme/app_theme.dart';
 import '../utils/arabic.dart';
+import 'fx_layer.dart';
 import 'kid_widgets.dart';
 
 /// الشريط العلوي: رجوع، عدّاد النجوم (بينبض مع كل نجمة)، العنوان، الإعدادات.
@@ -28,17 +29,20 @@ class TopBar extends ConsumerWidget {
           Semantics(
             label: '${ar(stars)} نجمة',
             child: ExcludeSemantics(
-              child: Pill(
-                child: Row(mainAxisSize: MainAxisSize.min, children: [
-                  const Text('⭐', style: TextStyle(fontSize: 20)),
-                  const SizedBox(width: 6),
-                  Text(ar(stars)),
-                ]),
-              )
-                  .animate(key: ValueKey(stars))
-                  .scaleXY(begin: 1, end: 1.28, duration: 175.ms)
-                  .then()
-                  .scaleXY(begin: 1, end: 1 / 1.28, duration: 325.ms),
+              child: StarTarget(
+                child: Pill(
+                  child: Row(mainAxisSize: MainAxisSize.min, children: [
+                    const Text('⭐', style: TextStyle(fontSize: 20)),
+                    const SizedBox(width: 6),
+                    Text(ar(stars)),
+                  ]),
+                )
+                    // النبضة بتستنى النجمة الطايرة توصل (FxController.flyStars)
+                    .animate(key: ValueKey(stars))
+                    .scaleXY(delay: 680.ms, begin: 1, end: 1.35, duration: 160.ms, curve: Curves.easeOut)
+                    .then()
+                    .scaleXY(begin: 1, end: 1 / 1.35, duration: 380.ms, curve: Curves.elasticOut),
+              ),
             ),
           ),
           const SizedBox(width: 10),

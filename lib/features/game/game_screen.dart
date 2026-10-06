@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../content/math_data.dart';
 import '../../core/audio/audio_providers.dart';
+import '../../core/nav.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/fx_layer.dart';
@@ -56,7 +56,11 @@ class _GameScreenState extends ConsumerState<GameScreen> {
         fx
           ..flash(ok: true)
           ..burst(at, big ? 18 : (firstTry ? 10 : 5), big ? '🎉' : '⭐');
-        if (firstTry) fx.popMsg(big ? '🔥 ${ar(streak)} على التوالي!' : ref.read(rngProvider).sample(praise), big: big);
+        if (firstTry) {
+          fx
+            ..popMsg(big ? '🔥 ${ar(streak)} على التوالي!' : ref.read(rngProvider).sample(praise), big: big)
+            ..flyStars(at, n: big ? 3 : 1);
+        }
         if (big) {
           fx
             ..confetti(26)
@@ -80,19 +84,19 @@ class _GameScreenState extends ConsumerState<GameScreen> {
   Widget build(BuildContext context) {
     final s = ref.watch(gameProvider);
     final engine = ref.read(gameProvider.notifier);
-    if (s == null) return const ScreenFrame(child: SizedBox());
+    if (s == null) return ScreenFrame(onBack: () => context.back(), child: const SizedBox());
 
     final result = s.result;
     if (result != null) {
       return ScreenFrame(
-        onBack: () => context.pop(),
+        onBack: () => context.back(),
         title: s.stage.name,
         child: ResultView(result: result, engine: engine),
       );
     }
 
     return ScreenFrame(
-      onBack: () => context.pop(),
+      onBack: () => context.back(),
       title: 'المستوى ${ar(s.level)}',
       child: Column(
         children: [

@@ -8,9 +8,9 @@ library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../content/quran_config.dart';
+import '../../core/nav.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
@@ -50,7 +50,7 @@ class _QuranCheckScreenState extends ConsumerState<QuranCheckScreen> {
   Widget build(BuildContext context) {
     final chapters = ref.watch(quranChaptersProvider).value ?? const <QuranChapter>[];
     return ScreenFrame(
-      onBack: () => context.pop(),
+      onBack: () => context.back(),
       title: '🔍 التحقق من النص',
       child: QCard(
         child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [

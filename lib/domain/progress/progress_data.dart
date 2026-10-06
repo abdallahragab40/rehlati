@@ -11,7 +11,17 @@ import 'extras.dart';
 export 'extras.dart';
 
 class Settings {
-  Settings({this.speech = true, this.sfx = true, this.music = true, this.dev = false, this.goal = 20, this.limitMin = 0});
+  Settings({
+    this.speech = true,
+    this.sfx = true,
+    this.music = true,
+    this.dev = false,
+    this.goal = 20,
+    this.limitMin = 0,
+    this.speechRate = 1.0,
+    this.westernDigits = false,
+    this.reminder,
+  });
 
   factory Settings.fromJson(Map<String, dynamic> j) => Settings(
         speech: j['speech'] as bool? ?? true,
@@ -21,6 +31,9 @@ class Settings {
         dev: j['dev'] as bool? ?? false,
         goal: (j['goal'] as num?)?.toInt() ?? 20,
         limitMin: (j['limitMin'] as num?)?.toInt() ?? 0,
+        speechRate: (j['speechRate'] as num?)?.toDouble() ?? 1.0,
+        westernDigits: j['westernDigits'] as bool? ?? false,
+        reminder: (j['reminder'] as num?)?.toInt(),
       );
 
   bool speech;
@@ -38,8 +51,26 @@ class Settings {
   /// حد أقصى لوقت اللعب بالدقايق — ٠ = مفيش حد.
   int limitMin;
 
-  Map<String, dynamic> toJson() =>
-      {'speech': speech, 'sfx': sfx, 'music': music, 'dev': dev, 'goal': goal, 'limitMin': limitMin};
+  /// سرعة النطق: ٠.٨ بطيء، ١ عادي، ١.١٥ أسرع.
+  double speechRate;
+
+  /// الأرقام ١٢٣ بدل ١٢٣ الهندية — المدارس في مصر بتعلّم الاتنين.
+  bool westernDigits;
+
+  /// تذكير يومي: الدقيقة من أول اليوم (١٧:٣٠ = ١٠٥٠)، null = مقفول.
+  int? reminder;
+
+  Map<String, dynamic> toJson() => {
+        'speech': speech,
+        'sfx': sfx,
+        'music': music,
+        'dev': dev,
+        'goal': goal,
+        'limitMin': limitMin,
+        'speechRate': speechRate,
+        'westernDigits': westernDigits,
+        'reminder': reminder,
+      };
 }
 
 /// سجل يوم واحد: 'YYYY-MM-DD' ← نجوم وإجابات وألعاب ووقت، و done = اتحتفل بالهدف.
@@ -64,6 +95,8 @@ class DayLog {
 class ProgressData {
   ProgressData({
     this.name = '',
+    this.age,
+    this.setupDone = false,
     this.stars = 0,
     this.correct = 0,
     this.wrong = 0,
@@ -98,6 +131,12 @@ class ProgressData {
   static const schemaVersion = 1;
 
   String name;
+
+  /// عمر الطفل (٤–٦) من شاشة البداية — بيحدد أقل مستوى للأسئلة.
+  int? age;
+
+  /// شاشة البداية (الاسم والعمر) خلصت.
+  bool setupDone;
   int stars;
   int correct;
   int wrong;
@@ -144,6 +183,9 @@ class ProgressData {
     List<String> strs(Object? o) => o is List ? [for (final v in o) '$v'] : [];
     return ProgressData(
       name: j['name'] as String? ?? '',
+      age: (j['age'] as num?)?.toInt(),
+      // اللي كان بيلعب قبل شاشة البداية مايشوفهاش
+      setupDone: j['setupDone'] as bool? ?? ((j['games'] as num? ?? 0) > 0 || (j['stars'] as num? ?? 0) > 0),
       stars: (j['stars'] as num?)?.toInt() ?? 0,
       correct: (j['correct'] as num?)?.toInt() ?? 0,
       wrong: (j['wrong'] as num?)?.toInt() ?? 0,
@@ -176,6 +218,8 @@ class ProgressData {
   Map<String, dynamic> toJson() => {
         'schemaVersion': schemaVersion,
         'name': name,
+        'age': age,
+        'setupDone': setupDone,
         'stars': stars,
         'correct': correct,
         'wrong': wrong,
@@ -247,10 +291,14 @@ class ProgressData {
     lastStage = id;
   }
 
-  /// مستوى الطفل = أعلى مستوى وصلت إليه المراحل المفتوحة، أو ٤ لو خلّص كل المراحل.
+  /// أقل مستوى حسب العمر: ٤ سنين ← ١، ٥ ← ٢، ٦ ← ٣.
+  int get ageLevel => ((age ?? 4) - 3).clamp(1, 3);
+
+  /// مستوى الطفل = أعلى مستوى وصلت إليه المراحل المفتوحة (ومش أقل من مستوى عمره)،
+  /// أو ٤ لو خلّص كل المراحل.
   int level([String? world]) {
     final ids = world != null ? (worldStages[world] ?? const <Stage>[]) : packs.values.toList();
-    var lv = 1;
+    var lv = ageLevel;
     for (final s in ids) {
       if (isUnlocked(s.id)) lv = math.max(lv, s.base);
     }

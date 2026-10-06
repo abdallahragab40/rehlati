@@ -4,6 +4,7 @@ library;
 import 'dart:math' as math;
 
 import '../../content/math_data.dart';
+import '../../core/audio/voice_lines.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/utils/rng.dart';
 import '../question.dart';
@@ -51,13 +52,14 @@ Question nextNumber(int lv, Rng r, {String? focus}) {
   final l = levelSpec(lv), n = r.rnd(1, l.max - 1), a = n + 1;
   final counted = <int>{math.max(1, n - 2), math.max(1, n - 1), n}.toList();
   return Question(
-    type: 'nextNumber', mode: QMode.choice, clips: ['after', nk(n)],
+    type: 'nextNumber', mode: QMode.choice,
     ask: 'ما العدد التالي؟', speak: 'إيه الرقم اللي بعد ${arNum(n)}؟',
     visuals: [ExprVisual([ExprTile(n), const ExprOp('←'), const ExprTile(null)])],
     choices: r.numberChoices(a, l.choices, 1, l.max),
     answer: a,
     hint: 'بعد ${ar(n)} بواحد 👉',
     speakHint: 'عُد من الأول: ${arList(counted)} وبعدين؟',
+    clipsHint: ['count_from_start', ...counted.map(nk), 'and_then'],
   );
 }
 
@@ -65,7 +67,7 @@ Question nextNumber(int lv, Rng r, {String? focus}) {
 Question previousNumber(int lv, Rng r, {String? focus}) {
   final l = levelSpec(lv), n = r.rnd(2, l.max), a = n - 1;
   return Question(
-    type: 'previousNumber', mode: QMode.choice, clips: ['before', nk(n)],
+    type: 'previousNumber', mode: QMode.choice,
     ask: 'ما العدد السابق؟', speak: 'إيه الرقم اللي قبل ${arNum(n)}؟',
     visuals: [ExprVisual([const ExprTile(null), const ExprOp('←'), ExprTile(n)])],
     choices: r.numberChoices(a, l.choices, 1, l.max),
@@ -88,7 +90,6 @@ Question neighbors(int lv, Rng r, {String? focus}) {
   }
   return Question(
     type: 'neighbors', mode: QMode.order, rtlSlots: true,
-    clips: ['before', nk(n), 'after'],
     ask: 'مين السابق ومين التالي؟',
     speak: 'الرقم ${arNum(n)}. مين الرقم اللي قبله ومين الرقم اللي بعده؟',
     orderHint: 'اضغط السابق الأول (يمين) وبعدين التالي (شمال)',
@@ -125,7 +126,6 @@ Question sequence(int lv, Rng r, {String? focus}) {
   }
   return Question(
     type: 'sequence', mode: QMode.choice, skill: 'seq:$step',
-    clips: ['sequence', for (var i = 0; i < len; i++) i == hole ? 'howmuch' : nk(seq[i])],
     ask: 'أكمل التسلسل',
     speak: 'أكمل التسلسل: ${[for (var i = 0; i < len; i++) i == hole ? 'كام' : arNum(seq[i])].join('، ')}',
     visuals: [ExprVisual(parts)],
@@ -182,7 +182,7 @@ Question emptyTable(int lv, Rng r, {String? focus}) {
     visuals: [TableVisual(List<String?>.filled(max, null), kind: TableKind.numbers)],
     items: r.shuffle(<Object>[...nums]),
     answer: nums,
-    hint: 'ابدأ من ١ وكمّل بالترتيب 👆',
+    hint: 'ابدأ من ${ar(1)} وكمّل بالترتيب 👆',
     speakHint: 'ابدأ من واحد وكمّل بالترتيب',
   );
 }
@@ -241,13 +241,14 @@ Question comparison(int lv, Rng r, {String? focus}) {
   }
   return Question(
     type: 'comparison', mode: QMode.choice, skill: 'cmp:$a$ans$b',
-    clips: [nk(a), 'and', nk(b), 'pick_sign'],
+    clips: [say('${arNum(a)} ... و ... ${arNum(b)}'), 'pick_sign'],
     ask: 'اختار العلامة الصحيحة',
     speak: '${arNum(a)} ... و ... ${arNum(b)}. اختار العلامة الصحيحة: أكبر من، أصغر من، ولا يساوي؟',
     visuals: [visual],
     choices: const ['>', '<', '='], answer: ans,
     hint: 'الفم المفتوح يتجه ناحية الرقم الأكبر 🐊',
     speakHint: 'بُقّ التمساح بيفتح ناحية الرقم الكبير. ${arNum(a)} و ${arNum(b)}',
+    clipsHint: ['croc', say('${arNum(a)} ... و ... ${arNum(b)}')],
   );
 }
 
@@ -271,13 +272,13 @@ Question addition(int lv, Rng r, {String? focus}) {
   }
   return Question(
     type: 'addition', mode: QMode.choice, skill: 'add:$a+$b',
-    clips: [nk(a), 'plus', nk(b), 'equals'],
     ask: lv <= 2 ? 'كم العدد كله؟' : '${ar(a)} + ${ar(b)} = ؟',
     speak: '${arNum(a)} زائد ${arNum(b)} يساوي كام؟',
     visuals: [visual],
     choices: r.numberChoices(ans, l.choices, 1, l.sumMax + 2), answer: ans,
     hint: 'عُدّ المجموعتين مع بعض 🤝',
     speakHint: 'عُد المجموعتين مع بعض: ${arList(_range(1, math.min(ans, 20)))}',
+    clipsHint: ['count_both', ..._range(1, math.min(ans, 20)).map(nk)],
   );
 }
 
@@ -293,12 +294,12 @@ Question subtraction(int lv, Rng r, {String? focus}) {
   final expr = ExprVisual([ExprTile(a), const ExprOp('−'), ExprTile(b), const ExprOp('='), const ExprTile(null)]);
   return Question(
     type: 'subtraction', mode: QMode.choice, skill: 'sub:$a-$b',
-    clips: [nk(a), 'minus', nk(b), 'equals'],
     ask: lv <= 3 ? 'كم ${it.emoji} باقي؟' : '${ar(a)} − ${ar(b)} = ؟',
     speak: '${arNum(a)} ناقص ${arNum(b)} يساوي كام؟',
     visuals: lv <= 3 ? [PicsVisual(it.emoji, a, goneFrom: a - b), expr] : [expr],
     choices: r.numberChoices(ans, l.choices, 0, l.sumMax), answer: ans,
     hint: 'عُدّ اللي فاضل من غير المشطوب ✖',
     speakHint: 'عُد اللي فاضل بس، من غير المشطوب. ${arNum(a)} شيلنا منهم ${arNum(b)}',
+    clipsHint: ['count_left', say('${arNum(a)} شيلنا منهم ${arNum(b)}')],
   );
 }

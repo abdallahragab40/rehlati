@@ -12,22 +12,29 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../core/theme/app_theme.dart';
+import '../../domain/progress/progress_controller.dart';
 
-/// الصورة الحالية (null = الافتراضية). بتتحمّل مرة في main().
+/// صورة الطفل النشط (null = الافتراضية) — كل طفل ليه صورته.
 class AvatarController extends Notifier<File?> {
-  static const _name = 'child_photo.jpg';
-
-  /// بيتحدد في main() قبل تشغيل التطبيق.
-  static File? initial;
+  /// فولدر المستندات — بيتحدد في main() قبل تشغيل التطبيق.
+  static String? dir;
 
   @override
-  File? build() => initial;
+  File? build() {
+    final f = _file(ref.watch(activeChildProvider));
+    return f != null && f.existsSync() ? f : null;
+  }
 
-  static Future<File> _file() async => File('${(await getApplicationDocumentsDirectory()).path}/$_name');
+  // الطفل الأول بيفضل على اسم الملف القديم
+  static File? _file(String id) =>
+      dir == null ? null : File('$dir/${id == ProgressRepository.mainId ? 'child_photo' : 'child_photo_$id'}.jpg');
 
-  static Future<File?> load() async {
-    final f = await _file();
-    return f.existsSync() ? f : null;
+  static Future<void> init() async => dir = (await getApplicationDocumentsDirectory()).path;
+
+  /// مسح صورة طفل اتشال.
+  static Future<void> delete(String id) async {
+    final f = _file(id);
+    if (f != null && f.existsSync()) await f.delete();
   }
 
   /// يفتح المعرض، يقص مربّع من النص ويصغّره لـ 256 بكسل JPEG.
@@ -37,7 +44,7 @@ class AvatarController extends Notifier<File?> {
       if (x == null) return 'الصورة اتلغت';
       final bytes = await compute(_shrink, await x.readAsBytes());
       if (bytes == null) return 'الملف ده مش صورة';
-      final f = await _file();
+      final f = _file(ref.read(activeChildProvider))!;
       await f.writeAsBytes(bytes, flush: true);
       // نفس المسار — لازم نمسح الكاش عشان الصورة الجديدة تظهر
       imageCache.evict(FileImage(f));
@@ -49,7 +56,8 @@ class AvatarController extends Notifier<File?> {
   }
 
   Future<void> clear() async {
-    final f = await _file();
+    final f = _file(ref.read(activeChildProvider));
+    if (f == null) return;
     if (f.existsSync()) await f.delete();
     imageCache.evict(FileImage(f));
     state = null;

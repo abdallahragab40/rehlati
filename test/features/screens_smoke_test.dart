@@ -70,7 +70,7 @@ void main() {
   }
 
   final screens = <String, Widget>{
-    'home': const HomeScreen(),
+    'first-launch setup': const HomeScreen(), // تقدّم جديد ← شاشة الاسم والعمر
     for (final w in ['math', 'arabic', 'english']) 'world $w': WorldMapScreen(world: w),
     for (final s in packs.values.where((s) => !s.isLearn)) 'play ${s.id}': GameScreen(stageId: s.id),
     for (final s in packs.values.where((s) => s.isMadd)) 'madd lesson ${s.id}': MaddLessonScreen(stageId: s.id),
@@ -111,5 +111,15 @@ void main() {
     await pump(tester, const DashboardScreen(), prefs: {ProgressRepository.key: blob});
     await pump(tester, const HomeScreen(), prefs: {ProgressRepository.key: blob});
     await pump(tester, const AchievementsScreen(), prefs: {ProgressRepository.key: blob});
+  });
+
+  testWidgets('home and dashboard with two children render', (tester) async {
+    final prefs = <String, Object>{
+      ProgressRepository.profilesKey: jsonEncode({'active': 'main', 'ids': ['main', 'c1']}),
+      ProgressRepository.key: jsonEncode({'name': 'يوسف', 'age': 5, 'setupDone': true, 'stars': 12}),
+      ProgressRepository.keyFor('c1'): jsonEncode({'name': 'مريم', 'age': 4, 'setupDone': true, 'stars': 3}),
+    };
+    await pump(tester, const HomeScreen(), prefs: prefs);
+    await pump(tester, const DashboardScreen(), prefs: prefs);
   });
 }

@@ -4,6 +4,7 @@ library;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../../core/features.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/dashed_box.dart';
@@ -125,7 +126,7 @@ class AskRow extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 10),
-            _SpeakButton(onSpeak),
+            if (voiceEnabled) _SpeakButton(onSpeak),
           ],
         ),
       );
@@ -247,7 +248,11 @@ class QuestionBody extends StatelessWidget {
             wrongTick: _wrong('c$i'),
             hint: _isHint(q.choices[i]),
           ),
-        ),
+        )
+            // الاختيارات بتنط واحدة ورا التانية مع كل سؤال جديد
+            .animate()
+            .scaleXY(delay: (180 + i * 80).ms, begin: .4, end: 1, duration: 420.ms, curve: Curves.easeOutBack)
+            .fadeIn(duration: 200.ms),
     ];
     if (wide) {
       return ConstrainedBox(

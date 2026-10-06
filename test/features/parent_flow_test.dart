@@ -42,7 +42,10 @@ Future<void> openGate(WidgetTester tester) async {
   await tester.tap(find.text('⚙️'));
   await tester.pumpAndSettle();
   final row = find.ancestor(of: find.text('👨‍👩‍👦 لوحة ولي الأمر'), matching: find.byType(Row));
-  await tester.tap(find.descendant(of: row, matching: find.text('افتح')));
+  final open = find.descendant(of: row, matching: find.text('افتح'));
+  await tester.ensureVisible(open);
+  await tester.pumpAndSettle();
+  await tester.tap(open);
   await tester.pumpAndSettle();
 }
 

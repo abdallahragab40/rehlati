@@ -13,6 +13,7 @@ flutter test                                   # unit, widget and screen smoke t
 flutter test --tags network --run-skipped      # live check of both Quran text sources
 flutter run --dart-define=START=/quran/112     # open directly on any route
 node tool/sync_web_content.mjs ../rehlati-web  # regenerate madd + parent-guide content from the web repo
+flutter test tool/voice_phrases_test.dart && python3 tool/render_voice.py  # re-record Arabic voice (pip install edge-tts)
 ```
 
 ## Layout

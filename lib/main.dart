@@ -38,10 +38,13 @@ Future<void> main() async {
   ));
 
   final prefs = await SharedPreferences.getInstance();
-  AvatarController.initial = await AvatarController.load();
+  await AvatarController.init();
 
   late final ProviderContainer container;
-  final speech = SpeechService(enabled: () => container.read(progressProvider).settings.speech);
+  final speech = SpeechService(
+    enabled: () => container.read(progressProvider).settings.speech,
+    speed: () => container.read(progressProvider).settings.speechRate,
+  );
   final sfx = SfxService(enabled: () => container.read(progressProvider).settings.sfx);
   final music = MusicService(enabled: () => container.read(progressProvider).settings.music, speaking: speech.speaking);
   container = ProviderContainer(overrides: [

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -7,7 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'core/audio/audio_providers.dart';
+import 'core/audio/voice_lines.dart';
 import 'core/theme/app_theme.dart';
+import 'core/utils/arabic.dart';
 import 'core/widgets/fx_layer.dart';
 import 'domain/progress/progress_controller.dart';
 import 'features/achievements/achievements_screen.dart';
@@ -27,7 +30,13 @@ import 'features/world_map/world_map_screen.dart';
 /// للتجربة: `flutter run --dart-define=START=/play/counting` يفتح على شاشة معيّنة.
 const _start = String.fromEnvironment('START', defaultValue: '/');
 
-final _router = GoRouter(initialLocation: _start, routes: [
+// النسخة اللي بتتنشر بتفتح دايمًا على الصفحة الرئيسية مهما كان START
+/// مسار الشاشة اللي قدام فعلًا. `currentConfiguration.uri` مابيشوفش الشاشات اللي
+/// اتفتحت بـ push (زي '/quran' من الصفحة الرئيسية) — `state` بيشوفها.
+String _topPath() =>
+    _router.routerDelegate.currentConfiguration.isEmpty ? '/' : _router.state.uri.path;
+
+final _router = GoRouter(initialLocation: kDebugMode ? _start : '/', routes: [
   GoRoute(path: '/', builder: (_, _) => const HomeScreen()),
   GoRoute(path: '/world/:id', builder: (_, s) => WorldMapScreen(world: s.pathParameters['id']!)),
   GoRoute(
@@ -72,10 +81,76 @@ class RehlatiApp extends StatelessWidget {
           data: MediaQuery.of(context).copyWith(
             textScaler: MediaQuery.textScalerOf(context).clamp(maxScaleFactor: 1.3),
           ),
-          child: _MusicConductor(child: BadgeToaster(child: FxLayer(child: child!))),
+          child: _HomeOnReturn(child: _DigitsSync(child: _MusicConductor(child: BadgeToaster(child: FxLayer(child: child!))))),
         ),
       );
 }
+
+/// لو التطبيق رجع بعد ١٠ دقايق أو أكتر في الخلفية بيفتح على الصفحة الرئيسية — زي ما
+/// يكون اتفتح من الأول (والنظام كان سايبه حي)، ولوحة ولي الأمر ماتفضلش مفتوحة.
+class _HomeOnReturn extends StatefulWidget {
+  const _HomeOnReturn({required this.child});
+  final Widget child;
+
+  @override
+  State<_HomeOnReturn> createState() => _HomeOnReturnState();
+}
+
+class _HomeOnReturnState extends State<_HomeOnReturn> {
+  late final AppLifecycleListener _life;
+  DateTime? _hidden;
+
+  @override
+  void initState() {
+    super.initState();
+    _life = AppLifecycleListener(
+      onHide: () => _hidden = DateTime.now(),
+      onShow: () {
+        final away = _hidden == null ? Duration.zero : DateTime.now().difference(_hidden!);
+        _hidden = null;
+        if (away >= const Duration(minutes: 10) && _topPath() != '/') {
+          _router.go('/');
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _life.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
+}
+
+/// إعداد الأرقام (١٢٣ ↔ 123): بيتحط في [westernDigits] وكل الشاشات بتتبني تاني
+/// من غير ما حالتها تضيع — أغلبها مش بيسمع للإعدادات فمش هيتحدّث لوحده.
+class _DigitsSync extends ConsumerWidget {
+  const _DigitsSync({required this.child});
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final western = ref.watch(progressProvider.select((p) => p.settings.westernDigits));
+    if (western != westernDigits) {
+      westernDigits = western;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        void rebuild(Element e) {
+          e.markNeedsBuild();
+          e.visitChildren(rebuild);
+        }
+
+        if (context.mounted) (context as Element).visitChildren(rebuild);
+      });
+    }
+    return child;
+  }
+}
+
+/// عالم القرآن وكل شاشاته (السورة والأنشطة) — الموسيقى بتسكت فيه.
+bool isQuranPath(String path) => path == '/quran' || path.startsWith('/quran/');
 
 /// الموسيقى بتسكت في عالم القرآن وبتقف لما التطبيق يروح الخلفية.
 class _MusicConductor extends ConsumerStatefulWidget {
@@ -89,10 +164,7 @@ class _MusicConductor extends ConsumerStatefulWidget {
 class _MusicConductorState extends ConsumerState<_MusicConductor> {
   late final AppLifecycleListener _life;
 
-  void _route() {
-    final path = _router.routerDelegate.currentConfiguration.uri.path;
-    ref.read(musicProvider).quiet(path.startsWith('/quran'));
-  }
+  void _route() => ref.read(musicProvider).quiet(isQuranPath(_topPath()));
 
   @override
   void initState() {
@@ -155,7 +227,7 @@ class _BadgeToasterState extends ConsumerState<BadgeToaster> {
     setState(() => _shown.add((id, t)));
     ref.read(sfxProvider).win();
     if (rank) ref.read(fxProvider).confetti(80);
-    ref.read(speechProvider).speak(rank ? 'مبروك! وصلت ${t.name}' : 'إنجاز جديد! ${t.name}');
+    ref.read(speechProvider).speak(sayToast(t.name, rank: rank));
     Timer(Duration(milliseconds: rank ? 4700 : 3700), () {
       if (mounted) setState(() => _shown.removeWhere((e) => e.$1 == id));
     });

@@ -8,6 +8,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/audio/audio_providers.dart';
+import '../../core/features.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/kid_widgets.dart';
 import '../../domain/question.dart';
@@ -68,7 +69,7 @@ class MaddTextView extends ConsumerWidget {
       alignment: WrapAlignment.center,
       crossAxisAlignment: WrapCrossAlignment.center,
       spacing: 10,
-      children: [text, ListenButton(v.say!, size: 56)],
+      children: [text, if (voiceEnabled) ListenButton(v.say!, size: 56)],
     );
   }
 }

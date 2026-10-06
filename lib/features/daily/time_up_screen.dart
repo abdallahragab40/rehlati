@@ -6,6 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/audio/audio_providers.dart';
+import '../../core/audio/voice_lines.dart';
+import '../../core/nav.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
@@ -24,14 +26,14 @@ class _TimeUpScreenState extends ConsumerState<TimeUpScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => ref.read(speechProvider).speak('خلاص يا بطل، بكرة نكمل'));
+    WidgetsBinding.instance.addPostFrameCallback((_) => ref.read(speechProvider).speak(sayTimeUp));
   }
 
   @override
   Widget build(BuildContext context) {
     final p = ref.watch(progressProvider);
     return ScreenFrame(
-      onBack: () => context.pop(),
+      onBack: () => context.back(),
       title: 'وقت الراحة',
       child: QCard(
         child: Column(children: [

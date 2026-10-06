@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/audio/audio_providers.dart';
+import '../../core/audio/voice_lines.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
 import '../../core/widgets/top_bar.dart';
 import '../../domain/progress/badges.dart';
 import '../../domain/progress/progress_controller.dart';
-import '../../domain/stages.dart';
 import '../../domain/progress/progress_data.dart';
+import '../../domain/stages.dart';
 import '../achievements/rank_widgets.dart';
 import '../parent/avatar.dart';
+import '../profiles/profiles.dart';
 
 /// خريطة الرحلة — الصفحة الرئيسية (Shell.home).
 class HomeScreen extends ConsumerStatefulWidget {
@@ -26,14 +29,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) => ref.read(speechProvider).speak('أهلاً يا بطل! اختار عالم وابدأ المغامرة', clips: ['welcome']),
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (ref.read(progressProvider).setupDone) ref.read(speechProvider).speak(sayWelcome, clips: ['welcome']);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final p = ref.watch(progressProvider);
+    if (!p.setupDone) return const SetupScreen();
+    final siblings = ref.watch(childrenProvider).length > 1;
     return ScreenFrame(
       title: 'المستوى ${ar(p.level())}',
       child: Column(
@@ -41,22 +46,43 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           const SizedBox(height: 6),
           const Banner3D('رحلتي التعليمية'),
           const SizedBox(height: 14),
-          Wrap(
-            alignment: WrapAlignment.center,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: 14,
-            runSpacing: 8,
+          // الصورة جنب التحية والسطر اللي تحتها — مجموعة واحدة في النص
+          Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              ChildAvatar(size: context.clampVw(76, 22, 104)),
-              Text(
-                'أهلاً يا ${p.name.isNotEmpty ? p.name : 'بطل'}!',
-                style: kidText(context.clampVw(22, 6, 32), color: Colors.white)
-                    .copyWith(shadows: const [Shadow(color: Color(0x4D1B3557), offset: Offset(0, 3))]),
+              GestureDetector(
+                onTap: siblings ? () => showChildPicker(context) : null,
+                child: Semantics(
+                  button: siblings,
+                  label: siblings ? 'غيّر الطفل' : null,
+                  child: Stack(clipBehavior: Clip.none, children: [
+                    ChildAvatar(size: context.clampVw(76, 22, 104)),
+                    if (siblings)
+                      const PositionedDirectional(
+                        bottom: -4,
+                        end: -4,
+                        child: CircleAvatar(radius: 15, backgroundColor: AppColors.paper, child: Text('🔄', style: TextStyle(fontSize: 15))),
+                      ),
+                  ]),
+                ),
+              ),
+              SizedBox(width: context.clampVw(14, 3.5, 20)),
+              Flexible(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'أهلاً يا ${p.name.isNotEmpty ? p.name : 'بطل'}!',
+                      style: kidText(context.clampVw(24, 6.4, 34), color: Colors.white, height: 1.3)
+                          .copyWith(shadows: const [Shadow(color: Color(0x4D1B3557), offset: Offset(0, 3))]),
+                    ),
+                    const HeroText('اختار عالم وابدأ المغامرة', align: TextAlign.start),
+                  ],
+                ),
               ),
             ],
           ),
-          const SizedBox(height: 4),
-          const HeroText('اختار عالم وابدأ المغامرة'),
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 720),
             child: Column(children: [
@@ -72,7 +98,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   maxColumns: 2,
                   spacing: context.clampVw(10, 2.5, 16),
                   children: [
-                    for (final w in worlds)
+                    for (final (i, w) in worlds.indexed)
                       _WorldCard(
                         world: w,
                         stars: p.starsIn(w.id),
@@ -80,7 +106,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         narrow: box.maxWidth <= 430,
                         // خلص وقت اللعب النهاردة ← شاشة الراحة
                         onTap: () => context.push(p.limitReached ? '/timeup' : (w.id == 'quran' ? '/quran' : '/world/${w.id}')),
-                      ),
+                      )
+                          // الكروت بتدخل واحد ورا التاني
+                          .animate()
+                          .fadeIn(delay: (150 + i * 110).ms, duration: 250.ms)
+                          .slideY(begin: .35, end: 0, duration: 520.ms, curve: Curves.easeOutBack),
                   ],
                 ),
               ),
@@ -197,7 +227,13 @@ class _WorldCard extends StatelessWidget {
             height: 54,
             alignment: Alignment.center,
             decoration: BoxDecoration(color: world.color, borderRadius: BorderRadius.circular(17)),
-            child: Text(world.icon, style: const TextStyle(fontSize: 27)),
+            child: MediaQuery.disableAnimationsOf(context)
+                ? Text(world.icon, style: const TextStyle(fontSize: 27))
+                // الأيقونة بتطفو وتتمايل بهدوء — كل عالم بسرعته عشان مايتحركوش زي بعض
+                : Text(world.icon, style: const TextStyle(fontSize: 27))
+                    .animate(onPlay: (c) => c.repeat(reverse: true))
+                    .moveY(begin: -3, end: 3, duration: (1300 + world.id.length * 90).ms, curve: Curves.easeInOut)
+                    .rotate(begin: -.02, end: .02, duration: (1300 + world.id.length * 90).ms),
           ),
           const SizedBox(width: 12),
           Expanded(

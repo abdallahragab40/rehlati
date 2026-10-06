@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../content/quran_config.dart';
+import '../../core/nav.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
@@ -13,8 +14,8 @@ import '../../core/widgets/top_bar.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
 import 'quran_repository.dart';
-import 'recitation.dart';
 import 'quran_widgets.dart';
+import 'recitation.dart';
 
 class QuranMode {
   const QuranMode(this.id, this.icon, this.name, this.desc);
@@ -57,7 +58,7 @@ class SurahLoader extends ConsumerWidget {
       body = builder(context, chapter, ayahs.value!);
     }
     return ScreenFrame(
-      onBack: () => context.pop(),
+      onBack: () => context.back(),
       title: title ?? chapter?.name,
       background: const QuranSky(),
       child: body,
@@ -80,7 +81,7 @@ class QuranHomeScreen extends ConsumerWidget {
         error: chapters.error!,
         sourceLabel: ref.read(quranRepositoryProvider).sourceLabel(),
         onRetry: () => ref.invalidate(quranChaptersProvider),
-        onHome: () => context.pop(),
+        onHome: () => context.back(),
       );
     } else if (!chapters.hasValue) {
       body = const QuranLoading('لحظة واحدة…');
@@ -88,7 +89,7 @@ class QuranHomeScreen extends ConsumerWidget {
       body = _SurahPath(chapters: chapters.value!, progress: p);
     }
     return ScreenFrame(
-      onBack: () => context.pop(),
+      onBack: () => context.back(),
       title: '📖 القرآن',
       background: const QuranSky(),
       child: Column(children: [

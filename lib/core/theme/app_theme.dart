@@ -58,7 +58,43 @@ ThemeData buildTheme() {
     textTheme: base.textTheme.apply(bodyColor: AppColors.ink, displayColor: AppColors.ink, fontFamily: appFont),
     splashFactory: NoSplash.splashFactory,
     highlightColor: Colors.transparent,
+    pageTransitionsTheme: const PageTransitionsTheme(builders: {
+      TargetPlatform.android: KidPageTransitions(),
+      TargetPlatform.iOS: KidPageTransitions(),
+    }),
   );
+}
+
+/// انتقال الشاشات: الجديدة بتنط لقدام (تكبير بارتداد خفيف) والقديمة بتبعد لورا شوية.
+class KidPageTransitions extends PageTransitionsBuilder {
+  const KidPageTransitions();
+
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 420);
+
+  @override
+  Duration get reverseTransitionDuration => const Duration(milliseconds: 280);
+
+  @override
+  Widget buildTransitions<T>(
+    PageRoute<T> route,
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    final fade = CurvedAnimation(parent: animation, curve: const Interval(0, .5, curve: Curves.easeOut));
+    if (MediaQuery.disableAnimationsOf(context)) return FadeTransition(opacity: fade, child: child);
+    final pop = CurvedAnimation(parent: animation, curve: Curves.easeOutBack, reverseCurve: Curves.easeInCubic);
+    final away = CurvedAnimation(parent: secondaryAnimation, curve: Curves.easeInOut);
+    return ScaleTransition(
+      scale: Tween(begin: 1.0, end: .94).animate(away),
+      child: FadeTransition(
+        opacity: fade,
+        child: ScaleTransition(scale: Tween(begin: .86, end: 1.0).animate(pop), child: child),
+      ),
+    );
+  }
 }
 
 TextStyle kidText(double size, {FontWeight weight = FontWeight.w800, Color color = AppColors.ink, double? height}) =>

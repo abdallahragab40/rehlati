@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
+import '../../content/language_data.dart';
 import '../../core/audio/audio_providers.dart';
+import '../../core/audio/voice_lines.dart';
+import '../../core/features.dart';
+import '../../core/nav.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
@@ -21,7 +24,6 @@ class LetterBoardScreen extends ConsumerStatefulWidget {
 }
 
 class _LetterBoardScreenState extends ConsumerState<LetterBoardScreen> {
-  int? _shown;
   bool _done = false;
 
   Stage get pack => packs[widget.stageId]!;
@@ -31,15 +33,15 @@ class _LetterBoardScreenState extends ConsumerState<LetterBoardScreen> {
     final it = pack.learnItems![i];
     en
         ? ref.read(speechProvider).speakEn('${it.letter} . ${it.word}')
-        : ref.read(speechProvider).speak('${it.letter} . ${it.letter} مثل ${it.word}');
+        : ref.read(speechProvider).speak(sayLetter(it));
   }
 
   void _show(int i) {
     final items = pack.learnItems!;
     final progress = ref.read(progressProvider.notifier);
     progress.update((p) => p.markLearned(pack.id, items[i].letter));
-    setState(() => _shown = i);
     _say(i);
+    _reveal(items[i]);
 
     // نجمة لما يخلص كل الحروف — مرة واحدة
     final p = progress.data;
@@ -54,6 +56,74 @@ class _LetterBoardScreenState extends ConsumerState<LetterBoardScreen> {
     }
   }
 
+  /// كارت الحرف بيطلع فوق الشاشة (على الموبايل كان بيظهر تحت الجدول بره الشاشة):
+  /// الحرف بينط، الصورة بتتمايل، والحرف ملوّن جوه الكلمة. أي ضغطة بتقفله.
+  void _reveal(Letter it) {
+    final dir = en ? TextDirection.ltr : TextDirection.rtl;
+    final calm = MediaQuery.disableAnimationsOf(context);
+    final at = it.word.indexOf(it.letter);
+    showGeneralDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      barrierLabel: en ? 'Close' : 'اقفل',
+      barrierColor: const Color(0x800C1C30),
+      transitionDuration: 380.ms,
+      transitionBuilder: (_, a, _, child) => ScaleTransition(
+        scale: CurvedAnimation(parent: a, curve: Curves.easeOutBack),
+        child: FadeTransition(opacity: a, child: child),
+      ),
+      pageBuilder: (c, _, _) => GestureDetector(
+        onTap: () => Navigator.of(c).pop(),
+        child: Center(
+          child: Container(
+            width: c.clampVw(300, 80, 380),
+            padding: const EdgeInsets.symmetric(vertical: 22, horizontal: 16),
+            decoration: BoxDecoration(
+              color: AppColors.paper,
+              borderRadius: BorderRadius.circular(36),
+              border: Border.all(color: pack.color, width: 6),
+              boxShadow: const [BoxShadow(color: AppColors.shadow, offset: Offset(0, 12))],
+            ),
+            child: Material(
+              type: MaterialType.transparency,
+              child: Directionality(
+                textDirection: dir,
+                child: Column(mainAxisSize: MainAxisSize.min, children: [
+                  Text(it.letter, style: kidText(c.clampVw(96, 26, 140), color: pack.color, height: 1.1))
+                      .animate()
+                      .scaleXY(begin: .2, end: 1, delay: 120.ms, duration: 700.ms, curve: Curves.elasticOut),
+                  calm
+                      ? Text(it.emoji, style: TextStyle(fontSize: c.clampVw(64, 18, 90)))
+                      : Text(it.emoji, style: TextStyle(fontSize: c.clampVw(64, 18, 90)))
+                          .animate()
+                          .moveY(begin: 40, end: 0, delay: 300.ms, duration: 500.ms, curve: Curves.easeOutBack)
+                          .fadeIn(duration: 200.ms)
+                          .then()
+                          .shake(hz: 3, rotation: .08, duration: 700.ms),
+                  const SizedBox(height: 6),
+                  Text.rich(
+                    TextSpan(style: kidText(c.clampVw(30, 8, 40)), children: [
+                      if (!en) TextSpan(text: '${it.letter} مثل '),
+                      if (at < 0)
+                        TextSpan(text: it.word)
+                      else ...[
+                        TextSpan(text: it.word.substring(0, at)),
+                        TextSpan(text: it.letter, style: TextStyle(color: pack.color)),
+                        TextSpan(text: it.word.substring(at + it.letter.length)),
+                      ],
+                    ]),
+                  ).animate().fadeIn(delay: 500.ms, duration: 300.ms),
+                  const SizedBox(height: 12),
+                  Text(en ? 'Tap to close' : 'اضغط في أي مكان', style: kidText(13, color: AppColors.inkSoft)),
+                ]),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final items = pack.learnItems!;
@@ -61,16 +131,17 @@ class _LetterBoardScreenState extends ConsumerState<LetterBoardScreen> {
     final learned = ref.read(progressProvider).learned(pack.id);
     final meta = worldMeta(pack.world);
     final dir = en ? TextDirection.ltr : TextDirection.rtl;
-    final shown = _shown == null ? null : items[_shown!];
 
     return ScreenFrame(
-      onBack: () => context.pop(),
+      onBack: () => context.back(),
       title: pack.name,
       child: Column(children: [
         const SizedBox(height: 6),
         Banner3D('${pack.icon} ${pack.name}', color: pack.color, tone: meta.tone, ink: Colors.white),
         const SizedBox(height: 6),
-        HeroText(en ? 'Tap a letter to hear it' : 'اضغط على أي حرف تسمعه'),
+        HeroText(voiceEnabled
+            ? (en ? 'Tap a letter to hear it' : 'اضغط على أي حرف تسمعه')
+            : (en ? 'Tap a letter to see it' : 'اضغط على أي حرف تشوفه')),
         const SizedBox(height: 20),
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 560),
@@ -100,26 +171,6 @@ class _LetterBoardScreenState extends ConsumerState<LetterBoardScreen> {
             ),
           ),
         ),
-        if (shown != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 16),
-            child: QCard(
-              key: ValueKey(_shown),
-              child: Directionality(
-                textDirection: dir,
-                child: Column(children: [
-                  Text(shown.letter, style: kidText(context.clampVw(76, 22, 130), height: 1.1)),
-                  Text(shown.emoji, style: TextStyle(fontSize: context.clampVw(50, 14, 80), height: 1.2)),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 6, bottom: 12),
-                    child: Text(en ? shown.word : '${shown.letter} مثل ${shown.word}',
-                        style: kidText(context.clampVw(20, 5.4, 28))),
-                  ),
-                  KidButton(en ? '🔊 Listen' : '🔊 اسمع', onTap: () => _say(_shown!)),
-                ]),
-              ),
-            ),
-          ),
         SpeechBubble(
           _done
               ? (en ? 'All letters done! ⭐' : 'خلّصت كل الحروف! ⭐')

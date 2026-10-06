@@ -10,6 +10,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../content/quran_config.dart';
 import '../../core/audio/audio_providers.dart';
+import '../../core/nav.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/dashed_box.dart';
@@ -121,11 +122,9 @@ abstract class _ModeState<T extends ConsumerStatefulWidget> extends ConsumerStat
               finished = null;
               restart();
             })),
-            KidButton('📖 ${chapter.name}', kind: BtnKind.go, onTap: () => context.pop()),
+            KidButton('📖 ${chapter.name}', kind: BtnKind.go, onTap: () => context.back()),
             KidButton('🗺️ كل السور', kind: BtnKind.ghost, onTap: () {
-              context
-                ..pop()
-                ..pop();
+              context.go('/quran');
             }),
           ]),
         ]),
@@ -593,7 +592,7 @@ class _ReviewState extends _ModeState<_Review> {
           const Text('🙂', style: TextStyle(fontSize: 64)),
           Text('السورة دي قصيرة قوي على المراجعة', textAlign: TextAlign.center, style: kidText(20)),
           const SizedBox(height: 12),
-          KidButton('رجوع', kind: BtnKind.ghost, onTap: () => context.pop()),
+          KidButton('رجوع', kind: BtnKind.ghost, onTap: () => context.back()),
         ]),
       );
     }

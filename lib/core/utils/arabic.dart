@@ -3,9 +3,13 @@ library;
 
 const _arDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
 
+/// إعداد ولي الأمر: الأرقام 123 بدل ١٢٣ — التطبيق بيظبطه من الإعدادات (RehlatiApp).
+bool westernDigits = false;
+
 /// يحوّل أي أرقام لاتينية داخل النص إلى ٠١٢٣٤٥٦٧٨٩ — القيم الداخلية تفضل أرقام عادية.
-String ar(Object? v) =>
-    '$v'.replaceAllMapped(RegExp('[0-9]'), (m) => _arDigits[int.parse(m[0]!)]);
+String ar(Object? v) => westernDigits
+    ? '$v'
+    : '$v'.replaceAllMapped(RegExp('[0-9]'), (m) => _arDigits[int.parse(m[0]!)]);
 
 const _ones = [
   'صفر', 'واحد', 'اتنين', 'تلاتة', 'أربعة', 'خمسة', 'ستة', 'سبعة', 'تمانية', 'تسعة', 'عشرة',
@@ -34,5 +38,5 @@ String arList(Iterable<Object> items) =>
 const signWord = {'>': 'أكبر من', '<': 'أصغر من', '=': 'يساوي'};
 const signClip = {'>': 'gt', '<': 'lt', '=': 'eq'};
 
-/// مفتاح مقطع الرقم — المسجّل عندنا من ٠ لـ ٢٠ فقط.
-String? nk(Object? n) => (n is int && n >= 0 && n <= 20) ? 'n$n' : null;
+/// مفتاح مقطع الرقم — المسجّل عندنا من ٠ لـ ٢٢ (أكبر اختيار في الجمع).
+String? nk(Object? n) => (n is int && n >= 0 && n <= 22) ? 'n$n' : null;

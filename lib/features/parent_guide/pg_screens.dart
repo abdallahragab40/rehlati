@@ -12,6 +12,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../content/parent_guide.dart';
 import '../../core/audio/audio_providers.dart';
+import '../../core/audio/voice_lines.dart';
+import '../../core/nav.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
@@ -75,7 +77,7 @@ class _PgHomeScreenState extends ConsumerState<PgHomeScreen> {
     }
 
     return ScreenFrame(
-      onBack: () => context.pop(),
+      onBack: () => context.back(),
       title: 'دليل ولي الأمر',
       child: QCard(
         child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -225,7 +227,7 @@ class PgDetailScreen extends ConsumerWidget {
     }
 
     return ScreenFrame(
-      onBack: () => context.pop(),
+      onBack: () => context.back(),
       title: '${b.icon} ${b.label}',
       child: QCard(
         child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -275,7 +277,7 @@ class PgDetailScreen extends ConsumerWidget {
             if (b.help != null) Padding(padding: const EdgeInsets.only(top: 8), child: Text(helpText(), style: body)),
           ]),
           const SizedBox(height: 10),
-          Center(child: KidButton('رجوع للدليل', kind: BtnKind.ghost, onTap: () => context.pop())),
+          Center(child: KidButton('رجوع للدليل', kind: BtnKind.ghost, onTap: () => context.back())),
         ]),
       ),
     );
@@ -406,7 +408,8 @@ class _Plan extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final goal = ref.watch(progressProvider.select((p) => p.pgFocus[b.id]));
+    // الهدف بيتعدّل في مكانه (الأيام، الإيقاف) فلازم نسمع للتقدّم كله مش select
+    final goal = ref.watch(progressProvider).pgFocus[b.id];
     final progress = ref.read(progressProvider.notifier);
     final body = kidText(15, weight: FontWeight.w600, height: 1.7);
     void fresh() => progress.update((p) => p.pgFocus[b.id] = PgGoal(start: DateTime.now().millisecondsSinceEpoch));
@@ -485,7 +488,7 @@ class PgGoalsList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final focus = ref.watch(progressProvider.select((p) => p.pgFocus));
+    final focus = ref.watch(progressProvider).pgFocus;
     final progress = ref.read(progressProvider.notifier);
     final ids = focus.keys.where((k) => pgById(k) != null).toList();
     if (ids.isEmpty) {
@@ -540,7 +543,7 @@ class PgGoalsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ScreenFrame(
-        onBack: () => context.pop(),
+        onBack: () => context.back(),
         title: '⭐ أهدافي',
         child: QCard(
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -551,7 +554,7 @@ class PgGoalsScreen extends StatelessWidget {
             const SizedBox(height: 12),
             const PgGoalsList(),
             const SizedBox(height: 12),
-            Center(child: KidButton('رجوع', kind: BtnKind.ghost, onTap: () => context.pop())),
+            Center(child: KidButton('رجوع', kind: BtnKind.ghost, onTap: () => context.back())),
           ]),
         ),
       );
@@ -566,7 +569,7 @@ class KidHubScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final games = pgBehaviors.where((b) => b.game != null).toList();
     return ScreenFrame(
-      onBack: () => context.pop(),
+      onBack: () => context.back(),
       title: '🧒 أتعلم أتصرف إزاي؟',
       child: QCard(
         child: Column(children: [
@@ -584,7 +587,7 @@ class KidHubScreen extends ConsumerWidget {
             for (final b in games) _Card(icon: b.icon, title: pgGoal(b), onTap: () => context.push('/pg/play', extra: [b.id])),
           ]),
           const SizedBox(height: 12),
-          KidButton('رجوع', kind: BtnKind.ghost, onTap: () => context.pop()),
+          KidButton('رجوع', kind: BtnKind.ghost, onTap: () => context.back()),
         ]),
       ),
     );
@@ -609,10 +612,7 @@ class _KidPlayScreenState extends ConsumerState<KidPlayScreen> {
 
   PgBehavior get _b => pgById(_ids[_i])!;
 
-  String _fill(String s) {
-    final n = ref.read(progressProvider).name.trim();
-    return s.replaceAll('{name}', n.isEmpty ? 'الطفل' : n);
-  }
+  String _fill(String s) => fillChildName(s, ref.read(progressProvider).name.trim());
 
   @override
   void initState() {
@@ -658,7 +658,7 @@ class _KidPlayScreenState extends ConsumerState<KidPlayScreen> {
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
-      onBack: () => context.pop(),
+      onBack: () => context.back(),
       title: '🧒 أتعلم أتصرف إزاي؟',
       child: QCard(key: ValueKey('$_i$_end'), child: _end ? _endView() : _question()),
     );
@@ -733,7 +733,7 @@ class _KidPlayScreenState extends ConsumerState<KidPlayScreen> {
           _end = false;
           _load();
         })),
-        KidButton('رجوع', kind: BtnKind.ghost, onTap: () => context.pop()),
+        KidButton('رجوع', kind: BtnKind.ghost, onTap: () => context.back()),
       ]),
     ]);
   }
