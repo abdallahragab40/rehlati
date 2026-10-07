@@ -234,6 +234,8 @@ class GameEngine extends Notifier<GameSession?> {
     final s = _s..resetQuestion();
     s.bubble = '${s.stage.icon} سؤال ${ar(s.idx + 1)} من ${ar(s.total)}';
     s.bubbleKind = BubbleKind.plain;
+    // الإيقاع: الطبول مقفولة لحد ما الطفل يسمع السلسلة الأول
+    s.rhythmLock = s.q.mode == QMode.rhythm;
     _emit();
     final q = s.q;
     if (q.mode == QMode.rhythm) _later(1200, rhythmPlay);

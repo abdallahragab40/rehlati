@@ -14,6 +14,7 @@ import '../../core/widgets/top_bar.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
 import '../parent/avatar.dart';
+import '../parent/parent_gate.dart';
 
 /// كل الأطفال (id، التقدّم) — النشط بقيمته الحية والباقي من التخزين.
 final childrenProvider = Provider<List<(String, ProgressData)>>((ref) {
@@ -76,7 +77,10 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
             const SizedBox(height: 18),
             Center(
               child: GestureDetector(
-                onTap: () => ref.read(avatarProvider.notifier).pick(),
+                // اختيار صورة من المعرض ورا سؤال الأهل — زي لوحة ولي الأمر (قواعد قسم الأطفال)
+                onTap: () async {
+                  if (await askParent(context)) await ref.read(avatarProvider.notifier).pick();
+                },
                 child: Column(children: [
                   const ChildAvatar(size: 92),
                   const SizedBox(height: 4),
@@ -126,9 +130,10 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
             KidButton('🚀 يلا نبدأ', kind: BtnKind.go, onTap: _done),
             if (siblings > 1) ...[
               const SizedBox(height: 6),
-              KidButton('إلغاء', kind: BtnKind.ghost, onTap: () {
-                final n = ref.read(progressProvider.notifier);
-                n.removeChild(ref.read(activeChildProvider));
+              KidButton('إلغاء', kind: BtnKind.ghost, onTap: () async {
+                final id = ref.read(activeChildProvider);
+                await ref.read(progressProvider.notifier).removeChild(id);
+                await AvatarController.delete(id);
               }),
             ],
           ]),

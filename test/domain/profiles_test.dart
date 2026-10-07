@@ -20,10 +20,10 @@ void main() {
   });
 
   test('settings round-trip and old settings get defaults', () {
-    final s = Settings.fromJson((Settings(speechRate: .8, westernDigits: true, reminder: 1050).toJson()));
-    expect([s.speechRate, s.westernDigits, s.reminder], [.8, true, 1050]);
+    final s = Settings.fromJson((Settings(speechRate: .8, westernDigits: true).toJson()));
+    expect([s.speechRate, s.westernDigits], [.8, true]);
     final old = Settings.fromJson({'speech': true});
-    expect([old.speechRate, old.westernDigits, old.reminder], [1.0, false, null]);
+    expect([old.speechRate, old.westernDigits], [1.0, false]);
   });
 
   test('siblings keep separate progress and the first child keeps the old key', () async {

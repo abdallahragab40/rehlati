@@ -20,7 +20,6 @@ class Settings {
     this.limitMin = 0,
     this.speechRate = 1.0,
     this.westernDigits = false,
-    this.reminder,
   });
 
   factory Settings.fromJson(Map<String, dynamic> j) => Settings(
@@ -33,7 +32,6 @@ class Settings {
         limitMin: (j['limitMin'] as num?)?.toInt() ?? 0,
         speechRate: (j['speechRate'] as num?)?.toDouble() ?? 1.0,
         westernDigits: j['westernDigits'] as bool? ?? false,
-        reminder: (j['reminder'] as num?)?.toInt(),
       );
 
   bool speech;
@@ -57,9 +55,6 @@ class Settings {
   /// الأرقام ١٢٣ بدل ١٢٣ الهندية — المدارس في مصر بتعلّم الاتنين.
   bool westernDigits;
 
-  /// تذكير يومي: الدقيقة من أول اليوم (١٧:٣٠ = ١٠٥٠)، null = مقفول.
-  int? reminder;
-
   Map<String, dynamic> toJson() => {
         'speech': speech,
         'sfx': sfx,
@@ -69,7 +64,6 @@ class Settings {
         'limitMin': limitMin,
         'speechRate': speechRate,
         'westernDigits': westernDigits,
-        'reminder': reminder,
       };
 }
 

@@ -4,9 +4,37 @@ library;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/data/latest.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
+
+import '../domain/progress/progress_controller.dart';
+
+/// ساعة التذكير (الدقيقة من أول اليوم، ١٧:٣٠ = ١٠٥٠) أو null = مقفول. محفوظة للجهاز كله
+/// مش لكل طفل — الإشعار واحد للجهاز.
+class ReminderController extends Notifier<int?> {
+  static const key = 'rehlati.reminder';
+
+  @override
+  int? build() => ref.read(sharedPrefsProvider).getInt(key);
+
+  /// false = الإذن اترفض.
+  Future<bool> set(int? minute, {required String greeting}) async {
+    final prefs = ref.read(sharedPrefsProvider);
+    if (minute == null) {
+      await Reminder.cancel();
+      await prefs.remove(key);
+    } else {
+      if (!await Reminder.schedule(minute, greeting: greeting)) return false;
+      await prefs.setInt(key, minute);
+    }
+    state = minute;
+    return true;
+  }
+}
+
+final reminderProvider = NotifierProvider<ReminderController, int?>(ReminderController.new);
 
 class Reminder {
   static final _plugin = FlutterLocalNotificationsPlugin();
@@ -35,7 +63,8 @@ class Reminder {
   }
 
   /// بيطلب الإذن ويجدول التذكير كل يوم الساعة [minute] (من أول اليوم). false = الإذن اترفض.
-  static Future<bool> schedule(int minute, {required String childName}) async {
+  /// [greeting]: "يوسف" أو "أبطال" لو فيه أكتر من طفل.
+  static Future<bool> schedule(int minute, {required String greeting}) async {
     try {
       await _init();
       final ok = defaultTargetPlatform == TargetPlatform.iOS
@@ -54,7 +83,7 @@ class Reminder {
       await _plugin.zonedSchedule(
         id: _id,
         title: 'رحلتي 🦁',
-        body: 'يلا يا $childName! الأسد مستنيك في مغامرة النهاردة ⭐',
+        body: 'يلا يا $greeting! الأسد مستنيك في مغامرة النهاردة ⭐',
         scheduledDate: at,
         notificationDetails: const NotificationDetails(
           android: AndroidNotificationDetails('daily', 'التذكير اليومي',

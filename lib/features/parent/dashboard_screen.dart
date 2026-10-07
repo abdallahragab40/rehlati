@@ -385,26 +385,21 @@ class _ReminderCardState extends ConsumerState<_ReminderCard> {
   String? _note;
 
   Future<void> _set(int? minute) async {
-    final name = childName(ref.read(progressProvider));
-    if (minute == null) {
-      await Reminder.cancel();
-    } else if (!await Reminder.schedule(minute, childName: name)) {
-      setState(() => _note = '⚠️ الإشعارات مقفولة — افتحها لتطبيق رحلتي من إعدادات الجهاز');
-      return;
-    }
-    ref.read(progressProvider.notifier).update((p) => p.settings.reminder = minute);
-    setState(() => _note = null);
+    final kids = ref.read(childrenProvider);
+    final greeting = kids.length > 1 ? 'أبطال' : childName(ref.read(progressProvider));
+    final ok = await ref.read(reminderProvider.notifier).set(minute, greeting: greeting);
+    if (mounted) setState(() => _note = ok ? null : '⚠️ الإشعارات مقفولة — افتحها لتطبيق رحلتي من إعدادات الجهاز');
   }
 
   Future<void> _pickTime() async {
-    final m = ref.read(progressProvider).settings.reminder ?? 17 * 60;
+    final m = ref.read(reminderProvider) ?? 17 * 60;
     final t = await showTimePicker(context: context, initialTime: TimeOfDay(hour: m ~/ 60, minute: m % 60));
     if (t != null) await _set(t.hour * 60 + t.minute);
   }
 
   @override
   Widget build(BuildContext context) {
-    final m = ref.watch(progressProvider.select((p) => p.settings.reminder));
+    final m = ref.watch(reminderProvider);
     final time = m == null ? null : TimeOfDay(hour: m ~/ 60, minute: m % 60).format(context);
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       Row(children: [

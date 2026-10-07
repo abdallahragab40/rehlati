@@ -233,8 +233,6 @@ class QuestionBody extends StatelessWidget {
     };
     return Column(children: [
       AskRow(q: q, onSpeak: engine.repeat),
-      if (q.track) RaceTrack(s),
-      if (q.puzzle != null) PuzzleGrid(pic: q.puzzle!, open: s.solved),
       ...visuals,
       Directionality(textDirection: dir, child: body),
     ]);
