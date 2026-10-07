@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rehlati/content/language_data.dart';
 import 'package:rehlati/core/audio/speech_service.dart';
 import 'package:rehlati/core/audio/voice_lines.dart';
+import 'package:rehlati/core/features.dart';
 import 'package:rehlati/core/utils/arabic.dart';
 import 'package:rehlati/core/utils/rng.dart';
 import 'package:rehlati/domain/progress/progress_data.dart';
@@ -9,7 +10,12 @@ import 'package:rehlati/domain/stages.dart';
 
 /// كل جملة عربية لازم يكون ليها مقطع مسجّل، وإلا الطفل هيسمع صوت الجهاز الآلي.
 /// لو الاختبار ده فشل بعد تعديل نص: flutter test tool/voice_phrases_test.dart && python3 tool/render_voice.py
+/// بيشتغل بس لما نطق الأسئلة مفتوح (lib/core/features.dart).
 void main() {
+  if (!voiceEnabled) {
+    test('every Arabic line is recorded', () {}, skip: 'question voice is off (lib/core/features.dart)');
+    return;
+  }
   void recorded(Object text, [List<String?>? clips]) =>
       expect(SpeechService.clipsFor(text, clips), isNotNull, reason: 'no recording for: $text');
 

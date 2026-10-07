@@ -30,6 +30,10 @@ const _specs = {
   'english': _SceneSpec(
     [Color(0xFF9FD8FF), Color(0xFFE6F6FF)], [Color(0xFF5BBF8E), Color(0xFF84D6A6)],
     [('A', Color(0xFF4CB8FF)), ('b', Color(0xFFFF6B6B)), ('C', Color(0xFFFFC43D))], 'car'),
+  // عالم الألعاب: سما وردي مليانة بالونات ملوّنة، ومن غير حد ماشي على الأرض
+  'games': _SceneSpec(
+    [Color(0xFFFFD9E2), Color(0xFFFFF4E6)], [Color(0xFF4CC9A7), Color(0xFF7FE0C2)],
+    [('٧', Color(0xFFFF6B6B)), ('٣', Color(0xFF4CC9A7)), ('٥', Color(0xFF4C9BFF))], 'none', clouds: 2),
 };
 
 class WorldScene extends StatefulWidget {
@@ -161,6 +165,8 @@ class _WorldSceneState extends State<WorldScene> with SingleTickerProviderStateM
       height: (h * .22).clamp(90, 170),
       child: CustomPaint(painter: HillsPainter(spec.hills[0], spec.hills[1])),
     ));
+
+    if (spec.rider == 'none') return Stack(clipBehavior: Clip.hardEdge, children: children);
 
     // اللي بيمشي على الأرض: القطر أو القطة أو العربية
     final (riderW, dur, delay) = switch (spec.rider) {

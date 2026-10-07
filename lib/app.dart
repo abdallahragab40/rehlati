@@ -8,11 +8,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'core/audio/audio_providers.dart';
+import 'core/audio/music_service.dart';
 import 'core/audio/voice_lines.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/arabic.dart';
 import 'core/widgets/fx_layer.dart';
 import 'domain/progress/progress_controller.dart';
+import 'domain/stages.dart';
 import 'features/achievements/achievements_screen.dart';
 import 'features/daily/time_up_screen.dart';
 import 'features/game/game_screen.dart';
@@ -152,6 +154,18 @@ class _DigitsSync extends ConsumerWidget {
 /// عالم القرآن وكل شاشاته (السورة والأنشطة) — الموسيقى بتسكت فيه.
 bool isQuranPath(String path) => path == '/quran' || path.startsWith('/quran/');
 
+/// مزاج الموسيقى لكل شاشة: اللعبة نفسها لو ليها مزاج، وإلا عالمها، وإلا الرئيسية.
+String musicThemeOf(String path) {
+  final seg = path.split('/').where((s) => s.isNotEmpty).toList();
+  if (seg.length < 2) return 'home';
+  return switch (seg.first) {
+    'world' => seg[1],
+    'play' when MusicService.themes.containsKey(seg[1]) => seg[1],
+    'play' || 'madd' || 'learn' => packs[seg[1]]?.world ?? 'home',
+    _ => 'home',
+  };
+}
+
 /// الموسيقى بتسكت في عالم القرآن وبتقف لما التطبيق يروح الخلفية.
 class _MusicConductor extends ConsumerStatefulWidget {
   const _MusicConductor({required this.child});
@@ -164,7 +178,12 @@ class _MusicConductor extends ConsumerStatefulWidget {
 class _MusicConductorState extends ConsumerState<_MusicConductor> {
   late final AppLifecycleListener _life;
 
-  void _route() => ref.read(musicProvider).quiet(isQuranPath(_topPath()));
+  void _route() {
+    final path = _topPath();
+    ref.read(musicProvider)
+      ..quiet(isQuranPath(path))
+      ..theme(musicThemeOf(path));
+  }
 
   @override
   void initState() {

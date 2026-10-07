@@ -5,7 +5,8 @@ import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
 
-enum SfxKind { good, combo, bad, win, aww }
+/// pad0–pad2: طبول لعبة «كرر الإيقاع» (طبلة، تصفيقة، جرس).
+enum SfxKind { good, combo, bad, win, aww, pad0, pad1, pad2 }
 
 abstract class Sfx {
   void play(SfxKind kind);
@@ -14,6 +15,7 @@ abstract class Sfx {
   void bad() => play(SfxKind.bad);
   void win() => play(SfxKind.win);
   void aww() => play(SfxKind.aww);
+  void pad(int k) => play(SfxKind.values[SfxKind.pad0.index + k.clamp(0, 2)]);
 }
 
 class SfxService extends Sfx {

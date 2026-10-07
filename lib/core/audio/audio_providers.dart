@@ -18,6 +18,8 @@ class _NoMusic implements Music {
   void background(bool yes) {}
   @override
   void refresh() {}
+  @override
+  void theme(String id) {}
 }
 
 /// مصدر العشوائية للمحرك — الاختبارات بتحط seed ثابت.

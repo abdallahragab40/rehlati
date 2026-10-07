@@ -11,6 +11,7 @@ import '../core/features.dart';
 import '../core/utils/rng.dart';
 import 'generators/arabic_generators.dart';
 import 'generators/english_generators.dart';
+import 'generators/games_generators.dart';
 import 'generators/madd_generators.dart';
 import 'generators/math_generators.dart';
 import 'progress/progress_data.dart';
@@ -47,6 +48,8 @@ const worlds = [
       title: '🔤 عالم العربي', desc: 'الحروف والمدود والكلمات والقراءة'),
   WorldMeta(id: 'english', icon: '🇬🇧', name: 'English', color: Color(0xFF4CB8FF), tone: Color(0xFF1E86CC),
       title: '🇬🇧 English World', desc: 'Letters, words and sounds'),
+  WorldMeta(id: 'games', icon: '🎮', name: 'ألعاب', color: Color(0xFFFF6B6B), tone: Color(0xFFD23F3F),
+      title: '🎮 عالم الألعاب', desc: 'بالونات وذاكرة وسباق وتلوين'),
 ];
 
 WorldMeta worldMeta(String id) => worlds.firstWhere((w) => w.id == id);
@@ -173,6 +176,22 @@ final _english = _register('english', [
   _Def('en_daily', '💬', 'Everyday words', 3, 0xFF216BB2, gen: enDailyGame, lang: 'en'),
 ]);
 
+/// عالم الألعاب — كله مفتوح من الأول (ألعاب مش مناهج). "اسمع واختار" محتاجة صوت.
+final _games = _register('games', [
+  const _Def('balloons', '🎈', 'فرقع البالونة', 1, 0xFFFF6B6B, gen: balloons),
+  const _Def('memoryNum', '🧠', 'الرقم وصاحبه', 1, 0xFF7A4FD1, gen: memoryNum),
+  if (voiceEnabled) const _Def('listenNum', '👂', 'اسمع واختار', 1, 0xFF4C9BFF, gen: listenNum),
+  const _Def('race', '🏁', 'سباق الأرقام', 2, 0xFF36B37E, gen: race),
+  const _Def('puzzle', '🧩', 'بازل الصورة', 2, 0xFFE89B2B, gen: puzzle, count: 4),
+  const _Def('colorNum', '🎨', 'لوّن بالأرقام', 1, 0xFFE05FA8, gen: colorNum, count: 1),
+  const _Def('pattern', '🔁', 'اتبع النمط', 1, 0xFF1FAE9B, gen: pattern),
+  const _Def('letterHunt', '🔤', 'صيد الحروف', 1, 0xFFFF9F1C, gen: letterHunt),
+  const _Def('rhythm', '🥁', 'كرر الإيقاع', 1, 0xFFC06BE8, gen: rhythm),
+  const _Def('shapes', '🔺', 'الأشكال والألوان', 1, 0xFF4CB8FF, gen: shapes),
+  const _Def('sizeOrder', '📏', 'رتّب بالحجم', 1, 0xFF5FBF5F, gen: sizeOrder),
+  const _Def('clock', '🕐', 'كام الساعة', 3, 0xFF7A5CFF, gen: clock),
+]);
+
 /// المدود بتتضاف في آخر عالم العربي من غير ما نلمس مراحله الأصلية (appendStages في الويب).
 /// أول مرحلة بس بتتفتح بعد "أكمل جدول الحروف"؛ الباقي بالترتيب.
 final _madd = [
@@ -189,6 +208,7 @@ final Map<String, List<Stage>> worldStages = {
   'math': _math,
   'arabic': [..._arabic, ..._madd],
   'english': _english,
+  'games': _games,
 };
 
 /// id -> المرحلة.

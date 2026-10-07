@@ -249,6 +249,8 @@ class ProgressData {
 
   bool isUnlocked(String id) {
     if (settings.dev || unlocked.contains(id)) return true;
+    // عالم الألعاب مفتوح كله من الأول — دي ألعاب مش مناهج
+    if (packs[id]?.world == 'games') return true;
     // مرحلة ليها after بتتفتح أول ما المرحلة دي تتنجح (٨٠٪+) — بتشتغل للتقدّم القديم كمان
     final after = packs[id]?.after;
     return after != null && (best[after] ?? 0) >= 2;
@@ -257,7 +259,8 @@ class ProgressData {
   /// يفتح المرحلة اللي بعد دي في نفس العالم — ويرجّعها لو اتفتحت جديد.
   Stage? unlockNext(String id) {
     final pack = packs[id];
-    if (pack == null) return null;
+    // مفيش "فتحت مرحلة جديدة" في عالم الألعاب — كله مفتوح أصلًا
+    if (pack == null || pack.world == 'games') return null;
     final order = worldStages[pack.world]!;
     final i = order.indexWhere((s) => s.id == id);
     if (i < 0 || i + 1 >= order.length) return null;

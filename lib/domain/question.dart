@@ -28,6 +28,23 @@ enum QMode {
 
   /// صنّف البطاقات في صناديق (المدود).
   sort,
+
+  /// بالونات طايرة — افرقع الصح (عالم الألعاب). الاختيارات = قيم البالونات.
+  balloon,
+
+  /// لوّن بالأرقام: اختار لون وبعدين الخانات اللي عليها رقمه.
+  color,
+
+  /// كرر الإيقاع: اسمع سلسلة الطبول وأعدها.
+  rhythm,
+}
+
+/// شكل الاختيارات لو مش نص.
+enum ChoiceLook {
+  text,
+
+  /// "circle|red" ← شكل ملوّن (الأشكال والألوان).
+  shape,
 }
 
 // ---------------------------------------------------------------------------
@@ -147,6 +164,19 @@ class MaddTextVisual extends Visual {
   final String? say;
 }
 
+/// صف النمط وآخره "؟" (اتبع النمط).
+class PatternVisual extends Visual {
+  const PatternVisual(this.items);
+  final List<String> items;
+}
+
+/// ساعة بعقارب (كام الساعة).
+class ClockVisual extends Visual {
+  const ClockVisual(this.hour, this.minute);
+  final int hour;
+  final int minute;
+}
+
 /// زرار 🔊 كبير لوحده (اسمع ثم اختر).
 class ListenVisual extends Visual {
   const ListenVisual(this.say);
@@ -177,9 +207,29 @@ class SortCard {
 }
 
 class MemoryCard {
-  const MemoryCard(this.key, this.ch);
+  const MemoryCard(this.key, this.ch, {this.dots});
   final String key;
   final String ch;
+
+  /// كارت العدد: دواير بدل النص (الرقم وصاحبه).
+  final int? dots;
+}
+
+/// علبة لون في "لوّن بالأرقام".
+class PaintPot {
+  const PaintPot(this.n, this.color, this.name);
+  final int n;
+  final int color;
+  final String name;
+}
+
+/// طبلة في "كرر الإيقاع" — [k] كمان رقم صوتها (SfxKind.pad0…).
+class RhythmPad {
+  const RhythmPad(this.k, this.icon, this.name, this.color);
+  final int k;
+  final String icon;
+  final String name;
+  final int color;
 }
 
 // ---------------------------------------------------------------------------
@@ -224,6 +274,16 @@ class Question {
     this.sortCards = const [],
     this.mtype,
     this.mword,
+    this.look = ChoiceLook.text,
+    this.sizePic,
+    this.track = false,
+    this.puzzle,
+    this.paintCells = const [],
+    this.paintCols = 0,
+    this.pots = const [],
+    this.picName,
+    this.beats = const [],
+    this.pads = const [],
   });
 
   final String type;
@@ -306,6 +366,29 @@ class Question {
   /// نوع المد والكلمة — لإحصائيات المدود.
   final String? mtype;
   final String? mword;
+
+  // ---------------------------------------------------------- عالم الألعاب
+
+  final ChoiceLook look;
+
+  /// رتّب بالحجم: العناصر أحجام ('1'، '1.55'…) والصورة دي بتترسم بالحجم ده.
+  final String? sizePic;
+
+  /// سباق الأرقام: مسار الطفل والسلحفاة فوق السؤال.
+  final bool track;
+
+  /// بازل الصورة: الصورة اللي بتتكشف قطعة مع كل إجابة صح.
+  final String? puzzle;
+
+  /// لوّن بالأرقام: رقم كل خانة (صف ورا صف) وعدد الأعمدة والألوان.
+  final List<int> paintCells;
+  final int paintCols;
+  final List<PaintPot> pots;
+  final String? picName;
+
+  /// كرر الإيقاع: السلسلة (أرقام الطبول) والطبول المتاحة.
+  final List<int> beats;
+  final List<RhythmPad> pads;
 
   bool get isEnglish => lang == 'en';
 

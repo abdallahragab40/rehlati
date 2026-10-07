@@ -1,13 +1,15 @@
 // موسيقى الخلفية — نسخة offline من js/music.js (تهويدة علبة موسيقى).
 //
-// الويب بيولّد الموسيقى لحظيًا بـ Web Audio. هنا بنطلع نفس القواعد في ملف بيتكرر:
-//   • دورة كوردات ثابتة (دو ← لا صغير ← فا ← صول)
+// الويب بيولّد الموسيقى لحظيًا بـ Web Audio. هنا بنطلع نفس القواعد في ملفات بتتكرر —
+// ملف لكل "مزاج" (دورة كوردات + نبرة الجرس)، والتطبيق بيختار المزاج وسرعته وصوته
+// لكل عالم ولعبة (MusicService.themes):
 //   • اللحن بيمشي بخطوات صغيرة جوه الكورد
 //   • نغمة علبة موسيقى = أساسي + توافقيتين بذيل طويل، وصدى خفيف، وباص ناعم
 // آخر ثواني بتتدمج في أولها (crossfade) عشان التكرار مايبانش.
 //
-//   dart run tool/render_music.dart && afconvert -f m4af -d aac -b 96000 \
-//     assets/audio/music/lullaby.wav assets/audio/music/lullaby.m4a && rm assets/audio/music/lullaby.wav
+//   dart run tool/render_music.dart && for f in warm airy curious bright; do
+//     afconvert -f m4af -d aac -b 64000 assets/audio/music/$f.wav assets/audio/music/$f.m4a
+//     rm assets/audio/music/$f.wav; done
 // ignore_for_file: avoid_print
 
 import 'dart:io';
@@ -15,17 +17,36 @@ import 'dart:math' as math;
 import 'dart:typed_data';
 
 const sr = 44100;
-const step = 1.45; // ثانية بين كل نغمة والتانية
 const bar = 4; // نغمات قبل ما الكورد يتغيّر
-const cycles = 4; // ٤ دورات كوردات = ٦٤ نغمة ≈ ٩٣ ثانية
+const cycles = 4; // ٤ دورات كوردات = ٦٤ نغمة
 const fadeSec = 4.0; // طول الدمج بين الآخر والأول
 
-const chords = [
-  (bass: -12, tones: [0, 4, 7, 12]), // دو
-  (bass: -3, tones: [9, 12, 16, 21]), // لا صغير
-  (bass: -7, tones: [5, 9, 12, 17]), // فا
-  (bass: -5, tones: [7, 11, 14, 19]), // صول
-];
+typedef Chord = ({int bass, List<int> tones});
+
+/// المزاجات (PROG + نبرة الجرس في js/music.js) — كلها في نفس السلّم فمفيش نشاز.
+/// step = ثواني بين النغمات؛ bright أسرع لأنه للسباق.
+const themes = <String, ({List<Chord> chords, double step, List<double> tone, double bass})>{
+  // دافية ومطمّنة — دو / لا صغير / فا / صول (الصفحة الرئيسية والحساب)
+  'warm': (chords: [
+    (bass: -12, tones: [0, 4, 7, 12]), (bass: -3, tones: [9, 12, 16, 21]),
+    (bass: -7, tones: [5, 9, 12, 17]), (bass: -5, tones: [7, 11, 14, 19]),
+  ], step: 1.45, tone: [1, .22, .08], bass: .07),
+  // واسعة وحالمة — فا / دو / صول / لا صغير (العربي والألعاب)
+  'airy': (chords: [
+    (bass: -7, tones: [5, 9, 12, 17]), (bass: -12, tones: [0, 4, 7, 16]),
+    (bass: -5, tones: [7, 11, 14, 19]), (bass: -3, tones: [9, 12, 16, 21]),
+  ], step: 1.3, tone: [1, .3, .12], bass: .05),
+  // فضولية خفيفة — لا صغير / فا / دو / صول (English والذاكرة والأنماط)
+  'curious': (chords: [
+    (bass: -3, tones: [9, 12, 16, 21]), (bass: -7, tones: [5, 9, 12, 17]),
+    (bass: -12, tones: [0, 4, 7, 12]), (bass: -5, tones: [7, 11, 14, 19]),
+  ], step: 1.4, tone: [1, .25, .09], bass: .05),
+  // نشيطة للسباق — دو / فا / صول / دو
+  'bright': (chords: [
+    (bass: -12, tones: [0, 4, 7, 12]), (bass: -7, tones: [5, 9, 12, 17]),
+    (bass: -5, tones: [7, 11, 14, 19]), (bass: -12, tones: [4, 7, 12, 16]),
+  ], step: .9, tone: [1, .4, .18], bass: .08),
+};
 
 double freq(num n) => 261.63 * math.pow(2, n / 12);
 
@@ -54,6 +75,12 @@ double expRamp(double v0, double v1, double t0, double t1, double t) =>
     v0 * math.pow(v1 / v0, ((t - t0) / (t1 - t0)).clamp(0.0, 1.0));
 
 void main() {
+  for (final MapEntry(key: name, value: t) in themes.entries) {
+    render(name, t.chords, t.step, t.tone, t.bass);
+  }
+}
+
+void render(String name, List<Chord> chords, double step, List<double> tone, double bassVol) {
   final rnd = math.Random(2026);
   final beats = chords.length * bar * cycles;
   final loopLen = (beats * step * sr).round();
@@ -67,8 +94,8 @@ void main() {
       final t = i / sr;
       final g = t < .035 ? expRamp(.0001, vol, 0, .035, t) : expRamp(vol, .0001, .035, 3.4, t);
       var s = 0.0;
-      for (final (mult, amp) in const [(1, 1.0), (2, .22), (3, .08)]) {
-        s += amp * math.sin(2 * math.pi * freq(n) * mult * t);
+      for (final (k, amp) in tone.indexed) {
+        s += amp * math.sin(2 * math.pi * freq(n) * (k + 1) * t);
       }
       bells[start + i] += s * g;
     }
@@ -115,7 +142,7 @@ void main() {
     final target = freq(chords[(beat ~/ bar) % chords.length].bass);
     bf += (target - bf) * k;
     phase += bf / sr;
-    out[i] += bassLp.run(math.sin(2 * math.pi * phase) * .07);
+    out[i] += bassLp.run(math.sin(2 * math.pi * phase) * bassVol);
   }
 
   // ---- crossfade: الذيل اللي بعد نهاية الدورة يندمج في أولها
@@ -152,8 +179,8 @@ void main() {
     ..setUint32(36, 0x64617461)
     ..setUint32(40, data.length, Endian.little);
   Directory('assets/audio/music').createSync(recursive: true);
-  File('assets/audio/music/lullaby.wav').writeAsBytesSync([...h.buffer.asUint8List(), ...data]);
+  File('assets/audio/music/$name.wav').writeAsBytesSync([...h.buffer.asUint8List(), ...data]);
   // الويب: master = .11 على الإشارة الأصلية ← في التطبيق volume = .11 / gain
-  print('loop ${(loopLen / sr).toStringAsFixed(1)}s, normalize gain ${gain.toStringAsFixed(3)}, '
+  print('$name: loop ${(loopLen / sr).toStringAsFixed(1)}s, normalize gain ${gain.toStringAsFixed(3)}, '
       'app volume ${(0.11 / gain).toStringAsFixed(3)}');
 }

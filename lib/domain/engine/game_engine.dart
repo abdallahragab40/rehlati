@@ -79,6 +79,9 @@ class GameSession {
   final List<DotState> dots;
 
   int idx = 0, correct = 0, tries = 0, streak = 0;
+
+  /// الأسئلة اللي اتحلّت في الجولة (حتى بعد غلطة) — البازل بيكشف قطعة مع كل واحد.
+  int solved = 0;
   final mistakes = <String>[];
 
   // حالة السؤال الحالي
@@ -97,6 +100,15 @@ class GameSession {
 
   /// وضع sort: البطاقة ← الصندوق اللي اتحطت فيه.
   final placed = <int, String>{};
+
+  /// لوّن بالأرقام: اللون المختار والخانات اللي اتلوّنت.
+  int? paintSel;
+  final painted = <int>{};
+
+  /// كرر الإيقاع: ممنوع الضغط وهو بيشتغل، والطبلة اللي بتنور دلوقتي (+ عدّاد عشان الوميض يتعاد).
+  bool rhythmLock = false;
+  int? padLit;
+  int padTick = 0;
   Object? hintTarget;
   String? wrongAnchor, rightAnchor;
   int wrongTick = 0, shakeTick = 0;
@@ -126,6 +138,10 @@ class GameSession {
     locked = false;
     revealed = false;
     placed.clear();
+    paintSel = null;
+    painted.clear();
+    rhythmLock = false;
+    padLit = null;
     hintTarget = null;
     wrongAnchor = null;
     rightAnchor = null;
@@ -220,6 +236,7 @@ class GameEngine extends Notifier<GameSession?> {
     s.bubbleKind = BubbleKind.plain;
     _emit();
     final q = s.q;
+    if (q.mode == QMode.rhythm) _later(1200, rhythmPlay);
     if (q.isEnglish) {
       _speech.speakEn(q.speak);
     } else {
@@ -270,6 +287,7 @@ class GameEngine extends Notifier<GameSession?> {
     final s = _s;
     final first = s.tries == 0;
     if (first) s.correct++;
+    s.solved++;
     s.streak = first ? s.streak + 1 : 0;
     if (first) {
       _hit(skill);
@@ -512,6 +530,116 @@ class GameEngine extends Notifier<GameSession?> {
           ..memLock = false;
         _emit();
       });
+    }
+  }
+
+  // ------------------------------------------------------------------ عالم الألعاب
+
+  /// لوّن بالأرقام: اختار علبة لون.
+  void colorSelect(int n) {
+    final s = _s;
+    if (s.locked) return;
+    s.paintSel = n;
+    _emit();
+    final pot = s.q.pots.firstWhere((p) => p.n == n);
+    _speech.speak('${pot.name}، رقم ${arNum(n)}');
+  }
+
+  /// لوّن خانة باللون المختار — لو رقمها مختلف تبقى غلطة لطيفة.
+  void colorPaint(int i) {
+    final s = _s, q = s.q;
+    if (s.locked || s.painted.contains(i)) return;
+    final sel = s.paintSel;
+    if (sel == null) {
+      s
+        ..bubble = 'اختار لون الأول 🎨'
+        ..bubbleKind = BubbleKind.plain;
+      _emit();
+      _sfx.bad();
+      return;
+    }
+    if (q.paintCells[i] == sel) {
+      s.painted.add(i);
+      if (s.painted.length == q.paintCells.length) {
+        _solved(skill: q.skill, delay: 2200);
+        _speech.speak('طلعت صورة ${q.picName}');
+      } else {
+        s
+          ..bubble = '${ar(s.painted.length)} / ${ar(q.paintCells.length)} 🎨'
+          ..bubbleKind = BubbleKind.ok;
+        _emit();
+        _sfx.good();
+      }
+    } else {
+      s.tries++;
+      _markMistake(q);
+      if (s.tries == 1) _penalize();
+      _miss(q.skill);
+      _wrongUi(q, 'p$i', allowHint: false);
+      s
+        ..bubble = 'الخانة دي رقم ${ar(q.paintCells[i])} — دوّر على رقم ${ar(sel)} ❤️'
+        ..bubbleKind = BubbleKind.no;
+      _emit();
+    }
+  }
+
+  /// كرر الإيقاع: يدق السلسلة (طبلة كل ٧٠٠ مللي) وبعدين يدّي الدور للطفل.
+  void rhythmPlay() {
+    final s = _s, q = s.q;
+    if (s.locked || q.mode != QMode.rhythm) return;
+    s
+      ..rhythmLock = true
+      ..picked.clear()
+      ..bubble = 'اسمع كويس… 👂'
+      ..bubbleKind = BubbleKind.plain;
+    _emit();
+    for (var i = 0; i < q.beats.length; i++) {
+      _later(400 + i * 700, () => _hitPad(q.beats[i]));
+    }
+    _later(400 + (q.beats.length - 1) * 700 + 500, () {
+      if (state == null || _s.q != q || _s.locked) return;
+      _s
+        ..rhythmLock = false
+        ..bubble = 'دورك! كرّر الإيقاع 🥁'
+        ..bubbleKind = BubbleKind.plain;
+      _emit();
+    });
+  }
+
+  void _hitPad(int k) {
+    if (state == null) return;
+    _sfx.pad(k);
+    _s
+      ..padLit = k
+      ..padTick += 1;
+    _emit();
+  }
+
+  /// ضغطة الطفل على طبلة.
+  void rhythmTap(int k) {
+    final s = _s, q = s.q;
+    if (s.locked || s.rhythmLock) return; // ممنوع الضغط والإيقاع شغال
+    _hitPad(k);
+    if (k == q.beats[s.picked.length]) {
+      s.picked.add(k);
+      if (s.picked.length == q.beats.length) {
+        _solved(skill: q.skill, playSfx: false, delay: 1600);
+      } else {
+        _emit();
+      }
+    } else {
+      s.tries++;
+      _markMistake(q);
+      if (s.tries == 1) _penalize();
+      _miss(q.skill);
+      _wrongUi(q, 'pad$k', allowHint: false);
+      s
+        ..picked.clear()
+        ..rhythmLock = true
+        ..bubble = 'مش مظبوط — هنسمعه تاني ❤️'
+        ..bubbleKind = BubbleKind.no;
+      _emit();
+      _later(900, rhythmPlay);
     }
   }
 

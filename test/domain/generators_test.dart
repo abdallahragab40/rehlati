@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rehlati/content/math_data.dart';
+import 'package:rehlati/core/features.dart';
 import 'package:rehlati/core/utils/rng.dart';
 import 'package:rehlati/domain/progress/progress_data.dart';
 import 'package:rehlati/domain/question.dart';
@@ -19,6 +20,7 @@ void main() {
     expect(worldStages['math']!.length, 13, reason: 'with neighbors and emptyTable');
     expect(worldStages['arabic']!.length, 11 + 9, reason: '11 + 9 madd stages');
     expect(worldStages['english']!.length, 14);
+    expect(worldStages['games']!.length, voiceEnabled ? 12 : 11, reason: 'listenNum needs the voice');
   });
 
   for (final type in types) {
@@ -107,5 +109,17 @@ void _checkSolvable(Question q, int lv, String id) {
         keys[c.key] = (keys[c.key] ?? 0) + 1;
       }
       expect(keys.values.every((v) => v == 2), isTrue, reason: reason);
+    case QMode.balloon:
+      expect(q.choices, contains(q.answer), reason: reason);
+      expect(q.choices.toSet().length, q.choices.length, reason: '$reason: duplicate balloons');
+      expect(q.choices.length, inInclusiveRange(4, 6), reason: reason);
+    case QMode.color:
+      final used = q.paintCells.toSet();
+      expect(q.paintCells.length % q.paintCols, 0, reason: '$reason: full rows');
+      expect(q.pots.map((p) => p.n).toSet(), used, reason: '$reason: a pot for every number');
+    case QMode.rhythm:
+      final pads = q.pads.map((p) => p.k).toSet();
+      expect(q.beats, isNotEmpty, reason: reason);
+      expect(q.beats.every(pads.contains), isTrue, reason: '$reason: every beat has a pad');
   }
 }

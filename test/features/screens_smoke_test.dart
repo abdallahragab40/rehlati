@@ -71,7 +71,7 @@ void main() {
 
   final screens = <String, Widget>{
     'first-launch setup': const HomeScreen(), // تقدّم جديد ← شاشة الاسم والعمر
-    for (final w in ['math', 'arabic', 'english']) 'world $w': WorldMapScreen(world: w),
+    for (final w in ['math', 'arabic', 'english', 'games']) 'world $w': WorldMapScreen(world: w),
     for (final s in packs.values.where((s) => !s.isLearn)) 'play ${s.id}': GameScreen(stageId: s.id),
     for (final s in packs.values.where((s) => s.isMadd)) 'madd lesson ${s.id}': MaddLessonScreen(stageId: s.id),
     for (final s in packs.values.where((s) => s.isLearn)) 'learn ${s.id}': LetterBoardScreen(stageId: s.id),

@@ -1,6 +1,8 @@
 /// رسم مرئيات السؤال (كانت HTML في الويب).
 library;
 
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -57,6 +59,8 @@ class VisualView extends StatelessWidget {
         TableVisual v => _Table(v, picked),
         MaddTextVisual v => MaddTextView(v),
         ListenVisual v => Center(child: ListenButton(v.say)),
+        PatternVisual v => _Pattern(v),
+        ClockVisual v => Center(child: ClockFace(hour: v.hour, minute: v.minute, size: context.clampVw(150, 44, 210))),
       },
     );
   }
@@ -453,4 +457,102 @@ class _Table extends StatelessWidget {
       ),
     );
   }
+}
+
+/// اتبع النمط: صف العناصر وفي الآخر "؟" بتنبض.
+class _Pattern extends StatelessWidget {
+  const _Pattern(this.v);
+  final PatternVisual v;
+
+  @override
+  Widget build(BuildContext context) {
+    final box = context.clampVw(46, 13, 64);
+    Widget cell(Widget child, {bool q = false}) => Container(
+          width: box,
+          height: box,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: q ? Colors.white : AppColors.paper2,
+            borderRadius: BorderRadius.circular(18),
+            border: q ? Border.all(color: AppColors.grape, width: 4) : null,
+          ),
+          child: child,
+        );
+    // سطر واحد دايمًا — لو مش واسع كفاية بيصغر بدل ما "؟" تنزل لوحدها تحت
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Row(spacing: context.clampVw(6, 2, 12), children: [
+          for (final (i, e) in v.items.indexed)
+            cell(Text(e, style: TextStyle(fontSize: box * .55)))
+                .animate()
+                .fadeIn(delay: (i * 70).ms, duration: 250.ms)
+                .scaleXY(begin: .6, end: 1, duration: 300.ms, curve: Curves.easeOutBack),
+          cell(Text('؟', style: kidText(box * .55, color: AppColors.grape)), q: true)
+              .animate(onPlay: (c) => c.repeat(reverse: true))
+              .scaleXY(begin: 1, end: 1.08, duration: 800.ms),
+        ]),
+      ),
+    );
+  }
+}
+
+/// ساعة بعقارب — نفس clockFace في الويب: العقرب القصير للساعة والطويل البنفسجي للدقايق.
+class ClockFace extends StatelessWidget {
+  const ClockFace({super.key, required this.hour, required this.minute, this.size = 180});
+  final int hour, minute;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) => Semantics(
+        label: 'ساعة',
+        child: Container(
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [BoxShadow(color: AppColors.shadow, offset: Offset(0, 6))],
+          ),
+          child: CustomPaint(size: Size.square(size), painter: _ClockPainter(hour, minute)),
+        ),
+      );
+}
+
+class _ClockPainter extends CustomPainter {
+  _ClockPainter(this.h, this.m);
+  final int h, m;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final k = size.width / 100; // الرسمة على مربع ١٠٠×١٠٠ زي الـ SVG
+    const c = Offset(50, 50);
+    canvas.scale(k);
+    canvas
+      ..drawCircle(c, 47, Paint()..color = Colors.white)
+      ..drawCircle(c, 47, Paint()
+        ..color = AppColors.grape
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 4);
+    for (var i = 0; i < 12; i++) {
+      final a = (i * 30 - 90) * math.pi / 180;
+      final tp = TextPainter(
+        text: TextSpan(text: ar(i == 0 ? 12 : i), style: kidText(9, weight: FontWeight.w700, color: const Color(0xFF4A5568))),
+        textDirection: TextDirection.rtl,
+      )..layout();
+      tp.paint(canvas, Offset(50 + 38 * math.cos(a) - tp.width / 2, 50 + 38 * math.sin(a) - tp.height / 2));
+    }
+    void hand(double deg, double len, double w, Color col) {
+      final a = (deg - 90) * math.pi / 180;
+      canvas.drawLine(c, Offset(50 + len * math.cos(a), 50 + len * math.sin(a)), Paint()
+        ..color = col
+        ..strokeWidth = w
+        ..strokeCap = StrokeCap.round);
+    }
+
+    hand((h % 12) * 30 + m * .5, 24, 5, const Color(0xFF2D3748));
+    hand(m * 6.0, 34, 3, AppColors.grape);
+    canvas.drawCircle(c, 3.5, Paint()..color = const Color(0xFF2D3748));
+  }
+
+  @override
+  bool shouldRepaint(_ClockPainter old) => old.h != h || old.m != m;
 }

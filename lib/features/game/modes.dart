@@ -12,6 +12,7 @@ import '../../core/widgets/kid_widgets.dart';
 import '../../domain/engine/game_engine.dart';
 import '../../domain/question.dart';
 import '../madd/madd_style.dart';
+import 'games_modes.dart';
 import 'visuals.dart';
 
 typedef KeyFor = GlobalKey Function(String anchor);
@@ -32,9 +33,13 @@ class ChoiceTile extends StatelessWidget {
     this.used = false,
     this.selected = false,
     this.matched = false,
+    this.content,
   });
 
   final String label;
+
+  /// بدل النص: شكل أو صورة بحجم (عالم الألعاب).
+  final Widget? content;
   final Color color;
   final VoidCallback? onTap;
   final TileSize size;
@@ -74,12 +79,13 @@ class ChoiceTile extends StatelessWidget {
           child: Center(
             widthFactor: minW.isInfinite ? null : 1,
             child: ExcludeSemantics(
-              child: Text(
-                ar(label),
-                textAlign: TextAlign.center,
-                style: kidText(font, color: Colors.white, height: 1.2)
-                    .copyWith(shadows: const [Shadow(color: Color(0x2E000000), offset: Offset(0, 2))]),
-              ),
+              child: content ??
+                  Text(
+                    ar(label),
+                    textAlign: TextAlign.center,
+                    style: kidText(font, color: Colors.white, height: 1.2)
+                        .copyWith(shadows: const [Shadow(color: Color(0x2E000000), offset: Offset(0, 2))]),
+                  ),
             ),
           ),
         ),
@@ -221,9 +227,14 @@ class QuestionBody extends StatelessWidget {
           KidButton(q.yes ?? 'نعم ⭐', kind: BtnKind.go, onTap: s.locked ? null : engine.readDone),
         ]),
       QMode.sort => _sort(context),
+      QMode.balloon => Column(children: [_Hint(q.hint), BalloonSky(s: s, engine: engine, keyFor: keyFor)]),
+      QMode.color => ColorGame(s: s, engine: engine, keyFor: keyFor),
+      QMode.rhythm => RhythmGame(s: s, engine: engine, keyFor: keyFor),
     };
     return Column(children: [
       AskRow(q: q, onSpeak: engine.repeat),
+      if (q.track) RaceTrack(s),
+      if (q.puzzle != null) PuzzleGrid(pic: q.puzzle!, open: s.solved),
       ...visuals,
       Directionality(textDirection: dir, child: body),
     ]);
@@ -237,6 +248,7 @@ class QuestionBody extends StatelessWidget {
           key: keyFor('c$i'),
           child: ChoiceTile(
             label: '${q.choices[i]}',
+            content: q.look == ChoiceLook.shape ? ShapeIcon('${q.choices[i]}', size: context.clampVw(44, 12, 62)) : null,
             color: color,
             size: q.bigChoices
                 ? (wide ? TileSize.maddWide : TileSize.madd)
@@ -275,7 +287,9 @@ class QuestionBody extends StatelessWidget {
           height: size,
           alignment: Alignment.center,
           decoration: BoxDecoration(color: AppColors.mint, borderRadius: BorderRadius.circular(22)),
-          child: Text(ar(s.picked[k]), style: font.copyWith(color: Colors.white)),
+          child: q.sizePic == null
+              ? Text(ar(s.picked[k]), style: font.copyWith(color: Colors.white))
+              : FittedBox(child: _sized('${s.picked[k]}', context)),
         ).animate().scaleXY(begin: 1.18, end: 1, duration: 300.ms);
       }
       final box = DashedBox(
@@ -301,6 +315,10 @@ class QuestionBody extends StatelessWidget {
     );
   }
 
+  /// رتّب بالحجم: الصورة بحجمها النسبي ('1'، '1.55'…).
+  Widget _sized(String factor, BuildContext context) =>
+      Text(q.sizePic!, style: TextStyle(fontSize: context.clampVw(18, 5, 24) * double.parse(factor), height: 1.1));
+
   Widget _bank(BuildContext context) {
     final gap = context.clampVw(10, 3, 18);
     return Wrap(
@@ -313,6 +331,7 @@ class QuestionBody extends StatelessWidget {
             key: keyFor('i$i'),
             child: ChoiceTile(
               label: '${q.items[i]}',
+              content: q.sizePic == null ? null : _sized('${q.items[i]}', context),
               color: color,
               size: q.bigChoices ? TileSize.madd : (q.numeric ? TileSize.number : TileSize.text),
               onTap: s.locked ? null : () => engine.pick(i),
@@ -523,10 +542,11 @@ class QuestionBody extends StatelessWidget {
       textDirection: TextDirection.ltr,
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 430),
-        child: GridView.extent(
-          maxCrossAxisExtent: 100,
-          mainAxisSpacing: 12,
-          crossAxisSpacing: 12,
+        // أعمدة = عدد الأزواج (لحد ٥) فالكروت بتنزل صفّين متساويين بالظبط
+        child: GridView.count(
+          crossAxisCount: (q.cards.length ~/ 2).clamp(2, 5),
+          mainAxisSpacing: context.clampVw(8, 2.4, 13),
+          crossAxisSpacing: context.clampVw(8, 2.4, 13),
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           children: [
@@ -552,8 +572,11 @@ class QuestionBody extends StatelessWidget {
       depth: 6,
       semanticLabel: open ? q.cards[i].ch : 'كارت مقلوب',
       child: Center(
-        child: Text(open ? q.cards[i].ch : '❓',
-            style: kidText(font, color: open && !matched ? AppColors.ink : Colors.white)),
+        child: open && q.cards[i].dots != null
+            ? DotCount(q.cards[i].dots!, color: matched ? Colors.white : AppColors.grape, dot: font * .38)
+            // وجه الكارت المقلوب: علامة استفهام هادية بدل الإيموجي (زي الويب)
+            : Text(open ? ar(q.cards[i].ch) : '?',
+                style: kidText(font, color: open && !matched ? AppColors.ink : Colors.white)),
       ),
     );
     final shown = matched ? Opacity(opacity: .75, child: card) : card;

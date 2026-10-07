@@ -29,7 +29,11 @@ class Track {
       final freq = to == null ? f : expRamp(f, to, 0, dur, t);
       phase += freq / sr;
       final p = phase - phase.floorToDouble();
-      final osc = type == 'sine' ? math.sin(2 * math.pi * p) : 1 - 4 * (p - .5).abs();
+      final osc = switch (type) {
+        'sine' => math.sin(2 * math.pi * p),
+        'square' => p < .5 ? 1.0 : -1.0,
+        _ => 1 - 4 * (p - .5).abs(),
+      };
       final g = t < .02 ? expRamp(.0001, vol, 0, .02, t) : expRamp(vol, .0001, .02, dur, t);
       buf[i] += osc * (t > dur ? 0 : g);
     }
@@ -165,4 +169,15 @@ void main() {
     ..note(440, 0, .3, vol: .16, to: 349)
     ..note(349, .28, .42, vol: .14, to: 262)
     ..writeWav('$out/aww.wav');
+
+  // 🥁 طبول «كرر الإيقاع» (Audio_.pad في الويب): لكل واحدة نبرة مختلفة واضحة للطفل
+  Track(.45)
+    ..note(180, 0, .3, vol: .3, to: 70) // طبلة
+    ..writeWav('$out/pad0.wav');
+  Track(.3)
+    ..note(900, 0, .14, type: 'square', vol: .14, to: 420) // تصفيقة
+    ..writeWav('$out/pad1.wav');
+  Track(.65)
+    ..note(1320, 0, .5, type: 'sine', vol: .2) // جرس
+    ..writeWav('$out/pad2.wav');
 }

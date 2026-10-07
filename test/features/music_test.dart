@@ -21,6 +21,9 @@ class FakeMusic implements Music {
   void background(bool yes) {}
   @override
   void refresh() {}
+  String themeNow = 'home';
+  @override
+  void theme(String id) => themeNow = id;
 }
 
 /// الموسيقى بتسكت لما ندخل عالم القرآن (حتى لو اتفتح بـ push) وبترجع لما نخرج.
@@ -68,6 +71,19 @@ void main() {
     await tester.tap(find.text('↩').first);
     await settle();
     expect(music.quietNow, isFalse, reason: 'home again');
+    expect(music.themeNow, 'home');
+
+    await tester.ensureVisible(find.text('ألعاب'));
+    await settle();
+    await tester.tap(find.text('ألعاب'));
+    await settle();
+    expect(music.themeNow, 'games', reason: 'each world has its mood');
+    await tester.ensureVisible(find.text('فرقع البالونة'));
+    await settle();
+    await tester.tap(find.text('فرقع البالونة'));
+    await settle();
+    expect(music.themeNow, 'balloons', reason: 'and some games have their own');
+    expect(music.quietNow, isFalse);
     await tester.pumpWidget(const SizedBox());
   });
 }

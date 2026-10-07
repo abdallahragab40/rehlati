@@ -1,6 +1,6 @@
 # رحلتي — Rehlati
 
-Flutter (Android + iOS, phones and tablets) port of the رحلتي التعليمية web app: an Egyptian-Arabic learning app for kids aged 4–6, with four worlds (Quran, Math, Arabic, English).
+Flutter (Android + iOS, phones and tablets) port of the رحلتي التعليمية web app: an Egyptian-Arabic learning app for kids aged 4–6, with five worlds (Quran, Math, Arabic, English, Games).
 
 - Original web app: github.com/MahmoudRabea93/rehlati, by Mahmoud Rabea Hassan
 
