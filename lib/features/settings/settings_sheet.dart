@@ -146,8 +146,6 @@ class _SettingsPanelState extends ConsumerState<_SettingsPanel> {
                   KidButton('تمام', onTap: () => context.pop()),
                 ],
               ),
-              const SizedBox(height: 14),
-              const _Credit(),
             ],
           ),
         ),
@@ -197,15 +195,4 @@ class _VoiceReport extends StatelessWidget {
                   'آيفون: الإعدادات ← تسهيلات الاستخدام ← المحتوى المنطوق ← الأصوات ← العربية.'),
     ));
   }
-}
-
-class _Credit extends StatelessWidget {
-  const _Credit();
-
-  @override
-  Widget build(BuildContext context) => Column(children: [
-        Text('رحلتي التعليمية — تصميم وتطوير', style: kidText(13, weight: FontWeight.w600, color: AppColors.inkSoft)),
-        Text('Mahmoud Rabea Hassan', style: kidText(15)),
-        Text('Software Engineer', style: kidText(12, weight: FontWeight.w600, color: AppColors.inkSoft)),
-      ]);
 }
