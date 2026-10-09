@@ -17,6 +17,7 @@ import '../../core/audio/voice_lines.dart';
 import '../../core/ui_state.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/utils/rng.dart';
+import '../progress/learning_time.dart';
 import '../progress/progress_controller.dart';
 import '../progress/progress_data.dart';
 import '../question.dart';
@@ -79,6 +80,9 @@ class GameSession {
   final List<DotState> dots;
 
   int idx = 0, correct = 0, tries = 0, streak = 0;
+
+  /// وقت النهاردة خلص بين سؤالين — الشاشة بتروح لـ "وقت الراحة".
+  bool timeUp = false;
 
   /// الأسئلة اللي اتحلّت في الجولة (حتى بعد غلطة) — البازل بيكشف قطعة مع كل واحد.
   int solved = 0;
@@ -152,7 +156,6 @@ class GameSession {
 class GameEngine extends Notifier<GameSession?> {
   final _timers = <Timer>[];
   final _fx = StreamController<GameFx>.broadcast();
-  int _t0 = 0;
 
   Stream<GameFx> get fx => _fx.stream;
 
@@ -174,10 +177,10 @@ class GameEngine extends Notifier<GameSession?> {
   Sfx get _sfx => ref.read(sfxProvider);
   Rng get _rng => ref.read(rngProvider);
   ProgressController get _progress => ref.read(progressProvider.notifier);
+  LearningTimer get _time => ref.read(learningTimeProvider);
   GameSession get _s => state!;
 
   void _emit() => state = state;
-  int _now() => DateTime.now().millisecondsSinceEpoch;
 
   void _later(int ms, void Function() f) {
     late final Timer t;
@@ -222,7 +225,12 @@ class GameEngine extends Notifier<GameSession?> {
       }
     }
     state = GameSession(stage, level, practice, list);
-    _t0 = _now();
+    // "تاني" أو "درّب على أخطائك" بعد ما الوقت خلص
+    if (_time.checkpoint()) {
+      _s.timeUp = true;
+      _emit();
+      return;
+    }
     _render();
   }
 
@@ -707,13 +715,14 @@ class GameEngine extends Notifier<GameSession?> {
   // ------------------------------------------------------------------ التالي والنهاية
 
   void _next() {
-    // الوقت بيتحسب سؤال بسؤال — لو الطفل ساب الجولة، اللي ذاكره يتسجّل
-    final now = _now();
-    _progress.update((p) => p.addTime(now - _t0));
-    _t0 = now;
     _s.idx++;
     if (_s.idx >= _s.total) {
+      _time.flush();
       _finish();
+    } else if (_time.checkpoint()) {
+      // الوقت خلص: السؤال اللي فات خلص، فنقف هنا بهدوء قبل اللي بعده
+      _s.timeUp = true;
+      _emit();
     } else {
       _render();
     }

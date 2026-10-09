@@ -13,6 +13,7 @@ import 'core/audio/voice_lines.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/arabic.dart';
 import 'core/widgets/fx_layer.dart';
+import 'core/widgets/learning_scope.dart';
 import 'domain/progress/progress_controller.dart';
 import 'domain/stages.dart';
 import 'features/achievements/achievements_screen.dart';
@@ -40,29 +41,53 @@ String _topPath() =>
 
 final _router = GoRouter(initialLocation: kDebugMode ? _start : '/', routes: [
   GoRoute(path: '/', builder: (_, _) => const HomeScreen()),
-  GoRoute(path: '/world/:id', builder: (_, s) => WorldMapScreen(world: s.pathParameters['id']!)),
+  // شاشات الطفل جوه LearningScope: حد الوقت بيتطبّق على أي دخول، والأنشطة وقتها بيتعد.
+  // track: false = خريطة أو قايمة (حد بس). stopsItself = بتقف لوحدها بين سؤال والتاني.
+  GoRoute(
+    path: '/world/:id',
+    builder: (_, s) => LearningScope(track: false, child: WorldMapScreen(world: s.pathParameters['id']!)),
+  ),
   GoRoute(
     path: '/play/:stage',
-    builder: (_, s) => GameScreen(key: ValueKey(s.pathParameters['stage']), stageId: s.pathParameters['stage']!),
+    builder: (_, s) => LearningScope(
+      key: ValueKey(s.pathParameters['stage']),
+      stopsItself: true,
+      child: GameScreen(stageId: s.pathParameters['stage']!),
+    ),
   ),
-  GoRoute(path: '/madd/:stage', builder: (_, s) => MaddLessonScreen(stageId: s.pathParameters['stage']!)),
-  GoRoute(path: '/learn/:stage', builder: (_, s) => LetterBoardScreen(stageId: s.pathParameters['stage']!)),
+  GoRoute(
+    path: '/madd/:stage',
+    builder: (_, s) => LearningScope(child: MaddLessonScreen(stageId: s.pathParameters['stage']!)),
+  ),
+  GoRoute(
+    path: '/learn/:stage',
+    builder: (_, s) => LearningScope(child: LetterBoardScreen(stageId: s.pathParameters['stage']!)),
+  ),
   GoRoute(path: '/timeup', builder: (_, _) => const TimeUpScreen()),
   GoRoute(path: '/achievements', builder: (_, _) => const AchievementsScreen()),
-  GoRoute(path: '/quran', builder: (_, _) => const QuranHomeScreen()),
+  GoRoute(path: '/quran', builder: (_, _) => const LearningScope(track: false, child: QuranHomeScreen())),
   GoRoute(path: '/quran-check', builder: (_, _) => const QuranCheckScreen()),
-  GoRoute(path: '/quran/:surah', builder: (_, s) => SurahScreen(surah: int.parse(s.pathParameters['surah']!))),
+  GoRoute(
+    path: '/quran/:surah',
+    builder: (_, s) => LearningScope(track: false, child: SurahScreen(surah: int.parse(s.pathParameters['surah']!))),
+  ),
   GoRoute(
     path: '/quran/:surah/:mode',
-    builder: (_, s) => QuranModeScreen(surah: int.parse(s.pathParameters['surah']!), mode: s.pathParameters['mode']!),
+    builder: (_, s) => LearningScope(
+      stopsItself: true,
+      child: QuranModeScreen(surah: int.parse(s.pathParameters['surah']!), mode: s.pathParameters['mode']!),
+    ),
   ),
   GoRoute(path: '/parent', builder: (_, _) => const DashboardScreen()),
   GoRoute(path: '/guide', builder: (_, _) => const GuideScreen()),
   GoRoute(path: '/pg', builder: (_, _) => const PgHomeScreen()),
   GoRoute(path: '/pg/b/:id', builder: (_, s) => PgDetailScreen(id: s.pathParameters['id']!)),
   GoRoute(path: '/pg/goals', builder: (_, _) => const PgGoalsScreen()),
-  GoRoute(path: '/pg/kids', builder: (_, _) => const KidHubScreen()),
-  GoRoute(path: '/pg/play', builder: (_, s) => KidPlayScreen(ids: (s.extra as List?)?.cast<String>() ?? const ['hit'])),
+  GoRoute(path: '/pg/kids', builder: (_, _) => const LearningScope(track: false, child: KidHubScreen())),
+  GoRoute(
+    path: '/pg/play',
+    builder: (_, s) => LearningScope(child: KidPlayScreen(ids: (s.extra as List?)?.cast<String>() ?? const ['hit'])),
+  ),
 ]);
 
 class RehlatiApp extends StatelessWidget {

@@ -313,9 +313,10 @@ class ProgressData {
 
   int starsIn(String world) => starsBy[world] ?? 0;
 
-  void addTime(int ms) {
+  /// [day]: اليوم اللي الوقت ده اتلعب فيه (وقت عدّى نص الليل بيتقسم على اليومين).
+  void addTime(int ms, [DateTime? day]) {
     timeMs += ms;
-    today.ms += ms;
+    days.putIfAbsent(dayKey(day ?? clock()), DayLog.new).ms += ms;
     lastActivity = _now();
   }
 
@@ -371,11 +372,14 @@ class ProgressData {
     return true;
   }
 
-  int get todayMin => ((days[dayKey(clock())]?.ms ?? 0) / 60000).round();
+  int get todayMs => days[dayKey(clock())]?.ms ?? 0;
+  int get todayMin => (todayMs / 60000).round();
 
-  /// الدقايق الفاضلة النهاردة (null = مفيش حد).
-  int? get limitLeft => settings.limitMin == 0 ? null : math.max(0, settings.limitMin - todayMin);
-  bool get limitReached => settings.limitMin > 0 && limitLeft == 0;
+  /// الدقايق الفاضلة النهاردة للعرض (null = مفيش حد) — بتتقرّب لفوق عشان "٠" تعني خلص فعلًا.
+  int? get limitLeft => settings.limitMin == 0 ? null : math.max(0, ((settings.limitMin * 60000 - todayMs) / 60000).ceil());
+
+  /// الحد بالمللي ثانية بالظبط — مش بالدقايق المقرّبة.
+  bool get limitReached => settings.limitMin > 0 && todayMs >= settings.limitMin * 60000;
 
   /// آخر ٧ أيام بالترتيب (الأقدم الأول) — [offset] ١ = الأسبوع اللي قبله.
   List<(DateTime, DayLog)> week([int offset = 0]) {

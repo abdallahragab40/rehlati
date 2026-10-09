@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../content/math_data.dart';
 import '../../core/audio/audio_providers.dart';
@@ -85,7 +86,10 @@ class _GameScreenState extends ConsumerState<GameScreen> {
   Widget build(BuildContext context) {
     final s = ref.watch(gameProvider);
     final engine = ref.read(gameProvider.notifier);
-    if (s == null) return ScreenFrame(onBack: () => context.back(), child: const SizedBox());
+    ref.listen(gameProvider.select((s) => s?.timeUp ?? false), (_, up) {
+      if (up) context.pushReplacement('/timeup');
+    });
+    if (s == null || s.timeUp) return ScreenFrame(onBack: () => context.back(), child: const SizedBox());
 
     final result = s.result;
     if (result != null) {

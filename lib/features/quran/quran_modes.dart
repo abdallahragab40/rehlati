@@ -16,6 +16,7 @@ import '../../core/utils/arabic.dart';
 import '../../core/widgets/dashed_box.dart';
 import '../../core/widgets/fx_layer.dart';
 import '../../core/widgets/kid_widgets.dart';
+import '../../domain/progress/learning_time.dart';
 import '../../domain/progress/progress_controller.dart';
 import 'quran_screens.dart';
 import 'quran_widgets.dart';
@@ -95,6 +96,14 @@ abstract class _ModeState<T extends ConsumerStatefulWidget> extends ConsumerStat
       ..confetti(50)
       ..popMsg('🌟 ما شاء الله!', big: true);
     setState(() => finished = text);
+  }
+
+  /// وقت النهاردة خلص؟ بنسأل بين آية والتانية (أو سؤال والتاني) — مش في نص الآية.
+  bool timeUp() {
+    if (!ref.read(learningTimeProvider).checkpoint()) return false;
+    player.stop();
+    context.pushReplacement('/timeup');
+    return true;
   }
 
   /// "تاني" بيعيد نفس النشاط (في الويب كان بيرجع لشاشة السورة).
@@ -191,6 +200,7 @@ class _ListenState extends _ModeState<_Listen> {
       complete('listen', 1, 'خلّصت السورة كلها! ⭐');
       return;
     }
+    if (timeUp()) return;
     _mark();
     play(widget.ayahs[idx].number, onEnd: () {
       if (playing && mounted) {
@@ -306,7 +316,7 @@ class _RepeatState extends _ModeState<_Repeat> {
               ref.read(sfxProvider).good();
               if (idx + 1 >= widget.ayahs.length) {
                 complete('repeat', 2, 'ما شاء الله! ردّدت السورة كلها 🌟');
-              } else {
+              } else if (!timeUp()) {
                 setState(() {
                   idx++;
                   lionTick++;
@@ -402,7 +412,7 @@ class _MemorizeState extends _ModeState<_Memorize> {
           if (!mounted) return;
           if (idx + 1 >= widget.ayahs.length) {
             complete('memorize', 3, 'ختمت حفظ السورة! ${ar(right)} من ${ar(widget.ayahs.length)} ⭐');
-          } else {
+          } else if (!timeUp()) {
             setState(() {
               idx++;
               _draw();
@@ -567,7 +577,7 @@ class _ReviewState extends _ModeState<_Review> {
           final pass = right >= (total * .8).ceil();
           complete('review', pass ? 2 : 0,
               '${ar(right)} من ${ar(total)} — ${pass ? 'ما شاء الله! 🌟' : 'كمّل مراجعة ❤️'}');
-        } else {
+        } else if (!timeUp()) {
           setState(_draw);
         }
       });

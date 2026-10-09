@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'badges.dart';
+import 'learning_time.dart';
 import 'progress_data.dart';
 import 'ranks.dart';
 
@@ -277,17 +278,21 @@ class ProgressController extends Notifier<ProgressData> {
 
   /// يبدّل لطفل تاني (أو طفل جديد بـ [add]).
   Future<void> switchTo(String id) async {
+    // وقت النشاط المفتوح يتسجّل للطفل اللي كان بيلعب
+    ref.read(learningTimeProvider).flush();
     await flush();
     await _repo.setActive(id);
     state = _open(id);
   }
 
   Future<void> addChild() async {
+    ref.read(learningTimeProvider).flush();
     await flush();
     state = _open(await _repo.add(state.settings));
   }
 
   Future<void> removeChild(String id) async {
+    ref.read(learningTimeProvider).flush();
     await flush();
     await _repo.remove(id);
     if (id == _id) {
