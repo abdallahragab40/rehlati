@@ -169,9 +169,12 @@ class _ChildPicker extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: Pressable3D(
+                // نقفل القايمة الأول: لو فضلت مفتوحة وقت ما الرئيسية بتتبني للطفل الجديد،
+                // childrenProvider بيبلّغها في نص البناء (ظهر على أندرويد)
                 onTap: () async {
-                  if (id != active) await ref.read(progressProvider.notifier).switchTo(id);
-                  if (context.mounted) context.pop();
+                  final progress = ref.read(progressProvider.notifier);
+                  context.pop();
+                  if (id != active) await progress.switchTo(id);
                 },
                 color: id == active ? const Color(0xFFFFF3CF) : AppColors.paper2,
                 radius: 22,

@@ -24,7 +24,7 @@ void main() {
       }
     });
     await prefs.remove(ProgressRepository.profilesKey);
-    final seeded = ProgressData(name: 'تجربة', age: 5, setupDone: true, settings: Settings(limitMin: 1, speech: false))
+    final seeded = ProgressData(name: 'تجربة', age: 5, setupDone: true, settings: Settings(limitMin: 1, speech: false, music: false, sfx: false))
       ..addTime(30000);
     await prefs.setString(ProgressRepository.key, jsonEncode(seeded.toJson()));
 

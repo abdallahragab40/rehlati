@@ -31,7 +31,9 @@ class SfxService extends Sfx {
       AudioContextConfig(focus: AudioContextConfigFocus.mixWithOthers, respectSilence: false).build(),
     );
     for (final k in SfxKind.values) {
-      final p = AudioPlayer(playerId: 'sfx_${k.name}');
+      // من غير متابعة للمكان: lowLatency على أندرويد مابيبلّغش إن الصوت خلص، فالمتابعة
+      // كانت بتفضل تطلب frame ورا frame للأبد بعد أول صوت (رسم مستمر = بطارية)
+      final p = AudioPlayer(playerId: 'sfx_${k.name}')..positionUpdater = null;
       await p.setPlayerMode(PlayerMode.lowLatency);
       await p.setReleaseMode(ReleaseMode.stop);
       await p.setSource(AssetSource('audio/sfx/${k.name}.wav'));
