@@ -65,6 +65,7 @@ class DashboardScreen extends ConsumerWidget {
       child: QCard(
         child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           Text('👨‍👩‍👦 لوحة ولي الأمر', style: kidText(24)),
+          const StorageIssueNote(),
           const SizedBox(height: 10),
           const _ChildRow(),
           const SizedBox(height: 6),
@@ -124,6 +125,35 @@ class DashboardScreen extends ConsumerWidget {
         ]),
       ),
     );
+  }
+}
+
+/// مشكلة في حفظ التقدّم — بتفضل ظاهرة لحد ما ولي الأمر يقفلها.
+class StorageIssueNote extends ConsumerWidget {
+  const StorageIssueNote({super.key});
+
+  static String message(StorageIssue issue) => switch (issue) {
+        StorageIssue.saveFailed =>
+          '⚠️ آخر تقدّم ماتحفظش على الجهاز — غالبًا المساحة مليانة. فضّي مساحة والتقدّم هيتحفظ مع اللعبة الجاية.',
+        StorageIssue.restoredBackup =>
+          '⚠️ ملف التقدّم كان فيه مشكلة، فرجّعنا آخر نسخة سليمة. ممكن آخر شوية نجوم يكونوا مش موجودين.',
+        StorageIssue.unreadable =>
+          '⚠️ ملف التقدّم ماتقريش فبدأنا من جديد. النسخة القديمة لسه محفوظة على الجهاز ومامسحناهاش.',
+        StorageIssue.newerVersion =>
+          '⚠️ التقدّم ده اتحفظ بنسخة أحدث من التطبيق. حدّث التطبيق — النسخة الأصلية محفوظة على الجهاز.',
+      };
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final issue = ref.watch(storageIssueProvider);
+    if (issue == null) return const SizedBox.shrink();
+    return NoteBox(Row(children: [
+      Expanded(child: Text(message(issue))),
+      TextButton(
+        onPressed: ref.read(storageIssueProvider.notifier).dismiss,
+        child: Text('تمام', style: kidText(15, color: AppColors.grape)),
+      ),
+    ]));
   }
 }
 
