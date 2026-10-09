@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:rehlati/features/quran/quran_repository.dart';
+import 'package:rehlati/features/quran/recitation.dart';
 
 // عينات بنفس شكل ردود المصادر (سورة الإخلاص) — للاختبار بس.
 const basmala = '﻿بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ';
@@ -88,6 +89,81 @@ void main() {
       return http.Response('down', 503);
     });
     expect(repo(c).surah(112), throwsA(isA<QuranException>()));
+  });
+
+  group('offline and damaged cache', () {
+    MockClient online() => MockClient((r) async {
+          if (r.url.path.endsWith('/chapters')) return ok(quranComChapters());
+          return ok(jsonEncode({
+            'verses': [
+              {'verse_key': '112:1', 'text_uthmani': a1},
+              {'verse_key': '112:2', 'text_uthmani': a2},
+            ],
+          }));
+        });
+    MockClient offline() => MockClient((_) async => throw const SocketException('offline'));
+
+    test('a corrupt cache file is replaced by a fresh fetch', () async {
+      File('${tmp.path}/q.json').writeAsStringSync('{"v": 2, "surahs": [broken');
+      expect((await repo(online()).surah(112)).map((a) => a.text), [a1, a2]);
+      // الملف اتكتب من جديد سليم ويشتغل من غير نت
+      expect((await repo(offline()).surah(112)).first.text, a1);
+    });
+
+    test('a cache from another cache version is ignored, not trusted', () async {
+      File('${tmp.path}/q.json').writeAsStringSync(jsonEncode({
+        'v': -1,
+        'chapters': null,
+        'surahs': {'112': [{'number': 1, 'text': 'نص قديم'}, {'number': 2, 'text': 'نص قديم'}]},
+        'sources': {},
+      }));
+      expect(repo(offline()).surah(112), throwsA(isA<QuranException>()));
+    });
+
+    test('offline with nothing cached fails clearly after trying every source', () async {
+      final hosts = <String>{};
+      final c = MockClient((r) async {
+        hosts.add(r.url.host);
+        throw const SocketException('offline');
+      });
+      await expectLater(repo(c).surah(112), throwsA(isA<QuranException>()));
+      expect(hosts, {'api.quran.com', 'api.alquran.cloud'});
+    });
+
+    test('an unwritable cache still returns the text for this session', () async {
+      final blocked = Directory('${tmp.path}/q.json')..createSync(); // مكان الملف فولدر — الكتابة هتفشل
+      final r = QuranRepository(client: online(), cacheFile: () async => File(blocked.path));
+      expect((await r.surah(112)).first.text, a1);
+      expect(r.cached(112), isTrue);
+    });
+  });
+
+  group('single ayah download', () {
+    late File file;
+    final url = Uri.parse('https://example.test/112001.mp3');
+    setUp(() => file = File('${tmp.path}/rec/112001.mp3'));
+
+    Future<bool> fetch(http.Response Function() respond) =>
+        RecitationPlayer.download(url, file, client: MockClient((_) async => respond()));
+
+    test('an error page served with 200 is not saved as audio', () async {
+      expect(await fetch(() => http.Response('<html>blocked</html>', 200, headers: {'content-type': 'text/html'})), isFalse);
+      expect(file.existsSync(), isFalse);
+    });
+
+    test('a missing file or empty body is a failure', () async {
+      expect(await fetch(() => http.Response('', 404)), isFalse);
+      expect(await fetch(() => http.Response.bytes([], 200, headers: {'content-type': 'audio/mpeg'})), isFalse);
+      expect(file.existsSync(), isFalse);
+    });
+
+    test('a dropped connection leaves nothing behind and a retry succeeds', () async {
+      final failing = MockClient((_) async => throw const SocketException('reset'));
+      expect(await RecitationPlayer.download(url, file, client: failing), isFalse);
+      expect(file.existsSync(), isFalse);
+      expect(await fetch(() => http.Response.bytes([7], 200, headers: {'content-type': 'audio/mpeg'})), isTrue);
+      expect(file.readAsBytesSync(), [7]);
+    });
   });
 }
 
