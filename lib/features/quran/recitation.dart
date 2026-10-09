@@ -95,14 +95,21 @@ class RecitationPlayer {
     return File('${dir.path}/recitations/$folder/${'$surah'.padLeft(3, '0')}${'$ayah'.padLeft(3, '0')}.mp3');
   }
 
-  static final _downloading = <String>{};
+  static final _downloading = <String, Future<bool>>{};
 
   /// بيحفظ آية على الجهاز — true لو اتحفظت (أو كانت محفوظة).
-  static Future<bool> download(Uri url, File file) async {
-    if (file.existsSync()) return true;
-    if (!_downloading.add(file.path)) return false;
+  /// طلبين لنفس الملف في نفس الوقت (تشغيل + تنزيل الجزء) بيستنوا نفس التنزيل.
+  static Future<bool> download(Uri url, File file, {http.Client? client}) {
+    if (file.existsSync()) return Future.value(true);
+    // block body: لو رجّعنا قيمة remove (نفس الـ Future) الـ whenComplete هيستنى نفسه للأبد
+    return _downloading[file.path] ??= _save(url, file, client).whenComplete(() {
+      _downloading.remove(file.path);
+    });
+  }
+
+  static Future<bool> _save(Uri url, File file, http.Client? client) async {
     try {
-      final res = await http.get(url).timeout(const Duration(seconds: 30));
+      final res = await (client == null ? http.get(url) : client.get(url)).timeout(const Duration(seconds: 30));
       final type = res.headers['content-type'] ?? '';
       if (res.statusCode == 200 && type.startsWith('audio') && res.bodyBytes.isNotEmpty) {
         await file.parent.create(recursive: true);
@@ -116,8 +123,6 @@ class RecitationPlayer {
     } catch (_) {
       // مش مشكلة — هنحاول تاني المرة الجاية
       return false;
-    } finally {
-      _downloading.remove(file.path);
     }
   }
 
