@@ -10,8 +10,11 @@ import 'package:go_router/go_router.dart';
 import '../../domain/progress/learning_time.dart';
 
 class LearningScope extends ConsumerStatefulWidget {
-  const LearningScope({super.key, required this.child, this.track = true, this.stopsItself = false});
+  const LearningScope({super.key, required this.child, this.track = true, this.stopsItself = false, this.world});
   final Widget child;
+
+  /// العالم اللي الوقت بيتحسب عليه في تقرير الأسبوع.
+  final String? world;
 
   /// false للخرايط والقوايم: بنتحقق من الحد بس من غير ما نعدّ وقت.
   final bool track;
@@ -43,7 +46,7 @@ class _LearningScopeState extends ConsumerState<LearningScope> {
       return;
     }
     if (!widget.track) return;
-    _time.enter();
+    _time.enter(widget.world);
     _entered = true;
     _life = AppLifecycleListener(onStateChange: (s) => _time.setForeground(s == AppLifecycleState.resumed));
     _tick = Timer.periodic(LearningScope.tick, (_) {

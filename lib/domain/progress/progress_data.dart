@@ -11,6 +11,7 @@ import 'extras.dart';
 import 'mastery.dart';
 
 export '../journey.dart';
+export '../report.dart';
 export 'extras.dart';
 export 'mastery.dart';
 
@@ -85,9 +86,13 @@ class Settings {
 
 /// سجل يوم واحد: 'YYYY-MM-DD' ← نجوم وإجابات وألعاب ووقت، و done = اتحتفل بالهدف.
 class DayLog {
-  DayLog({this.stars = 0, this.correct = 0, this.wrong = 0, this.games = 0, this.ms = 0, this.done = false});
+  DayLog({this.stars = 0, this.correct = 0, this.wrong = 0, this.games = 0, this.ms = 0, this.done = false, Map<String, int>? worlds})
+      : worlds = worlds ?? {};
   int stars, correct, wrong, games, ms;
   bool done;
+
+  /// وقت التعلّم لكل عالم (مللي ثانية) — 'pg' = أنشطة دليل ولي الأمر.
+  final Map<String, int> worlds;
 
   bool get active => games > 0 || stars > 0;
 
@@ -95,11 +100,12 @@ class DayLog {
     final m = j is Map ? j : const {};
     int n(String k) => (m[k] as num?)?.toInt() ?? 0;
     return DayLog(stars: n('stars'), correct: n('correct'), wrong: n('wrong'), games: n('games'), ms: n('ms'),
-        done: m['done'] == true || m['done'] == 1);
+        done: m['done'] == true || m['done'] == 1,
+        worlds: m['w'] is Map ? {for (final e in (m['w'] as Map).entries) '${e.key}': (e.value as num).toInt()} : {});
   }
 
   Map<String, dynamic> toJson() =>
-      {'stars': stars, 'correct': correct, 'wrong': wrong, 'games': games, 'ms': ms, 'done': done ? 1 : 0};
+      {'stars': stars, 'correct': correct, 'wrong': wrong, 'games': games, 'ms': ms, 'done': done ? 1 : 0, if (worlds.isNotEmpty) 'w': worlds};
 }
 
 class ProgressData {
@@ -347,9 +353,10 @@ class ProgressData {
   int starsIn(String world) => starsBy[world] ?? 0;
 
   /// [day]: اليوم اللي الوقت ده اتلعب فيه (وقت عدّى نص الليل بيتقسم على اليومين).
-  void addTime(int ms, [DateTime? day]) {
+  void addTime(int ms, [DateTime? day, String? world]) {
     timeMs += ms;
-    days.putIfAbsent(dayKey(day ?? clock()), DayLog.new).ms += ms;
+    final log = days.putIfAbsent(dayKey(day ?? clock()), DayLog.new)..ms += ms;
+    if (world != null) log.worlds[world] = (log.worlds[world] ?? 0) + ms;
     lastActivity = _now();
   }
 
@@ -435,6 +442,17 @@ class ProgressData {
       );
     }
     return s;
+  }
+
+  /// وقت التعلّم لكل عالم في الأسبوع.
+  Map<String, int> weekWorlds([int offset = 0]) {
+    final out = <String, int>{};
+    for (final (_, d) in week(offset)) {
+      for (final e in d.worlds.entries) {
+        out[e.key] = (out[e.key] ?? 0) + e.value;
+      }
+    }
+    return out;
   }
 
   /// لوحة الحروف — يرجّع true لو الحرف ده جديد.

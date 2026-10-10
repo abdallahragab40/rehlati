@@ -53,16 +53,20 @@ final _router = GoRouter(initialLocation: kDebugMode ? _start : '/', routes: [
     builder: (_, s) => LearningScope(
       key: ValueKey(s.pathParameters['stage']),
       stopsItself: true,
+      world: packs[s.pathParameters['stage']]?.world,
       child: GameScreen(stageId: s.pathParameters['stage']!),
     ),
   ),
   GoRoute(
     path: '/madd/:stage',
-    builder: (_, s) => LearningScope(child: MaddLessonScreen(stageId: s.pathParameters['stage']!)),
+    builder: (_, s) => LearningScope(world: 'arabic', child: MaddLessonScreen(stageId: s.pathParameters['stage']!)),
   ),
   GoRoute(
     path: '/learn/:stage',
-    builder: (_, s) => LearningScope(child: LetterBoardScreen(stageId: s.pathParameters['stage']!)),
+    builder: (_, s) => LearningScope(
+      world: packs[s.pathParameters['stage']]?.world,
+      child: LetterBoardScreen(stageId: s.pathParameters['stage']!),
+    ),
   ),
   GoRoute(path: '/timeup', builder: (_, _) => const TimeUpScreen()),
   GoRoute(path: '/journey', builder: (_, _) => const LearningScope(track: false, child: JourneyScreen())),
@@ -77,6 +81,7 @@ final _router = GoRouter(initialLocation: kDebugMode ? _start : '/', routes: [
     path: '/quran/:surah/:mode',
     builder: (_, s) => LearningScope(
       stopsItself: true,
+      world: 'quran',
       child: QuranModeScreen(surah: int.parse(s.pathParameters['surah']!), mode: s.pathParameters['mode']!),
     ),
   ),
@@ -88,7 +93,7 @@ final _router = GoRouter(initialLocation: kDebugMode ? _start : '/', routes: [
   GoRoute(path: '/pg/kids', builder: (_, _) => const LearningScope(track: false, child: KidHubScreen())),
   GoRoute(
     path: '/pg/play',
-    builder: (_, s) => LearningScope(child: KidPlayScreen(ids: (s.extra as List?)?.cast<String>() ?? const ['hit'])),
+    builder: (_, s) => LearningScope(world: 'pg', child: KidPlayScreen(ids: (s.extra as List?)?.cast<String>() ?? const ['hit'])),
   ),
 ]);
 

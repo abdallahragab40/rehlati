@@ -39,10 +39,10 @@ Future<void> ensureTodayJourney(WidgetRef ref) async {
       ));
 }
 
-String stepRoute(JourneyStep s) {
+String stepRoute(JourneyStep s, {bool journey = true}) {
   final stage = s.stage;
   final path = stage != null ? stageRoute(stage) : '/quran/${s.surah}/review';
-  return '$path?from=journey';
+  return journey ? '$path?from=journey' : path;
 }
 
 /// اسم الخطوة للطفل.

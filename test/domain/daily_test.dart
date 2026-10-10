@@ -70,6 +70,15 @@ void main() {
 
     test('week sums and comparison notes', () {
       final p = ProgressData();
+      // الأسبوع اللي فات: يومين و٢٠ إجابة — كفاية للمقارنة
+      for (var i = 0; i < 2; i++) {
+        p.addStar(1);
+        for (var k = 0; k < 10; k++) {
+          p.addAnswer(ok: true);
+        }
+        nextDay();
+      }
+      now = now.add(const Duration(days: 5));
       for (var i = 0; i < 5; i++) {
         p
           ..addStar(2)
@@ -82,6 +91,15 @@ void main() {
       final (up, need) = weekNotes(p);
       expect(up.first, contains('النجوم زادت'));
       expect(need.where((n) => n.contains('المواظبة')), isEmpty, reason: '5 active days');
+    });
+
+    test('no comparison without enough history last week', () {
+      final p = ProgressData()
+        ..addStar(4)
+        ..addAnswer(ok: true);
+      final (up, need) = weekNotes(p);
+      expect(up, [contains('مفيش تدريب كفاية')]);
+      expect(need, [contains('المواظبة')]);
     });
 
     test('old days are pruned to 70, and web blobs load', () {

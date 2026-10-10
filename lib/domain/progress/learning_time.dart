@@ -21,8 +21,8 @@ class LearningTimer {
 
   final DateTime Function() now;
 
-  /// بيسجّل [ms] في ملف الطفل تحت يوم [day].
-  final void Function(int ms, DateTime day) add;
+  /// بيسجّل [ms] في ملف الطفل تحت يوم [day] وعالم [world] (لو معروف).
+  final void Function(int ms, DateTime day, String? world) add;
   final bool Function() limitReached;
 
   /// أطول مدة بتتحسب بين تسجيلين. النشاط المفتوح بيسجّل كل ٣٠ ثانية، فالفجوة الأكبر
@@ -33,10 +33,16 @@ class LearningTimer {
   bool _foreground = true;
   DateTime? _since;
 
+  /// عالم آخر نشاط اتفتح — الوقت بيتحسب عليه.
+  String? _world;
+
   bool get running => _since != null;
 
-  /// نشاط اتفتح.
-  void enter() {
+  /// نشاط اتفتح ([world] للتقرير الأسبوعي).
+  void enter([String? world]) {
+    // مفيش flush هنا: enter بتتنادي وإحنا بنبني الشاشة، ومينفعش نعدّل التقدّم ساعتها.
+    // اللي فات من آخر tick (أقل من ٣٠ ثانية) بيتحسب على العالم الجديد.
+    _world = world;
     _open++;
     _sync();
   }
@@ -66,11 +72,11 @@ class LearningTimer {
     while (true) {
       final midnight = DateTime(from.year, from.month, from.day + 1);
       if (!to.isAfter(midnight)) break;
-      add(midnight.difference(from).inMilliseconds, from);
+      add(midnight.difference(from).inMilliseconds, from, _world);
       from = midnight;
     }
     final ms = to.difference(from).inMilliseconds;
-    if (ms > 0) add(ms, from);
+    if (ms > 0) add(ms, from, _world);
   }
 
   /// نقطة وقوف (بين سؤال والتاني أو آية والتانية): يسجّل ويقول لو وقت النهاردة خلص.
@@ -91,8 +97,8 @@ class LearningTimer {
 
 final learningTimeProvider = Provider<LearningTimer>((ref) => LearningTimer(
       now: () => ProgressData.clock(),
-      add: (ms, day) {
-        if (ref.mounted) ref.read(progressProvider.notifier).update((p) => p.addTime(ms, day));
+      add: (ms, day, world) {
+        if (ref.mounted) ref.read(progressProvider.notifier).update((p) => p.addTime(ms, day, world));
       },
       limitReached: () => ref.read(progressProvider).limitReached,
     ));
