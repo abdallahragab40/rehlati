@@ -55,6 +55,7 @@ String stepTitle(JourneyStep s, Map<int, String> surahNames) {
 String stepTag(StepKind k) => switch (k) {
       StepKind.start => 'أول خطوة 🌱',
       StepKind.warm => 'تسخين 🔥',
+      StepKind.review => 'مراجعة 🔁',
       StepKind.practice => 'تدريب 💪',
       StepKind.improve => 'تحسين ⭐',
       StepKind.fresh => 'جديد ✨',
@@ -65,6 +66,7 @@ String stepTag(StepKind k) => switch (k) {
 String stepReason(StepKind k) => switch (k) {
       StepKind.start => 'أول مرحلة متاحة — لسه مفيش تقدّم نختار منه',
       StepKind.warm => 'تسخين بمرحلة بيعرفها كويس (ميداليتين أو أكتر)',
+      StepKind.review => 'ميعاد مراجعتها جه — المراجعة بتتباعد ١ ثم ٣ ثم ٧ أيام مع كل مراجعة ناجحة',
       StepKind.practice => 'فيها أخطاء اتكررت — الأسئلة بترجّع المهارة الضعيفة تلقائيًا',
       StepKind.improve => 'اتلعبت ولسه ما خدتش ٣ ميداليات',
       StepKind.fresh => 'مرحلة اتفتحت ولسه ما اتلعبتش',

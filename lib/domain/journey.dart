@@ -13,6 +13,9 @@ enum StepKind {
   /// تسخين بمرحلة الطفل بيعرفها كويس.
   warm,
 
+  /// مرحلة ميعاد مراجعتها جه (جدول ١ / ٣ / ٧ أيام).
+  review,
+
   /// مرحلة فيها أخطاء اتكررت — المحرك بيرجّع المهارة الضعيفة تلقائيًا.
   practice,
 
@@ -123,9 +126,13 @@ Journey planJourney(ProgressData p, {required String day, Set<int> quranReady = 
 
   JourneyStep stageStep(StepKind k, Stage s) => JourneyStep(k, 'stage:${s.id}');
 
-  // ١) تسخين: مرحلة بيعرفها — ولطفل جديد أول مرحلة متاحة
+  // ١) مراجعة ميعادها جه، وإلا تسخين بمرحلة بيعرفها، ولطفل جديد أول مرحلة متاحة
   JourneyStep? warm;
-  if (pick(candidates.where((s) => medals(s) >= 2)) ?? pick(candidates.where((s) => medals(s) >= 1), 1)
+  final due = [for (final id in p.dueForReview) ?packs[id]].where(candidates.contains);
+  if (due.firstOrNull case final s?) {
+    used.add(s.id);
+    warm = stageStep(StepKind.review, s);
+  } else if (pick(candidates.where((s) => medals(s) >= 2)) ?? pick(candidates.where((s) => medals(s) >= 1), 1)
       case final s?) {
     warm = stageStep(StepKind.warm, s);
   } else if (candidates.firstOrNull case final s?) {
@@ -163,7 +170,7 @@ Journey planJourney(ProgressData p, {required String day, Set<int> quranReady = 
   final steps = [warm, practice, fresh].nonNulls.toList();
   // وقت قليل: الرحلة بتقصر — التدريب أهم حاجة، وبعده الجديد
   final room = minutesLeft == null ? 3 : (minutesLeft ~/ 4).clamp(1, 3);
-  for (final k in [StepKind.warm, StepKind.start, StepKind.fresh, StepKind.quran, StepKind.improve]) {
+  for (final k in [StepKind.warm, StepKind.start, StepKind.fresh, StepKind.quran, StepKind.improve, StepKind.review]) {
     if (steps.length <= room) break;
     steps.removeWhere((s) => s.kind == k);
   }

@@ -97,6 +97,16 @@ class ProgressRepository {
   static final migrations = <int, Map<String, dynamic> Function(Map<String, dynamic>)>{
     // قبل رقم النسخة (والويب): الحقول الناقصة بتاخد قيمها الافتراضية في fromJson
     0: (j) => j,
+    // ١ ← ٢: سجل إتقان لكل مرحلة اتلعبت قبل كده. بنعرف إنها اتلعبت بس — مفيش دليل
+    // على الإجابات من أول محاولة، فمفيش إتقان ولا مواعيد مراجعة لحد الجولة الجاية.
+    1: (j) {
+      final best = j['best'] is Map ? j['best'] as Map : const {};
+      j['mastery'] = {
+        for (final e in best.entries)
+          if (e.value is num && (e.value as num) > 0) '${e.key}': {'rounds': 1},
+      };
+      return j;
+    },
   };
 
   /// يفك الملف ويرقّيه. بيرمي لو الشكل غلط، و newer = true لو من نسخة أحدث من التطبيق.

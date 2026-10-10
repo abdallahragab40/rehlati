@@ -124,6 +124,9 @@ class _ResultViewState extends ConsumerState<ResultView> {
           if (unlocked != null)
             SpeechBubble('🔓 فتحت مرحلة جديدة: ${unlocked.icon} ${unlocked.name}', kind: BubbleKind.ok),
           if (r.mistakes.isNotEmpty) const SpeechBubble('تعالى نتدرب على الحاجات اللي محتاجة شوية تدريب ❤️'),
+          // جولتين صعاب ورا بعض ← المحرك بيبدأ الجولة الجاية من أسهل مستوى
+          if (!r.practice && ref.watch(progressProvider).struggling(r.stage.id))
+            const SpeechBubble('المرة الجاية هنبدأ أسهل شوية — خطوة خطوة ❤️'),
           const SizedBox(height: 14),
           Wrap(
             alignment: WrapAlignment.center,

@@ -206,7 +206,8 @@ class GameEngine extends Notifier<GameSession?> {
     final stage = packs[stageId]!;
     final p = _progress.data;
     final childLv = p.level(stage.world);
-    final level = math.min(math.max(stage.base, math.min(childLv, stage.base + 1)), 4);
+    // آخر جولتين ضعاف في المرحلة دي ← أسهل مستوى ليها، حتى لو تحت مستوى السن
+    final level = p.struggling(stage.id) ? stage.base : math.min(math.max(stage.base, math.min(childLv, stage.base + 1)), 4);
     // مراحل طويلة (زي الجدول الفاضي) ممكن تحدّد عدد أسئلتها بنفسها
     final count = practice ? practiceCount : (stage.count ?? questionsPerRound);
     final list = <Question>[];
@@ -735,6 +736,7 @@ class GameEngine extends Notifier<GameSession?> {
       _progress.update((p) {
         final before = p.best[s.stage.id] ?? 0;
         p.addResult(s.stage.id, s.correct, s.total);
+        p.recordMastery(s.stage.id, s.correct, s.total);
         if (s.correct / s.total >= .8) unlocked = p.unlockNext(s.stage.id);
         // المدود: +٢ لكل جولة، و +٥ أول مرة تنجح فيها المرحلة
         if (s.stage.isMadd) {

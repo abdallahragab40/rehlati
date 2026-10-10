@@ -25,6 +25,7 @@ import '../profiles/profiles.dart';
 import '../quran/quran_download.dart';
 import '../quran/quran_repository.dart';
 import 'avatar.dart';
+import 'mastery_card.dart';
 
 String fmtTime(int ms) {
   final m = (ms / 60000).round();
@@ -101,6 +102,8 @@ class DashboardScreen extends ConsumerWidget {
           MaddDashboardCard(p),
           h3('⭐ السلوكيات التي تعمل عليها'),
           const PgGoalsList(),
+          h3('🌱 حالة المراحل'),
+          const MasteryCard(),
           h3('🧠 مهارات محتاجة تدريب'),
           _WeakSkills(p),
           h3('📖 سور تحتاج مراجعة'),

@@ -8,9 +8,11 @@ import 'dart:math' as math;
 import '../stages.dart';
 import '../journey.dart';
 import 'extras.dart';
+import 'mastery.dart';
 
 export '../journey.dart';
 export 'extras.dart';
+export 'mastery.dart';
 
 class Settings {
   Settings({
@@ -23,6 +25,7 @@ class Settings {
     this.speechRate = 1.0,
     this.westernDigits = false,
     Set<String>? journeyOff,
+    this.startLevel,
   }) : journeyOff = journeyOff ?? {};
 
   factory Settings.fromJson(Map<String, dynamic> j) => Settings(
@@ -36,6 +39,7 @@ class Settings {
         speechRate: (j['speechRate'] as num?)?.toDouble() ?? 1.0,
         westernDigits: j['westernDigits'] as bool? ?? false,
         journeyOff: {for (final w in (j['journeyOff'] is List ? j['journeyOff'] as List : const [])) '$w'},
+        startLevel: (j['startLevel'] as num?)?.toInt().clamp(1, 3),
       );
 
   bool speech;
@@ -62,6 +66,9 @@ class Settings {
   /// عوالم ولي الأمر شالها من "رحلة النهاردة".
   final Set<String> journeyOff;
 
+  /// مستوى البداية اللي ولي الأمر اختاره (١–٣) — null = حسب السن.
+  int? startLevel;
+
   Map<String, dynamic> toJson() => {
         'speech': speech,
         'sfx': sfx,
@@ -72,6 +79,7 @@ class Settings {
         'speechRate': speechRate,
         'westernDigits': westernDigits,
         'journeyOff': journeyOff.toList(),
+        'startLevel': startLevel,
       };
 }
 
@@ -119,7 +127,9 @@ class ProgressData {
     Map<String, DayLog>? days,
     this.rankSeen,
     this.journey,
-  })  : unlocked = unlocked ?? [...initiallyUnlocked],
+    Map<String, SkillRecord>? mastery,
+  })  : mastery = mastery ?? {},
+        unlocked = unlocked ?? [...initiallyUnlocked],
         best = best ?? {},
         starsBy = starsBy ?? {},
         quran = quran ?? {},
@@ -131,7 +141,8 @@ class ProgressData {
         pgFocus = pgFocus ?? {},
         days = days ?? {};
 
-  static const schemaVersion = 1;
+  /// ٢: إتقان المراحل (mastery) — ProgressRepository.migrations[1].
+  static const schemaVersion = 2;
 
   String name;
 
@@ -181,6 +192,9 @@ class ProgressData {
   /// رحلة النهاردة (أو آخر رحلة) — null = لسه ما اتعملتش.
   Journey? journey;
 
+  /// stage id -> الإتقان ومواعيد المراجعة.
+  final Map<String, SkillRecord> mastery;
+
   // ---------------------------------------------------------------- JSON
 
   factory ProgressData.fromJson(Map<String, dynamic> j) {
@@ -213,6 +227,9 @@ class ProgressData {
       days: j['days'] is Map ? {for (final e in (j['days'] as Map).entries) '${e.key}': DayLog.fromJson(e.value)} : {},
       rankSeen: (j['rankSeen'] as num?)?.toInt(),
       journey: j['journey'] is Map ? Journey.fromJson(j['journey']) : null,
+      mastery: j['mastery'] is Map
+          ? {for (final e in (j['mastery'] as Map).entries) '${e.key}': SkillRecord.fromJson(e.value)}
+          : {},
       pgFocus: (j['parentGuide'] is Map && (j['parentGuide'] as Map)['focus'] is Map)
           ? {
               for (final e in ((j['parentGuide'] as Map)['focus'] as Map).entries)
@@ -246,6 +263,7 @@ class ProgressData {
         'days': {for (final e in days.entries) e.key: e.value.toJson()},
         'rankSeen': rankSeen,
         'journey': journey?.toJson(),
+        'mastery': {for (final e in mastery.entries) e.key: e.value.toJson()},
         'parentGuide': {
           'focus': {for (final e in pgFocus.entries) e.key: e.value.toJson()},
         },
@@ -303,7 +321,8 @@ class ProgressData {
   }
 
   /// أقل مستوى حسب العمر: ٤ سنين ← ١، ٥ ← ٢، ٦ ← ٣.
-  int get ageLevel => ((age ?? 4) - 3).clamp(1, 3);
+  /// ولي الأمر يقدر يختار مستوى بداية تاني (أسهل أو أصعب من سنه).
+  int get ageLevel => settings.startLevel ?? ((age ?? 4) - 3).clamp(1, 3);
 
   /// مستوى الطفل = أعلى مستوى وصلت إليه المراحل المفتوحة (ومش أقل من مستوى عمره)،
   /// أو ٤ لو خلّص كل المراحل.
@@ -480,6 +499,32 @@ class ProgressData {
     j.rewarded = true;
     addStar(Journey.bonusStars, j.steps.last.world);
     return true;
+  }
+
+  // ---------------------------------------------------------------- الإتقان والمراجعة
+
+  /// جولة عادية خلصت (مش تدريب على الأخطاء) — [firstTryOk] الصح من أول محاولة.
+  void recordMastery(String stageId, int firstTryOk, int total) {
+    final now = clock();
+    mastery.putIfAbsent(stageId, SkillRecord.new).addRound(
+          firstTryOk: firstTryOk,
+          total: total,
+          today: dayKey(now),
+          addDays: (d) => dayKey(DateTime(now.year, now.month, now.day + d)),
+        );
+  }
+
+  MasteryState masteryOf(String stageId) => mastery[stageId]?.state(dayKey(clock())) ?? MasteryState.fresh;
+
+  /// آخر جولتين ضعاف — الجولة الجاية بتبدأ من أسهل مستوى للمرحلة (حتى لو تحت مستوى السن).
+  bool struggling(String stageId) => mastery[stageId]?.struggling ?? false;
+
+  /// المراحل اللي ميعاد مراجعتها جه (الأقدم الأول).
+  List<String> get dueForReview {
+    final today = dayKey(clock());
+    final due = mastery.entries.where((e) => e.value.state(today) == MasteryState.review).toList()
+      ..sort((a, b) => a.value.due!.compareTo(b.value.due!));
+    return [for (final e in due) e.key];
   }
 
   // ---------------------------------------------------------------- التعلّم المتكيّف
