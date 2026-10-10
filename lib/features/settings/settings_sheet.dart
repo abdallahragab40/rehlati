@@ -154,6 +154,8 @@ class _SettingsPanelState extends ConsumerState<_SettingsPanel> {
   }
 
   Future<void> _confirmReset(BuildContext context) async {
+    // المسح مفيش منه رجوع — لازم ولي الأمر، مش مجرد زرارين الطفل يدوسهم
+    if (!await askParent(context) || !context.mounted) return;
     final ok = await showDialog<bool>(
       context: context,
       builder: (c) => AlertDialog(
