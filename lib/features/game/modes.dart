@@ -4,6 +4,7 @@ library;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../../core/motion.dart';
 import '../../core/features.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
@@ -95,10 +96,10 @@ class ChoiceTile extends StatelessWidget {
     if (used) return Opacity(opacity: .25, child: tile);
     if (matched) return Opacity(opacity: .35, child: tile);
     if (selected) return Transform.translate(offset: const Offset(0, 3), child: tile);
-    if (wrong) return tile.animate(key: ValueKey('w$wrongTick')).shakeX(hz: 5, amount: 9, duration: 400.ms);
-    if (right) return tile.animate(key: const ValueKey('right')).scaleXY(begin: 1, end: 1.18, duration: 200.ms).then().scaleXY(begin: 1, end: 1 / 1.18, duration: 250.ms);
+    if (wrong) return tile.anim(key: ValueKey('w$wrongTick')).shakeX(hz: 5, amount: 9, duration: 400.ms);
+    if (right) return tile.anim(key: const ValueKey('right')).scaleXY(begin: 1, end: 1.18, duration: 200.ms).then().scaleXY(begin: 1, end: 1 / 1.18, duration: 250.ms);
     if (hint) {
-      return tile.animate(onPlay: (c) => c.repeat(reverse: true)).custom(
+      return tile.anim(onPlay: (c) => c.repeat(reverse: true)).custom(
             duration: 500.ms,
             builder: (_, v, child) => DecoratedBox(
               decoration: BoxDecoration(
@@ -168,7 +169,7 @@ class _SpeakButtonState extends State<_SpeakButton> {
               border: Border.all(color: AppColors.line, width: 3),
             ),
             child: const Text('🔊', style: TextStyle(fontSize: 24)),
-          ).animate(key: ValueKey(_tick)).shake(hz: 3, rotation: .2, duration: _tick == 0 ? 1.ms : 600.ms),
+          ).anim(key: ValueKey(_tick)).shake(hz: 3, rotation: .2, duration: _tick == 0 ? 1.ms : 600.ms),
         ),
       );
 }
@@ -260,7 +261,7 @@ class QuestionBody extends StatelessWidget {
           ),
         )
             // الاختيارات بتنط واحدة ورا التانية مع كل سؤال جديد
-            .animate()
+            .anim()
             .scaleXY(delay: (180 + i * 80).ms, begin: .4, end: 1, duration: 420.ms, curve: Curves.easeOutBack)
             .fadeIn(duration: 200.ms),
     ];
@@ -288,14 +289,14 @@ class QuestionBody extends StatelessWidget {
           child: q.sizePic == null
               ? Text(ar(s.picked[k]), style: font.copyWith(color: Colors.white))
               : FittedBox(child: _sized('${s.picked[k]}', context)),
-        ).animate().scaleXY(begin: 1.18, end: 1, duration: 300.ms);
+        ).anim().scaleXY(begin: 1.18, end: 1, duration: 300.ms);
       }
       final box = DashedBox(
         color: k == s.picked.length ? AppColors.grape : AppColors.line,
         child: SizedBox.square(dimension: size - 8),
       );
       return k == s.picked.length
-          ? box.animate(onPlay: (c) => c.repeat(reverse: true)).scaleXY(begin: 1, end: 1.08, duration: 650.ms)
+          ? box.anim(onPlay: (c) => c.repeat(reverse: true)).scaleXY(begin: 1, end: 1.08, duration: 650.ms)
           : box;
     }
 
@@ -450,7 +451,7 @@ class QuestionBody extends StatelessWidget {
                                 ),
                                 child: Text(q.sortCards[e.key].text,
                                     textDirection: TextDirection.rtl, style: kidText(context.clampVw(22, 6, 28), height: 1.5)),
-                              ).animate().scaleXY(begin: 1.18, end: 1, duration: 300.ms),
+                              ).anim().scaleXY(begin: 1.18, end: 1, duration: 300.ms),
                           ]),
                         ]),
                       ),
@@ -458,7 +459,7 @@ class QuestionBody extends StatelessWidget {
                   ),
                 );
                 if (_wrong('b${b.key}') != null) {
-                  box = box.animate(key: ValueKey('bw${s.wrongTick}')).shakeX(hz: 5, amount: 9, duration: 400.ms);
+                  box = box.anim(key: ValueKey('bw${s.wrongTick}')).shakeX(hz: 5, amount: 9, duration: 400.ms);
                 }
                 return Semantics(button: true, label: b.label, child: box);
               },
@@ -529,8 +530,8 @@ class QuestionBody extends StatelessWidget {
         child: Text(q.cells[i].ch, style: kidText(font, color: circled ? AppColors.grassDark : AppColors.ink)),
       ),
     );
-    if (circled) cell = cell.animate().scaleXY(begin: 1.18, end: 1, duration: 350.ms);
-    if (wrong) cell = cell.animate(key: ValueKey('fw${s.wrongTick}')).shakeX(hz: 5, amount: 9, duration: 400.ms);
+    if (circled) cell = cell.anim().scaleXY(begin: 1.18, end: 1, duration: 350.ms);
+    if (wrong) cell = cell.anim(key: ValueKey('fw${s.wrongTick}')).shakeX(hz: 5, amount: 9, duration: 400.ms);
     return Semantics(button: true, label: q.cells[i].ch, child: cell);
   }
 
@@ -578,6 +579,6 @@ class QuestionBody extends StatelessWidget {
       ),
     );
     final shown = matched ? Opacity(opacity: .75, child: card) : card;
-    return open ? shown.animate(key: ValueKey('o$i')).scaleXY(begin: 1.18, end: 1, duration: 300.ms) : shown;
+    return open ? shown.anim(key: ValueKey('o$i')).scaleXY(begin: 1.18, end: 1, duration: 300.ms) : shown;
   }
 }

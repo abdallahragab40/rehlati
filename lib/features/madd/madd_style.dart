@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/motion.dart';
 import '../../core/audio/audio_providers.dart';
 import '../../core/features.dart';
 import '../../core/theme/app_theme.dart';
@@ -63,7 +64,7 @@ class MaddTextView extends ConsumerWidget {
       textAlign: TextAlign.center,
       textDirection: TextDirection.rtl,
     );
-    if (v.pop) text = text.animate().scaleXY(begin: 1, end: 1.18, duration: 200.ms).then().scaleXY(begin: 1, end: 1 / 1.18, duration: 250.ms);
+    if (v.pop) text = text.anim().scaleXY(begin: 1, end: 1.18, duration: 200.ms).then().scaleXY(begin: 1, end: 1 / 1.18, duration: 250.ms);
     if (v.say == null) return Center(child: text);
     return Wrap(
       alignment: WrapAlignment.center,

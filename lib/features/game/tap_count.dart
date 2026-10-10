@@ -5,6 +5,7 @@ library;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../../core/motion.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 
@@ -58,7 +59,7 @@ class TapCountItem extends StatelessWidget {
         n == null
             ? child
             : child
-                .animate(key: ValueKey(n))
+                .anim(key: ValueKey(n))
                 .scaleXY(begin: 1, end: 1.3, duration: 130.ms, curve: Curves.easeOut)
                 .then()
                 .scaleXY(begin: 1, end: 1 / 1.3, duration: 320.ms, curve: Curves.elasticOut),
@@ -77,7 +78,7 @@ class TapCountItem extends StatelessWidget {
                 border: Border.all(color: Colors.white, width: 2),
               ),
               child: Text(ar(n), style: kidText(13, color: Colors.white, height: 1.1)),
-            ).animate().scaleXY(begin: 0, end: 1, duration: 300.ms, curve: Curves.easeOutBack),
+            ).anim().scaleXY(begin: 0, end: 1, duration: 300.ms, curve: Curves.easeOutBack),
           ),
       ]),
     );

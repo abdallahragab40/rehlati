@@ -45,7 +45,10 @@ Future<void> main() async {
     enabled: () => container.read(progressProvider).settings.speech,
     speed: () => container.read(progressProvider).settings.speechRate,
   );
-  final sfx = SfxService(enabled: () => container.read(progressProvider).settings.sfx);
+  final sfx = SfxService(
+    enabled: () => container.read(progressProvider).settings.sfx,
+    calm: () => container.read(progressProvider).settings.calm,
+  );
   final music = MusicService(enabled: () => container.read(progressProvider).settings.music, speaking: speech.speaking);
   container = ProviderContainer(overrides: [
     sharedPrefsProvider.overrideWithValue(prefs),

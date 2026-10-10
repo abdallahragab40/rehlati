@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../motion.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../features/settings/settings_sheet.dart';
 import '../theme/app_theme.dart';
@@ -38,7 +39,7 @@ class TopBar extends ConsumerWidget {
                   ]),
                 )
                     // النبضة بتستنى النجمة الطايرة توصل (FxController.flyStars)
-                    .animate(key: ValueKey(stars))
+                    .anim(key: ValueKey(stars))
                     .scaleXY(delay: 680.ms, begin: 1, end: 1.35, duration: 160.ms, curve: Curves.easeOut)
                     .then()
                     .scaleXY(begin: 1, end: 1 / 1.35, duration: 380.ms, curve: Curves.elasticOut),

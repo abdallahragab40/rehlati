@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../../core/motion.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
@@ -78,15 +79,15 @@ class _BalloonSkyState extends State<BalloonSky> with SingleTickerProviderStateM
     Widget b = Balloon(ar(v), _balloonColors[i % _balloonColors.length], width: width);
     if (popped) {
       b = b
-          .animate()
+          .anim()
           .scaleXY(begin: 1, end: 1.35, duration: 160.ms)
           .then()
           .scaleXY(begin: 1, end: .1, duration: 240.ms)
           .fadeOut(duration: 240.ms);
     } else if (wrong) {
-      b = b.animate(key: ValueKey(s.wrongTick)).shakeX(hz: 5, amount: 8, duration: 400.ms);
+      b = b.anim(key: ValueKey(s.wrongTick)).shakeX(hz: 5, amount: 8, duration: 400.ms);
     } else if (s.hintTarget == v) {
-      b = b.animate(onPlay: (c) => c.repeat(reverse: true)).scaleXY(begin: 1, end: 1.12, duration: 450.ms);
+      b = b.anim(onPlay: (c) => c.repeat(reverse: true)).scaleXY(begin: 1, end: 1.12, duration: 450.ms);
     }
     return KeyedSubtree(
       key: widget.keyFor('c$i'),
@@ -166,14 +167,15 @@ class ColorGame extends StatelessWidget {
       Container(
         constraints: const BoxConstraints(maxWidth: 340),
         margin: const EdgeInsets.symmetric(vertical: 10),
-        padding: const EdgeInsets.all(4),
+        padding: const EdgeInsets.all(2),
         decoration: BoxDecoration(color: AppColors.line, borderRadius: BorderRadius.circular(16)),
         child: Directionality(
           textDirection: TextDirection.ltr,
+          // مسافات صغيرة عشان الخانة تفضل ٤٨ نقطة أو أكتر حتى على موبايل ٣٦٠
           child: GridView.count(
             crossAxisCount: q.paintCols,
-            mainAxisSpacing: 4,
-            crossAxisSpacing: 4,
+            mainAxisSpacing: 2,
+            crossAxisSpacing: 2,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             children: [
@@ -207,8 +209,8 @@ class ColorGame extends StatelessWidget {
         child: painted ? null : Text(ar(n), style: kidText(font, color: AppColors.inkSoft)),
       ),
     );
-    if (painted) c = c.animate().scaleXY(begin: .6, end: 1, duration: 300.ms, curve: Curves.easeOutBack);
-    if (s.wrongAnchor == 'p$i') c = c.animate(key: ValueKey(s.wrongTick)).shakeX(hz: 5, amount: 5, duration: 350.ms);
+    if (painted) c = c.anim().scaleXY(begin: .6, end: 1, duration: 300.ms, curve: Curves.easeOutBack);
+    if (s.wrongAnchor == 'p$i') c = c.anim(key: ValueKey(s.wrongTick)).shakeX(hz: 5, amount: 5, duration: 350.ms);
     return Semantics(button: !painted, label: painted ? 'متلوّنة' : 'خانة رقم $n', child: c);
   }
 
@@ -227,10 +229,13 @@ class ColorGame extends StatelessWidget {
         child: Center(child: Text(ar(p.n), style: kidText(d * .42, color: Colors.white))),
       ),
     );
-    return AnimatedSlide(
-      offset: Offset(0, sel ? -.08 : 0),
-      duration: const Duration(milliseconds: 180),
-      child: pot,
+    return Semantics(
+      selected: sel,
+      child: AnimatedSlide(
+        offset: Offset(0, sel ? -.08 : 0),
+        duration: const Duration(milliseconds: 180),
+        child: pot,
+      ),
     );
   }
 }
@@ -300,7 +305,7 @@ class RhythmGame extends StatelessWidget {
     if (!lit) return pad;
     // الطبلة بتنوّر وتنط مع كل دقة (عرض الإيقاع أو ضغطة الطفل)
     return pad
-        .animate(key: ValueKey(s.padTick))
+        .anim(key: ValueKey(s.padTick))
         .scaleXY(begin: 1, end: 1.08, duration: 90.ms)
         .tint(color: Colors.white, begin: 0, end: .35, duration: 90.ms)
         .then()
@@ -406,7 +411,7 @@ class PuzzleGrid extends StatelessWidget {
                               child: Center(child: Text(pic, style: TextStyle(fontSize: side * .7, height: 1))),
                             ),
                           ),
-                        ).animate().fadeIn(duration: 350.ms).scaleXY(begin: .9, end: 1, duration: 350.ms)
+                        ).anim().fadeIn(duration: 350.ms).scaleXY(begin: .9, end: 1, duration: 350.ms)
                       : Center(child: Text('?', style: kidText(piece * .38, color: const Color(0xFFB4C0CF)))),
                 ),
               ),

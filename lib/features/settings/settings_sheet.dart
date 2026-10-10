@@ -94,6 +94,9 @@ class _SettingsPanelState extends ConsumerState<_SettingsPanel> {
                 Future.microtask(() => ref.read(musicProvider).refresh());
               })),
               const NoteBox(Text('الموسيقى بتسكت لوحدها في عالم القرآن.')),
+              row('🌙 وضع هادي (حركة وأصوات أقل)', toggle(settings.calm, (v) {
+                ref.read(progressProvider).settings.calm = v;
+              })),
               if (voiceEnabled)
                 row(
                   '🐢 سرعة الكلام',

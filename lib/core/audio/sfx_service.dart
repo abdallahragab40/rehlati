@@ -19,10 +19,13 @@ abstract class Sfx {
 }
 
 class SfxService extends Sfx {
-  SfxService({required this.enabled});
+  SfxService({required this.enabled, this.calm});
 
   /// بيقرا إعداد "أصوات اللعبة".
   final bool Function() enabled;
+
+  /// الوضع الهادي: نفس الأصوات بس أوطى.
+  final bool Function()? calm;
   final _players = <SfxKind, AudioPlayer>{};
 
   Future<void> init() async {
@@ -49,6 +52,7 @@ class SfxService extends Sfx {
     unawaited(() async {
       try {
         await p.stop();
+        await p.setVolume((calm?.call() ?? false) ? .4 : 1);
         await p.resume();
       } catch (_) {}
     }());

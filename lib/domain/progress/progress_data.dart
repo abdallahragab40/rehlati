@@ -27,6 +27,7 @@ class Settings {
     this.westernDigits = false,
     Set<String>? journeyOff,
     this.startLevel,
+    this.calm = false,
   }) : journeyOff = journeyOff ?? {};
 
   factory Settings.fromJson(Map<String, dynamic> j) => Settings(
@@ -41,6 +42,7 @@ class Settings {
         westernDigits: j['westernDigits'] as bool? ?? false,
         journeyOff: {for (final w in (j['journeyOff'] is List ? j['journeyOff'] as List : const [])) '$w'},
         startLevel: (j['startLevel'] as num?)?.toInt().clamp(1, 3),
+        calm: j['calm'] as bool? ?? false,
       );
 
   bool speech;
@@ -70,6 +72,9 @@ class Settings {
   /// مستوى البداية اللي ولي الأمر اختاره (١–٣) — null = حسب السن.
   int? startLevel;
 
+  /// وضع هادي: من غير حركة ولا كونفيتي، وأصوات اللعبة أوطى.
+  bool calm;
+
   Map<String, dynamic> toJson() => {
         'speech': speech,
         'sfx': sfx,
@@ -81,6 +86,7 @@ class Settings {
         'westernDigits': westernDigits,
         'journeyOff': journeyOff.toList(),
         'startLevel': startLevel,
+        'calm': calm,
       };
 }
 

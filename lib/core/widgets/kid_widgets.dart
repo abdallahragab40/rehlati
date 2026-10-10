@@ -4,6 +4,7 @@ library;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../motion.dart';
 import '../theme/app_theme.dart';
 import '../ui_state.dart';
 
@@ -204,14 +205,14 @@ class _LionMascotState extends State<LionMascot> {
     final lion = Text(emoji, style: TextStyle(fontSize: size, height: 1));
     final anim = switch (mood) {
       LionMood.cheer => lion
-          .animate(key: ValueKey('c$tick'))
+          .anim(key: ValueKey('c$tick'))
           .moveY(begin: 0, end: -26, duration: 190.ms, curve: Curves.easeOut)
           .scaleXY(begin: 1, end: 1.12, duration: 190.ms)
           .then()
           .moveY(begin: 0, end: 26, duration: 360.ms, curve: Curves.bounceOut)
           .scaleXY(begin: 1, end: 1 / 1.12, duration: 360.ms),
       LionMood.sad => lion
-          .animate(key: ValueKey('s$tick'))
+          .anim(key: ValueKey('s$tick'))
           .rotate(begin: 0, end: -.025, duration: 150.ms, alignment: const Alignment(0, .8))
           .then()
           .rotate(begin: 0, end: .045, duration: 175.ms, alignment: const Alignment(0, .8))
@@ -226,7 +227,7 @@ class _LionMascotState extends State<LionMascot> {
           child: Stack(clipBehavior: Clip.none, alignment: Alignment.center, children: [
             anim
                 // قبل أول لمسة الحركة واقفة على البداية (من غير تغيير) عشان شكل الشجرة مايتغيرش
-                .animate(key: ValueKey('p$_pokes'), autoPlay: _pokes > 0)
+                .anim(key: ValueKey('p$_pokes'), autoPlay: _pokes > 0)
                 .scaleXY(begin: 1, end: .82, duration: 90.ms, alignment: Alignment.bottomCenter)
                 .then()
                 .scaleXY(begin: 1, end: 1 / .82, duration: 380.ms, curve: Curves.elasticOut, alignment: Alignment.bottomCenter)
@@ -237,7 +238,7 @@ class _LionMascotState extends State<LionMascot> {
               Positioned(
                 top: -size * .3,
                 child: Text(_hearts[_pokes % _hearts.length], style: TextStyle(fontSize: size * .45))
-                    .animate(key: ValueKey('h$_pokes'))
+                    .anim(key: ValueKey('h$_pokes'))
                     .moveY(begin: 0, end: -size * .9, duration: 900.ms, curve: Curves.easeOut)
                     .scaleXY(begin: .4, end: 1.2, duration: 900.ms)
                     .fadeOut(delay: 400.ms, duration: 500.ms),
@@ -305,12 +306,12 @@ class QCard extends StatelessWidget {
     );
     if (shakeTick == 0) {
       return card
-          .animate()
+          .anim()
           .fadeIn(duration: 250.ms)
           .slideY(begin: .08, end: 0, duration: 450.ms, curve: Curves.easeOutBack)
           .scaleXY(begin: .9, end: 1, duration: 450.ms, curve: Curves.easeOutBack);
     }
-    return card.animate(key: ValueKey(shakeTick)).shakeX(hz: 5, amount: 9, duration: 400.ms);
+    return card.anim(key: ValueKey(shakeTick)).shakeX(hz: 5, amount: 9, duration: 400.ms);
   }
 }
 

@@ -214,7 +214,11 @@ class _ChildRowState extends ConsumerState<_ChildRow> {
           depth: 4,
           shadowColor: AppColors.shadow,
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-          child: Text(label, style: kidText(14)),
+          // ٤٨ نقطة على الأقل — أصغر هدف لمس مريح
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 36),
+            child: Center(widthFactor: 1, child: Text(label, style: kidText(14))),
+          ),
         );
     return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
       ChildAvatar(size: context.clampVw(76, 22, 104)),

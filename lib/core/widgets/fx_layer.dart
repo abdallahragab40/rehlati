@@ -10,6 +10,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
+import '../../domain/progress/progress_controller.dart';
+import '../motion.dart';
 import '../theme/app_theme.dart';
 
 class _Fx {
@@ -210,7 +212,10 @@ class FxLayer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final fx = ref.watch(fxProvider)..reduceMotion = MediaQuery.disableAnimationsOf(context);
+    final calm = ref.watch(progressProvider.select((p) => p.settings.calm));
+    final reduced = MediaQuery.disableAnimationsOf(context) || calm;
+    final fx = ref.watch(fxProvider)..reduceMotion = reduced;
+    Motion.reduced = reduced;
     final size = MediaQuery.sizeOf(context);
     return Stack(
       children: [

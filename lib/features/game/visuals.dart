@@ -6,6 +6,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../../core/motion.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/dashed_box.dart';
@@ -91,7 +92,7 @@ class _Pics extends StatelessWidget {
                       enabled: v.goneFrom == null || i < v.goneFrom!,
                       child: _item(v.emoji, size, gone: v.goneFrom != null && i >= v.goneFrom!),
                     )
-                    .animate(delay: (i * 40).ms)
+                    .anim(delay: (i * 40).ms)
                     .fadeIn(duration: 350.ms)
                     .moveY(begin: -18, end: 0, duration: 350.ms)
                     .scaleXY(begin: .6, end: 1, duration: 350.ms),
@@ -193,7 +194,7 @@ class _Expr extends StatelessWidget {
       if (t.value != null || !v.fillFromPicked) return NumTile(t.value, mid: t.mid);
       final k = blank++;
       if (k >= picked.length) return NumTile(null, next: k == picked.length);
-      return NumTile(picked[k], filled: true).animate().scaleXY(begin: 1.18, end: 1, duration: 300.ms);
+      return NumTile(picked[k], filled: true).anim().scaleXY(begin: 1.18, end: 1, duration: 300.ms);
     }
 
     // سطر واحد دايمًا — لو مش واسع كفاية بيصغر بدل ما يتكسر على كذا سطر
@@ -228,24 +229,30 @@ class _Expr extends StatelessWidget {
                 ExprSide s => Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 150),
-                      child: Wrap(
-                        alignment: WrapAlignment.center,
-                        spacing: 4,
-                        runSpacing: 4,
-                        children: [
-                          for (var i = 0; i < s.count; i++)
-                            TapCountItem(
-                              id: (pi, i),
-                              child: Text(
-                                s.emoji,
-                                style: TextStyle(
-                                  fontSize: context.clampVw(22, 6, 34),
+                    // مجموعة واحدة لقارئ الشاشة ("٣ 🍓") بدل ما يقرا كل صورة لوحدها — زي _Pics
+                    Semantics(
+                      label: '${ar(s.count)} ${s.emoji}',
+                      child: ExcludeSemantics(
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(maxWidth: 150),
+                          child: Wrap(
+                            alignment: WrapAlignment.center,
+                            spacing: 4,
+                            runSpacing: 4,
+                            children: [
+                              for (var i = 0; i < s.count; i++)
+                                TapCountItem(
+                                  id: (pi, i),
+                                  child: Text(
+                                    s.emoji,
+                                    style: TextStyle(
+                                      fontSize: context.clampVw(22, 6, 34),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                        ],
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                     if (s.number != null) ...[
@@ -416,7 +423,7 @@ class _Table extends StatelessWidget {
               ar(picked[k]),
               style: kidText(font, color: Colors.white),
             ),
-          ).animate().scaleXY(begin: 1.18, end: 1, duration: 300.ms),
+          ).anim().scaleXY(begin: 1.18, end: 1, duration: 300.ms),
         );
       } else if (k == picked.length) {
         cells.add(
@@ -426,7 +433,7 @@ class _Table extends StatelessWidget {
                   border: Border.all(color: AppColors.grape, width: 3),
                 ),
               )
-              .animate(onPlay: (c) => c.repeat(reverse: true))
+              .anim(onPlay: (c) => c.repeat(reverse: true))
               .scaleXY(begin: 1, end: 1.08, duration: 650.ms),
         );
       } else {
@@ -486,11 +493,11 @@ class _Pattern extends StatelessWidget {
         child: Row(spacing: context.clampVw(6, 2, 12), children: [
           for (final (i, e) in v.items.indexed)
             cell(Text(e, style: TextStyle(fontSize: box * .55)))
-                .animate()
+                .anim()
                 .fadeIn(delay: (i * 70).ms, duration: 250.ms)
                 .scaleXY(begin: .6, end: 1, duration: 300.ms, curve: Curves.easeOutBack),
           cell(Text('؟', style: kidText(box * .55, color: AppColors.grape)), q: true)
-              .animate(onPlay: (c) => c.repeat(reverse: true))
+              .anim(onPlay: (c) => c.repeat(reverse: true))
               .scaleXY(begin: 1, end: 1.08, duration: 800.ms),
         ]),
       ),

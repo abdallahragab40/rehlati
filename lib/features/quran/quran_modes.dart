@@ -8,6 +8,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/motion.dart';
 import '../journey/journey.dart';
 import '../../content/quran_config.dart';
 import '../../core/audio/audio_providers.dart';
@@ -466,7 +467,7 @@ class _MemorizeState extends _ModeState<_Memorize> {
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(color: quranMint, borderRadius: BorderRadius.circular(12)),
                         child: Text(words[k], style: style.copyWith(color: Colors.white)),
-                      ).animate().scaleXY(begin: 1.18, end: 1, duration: 300.ms)
+                      ).anim().scaleXY(begin: 1.18, end: 1, duration: 300.ms)
                     : const DashedBox(
                         color: AppColors.line,
                         width: 2,
@@ -503,7 +504,7 @@ class _MemorizeState extends _ModeState<_Memorize> {
       ),
     );
     if (isUsed) return Opacity(opacity: .25, child: IgnorePointer(child: w));
-    if (wrong) return w.animate(key: ValueKey('w$wrongTick')).shakeX(hz: 5, amount: 9, duration: 400.ms);
+    if (wrong) return w.anim(key: ValueKey('w$wrongTick')).shakeX(hz: 5, amount: 9, duration: 400.ms);
     return w;
   }
 }
@@ -652,6 +653,6 @@ class _ReviewState extends _ModeState<_Review> {
         child: Text(o.text, textAlign: TextAlign.center, style: style),
       ),
     );
-    return isWrong ? box.animate(key: ValueKey('rw$wrongTick')).shakeX(hz: 5, amount: 9, duration: 400.ms) : box;
+    return isWrong ? box.anim(key: ValueKey('rw$wrongTick')).shakeX(hz: 5, amount: 9, duration: 400.ms) : box;
   }
 }

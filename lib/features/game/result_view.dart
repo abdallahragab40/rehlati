@@ -5,6 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/motion.dart';
 import '../journey/journey.dart';
 import '../../core/audio/audio_providers.dart';
 import '../../core/audio/voice_lines.dart';
@@ -87,7 +88,7 @@ class _ResultViewState extends ConsumerState<ResultView> {
         children: [
           if (r.good)
             const ChildAvatar(size: 130)
-                .animate()
+                .anim()
                 .moveY(begin: 0, end: -26, duration: 190.ms)
                 .then()
                 .moveY(begin: 0, end: 26, duration: 360.ms, curve: Curves.bounceOut)
@@ -112,7 +113,7 @@ class _ResultViewState extends ConsumerState<ResultView> {
             child: Wrap(alignment: WrapAlignment.center, spacing: 2, children: [
               for (var i = 0; i < r.total; i++)
                 Text(i < r.correct ? '⭐' : '☆', style: TextStyle(fontSize: context.clampVw(20, 5.4, 28)))
-                    .animate()
+                    .anim()
                     .scaleXY(delay: (300 + i * 90).ms, begin: 0, end: 1, duration: 450.ms, curve: Curves.elasticOut),
             ]),
           ),
@@ -165,7 +166,7 @@ class _Medals extends StatelessWidget {
               padding: EdgeInsets.only(bottom: i == 1 ? 14 : 0), // اللي في النص أعلى شوية
               child: (i < won
                       ? Text('🏅', style: TextStyle(fontSize: size))
-                          .animate()
+                          .anim()
                           .shimmer(delay: (1400 + i * 260).ms, duration: 900.ms, color: Colors.white70)
                       : Opacity(
                           opacity: .35,
@@ -174,7 +175,7 @@ class _Medals extends StatelessWidget {
                             child: Text('🏅', style: TextStyle(fontSize: size)),
                           ),
                         ))
-                  .animate()
+                  .anim()
                   .moveY(delay: (600 + i * 260).ms, begin: -60, end: 0, duration: 550.ms, curve: Curves.bounceOut)
                   .fadeIn(duration: 150.ms)
                   .rotate(begin: -.08, end: 0, duration: 550.ms),

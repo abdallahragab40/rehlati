@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/motion.dart';
 import '../../content/language_data.dart';
 import '../../core/audio/audio_providers.dart';
 import '../../core/audio/voice_lines.dart';
@@ -90,12 +91,12 @@ class _LetterBoardScreenState extends ConsumerState<LetterBoardScreen> {
                 textDirection: dir,
                 child: Column(mainAxisSize: MainAxisSize.min, children: [
                   Text(it.letter, style: kidText(c.clampVw(96, 26, 140), color: pack.color, height: 1.1))
-                      .animate()
+                      .anim()
                       .scaleXY(begin: .2, end: 1, delay: 120.ms, duration: 700.ms, curve: Curves.elasticOut),
                   calm
                       ? Text(it.emoji, style: TextStyle(fontSize: c.clampVw(64, 18, 90)))
                       : Text(it.emoji, style: TextStyle(fontSize: c.clampVw(64, 18, 90)))
-                          .animate()
+                          .anim()
                           .moveY(begin: 40, end: 0, delay: 300.ms, duration: 500.ms, curve: Curves.easeOutBack)
                           .fadeIn(duration: 200.ms)
                           .then()
@@ -112,7 +113,7 @@ class _LetterBoardScreenState extends ConsumerState<LetterBoardScreen> {
                         TextSpan(text: it.word.substring(at + it.letter.length)),
                       ],
                     ]),
-                  ).animate().fadeIn(delay: 500.ms, duration: 300.ms),
+                  ).anim().fadeIn(delay: 500.ms, duration: 300.ms),
                   const SizedBox(height: 12),
                   Text(en ? 'Tap to close' : 'اضغط في أي مكان', style: kidText(13, color: AppColors.inkSoft)),
                 ]),
@@ -176,7 +177,7 @@ class _LetterBoardScreenState extends ConsumerState<LetterBoardScreen> {
               ? (en ? 'All letters done! ⭐' : 'خلّصت كل الحروف! ⭐')
               : (en ? '${ar(seen)} / ${ar(items.length)} letters' : 'اتعلمت ${ar(seen)} من ${ar(items.length)} حرف'),
           kind: _done ? BubbleKind.ok : BubbleKind.plain,
-        ).animate(key: ValueKey(_done)).fadeIn(),
+        ).anim(key: ValueKey(_done)).fadeIn(),
       ]),
     );
   }

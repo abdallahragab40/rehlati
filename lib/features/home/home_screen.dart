@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/motion.dart';
 import '../../core/audio/audio_providers.dart';
 import '../../core/audio/voice_lines.dart';
 import '../../core/theme/app_theme.dart';
@@ -110,7 +111,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         onTap: () => context.push(p.limitReached ? '/timeup' : (w.id == 'quran' ? '/quran' : '/world/${w.id}')),
                       )
                           // الكروت بتدخل واحد ورا التاني
-                          .animate()
+                          .anim()
                           .fadeIn(delay: (150 + i * 110).ms, duration: 250.ms)
                           .slideY(begin: .35, end: 0, duration: 520.ms, curve: Curves.easeOutBack),
                   ],
@@ -251,7 +252,7 @@ class _WorldCard extends StatelessWidget {
                 ? Text(world.icon, style: const TextStyle(fontSize: 27))
                 // الأيقونة بتطفو وتتمايل بهدوء — كل عالم بسرعته عشان مايتحركوش زي بعض
                 : Text(world.icon, style: const TextStyle(fontSize: 27))
-                    .animate(onPlay: (c) => c.repeat(reverse: true))
+                    .anim(onPlay: (c) => c.repeat(reverse: true))
                     .moveY(begin: -3, end: 3, duration: (1300 + world.id.length * 90).ms, curve: Curves.easeInOut)
                     .rotate(begin: -.02, end: .02, duration: (1300 + world.id.length * 90).ms),
           ),
