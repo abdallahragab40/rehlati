@@ -23,16 +23,20 @@ class FakeStore implements AyahAudioStore {
   final pending = <(String, Completer<bool>)>[];
   bool Function(int surah, int ayah)? auto;
 
+  /// المساحة "تخلص" بعد العدد ده من الآيات.
+  int? fullAfter;
+
   @override
   Future<bool> has(String folder, int surah, int ayah) async => stored.contains('$folder/$surah:$ayah');
 
   @override
-  Future<bool> fetch(String folder, int surah, int ayah) async {
+  Future<AyahFetch> fetch(String folder, int surah, int ayah) async {
     final key = '$folder/$surah:$ayah';
     fetched.add(key);
+    if (fullAfter != null && stored.length >= fullAfter!) return AyahFetch.storageFull;
     final ok = auto != null ? auto!(surah, ayah) : await _wait(key);
     if (ok) stored.add(key);
-    return ok;
+    return ok ? AyahFetch.saved : AyahFetch.failed;
   }
 
   Future<bool> _wait(String key) {
@@ -47,6 +51,9 @@ class FakeStore implements AyahAudioStore {
     }
   }
 }
+
+/// أصغر ملف شكله MP3: وسم ID3 وبعده بيانات.
+final mp3 = [0x49, 0x44, 0x33, ...List.filled(300, 0)];
 
 http.Response ok(Object body) => http.Response.bytes(utf8.encode(jsonEncode(body)), 200);
 
@@ -218,7 +225,7 @@ void main() {
     final client = MockClient((_) async {
       calls++;
       await gate.future;
-      return http.Response.bytes([1, 2, 3], 200, headers: {'content-type': 'audio/mpeg'});
+      return http.Response.bytes(mp3, 200, headers: {'content-type': 'audio/mpeg'});
     });
     final file = File('${tmp.path}/a/112001.mp3');
     final url = Uri.parse('https://example.test/112001.mp3');
@@ -227,6 +234,6 @@ void main() {
     gate.complete();
     expect(await Future.wait([a, b]), [true, true]);
     expect(calls, 1);
-    expect(file.readAsBytesSync(), [1, 2, 3]);
+    expect(file.readAsBytesSync(), mp3);
   });
 }

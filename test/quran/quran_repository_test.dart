@@ -161,11 +161,14 @@ void main() {
       final failing = MockClient((_) async => throw const SocketException('reset'));
       expect(await RecitationPlayer.download(url, file, client: failing), isFalse);
       expect(file.existsSync(), isFalse);
-      expect(await fetch(() => http.Response.bytes([7], 200, headers: {'content-type': 'audio/mpeg'})), isTrue);
-      expect(file.readAsBytesSync(), [7]);
+      expect(await fetch(() => http.Response.bytes(mp3, 200, headers: {'content-type': 'audio/mpeg'})), isTrue);
+      expect(file.readAsBytesSync(), mp3);
     });
   });
 }
 
 /// http.Response(String) بيستخدم latin1 — النص العربي لازم يتبعت UTF-8.
+/// أصغر ملف شكله MP3: وسم ID3 وبعده بيانات.
+final mp3 = [0x49, 0x44, 0x33, ...List.filled(300, 0)];
+
 http.Response ok(String body) => http.Response.bytes(utf8.encode(body), 200);

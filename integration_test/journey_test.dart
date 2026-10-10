@@ -116,6 +116,12 @@ void main() {
 
     // ٥) طفل تاني من لوحة ولي الأمر
     await openParent();
+    // مكتبة القرآن بتتمسح من فولدر الجهاز الحقيقي وبتعرض الأجزاء للقارئ المختار
+    final juzRow = find.textContaining('التلاوة:');
+    for (var i = 0; i < 50 && juzRow.evaluate().isEmpty; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+    expect(juzRow, findsNWidgets(2));
     await tapWhenReady(find.text('➕ إضافة طفل'));
     await setup('عمر', '٦');
     expect(container().read(progressProvider).stars, 0);

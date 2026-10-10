@@ -43,6 +43,9 @@ List<String> ayahWords(String text) {
 
 enum RecitationIssue { teacherFallback, network }
 
+/// نتيجة تنزيل آية: اتحفظت، فشلت (نت أو رد غلط)، أو مساحة الجهاز خلصت.
+enum AyahFetch { saved, failed, storageFull }
+
 class RecitationPlayer {
   RecitationPlayer(this._stopSpeech);
   final void Function() _stopSpeech;
@@ -66,7 +69,7 @@ class RecitationPlayer {
       await _p.stop();
       final url = QuranConfig.ayahAudioUrl(r.folder, surah, ayah);
       final file = await cacheFile(r.folder, surah, ayah);
-      if (file.existsSync()) {
+      if (await isValid(file)) {
         await _p.setAudioSource(AudioSource.file(file.path));
       } else {
         await _p.setAudioSource(AudioSource.uri(url));
@@ -90,39 +93,76 @@ class RecitationPlayer {
     }
   }
 
-  static Future<File> cacheFile(String folder, int surah, int ayah) async {
-    final dir = await getApplicationSupportDirectory();
-    return File('${dir.path}/recitations/$folder/${'$surah'.padLeft(3, '0')}${'$ayah'.padLeft(3, '0')}.mp3');
+  /// فولدر التلاوات على الجهاز — الاختبارات بتبدّله بفولدر مؤقت.
+  static Future<Directory> Function() root =
+      () async => Directory('${(await getApplicationSupportDirectory()).path}/recitations');
+
+  static Future<File> cacheFile(String folder, int surah, int ayah) async =>
+      File('${(await root()).path}/$folder/${'$surah'.padLeft(3, '0')}${'$ayah'.padLeft(3, '0')}.mp3');
+
+  /// أول بايتات ملف MP3: وسم ID3 أو بداية frame. صفحة خطأ أو ملف مقطوع مابيعدّوش.
+  static bool looksLikeAudio(List<int> head) =>
+      head.length >= 3 &&
+      ((head[0] == 0x49 && head[1] == 0x44 && head[2] == 0x33) || (head[0] == 0xFF && (head[1] & 0xE0) == 0xE0));
+
+  /// الملف موجود وشكله تلاوة فعلًا — "موجود" لوحده مش كفاية.
+  static Future<bool> isValid(File f) async {
+    try {
+      if (!f.existsSync() || f.lengthSync() < 256) return false;
+      final raf = await f.open();
+      try {
+        return looksLikeAudio(await raf.read(3));
+      } finally {
+        await raf.close();
+      }
+    } catch (_) {
+      return false;
+    }
   }
 
-  static final _downloading = <String, Future<bool>>{};
+  /// خطأ كتابة ← المساحة خلصت؟ (ENOSPC = ٢٨ على أندرويد و iOS)
+  static AyahFetch classifyWriteError(Object e) =>
+      e is FileSystemException && e.osError?.errorCode == 28 ? AyahFetch.storageFull : AyahFetch.failed;
 
-  /// بيحفظ آية على الجهاز — true لو اتحفظت (أو كانت محفوظة).
-  /// طلبين لنفس الملف في نفس الوقت (تشغيل + تنزيل الجزء) بيستنوا نفس التنزيل.
-  static Future<bool> download(Uri url, File file, {http.Client? client}) {
-    if (file.existsSync()) return Future.value(true);
+  static final _downloading = <String, Future<AyahFetch>>{};
+
+  /// بيحفظ آية على الجهاز. طلبين لنفس الملف في نفس الوقت (تشغيل + تنزيل الجزء)
+  /// بيستنوا نفس التنزيل. ملف موجود بس تالف بيتمسح ويتنزّل تاني.
+  static Future<AyahFetch> fetch(Uri url, File file, {http.Client? client}) async {
+    if (await isValid(file)) return AyahFetch.saved;
     // block body: لو رجّعنا قيمة remove (نفس الـ Future) الـ whenComplete هيستنى نفسه للأبد
     return _downloading[file.path] ??= _save(url, file, client).whenComplete(() {
       _downloading.remove(file.path);
     });
   }
 
-  static Future<bool> _save(Uri url, File file, http.Client? client) async {
+  /// true لو الآية اتحفظت (أو كانت محفوظة وسليمة).
+  static Future<bool> download(Uri url, File file, {http.Client? client}) async =>
+      await fetch(url, file, client: client) == AyahFetch.saved;
+
+  static Future<AyahFetch> _save(Uri url, File file, http.Client? client) async {
+    final http.Response res;
     try {
-      final res = await (client == null ? http.get(url) : client.get(url)).timeout(const Duration(seconds: 30));
-      final type = res.headers['content-type'] ?? '';
-      if (res.statusCode == 200 && type.startsWith('audio') && res.bodyBytes.isNotEmpty) {
-        await file.parent.create(recursive: true);
-        // نكتب في ملف مؤقت ونغيّر اسمه — عشان ملف ناقص مايتشغلش أبدًا
-        final tmp = File('${file.path}.part');
-        await tmp.writeAsBytes(res.bodyBytes, flush: true);
-        await tmp.rename(file.path);
-        return true;
-      }
-      return false;
+      res = await (client == null ? http.get(url) : client.get(url)).timeout(const Duration(seconds: 30));
     } catch (_) {
       // مش مشكلة — هنحاول تاني المرة الجاية
-      return false;
+      return AyahFetch.failed;
+    }
+    final type = res.headers['content-type'] ?? '';
+    if (res.statusCode != 200 || !type.startsWith('audio') || !looksLikeAudio(res.bodyBytes)) return AyahFetch.failed;
+    final tmp = File('${file.path}.part');
+    try {
+      if (file.existsSync()) await file.delete(); // تالف — هيتبدّل
+      await file.parent.create(recursive: true);
+      // نكتب في ملف مؤقت ونغيّر اسمه — عشان ملف ناقص مايتشغلش أبدًا
+      await tmp.writeAsBytes(res.bodyBytes, flush: true);
+      await tmp.rename(file.path);
+      return AyahFetch.saved;
+    } catch (e) {
+      try {
+        if (tmp.existsSync()) await tmp.delete();
+      } catch (_) {}
+      return classifyWriteError(e);
     }
   }
 
