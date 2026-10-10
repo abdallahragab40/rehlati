@@ -75,6 +75,9 @@ class QuranRepository {
     } catch (_) {}
   }
 
+  /// نص السورة محفوظ على الجهاز؟ بيقرا ملف الكاش بس — من غير نت.
+  Future<bool> isCached(int surah) async => ((await _load())['surahs'] as Map).containsKey('$surah');
+
   bool cached(int surah) => ((_cache?['surahs'] as Map?) ?? const {}).containsKey('$surah');
 
   /// اسم المصدر اللي جه منه نص السورة دي (أو المصدر الأساسي).

@@ -103,19 +103,30 @@ void main() {
     expect(container().read(progressProvider).stars, stars);
     expect(container().read(progressProvider).isUnlocked('chooseNumber'), isTrue);
 
-    // ٤) طفل تاني من لوحة ولي الأمر
+    // ٤) رحلة النهاردة: بتتخطط من التقدّم، وأول خطوة بتفتح نشاط حقيقي
+    await tapWhenReady(find.textContaining('🧭 رحلة النهاردة'));
+    final journey = container().read(progressProvider).todayJourney!;
+    expect(journey.steps, isNotEmpty);
+    expect(find.text('▶️ يلا'), findsOneWidget);
+    await tapWhenReady(find.text('▶️ يلا'));
+    expect(find.textContaining('🧭 رحلة النهاردة'), findsNothing, reason: 'the first step opened');
+    await tapWhenReady(find.text('↩'));
+    await tapWhenReady(find.text('🏠 الرئيسية'));
+    debugPrint('JOURNEY steps=${[for (final s in journey.steps) s.target]}');
+
+    // ٥) طفل تاني من لوحة ولي الأمر
     await openParent();
     await tapWhenReady(find.text('➕ إضافة طفل'));
     await setup('عمر', '٦');
     expect(container().read(progressProvider).stars, 0);
 
-    // ٥) التبديل من صورة الطفل في الرئيسية
+    // ٦) التبديل من صورة الطفل في الرئيسية
     await tapWhenReady(find.text('🔄'));
     await tapWhenReady(find.text('سارة'));
     expect(container().read(progressProvider).name, 'سارة');
     expect(container().read(progressProvider).stars, stars);
 
-    // ٦) ولي الأمر يمسح الطفل التاني — سارة ماتتأثرش
+    // ٧) ولي الأمر يمسح الطفل التاني — سارة ماتتأثرش
     await openParent();
     final omar = find.ancestor(of: find.textContaining('عمر •'), matching: find.byType(Row));
     await tapWhenReady(find.descendant(of: omar, matching: find.byType(IconButton)));

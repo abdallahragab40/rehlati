@@ -5,6 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../journey/journey.dart';
 import '../../core/audio/audio_providers.dart';
 import '../../core/audio/voice_lines.dart';
 import '../../core/nav.dart';
@@ -133,7 +134,9 @@ class _ResultViewState extends ConsumerState<ResultView> {
               KidButton('🔁 العب تاني', onTap: widget.engine.replay),
               if (unlocked != null)
                 KidButton('▶️ المرحلة التالية', kind: BtnKind.go, onTap: () => context.pushReplacement(stageRoute(unlocked))),
-              KidButton('🗺️ الخريطة', kind: BtnKind.ghost, onTap: () => context.back()),
+              fromJourney(context)
+                  ? KidButton('🧭 كمّل الرحلة', kind: BtnKind.go, onTap: () => context.back())
+                  : KidButton('🗺️ الخريطة', kind: BtnKind.ghost, onTap: () => context.back()),
             ],
           ),
         ],

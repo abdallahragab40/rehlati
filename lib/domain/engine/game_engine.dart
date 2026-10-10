@@ -744,6 +744,8 @@ class GameEngine extends Notifier<GameSession?> {
         }
       });
     }
+    // خطوة في رحلة النهاردة؟ (تدريب على الأخطاء في نفس المرحلة بيتحسب برضه)
+    _progress.update((p) => p.journeyMark('stage:${s.stage.id}'));
     _progress.checkRewards();
     s.result = GameResult(
       stage: s.stage, correct: s.correct, total: s.total,

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../journey/journey.dart';
 import '../../content/madd.dart';
 import '../../core/audio/audio_providers.dart';
 import '../../core/audio/voice_lines.dart';
@@ -85,7 +86,7 @@ class _MaddLessonScreenState extends ConsumerState<MaddLessonScreen> {
                       _markLesson();
                     })
         else
-          KidButton('▶️ يلا نلعب', kind: BtnKind.go, onTap: () => context.pushReplacement('/play/${pack.id}')),
+          KidButton('▶️ يلا نلعب', kind: BtnKind.go, onTap: () => context.pushReplacement('/play/${pack.id}${fromJourney(context) ? '?from=journey' : ''}')),
       ]),
     );
   }

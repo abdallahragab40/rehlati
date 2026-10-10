@@ -9,6 +9,7 @@ import 'package:rehlati/core/audio/audio_providers.dart';
 import 'package:rehlati/core/utils/rng.dart';
 import 'package:rehlati/domain/progress/progress_controller.dart';
 import 'package:rehlati/domain/stages.dart';
+import 'package:rehlati/features/journey/journey.dart';
 import 'package:rehlati/features/achievements/achievements_screen.dart';
 import 'package:rehlati/features/game/game_screen.dart';
 import 'package:rehlati/features/home/home_screen.dart';
@@ -86,6 +87,7 @@ void main() {
     'parent guide goals': const PgGoalsScreen(),
     'kid hub': const KidHubScreen(),
     'time up': const TimeUpScreen(),
+    'journey': const JourneyScreen(),
     'kid play': KidPlayScreen(ids: [for (final b in pgBehaviors.take(3)) b.id]),
   };
 

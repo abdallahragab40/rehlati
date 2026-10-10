@@ -1,0 +1,171 @@
+/// "رحلة النهاردة": تسلسل قصير من المراحل المفتوحة — تسخين، تدريب على نقطة ضعف،
+/// وبعدين حاجة جديدة (أو مراجعة سورة). منطق صافي من غير واجهة — سهل يتختبر.
+library;
+
+import 'progress/progress_data.dart';
+import 'stages.dart';
+
+/// نوع الخطوة — بيحدد السبب اللي بيظهر لولي الأمر.
+enum StepKind {
+  /// أول مرحلة لطفل جديد.
+  start,
+
+  /// تسخين بمرحلة الطفل بيعرفها كويس.
+  warm,
+
+  /// مرحلة فيها أخطاء اتكررت — المحرك بيرجّع المهارة الضعيفة تلقائيًا.
+  practice,
+
+  /// مرحلة اتلعبت بس لسه ما خدتش ٣ ميداليات.
+  improve,
+
+  /// مرحلة اتفتحت ولسه ما اتلعبتش.
+  fresh,
+
+  /// سورة اتحفظت ومحتاجة مراجعة (والنص على الجهاز).
+  quran,
+}
+
+class JourneyStep {
+  JourneyStep(this.kind, this.target, {this.done = false});
+
+  final StepKind kind;
+
+  /// `stage:ID` أو `quran:SURAH:review`.
+  final String target;
+  bool done;
+
+  Stage? get stage => target.startsWith('stage:') ? packs[target.substring(6)] : null;
+  int? get surah => target.startsWith('quran:') ? int.tryParse(target.split(':')[1]) : null;
+  String get world => stage?.world ?? 'quran';
+
+  factory JourneyStep.fromJson(Object? j) {
+    final m = j is Map ? j : const {};
+    return JourneyStep(
+      StepKind.values.firstWhere((k) => k.name == m['kind'], orElse: () => StepKind.warm),
+      '${m['target'] ?? ''}',
+      done: m['done'] == true,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {'kind': kind.name, 'target': target, 'done': done};
+}
+
+class Journey {
+  Journey(this.day, this.steps, {this.rewarded = false, this.celebrated = false});
+
+  /// مفتاح اليوم (ProgressData.dayKey) — رحلة لكل طفل في اليوم.
+  final String day;
+  final List<JourneyStep> steps;
+
+  /// نجوم الختام اتدّت (مرة واحدة بس).
+  bool rewarded;
+
+  /// الاحتفال اتعرض للطفل.
+  bool celebrated;
+
+  bool get complete => steps.isNotEmpty && steps.every((s) => s.done);
+  int get doneCount => steps.where((s) => s.done).length;
+  JourneyStep? get next => steps.where((s) => !s.done).firstOrNull;
+
+  static const bonusStars = 3;
+
+  factory Journey.fromJson(Object? j) {
+    final m = j is Map ? j : const {};
+    return Journey(
+      '${m['day'] ?? ''}',
+      [
+        for (final s in (m['steps'] is List ? m['steps'] as List : const []))
+          JourneyStep.fromJson(s),
+      ]..removeWhere((s) => s.stage == null && s.surah == null),
+      rewarded: m['rewarded'] == true,
+      celebrated: m['celebrated'] == true,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'day': day,
+        'steps': [for (final s in steps) s.toJson()],
+        'rewarded': rewarded,
+        'celebrated': celebrated,
+      };
+}
+
+/// العوالم اللي ممكن تدخل الرحلة، بالترتيب.
+const journeyWorlds = ['math', 'arabic', 'english', 'games', 'quran'];
+
+/// يخطط رحلة النهاردة من التقدّم المحفوظ بس.
+///
+/// [quranReady]: السور اللي نصها على الجهاز — سورة مش متنزّلة مابتدخلش الرحلة.
+/// [minutesLeft]: الوقت الفاضل من حد اليوم (null = مفيش حد) — الرحلة بتقصر على قده.
+Journey planJourney(ProgressData p, {required String day, Set<int> quranReady = const {}, int? minutesLeft}) {
+  final off = p.settings.journeyOff;
+  final seed = day.codeUnits.fold<int>(0, (h, c) => (h * 31 + c) & 0x3fffffff);
+
+  // مراحل لعب مفتوحة (لوحة الحروف مش جولة بنتيجة فمابتدخلش)
+  final candidates = [
+    for (final w in journeyWorlds)
+      if (w != 'quran' && !off.contains(w))
+        for (final s in worldStages[w] ?? const <Stage>[])
+          if (!s.isLearn && p.isUnlocked(s.id)) s,
+  ];
+  final used = <String>{};
+  int medals(Stage s) => p.best[s.id] ?? 0;
+
+  /// اختيار ثابت لنفس اليوم من وسط قايمة.
+  Stage? pick(Iterable<Stage> from, [int salt = 0]) {
+    final list = from.where((s) => !used.contains(s.id)).toList();
+    if (list.isEmpty) return null;
+    final s = list[(seed + salt) % list.length];
+    used.add(s.id);
+    return s;
+  }
+
+  JourneyStep stageStep(StepKind k, Stage s) => JourneyStep(k, 'stage:${s.id}');
+
+  // ١) تسخين: مرحلة بيعرفها — ولطفل جديد أول مرحلة متاحة
+  JourneyStep? warm;
+  if (pick(candidates.where((s) => medals(s) >= 2)) ?? pick(candidates.where((s) => medals(s) >= 1), 1)
+      case final s?) {
+    warm = stageStep(StepKind.warm, s);
+  } else if (candidates.firstOrNull case final s?) {
+    used.add(s.id);
+    warm = stageStep(StepKind.start, s);
+  }
+
+  // ٢) تدريب: أكتر مرحلة فيها أخطاء متكررة، وإلا مرحلة لسه ما كملتش ميدالياتها
+  JourneyStep? practice;
+  for (final w in p.weakest(20)) {
+    final s = packs[w.pack.split(':').first];
+    if (s != null && candidates.contains(s) && used.add(s.id)) {
+      practice = stageStep(StepKind.practice, s);
+      break;
+    }
+  }
+  if (practice == null) {
+    final weak = candidates.where((s) => medals(s) == 1 || medals(s) == 2).toList()
+      ..sort((a, b) => medals(a) - medals(b));
+    if (pick(weak.take(3), 2) case final s?) practice = stageStep(StepKind.improve, s);
+  }
+
+  // ٣) جديد: سورة متأخرة في المراجعة ونصها جاهز، وإلا مرحلة جديدة من عالم تاني
+  JourneyStep? fresh;
+  final review = p.surahsNeedingReview.where(quranReady.contains);
+  if (!off.contains('quran') && review.isNotEmpty) {
+    fresh = JourneyStep(StepKind.quran, 'quran:${review.first}:review');
+  } else {
+    final seen = {for (final s in [warm, practice].nonNulls) s.world};
+    final unplayed = candidates.where((s) => medals(s) == 0);
+    final s = pick(unplayed.where((s) => !seen.contains(s.world)), 3) ?? pick(unplayed, 3);
+    if (s != null) fresh = stageStep(StepKind.fresh, s);
+  }
+
+  final steps = [warm, practice, fresh].nonNulls.toList();
+  // وقت قليل: الرحلة بتقصر — التدريب أهم حاجة، وبعده الجديد
+  final room = minutesLeft == null ? 3 : (minutesLeft ~/ 4).clamp(1, 3);
+  for (final k in [StepKind.warm, StepKind.start, StepKind.fresh, StepKind.quran, StepKind.improve]) {
+    if (steps.length <= room) break;
+    steps.removeWhere((s) => s.kind == k);
+  }
+  return Journey(day, steps.take(room).toList());
+}

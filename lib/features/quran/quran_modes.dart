@@ -8,6 +8,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../journey/journey.dart';
 import '../../content/quran_config.dart';
 import '../../core/audio/audio_providers.dart';
 import '../../core/nav.dart';
@@ -84,7 +85,10 @@ abstract class _ModeState<T extends ConsumerStatefulWidget> extends ConsumerStat
   /// النشاط بيدّي نجومه مرة واحدة — وبعدين نشيّك الإنجازات (الويب ماكانش بيشيّكها هنا).
   void complete(String mode, int stars, String text) {
     final progress = ref.read(progressProvider.notifier);
-    if (stars > 0) progress.update((p) => p.quranMark(chapter.number, mode, stars));
+    progress.update((p) {
+      if (stars > 0) p.quranMark(chapter.number, mode, stars);
+      p.journeyMark('quran:${chapter.number}:$mode');
+    });
     progress.checkRewards();
     finish(text);
   }
@@ -131,7 +135,8 @@ abstract class _ModeState<T extends ConsumerStatefulWidget> extends ConsumerStat
               finished = null;
               restart();
             })),
-            KidButton('📖 ${chapter.name}', kind: BtnKind.go, onTap: () => context.back()),
+            KidButton(fromJourney(context) ? '🧭 كمّل الرحلة' : '📖 ${chapter.name}',
+                kind: BtnKind.go, onTap: () => context.back()),
             KidButton('🗺️ كل السور', kind: BtnKind.ghost, onTap: () {
               context.go('/quran');
             }),

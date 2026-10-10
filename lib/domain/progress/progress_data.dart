@@ -6,8 +6,10 @@ library;
 import 'dart:math' as math;
 
 import '../stages.dart';
+import '../journey.dart';
 import 'extras.dart';
 
+export '../journey.dart';
 export 'extras.dart';
 
 class Settings {
@@ -20,7 +22,8 @@ class Settings {
     this.limitMin = 0,
     this.speechRate = 1.0,
     this.westernDigits = false,
-  });
+    Set<String>? journeyOff,
+  }) : journeyOff = journeyOff ?? {};
 
   factory Settings.fromJson(Map<String, dynamic> j) => Settings(
         speech: j['speech'] as bool? ?? true,
@@ -32,6 +35,7 @@ class Settings {
         limitMin: (j['limitMin'] as num?)?.toInt() ?? 0,
         speechRate: (j['speechRate'] as num?)?.toDouble() ?? 1.0,
         westernDigits: j['westernDigits'] as bool? ?? false,
+        journeyOff: {for (final w in (j['journeyOff'] is List ? j['journeyOff'] as List : const [])) '$w'},
       );
 
   bool speech;
@@ -55,6 +59,9 @@ class Settings {
   /// الأرقام ١٢٣ بدل ١٢٣ الهندية — المدارس في مصر بتعلّم الاتنين.
   bool westernDigits;
 
+  /// عوالم ولي الأمر شالها من "رحلة النهاردة".
+  final Set<String> journeyOff;
+
   Map<String, dynamic> toJson() => {
         'speech': speech,
         'sfx': sfx,
@@ -64,6 +71,7 @@ class Settings {
         'limitMin': limitMin,
         'speechRate': speechRate,
         'westernDigits': westernDigits,
+        'journeyOff': journeyOff.toList(),
       };
 }
 
@@ -110,6 +118,7 @@ class ProgressData {
     Map<String, PgGoal>? pgFocus,
     Map<String, DayLog>? days,
     this.rankSeen,
+    this.journey,
   })  : unlocked = unlocked ?? [...initiallyUnlocked],
         best = best ?? {},
         starsBy = starsBy ?? {},
@@ -169,6 +178,9 @@ class ProgressData {
   /// آخر كأس اتحتفل بيه (null = لسه — بنسجّل الحالي من غير احتفال عشان التقدّم القديم).
   int? rankSeen;
 
+  /// رحلة النهاردة (أو آخر رحلة) — null = لسه ما اتعملتش.
+  Journey? journey;
+
   // ---------------------------------------------------------------- JSON
 
   factory ProgressData.fromJson(Map<String, dynamic> j) {
@@ -200,6 +212,7 @@ class ProgressData {
       madd: MaddStats.fromJson(j['madd']),
       days: j['days'] is Map ? {for (final e in (j['days'] as Map).entries) '${e.key}': DayLog.fromJson(e.value)} : {},
       rankSeen: (j['rankSeen'] as num?)?.toInt(),
+      journey: j['journey'] is Map ? Journey.fromJson(j['journey']) : null,
       pgFocus: (j['parentGuide'] is Map && (j['parentGuide'] as Map)['focus'] is Map)
           ? {
               for (final e in ((j['parentGuide'] as Map)['focus'] as Map).entries)
@@ -232,6 +245,7 @@ class ProgressData {
         'madd': madd.toJson(),
         'days': {for (final e in days.entries) e.key: e.value.toJson()},
         'rankSeen': rankSeen,
+        'journey': journey?.toJson(),
         'parentGuide': {
           'focus': {for (final e in pgFocus.entries) e.key: e.value.toJson()},
         },
@@ -443,6 +457,29 @@ class ProgressData {
       if (quranDone(s, 'memorize') && !quranDone(s, 'review')) out.add(s);
     }
     return out.toList()..sort();
+  }
+
+  // ---------------------------------------------------------------- رحلة النهاردة
+
+  /// رحلة النهاردة لو اتعملت.
+  Journey? get todayJourney => journey?.day == dayKey(clock()) ? journey : null;
+
+  /// نشاط خلص: لو خطوة في رحلة النهاردة تتعلّم. بيرجّع true لو الرحلة خلصت دلوقتي
+  /// (ونجوم الختام بتتدّي مرة واحدة بس مهما النشاط اتعاد).
+  bool journeyMark(String target) {
+    final j = todayJourney;
+    if (j == null) return false;
+    var changed = false;
+    for (final s in j.steps) {
+      if (!s.done && s.target == target) {
+        s.done = true;
+        changed = true;
+      }
+    }
+    if (!changed || !j.complete || j.rewarded) return false;
+    j.rewarded = true;
+    addStar(Journey.bonusStars, j.steps.last.world);
+    return true;
   }
 
   // ---------------------------------------------------------------- التعلّم المتكيّف

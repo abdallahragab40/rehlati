@@ -20,6 +20,7 @@ import 'features/achievements/achievements_screen.dart';
 import 'features/daily/time_up_screen.dart';
 import 'features/game/game_screen.dart';
 import 'features/home/home_screen.dart';
+import 'features/journey/journey.dart';
 import 'features/letter_board/letter_board_screen.dart';
 import 'features/madd/madd_lesson_screen.dart';
 import 'features/parent/dashboard_screen.dart';
@@ -64,6 +65,7 @@ final _router = GoRouter(initialLocation: kDebugMode ? _start : '/', routes: [
     builder: (_, s) => LearningScope(child: LetterBoardScreen(stageId: s.pathParameters['stage']!)),
   ),
   GoRoute(path: '/timeup', builder: (_, _) => const TimeUpScreen()),
+  GoRoute(path: '/journey', builder: (_, _) => const LearningScope(track: false, child: JourneyScreen())),
   GoRoute(path: '/achievements', builder: (_, _) => const AchievementsScreen()),
   GoRoute(path: '/quran', builder: (_, _) => const LearningScope(track: false, child: QuranHomeScreen())),
   GoRoute(path: '/quran-check', builder: (_, _) => const QuranCheckScreen()),

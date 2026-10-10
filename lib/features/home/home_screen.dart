@@ -89,6 +89,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               const SizedBox(height: 16),
               _DailyStrip(p),
               const SizedBox(height: 12),
+              _JourneyButton(p),
+              const SizedBox(height: 12),
               RankBar(stars: p.stars),
               const SizedBox(height: 18),
               // كروت العوالم: عمودين، وعمود واحد على الموبايلات الضيقة
@@ -127,6 +129,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ],
       ),
     );
+  }
+}
+
+/// زرار "رحلة النهاردة" — بيورّي الطفل وصل لفين فيها.
+class _JourneyButton extends StatelessWidget {
+  const _JourneyButton(this.p);
+  final ProgressData p;
+
+  @override
+  Widget build(BuildContext context) {
+    final j = p.todayJourney;
+    final status = j == null || j.steps.isEmpty
+        ? ''
+        : j.complete
+            ? ' ✅'
+            : ' (${ar(j.doneCount)} / ${ar(j.steps.length)})';
+    return KidButton('🧭 رحلة النهاردة$status',
+        kind: BtnKind.go, onTap: () => context.push(p.limitReached ? '/timeup' : '/journey'));
   }
 }
 
