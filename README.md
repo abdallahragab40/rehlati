@@ -9,7 +9,8 @@ Flutter (Android + iOS, phones and tablets) port of the رحلتي التعلي�
 ```bash
 flutter pub get
 flutter run
-flutter test                                   # unit, widget and screen smoke tests
+flutter test                                   # unit, widget, screen smoke and accessibility tests
+flutter test integration_test -d <device-id>   # real-app journeys on a device or simulator (restores its data)
 flutter test --tags network --run-skipped      # live check of both Quran text sources
 flutter run --dart-define=START=/quran/112     # open directly on any route
 node tool/sync_web_content.mjs ../rehlati-web  # regenerate madd + parent-guide content from the web repo
@@ -24,7 +25,7 @@ flutter test tool/voice_phrases_test.dart && python3 tool/render_voice.py  # re-
 | `lib/domain/` | Pure logic: question model, generators, stage registry, progress, adaptive, badges, engine |
 | `lib/core/` | Theme, Arabic number utilities, RNG, audio services, shared widgets |
 | `lib/features/` | Screens |
-| `assets/` | Fonts (Baloo Bhaijaan 2, Amiri Quran — OFL), SVG art, voice clips, SFX |
+| `assets/` | Fonts (Baloo Bhaijaan 2, Amiri Quran — OFL), SVG art, music, SFX. Voice clips are excluded while question voice is off (`lib/core/features.dart`) |
 | `tool/` | Offline asset generators (voice clips, SFX) |
 
 ## Android release signing
