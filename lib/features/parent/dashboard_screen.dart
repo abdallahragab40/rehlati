@@ -25,6 +25,7 @@ import '../profiles/profiles.dart';
 import '../quran/quran_download.dart';
 import '../quran/quran_repository.dart';
 import 'avatar.dart';
+import 'backup_card.dart';
 import 'mastery_card.dart';
 
 String fmtTime(int ms) {
@@ -112,6 +113,8 @@ class DashboardScreen extends ConsumerWidget {
               : p.surahsNeedingReview.map((s) => names[s] ?? 'سورة رقم ${ar(s)}').join(' • '))),
           h3('📥 القرآن من غير نت'),
           const QuranDownloadCard(),
+          h3('💾 نسخة احتياطية'),
+          const BackupCard(),
           h3('⏰ تذكير يومي'),
           const _ReminderCard(),
           h3('🏆 الإنجازات'),

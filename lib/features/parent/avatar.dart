@@ -31,6 +31,20 @@ class AvatarController extends Notifier<File?> {
 
   static Future<void> init() async => dir = (await getApplicationDocumentsDirectory()).path;
 
+  /// صورة الطفل كبايتات — للنسخة الاحتياطية (null لو مفيش صورة).
+  static List<int>? readPhoto(String id) {
+    final f = _file(id);
+    return f != null && f.existsSync() ? f.readAsBytesSync() : null;
+  }
+
+  /// صورة جاية من نسخة احتياطية.
+  static Future<void> writePhoto(String id, List<int> bytes) async {
+    final f = _file(id);
+    if (f == null) return;
+    await f.writeAsBytes(bytes, flush: true);
+    imageCache.evict(FileImage(f));
+  }
+
   /// مسح صورة طفل اتشال.
   static Future<void> delete(String id) async {
     final f = _file(id);

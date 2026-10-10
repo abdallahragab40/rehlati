@@ -122,6 +122,7 @@ void main() {
       await tester.pump(const Duration(milliseconds: 200));
     }
     expect(juzRow, findsNWidgets(2));
+    expect(find.text('📤 صدّر نسخة'), findsOneWidget);
     await tapWhenReady(find.text('➕ إضافة طفل'));
     await setup('عمر', '٦');
     expect(container().read(progressProvider).stars, 0);

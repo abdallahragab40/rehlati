@@ -54,6 +54,9 @@ class ProgressRepository {
   static String backupKeyFor(String id) => 'rehlati.backup.v1.$id';
   static String recoveryKeyFor(String id) => 'rehlati.recovery.v1.$id';
 
+  /// تقدّم الطفل قبل ما يتستبدل بنسخة احتياطية — نسخة إنقاذ لو الاستبدال كان غلط.
+  static String beforeImportKeyFor(String id) => 'rehlati.beforeImport.v1.$id';
+
   // ---------------------------------------------------------------- الإخوات
 
   static final _childKey = RegExp('^${RegExp.escape(key)}\\.([A-Za-z0-9_]+)\$');
@@ -169,6 +172,43 @@ class ProgressRepository {
     return id;
   }
 
+  /// يضيف أطفال من نسخة احتياطية بـ ids جديدة (مفيش تصادم مع اللي موجودين) — كله أو ولا حاجة:
+  /// لو كتابة فشلت، اللي اتكتب بيتمسح وقايمة الإخوات مابتتغيّرش.
+  Future<List<String>> addAll(List<ProgressData> children) async {
+    final base = DateTime.now().millisecondsSinceEpoch;
+    final current = ids;
+    final fresh = [
+      for (var i = 0; i < children.length; i++) 'c${base + i}',
+    ].where((id) => !current.contains(id)).toList();
+    if (fresh.length != children.length) throw StateError('id collision');
+    final written = <String>[];
+    try {
+      for (var i = 0; i < children.length; i++) {
+        await write(fresh[i], jsonEncode(children[i].toJson()));
+        written.add(fresh[i]);
+      }
+      await _saveProfiles(activeId, [...current, ...fresh]);
+      return fresh;
+    } catch (_) {
+      for (final id in written) {
+        await _prefs.remove(keyFor(id));
+      }
+      rethrow;
+    }
+  }
+
+  /// يستبدل تقدّم طفل موجود — الملف القديم بيتحفظ الأول، ولو الكتابة فشلت بيرجع زي ما كان.
+  Future<void> replace(String id, ProgressData p) async {
+    final old = _prefs.getString(keyFor(id));
+    if (old != null) await _prefs.setString(beforeImportKeyFor(id), old);
+    try {
+      await write(id, jsonEncode(p.toJson()));
+    } catch (_) {
+      if (old != null) await _prefs.setString(keyFor(id), old);
+      rethrow;
+    }
+  }
+
   /// بيمسح ملف الطفل ونسخه (السليمة والإنقاذ). الصورة بتتمسح من AvatarController.delete.
   Future<void> remove(String id) async {
     final rest = ids.where((i) => i != id).toList();
@@ -182,6 +222,7 @@ class ProgressRepository {
     if (!keepProgress) await _prefs.remove(keyFor(id));
     await _prefs.remove(backupKeyFor(id));
     await _prefs.remove(recoveryKeyFor(id));
+    await _prefs.remove(beforeImportKeyFor(id));
   }
 }
 
@@ -311,6 +352,23 @@ class ProgressController extends Notifier<ProgressData> {
       // الطفل النشط مالوش دعوة — نبلّغ الواجهة بس عشان قايمة الإخوات تتحدّث
       state = state;
     }
+  }
+
+  /// استرجاع نسخة احتياطية كأطفال جداد — الطفل النشط بيفضل زي ما هو.
+  Future<List<String>> importAsNew(List<ProgressData> children) async {
+    ref.read(learningTimeProvider).flush();
+    await flush();
+    final ids = await _repo.addAll(children);
+    state = state; // قايمة الإخوات تتحدّث
+    return ids;
+  }
+
+  /// استبدال تقدّم الطفل النشط بنسخة — اختيار صريح من ولي الأمر.
+  Future<void> replaceActive(ProgressData p) async {
+    ref.read(learningTimeProvider).flush();
+    await flush();
+    await _repo.replace(_id, p);
+    state = _open(_id);
   }
 
   /// إعادة الضبط: الإعدادات بتفضل، والباقي (الاسم والعمر والنجوم والفتح والسجل) بيتمسح
