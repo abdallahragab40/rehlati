@@ -7,7 +7,7 @@ import 'package:rehlati/domain/progress/progress_controller.dart';
 import 'package:rehlati/main.dart' as app;
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// رحلة كاملة على جهاز: أول تشغيل → البداية → جولة → إعادة فتح → طفل تاني → تبديل → ولي الأمر.
+/// رحلة كاملة على جهاز: أول تشغيل → الترحيب → البداية → جولة → إعادة فتح → طفل تاني → تبديل → ولي الأمر.
 /// الإجابات بتتبعت للمحرك مباشرة (نفس اختبارات المحرك)، والتنقل كله بلمس حقيقي.
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -69,9 +69,12 @@ void main() {
       expect(find.text('👨‍👩‍👦 لوحة ولي الأمر'), findsOneWidget);
     }
 
-    // ١) أول تشغيل: شاشة البداية
+    // ١) أول تشغيل: الترحيب (مرة واحدة) ثم شاشة البداية
     await app.main();
     await settle(20);
+    await tapWhenReady(find.text('التالي'));
+    await tapWhenReady(find.text('التالي'));
+    await tapWhenReady(find.text('🎒 يلا نبدأ الرحلة'));
     await setup('سارة', '٤');
 
     // ٢) جولة كاملة في العد

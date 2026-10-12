@@ -15,6 +15,7 @@ import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
 import '../../domain/stages.dart';
 import '../achievements/rank_widgets.dart';
+import '../intro/intro_screen.dart';
 import '../parent/avatar.dart';
 import '../profiles/profiles.dart';
 
@@ -38,8 +39,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final p = ref.watch(progressProvider);
-    if (!p.setupDone) return const SetupScreen();
     final siblings = ref.watch(childrenProvider).length > 1;
+    if (!p.setupDone) {
+      // أول تشغيل على الجهاز بس: الترحيب قبل الاسم والعمر — مش للأخ التاني ولا بعد مسح التقدّم
+      return siblings || ref.watch(introSeenProvider) ? const SetupScreen() : const IntroScreen();
+    }
     return ScreenFrame(
       title: 'المستوى ${ar(p.level())}',
       child: Column(

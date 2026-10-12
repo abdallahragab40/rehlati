@@ -12,6 +12,13 @@ void main() {
     for (var i = 0; i < 20; i++) {
       await tester.pump(const Duration(milliseconds: 200));
     }
+    // تثبيت جديد بيفتح على الترحيب (من غير شريط علوي)
+    if (find.text('تخطّي').evaluate().isNotEmpty) {
+      await tester.tap(find.text('تخطّي'));
+      for (var i = 0; i < 6; i++) {
+        await tester.pump(const Duration(milliseconds: 200));
+      }
+    }
     await tester.tap(find.text('⚙️').first);
     for (var i = 0; i < 10; i++) {
       await tester.pump(const Duration(milliseconds: 100));

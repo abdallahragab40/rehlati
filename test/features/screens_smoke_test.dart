@@ -13,6 +13,7 @@ import 'package:rehlati/features/journey/journey.dart';
 import 'package:rehlati/features/achievements/achievements_screen.dart';
 import 'package:rehlati/features/game/game_screen.dart';
 import 'package:rehlati/features/home/home_screen.dart';
+import 'package:rehlati/features/intro/intro_screen.dart';
 import 'package:rehlati/content/parent_guide.dart';
 import 'package:rehlati/domain/progress/progress_data.dart';
 import 'package:rehlati/features/daily/time_up_screen.dart';
@@ -71,7 +72,7 @@ void main() {
   }
 
   final screens = <String, Widget>{
-    'first-launch setup': const HomeScreen(), // تقدّم جديد ← شاشة الاسم والعمر
+    'first-launch intro': const HomeScreen(), // جهاز جديد ← الترحيب
     for (final w in ['math', 'arabic', 'english', 'games']) 'world $w': WorldMapScreen(world: w),
     for (final s in packs.values.where((s) => !s.isLearn)) 'play ${s.id}': GameScreen(stageId: s.id),
     for (final s in packs.values.where((s) => s.isMadd)) 'madd lesson ${s.id}': MaddLessonScreen(stageId: s.id),
@@ -94,6 +95,9 @@ void main() {
   for (final e in screens.entries) {
     testWidgets('${e.key} renders on a small phone with large text', (tester) => pump(tester, e.value));
   }
+
+  testWidgets('first-launch setup renders on a small phone with large text',
+      (tester) => pump(tester, const HomeScreen(), prefs: {IntroController.key: true})); // بعد الترحيب ← الاسم والعمر
 
   // تدريب صغير: الطفل غلط ٣ مرات في المد بالواو، ومعاه هدف في دليل ولي الأمر
   testWidgets('madd small practice and dashboard with data render', (tester) async {
