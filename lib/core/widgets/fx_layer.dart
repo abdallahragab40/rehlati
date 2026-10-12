@@ -220,13 +220,17 @@ class FxLayer extends ConsumerWidget {
     return Stack(
       children: [
         Listener(behavior: HitTestBehavior.translucent, onPointerDown: (e) => fx.tapSparkle(e.position), child: child),
+        // فوق الـ Navigator مفيش Material — من غيره النصوص بتاخد الخط الاحتياطي بخطين أصفر تحتها
         IgnorePointer(
-          child: Stack(
-            clipBehavior: Clip.hardEdge,
-            children: [
-              const SizedBox.expand(),
-              for (final f in fx._items) KeyedSubtree(key: ValueKey(f.id), child: f.builder(size)),
-            ],
+          child: Material(
+            type: MaterialType.transparency,
+            child: Stack(
+              clipBehavior: Clip.hardEdge,
+              children: [
+                const SizedBox.expand(),
+                for (final f in fx._items) KeyedSubtree(key: ValueKey(f.id), child: f.builder(size)),
+              ],
+            ),
           ),
         ),
       ],

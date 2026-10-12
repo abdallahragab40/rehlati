@@ -62,4 +62,22 @@ void main() {
     ));
     expect(Motion.reduced, isTrue, reason: 'the system setting alone also counts');
   });
+
+  testWidgets('effect texts above the navigator get no fallback underline', (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    final prefs = await SharedPreferences.getInstance();
+    final c = ProviderContainer(overrides: [sharedPrefsProvider.overrideWithValue(prefs)]);
+    addTearDown(c.dispose);
+    // زي التطبيق: الطبقة في builder فوق الـ Navigator، مش جوه شاشة
+    await tester.pumpWidget(UncontrolledProviderScope(
+      container: c,
+      child: MaterialApp(builder: (_, child) => FxLayer(child: child!), home: const SizedBox()),
+    ));
+    c.read(fxProvider).popMsg('🔥 ٥ على التوالي!', big: true);
+    await tester.pump(const Duration(milliseconds: 100));
+    final text = tester.widget<RichText>(find.descendant(of: find.text('🔥 ٥ على التوالي!'), matching: find.byType(RichText)));
+    expect(text.text.style?.decoration ?? TextDecoration.none, TextDecoration.none);
+    await tester.pump(const Duration(seconds: 5)); // الرسالة تخلص وتتشال
+    await tester.pumpWidget(const SizedBox());
+  });
 }
