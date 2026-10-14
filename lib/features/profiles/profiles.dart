@@ -25,6 +25,54 @@ final childrenProvider = Provider<List<(String, ProgressData)>>((ref) {
 
 String childName(ProgressData p) => p.name.isNotEmpty ? p.name : 'بطل';
 
+/// الأسئلة معمولة لسن ٤–٦؛ الأصغر بيبدأ من أسهل مستوى والأكبر من أصعبه ([ProgressData.ageLevel]).
+const kidAges = [3, 4, 5, 6, 7, 8];
+
+/// ملاحظة لولي الأمر تحت اختيار السن.
+String ageHint(int? age) => switch (age) {
+      3 => 'الأسئلة معمولة لسن ٤–٦ — هيبدأ من أسهل مستوى، والأحسن تقعد جنبه أول كام مرة.',
+      7 || 8 => 'هيبدأ من أصعب مستوى، والمراحل هتتفتح بسرعة على قد شطارته.',
+      _ => 'الأسئلة بتبدأ على قد سنه، وبتصعب أو تسهل لوحدها حسب إجاباته.',
+    };
+
+/// أزرار السن: صف واحد لو فيه مكان، وإلا صفين — من غير ما الزرار يصغر عن هدف لمس مريح.
+class AgePicker extends StatelessWidget {
+  const AgePicker({super.key, required this.selected, required this.onPick});
+
+  final int? selected;
+  final ValueChanged<int> onPick;
+
+  @override
+  Widget build(BuildContext context) => LayoutBuilder(builder: (context, c) {
+        const gap = 8.0;
+        final perRow = c.maxWidth >= kidAges.length * 64 ? kidAges.length : (kidAges.length / 2).ceil();
+        Widget button(int a) => Pressable3D(
+              onTap: () => onPick(a),
+              color: selected == a ? AppColors.gold : AppColors.paper2,
+              radius: 22,
+              depth: 5,
+              shadowColor: AppColors.shadow,
+              semanticLabel: '${ar(a)} سنين',
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Column(children: [
+                Text(ar(a), style: kidText(30, height: 1.2)),
+                Text('سنين', style: kidText(12, color: AppColors.inkSoft)),
+              ]),
+            );
+        return Column(children: [
+          for (var i = 0; i < kidAges.length; i += perRow) ...[
+            if (i > 0) const SizedBox(height: gap),
+            Row(children: [
+              for (final (j, a) in kidAges.skip(i).take(perRow).indexed) ...[
+                if (j > 0) const SizedBox(width: gap),
+                Expanded(child: button(a)),
+              ],
+            ]),
+          ],
+        ]);
+      });
+}
+
 /// أول مرة (أو طفل جديد): الاسم والعمر — العمر بيحدد أقل مستوى للأسئلة.
 class SetupScreen extends ConsumerStatefulWidget {
   const SetupScreen({super.key});
@@ -107,24 +155,9 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
             const SizedBox(height: 16),
             Text('عنده كام سنة؟', style: kidText(17)),
             const SizedBox(height: 8),
-            Wrap(alignment: WrapAlignment.center, spacing: 10, runSpacing: 10, children: [
-              for (final a in [4, 5, 6])
-                Pressable3D(
-                  onTap: () => setState(() => _age = a),
-                  color: _age == a ? AppColors.gold : AppColors.paper2,
-                  radius: 22,
-                  depth: 5,
-                  shadowColor: AppColors.shadow,
-                  semanticLabel: '${ar(a)} سنين',
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                  child: Column(children: [
-                    Text(ar(a), style: kidText(30, height: 1.2)),
-                    Text('سنين', style: kidText(12, color: AppColors.inkSoft)),
-                  ]),
-                ),
-            ]),
+            AgePicker(selected: _age, onPick: (a) => setState(() => _age = a)),
             const SizedBox(height: 8),
-            Text('الأسئلة بتبدأ على قد سنه، وبتصعب أو تسهل لوحدها حسب إجاباته.',
+            Text(ageHint(_age),
                 textAlign: TextAlign.center, style: kidText(13, weight: FontWeight.w600, color: AppColors.inkSoft)),
             const SizedBox(height: 18),
             KidButton('🚀 يلا نبدأ', kind: BtnKind.go, onTap: _done),

@@ -184,6 +184,14 @@ class _ChildRowState extends ConsumerState<_ChildRow> {
     if (name != null) ref.read(progressProvider.notifier).update((p) => p.name = name.trim());
   }
 
+  Future<void> _editAge() async {
+    final age = await showDialog<int>(
+      context: context,
+      builder: (_) => _AgeDialog(initial: ref.read(progressProvider).age),
+    );
+    if (age != null) ref.read(progressProvider.notifier).update((p) => p.age = age);
+  }
+
   Future<void> _pickPhoto() async {
     setState(() => _note = '⏳ بنجهّز الصورة…');
     final err = await ref.read(avatarProvider.notifier).pick();
@@ -232,6 +240,7 @@ class _ChildRowState extends ConsumerState<_ChildRow> {
           const SizedBox(height: 6),
           Wrap(spacing: 8, runSpacing: 8, children: [
             small('✏️ الاسم', _editName),
+            small('🎂 السن', _editAge),
             small(custom ? '📷 تغيير الصورة' : '📷 إضافة صورة الطفل', _pickPhoto),
             if (custom) small('🗑️ رجّع الافتراضية', _clearPhoto),
           ]),
@@ -349,6 +358,30 @@ class _NameDialogState extends State<_NameDialog> {
           TextButton(onPressed: () => context.pop(), child: const Text('إلغاء')),
           FilledButton(onPressed: () => context.pop(_ctrl.text), child: const Text('حفظ')),
         ],
+      );
+}
+
+/// Dialog مش AlertDialog: AlertDialog بيقيس المحتوى بـ IntrinsicWidth، و AgePicker جواه LayoutBuilder.
+class _AgeDialog extends StatelessWidget {
+  const _AgeDialog({required this.initial});
+  final int? initial;
+
+  @override
+  Widget build(BuildContext context) => Dialog(
+        backgroundColor: AppColors.paper,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        child: Padding(
+          padding: const EdgeInsets.all(22),
+          child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            Text('عنده كام سنة؟', textAlign: TextAlign.center, style: kidText(20)),
+            const SizedBox(height: 12),
+            AgePicker(selected: initial, onPick: (a) => context.pop(a)),
+            const SizedBox(height: 10),
+            Text('السن بيحدد مستوى البداية بس — التقدّم والنجوم مابيتغيروش.',
+                textAlign: TextAlign.center, style: kidText(13, weight: FontWeight.w600, color: AppColors.inkSoft)),
+            TextButton(onPressed: () => context.pop(), child: const Text('إلغاء')),
+          ]),
+        ),
       );
 }
 

@@ -13,6 +13,12 @@ void main() {
     expect(ProgressData(age: 6).level('math'), 3);
   });
 
+  test('ages outside 4–6 start at the nearest level', () {
+    expect(ProgressData(age: 3).level('math'), 1);
+    expect(ProgressData(age: 7).level('math'), 3);
+    expect(ProgressData(age: 8).level('math'), 3);
+  });
+
   test('old progress skips the setup screen, new progress shows it', () {
     expect(ProgressData.fromJson({'games': 3}).setupDone, isTrue);
     expect(ProgressData.fromJson({}).setupDone, isFalse);
