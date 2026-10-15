@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- أيقونة التذكير بتتطلب بالاسم من Dart — من غير ده الـ release بيشيلها وهو بيصغّر الموارد -->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@drawable/ic_notification" />

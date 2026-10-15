@@ -4,6 +4,7 @@ library;
 import 'dart:io';
 
 import 'package:file_selector/file_selector.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -93,7 +94,9 @@ class BackupCard extends ConsumerWidget {
         XTypeGroup(label: 'JSON', extensions: ['json'], mimeTypes: ['application/json'], uniformTypeIdentifiers: ['public.json']),
       ]);
       if (picked == null) return;
-      children = Backup.decode(await picked.readAsString());
+      // الحجم الأول — ملف ضخم مايتقراش كله في الذاكرة
+      if (await picked.length() > Backup.maxBytes) throw BackupException('الملف كبير قوي — ده مش ملف نسخة احتياطية من رحلتي');
+      children = await _checkPhotos(Backup.decode(await picked.readAsString()));
     } on BackupException catch (e) {
       if (context.mounted) _say(context, e.message);
       return;
@@ -139,23 +142,43 @@ class BackupCard extends ConsumerWidget {
       if (sure != true || !context.mounted) return;
     }
     final n = ref.read(progressProvider.notifier);
+    final List<String> ids;
     try {
-      if (choice == 'replace') {
-        final id = ref.read(activeChildProvider);
-        await n.replaceActive(children.single.progress);
-        if (children.single.photo case final photo?) await AvatarController.writePhoto(id, photo);
-        ref.invalidate(avatarProvider);
-      } else {
-        final ids = await n.importAsNew([for (final k in children) k.progress]);
-        for (final (i, k) in children.indexed) {
-          if (k.photo case final photo?) await AvatarController.writePhoto(ids[i], photo);
-        }
-      }
-      if (context.mounted) _say(context, '✅ النسخة اترجعت');
+      ids = choice == 'replace'
+          ? [ref.read(activeChildProvider)]
+          : await n.importAsNew([for (final k in children) k.progress]);
+      if (choice == 'replace') await n.replaceActive(children.single.progress);
     } catch (_) {
       if (context.mounted) _say(context, 'الاسترجاع ماكملش — مفيش حاجة اتغيّرت');
+      return;
     }
+    // التقدّم اترجع خلاص — لو الصورة بس فشلت نقول كده بالظبط
+    var photosOk = true;
+    for (final (i, k) in children.indexed) {
+      if (k.photo case final photo?) {
+        try {
+          await AvatarController.writePhoto(ids[i], photo);
+        } catch (_) {
+          photosOk = false;
+        }
+      }
+    }
+    ref.invalidate(avatarProvider);
+    if (context.mounted) _say(context, photosOk ? '✅ النسخة اترجعت' : '✅ التقدّم اترجع، بس الصورة ماتحفظتش');
   }
+
+  /// كل صورة في النسخة لازم تبقى صورة فعلًا — بتتعمل من جديد قبل أي تعديل، والملف كله بيترفض لو واحدة بايظة.
+  static Future<List<BackupChild>> _checkPhotos(List<BackupChild> children) async => [
+        for (final (i, c) in children.indexed)
+          if (c.photo == null)
+            c
+          else
+            BackupChild(
+              c.progress,
+              photo: await compute(normalizePhoto, Uint8List.fromList(c.photo!)) ??
+                  (throw BackupException('صورة الطفل رقم ${i + 1} مش سليمة')),
+            ),
+      ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [

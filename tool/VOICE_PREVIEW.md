@@ -5,7 +5,9 @@ Letters, short syllables and taught words come from the vowelled `teaching.tsv`;
 come from `clips.tsv` and `phrases.tsv`. `python3 tool/render_voice.py` renders all of them
 into `assets/audio/clips/`.
 `lib/core/audio/teaching.dart` maps a bare letter, syllable or word to its teaching clip.
-**All current clips are Edge previews, not cleared for release** — see the production route below.
+**Licence (15 Oct 2026):** the app owner holds a licence for this voice. The bundled clips were still rendered with
+`edge-tts`; if the licence is for Azure AI Speech, re-render through it before release
+(`AZURE_SPEECH_KEY=... AZURE_SPEECH_REGION=... FORCE=1 python3 tool/render_voice.py --engine azure`).
 No paid account is needed for Edge previews; those previews are evaluation material,
 not licensed production assets. Nothing here creates a cloud account or incurs charges.
 

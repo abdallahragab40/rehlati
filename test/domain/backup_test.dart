@@ -1,11 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:image/image.dart' as img;
 import 'package:rehlati/domain/progress/backup.dart';
 import 'package:rehlati/domain/progress/progress_controller.dart';
 import 'package:rehlati/domain/progress/progress_data.dart';
+import 'package:rehlati/features/parent/avatar.dart';
 import 'package:rehlati/features/parent/backup_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -134,5 +137,12 @@ void main() {
       await expectLater(failing.read(progressProvider.notifier).replaceActive(sara()), throwsStateError);
       expect(Repo(prefs).load(Repo.mainId).name, 'يوسف');
     });
+  });
+
+  test('a restored photo must be a real image, and comes back as a 256 px square JPEG', () {
+    expect(normalizePhoto(Uint8List.fromList(utf8.encode('not an image'))), isNull);
+    final png = img.encodePng(img.Image(width: 400, height: 300));
+    final out = img.decodeJpg(normalizePhoto(png)!)!;
+    expect([out.width, out.height], [256, 256]);
   });
 }

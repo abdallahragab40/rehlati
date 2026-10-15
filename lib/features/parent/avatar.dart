@@ -86,6 +86,10 @@ class AvatarController extends Notifier<File?> {
   int get sizeKB => state == null || !state!.existsSync() ? 0 : (state!.lengthSync() / 1024).round();
 }
 
+/// صورة جاية من برّه (نسخة احتياطية): بتتأكد إنها صورة وبتتعمل من جديد ٢٥٦ بكسل JPEG.
+/// null = مش صورة. بتشتغل في isolate تاني بـ compute.
+Uint8List? normalizePhoto(Uint8List data) => _shrink(data);
+
 Uint8List? _shrink(Uint8List data) {
   final src = img.decodeImage(data);
   if (src == null) return null;

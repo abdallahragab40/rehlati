@@ -29,11 +29,7 @@ Future<void> main() async {
   });
 
   // الموبايل بالطول بس؛ التابلت يلف براحته
-  final view = WidgetsBinding.instance.platformDispatcher.views.first;
-  final shortest = view.physicalSize.shortestSide / view.devicePixelRatio;
-  if (shortest < 600) {
-    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  }
+  _PhonePortrait.apply();
 
   // جلسة صوت واحدة: الصوت يشتغل حتى لو الجهاز على الصامت، ويمتزج مع أي صوت تاني
   final session = await AudioSession.instance;
@@ -71,4 +67,28 @@ Future<void> main() async {
   unawaited(music.init());
 
   runApp(UncontrolledProviderScope(container: container, child: const RehlatiApp()));
+}
+
+/// بيقفل الموبايل على الطول. مقاس الشاشة ممكن يبقى صفر قبل أول فريم (أندرويد) —
+/// ساعتها نستنى لحد ما يتعرف بدل ما التابلت يتقفل بالغلط.
+class _PhonePortrait with WidgetsBindingObserver {
+  static void apply() {
+    final o = _PhonePortrait();
+    if (!o._lock()) WidgetsBinding.instance.addObserver(o);
+  }
+
+  /// false = المقاس لسه مش معروف.
+  bool _lock() {
+    final view = WidgetsBinding.instance.platformDispatcher.views.firstOrNull;
+    if (view == null || view.physicalSize.isEmpty) return false;
+    if (view.physicalSize.shortestSide / view.devicePixelRatio < 600) {
+      unawaited(SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]));
+    }
+    return true;
+  }
+
+  @override
+  void didChangeMetrics() {
+    if (_lock()) WidgetsBinding.instance.removeObserver(this);
+  }
 }

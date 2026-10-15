@@ -3,11 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/audio/audio_providers.dart';
-import '../../core/audio/speech_service.dart';
 import '../../core/audio/voice_lines.dart';
 import '../../core/features.dart';
 import '../../core/theme/app_theme.dart';
-import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../parent/parent_gate.dart';
@@ -26,8 +24,6 @@ class _SettingsPanel extends ConsumerStatefulWidget {
 }
 
 class _SettingsPanelState extends ConsumerState<_SettingsPanel> {
-  bool _showVoice = false;
-
   @override
   Widget build(BuildContext context) {
     // الإعدادات بتتعدّل في مكانها (نفس الأوبجكت) فـ select مابيحسّش بالتغيير — لازم نسمع للتقدّم كله
@@ -114,12 +110,7 @@ class _SettingsPanelState extends ConsumerState<_SettingsPanel> {
                 row('🎤 صوت القراءة', smallBtn('جرّب', () {
                   progress.update((p) => p.settings.speech = true);
                   speech.speak(sayVoiceTest);
-                  ref.read(sfxProvider).good();
-                  Future.delayed(const Duration(milliseconds: 1800), () {
-                    if (mounted) setState(() => _showVoice = true);
-                  });
                 })),
-              if (_showVoice && speech is SpeechService) _VoiceReport(speech),
               row('👨‍👩‍👦 لوحة ولي الأمر', smallBtn('افتح', () async {
                 // الراوتر بيتمسك قبل ما الدايالوج يتقفل — context بتاعه بيموت بعد pop
                 final router = GoRouter.of(context);
@@ -175,29 +166,5 @@ class _SettingsPanelState extends ConsumerState<_SettingsPanel> {
     ref.read(progressProvider.notifier).reset();
     context.pop();
     router.go('/');
-  }
-}
-
-class _VoiceReport extends StatelessWidget {
-  const _VoiceReport(this.s);
-  final SpeechService s;
-
-  @override
-  Widget build(BuildContext context) {
-    final ok = s.arVoiceName != null;
-    final lines = [
-      'أصوات متاحة على الجهاز: ${ar(s.voiceCount)}',
-      s.arVoices.isNotEmpty ? 'أصوات عربية: ${s.arVoices.join(' • ')}' : '⚠️ مفيش صوت عربي مثبّت على الجهاز',
-      'الصوت المختار: ${s.arVoiceName ?? 'لا يوجد'}',
-      'آخر محاولة نطق: ${s.lastEvent}',
-      '🎙️ مقاطع مسجّلة: ${ar(s.clipCount)}',
-    ];
-    return NoteBox(Text(
-      lines.map((l) => '• $l').join('\n') +
-          (ok
-              ? ''
-              : '\n\nتنزيل صوت عربي:\nأندرويد: الإعدادات ← تحويل النص إلى كلام ← نزّل العربية.\n'
-                  'آيفون: الإعدادات ← تسهيلات الاستخدام ← المحتوى المنطوق ← الأصوات ← العربية.'),
-    ));
   }
 }
