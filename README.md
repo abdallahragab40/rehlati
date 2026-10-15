@@ -2,7 +2,7 @@
 
 Flutter (Android + iOS, phones and tablets) port of the رحلتي التعليمية web app: an Egyptian-Arabic learning app for kids aged 4–6, with five worlds (Quran, Math, Arabic, English, Games).
 
-- Original web app: github.com/MahmoudRabea93/rehlati, by Mahmoud Rabea Hassan
+- Original web app: github.com/MahmoudRabea93/rehlati, by Mahmoud Rabea Hassan, adapted with the author's permission. Licence: [LICENSE](LICENSE); third-party terms: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
 
 ## Run
 
@@ -25,7 +25,7 @@ flutter test tool/voice_phrases_test.dart && python3 tool/render_voice.py  # re-
 | `lib/domain/` | Pure logic: question model, generators, stage registry, progress, adaptive, badges, engine |
 | `lib/core/` | Theme, Arabic number utilities, RNG, audio services, shared widgets |
 | `lib/features/` | Screens |
-| `assets/` | Fonts (Baloo Bhaijaan 2, Amiri Quran — OFL), SVG art, music, SFX, voice clips. The voice clips are Edge previews and must be re-rendered from a licensed source before release (`tool/VOICE_PREVIEW.md`) |
+| `assets/` | Fonts (Baloo Bhaijaan 2, Amiri Quran — OFL), SVG art, music, SFX, voice clips. Voice clips use the licensed Zariyah voice (`tool/VOICE_PREVIEW.md`) |
 | `tool/` | Offline asset generators (voice clips, SFX) |
 
 ## Android release signing

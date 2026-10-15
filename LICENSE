@@ -1,0 +1,26 @@
+Rehlati (رحلتي) — mobile app for Android and iOS
+Copyright (c) 2026 Abdallah Ragab. All rights reserved.
+
+This app is a port of the "رحلتي التعليمية" web app created by
+Mahmoud Rabea Hassan (github.com/MahmoudRabea93/rehlati). Its curriculum,
+content and design are used and adapted with the original author's permission.
+
+This software and its source code are proprietary. No part of it may be
+copied, modified, distributed, published, sublicensed or sold, in source or
+binary form, without the prior written permission of the copyright holder.
+Distribution of the compiled app through official app stores by the copyright
+holder is permitted.
+
+Third-party components (fonts, Quran text and recitation sources, the
+question voice and open-source packages) remain under their own licences and
+terms. See THIRD_PARTY_NOTICES.md.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Contact: abdallahragab40@gmail.com
