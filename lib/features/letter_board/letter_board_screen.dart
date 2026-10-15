@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/motion.dart';
 import '../../content/language_data.dart';
 import '../../core/audio/audio_providers.dart';
+import '../../core/audio/teaching.dart';
 import '../../core/audio/voice_lines.dart';
 import '../../core/features.dart';
 import '../../core/nav.dart';
@@ -34,7 +35,7 @@ class _LetterBoardScreenState extends ConsumerState<LetterBoardScreen> {
     final it = pack.learnItems![i];
     en
         ? ref.read(speechProvider).speakEn('${it.letter} . ${it.word}')
-        : ref.read(speechProvider).speak(sayLetter(it));
+        : ref.read(speechProvider).speak(sayLetter(it), clips: letterLesson(it));
   }
 
   void _show(int i) {

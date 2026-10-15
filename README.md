@@ -14,7 +14,7 @@ flutter test integration_test -d <device-id>   # real-app journeys on a device o
 flutter test --tags network --run-skipped      # live check of both Quran text sources
 flutter run --dart-define=START=/quran/112     # open directly on any route
 node tool/sync_web_content.mjs ../rehlati-web  # regenerate madd + parent-guide content from the web repo
-flutter test tool/voice_phrases_test.dart && python3 tool/render_voice.py  # re-record Arabic voice (pip install edge-tts)
+flutter test tool/voice_phrases_test.dart && python3 tool/render_voice.py  # re-record Arabic voice (Zariyah for everything; pip install edge-tts)
 ```
 
 ## Layout
@@ -25,7 +25,7 @@ flutter test tool/voice_phrases_test.dart && python3 tool/render_voice.py  # re-
 | `lib/domain/` | Pure logic: question model, generators, stage registry, progress, adaptive, badges, engine |
 | `lib/core/` | Theme, Arabic number utilities, RNG, audio services, shared widgets |
 | `lib/features/` | Screens |
-| `assets/` | Fonts (Baloo Bhaijaan 2, Amiri Quran — OFL), SVG art, music, SFX. Voice clips are excluded while question voice is off (`lib/core/features.dart`) |
+| `assets/` | Fonts (Baloo Bhaijaan 2, Amiri Quran — OFL), SVG art, music, SFX, voice clips. The voice clips are Edge previews and must be re-rendered from a licensed source before release (`tool/VOICE_PREVIEW.md`) |
 | `tool/` | Offline asset generators (voice clips, SFX) |
 
 ## Android release signing

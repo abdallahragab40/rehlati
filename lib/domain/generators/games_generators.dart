@@ -5,6 +5,7 @@ library;
 import 'dart:math' as math;
 
 import '../../content/math_data.dart';
+import '../../core/audio/voice_lines.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/utils/rng.dart';
 import '../question.dart';
@@ -196,6 +197,7 @@ Question letterHunt(int lv, Rng r, {String? focus}) {
   return Question(
     type: 'letterHunt', mode: QMode.balloon, skill: 'letter:$target', numeric: false,
     ask: 'فرقع البالونة اللي عليها حرف $target', speak: 'فرقع البالونة اللي عليها حرف $target',
+    clips: [say('فرقع البالونة اللي عليها حرف'), say(target)],
     choices: pool, answer: target,
     hint: 'البالونات بتتحرك — خد وقتك 🎈', speakHint: 'خد وقتك واختار الحرف الصح', sayRight: target,
   );

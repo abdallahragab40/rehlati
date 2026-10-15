@@ -2,6 +2,7 @@
 library;
 
 import '../../content/language_data.dart';
+import '../../core/audio/voice_lines.dart';
 import '../../core/utils/rng.dart';
 import '../question.dart';
 
@@ -14,6 +15,9 @@ List<Word> arWordPool(int lv) {
 }
 
 List<String> _letters(String w) => w.split('');
+
+/// الحروف والكلمات أجزاء لوحدها في المقاطع عشان تتنطق بالفصحى (lib/core/audio/teaching.dart).
+List<String> _spell(String w) => [for (final l in _letters(w)) say(l)];
 
 T _pick<T>(List<T> pool, Rng r, bool Function(T) matchesFocus, String? focus) {
   if (focus != null) {
@@ -38,11 +42,13 @@ Question arPick(int lv, Rng r, {String? focus}) {
     type: 'ar_pick', mode: QMode.choice, skill: 'ar_letter:${it.letter}',
     ask: 'اختار الحرف الصحيح',
     speak: '${it.word}. اختار الحرف اللي بتبدأ بيه',
+    clips: [say(it.word), say('اختار الحرف اللي بتبدأ بيه')],
     visuals: [PicsVisual(it.emoji, 1), CaptionVisual('؟ مثل ${it.word}')],
     choices: r.textChoices(it.letter, [for (final x in pool) x.letter], lv >= 3 ? 4 : 3),
     answer: it.letter,
     hint: '${it.word} بتبدأ بحرف ${it.letter} 👆',
     speakHint: '${it.word} بتبدأ بحرف ${it.letter}',
+    clipsHint: [say(it.word), say('بتبدأ بحرف'), say(it.letter)],
   );
 }
 
@@ -54,11 +60,13 @@ Question arMatch(int lv, Rng r, {String? focus}) {
     type: 'ar_match', mode: QMode.choice, skill: 'ar_letter:${it.letter}',
     ask: 'أنهي صورة تبدأ بحرف ${it.letter} ؟',
     speak: 'أنهي صورة بتبدأ بحرف ${it.letter}؟',
+    clips: [say('أنهي صورة بتبدأ بحرف'), say(it.letter)],
     visuals: [BigLetterVisual(it.letter)],
     choices: r.textChoices(it.emoji, [for (final x in pool) x.emoji], lv >= 3 ? 4 : 3),
     answer: it.emoji,
     hint: '${it.letter} مثل ${it.word} ${it.emoji}',
     speakHint: '${it.letter} مثل ${it.word}',
+    clipsHint: [say(it.letter), say('مثل'), say(it.word)],
   );
 }
 
@@ -68,13 +76,14 @@ Question arBuild(int lv, Rng r, {String? focus}) {
   final letters = _letters(it.word);
   return Question(
     type: 'ar_build', mode: QMode.order, numeric: false, rtlSlots: true, skill: 'ar_word:${it.word}',
-    ask: 'كوّن الكلمة', speak: 'كوّن كلمة ${it.word}',
+    ask: 'كوّن الكلمة', speak: 'كوّن كلمة ${it.word}', clips: [say('كوّن كلمة'), say(it.word)],
     orderHint: 'اضغط الحروف بالترتيب من اليمين',
     visuals: [PicsVisual(it.emoji, 1), WordLineVisual.text(it.word, big: true)],
     items: r.shuffle(<Object>[...letters]),
     answer: letters,
     hint: 'الكلمة هي ${it.word} — ابدأ بأول حرف 👆',
     speakHint: 'الكلمة هي ${it.word}',
+    clipsHint: [say('الكلمة هي'), say(it.word)],
   );
 }
 
@@ -86,11 +95,13 @@ Question arCompose(int lv, Rng r, {String? focus}) {
     type: 'ar_compose', mode: QMode.choice, skill: 'ar_word:${it.word}',
     ask: 'الحروف دي بتكوّن أنهي كلمة؟',
     speak: '${letters.join(' ')} . الحروف دي بتكوّن أنهي كلمة؟',
+    clips: [..._spell(it.word), say('الحروف دي بتكوّن أنهي كلمة؟')],
     visuals: [LetterChipsVisual(letters)],
     choices: r.textChoices(it.word, [for (final x in arWords) x.word], 3),
     answer: it.word, wide: true,
     hint: 'اقرا الحروف ورا بعض: ${letters.join(' ')}',
     speakHint: 'اقرا الحروف ورا بعض: ${letters.join(' ')}',
+    clipsHint: [say('اقرا الحروف ورا بعض'), ..._spell(it.word)],
   );
 }
 
@@ -109,11 +120,13 @@ Question arAnalyze(int lv, Rng r, {String? focus}) {
     orderHint: 'اضغط الحروف بالترتيب من اليمين',
     ask: 'حلّل الكلمة لحروفها',
     speak: 'حلّل كلمة ${it.word} لحروفها بالترتيب',
+    clips: [say('حلّل كلمة'), say(it.word), say('لحروفها بالترتيب')],
     visuals: [WordLineVisual.text(it.word, big: true)],
     items: r.shuffle(items),
     answer: letters,
     hint: 'اقرا الكلمة بالراحة: ${letters.join(' - ')}',
     speakHint: '${it.word}. اقرا حروفها بالترتيب',
+    clipsHint: [say(it.word), say('اقرا حروفها بالترتيب')],
   );
 }
 
@@ -178,6 +191,7 @@ Question arComplete(int lv, Rng r, {String? focus}) {
   return Question(
     type: 'ar_complete', mode: QMode.choice, skill: 'ar_word:${it.word}',
     ask: 'أكمل الكلمة', speak: 'أكمل كلمة ${it.word}. إيه الحرف الناقص؟',
+    clips: [say('أكمل كلمة'), say(it.word), say('إيه الحرف الناقص؟')],
     visuals: [
       PicsVisual(it.emoji, 1),
       WordLineVisual.letters([for (var i = 0; i < letters.length; i++) i == hole ? null : letters[i]]),
@@ -186,6 +200,7 @@ Question arComplete(int lv, Rng r, {String? focus}) {
     answer: miss,
     hint: 'الكلمة هي ${it.word}',
     speakHint: 'الكلمة هي ${it.word}',
+    clipsHint: [say('الكلمة هي'), say(it.word)],
   );
 }
 
@@ -209,10 +224,12 @@ Question arMatchWord(int lv, Rng r, {String? focus}) {
   return Question(
     type: 'ar_match_word', mode: QMode.choice, skill: 'ar_word:${it.word}',
     ask: 'أنهي صورة للكلمة دي؟', speak: '${it.word}. أنهي صورة للكلمة دي؟',
+    clips: [say(it.word), say('أنهي صورة للكلمة دي؟')],
     visuals: [WordLineVisual.text(it.word, big: true)],
     choices: r.textChoices(it.emoji, [for (final x in arWords) x.emoji], 3),
     answer: it.emoji,
     hint: 'اقرا الكلمة حرف حرف: ${_letters(it.word).join(' - ')}',
     speakHint: 'اقرا الكلمة بالراحة: ${it.word}',
+    clipsHint: [say('اقرا الكلمة بالراحة'), say(it.word)],
   );
 }

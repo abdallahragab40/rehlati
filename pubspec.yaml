@@ -76,8 +76,7 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
-    # الأصوات العصبية للأسئلة مقفولة (lib/core/features.dart) — رجّع السطر ده لما تتفتح
-    # - assets/audio/clips/
+    - assets/audio/clips/
     - assets/audio/sfx/
     - assets/audio/music/
 

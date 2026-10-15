@@ -1,0 +1,163 @@
+# Draft for listening review: key, text, spoken, rate. Standalone words use pausal endings.
+l_alif_name	أَلِف	أَلِف	
+l_alif_fatha	أَ	أَ	-15%
+l_alif_damma	أُ	أُ	-15%
+l_alif_kasra	إِ	إِ	-15%
+l_alif_word	أَسَد	أَسَد	
+l_ba_name	بَاء	بَاء	
+l_ba_fatha	بَ	بَ	-15%
+l_ba_damma	بُ	بُ	-15%
+l_ba_kasra	بِ	بِ	-15%
+l_ba_word	بَطَّة	بَطَّة	
+l_ta_name	تَاء	تَاء	
+l_ta_fatha	تَ	تَ	-15%
+l_ta_damma	تُ	تُ	-15%
+l_ta_kasra	تِ	تِ	-15%
+l_ta_word	تُفَّاحَة	تُفَّاحَة	
+l_tha_name	ثَاء	ثَاء	
+l_tha_fatha	ثَ	ثَ	-15%
+l_tha_damma	ثُ	ثُ	-15%
+l_tha_kasra	ثِ	ثِ	-15%
+l_tha_word	ثَعْلَب	ثَعْلَب	
+l_jim_name	جِيم	جِيم	
+l_jim_fatha	جَ	جَ	-15%
+l_jim_damma	جُ	جُ	-15%
+l_jim_kasra	جِ	جِ	-15%
+l_jim_word	جَمَل	جَمَل	
+l_ha_name	حَاء	حَاء	
+l_ha_fatha	حَ	حَ	-15%
+l_ha_damma	حُ	حُ	-15%
+l_ha_kasra	حِ	حِ	-15%
+l_ha_word	حِصَان	حِصَان	
+l_kha_name	خَاء	خَاء	
+l_kha_fatha	خَ	خَ	-15%
+l_kha_damma	خُ	خُ	-15%
+l_kha_kasra	خِ	خِ	-15%
+l_kha_word	خَرُوف	خَرُوف	
+l_dal_name	دَال	دَال	
+l_dal_fatha	دَ	دَ	-15%
+l_dal_damma	دُ	دُ	-15%
+l_dal_kasra	دِ	دِ	-15%
+l_dal_word	دُبّ	دُبّ	
+l_dhal_name	ذَال	ذَال	
+l_dhal_fatha	ذَ	ذَ	-15%
+l_dhal_damma	ذُ	ذُ	-15%
+l_dhal_kasra	ذِ	ذِ	-15%
+l_dhal_word	ذُرَة	ذُرَة	
+l_ra_name	رَاء	رَاء	
+l_ra_fatha	رَ	رَ	-15%
+l_ra_damma	رُ	رُ	-15%
+l_ra_kasra	رِ	رِ	-15%
+l_ra_word	رِيشَة	رِيشَة	
+l_zay_name	زَاي	زَاي	
+l_zay_fatha	زَ	زَ	-15%
+l_zay_damma	زُ	زُ	-15%
+l_zay_kasra	زِ	زِ	-15%
+l_zay_word	زَرَافَة	زَرَافَة	
+l_sin_name	سِين	سِين	
+l_sin_fatha	سَ	سَ	-15%
+l_sin_damma	سُ	سُ	-15%
+l_sin_kasra	سِ	سِ	-15%
+l_sin_word	سَمَكَة	سَمَكَة	
+l_shin_name	شِين	شِين	
+l_shin_fatha	شَ	شَ	-15%
+l_shin_damma	شُ	شُ	-15%
+l_shin_kasra	شِ	شِ	-15%
+l_shin_word	شَمْس	شَمْس	
+l_sad_name	صَاد	صَاد	
+l_sad_fatha	صَ	صَ	-15%
+l_sad_damma	صُ	صُ	-15%
+l_sad_kasra	صِ	صِ	-15%
+l_sad_word	صَارُوخ	صَارُوخ	
+l_dad_name	ضَاد	ضَاد	
+l_dad_fatha	ضَ	ضَ	-15%
+l_dad_damma	ضُ	ضُ	-15%
+l_dad_kasra	ضِ	ضِ	-15%
+l_dad_word	ضِفْدَع	ضِفْدَع	
+l_taa_name	طَاء	طَاء	
+l_taa_fatha	طَ	طَ	-15%
+l_taa_damma	طُ	طُ	-15%
+l_taa_kasra	طِ	طِ	-15%
+l_taa_word	طَائِرَة	طَائِرَة	
+l_dha_name	ظَاء	ظَاء	
+l_dha_fatha	ظَ	ظَ	-15%
+l_dha_damma	ظُ	ظُ	-15%
+l_dha_kasra	ظِ	ظِ	-15%
+l_dha_word	ظَرْف	ظَرْف	
+l_ayn_name	عَيْن	عَيْن	
+l_ayn_fatha	عَ	عَ	-15%
+l_ayn_damma	عُ	عُ	-15%
+l_ayn_kasra	عِ	عِ	-15%
+l_ayn_word	عِنَب	عِنَب	
+l_ghayn_name	غَيْن	غَيْن	
+l_ghayn_fatha	غَ	غَ	-15%
+l_ghayn_damma	غُ	غُ	-15%
+l_ghayn_kasra	غِ	غِ	-15%
+l_ghayn_word	غَيْمَة	غَيْمَة	
+l_fa_name	فَاء	فَاء	
+l_fa_fatha	فَ	فَ	-15%
+l_fa_damma	فُ	فُ	-15%
+l_fa_kasra	فِ	فِ	-15%
+l_fa_word	فِيل	فِيل	
+l_qaf_name	قَاف	قَاف	
+l_qaf_fatha	قَ	قَ	-15%
+l_qaf_damma	قُ	قُ	-15%
+l_qaf_kasra	قِ	قِ	-15%
+l_qaf_word	قِطَّة	قِطَّة	
+l_kaf_name	كَاف	كَاف	
+l_kaf_fatha	كَ	كَ	-15%
+l_kaf_damma	كُ	كُ	-15%
+l_kaf_kasra	كِ	كِ	-15%
+l_kaf_word	كِتَاب	كِتَاب	
+l_lam_name	لَام	لَام	
+l_lam_fatha	لَ	لَ	-15%
+l_lam_damma	لُ	لُ	-15%
+l_lam_kasra	لِ	لِ	-15%
+l_lam_word	لَيْمُونَة	لَيْمُونَة	
+l_mim_name	مِيم	مِيم	
+l_mim_fatha	مَ	مَ	-15%
+l_mim_damma	مُ	مُ	-15%
+l_mim_kasra	مِ	مِ	-15%
+l_mim_word	مَوْزَة	مَوْزَة	
+l_nun_name	نُون	نُون	
+l_nun_fatha	نَ	نَ	-15%
+l_nun_damma	نُ	نُ	-15%
+l_nun_kasra	نِ	نِ	-15%
+l_nun_word	نَحْلَة	نَحْلَة	
+l_haa_name	هَاء	هَاء	
+l_haa_fatha	هَ	هَ	-15%
+l_haa_damma	هُ	هُ	-15%
+l_haa_kasra	هِ	هِ	-15%
+l_haa_word	هَدِيَّة	هَدِيَّة	
+l_waw_name	وَاو	وَاو	
+l_waw_fatha	وَ	وَ	-15%
+l_waw_damma	وُ	وُ	-15%
+l_waw_kasra	وِ	وِ	-15%
+l_waw_word	وَرْدَة	وَرْدَة	
+l_ya_name	يَاء	يَاء	
+l_ya_fatha	يَ	يَ	-15%
+l_ya_damma	يُ	يُ	-15%
+l_ya_kasra	يِ	يِ	-15%
+l_ya_word	يَد	يَد	
+w_bab	بَاب	بَاب	
+w_qamar	قَمَر	قَمَر	
+w_shams	شَمْس	شَمْس	
+w_warda	وَرْدَة	وَرْدَة	
+w_bayt	بَيْت	بَيْت	
+w_qalam	قَلَم	قَلَم	
+w_kitab	كِتَاب	كِتَاب	
+w_samaka	سَمَكَة	سَمَكَة	
+w_jamal	جَمَل	جَمَل	
+w_nahla	نَحْلَة	نَحْلَة	
+w_tuffah	تُفَّاح	تُفَّاح	
+w_mawz	مَوْز	مَوْز	
+w_inab	عِنَب	عِنَب	
+w_halib	حَلِيب	حَلِيب	
+w_maa	مَاء	مَاء	
+w_sayyara	سَيَّارَة	سَيَّارَة	
+w_taira	طَائِرَة	طَائِرَة	
+w_miftah	مِفْتَاح	مِفْتَاح	
+w_saa	سَاعَة	سَاعَة	
+w_fil	فِيل	فِيل	
+l_hamza_name	هَمْزَة	هَمْزَة	
+l_tamarbuta_name	تَاء مَرْبُوطَة	تَاء مَرْبُوطَة	

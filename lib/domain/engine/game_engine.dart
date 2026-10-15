@@ -251,7 +251,10 @@ class GameEngine extends Notifier<GameSession?> {
     if (q.isEnglish) {
       _speech.speakEn(q.speak);
     } else {
-      _speech.speak(s.idx == 0 ? [sayStageIntro(s.stage.name), q.speak] : q.speak, clips: q.clips);
+      // المقدمة جزء من المقاطع كمان، وإلا كانت بتضيع لما السؤال ليه مقاطع
+      final intro = s.idx == 0 ? sayStageIntro(s.stage.name) : null;
+      _speech.speak(intro != null ? [intro, q.speak] : q.speak,
+          clips: intro != null && q.clips != null ? [say(intro), ...q.clips!] : q.clips);
     }
   }
 
@@ -353,7 +356,8 @@ class GameEngine extends Notifier<GameSession?> {
     if (s.locked) return;
     final value = q.choices[i];
     final said = value is int ? arNum(value) : (signWord[value] ?? '$value');
-    final valueClip = value is int ? nk(value) : signClip[value];
+    // الحرف أو الكلمة اللي اختارها بتتنطق بمقطع التعليم لو موجود
+    final valueClip = value is int ? nk(value) : signClip[value] ?? say(said);
     if (value == q.answer) {
       final pr = _rng.sample(praiseSay);
       _solved(anchor: 'c$i', skill: q.skill);
@@ -384,6 +388,7 @@ class GameEngine extends Notifier<GameSession?> {
     final expected = q.answerList[s.picked.length];
     // الويب كان بينطق "NaN" للحروف لأنه بيحوّل أي قيمة لرقم
     final said = value is int ? arNum(value) : '$value';
+    final valueClip = nk(value) ?? say(said);
     if (value == expected) {
       s.picked.add(value);
       s.used.add(i);
@@ -395,10 +400,10 @@ class GameEngine extends Notifier<GameSession?> {
         _solved(skill: q.skill, playSfx: false);
         q.sayRight != null
             ? _say(q, [q.sayRight!, pr.$1])
-            : _say(q, [said, pr.$1], clips: [nk(value), pr.$2], en: [said, 'Very good!']);
+            : _say(q, [said, pr.$1], clips: [valueClip, pr.$2], en: [said, 'Very good!']);
       } else {
         _emit();
-        _say(q, [said], clips: [nk(value)]);
+        _say(q, [said], clips: [valueClip]);
       }
     } else {
       s.tries++;
@@ -409,7 +414,7 @@ class GameEngine extends Notifier<GameSession?> {
       }
       _wrongUi(q, 'i$i');
       _say(q, [said, sayRetry, q.speakHint ?? q.hint],
-          clips: q.clipsHint == null ? null : [nk(value), 'retry', ...q.clipsHint!],
+          clips: q.clipsHint == null ? null : [valueClip, 'retry', ...q.clipsHint!],
           en: [said, 'Try again', q.speakHint ?? '']);
     }
   }

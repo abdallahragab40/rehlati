@@ -21,7 +21,7 @@ String sayStageIntro(String stageName) => '$stageName. يلا بينا!';
 String sayUnlocked(String stageName) => 'وفتحت مرحلة جديدة: $stageName';
 String sayToast(String name, {required bool rank}) => rank ? 'مبروك! وصلت $name' : 'إنجاز جديد! $name';
 
-/// لوحة الحروف: "ب . ب مثل بطة".
+/// لوحة الحروف: "ب . ب مثل بطة" — النص للعرض ولو المقاطع ناقصة؛ الصوت من letterLesson (teaching.dart).
 String sayLetter(Letter it) => '${it.letter} . ${it.letter} مثل ${it.word}';
 
 /// درس المد والممدود.

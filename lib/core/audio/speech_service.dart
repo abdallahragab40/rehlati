@@ -1,8 +1,9 @@
 /// النطق: مقاطع مسجّلة لو كلها موجودة، وإلا نطق الجهاز (TTS) — نفس منطق js/audio.js.
 ///
-/// العربي ليه نوعين من المقاطع (tool/render_voice.py):
+/// العربي ليه تلات أنواع من المقاطع (tool/render_voice.py):
 /// - مقاطع مفاتيح (`n3`، `plus`…) بتتركّب لأسئلة الحساب اللي تركيباتها كتير.
 /// - مقطع لكل جملة كاملة، اسمه [SpeechService.phraseKey] للجملة بعد التنظيف.
+/// - مقاطع تعليم بالفصحى للحروف والمقاطع والكلمات ([teachKey]) — ليها الأولوية على الجملة.
 library;
 
 import 'dart:async';
@@ -15,6 +16,7 @@ import 'package:just_audio/just_audio.dart';
 
 import '../features.dart';
 import 'clip_manifest.g.dart';
+import 'teaching.dart';
 import 'voice_lines.dart';
 
 /// الواجهة اللي المحرك والشاشات بيستخدموها — بتتبدّل بـ fake في الاختبارات.
@@ -74,7 +76,7 @@ class SpeechService implements Speech {
     }
   }
 
-  /// اختيار أفضل صوت عربي متاح (مصري ← خليجي/شامي/مغربي ← أي عربي) وصوت إنجليزي (US ← GB).
+  /// صوت الجهاز الاحتياطي: الأقرب للمقاطع المسجّلة (سعودي ← خليجي/شامي/مصري ← أي عربي) وإنجليزي (US ← GB).
   Future<void> _pickVoices() async {
     final raw = await _tts.getVoices;
     final voices = <Map<String, String>>[
@@ -86,8 +88,8 @@ class SpeechService implements Speech {
     bool loc(Map<String, String> v, String re) => RegExp(re, caseSensitive: false).hasMatch(v['locale']!);
     final ar = voices.where((v) => loc(v, r'^ar')).toList();
     arVoices = [for (final v in ar) '${v['name']} (${v['locale']})'];
-    _arVoice = ar.where((v) => loc(v, r'eg')).firstOrNull ??
-        ar.where((v) => loc(v, r'sa|ae|jo|ma')).firstOrNull ??
+    _arVoice = ar.where((v) => loc(v, r'sa')).firstOrNull ??
+        ar.where((v) => loc(v, r'ae|jo|eg|ma')).firstOrNull ??
         ar.firstOrNull;
     final en = voices.where((v) => loc(v, r'^en')).toList();
     _enVoice = en.where((v) => loc(v, r'us')).firstOrNull ?? en.where((v) => loc(v, r'gb')).firstOrNull ?? en.firstOrNull;
@@ -116,17 +118,27 @@ class SpeechService implements Speech {
     if (clips != null && clips.isNotEmpty && clips.every((k) => k != null)) {
       final keys = [
         for (final k in clips.cast<String>())
-          k.startsWith(sayPrefix) ? phraseKey(clean(k.substring(sayPrefix.length))) : k,
+          if (!k.startsWith(sayPrefix))
+            k
+          // جزء مالوش صوت (إيموجي اختاره الطفل) بيتشال بدل ما الجملة كلها تروح للـ TTS
+          else if (clean(k.substring(sayPrefix.length)) case final t when t.isNotEmpty)
+            _keyFor(t),
       ];
       if (keys.every((k) => clipKeys.contains(k) || phraseKeys.contains(k))) return keys;
     }
     final parts = _parts(text);
-    final keys = [for (final p in parts) phraseKey(p)];
-    if (parts.isEmpty || !keys.every(phraseKeys.contains)) {
+    final keys = [for (final p in parts) _keyFor(p)];
+    if (parts.isEmpty || !keys.every((k) => clipKeys.contains(k) || phraseKeys.contains(k))) {
       if (kDebugMode) debugPrint('[voice] no recording, using TTS: $parts');
       return null;
     }
     return keys;
+  }
+
+  /// مقطع التعليم لو موجود، وإلا مقطع الجملة.
+  static String _keyFor(String part) {
+    final t = teachKey(part);
+    return t != null && clipKeys.contains(t) ? t : phraseKey(part);
   }
 
   static List<String> _parts(Object text) =>

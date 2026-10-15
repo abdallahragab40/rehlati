@@ -13,6 +13,7 @@ import 'package:rehlati/content/madd.dart';
 import 'package:rehlati/content/math_data.dart';
 import 'package:rehlati/content/parent_guide_data.g.dart';
 import 'package:rehlati/core/audio/speech_service.dart';
+import 'package:rehlati/core/audio/teaching.dart';
 import 'package:rehlati/core/audio/voice_lines.dart';
 import 'package:rehlati/core/utils/arabic.dart';
 import 'package:rehlati/core/utils/rng.dart';
@@ -31,7 +32,8 @@ void main() {
         add(arNum(t));
       } else if (t is String) {
         final c = SpeechService.clean(signWord[t] ?? t);
-        if (c.isNotEmpty) out.add(c);
+        // الحروف والمقاطع والكلمات اللي ليها مقطع تعليم مشكول مش محتاجة مقطع جملة
+        if (c.isNotEmpty && teachKey(c) == null) out.add(c);
       }
     }
 
@@ -110,9 +112,6 @@ void main() {
     }
     for (final r in ranks) {
       add(sayToast(r.name, rank: true));
-    }
-    for (final l in arLetters) {
-      add(sayLetter(l));
     }
     for (final t in maddTypes) {
       add(sayRemedial(t.name));
