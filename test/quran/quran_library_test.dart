@@ -13,7 +13,7 @@ import 'package:rehlati/features/quran/quran_repository.dart';
 import 'package:rehlati/features/quran/recitation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'quran_download_test.dart' show FakeStore, mp3, quranCom;
+import 'quran_download_test.dart' show FakeStore, mp3, quranSource;
 
 void main() {
   late Directory tmp;
@@ -74,7 +74,7 @@ void main() {
         sharedPrefsProvider.overrideWithValue(prefs),
         ayahAudioStoreProvider.overrideWithValue(store),
         quranRepositoryProvider.overrideWithValue(QuranRepository(
-          client: quranCom(chapters: [for (var n = 78; n <= 114; n++) n]),
+          client: quranSource(chapters: [for (var n = 78; n <= 114; n++) n]),
           cacheFile: () async => File('${tmp.path}/q.json'),
         )),
       ]);

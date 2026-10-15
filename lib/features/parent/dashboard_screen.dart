@@ -26,6 +26,7 @@ import '../quran/quran_download.dart';
 import '../quran/quran_repository.dart';
 import 'avatar.dart';
 import 'backup_card.dart';
+import 'credits_card.dart';
 import 'mastery_card.dart';
 
 String fmtTime(int ms) {
@@ -119,6 +120,8 @@ class DashboardScreen extends ConsumerWidget {
           const _ReminderCard(),
           h3('🏆 الإنجازات'),
           BadgeGrid(earned: p.achievements, small: true),
+          h3('ℹ️ المصادر والتراخيص'),
+          const CreditsCard(),
           Padding(
             padding: const EdgeInsets.only(top: 14),
             child: Text('آخر نشاط: ${fmtDate(p.lastActivity)}',

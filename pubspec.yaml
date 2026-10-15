@@ -79,6 +79,8 @@ flutter:
     - assets/audio/clips/
     - assets/audio/sfx/
     - assets/audio/music/
+    - assets/fonts/OFL-BalooBhaijaan2.txt
+    - assets/fonts/OFL-AmiriQuran.txt
 
   fonts:
     - family: Baloo

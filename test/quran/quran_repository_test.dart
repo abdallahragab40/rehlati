@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
+import 'package:rehlati/content/quran_config.dart';
 import 'package:rehlati/features/quran/quran_repository.dart';
 import 'package:rehlati/features/quran/recitation.dart';
 
@@ -38,6 +39,19 @@ void main() {
 
   QuranRepository repo(MockClient c) => QuranRepository(client: c, cacheFile: () async => File('${tmp.path}/q.json'));
 
+  /// المصدرين بالترتيب — لاختبار الرجوع للمصدر التاني (التطبيق نفسه بيخزّن من AlQuran Cloud بس).
+  QuranRepository both(MockClient c) =>
+      QuranRepository(client: c, cacheFile: () async => File('${tmp.path}/q.json'), sources: QuranConfig.checkSources);
+
+  /// AlQuran Cloud بشكل ردوده: قايمة السور، والفاتحة للبسملة، والإخلاص.
+  http.Response cloudReply(http.Request r) {
+    if (r.url.path == '/v1/surah') return ok(cloudChapters());
+    if (r.url.path.contains('/surah/1/')) return ok(cloudSurah([basmala]));
+    return ok(cloudSurah(['${basmala.substring(1)} $a1', a2]));
+  }
+
+  MockClient cloud() => MockClient((r) async => cloudReply(r));
+
   test('stripBasmala removes the basmala words and keeps the rest byte-exact', () {
     expect(stripBasmala('${basmala.substring(1)} $a1', basmala), a1);
     // alquran.cloud بيكتب "بِّسْمِ" بشدّة في بعض السور — الهيكل واحد
@@ -45,7 +59,40 @@ void main() {
     expect(stripBasmala(a1, basmala), a1, reason: 'no basmala → untouched');
   });
 
-  test('uses quran.com, trims the leading space, and caches to disk', () async {
+  test('the app stores text from AlQuran Cloud only — Quran.com terms forbid keeping it', () async {
+    final hosts = <String>{};
+    final c = MockClient((r) async {
+      hosts.add(r.url.host);
+      return cloudReply(r);
+    });
+    final r = repo(c);
+    expect((await r.surah(112)).map((a) => a.text), [a1, a2]);
+    expect(hosts, {'api.alquran.cloud'});
+    expect(r.sourceLabel(112), contains('AlQuran Cloud'));
+    expect((await repo(MockClient((_) async => throw const SocketException('offline'))).surah(112)).first.text, a1);
+  });
+
+  test('the check screen compares both sources without caching', () async {
+    final c = MockClient((r) async {
+      if (r.url.host == 'api.quran.com') {
+        return ok(jsonEncode({
+          'verses': [
+            {'verse_key': '112:1', 'text_uthmani': a1},
+            {'verse_key': '112:2', 'text_uthmani': a2},
+          ],
+        }));
+      }
+      return cloudReply(r);
+    });
+    final all = await repo(c).fetchAll(112);
+    expect(all.length, 2);
+    for (final ayahs in all.values) {
+      expect(ayahs.map((a) => a.text), [a1, a2]);
+    }
+    expect(File('${tmp.path}/q.json').existsSync(), isFalse);
+  });
+
+  test('tries sources in order, trims the leading space, and caches to disk', () async {
     var calls = 0;
     final c = MockClient((r) async {
       calls++;
@@ -57,7 +104,7 @@ void main() {
         ],
       }));
     });
-    final ayahs = await repo(c).surah(112);
+    final ayahs = await both(c).surah(112);
     expect(ayahs.map((a) => a.text), [a1, a2]);
     expect(calls, 2);
 
@@ -74,7 +121,7 @@ void main() {
       if (r.url.path.contains('/surah/1/')) return ok(cloudSurah([basmala]));
       return ok(cloudSurah(['${basmala.substring(1)} $a1', a2]));
     });
-    final r = repo(c);
+    final r = both(c);
     final ayahs = await r.surah(112);
     expect(ayahs.first.text, a1);
     expect(r.sourceLabel(112), contains('AlQuran Cloud'));
@@ -88,19 +135,11 @@ void main() {
       }
       return http.Response('down', 503);
     });
-    expect(repo(c).surah(112), throwsA(isA<QuranException>()));
+    expect(both(c).surah(112), throwsA(isA<QuranException>()));
   });
 
   group('offline and damaged cache', () {
-    MockClient online() => MockClient((r) async {
-          if (r.url.path.endsWith('/chapters')) return ok(quranComChapters());
-          return ok(jsonEncode({
-            'verses': [
-              {'verse_key': '112:1', 'text_uthmani': a1},
-              {'verse_key': '112:2', 'text_uthmani': a2},
-            ],
-          }));
-        });
+    MockClient online() => cloud();
     MockClient offline() => MockClient((_) async => throw const SocketException('offline'));
 
     test('a corrupt cache file is replaced by a fresh fetch', () async {
@@ -126,7 +165,7 @@ void main() {
         hosts.add(r.url.host);
         throw const SocketException('offline');
       });
-      await expectLater(repo(c).surah(112), throwsA(isA<QuranException>()));
+      await expectLater(both(c).surah(112), throwsA(isA<QuranException>()));
       expect(hosts, {'api.quran.com', 'api.alquran.cloud'});
     });
 

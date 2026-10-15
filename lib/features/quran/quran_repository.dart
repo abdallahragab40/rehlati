@@ -41,12 +41,22 @@ String stripBasmala(String ayah, String basmala) {
 }
 
 class QuranRepository {
-  QuranRepository({required this.client, required this.cacheFile, List<TextSource>? sources})
-      : sources = sources ?? QuranConfig.sources;
+  QuranRepository({
+    required this.client,
+    required this.cacheFile,
+    List<TextSource>? sources,
+    List<TextSource>? checkSources,
+  })  : sources = sources ?? QuranConfig.sources,
+        checkSources = checkSources ?? QuranConfig.checkSources;
 
   final http.Client client;
   final Future<File> Function() cacheFile;
+
+  /// المصادر اللي النص بيتجاب منها ويتخزّن.
   final List<TextSource> sources;
+
+  /// المصادر اللي شاشة التحقق بتقارنها — مابتتخزّنش.
+  final List<TextSource> checkSources;
 
   Map<String, dynamic>? _cache;
   final _basmala = <String, String>{};
@@ -155,10 +165,10 @@ class QuranRepository {
   Future<String> _basmalaOf(TextSource s) async =>
       _basmala[s.id] ??= s.parseVerses(await _grab(s.versesUrl(1))).first.text;
 
-  /// للتحقق: نص السورة من كل المصادر من غير كاش.
+  /// للتحقق: نص السورة من كل مصادر التحقق من غير كاش.
   Future<Map<String, List<Ayah>>> fetchAll(int n) async {
     final out = <String, List<Ayah>>{};
-    for (final s in sources) {
+    for (final s in checkSources) {
       var list = s.parseVerses(await _grab(s.versesUrl(n)));
       if (s.basmalaInFirstAyah && n != 1 && n != 9 && list.isNotEmpty) {
         list = [Ayah(list.first.number, stripBasmala(list.first.text, await _basmalaOf(s))), ...list.skip(1)];

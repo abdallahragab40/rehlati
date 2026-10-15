@@ -57,29 +57,38 @@ final mp3 = [0x49, 0x44, 0x33, ...List.filled(300, 0)];
 
 http.Response ok(Object body) => http.Response.bytes(utf8.encode(jsonEncode(body)), 200);
 
-Map<String, Object> verses(int n, int count) => {
-      'verses': [for (var a = 1; a <= count; a++) {'verse_key': '$n:$a', 'text_uthmani': 'آية $a'}],
+Map<String, Object> ayahs(int count) => {
+      'data': {
+        'ayahs': [for (var a = 1; a <= count; a++) {'numberInSurah': a, 'text': 'آية $a'}],
+      },
     };
 
-/// المصدر الأساسي بيرد بقائمة السور ونصها؛ [textGate] بيأخّر نص السور.
-MockClient quranCom({List<int> chapters = const [112, 113], Completer<void>? textGate}) => MockClient((r) async {
-      if (r.url.path.endsWith('/chapters')) {
+/// المصدر (AlQuran Cloud) بيرد بقائمة السور ونصها؛ [textGate] بيأخّر نص السور.
+MockClient quranSource({List<int> chapters = const [112, 113], Completer<void>? textGate}) => MockClient((r) async {
+      if (r.url.path == '/v1/surah') {
         return ok({
-          'chapters': [
-            for (final n in chapters) {'id': n, 'name_arabic': 'سورة $n', 'verses_count': n == 112 ? 4 : 5},
+          'data': [
+            for (final n in chapters) {'number': n, 'name': 'سورة $n', 'numberOfAyahs': n == 112 ? 4 : 5},
           ],
         });
       }
-      if (r.url.host != 'api.quran.com') return http.Response('down', 503);
       await textGate?.future;
-      final n = int.parse(r.url.queryParameters['chapter_number']!);
-      return ok(verses(n, n == 112 ? 4 : 5));
+      final n = int.parse(r.url.pathSegments[2]);
+      return ok(ayahs(n == 1 ? 1 : (n == 112 ? 4 : 5)));
     });
 
 Future<void> flush() async {
   for (var i = 0; i < 20; i++) {
     await Future<void>.delayed(Duration.zero);
   }
+}
+
+/// النص بيتحفظ في ملف حقيقي قبل التلاوات — عدد اللفّات مش ثابت، فنستنى الأربع طلبات نفسهم.
+Future<void> untilWorkers(FakeStore store) async {
+  for (var i = 0; i < 500 && store.pending.length < 4; i++) {
+    await Future<void>.delayed(const Duration(milliseconds: 2));
+  }
+  await flush();
 }
 
 void main() {
@@ -109,7 +118,7 @@ void main() {
 
   test('every ayah on the device → complete, labelled with the reciter', () async {
     store.auto = (_, _) => true;
-    final c = container(quranCom());
+    final c = container(quranSource());
     await c.read(quranDownloadProvider.notifier).start(juz);
     final s = c.read(quranDownloadProvider)!;
     expect([s.phase, s.done, s.total, s.failed], [DownloadPhase.complete, total, total, 0]);
@@ -117,10 +126,10 @@ void main() {
   });
 
   test('cancel after the first ayah is cancelled, not offline-ready, and retry fetches only the rest', () async {
-    final c = container(quranCom());
+    final c = container(quranSource());
     final dl = c.read(quranDownloadProvider.notifier);
     unawaited(dl.start(juz));
-    await flush();
+    await untilWorkers(store);
     expect(store.pending, hasLength(4), reason: 'four workers in flight');
 
     store.answer(true);
@@ -149,7 +158,7 @@ void main() {
 
   test('cancel while the text is still loading never reports progress or success', () async {
     final gate = Completer<void>();
-    final c = container(quranCom(textGate: gate));
+    final c = container(quranSource(textGate: gate));
     final dl = c.read(quranDownloadProvider.notifier);
     final run = dl.start(juz);
     await flush();
@@ -172,7 +181,7 @@ void main() {
 
   test('audio failures give partial or failed, never complete', () async {
     store.auto = (n, a) => !(n == 113 && a == 5);
-    final c = container(quranCom());
+    final c = container(quranSource());
     final dl = c.read(quranDownloadProvider.notifier);
     await dl.start(juz);
     var s = c.read(quranDownloadProvider)!;
@@ -189,17 +198,17 @@ void main() {
 
   test('a chapter list missing a surah of the juz is not complete', () async {
     store.auto = (_, _) => true;
-    final c = container(quranCom(chapters: [112]));
+    final c = container(quranSource(chapters: [112]));
     await c.read(quranDownloadProvider.notifier).start(juz);
     expect(c.read(quranDownloadProvider)!.phase, DownloadPhase.failed);
     expect(store.fetched, isEmpty);
   });
 
   test('a replaced run cannot change the newer run', () async {
-    final c = container(quranCom());
+    final c = container(quranSource());
     final dl = c.read(quranDownloadProvider.notifier);
     unawaited(dl.start(juz));
-    await flush();
+    await untilWorkers(store);
     final stale = List.of(store.pending);
     store.pending.clear();
 
@@ -214,7 +223,7 @@ void main() {
   });
 
   test('cancel with nothing running is a no-op', () {
-    final c = container(quranCom());
+    final c = container(quranSource());
     c.read(quranDownloadProvider.notifier).cancel();
     expect(c.read(quranDownloadProvider), isNull);
   });

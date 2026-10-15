@@ -1,12 +1,14 @@
 import 'dart:async';
 
 import 'package:audio_session/audio_session.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app.dart';
+import 'content/quran_config.dart';
 import 'core/audio/audio_providers.dart';
 import 'core/audio/music_service.dart';
 import 'core/audio/sfx_service.dart';
@@ -16,6 +18,15 @@ import 'features/parent/avatar.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // رخصة OFL بتطلب إن نص الرخصة يتوزّع مع الخطوط — بيظهر في صفحة التراخيص في لوحة ولي الأمر
+  LicenseRegistry.addLicense(() async* {
+    for (final (font, file) in [('Baloo Bhaijaan 2', 'OFL-BalooBhaijaan2.txt'), ('Amiri Quran', 'OFL-AmiriQuran.txt')]) {
+      yield LicenseEntryWithLineBreaks([font], await rootBundle.loadString('assets/fonts/$file'));
+    }
+    // نص القرآن من Tanzil (CC BY 3.0) — الرخصة بتطلب إشعار حقوقه
+    yield const LicenseEntryWithLineBreaks(['Tanzil Quran Text'], tanzilNotice);
+  });
 
   // الموبايل بالطول بس؛ التابلت يلف براحته
   final view = WidgetsBinding.instance.platformDispatcher.views.first;

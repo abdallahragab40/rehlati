@@ -4,6 +4,21 @@
 /// التشغيل ويتخزّن على الجهاز. لتغيير المصدر أو القارئ غيّر القيم هنا بس.
 library;
 
+/// إشعار حقوق نص Tanzil — بيظهر في صفحة التراخيص (شرط رخصة CC BY 3.0).
+const tanzilNotice = 'Tanzil Quran Text\n'
+    'Copyright (C) 2007-2021 Tanzil Project\n'
+    'License: Creative Commons Attribution 3.0\n\n'
+    'This copy of the Quran text is carefully produced, highly verified and continuously monitored by a group of '
+    'specialists in Tanzil Project.\n\n'
+    'TERMS OF USE:\n\n'
+    '- Permission is granted to copy and distribute verbatim copies of this text, but CHANGING IT IS NOT ALLOWED.\n\n'
+    '- This Quran text can be used in any website or application, provided that its source (Tanzil Project) is '
+    'clearly indicated, and a link is made to tanzil.net to enable users to keep track of changes.\n\n'
+    '- This copyright notice shall be included in all verbatim copies of the text, and shall be reproduced '
+    'appropriately in all files derived from or containing substantial portion of this text.\n\n'
+    'Please check updates at: http://tanzil.net/updates/\n\n'
+    'Delivered to this app through AlQuran Cloud (alquran.cloud).';
+
 class QuranChapter {
   const QuranChapter(this.number, this.name, this.ayahs);
   final int number;
@@ -73,37 +88,45 @@ abstract final class QuranConfig {
   static String juzOf(int n) => n >= 78 ? 'جزء عمّ' : 'جزء تبارك';
   static const rangeTitle = 'جزء عمّ وتبارك';
 
-  static final sources = <TextSource>[
-    TextSource(
-      id: 'quran.com',
-      label: 'Quran.com API v4 — النص العثماني (مجمع الملك فهد)',
-      chaptersUrl: 'https://api.quran.com/api/v4/chapters?language=ar',
-      versesUrl: (n) => 'https://api.quran.com/api/v4/quran/verses/uthmani?chapter_number=$n',
-      parseChapters: (j) => [
-        for (final c in _list(j['chapters']))
-          QuranChapter((c['id'] as num).toInt(), c['name_arabic'] as String, (c['verses_count'] as num).toInt()),
-      ],
-      parseVerses: (j) => [
-        for (final v in _list(j['verses']))
-          Ayah(int.parse('${v['verse_key']}'.split(':')[1]), _clean(v['text_uthmani'])),
-      ],
-    ),
-    TextSource(
-      id: 'alquran.cloud',
-      label: 'AlQuran Cloud — النص العثماني (مشروع تنزيل)',
-      chaptersUrl: 'https://api.alquran.cloud/v1/surah',
-      versesUrl: (n) => 'https://api.alquran.cloud/v1/surah/$n/quran-uthmani',
-      parseChapters: (j) => [
-        for (final c in _list(j['data']))
-          QuranChapter((c['number'] as num).toInt(), c['name'] as String, (c['numberOfAyahs'] as num).toInt()),
-      ],
-      parseVerses: (j) => [
-        for (final a in _list((j['data'] as Map?)?['ayahs']))
-          Ayah((a['numberInSurah'] as num).toInt(), _clean(a['text'])),
-      ],
-      basmalaInFirstAyah: true,
-    ),
-  ];
+  /// AlQuran Cloud: شروطه بتسمح بتخزين النص وعرضه في التطبيقات (مع ذكر المصدر)، فهو اللي بيتخزّن.
+  static final cloud = TextSource(
+    id: 'alquran.cloud',
+    label: 'AlQuran Cloud — النص العثماني (مشروع تنزيل)',
+    chaptersUrl: 'https://api.alquran.cloud/v1/surah',
+    versesUrl: (n) => 'https://api.alquran.cloud/v1/surah/$n/quran-uthmani',
+    parseChapters: (j) => [
+      for (final c in _list(j['data']))
+        QuranChapter((c['number'] as num).toInt(), c['name'] as String, (c['numberOfAyahs'] as num).toInt()),
+    ],
+    parseVerses: (j) => [
+      for (final a in _list((j['data'] as Map?)?['ayahs']))
+        Ayah((a['numberInSurah'] as num).toInt(), _clean(a['text'])),
+    ],
+    basmalaInFirstAyah: true,
+  );
+
+  /// Quran.com (Quran Foundation): شروطه بتمنع تخزين النص أكتر من أسبوع من غير Content Sync —
+  /// بنستخدمه بس في شاشة التحقق (بيتعرض ومابيتخزّنش).
+  static final quranCom = TextSource(
+    id: 'quran.com',
+    label: 'Quran.com API v4 — النص العثماني (مجمع الملك فهد)',
+    chaptersUrl: 'https://api.quran.com/api/v4/chapters?language=ar',
+    versesUrl: (n) => 'https://api.quran.com/api/v4/quran/verses/uthmani?chapter_number=$n',
+    parseChapters: (j) => [
+      for (final c in _list(j['chapters']))
+        QuranChapter((c['id'] as num).toInt(), c['name_arabic'] as String, (c['verses_count'] as num).toInt()),
+    ],
+    parseVerses: (j) => [
+      for (final v in _list(j['verses']))
+        Ayah(int.parse('${v['verse_key']}'.split(':')[1]), _clean(v['text_uthmani'])),
+    ],
+  );
+
+  /// المصادر اللي النص بيتجاب منها ويتخزّن على الجهاز.
+  static final sources = <TextSource>[cloud];
+
+  /// شاشة التحقق بتقارن المصدرين حرف بحرف — من غير تخزين.
+  static final checkSources = <TextSource>[quranCom, cloud];
 
   /// تلاوات مرتّلة معروفة ومعتمدة فقط.
   static const reciters = <Reciter>[
@@ -126,5 +149,5 @@ abstract final class QuranConfig {
       'https://everyayah.com/data/$folder/${'$surah'.padLeft(3, '0')}${'$ayah'.padLeft(3, '0')}.mp3');
 
   /// غيّرها لو عايز تمسح الكاش وتعيد التحميل من المصدر.
-  static const cacheVersion = 2;
+  static const cacheVersion = 3;
 }
