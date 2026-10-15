@@ -19,9 +19,15 @@ class AvatarController extends Notifier<File?> {
   /// فولدر المستندات — بيتحدد في main() قبل تشغيل التطبيق.
   static String? dir;
 
+  /// بيتبع الطفل النشط بـ listen مش watch — نفس سبب ProgressController.state.
   @override
   File? build() {
-    final f = _file(ref.watch(activeChildProvider));
+    ref.listen(activeChildProvider, (_, id) => state = _existing(id));
+    return _existing(ref.read(activeChildProvider));
+  }
+
+  static File? _existing(String id) {
+    final f = _file(id);
     return f != null && f.existsSync() ? f : null;
   }
 

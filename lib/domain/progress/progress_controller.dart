@@ -284,6 +284,17 @@ class ProgressController extends Notifier<ProgressData> {
   @override
   bool updateShouldNotify(ProgressData previous, ProgressData next) => true;
 
+  /// كل تغيير بيحدّث الإخوات والطفل النشط في نفس اللحظة. لو كانوا محسوبين من التقدّم
+  /// (ref.watch)، شاشة مستخبية بترجع تظهر في نص البناء كانت بتعيد حسابهم وتبلّغ شاشات
+  /// تانية وهي بتتبني (setState during build — ظهر على الآيباد وأندرويد).
+  @override
+  set state(ProgressData value) {
+    super.state = value;
+    ref.read(childrenProvider.notifier)._refresh(value, _id);
+    final active = ref.read(activeChildProvider.notifier);
+    if (active.state != _id) active.state = _id;
+  }
+
   ProgressData get data => state;
 
   /// طبّق تعديل، احفظ، وبلّغ الواجهة.
@@ -385,8 +396,28 @@ class ProgressController extends Notifier<ProgressData> {
 
 final progressProvider = NotifierProvider<ProgressController, ProgressData>(ProgressController.new);
 
-/// id الطفل النشط — بيتغيّر بس لما نبدّل طفل.
-final activeChildProvider = Provider<String>((ref) {
-  ref.watch(progressProvider);
-  return ref.read(progressRepositoryProvider).activeId;
-});
+/// id الطفل النشط — ProgressController بيحدّثه لما يبدّل طفل (مش محسوب من التقدّم).
+class ActiveChildController extends Notifier<String> {
+  @override
+  String build() => ref.read(progressRepositoryProvider).activeId;
+}
+
+final activeChildProvider = NotifierProvider<ActiveChildController, String>(ActiveChildController.new);
+
+/// الإخوات: (id، تقدّمه) — ProgressController بيحدّثهم مع كل تغيير (مش محسوبين من التقدّم).
+class ChildrenController extends Notifier<List<(String, ProgressData)>> {
+  @override
+  List<(String, ProgressData)> build() {
+    final repo = ref.read(progressRepositoryProvider);
+    return _of(ref.read(progressProvider), repo.activeId);
+  }
+
+  List<(String, ProgressData)> _of(ProgressData active, String activeId) {
+    final repo = ref.read(progressRepositoryProvider);
+    return [for (final id in repo.ids) (id, id == activeId ? active : repo.load(id))];
+  }
+
+  void _refresh(ProgressData active, String activeId) => state = _of(active, activeId);
+}
+
+final childrenProvider = NotifierProvider<ChildrenController, List<(String, ProgressData)>>(ChildrenController.new);

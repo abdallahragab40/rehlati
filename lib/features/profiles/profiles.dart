@@ -16,13 +16,6 @@ import '../../domain/progress/progress_data.dart';
 import '../parent/avatar.dart';
 import '../parent/parent_gate.dart';
 
-/// كل الأطفال (id، التقدّم) — النشط بقيمته الحية والباقي من التخزين.
-final childrenProvider = Provider<List<(String, ProgressData)>>((ref) {
-  final active = ref.watch(progressProvider);
-  final repo = ref.read(progressRepositoryProvider);
-  return [for (final id in repo.ids) (id, id == repo.activeId ? active : repo.load(id))];
-});
-
 String childName(ProgressData p) => p.name.isNotEmpty ? p.name : 'بطل';
 
 /// الأسئلة معمولة لسن ٤–٦؛ الأصغر بيبدأ من أسهل مستوى والأكبر من أصعبه ([ProgressData.ageLevel]).
