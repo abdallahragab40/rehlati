@@ -1,4 +1,4 @@
-package com.rehlati.rehlati
+package com.abdallahragab.rehlati
 
 import io.flutter.embedding.android.FlutterActivity
 
