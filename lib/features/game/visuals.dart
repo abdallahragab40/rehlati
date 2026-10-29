@@ -63,7 +63,42 @@ class VisualView extends StatelessWidget {
         PatternVisual v => _Pattern(v),
         ClockVisual v => Center(child: ClockFace(hour: v.hour, minute: v.minute, size: context.clampVw(150, 44, 210))),
         TensOnesVisual v => _TensOnes(v),
+        GroupsVisual v => TapCountScope(child: _Groups(v)),
       },
+    );
+  }
+}
+
+/// المجموعات المتساوية: علبة لكل مجموعة، والعلب بتنزل سطر جديد لو المكان ضيق.
+class _Groups extends StatelessWidget {
+  const _Groups(this.v);
+  final GroupsVisual v;
+
+  @override
+  Widget build(BuildContext context) {
+    final size = context.clampVw(22, 6, 32);
+    return Semantics(
+      label: '${ar(v.groups)} مجموعات، في كل مجموعة ${ar(v.each)} ${v.emoji}',
+      child: ExcludeSemantics(
+        child: Wrap(alignment: WrapAlignment.center, spacing: 10, runSpacing: 10, children: [
+          for (var g = 0; g < v.groups; g++)
+            Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: AppColors.paper2,
+                border: Border.all(color: AppColors.line, width: 2),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: (size + 6) * 3),
+                child: Wrap(alignment: WrapAlignment.center, spacing: 2, runSpacing: 2, children: [
+                  for (var i = 0; i < v.each; i++)
+                    TapCountItem(id: (g, i), child: Text(v.emoji, style: TextStyle(fontSize: size))),
+                ]),
+              ),
+            ),
+        ]),
+      ),
     );
   }
 }

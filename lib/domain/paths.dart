@@ -84,7 +84,7 @@ LearningPath? pathById(String id) => learningPaths.where((p) => p.id == id).firs
 /// كل مراحل الدرس موجودة وبتتلعب بنتيجة (لوحة الحروف مالهاش نتيجة).
 bool lessonPlayable(PathLesson l) => l.stages.every((s) => packs[s] != null && !packs[s]!.isLearn);
 
-const learningPaths = [readingPath, mathPath, math100Path];
+const learningPaths = [readingPath, mathPath, math100Path, timesPath];
 
 const readingPath = LearningPath(
   id: 'reading1',
@@ -188,6 +188,41 @@ const math100Path = LearningPath(
       PathLesson('h14', 'جمع ولا طرح؟', ['sub100', 'add100']),
       PathLesson('h15', 'الطرح والمقارنة', ['sub100', 'compare100']),
       PathLesson('h16', 'المراجعة الكبيرة', ['add100', 'sub100', 'compare100']),
+    ]),
+  ],
+);
+
+const timesPath = LearningPath(
+  id: 'math3',
+  world: 'math',
+  icon: '✖️',
+  name: 'رحلة جدول الضرب',
+  ages: '٨–٩ سنين',
+  desc: 'الضرب كمجموعات متساوية، وبعدين جدول الضرب خطوة خطوة، في ٤ أسابيع.',
+  weeks: [
+    PathWeek('الضرب يعني مجموعات', 'يفهم الضرب كجمع مجموعات متساوية، ويحفظ جدول ٢ و ٥ و ١٠.', [
+      PathLesson('g1', 'المجموعات المتساوية', ['mulGroups']),
+      PathLesson('g2', 'نعد بالقفز', ['mulGroups', 'skipCount']),
+      PathLesson('g3', 'جدول ٢ و ٥ و ١٠', ['times2510', 'mulGroups']),
+      PathLesson('g4', 'مراجعة الأسبوع', ['times2510', 'skipCount', 'mulGroups']),
+    ]),
+    PathWeek('جدول ٣ و ٤', 'يحفظ جدول ٣ و ٤، ويعرف إن ٣ × ٤ زي ٤ × ٣.', [
+      PathLesson('g5', 'جدول ٣ و ٤', ['times34', 'mulGroups']),
+      PathLesson('g6', 'الجداول مع بعض', ['times34', 'times2510']),
+      PathLesson('g7', 'نقفز بالتلاتات والأربعات', ['times34', 'skipCount']),
+      PathLesson('g8', 'مراجعة الأسبوع', ['times34', 'times2510', 'mulGroups']),
+    ]),
+    PathWeek('جدول ٦ لـ ٩', 'يحفظ جدول ٦ و ٧ و ٨ و ٩، ويستخدم الجداول اللي حفظها قبل كده.', [
+      PathLesson('g9', 'جدول ٦ و ٧', ['times6789', 'times34']),
+      PathLesson('g10', 'جدول ٨ و ٩', ['times6789', 'mulGroups']),
+      PathLesson('g11', 'الكبير والصغير', ['times6789', 'times2510']),
+      PathLesson('g12', 'مراجعة الأسبوع', ['times6789', 'times34', 'times2510']),
+    ]),
+    PathWeek('الجدول كله', 'يجاوب أي سؤال من جدول الضرب، ويلاقي العامل الناقص (٣ × ؟ = ١٨).', [
+      PathLesson('g13', 'الجدول كله', ['timesAll', 'times2510']),
+      PathLesson('g14', 'العامل الناقص', ['timesAll', 'times34']),
+      PathLesson('g15', 'الجداول الكبيرة', ['timesAll', 'times6789']),
+      PathLesson('g16', 'المراجعة الكبيرة', ['timesAll', 'times6789', 'add100']),
     ]),
   ],
 );

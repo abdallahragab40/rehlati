@@ -29,7 +29,8 @@ void main() {
       expect(p.unlockNext('counting')?.id, 'chooseNumber');
       expect(p.unlockNext('counting'), isNull);
       expect(p.unlockNext('subtraction')?.id, 'tensOnes'); // بعدها الأعداد لحد ١٠٠
-      expect(p.unlockNext('sub100'), isNull); // آخر مرحلة
+      expect(p.unlockNext('sub100')?.id, 'mulGroups'); // بعدها جدول الضرب
+      expect(p.unlockNext('timesAll'), isNull); // آخر مرحلة
     });
 
     test('medals: 10/10 → 3, 8/10 → 2, less → 1, and best is kept', () {

@@ -77,8 +77,8 @@ void main() {
 
   test('the numbers-to-100 group opens after addition and sits at the end of the maths world', () {
     final ids = [for (final s in worldStages['math']!) s.id];
-    expect(ids.sublist(13), ['tensOnes', 'skipCount', 'compare100', 'add100', 'sub100']);
+    expect(ids.sublist(13, 18), ['tensOnes', 'skipCount', 'compare100', 'add100', 'sub100']);
     expect(packs['tensOnes']!.after, 'addition');
-    expect({for (final id in ids.sublist(13)) packs[id]!.groupName}, {'الأعداد لحد ١٠٠'});
+    expect({for (final id in ids.sublist(13, 18)) packs[id]!.groupName}, {'الأعداد لحد ١٠٠'});
   });
 }

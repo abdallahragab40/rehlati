@@ -16,6 +16,7 @@ import 'generators/harakat_generators.dart';
 import 'generators/madd_generators.dart';
 import 'generators/math100_generators.dart';
 import 'generators/math_generators.dart';
+import 'generators/mul_generators.dart';
 import 'progress/progress_data.dart';
 import 'question.dart';
 
@@ -237,9 +238,26 @@ final _math100 = [
     ),
 ];
 
+/// جدول الضرب (تانية وتالتة ابتدائي) بعد الأعداد لحد ١٠٠. أول مرحلة بتتفتح كمان بعد
+/// "العد بالقفز" — الجدول عد بالقفز أصلًا.
+final _mul = [
+  for (final (i, (id, icon, name, base, color, gen)) in <(String, String, String, int, int, Generator)>[
+    ('mulGroups', '🧺', 'المجموعات المتساوية', 2, 0xFF2F9E8F, mulGroups),
+    ('times2510', '✖️', 'جدول ٢ و ٥ و ١٠', 2, 0xFF28907F, times2510),
+    ('times34', '✖️', 'جدول ٣ و ٤', 2, 0xFF22826F, times34),
+    ('times6789', '✖️', 'جدول ٦ لـ ٩', 2, 0xFF1C745F, times6789),
+    ('timesAll', '🏆', 'جدول الضرب كله', 3, 0xFF16664F, timesAll),
+  ].indexed)
+    Stage(
+      id: id, world: 'math', n: _math.length + _math100.length + i + 1, icon: icon, name: name, base: base,
+      color: Color(color), gen: gen, group: 'mul', groupName: 'جدول الضرب',
+      after: i == 0 ? 'skipCount' : null,
+    ),
+];
+
 /// world -> ترتيب مراحله.
 final Map<String, List<Stage>> worldStages = {
-  'math': [..._math, ..._math100],
+  'math': [..._math, ..._math100, ..._mul],
   'arabic': [..._arabic, ..._madd, ..._harakat],
   'english': _english,
   'games': _games,

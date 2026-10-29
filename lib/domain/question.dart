@@ -184,6 +184,14 @@ class TensOnesVisual extends Visual {
   final int ones;
 }
 
+/// مجموعات متساوية (الضرب): [groups] علبة في كل واحدة [each] صورة.
+class GroupsVisual extends Visual {
+  const GroupsVisual(this.emoji, this.groups, this.each);
+  final String emoji;
+  final int groups;
+  final int each;
+}
+
 /// زرار 🔊 كبير لوحده (اسمع ثم اختر).
 class ListenVisual extends Visual {
   const ListenVisual(this.say);
