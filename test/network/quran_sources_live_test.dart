@@ -5,16 +5,17 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
+import 'package:rehlati/content/quran_config.dart';
 import 'package:rehlati/features/quran/quran_check_screen.dart';
 import 'package:rehlati/features/quran/quran_repository.dart';
 
 /// بيكلم المصادر الحقيقية — مش بيشتغل في الاختبارات العادية:
 ///   flutter test --tags network
 void main() {
-  test('both sources agree on every letter of Juz Tabarak and Amma', () async {
+  test('both sources agree on every letter of Juz Qad Sami, Tabarak and Amma', () async {
     final repo = QuranRepository(client: http.Client(), cacheFile: () async => File('${Directory.systemTemp.path}/q_live.json'));
     var marksOnly = 0;
-    for (var s = 67; s <= 114; s++) {
+    for (var s = QuranConfig.from; s <= QuranConfig.to; s++) {
       final all = (await repo.fetchAll(s)).values.toList();
       expect(all[0].length, all[1].length, reason: 'surah $s ayah count');
       for (var i = 0; i < all[0].length; i++) {

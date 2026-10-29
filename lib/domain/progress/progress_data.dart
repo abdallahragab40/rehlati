@@ -5,6 +5,7 @@ library;
 
 import 'dart:math' as math;
 
+import '../../content/quran_config.dart';
 import '../stages.dart';
 import '../journey.dart';
 import 'extras.dart';
@@ -499,7 +500,7 @@ class ProgressData {
   // ---------------------------------------------------------------- القرآن
 
   static const quranModes = ['listen', 'repeat', 'memorize', 'review'];
-  static const quranSurahCount = 48; // جزء تبارك وعمّ: ٦٧–١١٤
+  static const quranSurahCount = QuranConfig.to - QuranConfig.from + 1;
 
   bool quranDone(int surah, String mode) => (quran['$surah:$mode'] ?? 0) > 0;
 

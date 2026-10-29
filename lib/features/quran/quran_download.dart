@@ -19,7 +19,7 @@ import 'recitation.dart';
 
 /// الجزء: اسمه وسوره.
 typedef Juz = (String name, int from, int to);
-const juzList = <Juz>[('جزء عمّ', 78, 114), ('جزء تبارك', 67, 77)];
+const juzList = <Juz>[('جزء عمّ', 78, 114), ('جزء تبارك', 67, 77), ('جزء قد سمع', 58, 66)];
 
 /// "complete" بس لما كل آيات الجزء تبقى على الجهاز بصوت القارئ ده — صفر أخطاء لوحده مش كفاية.
 enum DownloadPhase { downloading, cancelled, partial, failed, complete }
@@ -177,7 +177,7 @@ final quranDownloadProvider = NotifierProvider<QuranDownloader, DownloadState?>(
 /// الجملة اللي بتظهر لولي الأمر — "على الجهاز" بس لما الجزء يكمل فعلًا.
 String downloadLabel(DownloadState s) => switch (s.phase) {
       DownloadPhase.downloading =>
-        s.total == 0 ? '⏳ بنجهّز ${s.juz}…' : '⏳ بننزّل ${s.juz}… ${ar(s.done)} من ${ar(s.total)} آية',
+        s.total == 0 ? '⏳ بنجهّز ${s.juz}…' : '⏳ بننزّل ${s.juz}… ${ar(s.done)} من ${countOf(s.total, ayahWord)}',
       DownloadPhase.complete => '✅ ${s.juz} على الجهاز بصوت ${s.reciter} — يشتغل من غير نت',
       DownloadPhase.cancelled => s.done == 0
           ? '⏹️ وقّفنا تنزيل ${s.juz}'
@@ -257,9 +257,9 @@ class QuranDownloadCard extends ConsumerWidget {
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text('${j.complete ? '✅' : j.present > 0 ? '🟡' : '⬜'} ${j.juz.$1}', style: kidText(16)),
                 Text(
-                  'التلاوة: ${j.complete ? 'كاملة' : j.expected == null ? '${ar(j.present)} آية' : '${ar(j.present)} من ${ar(j.expected!)} آية'}'
+                  'التلاوة: ${j.complete ? 'كاملة' : j.expected == null ? countOf(j.present, ayahWord) : '${ar(j.present)} من ${countOf(j.expected!, ayahWord)}'}'
                   '${j.bytes > 0 ? ' • ${mb(j.bytes)}' : ''}'
-                  ' • النص: ${j.textCached == j.surahs ? 'كامل' : '${ar(j.textCached)} من ${ar(j.surahs)} سورة'}'
+                  ' • النص: ${j.textCached == j.surahs ? 'كامل' : '${ar(j.textCached)} من ${countOf(j.surahs, surahWord)}'}'
                   '${!j.complete && j.expected != null ? ' • الباقي حوالي ${mb((j.expected! - j.present) * mine!.bytesPerAyah)}' : ''}',
                   style: body,
                 ),
@@ -281,7 +281,7 @@ class QuranDownloadCard extends ConsumerWidget {
       if (mine != null && mine.damaged > 0)
         Padding(
           padding: const EdgeInsets.only(top: 6),
-          child: Text('${ar(mine.damaged)} ملف تالف — هيتنزّل تاني مع "كمّل".', style: body),
+          child: Text('${countOf(mine.damaged, damagedFileWord)} — هيتنزّل تاني مع "كمّل".', style: body),
         ),
       // قراء تانيين متنزّل لهم حاجة: قرّاء المرتّل لوحدهم والمعلّم لوحدهم
       for (final (title, list) in [
@@ -295,7 +295,7 @@ class QuranDownloadCard extends ConsumerWidget {
             Row(children: [
               Expanded(
                 child: Text(
-                  '${x.reciter.label}: ${[for (final j in x.juz) if (j.present > 0) '${j.juz.$1} ${j.complete ? '✅' : '${ar(j.present)} آية'}'].join(' • ')} (${mb(x.bytes)})',
+                  '${x.reciter.label}: ${[for (final j in x.juz) if (j.present > 0) '${j.juz.$1} ${j.complete ? '✅' : countOf(j.present, ayahWord)}'].join(' • ')} (${mb(x.bytes)})',
                   style: body,
                 ),
               ),

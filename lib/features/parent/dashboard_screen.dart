@@ -31,7 +31,9 @@ import 'mastery_card.dart';
 
 String fmtTime(int ms) {
   final m = (ms / 60000).round();
-  return m < 60 ? '${ar(m)} دقيقة' : '${ar(m ~/ 60)} ساعة و${ar(m % 60)} دقيقة';
+  if (m < 60) return countOf(m, minuteWord);
+  final h = countOf(m ~/ 60, hourWord);
+  return m % 60 == 0 ? h : '$h و${countOf(m % 60, minuteWord)}';
 }
 
 String fmtDate(int? ts) {
@@ -96,7 +98,7 @@ class DashboardScreen extends ConsumerWidget {
                 '${w.icon} ${w.name}',
                 '${'⭐' * p.starsIn(w.id).clamp(0, 5)} ${ar(p.starsIn(w.id))}',
                 w.id == 'quran'
-                    ? '${ar(p.quran.keys.map((k) => k.split(':').first).toSet().length)} سور'
+                    ? countOf(p.quran.keys.map((k) => k.split(':').first).toSet().length, surahWord)
                     : '${ar(p.worldPct(w.id))}٪',
               ],
           ]),
@@ -323,7 +325,7 @@ class _WeakSkills extends StatelessWidget {
         [
           packs[w.pack] != null ? '${packs[w.pack]!.icon} ${packs[w.pack]!.name}' : w.pack,
           skillLabel(w.skill),
-          '${ar(w.misses)} مرات',
+          countOf(w.misses, timesWord),
         ],
     ]);
   }

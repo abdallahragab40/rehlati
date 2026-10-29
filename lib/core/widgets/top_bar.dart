@@ -28,7 +28,7 @@ class TopBar extends ConsumerWidget {
             const SizedBox(width: 10),
           ],
           Semantics(
-            label: '${ar(stars)} نجمة',
+            label: countOf(stars, starWord),
             child: ExcludeSemantics(
               child: StarTarget(
                 child: Pill(

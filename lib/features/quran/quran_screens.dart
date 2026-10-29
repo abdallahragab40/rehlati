@@ -53,7 +53,7 @@ class SurahLoader extends ConsumerWidget {
         onHome: () => context.go('/'),
       );
     } else if (chapter == null || !ayahs.hasValue) {
-      body = QuranLoading(chapter == null ? 'لحظة واحدة…' : 'بنفتح سورة ${chapter.name}');
+      body = QuranLoading(chapter == null ? 'لحظة واحدة…' : 'بنفتح ${chapter.name}');
     } else {
       body = builder(context, chapter, ayahs.value!);
     }
@@ -200,7 +200,7 @@ class _SurahStop extends StatelessWidget {
       radius: 24,
       shadowColor: AppColors.shadow,
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
-      semanticLabel: 'سورة ${chapter.name}، ${ar(stars)} من ٤ أنشطة',
+      semanticLabel: '${chapter.name}، ${ar(stars)} من ٤ أنشطة',
       child: Row(children: [
         Container(
           width: 50,
@@ -213,7 +213,7 @@ class _SurahStop extends StatelessWidget {
         Expanded(
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(chapter.name, style: kidText(20, height: 1.3)),
-            Text('${ar(chapter.ayahs)} آيات', style: kidText(13, weight: FontWeight.w700, color: AppColors.inkSoft)),
+            Text(countOf(chapter.ayahs, ayahWord), style: kidText(13, weight: FontWeight.w700, color: AppColors.inkSoft)),
           ]),
         ),
         Column(children: [
@@ -245,7 +245,7 @@ class SurahScreen extends ConsumerWidget {
         const SizedBox(height: 6),
         Banner3D(chapter.name, color: quranMint, tone: quranMintDark, ink: const Color(0xFF04332C)),
         const SizedBox(height: 6),
-        HeroText('${ar(ayahs.length)} آيات — اختار إيه اللي عايز تعمله'),
+        HeroText('${countOf(ayahs.length, ayahWord)} — اختار إيه اللي عايز تعمله'),
         const SizedBox(height: 20),
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 560),

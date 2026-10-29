@@ -19,6 +19,10 @@ const tanzilNotice = 'Tanzil Quran Text\n'
     'Please check updates at: http://tanzil.net/updates/\n\n'
     'Delivered to this app through AlQuran Cloud (alquran.cloud).';
 
+/// اسم السورة بخط التطبيق: Baloo مافيهوش السكون العثماني (ۡ) فبيظهر علامة غريبة —
+/// بنحط مكانه السكون العادي (ْ). ده عنوان السورة بس؛ نص الآيات مابيتغيّرش أبدًا.
+String surahDisplayName(String name) => name.replaceAll('\u06E1', '\u0652');
+
 class QuranChapter {
   const QuranChapter(this.number, this.name, this.ayahs);
   final int number;
@@ -78,15 +82,15 @@ List<Map<String, dynamic>> _list(Object? o) => [for (final e in (o as List? ?? c
 String _clean(Object? t) => '$t'.replaceAll('﻿', '').trim();
 
 abstract final class QuranConfig {
-  /// نطاق السور المعروضة — جزء تبارك (٦٧) + جزء عمّ (٧٨) إلى الناس (١١٤).
-  static const from = 67, to = 114;
+  /// نطاق السور المعروضة — جزء قد سمع (٥٨) + جزء تبارك (٦٧) + جزء عمّ (٧٨) إلى الناس (١١٤).
+  static const from = 58, to = 114;
 
   /// ترتيب العرض: من الناس للأصغر — السور القصيرة الأول (ترتيب الحفظ المعتاد).
   static const descending = true;
 
   /// اسم الجزء حسب رقم السورة — بيظهر كعنوان فاصل في قائمة السور.
-  static String juzOf(int n) => n >= 78 ? 'جزء عمّ' : 'جزء تبارك';
-  static const rangeTitle = 'جزء عمّ وتبارك';
+  static String juzOf(int n) => n >= 78 ? 'جزء عمّ' : (n >= 67 ? 'جزء تبارك' : 'جزء قد سمع');
+  static const rangeTitle = 'جزء عمّ وتبارك وقد سمع';
 
   /// AlQuran Cloud: شروطه بتسمح بتخزين النص وعرضه في التطبيقات (مع ذكر المصدر)، فهو اللي بيتخزّن.
   static final cloud = TextSource(

@@ -68,7 +68,7 @@ class _ResultViewState extends ConsumerState<ResultView> {
       if (!mounted) return;
       ref.read(fxProvider)
         ..confetti(70)
-        ..popMsg('🎯 خلّصت هدف النهاردة! 🔥 ${ar(streak)} يوم', big: true);
+        ..popMsg('🎯 خلّصت هدف النهاردة! 🔥 ${countOf(streak, dayWord)}', big: true);
     });
     // الويب بينطقها فوق إعلان النتيجة؛ هنا بنستنى الإعلان يخلص
     final speech = ref.read(speechProvider);

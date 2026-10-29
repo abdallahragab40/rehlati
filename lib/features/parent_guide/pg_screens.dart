@@ -722,7 +722,7 @@ class _KidPlayScreenState extends ConsumerState<KidPlayScreen> {
       Text('🎉', style: TextStyle(fontSize: context.clampVw(52, 16, 76))),
       Text('أحسنت يا ${n.isEmpty ? 'بطل' : n}!', style: kidText(26)),
       const SizedBox(height: 6),
-      Text(single ? 'خلّصت الموقف.' : 'اخترت التصرف الهادي من أول مرة في ${ar(_stars)} من ${ar(_ids.length)} مواقف.',
+      Text(single ? 'خلّصت الموقف.' : 'اخترت التصرف الهادي من أول مرة في ${ar(_stars)} من ${countOf(_ids.length, situationWord)}.',
           textAlign: TextAlign.center, style: kidText(17, weight: FontWeight.w700)),
       const SizedBox(height: 14),
       Wrap(alignment: WrapAlignment.center, spacing: 10, children: [

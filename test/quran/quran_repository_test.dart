@@ -169,6 +169,39 @@ void main() {
       expect(hosts, {'api.quran.com', 'api.alquran.cloud'});
     });
 
+    test('surah names show the plain sukun the app font has, and ayah text keeps the Uthmani one', () async {
+      const ayah = 'قُلۡ أَعُوذُ بِرَبِّ ٱلۡفَلَقِ'; // ١١٣:١ بالرسم العثماني
+      final c = MockClient((r) async => r.url.path == '/v1/surah'
+          ? ok(jsonEncode({
+              'data': [
+                {'number': 59, 'name': 'سُورَةُ الحَشۡرِ', 'numberOfAyahs': 1},
+              ],
+            }))
+          : r.url.path.contains('/surah/1/')
+              ? ok(cloudSurah([basmala]))
+              : ok(cloudSurah([ayah])));
+      final r = repo(c);
+      expect((await r.chapters()).single.name, 'سُورَةُ الحَشْرِ');
+      expect((await repo(offline()).chapters()).single.name, 'سُورَةُ الحَشْرِ', reason: 'from the saved list too');
+      expect((await r.surah(59)).single.text, ayah);
+    });
+
+    test('a chapter list saved for an older range is refreshed, or kept when offline', () async {
+      Map<String, dynamic> older() => {
+            'v': QuranConfig.cacheVersion,
+            'chapters': [const QuranChapter(67, 'الملك', 30).toJson()],
+            'surahs': {'112': [{'number': 1, 'text': a1}, {'number': 2, 'text': a2}]},
+            'sources': {},
+          };
+      File('${tmp.path}/q.json').writeAsStringSync(jsonEncode(older()));
+      expect((await repo(offline()).chapters()).map((c) => c.number), [67], reason: 'offline keeps the old list');
+
+      final fresh = repo(online());
+      expect((await fresh.chapters()).map((c) => c.number), [112]);
+      expect((await fresh.surah(112)).first.text, a1, reason: 'saved text is kept');
+      expect((await repo(offline()).chapters()).map((c) => c.number), [112], reason: 'the new list is saved');
+    });
+
     test('an unwritable cache still returns the text for this session', () async {
       final blocked = Directory('${tmp.path}/q.json')..createSync(); // مكان الملف فولدر — الكتابة هتفشل
       final r = QuranRepository(client: online(), cacheFile: () async => File(blocked.path));

@@ -42,12 +42,12 @@ class _TimeUpScreenState extends ConsumerState<TimeUpScreen> {
           Text('خلاص يا بطل، بكرة نكمّل!', textAlign: TextAlign.center, style: kidText(context.clampVw(22, 6, 30))),
           const SizedBox(height: 6),
           Text(
-            'لعبت النهاردة ${ar(p.todayMin)} دقيقة، وده كفاية عشان عينيك ترتاح.'
+            'لعبت النهاردة ${countOf(p.todayMin, minuteWord)}، وده كفاية عشان عينيك ترتاح.'
             '${p.goalDone ? ' وكمان خلّصت هدف النهاردة ⭐' : ''}',
             textAlign: TextAlign.center,
             style: kidText(16, weight: FontWeight.w700, color: AppColors.inkSoft, height: 1.7),
           ),
-          SpeechBubble('🔥 سلسلتك ${ar(p.streak)} يوم — حافظ عليها بكرة!', kind: BubbleKind.ok),
+          SpeechBubble('🔥 سلسلتك ${countOf(p.streak, dayWord)} — حافظ عليها بكرة!', kind: BubbleKind.ok),
           const SizedBox(height: 14),
           Wrap(alignment: WrapAlignment.center, spacing: 10, runSpacing: 4, children: [
             KidButton('🏠 الصفحة الرئيسية', kind: BtnKind.ghost, onTap: () => context.go('/')),

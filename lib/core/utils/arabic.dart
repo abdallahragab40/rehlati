@@ -11,6 +11,30 @@ String ar(Object? v) => westernDigits
     ? '$v'
     : '$v'.replaceAllMapped(RegExp('[0-9]'), (m) => _arDigits[int.parse(m[0]!)]);
 
+/// كلمة معدودة بصيغها: لواحد، لاتنين، جمع (٣–١٠)، ومفرد (١١ وفوق، والصفر).
+typedef Counted = ({String one, String two, String few, String many});
+
+/// العدد مع المعدود صح: "آية واحدة"، "آيتين"، "٥ آيات"، "٢٤ آية"، "١٠٣ آيات".
+/// آخر رقمين بس اللي بيحددوا الصيغة (١٠٣ زي ٣).
+String countOf(int n, Counted w) {
+  if (n == 1) return w.one;
+  if (n == 2) return w.two;
+  final r = n % 100;
+  return '${ar(n)} ${r >= 3 && r <= 10 ? w.few : w.many}';
+}
+
+const ayahWord = (one: 'آية واحدة', two: 'آيتين', few: 'آيات', many: 'آية');
+const surahWord = (one: 'سورة واحدة', two: 'سورتين', few: 'سور', many: 'سورة');
+const starWord = (one: 'نجمة واحدة', two: 'نجمتين', few: 'نجوم', many: 'نجمة');
+const dayWord = (one: 'يوم واحد', two: 'يومين', few: 'أيام', many: 'يوم');
+const minuteWord = (one: 'دقيقة واحدة', two: 'دقيقتين', few: 'دقايق', many: 'دقيقة');
+const hourWord = (one: 'ساعة', two: 'ساعتين', few: 'ساعات', many: 'ساعة');
+const gameWord = (one: 'لعبة واحدة', two: 'لعبتين', few: 'ألعاب', many: 'لعبة');
+const timesWord = (one: 'مرة واحدة', two: 'مرتين', few: 'مرات', many: 'مرة');
+const pieceWord = (one: 'قطعة واحدة', two: 'قطعتين', few: 'قطع', many: 'قطعة');
+const situationWord = (one: 'موقف واحد', two: 'موقفين', few: 'مواقف', many: 'موقف');
+const damagedFileWord = (one: 'ملف تالف', two: 'ملفين تالفين', few: 'ملفات تالفة', many: 'ملف تالف');
+
 const _ones = [
   'صفر', 'واحد', 'اتنين', 'تلاتة', 'أربعة', 'خمسة', 'ستة', 'سبعة', 'تمانية', 'تسعة', 'عشرة',
   'حداشر', 'اتناشر', 'تلاتاشر', 'أربعتاشر', 'خمستاشر', 'ستاشر', 'سبعتاشر', 'تمنتاشر', 'تسعتاشر', 'عشرين',

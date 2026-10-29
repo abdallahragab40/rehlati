@@ -17,7 +17,7 @@ class RankBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final r = rankOf(stars), nx = nextRank(stars), pct = rankPct(stars);
     return Semantics(
-      label: '${r.name}، ${nx == null ? 'أعلى مرحلة' : 'فاضل ${ar(starsToNext(stars))} نجمة على ${nx.name}'}',
+      label: '${r.name}، ${nx == null ? 'أعلى مرحلة' : 'فاضل ${countOf(starsToNext(stars), starWord)} على ${nx.name}'}',
       child: ExcludeSemantics(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
@@ -47,7 +47,7 @@ class RankBar extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   nx != null
-                      ? 'فاضل ${ar(starsToNext(stars))} نجمة على ${nx.icon} ${nx.name}'
+                      ? 'فاضل ${countOf(starsToNext(stars), starWord)} على ${nx.icon} ${nx.name}'
                       : 'وصلت لأعلى مرحلة — ما شاء الله 🎉',
                   style: kidText(12.5, weight: FontWeight.w700, color: AppColors.inkSoft),
                 ),

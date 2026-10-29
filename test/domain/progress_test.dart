@@ -14,6 +14,11 @@ void main() {
       expect(arNum(40), 'أربعين');
       expect(arNum(100), 'مية');
     });
+    test('countOf agrees the noun with the number', () {
+      expect([for (final n in [1, 2, 3, 10, 11, 24, 30, 100, 103, 124]) countOf(n, ayahWord)],
+          ['آية واحدة', 'آيتين', '٣ آيات', '١٠ آيات', '١١ آية', '٢٤ آية', '٣٠ آية', '١٠٠ آية', '١٠٣ آيات', '١٢٤ آية']);
+      expect([countOf(0, starWord), countOf(5, starWord), countOf(9, surahWord)], ['٠ نجمة', '٥ نجوم', '٩ سور']);
+    });
   });
 
   group('progress', () {

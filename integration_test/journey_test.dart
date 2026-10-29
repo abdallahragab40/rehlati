@@ -124,7 +124,7 @@ void main() {
     for (var i = 0; i < 50 && juzRow.evaluate().isEmpty; i++) {
       await tester.pump(const Duration(milliseconds: 200));
     }
-    expect(juzRow, findsNWidgets(2));
+    expect(juzRow, findsNWidgets(3));
     expect(find.text('📤 صدّر نسخة'), findsOneWidget);
     await tapWhenReady(find.text('➕ إضافة طفل'));
     await setup('عمر', '٦');
