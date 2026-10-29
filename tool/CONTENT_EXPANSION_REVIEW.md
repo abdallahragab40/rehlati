@@ -64,10 +64,36 @@ A teacher should review every week's goal, wording, examples and difficulty prog
 pack with children across 9–12 before choosing narrower grade labels. Older learners start at the
 existing adaptive subject level and can revisit easier levels through parent settings.
 
-Still outside this first pack: Arabic reading comprehension, multi-step word problems, decimals,
+Still outside this first pack: multi-step word problems, decimals,
 fractions arithmetic, larger-number arithmetic, and a complete grade-by-grade sequence.
 
 | Maths teacher | Date | Questions and hints | Weekly sequence | Age suitability | Decision |
+|---|---|---|---|---|---|
+| Pending | | Pending | Pending | Pending | Pending |
+
+## Ages 9–12: first Arabic pack (grammar and comprehension)
+
+Objective: classify a vowelled word as اسم / فعل / حرف; tell مفرد / مثنى / جمع and مذكر / مؤنث
+for common words; give the opposite of a common adjective or place word; choose the word that
+completes a short sentence. The first stage opens for grade 4 or above, or after `ar_sukun`.
+Subsequent stages unlock in order. The path **رحلة القواعد والفهم** has four weeks of four lessons.
+
+| Stage | What varies | Teacher check |
+|---|---|---|
+| `ar_wordType` | 10 nouns, 10 verbs (past and present), 10 particles; particles from level 3 | Is every particle a clear حرف for this age? (`فِي` is left out of this list only because the voice tool stretched it; it appears in sentences.) |
+| `ar_number` | 10 singular / dual / plural sets; dual always nominative ـانِ | `شَجَرَةٌ` → `أَشْجَارٌ` (not شَجَرَاتٌ) and `طَالِبٌ` → `طُلَّابٌ`: accept as the taught plurals? |
+| `ar_gender` | 8 pairs: ة-feminines plus وَلَدٌ/بِنْتٌ, دِيكٌ/دَجَاجَةٌ, جَمَلٌ/نَاقَةٌ, رَجُلٌ/امْرَأَةٌ, أَبٌ/أُمٌّ | No feminine-without-ة words like شَمْسٌ; add them later if wanted |
+| `ar_opposite` | 12 pairs (كَبِيرٌ/صَغِيرٌ … مَفْتُوحٌ/مُغْلَقٌ); distractors from other pairs | `نَظِيفٌ`/`مُتَّسِخٌ` and `نَهَارٌ`/`لَيْلٌ` wording |
+| `ar_sentence` | 12 sentences; the three choices share the grammatical case, so only meaning decides | Diacritics of every sentence and choice; is each wrong choice clearly wrong in meaning? |
+
+Lists live in `lib/domain/generators/grammar_generators.dart`. All words are fully vowelled and
+read in full (with tanween), not pausal. The voice tool no longer stretches `فِي` and similar words
+inside fully vowelled sentences; syllable prompts like "اقرأ معي. فِي" are unchanged.
+
+Still outside: reading passages with questions, إعراب, verb tenses and conjugation, and
+grade-by-grade alignment.
+
+| Arabic teacher | Date | Word lists and diacritics | Sentences | Age suitability | Decision |
 |---|---|---|---|---|---|
 | Pending | | Pending | Pending | Pending | Pending |
 

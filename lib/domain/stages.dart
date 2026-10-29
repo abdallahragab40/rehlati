@@ -12,6 +12,7 @@ import '../core/utils/rng.dart';
 import 'generators/arabic_generators.dart';
 import 'generators/english_generators.dart';
 import 'generators/games_generators.dart';
+import 'generators/grammar_generators.dart';
 import 'generators/harakat_generators.dart';
 import 'generators/life_generators.dart';
 import 'generators/madd_generators.dart';
@@ -247,6 +248,24 @@ final _sukun = [
     ),
 ];
 
+/// القواعد والفهم لسن ٩–١٢ في آخر عالم العربي. أول مرحلة بتتفتح من رابعة ابتدائي،
+/// أو بعد "فين الحرف الساكن؟"، والباقي بالترتيب.
+final _grammar = [
+  for (final (i, (id, icon, name, base, gen)) in <(String, String, String, int, Generator)>[
+    ('ar_wordType', '🏷️', 'اسم ولا فعل ولا حرف؟', 2, arWordType),
+    ('ar_number', '👥', 'مفرد ولا مثنى ولا جمع؟', 2, arNumber),
+    ('ar_gender', '🚻', 'مذكر ولا مؤنث؟', 2, arGender),
+    ('ar_opposite', '↔️', 'عكس الكلمة', 2, arOpposite),
+    ('ar_sentence', '📝', 'كمّل الجملة', 2, arSentence),
+  ].indexed)
+    Stage(
+      id: id, world: 'arabic', n: _arabic.length + _madd.length + _harakat.length + _sukun.length + i + 1,
+      icon: icon, name: name, base: base, color: const Color(0xFF8E3B6F), gen: gen,
+      group: 'grammar', groupName: 'القواعد والفهم • ٩–١٢ سنة',
+      after: i == 0 ? 'ar_sukun' : null, fromGrade: i == 0 ? 'p4' : null,
+    ),
+];
+
 /// الأعداد لحد ١٠٠ (أولى وتانية ابتدائي) في آخر عالم الحساب من غير ما نلمس مراحله الأصلية.
 /// أول مرحلة بتتفتح كمان بعد "الجمع"، والباقي بالترتيب.
 final _math100 = [
@@ -318,7 +337,7 @@ final _upperPrimary = [
 /// world -> ترتيب مراحله.
 final Map<String, List<Stage>> worldStages = {
   'math': [..._math, ..._math100, ..._mul, ..._life, ..._upperPrimary],
-  'arabic': [..._arabic, ..._madd, ..._harakat, ..._sukun],
+  'arabic': [..._arabic, ..._madd, ..._harakat, ..._sukun, ..._grammar],
   'english': _english,
   'games': _games,
 };

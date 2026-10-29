@@ -61,7 +61,7 @@ void main() {
 
     await tester.tap(find.text('١١'));
     await tester.pump(const Duration(milliseconds: 300));
-    expect(find.textContaining('فيه رحلة للقسمة والكسور لسن ٩–١٢'), findsOneWidget);
+    expect(find.textContaining('ورحلة للقواعد والفهم لسن ٩–١٢'), findsOneWidget);
 
     await tester.ensureVisible(find.text('🚀 يلا نبدأ'));
     await tester.pump(const Duration(milliseconds: 300));

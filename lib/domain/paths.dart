@@ -84,7 +84,7 @@ LearningPath? pathById(String id) => learningPaths.where((p) => p.id == id).firs
 /// كل مراحل الدرس موجودة وبتتلعب بنتيجة (لوحة الحروف مالهاش نتيجة).
 bool lessonPlayable(PathLesson l) => l.stages.every((s) => packs[s] != null && !packs[s]!.isLearn);
 
-const learningPaths = [readingPath, mathPath, math100Path, timesPath, lifePath, upperPrimaryPath];
+const learningPaths = [readingPath, mathPath, math100Path, timesPath, lifePath, upperPrimaryPath, grammarPath];
 
 const readingPath = LearningPath(
   id: 'reading1',
@@ -290,6 +290,41 @@ const upperPrimaryPath = LearningPath(
       PathLesson('u14', 'البسط والمقام', ['fractionEquivalent', 'timesAll']),
       PathLesson('u15', 'نطبق الكسور', ['fractionEquivalent', 'fractionOfNumber']),
       PathLesson('u16', 'المراجعة الكبيرة', ['divisionExact', 'fractionOfNumber', 'fractionEquivalent']),
+    ]),
+  ],
+);
+
+const grammarPath = LearningPath(
+  id: 'grammar1',
+  world: 'arabic',
+  icon: '🏷️',
+  name: 'رحلة القواعد والفهم',
+  ages: '٩–١٢ سنة',
+  desc: 'الاسم والفعل والحرف، والمفرد والمثنى والجمع، والمذكر والمؤنث، وفهم الجملة، في ٤ أسابيع.',
+  weeks: [
+    PathWeek('الاسم والفعل والحرف', 'يفرّق بين الاسم والفعل والحرف في كلمة مشكولة.', [
+      PathLesson('q1', 'الاسم والفعل', ['ar_wordType']),
+      PathLesson('q2', 'نوع الكلمة والعكس', ['ar_wordType', 'ar_opposite']),
+      PathLesson('q3', 'الكلمة في الجملة', ['ar_wordType', 'ar_sentence']),
+      PathLesson('q4', 'مراجعة الأسبوع', ['ar_wordType', 'ar_opposite', 'ar_sentence']),
+    ]),
+    PathWeek('المفرد والمثنى والجمع', 'يعرف المفرد والمثنى (ـانِ) والجمع لكلمات مشهورة.', [
+      PathLesson('q5', 'واحد واتنين وكتير', ['ar_number']),
+      PathLesson('q6', 'العدد ونوع الكلمة', ['ar_number', 'ar_wordType']),
+      PathLesson('q7', 'العدد في الجملة', ['ar_number', 'ar_sentence']),
+      PathLesson('q8', 'مراجعة الأسبوع', ['ar_number', 'ar_wordType', 'ar_opposite']),
+    ]),
+    PathWeek('المذكر والمؤنث', 'يفرّق بين المذكر والمؤنث، بالتاء المربوطة ومن غيرها.', [
+      PathLesson('q9', 'التاء المربوطة', ['ar_gender']),
+      PathLesson('q10', 'المذكر والمؤنث والعدد', ['ar_gender', 'ar_number']),
+      PathLesson('q11', 'الأضداد', ['ar_gender', 'ar_opposite']),
+      PathLesson('q12', 'مراجعة الأسبوع', ['ar_gender', 'ar_number', 'ar_wordType']),
+    ]),
+    PathWeek('نفهم الجملة', 'يختار الكلمة اللي تكمّل معنى الجملة، ويعرف عكس الكلمات المشهورة.', [
+      PathLesson('q13', 'كمّل الجملة', ['ar_sentence', 'ar_opposite']),
+      PathLesson('q14', 'الجملة والمؤنث', ['ar_sentence', 'ar_gender']),
+      PathLesson('q15', 'الجملة والعدد', ['ar_sentence', 'ar_number']),
+      PathLesson('q16', 'المراجعة الكبيرة', ['ar_sentence', 'ar_wordType', 'ar_gender']),
     ]),
   ],
 );

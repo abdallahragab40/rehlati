@@ -146,6 +146,10 @@ void main() {
       final out = <String>[];
       var spelling = false;
       final words = t.split(' ').where((w) => w != 'ـ').toList();
+      // جملة مشكولة (نَنَامُ فِي اللَّيْلِ): "فِي" فيها كلمة مش مقطع، فمابتتمدّش.
+      // الشدة لوحدها (كوّن) مش تشكيل كامل، فمابتتحسبش
+      String bareOf(String w) => w.replaceAll(RegExp(r'[؟?.:،!]$'), '');
+      final sentence = words.any((w) => RegExp('[\u064B-\u0650\u0652]').hasMatch(w) && !syl.hasMatch(bareOf(w)));
       for (var i = 0; i < words.length; i++) {
         final w = words[i];
         final bare = w.replaceAll(RegExp(r'[؟?.:،!]$'), '');
@@ -157,7 +161,7 @@ void main() {
         if (n != null) {
           out.add(spelling ? '، $n' : n);
           if (w.length > 1) out.add(w.substring(1));
-        } else if (m != null) {
+        } else if (m != null && !sentence) {
           out.add('${m[1]}${m[2]}${m[3] == null ? 'هْ' : m[3]! * 4}${w.substring(bare.length)}');
         } else {
           out.add(w);
