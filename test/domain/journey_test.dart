@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rehlati/domain/engine/game_engine.dart';
 import 'package:rehlati/domain/progress/progress_controller.dart';
@@ -60,6 +62,14 @@ void main() {
       expect(targets(planJourney(p, day: day, quranReady: {112})), isNot(contains('quran:112:review')));
     });
 
+    test('a stage the parent skipped stays out of the journey until the child plays it', () {
+      ProgressData skippedChoose() =>
+          ProgressData(unlocked: ['counting', 'chooseNumber'], best: {'counting': 3})..skipStage('chooseNumber');
+      expect(targets(planJourney(skippedChoose(), day: day)), isNot(contains('stage:chooseNumber')));
+      final played = skippedChoose()..addResult('chooseNumber', 5, 10);
+      expect(targets(planJourney(played, day: day)), contains('stage:chooseNumber'));
+    });
+
     test('worlds the parent turned off are left out', () {
       final p = returning()..settings.journeyOff.addAll(['math', 'games']);
       final j = planJourney(p, day: day);
@@ -93,6 +103,29 @@ void main() {
       expect(p.journeyMark('quran:112:review'), isFalse);
       expect(p.stars, Journey.bonusStars);
       expect(p.todayJourney!.complete, isTrue);
+    });
+
+    test('a skipped step moves the journey on, and playing it later still earns the bonus', () {
+      final p = ProgressData()..journey = threeSteps();
+      final j = p.todayJourney!;
+      p.journeySkip('stage:counting');
+      expect([j.steps.first.skipped, j.next?.target, j.passedCount], [true, 'stage:addition', 1]);
+      p.journeySkip('stage:somethingElse');
+      expect(j.passedCount, 1);
+
+      expect(p.journeyMark('stage:addition'), isFalse);
+      expect(p.journeyMark('quran:112:review'), isFalse, reason: 'no bonus while a step was skipped');
+      expect([j.finished, j.complete, j.skippedCount, p.stars], [true, false, 1, 0]);
+
+      expect(p.journeyMark('stage:counting'), isTrue);
+      expect([j.steps.first.skipped, j.complete, j.skippedCount, p.stars], [false, true, 0, Journey.bonusStars]);
+    });
+
+    test('skipped steps survive saving', () {
+      final p = ProgressData()..journey = threeSteps();
+      p.journeySkip('stage:counting');
+      final back = ProgressData.fromJson(jsonDecode(jsonEncode(p.toJson())) as Map<String, dynamic>);
+      expect([for (final s in back.todayJourney!.steps) s.skipped], [true, false, false]);
     });
 
     test("yesterday's journey is not today's and cannot be marked", () {

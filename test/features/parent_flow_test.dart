@@ -8,6 +8,7 @@ import 'package:rehlati/core/widgets/top_bar.dart';
 import 'package:rehlati/domain/progress/progress_controller.dart';
 import 'package:rehlati/features/parent/dashboard_screen.dart';
 import 'package:rehlati/features/quran/quran_repository.dart';
+import 'package:rehlati/features/world_map/world_map_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../domain/engine_test.dart' show FakeSfx, FakeSpeech;
@@ -19,11 +20,15 @@ int answerOf(String q) {
   return n[0] * n[1];
 }
 
-Future<void> pumpApp(WidgetTester tester) async {
+Future<void> pumpApp(
+  WidgetTester tester, {
+  Widget home = const ScreenFrame(child: SizedBox(height: 100)),
+  bool settle = true,
+}) async {
   SharedPreferences.setMockInitialValues({});
   final prefs = await SharedPreferences.getInstance();
   final router = GoRouter(routes: [
-    GoRoute(path: '/', builder: (_, _) => const ScreenFrame(child: SizedBox(height: 100))),
+    GoRoute(path: '/', builder: (_, _) => home),
     GoRoute(path: '/parent', builder: (_, _) => const DashboardScreen()),
   ]);
   await tester.pumpWidget(ProviderScope(
@@ -35,7 +40,7 @@ Future<void> pumpApp(WidgetTester tester) async {
     ],
     child: MaterialApp.router(routerConfig: router, locale: const Locale('ar')),
   ));
-  await tester.pumpAndSettle();
+  if (settle) await tester.pumpAndSettle();
 }
 
 Future<void> openGate(WidgetTester tester) async {
@@ -77,5 +82,39 @@ void main() {
 
     expect(find.byType(DashboardScreen), findsNothing);
     expect(find.text('إجابة غير صحيحة.'), findsOneWidget);
+  });
+
+  testWidgets('only the parent answer skips a stage on the map', (tester) async {
+    tester.view.physicalSize = const Size(1200, 2600);
+    addTearDown(tester.view.reset);
+    // الخريطة فيها أنيميشن متكررة — مش بنستنى settle
+    Future<void> frames() async {
+      for (var i = 0; i < 8; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+    }
+
+    await pumpApp(tester, home: const WorldMapScreen(world: 'math'), settle: false);
+    await frames();
+    final p = ProviderScope.containerOf(tester.element(find.byType(WorldMapScreen))).read(progressProvider);
+    expect(find.text('⏭️'), findsOneWidget, reason: 'only the first open stage can be skipped');
+
+    await tester.tap(find.text('⏭️'));
+    await frames();
+    await tester.enterText(find.byType(TextField), '1');
+    await tester.tap(find.text('دخول'));
+    await frames();
+    expect([p.skipped, p.isUnlocked('chooseNumber')], [isEmpty, false]);
+
+    await tester.tap(find.text('⏭️'));
+    await frames();
+    final q = tester.widget<Text>(find.textContaining('كام')).data!;
+    await tester.enterText(find.byType(TextField), '${answerOf(q)}');
+    await tester.tap(find.text('دخول'));
+    await frames();
+    final now = ProviderScope.containerOf(tester.element(find.byType(WorldMapScreen))).read(progressProvider);
+    expect([now.skipped, now.isUnlocked('chooseNumber')], [['counting'], true]);
+    expect(find.text('⏭️ اتخطّت'), findsOneWidget);
+    expect(find.text('⏭️'), findsOneWidget, reason: 'the newly opened stage can be skipped next');
   });
 }

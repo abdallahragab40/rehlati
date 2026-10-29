@@ -119,6 +119,41 @@ void main() {
     await pump(tester, const AchievementsScreen(), prefs: {ProgressRepository.key: blob});
   });
 
+  testWidgets('a journey with skipped steps renders for the child and the parent', (tester) async {
+    String blob(List<Map<String, Object>> steps) => jsonEncode({
+          'name': 'يوسف',
+          'setupDone': true,
+          'journey': {'day': ProgressData.dayKey(DateTime.now()), 'steps': steps},
+        });
+    final midway = blob([
+      {'kind': 'warm', 'target': 'stage:counting', 'skipped': true},
+      {'kind': 'practice', 'target': 'stage:completeTable'},
+      {'kind': 'fresh', 'target': 'stage:ar_connect'},
+    ]);
+    final allPassed = blob([
+      {'kind': 'warm', 'target': 'stage:counting', 'skipped': true},
+      {'kind': 'practice', 'target': 'stage:completeTable', 'done': true},
+    ]);
+    for (final b in [midway, allPassed]) {
+      await pump(tester, const JourneyScreen(), prefs: {ProgressRepository.key: b});
+      await pump(tester, const HomeScreen(), prefs: {ProgressRepository.key: b});
+      await pump(tester, const DashboardScreen(), prefs: {ProgressRepository.key: b});
+    }
+  });
+
+  testWidgets('world maps and dashboard with parent-skipped stages render', (tester) async {
+    final blob = jsonEncode({
+      'name': 'يوسف',
+      'setupDone': true,
+      'unlocked': ['counting', 'chooseNumber', 'nextNumber', 'ar_learn', 'ar_pick', 'en_learn', 'en_pick'],
+      'skipped': ['counting', 'chooseNumber', 'ar_learn', 'en_learn'],
+    });
+    for (final w in ['math', 'arabic', 'english']) {
+      await pump(tester, WorldMapScreen(world: w), prefs: {ProgressRepository.key: blob});
+    }
+    await pump(tester, const DashboardScreen(), prefs: {ProgressRepository.key: blob});
+  });
+
   testWidgets('home and dashboard with two children render', (tester) async {
     final prefs = <String, Object>{
       ProgressRepository.profilesKey: jsonEncode({'active': 'main', 'ids': ['main', 'c1']}),

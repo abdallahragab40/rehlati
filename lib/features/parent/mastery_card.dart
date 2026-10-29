@@ -25,6 +25,7 @@ class MasteryCard extends ConsumerWidget {
     final p = ref.watch(progressProvider);
     final body = kidText(14, weight: FontWeight.w600, color: AppColors.inkSoft);
     final due = [for (final id in p.dueForReview) ?packs[id]];
+    final skipped = [for (final id in p.skipped) if ((p.best[id] ?? 0) < 2) ?packs[id]];
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       for (final w in worldStages.keys)
         () {
@@ -45,6 +46,10 @@ class MasteryCard extends ConsumerWidget {
       if (due.isNotEmpty) ...[
         const SizedBox(height: 4),
         Text('جاهز للمراجعة: ${due.map((s) => '${s.icon} ${s.name}').join('، ')}', style: kidText(14.5)),
+      ],
+      if (skipped.isNotEmpty) ...[
+        const SizedBox(height: 4),
+        Text('⏭️ اتخطّيتها من الخريطة: ${skipped.map((s) => '${s.icon} ${s.name}').join('، ')}', style: kidText(14.5)),
       ],
       const SizedBox(height: 6),
       Text(
