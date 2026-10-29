@@ -92,7 +92,7 @@ const readingPath = LearningPath(
   icon: '📖',
   name: 'رحلة القراءة الأولى',
   ages: '٦–٨ سنين',
-  desc: 'من الحروف وأصواتها لحد قراءة كلمات فيها مدود، في ٤ أسابيع.',
+  desc: 'من الحروف وأصواتها والحركات لحد قراءة كلمات فيها مدود، في ٤ أسابيع.',
   weeks: [
     PathWeek('الحروف وأصواتها', 'يعرف الـ٢٨ حرف بشكلهم، ويربط الحرف بأول صوت في اسم الصورة.', [
       PathLesson('r1', 'أشكال الحروف', ['ar_pick', 'ar_table']),
@@ -100,11 +100,12 @@ const readingPath = LearningPath(
       PathLesson('r3', 'جدول الحروف', ['ar_table', 'ar_match']),
       PathLesson('r4', 'مراجعة الأسبوع', ['ar_pick', 'ar_match', 'ar_table']),
     ]),
-    PathWeek('من الحروف للكلمة', 'يكوّن كلمة من حروفها، ويفكّ كلمة لحروفها، ويكمّل الحرف الناقص.', [
-      PathLesson('r5', 'كوّن الكلمة', ['ar_build', 'ar_compose']),
-      PathLesson('r6', 'حلّل الكلمة', ['ar_analyze', 'ar_connect']),
-      PathLesson('r7', 'الحرف الناقص', ['ar_complete', 'ar_build']),
-      PathLesson('r8', 'مراجعة الأسبوع', ['ar_compose', 'ar_analyze', 'ar_complete']),
+    // اسمع واختار المقطع مش هنا: محتاجة الصوت، والمسار لازم يشتغل من غيره
+    PathWeek('الحركات والكلمة', 'يعرف الفتحة والضمة والكسرة ويقرأ الحرف بيها، ويكوّن كلمة من حروفها.', [
+      PathLesson('r5', 'الفتحة والضمة والكسرة', ['ar_haraka', 'ar_haraka_pick']),
+      PathLesson('r6', 'الحرف وحركته', ['ar_haraka_pick', 'ar_build']),
+      PathLesson('r7', 'كوّن الكلمة', ['ar_haraka', 'ar_compose']),
+      PathLesson('r8', 'مراجعة الأسبوع', ['ar_haraka', 'ar_haraka_pick', 'ar_complete']),
     ]),
     PathWeek('المدود', 'يقرأ المد بالألف والواو والياء، ويفرّق بينهم في المقطع.', [
       PathLesson('r9', 'المد بالألف والواو', ['madd_alif', 'madd_waw']),

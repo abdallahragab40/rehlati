@@ -12,6 +12,7 @@ import '../core/utils/rng.dart';
 import 'generators/arabic_generators.dart';
 import 'generators/english_generators.dart';
 import 'generators/games_generators.dart';
+import 'generators/harakat_generators.dart';
 import 'generators/madd_generators.dart';
 import 'generators/math100_generators.dart';
 import 'generators/math_generators.dart';
@@ -204,6 +205,21 @@ final _madd = [
     ),
 ];
 
+/// الحركات (أولى ابتدائي) بعد المدود في آخر عالم العربي. أول مرحلة بتتفتح كمان بعد
+/// "أكمل جدول الحروف" زي المدود. "اسمع واختار المقطع" محتاجة الصوت.
+final _harakat = [
+  for (final (i, (id, icon, name, base, color, gen)) in <(String, String, String, int, int, Generator)>[
+    ('ar_haraka', '✍️', 'اسم الحركة', 1, 0xFFE0662E, arHaraka),
+    ('ar_haraka_pick', '🔎', 'الحرف وحركته', 1, 0xFFD45A26, arHarakaPick),
+    if (voiceEnabled) ('ar_syllable', '👂', 'اسمع واختار المقطع', 2, 0xFFC84E1E, arSyllable),
+  ].indexed)
+    Stage(
+      id: id, world: 'arabic', n: _arabic.length + _madd.length + i + 1, icon: icon, name: name, base: base,
+      color: Color(color), gen: gen, group: 'harakat', groupName: 'الحركات',
+      after: i == 0 ? 'ar_table' : null,
+    ),
+];
+
 /// الأعداد لحد ١٠٠ (أولى وتانية ابتدائي) في آخر عالم الحساب من غير ما نلمس مراحله الأصلية.
 /// أول مرحلة بتتفتح كمان بعد "الجمع"، والباقي بالترتيب.
 final _math100 = [
@@ -224,7 +240,7 @@ final _math100 = [
 /// world -> ترتيب مراحله.
 final Map<String, List<Stage>> worldStages = {
   'math': [..._math, ..._math100],
-  'arabic': [..._arabic, ..._madd],
+  'arabic': [..._arabic, ..._madd, ..._harakat],
   'english': _english,
   'games': _games,
 };
