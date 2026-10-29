@@ -28,7 +28,8 @@ void main() {
       final p = ProgressData();
       expect(p.unlockNext('counting')?.id, 'chooseNumber');
       expect(p.unlockNext('counting'), isNull);
-      expect(p.unlockNext('subtraction'), isNull); // آخر مرحلة
+      expect(p.unlockNext('subtraction')?.id, 'tensOnes'); // بعدها الأعداد لحد ١٠٠
+      expect(p.unlockNext('sub100'), isNull); // آخر مرحلة
     });
 
     test('medals: 10/10 → 3, 8/10 → 2, less → 1, and best is kept', () {

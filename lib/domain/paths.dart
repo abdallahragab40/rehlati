@@ -84,7 +84,7 @@ LearningPath? pathById(String id) => learningPaths.where((p) => p.id == id).firs
 /// كل مراحل الدرس موجودة وبتتلعب بنتيجة (لوحة الحروف مالهاش نتيجة).
 bool lessonPlayable(PathLesson l) => l.stages.every((s) => packs[s] != null && !packs[s]!.isLearn);
 
-const learningPaths = [readingPath, mathPath];
+const learningPaths = [readingPath, mathPath, math100Path];
 
 const readingPath = LearningPath(
   id: 'reading1',
@@ -152,6 +152,41 @@ const mathPath = LearningPath(
       PathLesson('m14', 'جمع ولا طرح؟', ['subtraction', 'addition']),
       PathLesson('m15', 'نطرح ونكتب', ['subtraction', 'emptyTable']),
       PathLesson('m16', 'المراجعة الكبيرة', ['addition', 'subtraction', 'comparison']),
+    ]),
+  ],
+);
+
+const math100Path = LearningPath(
+  id: 'math2',
+  world: 'math',
+  icon: '🧱',
+  name: 'رحلة الأرقام لحد ١٠٠',
+  ages: '٧–٨ سنين',
+  desc: 'الآحاد والعشرات، والعد بالقفز، والمقارنة، والجمع والطرح لحد ١٠٠، في ٤ أسابيع.',
+  weeks: [
+    PathWeek('الآحاد والعشرات', 'يعرف إن كل ١٠ آحاد = عشرة، ويقرأ أي عدد لحد ٩٩ كعشرات وآحاد، ويعد بالعشرات.', [
+      PathLesson('h1', 'العيدان والمكعبات', ['tensOnes']),
+      PathLesson('h2', 'نعد بالعشرات', ['skipCount', 'tensOnes']),
+      PathLesson('h3', 'كام عشرة؟', ['tensOnes', 'skipCount']),
+      PathLesson('h4', 'مراجعة الأسبوع', ['tensOnes', 'skipCount', 'completeTable']),
+    ]),
+    PathWeek('المقارنة لحد ١٠٠', 'يقارن عددين من رقمين: العشرات الأول، ولو زي بعض الآحاد.', [
+      PathLesson('h5', 'أكبر وأصغر لحد ١٠٠', ['compare100', 'tensOnes']),
+      PathLesson('h6', 'نقفز ونقارن', ['compare100', 'skipCount']),
+      PathLesson('h7', 'الأرقام المقلوبة', ['compare100', 'tensOnes']),
+      PathLesson('h8', 'مراجعة الأسبوع', ['compare100', 'skipCount', 'tensOnes']),
+    ]),
+    PathWeek('الجمع لحد ١٠٠', 'يجمع الآحاد مع الآحاد والعشرات مع العشرات، وبيبدأ يجمع بحمل.', [
+      PathLesson('h9', 'نجمع العشرات', ['add100', 'tensOnes']),
+      PathLesson('h10', 'نجمع رقمين', ['add100', 'skipCount']),
+      PathLesson('h11', 'الجمع والمقارنة', ['add100', 'compare100']),
+      PathLesson('h12', 'مراجعة الأسبوع', ['add100', 'tensOnes', 'compare100']),
+    ]),
+    PathWeek('الطرح لحد ١٠٠', 'يطرح الآحاد من الآحاد والعشرات من العشرات، وبيبدأ يطرح باستلاف.', [
+      PathLesson('h13', 'نطرح العشرات', ['sub100', 'skipCount']),
+      PathLesson('h14', 'جمع ولا طرح؟', ['sub100', 'add100']),
+      PathLesson('h15', 'الطرح والمقارنة', ['sub100', 'compare100']),
+      PathLesson('h16', 'المراجعة الكبيرة', ['add100', 'sub100', 'compare100']),
     ]),
   ],
 );

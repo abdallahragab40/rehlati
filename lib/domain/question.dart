@@ -177,6 +177,13 @@ class ClockVisual extends Visual {
   final int minute;
 }
 
+/// عيدان عشرات ومكعبات آحاد (الآحاد والعشرات) — العشرات على الشمال زي كتابة العدد.
+class TensOnesVisual extends Visual {
+  const TensOnesVisual(this.tens, this.ones);
+  final int tens;
+  final int ones;
+}
+
 /// زرار 🔊 كبير لوحده (اسمع ثم اختر).
 class ListenVisual extends Visual {
   const ListenVisual(this.say);

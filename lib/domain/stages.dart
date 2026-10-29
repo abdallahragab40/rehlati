@@ -13,6 +13,7 @@ import 'generators/arabic_generators.dart';
 import 'generators/english_generators.dart';
 import 'generators/games_generators.dart';
 import 'generators/madd_generators.dart';
+import 'generators/math100_generators.dart';
 import 'generators/math_generators.dart';
 import 'progress/progress_data.dart';
 import 'question.dart';
@@ -203,9 +204,26 @@ final _madd = [
     ),
 ];
 
+/// الأعداد لحد ١٠٠ (أولى وتانية ابتدائي) في آخر عالم الحساب من غير ما نلمس مراحله الأصلية.
+/// أول مرحلة بتتفتح كمان بعد "الجمع"، والباقي بالترتيب.
+final _math100 = [
+  for (final (i, (id, icon, name, base, color, gen)) in <(String, String, String, int, int, Generator)>[
+    ('tensOnes', '🧱', 'الآحاد والعشرات', 1, 0xFF6A4CE0, tensOnes),
+    ('skipCount', '🦘', 'العد بالقفز', 1, 0xFF5E44D0, skipCount),
+    ('compare100', '🐊', 'المقارنة لحد ١٠٠', 2, 0xFF533CC0, compare100),
+    ('add100', '➕', 'الجمع لحد ١٠٠', 2, 0xFF4834B0, add100),
+    ('sub100', '➖', 'الطرح لحد ١٠٠', 2, 0xFF3D2CA0, sub100),
+  ].indexed)
+    Stage(
+      id: id, world: 'math', n: _math.length + i + 1, icon: icon, name: name, base: base,
+      color: Color(color), gen: gen, group: 'math100', groupName: 'الأعداد لحد ١٠٠',
+      after: i == 0 ? 'addition' : null,
+    ),
+];
+
 /// world -> ترتيب مراحله.
 final Map<String, List<Stage>> worldStages = {
-  'math': _math,
+  'math': [..._math, ..._math100],
   'arabic': [..._arabic, ..._madd],
   'english': _english,
   'games': _games,

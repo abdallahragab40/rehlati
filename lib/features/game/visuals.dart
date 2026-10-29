@@ -62,7 +62,43 @@ class VisualView extends StatelessWidget {
         ListenVisual v => Center(child: ListenButton(v.say)),
         PatternVisual v => _Pattern(v),
         ClockVisual v => Center(child: ClockFace(hour: v.hour, minute: v.minute, size: context.clampVw(150, 44, 210))),
+        TensOnesVisual v => _TensOnes(v),
       },
+    );
+  }
+}
+
+/// عيدان العشرات (١٠ مكعبات فوق بعض) على الشمال، والآحاد مكعبات لوحدها على اليمين.
+class _TensOnes extends StatelessWidget {
+  const _TensOnes(this.v);
+  final TensOnesVisual v;
+
+  @override
+  Widget build(BuildContext context) {
+    final cube = context.clampVw(12, 3.2, 18);
+    Widget block(Color c) => Container(
+          width: cube,
+          height: cube,
+          margin: const EdgeInsets.all(.5),
+          decoration: BoxDecoration(color: c, border: Border.all(color: const Color(0x331B3557)), borderRadius: BorderRadius.circular(2)),
+        );
+    return Semantics(
+      label: '${ar(v.tens)} عشرات و ${ar(v.ones)} آحاد',
+      child: ExcludeSemantics(
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: Wrap(alignment: WrapAlignment.center, crossAxisAlignment: WrapCrossAlignment.end, spacing: 18, runSpacing: 12, children: [
+            Wrap(spacing: 6, children: [
+              for (var i = 0; i < v.tens; i++) Column(mainAxisSize: MainAxisSize.min, children: [for (var j = 0; j < 10; j++) block(AppColors.grape)]),
+            ]),
+            if (v.ones > 0)
+              SizedBox(
+                width: (cube + 1) * 3,
+                child: Wrap(alignment: WrapAlignment.center, children: [for (var i = 0; i < v.ones; i++) block(AppColors.gold)]),
+              ),
+          ]),
+        ),
+      ),
     );
   }
 }

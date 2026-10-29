@@ -17,7 +17,7 @@ void main() {
   ];
 
   test('registry has the same stage counts as the web app', () {
-    expect(worldStages['math']!.length, 13, reason: 'with neighbors and emptyTable');
+    expect(worldStages['math']!.length, 13 + 5, reason: 'with neighbors and emptyTable, plus 5 numbers-to-100 stages');
     expect(worldStages['arabic']!.length, 11 + 9, reason: '11 + 9 madd stages');
     expect(worldStages['english']!.length, 14);
     expect(worldStages['games']!.length, voiceEnabled ? 12 : 11, reason: 'listenNum needs the voice');
