@@ -13,6 +13,7 @@ import 'core/audio/voice_lines.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/arabic.dart';
 import 'core/widgets/fx_layer.dart';
+import 'core/widgets/kid_widgets.dart' show GrownUpLook;
 import 'core/widgets/learning_scope.dart';
 import 'domain/paths.dart';
 import 'domain/progress/progress_controller.dart';
@@ -124,7 +125,9 @@ class RehlatiApp extends StatelessWidget {
           data: MediaQuery.of(context).copyWith(
             textScaler: MediaQuery.textScalerOf(context).clamp(maxScaleFactor: 1.3),
           ),
-          child: _HomeOnReturn(child: _DigitsSync(child: _MusicConductor(child: BadgeToaster(child: FxLayer(child: child!))))),
+          child: _HomeOnReturn(
+            child: _DigitsSync(child: _GrownUpSync(child: _MusicConductor(child: BadgeToaster(child: FxLayer(child: child!))))),
+          ),
         ),
       );
 }
@@ -170,6 +173,16 @@ class _HomeOnReturnState extends State<_HomeOnReturn> {
 
 /// إعداد الأرقام (١٢٣ ↔ 123): بيتحط في [westernDigits] وكل الشاشات بتتبني تاني
 /// من غير ما حالتها تضيع — أغلبها مش بيسمع للإعدادات فمش هيتحدّث لوحده.
+/// شكل الكبار للطفل الحالي بيوصل لكل الشاشات (الأسد والسما في kid_widgets).
+class _GrownUpSync extends ConsumerWidget {
+  const _GrownUpSync({required this.child});
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) =>
+      GrownUpLook(on: ref.watch(progressProvider.select((p) => p.grownUpLook)), child: child);
+}
+
 class _DigitsSync extends ConsumerWidget {
   const _DigitsSync({required this.child});
   final Widget child;

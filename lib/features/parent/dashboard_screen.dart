@@ -112,6 +112,8 @@ class DashboardScreen extends ConsumerWidget {
           const MasteryCard(),
           h3('🎯 اختبار تحديد المستوى'),
           const _PlacementCard(),
+          h3('🧑 شكل التطبيق'),
+          const _LookCard(),
           h3('🧠 مهارات محتاجة تدريب'),
           _WeakSkills(p),
           h3('📖 سور تحتاج مراجعة'),
@@ -342,6 +344,32 @@ class _WeakSkills extends StatelessWidget {
           skillLabel(w.skill),
           '${ar(w.misses)} مرات',
         ],
+    ]);
+  }
+}
+
+/// شكل الكبار: من غير الأسد والتلة الخضرا — تلقائي من سن ٩، وولي الأمر يقدر يغيّره.
+class _LookCard extends ConsumerWidget {
+  const _LookCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final p = ref.watch(progressProvider);
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      Wrap(spacing: 6, runSpacing: 4, children: [
+        for (final (v, label) in [(null, 'حسب السن'), (true, 'شكل الكبار'), (false, 'شكل الصغار')])
+          ChoiceChip(
+            label: Text(label),
+            selected: p.settings.grownUp == v,
+            onSelected: (_) => ref.read(progressProvider.notifier).update((p) => p.settings.grownUp = v),
+          ),
+      ]),
+      const SizedBox(height: 4),
+      Text(
+        'شكل الكبار من غير الأسد والرسوم، للأطفال من ٩ سنين وفوق. "حسب السن" بيختاره لوحده '
+        '(دلوقتي: ${p.grownUpLook ? 'شكل الكبار' : 'شكل الصغار'}).',
+        style: kidText(14.5, weight: FontWeight.w600, color: AppColors.inkSoft),
+      ),
     ]);
   }
 }

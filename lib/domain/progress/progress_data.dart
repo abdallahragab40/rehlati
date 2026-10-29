@@ -30,6 +30,7 @@ class Settings {
     this.startLevel,
     Map<String, int>? worldLevel,
     this.calm = false,
+    this.grownUp,
   })  : journeyOff = journeyOff ?? {},
         worldLevel = worldLevel ?? {};
 
@@ -52,6 +53,7 @@ class Settings {
               }
             : null,
         calm: j['calm'] as bool? ?? false,
+        grownUp: j['grownUp'] as bool?,
       );
 
   bool speech;
@@ -87,6 +89,9 @@ class Settings {
   /// وضع هادي: من غير حركة ولا كونفيتي، وأصوات اللعبة أوطى.
   bool calm;
 
+  /// شكل الكبار (من غير الأسد والتلة) — null = حسب السن (٩ وفوق).
+  bool? grownUp;
+
   Map<String, dynamic> toJson() => {
         'speech': speech,
         'sfx': sfx,
@@ -100,6 +105,7 @@ class Settings {
         'startLevel': startLevel,
         if (worldLevel.isNotEmpty) 'worldLevel': worldLevel,
         'calm': calm,
+        if (grownUp != null) 'grownUp': grownUp,
       };
 }
 
@@ -325,6 +331,9 @@ class ProgressData {
     final after = packs[id]?.after;
     return after != null && (best[after] ?? 0) >= 2;
   }
+
+  /// شكل الكبار: اختيار ولي الأمر، وإلا من سن ٩.
+  bool get grownUpLook => settings.grownUp ?? (age ?? 0) >= 9;
 
   /// الصف اللي ولي الأمر اختاره، وإلا الصف المعتاد لسنه.
   String? get schoolGrade => grade ?? usualGrade(age);
