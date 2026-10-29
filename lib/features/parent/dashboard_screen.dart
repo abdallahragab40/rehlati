@@ -14,6 +14,7 @@ import '../../core/widgets/kid_widgets.dart';
 import '../../core/widgets/top_bar.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
+import '../../domain/school.dart';
 import '../../domain/stages.dart';
 import '../achievements/achievements_screen.dart';
 import '../achievements/rank_widgets.dart';
@@ -195,6 +196,16 @@ class _ChildRowState extends ConsumerState<_ChildRow> {
     if (age != null) ref.read(progressProvider.notifier).update((p) => p.age = age);
   }
 
+  Future<void> _editGrade() async {
+    final p = ref.read(progressProvider);
+    final grade = await showDialog<String>(
+      context: context,
+      builder: (_) => _GradeDialog(initial: p.grade, usual: usualGrade(p.age)),
+    );
+    // '' = ولي الأمر شال الصف
+    if (grade != null) ref.read(progressProvider.notifier).update((p) => p.grade = grade.isEmpty ? null : grade);
+  }
+
   Future<void> _pickPhoto() async {
     setState(() => _note = '⏳ بنجهّز الصورة…');
     final err = await ref.read(avatarProvider.notifier).pick();
@@ -244,6 +255,7 @@ class _ChildRowState extends ConsumerState<_ChildRow> {
           Wrap(spacing: 8, runSpacing: 8, children: [
             small('✏️ الاسم', _editName),
             small('🎂 السن', _editAge),
+            small('🏫 الصف', _editGrade),
             small(custom ? '📷 تغيير الصورة' : '📷 إضافة صورة الطفل', _pickPhoto),
             if (custom) small('🗑️ رجّع الافتراضية', _clearPhoto),
           ]),
@@ -388,6 +400,41 @@ class _AgeDialog extends StatelessWidget {
       );
 }
 
+/// الصف الدراسي اختياري ومنفصل عن السن — بيتخزّن دلوقتي عشان المحتوى الجاي يمشي على المنهج.
+class _GradeDialog extends StatelessWidget {
+  const _GradeDialog({required this.initial, required this.usual});
+  final String? initial;
+
+  /// الصف المعتاد للسن — بيتعلّم بنجمة كاقتراح.
+  final String? usual;
+
+  @override
+  Widget build(BuildContext context) => Dialog(
+        backgroundColor: AppColors.paper,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(22),
+          child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            Text('في سنة كام؟', textAlign: TextAlign.center, style: kidText(20)),
+            const SizedBox(height: 12),
+            Wrap(alignment: WrapAlignment.center, spacing: 8, runSpacing: 8, children: [
+              for (final g in schoolGrades)
+                ChoiceChip(
+                  label: Text(g == usual ? '${gradeName(g)} ⭐' : gradeName(g), style: kidText(15)),
+                  selected: g == initial,
+                  onSelected: (_) => context.pop(g),
+                ),
+            ]),
+            const SizedBox(height: 10),
+            Text('⭐ = الصف المعتاد لسنه. الصف مابيغيّرش الأسئلة دلوقتي — هيساعدنا نختار المحتوى المناسب لما ينزل.',
+                textAlign: TextAlign.center, style: kidText(13, weight: FontWeight.w600, color: AppColors.inkSoft)),
+            if (initial != null) TextButton(onPressed: () => context.pop(''), child: const Text('مش عايز أحدد')),
+            TextButton(onPressed: () => context.pop(), child: const Text('إلغاء')),
+          ]),
+        ),
+      );
+}
+
 /// الإخوات: تبديل، إضافة، ومسح — جوه لوحة ولي الأمر عشان الطفل مايمسحش أخوه بالغلط.
 class _ChildrenCard extends ConsumerWidget {
   const _ChildrenCard();
@@ -426,7 +473,8 @@ class _ChildrenCard extends ConsumerWidget {
             Text(id == active ? '✅' : '🧒', style: const TextStyle(fontSize: 22)),
             const SizedBox(width: 10),
             Expanded(
-              child: Text('${childName(p)}${p.age != null ? ' • ${ar(p.age)} سنين' : ''} • ⭐ ${ar(p.stars)}',
+              child: Text('${childName(p)}${p.age != null ? ' • ${ageText(p.age!)}' : ''}'
+                  '${p.grade != null ? ' • ${gradeName(p.grade!)}' : ''} • ⭐ ${ar(p.stars)}',
                   style: kidText(16)),
             ),
             if (id != active)

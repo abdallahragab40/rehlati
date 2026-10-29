@@ -5,6 +5,7 @@ library;
 
 import 'dart:math' as math;
 
+import '../school.dart';
 import '../stages.dart';
 import '../journey.dart';
 import 'extras.dart';
@@ -118,6 +119,7 @@ class ProgressData {
   ProgressData({
     this.name = '',
     this.age,
+    this.grade,
     this.setupDone = false,
     this.stars = 0,
     this.correct = 0,
@@ -158,8 +160,11 @@ class ProgressData {
 
   String name;
 
-  /// عمر الطفل (٤–٦) من شاشة البداية — بيحدد أقل مستوى للأسئلة.
+  /// عمر الطفل (٣–١٢) من شاشة البداية — بيحدد أقل مستوى للأسئلة.
   int? age;
+
+  /// الصف الدراسي ([schoolGrades]) من لوحة ولي الأمر — null = مش متحدد.
+  String? grade;
 
   /// شاشة البداية (الاسم والعمر) خلصت.
   bool setupDone;
@@ -216,6 +221,7 @@ class ProgressData {
     return ProgressData(
       name: j['name'] as String? ?? '',
       age: (j['age'] as num?)?.toInt(),
+      grade: schoolGrades.contains(j['grade']) ? j['grade'] as String : null,
       // اللي كان بيلعب قبل شاشة البداية مايشوفهاش
       setupDone: j['setupDone'] as bool? ?? ((j['games'] as num? ?? 0) > 0 || (j['stars'] as num? ?? 0) > 0),
       stars: (j['stars'] as num?)?.toInt() ?? 0,
@@ -255,6 +261,7 @@ class ProgressData {
         'schemaVersion': schemaVersion,
         'name': name,
         'age': age,
+        if (grade != null) 'grade': grade,
         'setupDone': setupDone,
         'stars': stars,
         'correct': correct,
@@ -332,7 +339,7 @@ class ProgressData {
     lastStage = id;
   }
 
-  /// أقل مستوى حسب العمر: ٣–٤ سنين ← ١، ٥ ← ٢، ٦–٨ ← ٣.
+  /// أقل مستوى حسب العمر: ٣–٤ سنين ← ١، ٥ ← ٢، ٦ وفوق ← ٣.
   /// ولي الأمر يقدر يختار مستوى بداية تاني (أسهل أو أصعب من سنه).
   int get ageLevel => settings.startLevel ?? ((age ?? 4) - 3).clamp(1, 3);
 

@@ -112,7 +112,7 @@ class BackupCard extends ConsumerWidget {
         title: Text('استرجاع نسخة', style: kidText(20)),
         content: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           for (final k in children)
-            Text('🧒 ${childName(k.progress)}${k.progress.age != null ? ' • ${ar(k.progress.age)} سنين' : ''} • ⭐ ${ar(k.progress.stars)}'
+            Text('🧒 ${childName(k.progress)}${k.progress.age != null ? ' • ${ageText(k.progress.age!)}' : ''} • ⭐ ${ar(k.progress.stars)}'
                 '${k.photo != null ? ' • 📷' : ''}', style: kidText(16)),
           const SizedBox(height: 8),
           Text('هيتضافوا كأطفال جداد — الأطفال اللي على الجهاز مش هيتغيّروا.',

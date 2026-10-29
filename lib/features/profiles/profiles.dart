@@ -13,18 +13,21 @@ import '../../core/widgets/kid_widgets.dart';
 import '../../core/widgets/top_bar.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
+import '../../domain/school.dart';
 import '../parent/avatar.dart';
 import '../parent/parent_gate.dart';
 
 String childName(ProgressData p) => p.name.isNotEmpty ? p.name : 'بطل';
 
-/// الأسئلة معمولة لسن ٤–٦؛ الأصغر بيبدأ من أسهل مستوى والأكبر من أصعبه ([ProgressData.ageLevel]).
-const kidAges = [3, 4, 5, 6, 7, 8];
+/// "٧ سنين"، "١١ سنة".
+String ageText(int age) => '${ar(age)} ${yearsWord(age)}';
 
-/// ملاحظة لولي الأمر تحت اختيار السن.
+/// ملاحظة لولي الأمر تحت اختيار السن. الأسئلة النهارده معمولة لسن ٤–٦؛ الأصغر بيبدأ من أسهل
+/// مستوى والأكبر من أصعبه ([ProgressData.ageLevel]).
 String ageHint(int? age) => switch (age) {
       3 => 'الأسئلة معمولة لسن ٤–٦ — هيبدأ من أسهل مستوى، والأحسن تقعد جنبه أول كام مرة.',
       7 || 8 => 'هيبدأ من أصعب مستوى، والمراحل هتتفتح بسرعة على قد شطارته.',
+      int a when a >= 9 => 'محتوى سن ٩–١٢ لسه بيتجهّز. لحد ما ينزل، هيبدأ من أصعب مستوى والمراحل هتتفتح بسرعة.',
       _ => 'الأسئلة بتبدأ على قد سنه، وبتصعب أو تسهل لوحدها حسب إجاباته.',
     };
 
@@ -45,11 +48,11 @@ class AgePicker extends StatelessWidget {
               radius: 22,
               depth: 5,
               shadowColor: AppColors.shadow,
-              semanticLabel: '${ar(a)} سنين',
+              semanticLabel: '${ar(a)} ${yearsWord(a)}',
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Column(children: [
                 Text(ar(a), style: kidText(30, height: 1.2)),
-                Text('سنين', style: kidText(12, color: AppColors.inkSoft)),
+                Text(yearsWord(a), style: kidText(12, color: AppColors.inkSoft)),
               ]),
             );
         return Column(children: [

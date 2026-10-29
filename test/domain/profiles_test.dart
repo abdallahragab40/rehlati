@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rehlati/domain/progress/progress_controller.dart';
 import 'package:rehlati/domain/progress/progress_data.dart';
+import 'package:rehlati/domain/school.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -17,6 +18,26 @@ void main() {
     expect(ProgressData(age: 3).level('math'), 1);
     expect(ProgressData(age: 7).level('math'), 3);
     expect(ProgressData(age: 8).level('math'), 3);
+    expect(ProgressData(age: 12).level('math'), 3);
+  });
+
+  test('ages run from 3 to 12 and the usual grade follows the Egyptian school ages', () {
+    expect(kidAges, [for (var a = 3; a <= 12; a++) a]);
+    expect([for (final a in kidAges) usualGrade(a)], ['pre', 'kg1', 'kg2', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p6']);
+    expect(usualGrade(null), isNull);
+    expect([yearsWord(10), yearsWord(11)], ['سنين', 'سنة']);
+    for (final g in schoolGrades) {
+      expect(gradeName(g), isNot(g), reason: 'every grade has an Arabic name');
+    }
+  });
+
+  test('the school grade is kept apart from age, survives JSON and ignores unknown values', () {
+    final p = ProgressData(age: 7, grade: 'p3');
+    final back = ProgressData.fromJson(jsonDecode(jsonEncode(p.toJson())) as Map<String, dynamic>);
+    expect([back.age, back.grade], [7, 'p3']);
+    expect(ProgressData.fromJson({'grade': 'p9'}).grade, isNull);
+    expect(ProgressData.fromJson({'grade': 3}).grade, isNull);
+    expect(ProgressData().toJson().containsKey('grade'), isFalse, reason: 'old payloads stay unchanged');
   });
 
   test('old progress skips the setup screen, new progress shows it', () {
