@@ -19,6 +19,10 @@ const tanzilNotice = 'Tanzil Quran Text\n'
     'Please check updates at: http://tanzil.net/updates/\n\n'
     'Delivered to this app through AlQuran Cloud (alquran.cloud).';
 
+/// اسم السورة بخط التطبيق: Baloo مافيهوش السكون العثماني (ۡ) فبيظهر علامة غريبة —
+/// بنحط مكانه السكون العادي (ْ). ده عنوان السورة بس؛ نص الآيات مابيتغيّرش أبدًا.
+String surahDisplayName(String name) => name.replaceAll('\u06E1', '\u0652');
+
 class QuranChapter {
   const QuranChapter(this.number, this.name, this.ayahs);
   final int number;

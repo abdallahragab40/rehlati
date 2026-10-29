@@ -115,8 +115,8 @@ class _Report extends StatelessWidget {
       const SizedBox(height: 12),
       SpeechBubble(
         bad == 0
-            ? '✅ مفيش اختلاف في الحروف — ${ar(a.length)} آية (${ar(marks)} فيها اختلاف علامات بس)'
-            : '❌ ${ar(bad)} آية فيها اختلاف حقيقي',
+            ? '✅ مفيش اختلاف في الحروف — ${countOf(a.length, ayahWord)} (${ar(marks)} فيها اختلاف علامات بس)'
+            : '❌ ${countOf(bad, ayahWord)} فيها اختلاف حقيقي',
         kind: bad == 0 ? BubbleKind.ok : BubbleKind.no,
       ),
       const SizedBox(height: 12),

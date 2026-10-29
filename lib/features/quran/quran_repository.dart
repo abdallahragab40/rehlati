@@ -119,6 +119,9 @@ class QuranRepository {
 
   static const _range = '${QuranConfig.from}-${QuranConfig.to}';
 
+  static List<QuranChapter> _forDisplay(List<QuranChapter> list) =>
+      [for (final c in list) QuranChapter(c.number, surahDisplayName(c.name), c.ayahs)];
+
   /// قائمة السور في النطاق المحدد.
   Future<List<QuranChapter>> chapters() async {
     final c = await _load();
@@ -126,7 +129,7 @@ class QuranRepository {
         ? [for (final j in c['chapters'] as List) QuranChapter.fromJson((j as Map).cast<String, dynamic>())]
         : null;
     // قائمة متخزّنة لنطاق أقدم (قبل ما جزء يتضاف) بتتجدد — ولو مفيش نت بنكمّل بيها
-    if (saved != null && c['range'] == _range) return saved;
+    if (saved != null && c['range'] == _range) return _forDisplay(saved);
     final List<QuranChapter> list;
     try {
       list = await _firstWorking((s) async {
@@ -137,13 +140,13 @@ class QuranRepository {
         return inRange;
       });
     } on QuranException {
-      if (saved != null) return saved;
+      if (saved != null) return _forDisplay(saved);
       rethrow;
     }
     c['chapters'] = [for (final x in list) x.toJson()];
     c['range'] = _range;
     await _save();
-    return list;
+    return _forDisplay(list);
   }
 
   /// آيات سورة واحدة — من الكاش أو من المصدر.

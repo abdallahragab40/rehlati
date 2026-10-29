@@ -7,8 +7,9 @@ import 'package:rehlati/features/quran/quran_check_screen.dart';
 
 void main() {
   test('learning time is shown in minutes, then hours', () {
-    expect(fmtTime(5 * 60000), '٥ دقيقة');
-    expect(fmtTime(75 * 60000), '١ ساعة و١٥ دقيقة');
+    expect(fmtTime(5 * 60000), '٥ دقايق');
+    expect(fmtTime(75 * 60000), 'ساعة و١٥ دقيقة');
+    expect(fmtTime(120 * 60000), 'ساعتين');
   });
 
   test('skill labels drop the type prefix', () {

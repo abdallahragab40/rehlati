@@ -169,6 +169,23 @@ void main() {
       expect(hosts, {'api.quran.com', 'api.alquran.cloud'});
     });
 
+    test('surah names show the plain sukun the app font has, and ayah text keeps the Uthmani one', () async {
+      const ayah = 'قُلۡ أَعُوذُ بِرَبِّ ٱلۡفَلَقِ'; // ١١٣:١ بالرسم العثماني
+      final c = MockClient((r) async => r.url.path == '/v1/surah'
+          ? ok(jsonEncode({
+              'data': [
+                {'number': 59, 'name': 'سُورَةُ الحَشۡرِ', 'numberOfAyahs': 1},
+              ],
+            }))
+          : r.url.path.contains('/surah/1/')
+              ? ok(cloudSurah([basmala]))
+              : ok(cloudSurah([ayah])));
+      final r = repo(c);
+      expect((await r.chapters()).single.name, 'سُورَةُ الحَشْرِ');
+      expect((await repo(offline()).chapters()).single.name, 'سُورَةُ الحَشْرِ', reason: 'from the saved list too');
+      expect((await r.surah(59)).single.text, ayah);
+    });
+
     test('a chapter list saved for an older range is refreshed, or kept when offline', () async {
       Map<String, dynamic> older() => {
             'v': QuranConfig.cacheVersion,

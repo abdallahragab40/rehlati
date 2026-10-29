@@ -418,7 +418,7 @@ class PuzzleGrid extends StatelessWidget {
           ]),
         ),
       ),
-      Text('${ar(shown)} / ${ar(total)} قطعة ظهرت',
+      Text('${ar(shown)} / ${countOf(total, pieceWord)} ظهرت',
           style: kidText(context.clampVw(14, 3.6, 17), weight: FontWeight.w700, color: AppColors.inkSoft)),
       const SizedBox(height: 8),
     ]);

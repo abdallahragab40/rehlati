@@ -34,7 +34,7 @@ int? _acc(({int stars, int correct, int wrong, int games, int ms, int days}) w) 
   final up = <String>[], need = <String>[];
   if (!enoughHistory(prev)) {
     up.add('لسه مفيش تدريب كفاية الأسبوع اللي فات عشان نقارن بيه');
-    if (now.days > 0 && now.days < 4) need.add('اللعب كان ${ar(now.days)} أيام بس — المواظبة أهم من الوقت الطويل');
+    if (now.days > 0 && now.days < 4) need.add('اللعب كان ${countOf(now.days, dayWord)} بس — المواظبة أهم من الوقت الطويل');
     return (up, need);
   }
   void cmp(String label, int a, int b) {
@@ -54,7 +54,7 @@ int? _acc(({int stars, int correct, int wrong, int games, int ms, int days}) w) 
     if (a1 >= a0 + 5) up.add('دقة الإجابات اتحسّنت (${ar(a1)}٪ بعد ${ar(a0)}٪)');
     if (a1 <= a0 - 5) need.add('دقة الإجابات نزلت (${ar(a1)}٪ بعد ${ar(a0)}٪)');
   }
-  if (now.days < 4) need.add('اللعب كان ${ar(now.days)} أيام بس — المواظبة أهم من الوقت الطويل');
+  if (now.days < 4) need.add('اللعب كان ${countOf(now.days, dayWord)} بس — المواظبة أهم من الوقت الطويل');
   return (up, need);
 }
 
@@ -124,10 +124,10 @@ class WeekCard extends ConsumerWidget {
         const SizedBox(height: 6),
         Wrap(spacing: 14, runSpacing: 8, children: [
           for (final t in [
-            '⭐ ${ar(now.stars)} نجمة',
-            '🎮 ${ar(now.games)} لعبة',
+            '⭐ ${countOf(now.stars, starWord)}',
+            '🎮 ${countOf(now.games, gameWord)}',
             '⏱️ ${fmtTime(now.ms)}',
-            '📆 ${ar(now.days)} أيام نشاط',
+            '📆 ${countOf(now.days, dayWord)} نشاط',
             if (acc != null) '🎯 دقة من أول محاولة ${ar(acc)}٪',
           ])
             Text(t, style: kidText(14)),
@@ -183,7 +183,7 @@ class WeekCard extends ConsumerWidget {
         const SizedBox(height: 10),
         _Stepper(
           label: '⏱️ حد وقت اللعب',
-          value: p.settings.limitMin == 0 ? 'مفيش' : '${ar(p.settings.limitMin)} دقيقة',
+          value: p.settings.limitMin == 0 ? 'مفيش' : countOf(p.settings.limitMin, minuteWord),
           onMinus: () =>
               ref.read(progressProvider.notifier).update((p) => p.settings.limitMin = (p.settings.limitMin - 5).clamp(0, 180)),
           onPlus: () =>

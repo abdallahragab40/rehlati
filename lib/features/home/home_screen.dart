@@ -165,9 +165,9 @@ class _DailyStrip extends StatelessWidget {
     final st = p.streak, goal = p.settings.goal, got = p.todayStars, left = p.limitLeft;
     final note = p.goalDone
         ? '🎉 خلّصت هدف النهاردة — أي نجمة زيادة مكسب!'
-        : 'فاضل ${ar((goal - got).clamp(0, goal))} نجمة';
+        : 'فاضل ${countOf((goal - got).clamp(0, goal), starWord)}';
     return Semantics(
-      label: 'سلسلة ${ar(st)} يوم، هدف اليوم ${ar(got)} من ${ar(goal)} نجمة',
+      label: 'سلسلة ${countOf(st, dayWord)}، هدف اليوم ${ar(got)} من ${countOf(goal, starWord)}',
       child: ExcludeSemantics(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
@@ -216,7 +216,7 @@ class _DailyStrip extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 5),
-                  Text('$note${left != null ? ' • باقي ${ar(left)} دقيقة لعب' : ''}',
+                  Text('$note${left != null ? ' • باقي ${countOf(left, minuteWord)} لعب' : ''}',
                       style: kidText(12.5, weight: FontWeight.w700, color: AppColors.inkSoft)),
                 ]),
               ),
@@ -245,7 +245,7 @@ class _WorldCard extends StatelessWidget {
         shadowColor: AppColors.shadow,
         border: BorderDirectional(end: BorderSide(color: world.color, width: 8)),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
-        semanticLabel: '${world.name}، ${ar(stars)} نجمة، ${ar(pct)}٪',
+        semanticLabel: '${world.name}، ${countOf(stars, starWord)}، ${ar(pct)}٪',
         child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           Container(
             width: 54,
