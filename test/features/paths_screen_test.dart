@@ -50,7 +50,7 @@ void main() {
   testWidgets('a new child opens the first maths lesson and plays from the path', (tester) async {
     await pump(tester, {ProgressRepository.key: jsonEncode({'setupDone': true, 'age': 6})});
     expect(find.text('رحلة القراءة الأولى'), findsOneWidget);
-    expect(find.text('درس ١ من ١٦'), findsNWidgets(4));
+    expect(find.text('درس ١ من ١٦'), findsNWidgets(5));
 
     final mathRow = find.ancestor(of: find.text('رحلة الأرقام'), matching: find.byType(Row)).first;
     await tap(tester, find.descendant(of: mathRow, matching: find.text('▶️ يلا')));

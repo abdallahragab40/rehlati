@@ -64,7 +64,60 @@ class VisualView extends StatelessWidget {
         ClockVisual v => Center(child: ClockFace(hour: v.hour, minute: v.minute, size: context.clampVw(150, 44, 210))),
         TensOnesVisual v => _TensOnes(v),
         GroupsVisual v => TapCountScope(child: _Groups(v)),
+        MoneyVisual v => _Money(v),
       },
+    );
+  }
+}
+
+/// الجنيه عملة دهبي، والورق مستطيلات بلون لكل فئة ومكتوب عليها قيمتها — رسم تعليمي مش صورة الفلوس.
+class _Money extends StatelessWidget {
+  const _Money(this.v);
+  final MoneyVisual v;
+
+  static const _colors = {
+    5: Color(0xFF4FA37A), 10: Color(0xFFE0728A), 20: Color(0xFF3F8F5A),
+    50: Color(0xFF8B6BB8), 100: Color(0xFF4C8FC9),
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    final w = context.clampVw(92, 24, 120);
+    Widget piece(int p) => p == 1
+        ? Container(
+            width: w * .45,
+            height: w * .45,
+            alignment: Alignment.center,
+            decoration: const BoxDecoration(
+              color: AppColors.gold,
+              shape: BoxShape.circle,
+              boxShadow: [BoxShadow(color: Color(0x33000000), offset: Offset(0, 2))],
+            ),
+            child: Text(ar(1), style: kidText(w * .2)),
+          )
+        : Container(
+            width: w,
+            height: w * .5,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: _colors[p] ?? AppColors.grape,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.white, width: 3),
+              boxShadow: const [BoxShadow(color: Color(0x33000000), offset: Offset(0, 2))],
+            ),
+            child: Text('${ar(p)} جنيه', style: kidText(w * .17, color: Colors.white)),
+          );
+    return Semantics(
+      label: v.pounds.map((p) => '${ar(p)} جنيه').join('، '),
+      child: ExcludeSemantics(
+        child: Wrap(
+          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: 10,
+          runSpacing: 10,
+          children: [for (final p in v.pounds) piece(p)],
+        ),
+      ),
     );
   }
 }

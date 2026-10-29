@@ -69,7 +69,7 @@ void main() {
 
   test('times tables open after skip counting and sit at the end of the maths world', () {
     final ids = [for (final s in worldStages['math']!) s.id];
-    expect(ids.sublist(18), ['mulGroups', 'times2510', 'times34', 'times6789', 'timesAll']);
+    expect(ids.sublist(18, 23), ['mulGroups', 'times2510', 'times34', 'times6789', 'timesAll']);
     expect(packs['mulGroups']!.after, 'skipCount');
   });
 }

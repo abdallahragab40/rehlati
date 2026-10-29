@@ -84,7 +84,7 @@ LearningPath? pathById(String id) => learningPaths.where((p) => p.id == id).firs
 /// كل مراحل الدرس موجودة وبتتلعب بنتيجة (لوحة الحروف مالهاش نتيجة).
 bool lessonPlayable(PathLesson l) => l.stages.every((s) => packs[s] != null && !packs[s]!.isLearn);
 
-const learningPaths = [readingPath, mathPath, math100Path, timesPath];
+const learningPaths = [readingPath, mathPath, math100Path, timesPath, lifePath];
 
 const readingPath = LearningPath(
   id: 'reading1',
@@ -223,6 +223,41 @@ const timesPath = LearningPath(
       PathLesson('g14', 'العامل الناقص', ['timesAll', 'times34']),
       PathLesson('g15', 'الجداول الكبيرة', ['timesAll', 'times6789']),
       PathLesson('g16', 'المراجعة الكبيرة', ['timesAll', 'times6789', 'add100']),
+    ]),
+  ],
+);
+
+const lifePath = LearningPath(
+  id: 'math4',
+  world: 'math',
+  icon: '💰',
+  name: 'رحلة الفلوس والساعة',
+  ages: '٨–٩ سنين',
+  desc: 'يعدّ الفلوس ويحسب الباقي، ويقرا الساعة بالربع وبالدقايق، في ٤ أسابيع.',
+  weeks: [
+    PathWeek('نعدّ الفلوس', 'يعرف الجنيه والخمسة والعشرة والعشرين والخمسين، ويعدّ فلوس لحد ١٠٠.', [
+      PathLesson('f1', 'الجنيه والخمسة والعشرة', ['moneyCount']),
+      PathLesson('f2', 'نجمع الفلوس', ['moneyCount', 'add100']),
+      PathLesson('f3', 'نعد بالقفز', ['moneyCount', 'skipCount']),
+      PathLesson('f4', 'مراجعة الأسبوع', ['moneyCount', 'add100', 'tensOnes']),
+    ]),
+    PathWeek('الباقي كام؟', 'يحسب الباقي لما يدفع ورقة ويشتري حاجة.', [
+      PathLesson('f5', 'الباقي من ١٠ و ٢٠', ['moneyChange', 'moneyCount']),
+      PathLesson('f6', 'نطرح الفلوس', ['moneyChange', 'sub100']),
+      PathLesson('f7', 'أغلى ولا أرخص؟', ['moneyChange', 'compare100']),
+      PathLesson('f8', 'مراجعة الأسبوع', ['moneyChange', 'moneyCount', 'sub100']),
+    ]),
+    PathWeek('الساعة بالربع', 'يقرا الساعة تمام والنص والربع وإلا ربع.', [
+      PathLesson('f9', 'تمام والنص', ['clockQuarter']),
+      PathLesson('f10', 'والربع وإلا ربع', ['clockQuarter', 'moneyCount']),
+      PathLesson('f11', 'الساعة والفلوس', ['clockQuarter', 'moneyChange']),
+      PathLesson('f12', 'مراجعة الأسبوع', ['clockQuarter', 'skipCount']),
+    ]),
+    PathWeek('الساعة بالدقايق', 'يقرا الساعة بالخمس دقايق (والتلت، والنص إلا خمسة، إلا عشرة).', [
+      PathLesson('f13', 'بالخمس دقايق', ['clockQuarter', 'skipCount']),
+      PathLesson('f14', 'الساعة والطرح', ['clockQuarter', 'sub100']),
+      PathLesson('f15', 'الفلوس كلها', ['moneyCount', 'moneyChange']),
+      PathLesson('f16', 'المراجعة الكبيرة', ['clockQuarter', 'moneyCount', 'moneyChange']),
     ]),
   ],
 );

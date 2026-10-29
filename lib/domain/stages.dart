@@ -13,6 +13,7 @@ import 'generators/arabic_generators.dart';
 import 'generators/english_generators.dart';
 import 'generators/games_generators.dart';
 import 'generators/harakat_generators.dart';
+import 'generators/life_generators.dart';
 import 'generators/madd_generators.dart';
 import 'generators/math100_generators.dart';
 import 'generators/math_generators.dart';
@@ -255,9 +256,24 @@ final _mul = [
     ),
 ];
 
+/// الفلوس والساعة (تانية وتالتة ابتدائي) بعد جدول الضرب. أول مرحلة بتتفتح كمان بعد
+/// "الجمع لحد ١٠٠" — عدّ الفلوس جمع.
+final _life = [
+  for (final (i, (id, icon, name, base, color, gen)) in <(String, String, String, int, int, Generator)>[
+    ('moneyCount', '💰', 'عدّ الفلوس', 2, 0xFFD08A1E, moneyCount),
+    ('moneyChange', '🧾', 'الباقي كام؟', 2, 0xFFC27C14, moneyChange),
+    ('clockQuarter', '⏰', 'الساعة بالربع والدقايق', 2, 0xFFB46E0A, clockQuarter),
+  ].indexed)
+    Stage(
+      id: id, world: 'math', n: _math.length + _math100.length + _mul.length + i + 1, icon: icon, name: name,
+      base: base, color: Color(color), gen: gen, group: 'life', groupName: 'الفلوس والساعة',
+      after: i == 0 ? 'add100' : null,
+    ),
+];
+
 /// world -> ترتيب مراحله.
 final Map<String, List<Stage>> worldStages = {
-  'math': [..._math, ..._math100, ..._mul],
+  'math': [..._math, ..._math100, ..._mul, ..._life],
   'arabic': [..._arabic, ..._madd, ..._harakat],
   'english': _english,
   'games': _games,

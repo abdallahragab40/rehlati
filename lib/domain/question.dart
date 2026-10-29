@@ -192,6 +192,12 @@ class GroupsVisual extends Visual {
   final int each;
 }
 
+/// فلوس بالجنيه: ١ عملة، والباقي ورق (٥، ١٠، ٢٠، ٥٠، ١٠٠).
+class MoneyVisual extends Visual {
+  const MoneyVisual(this.pounds);
+  final List<int> pounds;
+}
+
 /// زرار 🔊 كبير لوحده (اسمع ثم اختر).
 class ListenVisual extends Visual {
   const ListenVisual(this.say);
