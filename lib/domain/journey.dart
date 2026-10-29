@@ -30,13 +30,19 @@ enum StepKind {
 }
 
 class JourneyStep {
-  JourneyStep(this.kind, this.target, {this.done = false});
+  JourneyStep(this.kind, this.target, {this.done = false, this.skipped = false});
 
   final StepKind kind;
 
   /// `stage:ID` أو `quran:SURAH:review`.
   final String target;
   bool done;
+
+  /// الطفل اتخطّاها — الرحلة بتكمّل من غيرها، ولو لعبها بعدين بتبقى done.
+  bool skipped;
+
+  /// اتلعبت أو اتخطّت — الرحلة عدّت عليها.
+  bool get passed => done || skipped;
 
   Stage? get stage => target.startsWith('stage:') ? packs[target.substring(6)] : null;
   int? get surah => target.startsWith('quran:') ? int.tryParse(target.split(':')[1]) : null;
@@ -48,10 +54,11 @@ class JourneyStep {
       StepKind.values.firstWhere((k) => k.name == m['kind'], orElse: () => StepKind.warm),
       '${m['target'] ?? ''}',
       done: m['done'] == true,
+      skipped: m['skipped'] == true,
     );
   }
 
-  Map<String, dynamic> toJson() => {'kind': kind.name, 'target': target, 'done': done};
+  Map<String, dynamic> toJson() => {'kind': kind.name, 'target': target, 'done': done, 'skipped': skipped};
 }
 
 class Journey {
@@ -67,9 +74,15 @@ class Journey {
   /// الاحتفال اتعرض للطفل.
   bool celebrated;
 
+  /// كل الخطوات اتلعبت — ده بس اللي بيدّي نجوم الختام.
   bool get complete => steps.isNotEmpty && steps.every((s) => s.done);
+
+  /// الرحلة خلصت: كل خطوة اتلعبت أو اتخطّت.
+  bool get finished => steps.isNotEmpty && steps.every((s) => s.passed);
   int get doneCount => steps.where((s) => s.done).length;
-  JourneyStep? get next => steps.where((s) => !s.done).firstOrNull;
+  int get skippedCount => steps.where((s) => s.skipped && !s.done).length;
+  int get passedCount => steps.where((s) => s.passed).length;
+  JourneyStep? get next => steps.where((s) => !s.passed).firstOrNull;
 
   static const bonusStars = 3;
 
@@ -105,12 +118,13 @@ Journey planJourney(ProgressData p, {required String day, Set<int> quranReady = 
   final off = p.settings.journeyOff;
   final seed = day.codeUnits.fold<int>(0, (h, c) => (h * 31 + c) & 0x3fffffff);
 
-  // مراحل لعب مفتوحة (لوحة الحروف مش جولة بنتيجة فمابتدخلش)
+  // مراحل لعب مفتوحة (لوحة الحروف مش جولة بنتيجة فمابتدخلش)،
+  // من غير اللي ولي الأمر اتخطّاها والطفل لسه ما لعبهاش
   final candidates = [
     for (final w in journeyWorlds)
       if (w != 'quran' && !off.contains(w))
         for (final s in worldStages[w] ?? const <Stage>[])
-          if (!s.isLearn && p.isUnlocked(s.id)) s,
+          if (!s.isLearn && p.isUnlocked(s.id) && (p.best[s.id] != null || !p.skipped.contains(s.id))) s,
   ];
   final used = <String>{};
   int medals(Stage s) => p.best[s.id] ?? 0;

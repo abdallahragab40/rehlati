@@ -149,7 +149,9 @@ class _JourneyButton extends StatelessWidget {
         ? ''
         : j.complete
             ? ' ✅'
-            : ' (${ar(j.doneCount)} / ${ar(j.steps.length)})';
+            : j.finished
+                ? ' ⏭️'
+                : ' (${ar(j.passedCount)} / ${ar(j.steps.length)})';
     return KidButton('🧭 رحلة النهاردة$status',
         kind: BtnKind.go, onTap: () => context.push(p.limitReached ? '/timeup' : '/journey'));
   }

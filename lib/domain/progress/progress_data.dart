@@ -127,6 +127,7 @@ class ProgressData {
     this.lastActivity,
     this.lastStage,
     List<String>? unlocked,
+    List<String>? skipped,
     Map<String, int>? best,
     Map<String, int>? starsBy,
     Map<String, int>? quran,
@@ -142,6 +143,7 @@ class ProgressData {
     Map<String, SkillRecord>? mastery,
   })  : mastery = mastery ?? {},
         unlocked = unlocked ?? [...initiallyUnlocked],
+        skipped = skipped ?? [],
         best = best ?? {},
         starsBy = starsBy ?? {},
         quran = quran ?? {},
@@ -171,6 +173,9 @@ class ProgressData {
   int? lastActivity;
   String? lastStage;
   final List<String> unlocked;
+
+  /// مراحل ولي الأمر اتخطّاها من الخريطة — اللي بعدها اتفتحت من غير ما الطفل ينجح فيها.
+  final List<String> skipped;
 
   /// أحسن ميداليات لكل مرحلة (١–٣).
   final Map<String, int> best;
@@ -226,6 +231,7 @@ class ProgressData {
       lastActivity: (j['lastActivity'] as num?)?.toInt(),
       lastStage: j['lastStage'] as String?,
       unlocked: j['unlocked'] == null ? null : strs(j['unlocked']),
+      skipped: strs(j['skipped']),
       best: ints(j['best']),
       starsBy: ints(j['starsBy']),
       quran: ints(j['quran']),
@@ -264,6 +270,7 @@ class ProgressData {
         'lastActivity': lastActivity,
         'lastStage': lastStage,
         'unlocked': unlocked,
+        'skipped': skipped,
         'best': best,
         'starsBy': starsBy,
         'quran': quran,
@@ -289,9 +296,27 @@ class ProgressData {
     if (settings.dev || unlocked.contains(id)) return true;
     // عالم الألعاب مفتوح كله من الأول — دي ألعاب مش مناهج
     if (packs[id]?.world == 'games') return true;
-    // مرحلة ليها after بتتفتح أول ما المرحلة دي تتنجح (٨٠٪+) — بتشتغل للتقدّم القديم كمان
+    // مرحلة ليها after بتتفتح أول ما المرحلة دي تتنجح (٨٠٪+) أو تتخطّى — بتشتغل للتقدّم القديم كمان
     final after = packs[id]?.after;
-    return after != null && (best[after] ?? 0) >= 2;
+    return after != null && ((best[after] ?? 0) >= 2 || skipped.contains(after));
+  }
+
+  /// ولي الأمر يقدر يتخطّى المرحلة: مفتوحة، مش في عالم الألعاب، ووراها مرحلة لسه مقفولة
+  /// (يعني الطفل لسه ما نجحش فيها).
+  bool canSkip(String id) {
+    final s = packs[id];
+    if (s == null || s.world == 'games' || skipped.contains(id) || !isUnlocked(id)) return false;
+    final order = worldStages[s.world]!;
+    final i = order.indexOf(s);
+    return [if (i + 1 < order.length) order[i + 1], ...order.where((o) => o.after == id)]
+        .any((o) => !isUnlocked(o.id));
+  }
+
+  /// ولي الأمر تخطّى المرحلة — اللي بعدها بتتفتح، والمرحلة نفسها تفضل متاحة للعب.
+  void skipStage(String id) {
+    if (!canSkip(id)) return;
+    skipped.add(id);
+    unlockNext(id);
   }
 
   /// يفتح المرحلة اللي بعد دي في نفس العالم — ويرجّعها لو اتفتحت جديد.
@@ -516,6 +541,7 @@ class ProgressData {
     for (final s in j.steps) {
       if (!s.done && s.target == target) {
         s.done = true;
+        s.skipped = false;
         changed = true;
       }
     }
@@ -523,6 +549,13 @@ class ProgressData {
     j.rewarded = true;
     addStar(Journey.bonusStars, j.steps.last.world);
     return true;
+  }
+
+  /// الطفل اتخطّى الخطوة الجاية في رحلة النهاردة — الرحلة بتكمّل على اللي بعدها.
+  void journeySkip(String target) {
+    for (final s in todayJourney?.steps ?? const <JourneyStep>[]) {
+      if (!s.passed && s.target == target) s.skipped = true;
+    }
   }
 
   // ---------------------------------------------------------------- الإتقان والمراجعة

@@ -31,6 +31,35 @@ void main() {
       expect(p.unlockNext('subtraction'), isNull); // آخر مرحلة
     });
 
+    test('a parent skip opens the next stage and keeps the skipped one playable', () {
+      final p = ProgressData();
+      expect([p.canSkip('counting'), p.canSkip('chooseNumber'), p.canSkip('balloons')], [true, false, false],
+          reason: 'only an open stage outside the games world, with something locked after it');
+      p.skipStage('counting');
+      expect([p.skipped, p.isUnlocked('counting'), p.isUnlocked('chooseNumber')], [['counting'], true, true]);
+      expect(p.canSkip('counting'), isFalse, reason: 'skipped once');
+      expect(p.canSkip('chooseNumber'), isTrue, reason: 'the parent can keep going');
+
+      final passed = ProgressData()..addResult('counting', 9, 10)..unlockNext('counting');
+      expect(passed.canSkip('counting'), isFalse, reason: 'nothing left to open');
+      expect(ProgressData(unlocked: ['subtraction']).canSkip('subtraction'), isFalse, reason: 'last stage');
+      expect((ProgressData()..settings.dev = true).canSkip('counting'), isFalse, reason: 'everything is open');
+    });
+
+    test('skipping a stage opens stages that come "after" it', () {
+      final p = ProgressData(unlocked: ['ar_table']);
+      expect(p.isUnlocked('madd_alif'), isFalse);
+      p.skipStage('ar_table');
+      expect([p.isUnlocked('ar_build'), p.isUnlocked('madd_alif')], [true, true]);
+    });
+
+    test('skipped stages survive saving', () {
+      final p = ProgressData()..skipStage('counting');
+      final back = ProgressData.fromJson(p.toJson());
+      expect([back.skipped, back.isUnlocked('chooseNumber')], [['counting'], true]);
+      expect(ProgressData.fromJson({'name': 'x'}).skipped, isEmpty, reason: 'older saves have no skips');
+    });
+
     test('medals: 10/10 → 3, 8/10 → 2, less → 1, and best is kept', () {
       final p = ProgressData()..addResult('counting', 8, 10);
       expect(p.best['counting'], 2);

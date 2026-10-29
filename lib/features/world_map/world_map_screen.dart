@@ -25,6 +25,7 @@ class WorldMapScreen extends ConsumerStatefulWidget {
 
 class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
   String? _say;
+  BubbleKind _sayKind = BubbleKind.no;
   int _sadTick = 0;
 
   void _open(Stage s) {
@@ -37,6 +38,7 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
       final en = widget.world == 'english';
       setState(() {
         _say = en ? 'This stage is locked 🔒 Finish the one before it first' : 'المرحلة دي مقفولة 🔒 خلّص اللي قبلها الأول';
+        _sayKind = BubbleKind.no;
         _sadTick++;
       });
       ref.read(sfxProvider).bad();
@@ -46,6 +48,16 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
       return;
     }
     context.push(stageRoute(s));
+  }
+
+  /// تخطّي مرحلة — لولي الأمر بس (سؤال الأهل الأول).
+  Future<void> _skip(Stage s) async {
+    if (!await askParent(context) || !mounted) return;
+    ref.read(progressProvider.notifier).update((p) => p.skipStage(s.id));
+    setState(() {
+      _say = 'تمام ⏭️ اتخطّينا "${s.name}" وفتحنا اللي بعدها — وتفضل متاحة للعب';
+      _sayKind = BubbleKind.ok;
+    });
   }
 
   @override
@@ -88,7 +100,9 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
                             stage: stages[i],
                             open: p.isUnlocked(stages[i].id),
                             medals: p.best[stages[i].id] ?? 0,
+                            skipped: p.skipped.contains(stages[i].id),
                             onTap: () => _open(stages[i]),
+                            onSkip: p.canSkip(stages[i].id) ? () => _skip(stages[i]) : null,
                           ),
                         ),
                       ),
@@ -100,8 +114,11 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
           ]),
         ),
         const _DevRow(),
-        LionMascot(mood: _say == null ? LionMood.idle : LionMood.sad, tick: _sadTick),
-        if (_say != null) SpeechBubble(_say!, kind: BubbleKind.no),
+        LionMascot(
+          mood: _say == null ? LionMood.idle : (_sayKind == BubbleKind.ok ? LionMood.cheer : LionMood.sad),
+          tick: _sadTick,
+        ),
+        if (_say != null) SpeechBubble(_say!, kind: _sayKind),
       ]),
     );
   }
@@ -121,11 +138,24 @@ class _PathPainter extends CustomPainter {
 }
 
 class _StageCard extends StatelessWidget {
-  const _StageCard({required this.stage, required this.open, required this.medals, required this.onTap});
+  const _StageCard({
+    required this.stage,
+    required this.open,
+    required this.medals,
+    required this.skipped,
+    required this.onTap,
+    this.onSkip,
+  });
   final Stage stage;
   final bool open;
   final int medals;
+
+  /// ولي الأمر اتخطّاها — بتبان ⏭️ لحد ما الطفل ياخد فيها ميدالية.
+  final bool skipped;
   final VoidCallback onTap;
+
+  /// زرار ⏭️ لولي الأمر — null لو المرحلة مايتخطّاش.
+  final VoidCallback? onSkip;
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +164,7 @@ class _StageCard extends StatelessWidget {
       radius: 26,
       shadowColor: AppColors.shadow,
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-      semanticLabel: '${stage.name}${open ? '' : '، مقفولة'}',
+      semanticLabel: '${stage.name}${open ? '' : '، مقفولة'}${skipped && medals == 0 ? '، اتخطّت' : ''}',
       child: Row(children: [
         Container(
           width: 62,
@@ -151,11 +181,38 @@ class _StageCard extends StatelessWidget {
               textDirection: stage.isEnglish ? TextDirection.ltr : TextDirection.rtl,
               child: Text(stage.name, style: kidText(context.clampVw(17, 4.4, 21), height: 1.25)),
             ),
-            Text(medals > 0 ? '⭐' * medals : '☆☆☆', style: const TextStyle(fontSize: 14, letterSpacing: 1)),
+            if (medals == 0 && skipped)
+              Text('⏭️ اتخطّت', style: kidText(14, weight: FontWeight.w700, color: AppColors.inkSoft))
+            else
+              Text(medals > 0 ? '⭐' * medals : '☆☆☆', style: const TextStyle(fontSize: 14, letterSpacing: 1)),
           ]),
         ),
+        if (onSkip != null) const SizedBox(width: 48),
       ]),
     );
+    if (open && onSkip != null) {
+      // فوق الكارت مش جواه — زرار لوحده لقارئ الشاشة وللمس، في المكان الفاضي آخر الصف
+      return Stack(children: [
+        card,
+        PositionedDirectional(
+          top: 0,
+          bottom: 7,
+          end: 10,
+          child: Center(
+            child: Pressable3D(
+              onTap: onSkip,
+              radius: 999,
+              depth: 4,
+              color: AppColors.paper2,
+              shadowColor: AppColors.shadow,
+              padding: const EdgeInsets.all(11),
+              semanticLabel: 'تخطّي المرحلة — لولي الأمر',
+              child: const Text('⏭️', style: TextStyle(fontSize: 22)),
+            ),
+          ),
+        ),
+      ]);
+    }
     if (open) return card;
     // مقفولة: باهتة ورمادي (filter: saturate(.25))
     return Opacity(

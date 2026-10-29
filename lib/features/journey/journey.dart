@@ -122,7 +122,9 @@ class _JourneyScreenState extends ConsumerState<JourneyScreen> {
                       ? 'مفيش أنشطة للرحلة النهاردة — اطلب من بابا أو ماما يختاروا العوالم'
                       : j.complete
                           ? 'خلّصت كل الخطوات! ⭐ +${ar(Journey.bonusStars)}'
-                          : 'خطوة ${ar(j.doneCount + 1)} من ${ar(j.steps.length)}',
+                          : j.finished
+                              ? 'وصلت لآخر الرحلة — اتخطّيت ${ar(j.skippedCount)} من ${ar(j.steps.length)} ⏭️'
+                              : 'خطوة ${ar(j.passedCount + 1)} من ${ar(j.steps.length)}',
                   textAlign: TextAlign.center,
                   style: kidText(16, weight: FontWeight.w700, color: AppColors.inkSoft),
                 ),
@@ -134,11 +136,16 @@ class _JourneyScreenState extends ConsumerState<JourneyScreen> {
                     title: stepTitle(s, names),
                     current: identical(s, j.next),
                     onGo: () => context.push(p.limitReached ? '/timeup' : stepRoute(s)),
+                    onSkip: () => ref.read(progressProvider.notifier).update((p) => p.journeySkip(s.target)),
                   ),
                 if (j.complete) ...[
                   const SizedBox(height: 6),
                   const LionMascot(emoji: '🏆', mood: LionMood.cheer),
                   const SpeechBubble('شاطر! تقدر تكمّل تلعب اللي تحبه من العوالم 🗺️', kind: BubbleKind.ok),
+                ] else if (j.finished) ...[
+                  const SizedBox(height: 6),
+                  const LionMascot(),
+                  SpeechBubble('العب الخطوات اللي اتخطّيتها ⏭️ وخد ⭐ +${ar(Journey.bonusStars)} نجوم الرحلة!'),
                 ],
                 const SizedBox(height: 10),
                 Center(child: KidButton('🏠 الرئيسية', kind: BtnKind.ghost, onTap: () => context.go('/'))),
@@ -149,31 +156,55 @@ class _JourneyScreenState extends ConsumerState<JourneyScreen> {
 }
 
 class _StepTile extends StatelessWidget {
-  const _StepTile({required this.index, required this.step, required this.title, required this.current, required this.onGo});
+  const _StepTile({
+    required this.index,
+    required this.step,
+    required this.title,
+    required this.current,
+    required this.onGo,
+    required this.onSkip,
+  });
   final int index;
   final JourneyStep step;
   final String title;
   final bool current;
   final VoidCallback onGo;
+  final VoidCallback onSkip;
+
+  bool get _skipped => step.skipped && !step.done;
 
   @override
   Widget build(BuildContext context) => Container(
         margin: const EdgeInsets.only(bottom: 10),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         decoration: BoxDecoration(
-          color: step.done ? const Color(0xFFE3F8EC) : (current ? const Color(0xFFFFF3CF) : AppColors.paper2),
+          color: step.done
+              ? const Color(0xFFE3F8EC)
+              : _skipped
+                  ? const Color(0xFFECEFF4)
+                  : (current ? const Color(0xFFFFF3CF) : AppColors.paper2),
           borderRadius: BorderRadius.circular(22),
         ),
         child: Row(children: [
-          Text(step.done ? '✅' : ar(index + 1), style: kidText(24)),
+          Text(step.done ? '✅' : (_skipped ? '⏭️' : ar(index + 1)), style: kidText(24)),
           const SizedBox(width: 12),
           Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(title, style: kidText(18)),
-              Text(stepTag(step.kind), style: kidText(13, color: AppColors.inkSoft)),
+              Text(_skipped ? 'اتخطّيتها ⏭️' : stepTag(step.kind), style: kidText(13, color: AppColors.inkSoft)),
             ]),
           ),
-          if (current) KidButton('▶️ يلا', kind: BtnKind.go, onTap: onGo),
+          if (current)
+            IntrinsicWidth(
+              child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                KidButton('▶️ يلا', kind: BtnKind.go, onTap: onGo),
+                const SizedBox(height: 8),
+                KidButton('⏭️ تخطّي', kind: BtnKind.ghost, onTap: onSkip),
+              ]),
+            )
+          // اللي اتخطّت تفضل متاحة — لو اتلعبت بعدين بتتعلّم ✅
+          else if (_skipped)
+            KidButton('▶️ العب', kind: BtnKind.ghost, onTap: onGo),
         ]),
       );
 }
@@ -198,8 +229,8 @@ class JourneyParentCard extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 6),
             child: Text.rich(TextSpan(children: [
-              TextSpan(text: '${s.done ? '✅' : '⏳'} ${stepTitle(s, names)}\n', style: kidText(15.5)),
-              TextSpan(text: stepReason(s.kind), style: body),
+              TextSpan(text: '${s.done ? '✅' : s.skipped ? '⏭️' : '⏳'} ${stepTitle(s, names)}\n', style: kidText(15.5)),
+              TextSpan(text: s.skipped && !s.done ? 'الطفل اتخطّاها — ${stepReason(s.kind)}' : stepReason(s.kind), style: body),
             ])),
           ),
       const SizedBox(height: 8),
@@ -213,7 +244,7 @@ class JourneyParentCard extends ConsumerWidget {
             onSelected: (on) => ref.read(progressProvider.notifier).update((p) {
               on ? p.settings.journeyOff.remove(w) : p.settings.journeyOff.add(w);
               // لو لسه ما بدأش رحلة النهاردة، نعيد تخطيطها بالعوالم الجديدة
-              if (p.todayJourney?.doneCount == 0) p.journey = null;
+              if (p.todayJourney?.passedCount == 0) p.journey = null;
             }),
           ),
       ]),
