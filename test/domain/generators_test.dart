@@ -3,6 +3,7 @@ import 'package:rehlati/content/math_data.dart';
 import 'package:rehlati/core/features.dart';
 import 'package:rehlati/core/utils/rng.dart';
 import 'package:rehlati/domain/progress/progress_data.dart';
+import 'package:rehlati/domain/generators/puzzle_generators.dart';
 import 'package:rehlati/domain/question.dart';
 import 'package:rehlati/domain/stages.dart';
 
@@ -21,7 +22,7 @@ void main() {
     expect(worldStages['arabic']!.length, 11 + 9 + (voiceEnabled ? 3 + 4 : 2 + 3) + 6,
         reason: '11 + 9 madd stages + harakat + sukun and tanween + grammar');
     expect(worldStages['english']!.length, 14 + 7, reason: 'plus primary English');
-    expect(worldStages['games']!.length, voiceEnabled ? 12 + 16 : 11 + 15, reason: 'listenNum and animalSound need the voice');
+    expect(worldStages['games']!.length, voiceEnabled ? 12 + 16 + 4 : 11 + 15 + 4, reason: 'listenNum and animalSound need the voice');
   });
 
   for (final type in types) {
@@ -142,6 +143,31 @@ void _checkSolvable(Question q, int lv, String id) {
       expect(seen, contains(q.mazeGoal), reason: reason);
     case QMode.trace:
       expect(q.trace, isNotEmpty, reason: reason);
+    case QMode.sudoku:
+      final n = q.gridSize;
+      expect(q.solution.length, n * n, reason: reason);
+      // الحل صح: كل صف وعمود ومربع فيه ١…n مرة واحدة
+      final all = {for (var v = 1; v <= n; v++) v};
+      for (var k = 0; k < n; k++) {
+        expect({for (var c = 0; c < n; c++) q.solution[k * n + c]}, all, reason: '$reason: row $k');
+        expect({for (var r = 0; r < n; r++) q.solution[r * n + k]}, all, reason: '$reason: column $k');
+      }
+      for (var b = 0; b < n; b++) {
+        final r0 = b ~/ (n ~/ q.boxCols) * q.boxRows, c0 = b % (n ~/ q.boxCols) * q.boxCols;
+        expect({
+          for (var a = 0; a < q.boxRows; a++)
+            for (var c = 0; c < q.boxCols; c++) q.solution[(r0 + a) * n + c0 + c],
+        }, all, reason: '$reason: box $b');
+      }
+      final puzzle = [for (var i = 0; i < n * n; i++) q.givens[i] ? q.solution[i] : 0];
+      expect(sudokuSolutions(puzzle, n, q.boxRows, q.boxCols), 1, reason: '$reason: one solution');
+      expect(q.symbols.length, n, reason: reason);
+    case QMode.hanoi:
+      expect(q.discs, inInclusiveRange(2, 4), reason: reason);
+    case QMode.slide:
+      final n = q.slideSize;
+      expect([...q.slideStart]..sort(), [for (var i = 0; i < n * n; i++) i], reason: reason);
+      expect(q.slideStart, isNot([for (var i = 1; i < n * n; i++) i, 0]), reason: '$reason: already solved');
   }
   if (q.look == ChoiceLook.picName) {
     expect(q.items.every(q.choiceSay.containsKey), isTrue, reason: '$reason: every step has a name');

@@ -14,11 +14,22 @@ other clips. If the voice licence is for Azure, re-render them with the rest.
   afterwards. They follow the parent-guide topics (sharing, hitting, cleaning, waiting, interrupting,
   water, animals, street safety).
 
+- **Game ages** (`gameAges` in `lib/domain/stages.dart`): each game's age range decides what the
+  games map shows first and what the journey picks. Games stay open for any age. Check the ranges,
+  especially where one ends (shadow and opposites stop at 6, the letter games at 7–8).
+
 ## Listen to these clips
 
 Animal sounds read by the voice: مووو، مياو مياو، هو هو، ماااء، كاك كاك كاك، كوكوكوكووو، سيو سيو،
 كواك كواك، هوو هوو، زززززز، سسسسسس. Their keys are in `tool/phrases.tsv`. If a sound comes out
 wrong, change its spelling in `animalSounds` and re-render.
+
+## Puzzles for older children (6–12)
+
+سودوكو (4×4 with pictures, then numbers, then 6×6, always one solution), برج هانوي (2–4 rings),
+البازل المنزلق (3×3, more shuffling at higher levels) and كمّل المتتالية (adding, subtracting,
+doubling, growing steps; numbers up to 100). Game difficulty now follows age: 3–4 → level 1,
+5–6 → 2, 7–8 → 3, 9+ → 4.
 
 ## Known limits
 

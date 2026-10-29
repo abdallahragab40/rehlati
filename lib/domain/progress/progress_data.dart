@@ -406,6 +406,16 @@ class ProgressData {
   /// ولي الأمر يقدر يختار مستوى بداية تاني (أسهل أو أصعب من سنه).
   int get ageLevel => settings.startLevel ?? ((age ?? 4) - 3).clamp(1, 3);
 
+  /// مستوى الألعاب من السن: ٣–٤ ← ١، ٥–٦ ← ٢، ٧–٨ ← ٣، ٩ وفوق ← ٤. من غير سن ← ٢ (زي الأول).
+  int get gamesLevel => settings.worldLevel['games'] ??
+      switch (age) {
+        null => 2,
+        <= 4 => 1,
+        <= 6 => 2,
+        <= 8 => 3,
+        _ => 4,
+      };
+
   /// مستوى البداية في عالم: اختيار ولي الأمر للمادة دي لو فيه، وإلا [ageLevel].
   int startLevelIn(String? world) => settings.worldLevel[world] ?? ageLevel;
 

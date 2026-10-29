@@ -76,6 +76,29 @@ void main() {
       expect(readingPath.lessonsDone(p), 16);
     });
 
+    test('a parent can skip a step: the lesson moves on, and passing it later turns it ✅', () {
+      final p = ProgressData();
+      final m1 = mathPath.lessons.first;
+      skipPathStep(p, mathPath, 'neighbors');
+      expect(p.pathDone, isEmpty, reason: 'only steps of the current lesson can be skipped');
+
+      markPathStage(p, 'counting');
+      skipPathStep(p, mathPath, 'chooseNumber');
+      expect(mathPath.stepSkipped(p, m1, 'chooseNumber'), isTrue);
+      expect(mathPath.lessonDone(p, m1), isTrue);
+      expect(mathPath.current(p)!.id, 'm2');
+      expect(mathPath.skippedCount(p), 1);
+
+      // درس ٢ مافيهوش "اختر الرقم" — النجاح فيها بيرجع يعلّم الخطوة اللي اتخطّت
+      markPathStage(p, 'chooseNumber');
+      expect(mathPath.stepDone(p, m1, 'chooseNumber'), isTrue);
+      expect(mathPath.stepSkipped(p, m1, 'chooseNumber'), isFalse);
+      expect(mathPath.skippedCount(p), 0);
+
+      final back = ProgressData.fromJson(jsonDecode(jsonEncode(p.toJson())) as Map<String, dynamic>);
+      expect(mathPath.current(back)!.id, 'm2', reason: 'skips are saved with path progress');
+    });
+
     test('path progress survives JSON, and old progress has none', () {
       final p = ProgressData();
       markPathStage(p, 'counting');

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rehlati/domain/paths.dart';
+import 'package:rehlati/features/paths/paths_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rehlati/content/quran_config.dart';
 import 'package:rehlati/core/audio/audio_providers.dart';
@@ -116,5 +118,29 @@ void main() {
     expect([now.skipped, now.isUnlocked('chooseNumber')], [['counting'], true]);
     expect(find.text('⏭️ اتخطّت'), findsOneWidget);
     expect(find.text('⏭️'), findsOneWidget, reason: 'the newly opened stage can be skipped next');
+  });
+
+  testWidgets('only the parent answer skips a learning-path step', (tester) async {
+    tester.view.physicalSize = const Size(1200, 2600);
+    addTearDown(tester.view.reset);
+    Future<void> frames() async {
+      for (var i = 0; i < 8; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+    }
+
+    await pumpApp(tester, home: const PathScreen(id: 'math1'), settle: false);
+    await frames();
+    final p = ProviderScope.containerOf(tester.element(find.byType(PathScreen))).read(progressProvider);
+    expect(find.text('⏭️'), findsNWidgets(2), reason: 'one per step of the current lesson');
+
+    await tester.tap(find.text('⏭️').first);
+    await frames();
+    final q = tester.widget<Text>(find.textContaining('×')).data!;
+    await tester.enterText(find.byType(TextField), '${answerOf(q)}');
+    await tester.tap(find.text('دخول'));
+    await frames();
+    expect(mathPath.skippedCount(p), 1);
+    expect(find.text('⏭️'), findsOneWidget);
   });
 }

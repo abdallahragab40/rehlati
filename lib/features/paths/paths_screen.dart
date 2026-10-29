@@ -14,6 +14,7 @@ import '../../domain/paths.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
 import '../../domain/stages.dart';
+import '../parent/parent_gate.dart';
 import '../world_map/world_map_screen.dart';
 
 /// النشاط اتفتح من مسار؟ (الرجوع بيودّي للمسار، فالزرار بيقول كده)
@@ -80,13 +81,27 @@ class PathsScreen extends ConsumerWidget {
   }
 }
 
-class PathScreen extends ConsumerWidget {
+class PathScreen extends ConsumerStatefulWidget {
   const PathScreen({super.key, required this.id});
   final String id;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final path = pathById(id)!;
+  ConsumerState<PathScreen> createState() => _PathScreenState();
+}
+
+class _PathScreenState extends ConsumerState<PathScreen> {
+  String? _say;
+
+  /// تخطّي خطوة — لولي الأمر بس (سؤال الأهل الأول)، زي تخطّي مرحلة من الخريطة.
+  Future<void> _skip(LearningPath path, Stage s) async {
+    if (!await askParent(context) || !mounted) return;
+    ref.read(progressProvider.notifier).update((p) => skipPathStep(p, path, s.id));
+    setState(() => _say = 'تمام ⏭️ اتخطّينا "${s.name}" — وتفضل متاحة للعب');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final path = pathById(widget.id)!;
     final p = ref.watch(progressProvider);
     final cur = path.current(p);
     return ScreenFrame(
@@ -114,7 +129,12 @@ class PathScreen extends ConsumerWidget {
                 current: identical(l, cur),
                 progress: p,
                 onGo: (stage) => context.push(p.limitReached ? '/timeup' : '${stageRoute(stage)}?from=path'),
+                onSkip: (stage) => _skip(path, stage),
               ),
+          ],
+          if (_say != null) ...[
+            const SizedBox(height: 6),
+            SpeechBubble(_say!, kind: BubbleKind.ok),
           ],
           const SizedBox(height: 10),
           Center(child: KidButton('🏠 الرئيسية', kind: BtnKind.ghost, onTap: () => context.go('/'))),
@@ -132,12 +152,16 @@ class _LessonTile extends StatelessWidget {
     required this.current,
     required this.progress,
     required this.onGo,
+    required this.onSkip,
   });
   final LearningPath path;
   final PathLesson lesson;
   final bool done, current;
   final ProgressData progress;
   final ValueChanged<Stage> onGo;
+
+  /// ⏭️ لولي الأمر — الخطوة بتتحسب للدرس من غير ما الطفل يلعبها.
+  final ValueChanged<Stage> onSkip;
 
   @override
   Widget build(BuildContext context) {
@@ -162,8 +186,26 @@ class _LessonTile extends StatelessWidget {
               Padding(
                 padding: const EdgeInsetsDirectional.only(start: 34, top: 8),
                 child: Row(children: [
-                  Expanded(child: Text('${path.stepDone(progress, lesson, id) ? '✅' : '⬜'} ${s.icon} ${s.name}', style: kidText(16))),
+                  Expanded(
+                    child: Text(
+                      '${path.stepDone(progress, lesson, id) ? '✅' : (path.stepSkipped(progress, lesson, id) ? '⏭️' : '⬜')} ${s.icon} ${s.name}',
+                      style: kidText(16),
+                    ),
+                  ),
                   if (!path.stepDone(progress, lesson, id)) KidButton('▶️ يلا', kind: BtnKind.go, onTap: () => onGo(s)),
+                  if (!path.stepDone(progress, lesson, id) && !path.stepSkipped(progress, lesson, id)) ...[
+                    const SizedBox(width: 6),
+                    Pressable3D(
+                      onTap: () => onSkip(s),
+                      radius: 999,
+                      depth: 4,
+                      color: AppColors.paper2,
+                      shadowColor: AppColors.shadow,
+                      padding: const EdgeInsets.all(11),
+                      semanticLabel: 'تخطّي الخطوة — لولي الأمر',
+                      child: const Text('⏭️', style: TextStyle(fontSize: 20)),
+                    ),
+                  ],
                 ]),
               ),
       ]),
@@ -185,13 +227,14 @@ class PathsParentCard extends ConsumerWidget {
           padding: const EdgeInsets.only(bottom: 8),
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             Text('${path.icon} ${path.name} (${path.ages}): ${pathStatus(path, p)}', style: kidText(15)),
+            if (path.skippedCount(p) > 0) Text('⏭️ خطوات اتخطّيتها: ${ar(path.skippedCount(p))}', style: body),
             if (path.current(p) case final l?)
               Text('الأسبوع ${ar(path.weeks.indexOf(path.weekOf(l)) + 1)} — ${path.weekOf(l).goal}', style: body),
           ]),
         ),
       Text(
         'كل مسار ٤ أسابيع، ٤ دروس في الأسبوع. الدرس بيخلص لما الطفل ينجح (٨٠٪+) في كل نشاط فيه، '
-        'والدروس بتتفتح بالترتيب.',
+        'والدروس بتتفتح بالترتيب. لو نشاط صعب قوي تقدر تتخطّاه بـ ⏭️ (بسؤال الأهل)، ويفضل متاح للعب.',
         style: body,
       ),
     ]);

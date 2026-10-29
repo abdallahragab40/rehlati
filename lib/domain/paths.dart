@@ -59,7 +59,16 @@ class LearningPath {
 
   bool stepDone(ProgressData p, PathLesson l, String stage) => _done(p).contains('${l.id}:$stage');
 
-  bool lessonDone(ProgressData p, PathLesson l) => l.stages.every((s) => stepDone(p, l, s));
+  /// ولي الأمر اتخطّى الخطوة دي — بتتحسب للدرس، والطفل يقدر يلعبها بعدين.
+  bool stepSkipped(ProgressData p, PathLesson l, String stage) =>
+      !stepDone(p, l, stage) && _done(p).contains('$skipPrefix${l.id}:$stage');
+
+  bool lessonDone(ProgressData p, PathLesson l) =>
+      l.stages.every((s) => stepDone(p, l, s) || stepSkipped(p, l, s));
+
+  /// الخطوات اللي اتخطّت ولسه الطفل ما نجحش فيها.
+  int skippedCount(ProgressData p) =>
+      [for (final l in lessons) for (final s in l.stages) if (stepSkipped(p, l, s)) s].length;
 
   /// أول درس لسه ما خلصش — null = المسار خلص.
   PathLesson? current(ProgressData p) => lessons.where((l) => !lessonDone(p, l)).firstOrNull;
@@ -71,11 +80,25 @@ class LearningPath {
   bool complete(ProgressData p) => current(p) == null;
 }
 
+/// مفتاح الخطوة المتخطّية جوه [ProgressData.pathDone] — نفس التخزين، فالنسخ الاحتياطية القديمة ماتتأثرش.
+const skipPrefix = 'skip:';
+
+/// ولي الأمر تخطّى خطوة في الدرس الحالي (زي تخطّي مرحلة من الخريطة): الدرس بيكمل من غيرها.
+void skipPathStep(ProgressData p, LearningPath path, String stage) {
+  final l = path.current(p);
+  if (l == null || !l.stages.contains(stage) || path.stepDone(p, l, stage)) return;
+  p.pathDone.putIfAbsent(path.id, () => {}).add('$skipPrefix${l.id}:$stage');
+}
+
 /// الطفل نجح في مرحلة (٨٠٪+): بتتعلّم في الدرس الحالي لكل مسار هي فيه.
 void markPathStage(ProgressData p, String stage) {
   for (final path in learningPaths) {
     final l = path.current(p);
     if (l != null && l.stages.contains(stage)) p.pathDone.putIfAbsent(path.id, () => {}).add('${l.id}:$stage');
+    // خطوة اتخطّت في درس فات والطفل رجع نجح فيها: تبقى ✅ مكان ⏭️
+    for (final old in path.lessons) {
+      if (path.stepSkipped(p, old, stage)) p.pathDone[path.id]!.add('${old.id}:$stage');
+    }
   }
 }
 

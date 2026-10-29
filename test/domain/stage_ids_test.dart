@@ -11,7 +11,7 @@ const frozen = {
   'english': ['en_learn', 'en_pick', 'en_match', 'en_case', 'en_circle', 'en_pairs', 'en_friends', 'en_table', 'en_complete', 'en_word', 'en_numbers', 'en_colors', 'en_animals', 'en_daily', 'en_cvc', 'en_a_an', 'en_plural', 'en_isare', 'en_questions', 'en_sentence', 'en_reading'],
   'games': ['balloons', 'memoryNum', 'race', 'puzzle', 'colorNum', 'pattern', 'letterHunt', 'rhythm', 'shapes', 'sizeOrder', 'clock',
       'oddOne', 'shadow', 'opposite', 'storyOrder', 'category', 'missingPic', 'cups', 'cleanSteps', 'manner', 'dragSort', 'maze',
-      'lights', 'traceNum', 'traceAr', 'traceEn'],
+      'lights', 'traceNum', 'traceAr', 'traceEn', 'sudoku', 'hanoi', 'slide', 'numberSeq'],
 };
 
 void main() {

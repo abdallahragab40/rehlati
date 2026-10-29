@@ -10,6 +10,7 @@ import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
 import '../../core/widgets/top_bar.dart';
 import '../../domain/progress/progress_controller.dart';
+import '../../domain/school.dart';
 import '../../domain/stages.dart';
 import '../parent/parent_gate.dart';
 import '../scenes/world_scene.dart';
@@ -27,6 +28,9 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
   String? _say;
   BubbleKind _sayKind = BubbleKind.no;
   int _sadTick = 0;
+
+  /// عالم الألعاب: الألعاب اللي مش لسن الطفل مستخبية ورا زرار.
+  bool _showAll = false;
 
   void _open(Stage s) {
     final p = ref.read(progressProvider);
@@ -64,7 +68,12 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
   Widget build(BuildContext context) {
     final meta = worldMeta(widget.world);
     final p = ref.watch(progressProvider);
-    final stages = worldStages[widget.world]!;
+    final all = worldStages[widget.world]!;
+    // عالم الألعاب والسن معروف: المناسب لسنه الأول، والباقي ورا زرار "ألعاب تانية"
+    final age = widget.world == 'games' ? p.age : null;
+    final fit = [for (final s in all) if (fitsAge(s, age)) s];
+    final rest = [for (final s in all) if (!fitsAge(s, age)) s];
+    final stages = [...fit, if (_showAll) ...rest];
     return ScreenFrame(
       onBack: () => context.back(),
       title: 'المستوى ${ar(p.level(widget.world))}',
@@ -84,9 +93,15 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 26),
               child: Column(children: [
+                if (age != null) _GroupHeader('🎯 ألعاب مناسبة لسن ${ar(age)} ${yearsWord(age)}'),
                 for (var i = 0; i < stages.length; i++) ...[
+                  if (age != null && i == fit.length) ...[
+                    _MoreGames(shown: true, count: rest.length, onTap: () => setState(() => _showAll = false)),
+                    const _GroupHeader('🎮 ألعاب لسن تاني'),
+                  ],
                   // عنوان مجموعة (زي المدود) بيظهر مرة قبل أول مرحلة فيها
-                  if (stages[i].group != null && (i == 0 || stages[i - 1].group != stages[i].group))
+                  if (stages[i].group != null &&
+                      (i == 0 || i == fit.length || stages[i - 1].group != stages[i].group))
                     _GroupHeader(stages[i].groupName ?? ''),
                   // المراحل بتتعرّج يمين وشمال — عرض الكارت min(300, 86%)
                   LayoutBuilder(
@@ -98,6 +113,7 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
                           padding: const EdgeInsets.only(bottom: 16),
                           child: _StageCard(
                             stage: stages[i],
+                            number: i + 1,
                             open: p.isUnlocked(stages[i].id),
                             medals: p.best[stages[i].id] ?? 0,
                             skipped: p.skipped.contains(stages[i].id),
@@ -109,6 +125,8 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
                     ),
                   ),
                 ],
+                if (rest.isNotEmpty && !_showAll)
+                  _MoreGames(shown: false, count: rest.length, onTap: () => setState(() => _showAll = true)),
               ]),
             ),
           ]),
@@ -140,6 +158,7 @@ class _PathPainter extends CustomPainter {
 class _StageCard extends StatelessWidget {
   const _StageCard({
     required this.stage,
+    required this.number,
     required this.open,
     required this.medals,
     required this.skipped,
@@ -147,6 +166,9 @@ class _StageCard extends StatelessWidget {
     this.onSkip,
   });
   final Stage stage;
+
+  /// ترتيبها على الخريطة (عالم الألعاب بيقدّم المناسب للسن، فممكن يختلف عن [Stage.n]).
+  final int number;
   final bool open;
   final int medals;
 
@@ -176,7 +198,7 @@ class _StageCard extends StatelessWidget {
         const SizedBox(width: 14),
         Expanded(
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('المرحلة ${ar(stage.n)}', style: kidText(14, weight: FontWeight.w700, color: AppColors.inkSoft)),
+            Text('المرحلة ${ar(number)}', style: kidText(14, weight: FontWeight.w700, color: AppColors.inkSoft)),
             Directionality(
               textDirection: stage.isEnglish ? TextDirection.ltr : TextDirection.rtl,
               child: Text(stage.name, style: kidText(context.clampVw(17, 4.4, 21), height: 1.25)),
@@ -220,6 +242,20 @@ class _StageCard extends StatelessWidget {
       child: ColorFiltered(colorFilter: ColorFilter.matrix(saturation(.25)), child: card),
     );
   }
+}
+
+/// "ألعاب تانية (١٢)" — الألعاب اللي سنها مختلف، مستخبية لحد ما حد يطلبها.
+class _MoreGames extends StatelessWidget {
+  const _MoreGames({required this.shown, required this.count, required this.onTap});
+  final bool shown;
+  final int count;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.only(bottom: 18),
+        child: KidButton(shown ? '🔼 خبّي الألعاب التانية' : '🎮 ألعاب تانية (${ar(count)})', kind: BtnKind.ghost, onTap: onTap),
+      );
 }
 
 /// المسار اللي المرحلة بتفتح عليه: لوحة حروف، درس مدود، أو لعب على طول.

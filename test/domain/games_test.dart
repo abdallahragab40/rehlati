@@ -247,4 +247,99 @@ void main() {
     expect(fx.whereType<FxWrong>().single.gentle, isTrue);
     expect(s.q.mode, QMode.choice);
   });
+
+  test('sudoku: a clash says where, and filling every gap solves it', () async {
+    final c = await makeContainer();
+    final engine = c.read(gameProvider.notifier)..start('sudoku');
+    final s = c.read(gameProvider)!;
+    final q = s.q;
+    engine.sudokuPut(1);
+    expect(s.tries, 0, reason: 'nothing selected yet');
+    final gap = q.givens.indexOf(false);
+    engine.sudokuSelect(gap);
+    engine.sudokuPut(q.solution[gap] % q.gridSize + 1);
+    expect(s.tries, 1);
+    expect(s.sudokuVals, isEmpty);
+    for (var i = 0; i < q.givens.length; i++) {
+      if (q.givens[i]) continue;
+      engine
+        ..sudokuSelect(i)
+        ..sudokuPut(q.solution[i]);
+    }
+    expect(s.locked, isTrue);
+    expect(s.dots[0], DotState.miss);
+  });
+
+  test('hanoi: a big ring can\'t go on a small one; the best solution earns the star', () async {
+    final c = await makeContainer();
+    final engine = c.read(gameProvider.notifier)..start('hanoi');
+    final s = c.read(gameProvider)!;
+    final n = s.q.discs;
+    void move(int k, int from, int to, int via) {
+      if (k == 0) return;
+      move(k - 1, from, via, to);
+      engine
+        ..hanoiTap(from)
+        ..hanoiTap(to);
+      move(k - 1, via, to, from);
+    }
+
+    move(n, 0, 2, 1);
+    expect(s.locked, isTrue);
+    expect(s.moves, (1 << n) - 1);
+    expect(s.dots[0], DotState.done);
+
+    // السؤال اللي بعده: حلقة صغيرة على عمود وبعدين الكبيرة فوقها
+    await Future<void>.delayed(const Duration(milliseconds: 2000));
+    engine
+      ..hanoiTap(0)
+      ..hanoiTap(1)
+      ..hanoiTap(0)
+      ..hanoiTap(1);
+    expect(s.tries, 1);
+    expect(s.pegs[1].length, 1);
+  });
+
+  test('sliding puzzle: only tiles next to the gap move, and sorting them solves it', () async {
+    final c = await makeContainer();
+    final engine = c.read(gameProvider.notifier)..start('slide');
+    final s = c.read(gameProvider)!;
+    final n = s.q.slideSize;
+    final far = List.generate(n * n, (i) => i).firstWhere((i) {
+      final b = s.slideTiles.indexOf(0);
+      return (i ~/ n - b ~/ n).abs() + (i % n - b % n).abs() > 1;
+    });
+    engine.slideTap(far);
+    expect(s.moves, 0);
+    expect(s.puzzleBump, 1);
+
+    // أقصر حل بالـ BFS — الخلطة حركات قليلة فده سريع
+    final goal = [for (var i = 1; i < n * n; i++) i, 0].join(',');
+    final prev = <String, (String, int)?>{s.slideTiles.join(','): null};
+    final todo = [s.slideTiles.join(',')];
+    while (!prev.containsKey(goal)) {
+      final cur = todo.removeAt(0);
+      final t = cur.split(',').map(int.parse).toList(), b = t.indexOf(0);
+      for (final to in [b - n, b + n, if (b % n > 0) b - 1, if (b % n < n - 1) b + 1]) {
+        if (to < 0 || to >= n * n) continue;
+        final next = [...t]
+          ..[b] = t[to]
+          ..[to] = 0;
+        final key = next.join(',');
+        if (!prev.containsKey(key)) {
+          prev[key] = (cur, to);
+          todo.add(key);
+        }
+      }
+    }
+    final taps = <int>[];
+    for (var k = goal; prev[k] != null; k = prev[k]!.$1) {
+      taps.insert(0, prev[k]!.$2);
+    }
+    for (final i in taps) {
+      engine.slideTap(i);
+    }
+    expect(s.locked, isTrue);
+    expect(s.moves, taps.length);
+  });
 }

@@ -122,12 +122,12 @@ Journey planJourney(ProgressData p, {required String day, Set<int> quranReady = 
   final seed = day.codeUnits.fold<int>(0, (h, c) => (h * 31 + c) & 0x3fffffff);
 
   // مراحل لعب مفتوحة (لوحة الحروف مش جولة بنتيجة فمابتدخلش)،
-  // من غير اللي ولي الأمر اتخطّاها والطفل لسه ما لعبهاش
+  // من غير اللي ولي الأمر اتخطّاها والطفل لسه ما لعبهاش، ومن غير ألعاب مش لسنه
   final candidates = [
     for (final w in journeyWorlds)
       if (w != 'quran' && !off.contains(w))
         for (final s in worldStages[w] ?? const <Stage>[])
-          if (!s.isLearn && p.isUnlocked(s.id) && (p.best[s.id] != null || !p.skipped.contains(s.id))) s,
+          if (!s.isLearn && p.isUnlocked(s.id) && (p.best[s.id] != null || !p.skipped.contains(s.id)) && fitsAge(s, p.age)) s,
   ];
   final used = <String>{};
   int medals(Stage s) => p.best[s.id] ?? 0;

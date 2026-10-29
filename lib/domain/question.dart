@@ -46,6 +46,15 @@ enum QMode {
 
   /// ارسم بصباعك: تتبّع الحرف أو الرقم.
   trace,
+
+  /// سودوكو: اختار خانة وبعدين الرقم أو الصورة.
+  sudoku,
+
+  /// برج هانوي: انقل الحلقات من عمود لعمود.
+  hanoi,
+
+  /// البازل المنزلق: زحلق الأرقام للخانة الفاضية.
+  slide,
 }
 
 /// شكل الاختيارات لو مش نص.
@@ -362,6 +371,15 @@ class Question {
     this.mazeStart = 0,
     this.mazeGoal = 0,
     this.trace,
+    this.gridSize = 0,
+    this.boxRows = 0,
+    this.boxCols = 0,
+    this.solution = const [],
+    this.givens = const [],
+    this.symbols = const [],
+    this.discs = 0,
+    this.slideSize = 0,
+    this.slideStart = const [],
     this.sizePic,
     this.track = false,
     this.puzzle,
@@ -477,6 +495,21 @@ class Question {
 
   /// ارسم بصباعك: الحرف أو الرقم اللي الطفل يتتبّعه.
   final String? trace;
+
+  /// سودوكو: ضلع الشبكة ومقاس المربع، والحل (١…n صف ورا صف)، والخانات الظاهرة، وشكل كل رقم.
+  final int gridSize;
+  final int boxRows;
+  final int boxCols;
+  final List<int> solution;
+  final List<bool> givens;
+  final List<String> symbols;
+
+  /// برج هانوي: عدد الحلقات.
+  final int discs;
+
+  /// البازل المنزلق: ضلع الشبكة وترتيب البداية (٠ = الخانة الفاضية).
+  final int slideSize;
+  final List<int> slideStart;
 
   /// رتّب بالحجم: العناصر أحجام ('1'، '1.55'…) والصورة دي بتترسم بالحجم ده.
   final String? sizePic;

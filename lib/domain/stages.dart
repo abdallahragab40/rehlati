@@ -25,6 +25,7 @@ import 'generators/mul_generators.dart';
 import 'generators/reading_generators.dart';
 import 'placement.dart';
 import 'generators/play_generators.dart';
+import 'generators/puzzle_generators.dart';
 import 'progress/progress_data.dart';
 import 'question.dart';
 
@@ -117,6 +118,9 @@ class Stage {
 
   /// أول مرحلة في مجموعة الابتدائي بتتفتح من الأول لطفل في الصف ده أو أعلى ([schoolGrades]).
   final String? fromGrade;
+
+  /// السن المناسب للعبة (عالم الألعاب بس) — الخريطة والرحلة بيقدّموا المناسب لسن الطفل.
+  (int, int)? get ages => gameAges[id];
 
   bool get isLearn => learnItems != null;
   bool get isMadd => madd != null;
@@ -227,6 +231,10 @@ final _play = [
     ('traceNum', '✍️', 'ارسم الرقم', 0xFF7A5CFF, traceNum, 'draw', 4),
     ('traceAr', '✍️', 'ارسم الحرف', 0xFFFF9F1C, traceAr, 'draw', 4),
     ('traceEn', '✍️', 'Trace the letter', 0xFF4CB8FF, traceEn, 'draw', 4),
+    ('sudoku', '🔢', 'سودوكو', 0xFF5B3FD6, sudoku, 'puzzle', 3),
+    ('hanoi', '🗼', 'برج هانوي', 0xFFD2693C, hanoi, 'puzzle', 3),
+    ('slide', '🔲', 'البازل المنزلق', 0xFF2B8A9E, slide, 'puzzle', 3),
+    ('numberSeq', '➡️', 'كمّل المتتالية', 0xFF3F8FD6, numberSeq, 'puzzle', 8),
   ].indexed)
     Stage(
       id: id, world: 'games', n: _games.length + i + 1, icon: icon, name: name, base: 1, color: Color(color),
@@ -234,11 +242,54 @@ final _play = [
     ),
 ];
 
+/// السن المناسب لكل لعبة (من، لحد). اللعبة بتفضل مفتوحة لأي سن — ده ترتيب وعرض بس.
+const gameAges = <String, (int, int)>{
+  'balloons': (3, 8),
+  'memoryNum': (4, 9),
+  'listenNum': (3, 6),
+  'race': (5, 9),
+  'puzzle': (5, 9),
+  'colorNum': (4, 9),
+  'pattern': (3, 8),
+  'letterHunt': (4, 7),
+  'rhythm': (3, 12),
+  'shapes': (3, 6),
+  'sizeOrder': (3, 6),
+  'clock': (6, 10),
+  'oddOne': (3, 7),
+  'shadow': (3, 6),
+  'animalSound': (3, 5),
+  'opposite': (3, 6),
+  'storyOrder': (4, 8),
+  'category': (3, 6),
+  'missingPic': (4, 8),
+  'cups': (3, 12),
+  'cleanSteps': (4, 9),
+  'manner': (3, 8),
+  'dragSort': (3, 7),
+  'maze': (4, 12),
+  'lights': (4, 12),
+  'traceNum': (3, 6),
+  'traceAr': (4, 7),
+  'traceEn': (5, 8),
+  'sudoku': (6, 12),
+  'hanoi': (7, 12),
+  'slide': (7, 12),
+  'numberSeq': (8, 12),
+};
+
+/// اللعبة مناسبة لسن الطفل؟ من غير سن (أو مرحلة مش لعبة) = أيوه.
+bool fitsAge(Stage s, int? age) {
+  final a = s.ages;
+  return age == null || a == null || (age >= a.$1 && age <= a.$2);
+}
+
 const playGroups = {
   'think': '🧠 ألعاب الذكاء',
   'values': '🌟 آداب ونضافة',
   'move': '🏃 العب وحرّك',
   'draw': '✍️ ارسم بصباعك',
+  'puzzle': '🧩 ألغاز وتحديات',
 };
 
 /// المدود بتتضاف في آخر عالم العربي من غير ما نلمس مراحله الأصلية (appendStages في الويب).

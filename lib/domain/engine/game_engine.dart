@@ -132,6 +132,19 @@ class GameSession {
 
   /// ارسم بصباعك: بيزيد لما الرسمة تتمسح عشان اللوحة تبدأ من الأول.
   int traceTick = 0;
+
+  /// سودوكو: الخانة المختارة واللي الطفل ملاه.
+  int? sudokuSel;
+  final sudokuVals = <int, int>{};
+
+  /// برج هانوي: الحلقات على كل عمود (من تحت لفوق)، والعمود اللي اتشال منه، وعدد الحركات.
+  final pegs = <List<int>>[];
+  int? hanoiHeld;
+  int moves = 0;
+
+  /// البازل المنزلق: الترتيب الحالي (٠ = الفاضية)، وعدّاد الضغطة اللي مالهاش معنى.
+  final slideTiles = <int>[];
+  int puzzleBump = 0;
   Object? hintTarget;
   String? wrongAnchor, rightAnchor;
   int wrongTick = 0, shakeTick = 0;
@@ -172,6 +185,20 @@ class GameSession {
     mazeTrail
       ..clear()
       ..add(q.mazeStart);
+    sudokuSel = null;
+    sudokuVals.clear();
+    pegs
+      ..clear()
+      ..addAll([
+        [for (var d = q.discs; d >= 1; d--) d],
+        <int>[],
+        <int>[],
+      ]);
+    hanoiHeld = null;
+    moves = 0;
+    slideTiles
+      ..clear()
+      ..addAll(q.slideStart);
     hintTarget = null;
     wrongAnchor = null;
     rightAnchor = null;
@@ -233,7 +260,12 @@ class GameEngine extends Notifier<GameSession?> {
     final p = _progress.data;
     final childLv = p.level(stage.world);
     // آخر جولتين ضعاف في المرحلة دي ← أسهل مستوى ليها، حتى لو تحت مستوى السن
-    final level = p.struggling(stage.id) ? stage.base : math.min(math.max(stage.base, math.min(childLv, stage.base + 1)), 4);
+    // عالم الألعاب: المستوى من السن (الألعاب كلها مفتوحة، فمستوى العالم مابيقولش حاجة عن الطفل)
+    final level = p.struggling(stage.id)
+        ? stage.base
+        : stage.world == 'games'
+            ? math.max(stage.base, p.gamesLevel)
+            : math.min(math.max(stage.base, math.min(childLv, stage.base + 1)), 4);
     // مراحل طويلة (زي الجدول الفاضي) ممكن تحدّد عدد أسئلتها بنفسها
     final count = practice ? practiceCount : (stage.count ?? questionsPerRound);
     final list = <Question>[];
@@ -855,6 +887,140 @@ class GameEngine extends Notifier<GameSession?> {
   void traceClear() {
     if (_s.locked) return;
     _s.traceTick += 1;
+    _emit();
+  }
+
+  // ------------------------------------------------------------------ ألغاز للكبار
+
+  /// أول غلطة في السؤال بتتحسب، والباقي بيورّي التلميح بس.
+  void _puzzleMiss(Question q, String anchor, String bubble) {
+    final s = _s
+      ..tries += 1
+      ..streak = 0;
+    if (s.tries == 1) {
+      _markMistake(q);
+      _miss(q.skill);
+      _penalize();
+    }
+    _wrongUi(q, anchor, allowHint: false);
+    s.bubble = bubble;
+    _emit();
+    _speech.speak([sayRetry, q.speakHint ?? q.hint]);
+  }
+
+  void _puzzleSolved(Question q, {String? bubble}) {
+    _solved(anchor: null, skill: q.skill, delay: 1900);
+    if (bubble != null) {
+      _s.bubble = bubble;
+      _emit();
+    }
+    final pr = _rng.sample(praiseSay);
+    _speech.speak(pr.$1, clips: [pr.$2]);
+  }
+
+  /// سودوكو: اختيار خانة فاضية.
+  void sudokuSelect(int i) {
+    final s = _s, q = s.q;
+    if (s.locked || q.givens[i] || s.sudokuVals.containsKey(i)) return;
+    s.sudokuSel = i;
+    _emit();
+  }
+
+  /// سودوكو: حط الرقم [v] (١…n) في الخانة المختارة. الغلط بيقول الطفل ليه.
+  void sudokuPut(int v) {
+    final s = _s, q = s.q;
+    if (s.locked) return;
+    final i = s.sudokuSel;
+    if (i == null) {
+      s
+        ..bubble = 'اختار خانة فاضية الأول 👆'
+        ..bubbleKind = BubbleKind.plain;
+      _emit();
+      _sfx.bad();
+      return;
+    }
+    if (q.solution[i] == v) {
+      s
+        ..sudokuVals[i] = v
+        ..sudokuSel = null;
+      _fx.add(FxFill('sq$i'));
+      if (s.sudokuVals.length == q.givens.where((g) => !g).length) {
+        _puzzleSolved(q);
+      } else {
+        _emit();
+        _sfx.good();
+      }
+      return;
+    }
+    final n = q.gridSize, row = i ~/ n, col = i % n;
+    int? shown(int k) => q.givens[k] ? q.solution[k] : s.sudokuVals[k];
+    final r0 = row - row % q.boxRows, c0 = col - col % q.boxCols;
+    final where = [for (var k = 0; k < n; k++) shown(row * n + k)].contains(v)
+        ? 'الصف'
+        : [for (var k = 0; k < n; k++) shown(k * n + col)].contains(v)
+            ? 'العمود'
+            : [
+                for (var a = 0; a < q.boxRows; a++)
+                  for (var b = 0; b < q.boxCols; b++) shown((r0 + a) * n + c0 + b),
+              ].contains(v)
+                ? 'المربع'
+                : null;
+    final sym = q.symbols[v - 1];
+    _puzzleMiss(q, 'sq$i', where != null ? '$sym موجود في نفس $where — جرّب حاجة تانية ❤️' : 'مش $sym هنا — فكّر تاني ❤️');
+  }
+
+  /// برج هانوي: الضغطة الأولى بتشيل الحلقة اللي فوق، والتانية بتحطها.
+  void hanoiTap(int peg) {
+    final s = _s, q = s.q;
+    if (s.locked || q.mode != QMode.hanoi) return;
+    final held = s.hanoiHeld;
+    if (held == null) {
+      if (s.pegs[peg].isEmpty) return;
+      s.hanoiHeld = peg;
+      _emit();
+      return;
+    }
+    s.hanoiHeld = null;
+    if (held == peg) {
+      _emit();
+      return;
+    }
+    final d = s.pegs[held].last;
+    if (s.pegs[peg].isNotEmpty && s.pegs[peg].last < d) {
+      _puzzleMiss(q, 'peg$peg', 'الحلقة الكبيرة ماتقعدش على الصغيرة ❤️');
+      return;
+    }
+    s.pegs[held].removeLast();
+    s.pegs[peg].add(d);
+    s.moves++;
+    if (s.pegs[2].length == q.discs) {
+      final best = (1 << q.discs) - 1;
+      _puzzleSolved(q,
+          bubble: s.moves == best ? '🏆 ${ar(s.moves)} حركة — أقل عدد ممكن!' : '🗼 خلّصت في ${ar(s.moves)} حركة (ممكن في ${ar(best)})');
+      return;
+    }
+    _emit();
+  }
+
+  /// البازل المنزلق: الرقم اللي جنب الفاضية بيتزحلق مكانها.
+  void slideTap(int i) {
+    final s = _s, q = s.q;
+    if (s.locked || q.mode != QMode.slide) return;
+    final n = q.slideSize, blank = s.slideTiles.indexOf(0);
+    final near = (i ~/ n == blank ~/ n && (i - blank).abs() == 1) || (i % n == blank % n && (i - blank).abs() == n);
+    if (!near) {
+      s.puzzleBump++;
+      _emit();
+      return;
+    }
+    s.slideTiles[blank] = s.slideTiles[i];
+    s.slideTiles[i] = 0;
+    s.moves++;
+    final done = [for (var k = 0; k < n * n - 1; k++) s.slideTiles[k] == k + 1].every((x) => x);
+    if (done) {
+      _puzzleSolved(q, bubble: '🔲 اترتبت في ${ar(s.moves)} حركة!');
+      return;
+    }
     _emit();
   }
 

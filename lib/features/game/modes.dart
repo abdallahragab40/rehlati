@@ -15,6 +15,7 @@ import '../../domain/question.dart';
 import '../madd/madd_style.dart';
 import 'games_modes.dart';
 import 'play_modes.dart';
+import 'puzzle_modes.dart';
 import 'visuals.dart';
 
 typedef KeyFor = GlobalKey Function(String anchor);
@@ -239,6 +240,9 @@ class QuestionBody extends StatelessWidget {
       QMode.cups => CupsGame(s: s, engine: engine, keyFor: keyFor),
       QMode.maze => MazeGame(s: s, engine: engine, keyFor: keyFor),
       QMode.trace => TraceGame(s: s, engine: engine, keyFor: keyFor),
+      QMode.sudoku => SudokuGame(s: s, engine: engine, keyFor: keyFor),
+      QMode.hanoi => HanoiGame(s: s, engine: engine, keyFor: keyFor),
+      QMode.slide => SlideGame(s: s, engine: engine, keyFor: keyFor),
     };
     return Column(children: [
       AskRow(q: q, onSpeak: engine.repeat),
