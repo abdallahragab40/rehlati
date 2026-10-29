@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rehlati/core/utils/arabic.dart';
 import 'package:rehlati/domain/progress/badges.dart';
 import 'package:rehlati/domain/progress/progress_data.dart';
+import 'package:rehlati/domain/stages.dart';
 
 void main() {
   group('arabic utils', () {
@@ -33,7 +34,11 @@ void main() {
       final p = ProgressData();
       expect(p.unlockNext('counting')?.id, 'chooseNumber');
       expect(p.unlockNext('counting'), isNull);
-      expect(p.unlockNext('subtraction'), isNull); // آخر مرحلة
+      expect(p.unlockNext('subtraction')?.id, 'tensOnes'); // بعدها الأعداد لحد ١٠٠
+      expect(p.unlockNext('sub100')?.id, 'mulGroups'); // بعدها جدول الضرب
+      expect(p.unlockNext('timesAll')?.id, 'moneyCount'); // بعدها الفلوس والساعة
+      expect(p.unlockNext('clockQuarter')?.id, 'divisionExact');
+      expect(p.unlockNext(worldStages['math']!.last.id), isNull); // آخر مرحلة
     });
 
     test('a parent skip opens the next stage and keeps the skipped one playable', () {

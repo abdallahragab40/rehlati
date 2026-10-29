@@ -19,6 +19,8 @@ import '../../core/utils/arabic.dart';
 import '../../core/utils/rng.dart';
 import '../progress/learning_time.dart';
 import '../progress/progress_controller.dart';
+import '../paths.dart';
+import '../placement.dart';
 import '../progress/progress_data.dart';
 import '../question.dart';
 import '../stages.dart';
@@ -33,6 +35,7 @@ class GameResult {
     required this.mistakes,
     required this.unlocked,
     required this.practice,
+    this.placed,
   });
   final Stage stage;
   final int correct;
@@ -40,6 +43,9 @@ class GameResult {
   final List<String> mistakes;
   final Stage? unlocked;
   final bool practice;
+
+  /// اختبار تحديد المستوى: الدرجة اللي وصلها الطفل ("تانية ابتدائي").
+  final String? placed;
 
   int get pct => (correct / total * 100).round();
   bool get good => pct >= 80;
@@ -211,7 +217,10 @@ class GameEngine extends Notifier<GameSession?> {
     // مراحل طويلة (زي الجدول الفاضي) ممكن تحدّد عدد أسئلتها بنفسها
     final count = practice ? practiceCount : (stage.count ?? questionsPerRound);
     final list = <Question>[];
-    if (practice && types != null && types.isNotEmpty) {
+    if (!practice && isPlacement(stage.id)) {
+      // اختبار المستوى: سؤالين من كل درجة بالترتيب، من غير تعلّم متكيّف
+      list.addAll(placementRound(stage.world, _rng));
+    } else if (practice && types != null && types.isNotEmpty) {
       for (var i = 0; i < count; i++) {
         list.add(makeQuestion(_rng.sample(types), level, _rng, progress: p));
       }
@@ -355,9 +364,9 @@ class GameEngine extends Notifier<GameSession?> {
     final s = _s, q = s.q;
     if (s.locked) return;
     final value = q.choices[i];
-    final said = value is int ? arNum(value) : (signWord[value] ?? '$value');
+    final said = q.choiceSay[value] ?? (value is int ? arNum(value) : (signWord[value] ?? '$value'));
     // الحرف أو الكلمة اللي اختارها بتتنطق بمقطع التعليم لو موجود
-    final valueClip = value is int ? nk(value) : signClip[value] ?? say(said);
+    final valueClip = q.choiceSay.containsKey(value) ? say(said) : (value is int ? nk(value) : signClip[value] ?? say(said));
     if (value == q.answer) {
       final pr = _rng.sample(praiseSay);
       _solved(anchor: 'c$i', skill: q.skill);
@@ -737,12 +746,21 @@ class GameEngine extends Notifier<GameSession?> {
   void _finish() {
     final s = _s;
     Stage? unlocked;
-    if (!s.practice) {
+    String? placed;
+    if (!s.practice && isPlacement(s.stage.id)) {
+      // مفيش ميداليات ولا إتقان للاختبار نفسه — بيفتح مراحل الدرجات اللي عدّاها وبيحدد المستوى
+      final reached = placementReached([for (final d in s.dots) d == DotState.done]);
+      _progress.update((p) => unlocked = applyPlacement(p, s.stage.world, reached));
+      placed = placementLabel(s.stage.world, reached);
+    } else if (!s.practice) {
       _progress.update((p) {
         final before = p.best[s.stage.id] ?? 0;
         p.addResult(s.stage.id, s.correct, s.total);
         p.recordMastery(s.stage.id, s.correct, s.total);
-        if (s.correct / s.total >= .8) unlocked = p.unlockNext(s.stage.id);
+        if (s.correct / s.total >= .8) {
+          unlocked = p.unlockNext(s.stage.id);
+          markPathStage(p, s.stage.id);
+        }
         // المدود: +٢ لكل جولة، و +٥ أول مرة تنجح فيها المرحلة
         if (s.stage.isMadd) {
           p.madd.rounds[s.stage.id] = (p.madd.rounds[s.stage.id] ?? 0) + 1;
@@ -756,7 +774,7 @@ class GameEngine extends Notifier<GameSession?> {
     _progress.checkRewards();
     s.result = GameResult(
       stage: s.stage, correct: s.correct, total: s.total,
-      mistakes: [...s.mistakes], unlocked: unlocked, practice: s.practice,
+      mistakes: [...s.mistakes], unlocked: unlocked, practice: s.practice, placed: placed,
     );
     s.result!.good ? _sfx.win() : _sfx.aww();
     _emit();

@@ -1,0 +1,126 @@
+clip_key	displayed	spoken_input	decision	reviewer	date	notes
+l_ba_tanween_fath	بًا	بًا	pending			
+l_ba_tanween_damm	بٌ	بٌ	pending			
+l_ba_tanween_kasr	بٍ	بٍ	pending			
+l_ta_tanween_fath	تًا	تًا	pending			
+l_ta_tanween_damm	تٌ	تٌ	pending			
+l_ta_tanween_kasr	تٍ	تٍ	pending			
+l_tha_tanween_fath	ثًا	ثًا	pending			
+l_tha_tanween_damm	ثٌ	ثٌ	pending			
+l_tha_tanween_kasr	ثٍ	ثٍ	pending			
+l_jim_tanween_fath	جًا	جًا	pending			
+l_jim_tanween_damm	جٌ	جٌ	pending			
+l_jim_tanween_kasr	جٍ	جٍ	pending			
+l_ha_tanween_fath	حًا	حًا	pending			
+l_ha_tanween_damm	حٌ	حٌ	pending			
+l_ha_tanween_kasr	حٍ	حٍ	pending			
+l_kha_tanween_fath	خًا	خًا	pending			
+l_kha_tanween_damm	خٌ	خٌ	pending			
+l_kha_tanween_kasr	خٍ	خٍ	pending			
+l_dal_tanween_fath	دًا	دًا	pending			
+l_dal_tanween_damm	دٌ	دٌ	pending			
+l_dal_tanween_kasr	دٍ	دٍ	pending			
+l_dhal_tanween_fath	ذًا	ذًا	pending			
+l_dhal_tanween_damm	ذٌ	ذٌ	pending			
+l_dhal_tanween_kasr	ذٍ	ذٍ	pending			
+l_ra_tanween_fath	رًا	رًا	pending			
+l_ra_tanween_damm	رٌ	رٌ	pending			
+l_ra_tanween_kasr	رٍ	رٍ	pending			
+l_zay_tanween_fath	زًا	زًا	pending			
+l_zay_tanween_damm	زٌ	زٌ	pending			
+l_zay_tanween_kasr	زٍ	زٍ	pending			
+l_sin_tanween_fath	سًا	سًا	pending			
+l_sin_tanween_damm	سٌ	سٌ	pending			
+l_sin_tanween_kasr	سٍ	سٍ	pending			
+l_shin_tanween_fath	شًا	شًا	pending			
+l_shin_tanween_damm	شٌ	شٌ	pending			
+l_shin_tanween_kasr	شٍ	شٍ	pending			
+l_sad_tanween_fath	صًا	صًا	pending			
+l_sad_tanween_damm	صٌ	صٌ	pending			
+l_sad_tanween_kasr	صٍ	صٍ	pending			
+l_dad_tanween_fath	ضًا	ضًا	pending			
+l_dad_tanween_damm	ضٌ	ضٌ	pending			
+l_dad_tanween_kasr	ضٍ	ضٍ	pending			
+l_taa_tanween_fath	طًا	طًا	pending			
+l_taa_tanween_damm	طٌ	طٌ	pending			
+l_taa_tanween_kasr	طٍ	طٍ	pending			
+l_dha_tanween_fath	ظًا	ظًا	pending			
+l_dha_tanween_damm	ظٌ	ظٌ	pending			
+l_dha_tanween_kasr	ظٍ	ظٍ	pending			
+l_ayn_tanween_fath	عًا	عًا	pending			
+l_ayn_tanween_damm	عٌ	عٌ	pending			
+l_ayn_tanween_kasr	عٍ	عٍ	pending			
+l_ghayn_tanween_fath	غًا	غًا	pending			
+l_ghayn_tanween_damm	غٌ	غٌ	pending			
+l_ghayn_tanween_kasr	غٍ	غٍ	pending			
+l_fa_tanween_fath	فًا	فًا	pending			
+l_fa_tanween_damm	فٌ	فٌ	pending			
+l_fa_tanween_kasr	فٍ	فٍ	pending			
+l_qaf_tanween_fath	قًا	قًا	pending			
+l_qaf_tanween_damm	قٌ	قٌ	pending			
+l_qaf_tanween_kasr	قٍ	قٍ	pending			
+l_kaf_tanween_fath	كًا	كًا	pending			
+l_kaf_tanween_damm	كٌ	كٌ	pending			
+l_kaf_tanween_kasr	كٍ	كٍ	pending			
+l_lam_tanween_fath	لًا	لًا	pending			
+l_lam_tanween_damm	لٌ	لٌ	pending			
+l_lam_tanween_kasr	لٍ	لٍ	pending			
+l_mim_tanween_fath	مًا	مًا	pending			
+l_mim_tanween_damm	مٌ	مٌ	pending			
+l_mim_tanween_kasr	مٍ	مٍ	pending			
+l_nun_tanween_fath	نًا	نًا	pending			
+l_nun_tanween_damm	نٌ	نٌ	pending			
+l_nun_tanween_kasr	نٍ	نٍ	pending			
+l_haa_tanween_fath	هًا	هًا	pending			
+l_haa_tanween_damm	هٌ	هٌ	pending			
+l_haa_tanween_kasr	هٍ	هٍ	pending			
+l_waw_tanween_fath	وًا	وًا	pending			
+l_waw_tanween_damm	وٌ	وٌ	pending			
+l_waw_tanween_kasr	وٍ	وٍ	pending			
+l_ya_tanween_fath	يًا	يًا	pending			
+l_ya_tanween_damm	يٌ	يٌ	pending			
+l_ya_tanween_kasr	يٍ	يٍ	pending			
+l_alif_sakin_name	أَلِف سَاكِنَة	أَلِف سَاكِنَة	pending			
+l_ba_sakin_name	بَاء سَاكِنَة	بَاء سَاكِنَة	pending			
+l_ta_sakin_name	تَاء سَاكِنَة	تَاء سَاكِنَة	pending			
+l_tha_sakin_name	ثَاء سَاكِنَة	ثَاء سَاكِنَة	pending			
+l_jim_sakin_name	جِيم سَاكِنَة	جِيم سَاكِنَة	pending			
+l_ha_sakin_name	حَاء سَاكِنَة	حَاء سَاكِنَة	pending			
+l_kha_sakin_name	خَاء سَاكِنَة	خَاء سَاكِنَة	pending			
+l_dal_sakin_name	دَال سَاكِنَة	دَال سَاكِنَة	pending			
+l_dhal_sakin_name	ذَال سَاكِنَة	ذَال سَاكِنَة	pending			
+l_ra_sakin_name	رَاء سَاكِنَة	رَاء سَاكِنَة	pending			
+l_zay_sakin_name	زَاي سَاكِنَة	زَاي سَاكِنَة	pending			
+l_sin_sakin_name	سِين سَاكِنَة	سِين سَاكِنَة	pending			
+l_shin_sakin_name	شِين سَاكِنَة	شِين سَاكِنَة	pending			
+l_sad_sakin_name	صَاد سَاكِنَة	صَاد سَاكِنَة	pending			
+l_dad_sakin_name	ضَاد سَاكِنَة	ضَاد سَاكِنَة	pending			
+l_taa_sakin_name	طَاء سَاكِنَة	طَاء سَاكِنَة	pending			
+l_dha_sakin_name	ظَاء سَاكِنَة	ظَاء سَاكِنَة	pending			
+l_ayn_sakin_name	عَيْن سَاكِنَة	عَيْن سَاكِنَة	pending			
+l_ghayn_sakin_name	غَيْن سَاكِنَة	غَيْن سَاكِنَة	pending			
+l_fa_sakin_name	فَاء سَاكِنَة	فَاء سَاكِنَة	pending			
+l_qaf_sakin_name	قَاف سَاكِنَة	قَاف سَاكِنَة	pending			
+l_kaf_sakin_name	كَاف سَاكِنَة	كَاف سَاكِنَة	pending			
+l_lam_sakin_name	لَام سَاكِنَة	لَام سَاكِنَة	pending			
+l_mim_sakin_name	مِيم سَاكِنَة	مِيم سَاكِنَة	pending			
+l_nun_sakin_name	نُون سَاكِنَة	نُون سَاكِنَة	pending			
+l_haa_sakin_name	هَاء سَاكِنَة	هَاء سَاكِنَة	pending			
+l_waw_sakin_name	وَاو سَاكِنَة	وَاو سَاكِنَة	pending			
+l_ya_sakin_name	يَاء سَاكِنَة	يَاء سَاكِنَة	pending			
+l_tamarbuta_tanween_damm	ةٌ	تٌ	pending			
+sukun_kalb	كَلْبٌ	كَلْبٌ	pending			
+sukun_bahr	بَحْرٌ	بَحْرٌ	pending			
+sukun_shams	شَمْسٌ	شَمْسٌ	pending			
+sukun_qird	قِرْدٌ	قِرْدٌ	pending			
+sukun_nahr	نَهْرٌ	نَهْرٌ	pending			
+sukun_bayt	بَيْتٌ	بَيْتٌ	pending			
+sukun_bint	بِنْتٌ	بِنْتٌ	pending			
+sukun_qalb	قَلْبٌ	قَلْبٌ	pending			
+sukun_saqr	صَقْرٌ	صَقْرٌ	pending			
+sukun_khubz	خُبْزٌ	خُبْزٌ	pending			
+sukun_zahra	زَهْرَةٌ	زَهْرَةٌ	pending			
+sukun_warda	وَرْدَةٌ	وَرْدَةٌ	pending			
+sukun_malab	مَلْعَبٌ	مَلْعَبٌ	pending			
+sukun_thalab	ثَعْلَبٌ	ثَعْلَبٌ	pending			
+sukun_arnab	أَرْنَبٌ	أَرْنَبٌ	pending			

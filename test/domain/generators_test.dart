@@ -16,10 +16,11 @@ void main() {
     ],
   ];
 
-  test('registry has the same stage counts as the web app', () {
-    expect(worldStages['math']!.length, 13, reason: 'with neighbors and emptyTable');
-    expect(worldStages['arabic']!.length, 11 + 9, reason: '11 + 9 madd stages');
-    expect(worldStages['english']!.length, 14);
+  test('registry includes the primary expansion stages', () {
+    expect(worldStages['math']!.length, 13 + 5 + 5 + 3 + 4, reason: 'with neighbors and emptyTable, plus numbers to 100, times tables, money/time, division and fractions');
+    expect(worldStages['arabic']!.length, 11 + 9 + (voiceEnabled ? 3 + 4 : 2 + 3) + 6,
+        reason: '11 + 9 madd stages + harakat + sukun and tanween + grammar');
+    expect(worldStages['english']!.length, 14 + 7, reason: 'plus primary English');
     expect(worldStages['games']!.length, voiceEnabled ? 12 : 11, reason: 'listenNum needs the voice');
   });
 

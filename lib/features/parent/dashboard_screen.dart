@@ -14,6 +14,7 @@ import '../../core/widgets/kid_widgets.dart';
 import '../../core/widgets/top_bar.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
+import '../../domain/school.dart';
 import '../../domain/stages.dart';
 import '../achievements/achievements_screen.dart';
 import '../achievements/rank_widgets.dart';
@@ -21,6 +22,7 @@ import '../daily/week_card.dart';
 import '../madd/madd_dashboard_card.dart';
 import '../parent_guide/pg_screens.dart';
 import '../journey/journey.dart';
+import '../paths/paths_screen.dart';
 import '../profiles/profiles.dart';
 import '../quran/quran_download.dart';
 import '../quran/quran_repository.dart';
@@ -89,6 +91,8 @@ class DashboardScreen extends ConsumerWidget {
           const _ChildrenCard(),
           h3('🧭 رحلة النهاردة'),
           const JourneyParentCard(),
+          h3('🎒 مسارات التعلّم'),
+          const PathsParentCard(),
           h3('📅 تقرير الأسبوع'),
           const WeekCard(),
           h3('🗺️ العوالم'),
@@ -108,6 +112,10 @@ class DashboardScreen extends ConsumerWidget {
           const PgGoalsList(),
           h3('🌱 حالة المراحل'),
           const MasteryCard(),
+          h3('🎯 اختبار تحديد المستوى'),
+          const _PlacementCard(),
+          h3('🧑 شكل التطبيق'),
+          const _LookCard(),
           h3('🧠 مهارات محتاجة تدريب'),
           _WeakSkills(p),
           h3('📖 سور تحتاج مراجعة'),
@@ -197,6 +205,16 @@ class _ChildRowState extends ConsumerState<_ChildRow> {
     if (age != null) ref.read(progressProvider.notifier).update((p) => p.age = age);
   }
 
+  Future<void> _editGrade() async {
+    final p = ref.read(progressProvider);
+    final grade = await showDialog<String>(
+      context: context,
+      builder: (_) => _GradeDialog(initial: p.grade, usual: usualGrade(p.age)),
+    );
+    // '' = ولي الأمر شال الصف
+    if (grade != null) ref.read(progressProvider.notifier).update((p) => p.grade = grade.isEmpty ? null : grade);
+  }
+
   Future<void> _pickPhoto() async {
     setState(() => _note = '⏳ بنجهّز الصورة…');
     final err = await ref.read(avatarProvider.notifier).pick();
@@ -246,6 +264,7 @@ class _ChildRowState extends ConsumerState<_ChildRow> {
           Wrap(spacing: 8, runSpacing: 8, children: [
             small('✏️ الاسم', _editName),
             small('🎂 السن', _editAge),
+            small('🏫 الصف', _editGrade),
             small(custom ? '📷 تغيير الصورة' : '📷 إضافة صورة الطفل', _pickPhoto),
             if (custom) small('🗑️ رجّع الافتراضية', _clearPhoto),
           ]),
@@ -331,6 +350,51 @@ class _WeakSkills extends StatelessWidget {
   }
 }
 
+/// شكل الكبار: من غير الأسد والتلة الخضرا — تلقائي من سن ٩، وولي الأمر يقدر يغيّره.
+class _LookCard extends ConsumerWidget {
+  const _LookCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final p = ref.watch(progressProvider);
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      Wrap(spacing: 6, runSpacing: 4, children: [
+        for (final (v, label) in [(null, 'حسب السن'), (true, 'شكل الكبار'), (false, 'شكل الصغار')])
+          ChoiceChip(
+            label: Text(label),
+            selected: p.settings.grownUp == v,
+            onSelected: (_) => ref.read(progressProvider.notifier).update((p) => p.settings.grownUp = v),
+          ),
+      ]),
+      const SizedBox(height: 4),
+      Text(
+        'شكل الكبار من غير الأسد والرسوم، للأطفال من ٩ سنين وفوق. "حسب السن" بيختاره لوحده '
+        '(دلوقتي: ${p.grownUpLook ? 'شكل الكبار' : 'شكل الصغار'}).',
+        style: kidText(14.5, weight: FontWeight.w600, color: AppColors.inkSoft),
+      ),
+    ]);
+  }
+}
+
+/// اختبار قصير (١٠ أسئلة) لكل مادة: بيفتح المراحل اللي على قد الطفل وبيحدد مستوى البداية.
+class _PlacementCard extends StatelessWidget {
+  const _PlacementCard();
+
+  @override
+  Widget build(BuildContext context) => Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        Text(
+          'ادّي الجهاز للطفل يجاوب ١٠ أسئلة بتصعب تدريجيًا. على قد ما يوصل، المراحل المناسبة بتتفتح '
+          'ومستوى البداية في المادة بيتظبط. مابيقفلش حاجة كانت مفتوحة.',
+          style: kidText(14.5, weight: FontWeight.w600, color: AppColors.inkSoft),
+        ),
+        const SizedBox(height: 8),
+        Wrap(spacing: 8, runSpacing: 8, children: [
+          for (final (world, label) in [('math', '🧮 الحساب'), ('arabic', '🔤 العربي'), ('english', '🇬🇧 English')])
+            KidButton(label, kind: BtnKind.ghost, onTap: () => context.push('/play/place_$world')),
+        ]),
+      ]);
+}
+
 /// الدايالوج بيملك الـ controller بتاعه (نفس سبب بوابة الأهل).
 class _NameDialog extends StatefulWidget {
   const _NameDialog({required this.initial});
@@ -390,6 +454,41 @@ class _AgeDialog extends StatelessWidget {
       );
 }
 
+/// الصف الدراسي اختياري ومنفصل عن السن — بيتخزّن دلوقتي عشان المحتوى الجاي يمشي على المنهج.
+class _GradeDialog extends StatelessWidget {
+  const _GradeDialog({required this.initial, required this.usual});
+  final String? initial;
+
+  /// الصف المعتاد للسن — بيتعلّم بنجمة كاقتراح.
+  final String? usual;
+
+  @override
+  Widget build(BuildContext context) => Dialog(
+        backgroundColor: AppColors.paper,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(22),
+          child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            Text('في سنة كام؟', textAlign: TextAlign.center, style: kidText(20)),
+            const SizedBox(height: 12),
+            Wrap(alignment: WrapAlignment.center, spacing: 8, runSpacing: 8, children: [
+              for (final g in schoolGrades)
+                ChoiceChip(
+                  label: Text(g == usual ? '${gradeName(g)} ⭐' : gradeName(g), style: kidText(15)),
+                  selected: g == initial,
+                  onSelected: (_) => context.pop(g),
+                ),
+            ]),
+            const SizedBox(height: 10),
+            Text('⭐ = الصف المعتاد لسنه. الصف بيفتح من الأول مراحل الابتدائي المناسبة (زي جدول الضرب من تالتة).',
+                textAlign: TextAlign.center, style: kidText(13, weight: FontWeight.w600, color: AppColors.inkSoft)),
+            if (initial != null) TextButton(onPressed: () => context.pop(''), child: const Text('مش عايز أحدد')),
+            TextButton(onPressed: () => context.pop(), child: const Text('إلغاء')),
+          ]),
+        ),
+      );
+}
+
 /// الإخوات: تبديل، إضافة، ومسح — جوه لوحة ولي الأمر عشان الطفل مايمسحش أخوه بالغلط.
 class _ChildrenCard extends ConsumerWidget {
   const _ChildrenCard();
@@ -428,7 +527,8 @@ class _ChildrenCard extends ConsumerWidget {
             Text(id == active ? '✅' : '🧒', style: const TextStyle(fontSize: 22)),
             const SizedBox(width: 10),
             Expanded(
-              child: Text('${childName(p)}${p.age != null ? ' • ${ar(p.age)} سنين' : ''} • ⭐ ${ar(p.stars)}',
+              child: Text('${childName(p)}${p.age != null ? ' • ${ageText(p.age!)}' : ''}'
+                  '${p.grade != null ? ' • ${gradeName(p.grade!)}' : ''} • ⭐ ${ar(p.stars)}',
                   style: kidText(16)),
             ),
             if (id != active)

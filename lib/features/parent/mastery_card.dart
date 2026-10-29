@@ -1,4 +1,4 @@
-/// لوحة ولي الأمر: حالة المراحل (جديد / بيتدرّب / جاهز للمراجعة / متقن) ومستوى البداية.
+/// لوحة ولي الأمر: حالة المراحل (جديد / بيتدرّب / جاهز للمراجعة / متقن) ومستوى البداية، كله ولكل مادة.
 library;
 
 import 'package:flutter/material.dart';
@@ -68,6 +68,27 @@ class MasteryCard extends ConsumerWidget {
             onSelected: (_) => ref.read(progressProvider.notifier).update((p) => p.settings.startLevel = v),
           ),
       ]),
+      const SizedBox(height: 10),
+      Text('📚 مستوى كل مادة', style: kidText(15)),
+      const SizedBox(height: 4),
+      for (final w in subjectWorlds) ...[
+        Text('${worldMeta(w).icon} ${worldMeta(w).name}', style: kidText(14.5)),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 6),
+          child: Wrap(key: Key('level-$w'), spacing: 6, runSpacing: 4, children: [
+            for (final (v, label) in [(null, 'زي الباقي'), (1, 'سهل'), (2, 'متوسط'), (3, 'أصعب')])
+              ChoiceChip(
+                label: Text(label),
+                selected: p.settings.worldLevel[w] == v,
+                onSelected: (_) => ref.read(progressProvider.notifier).update((p) {
+                  v == null ? p.settings.worldLevel.remove(w) : p.settings.worldLevel[w] = v;
+                }),
+              ),
+          ]),
+        ),
+      ],
+      const SizedBox(height: 4),
+      Text('مثلًا سهل في الإنجليزي وأصعب في الحساب. "زي الباقي" بيمشي على مستوى البداية اللي فوق.', style: body),
       const SizedBox(height: 4),
       Text('لو الطفل اتعثر في مرحلة جولتين ورا بعض، الجولة الجاية بتبدأ من أسهل مستوى ليها تلقائيًا.', style: body),
     ]);

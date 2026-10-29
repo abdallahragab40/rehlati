@@ -21,6 +21,12 @@ import '../world_map/world_map_screen.dart';
 /// النشاط اتفتح من الرحلة؟ (الرجوع بيودّي للرحلة، فالزرار بيقول كده)
 bool fromJourney(BuildContext context) => GoRouter.maybeOf(context)?.state.uri.queryParameters['from'] == 'journey';
 
+/// "جاي منين" للشاشة اللي بعدها (درس المدود ← الجولة): '?from=journey' أو '?from=path' أو ''.
+String fromQuery(BuildContext context) {
+  final from = GoRouter.maybeOf(context)?.state.uri.queryParameters['from'];
+  return from == null ? '' : '?from=$from';
+}
+
 /// يعمل رحلة النهاردة لو لسه ما اتعملتش — السور المتأخرة بتدخل بس لو نصها على الجهاز.
 Future<void> ensureTodayJourney(WidgetRef ref) async {
   final n = ref.read(progressProvider.notifier);

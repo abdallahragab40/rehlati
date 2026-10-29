@@ -86,7 +86,7 @@ class _MaddLessonScreenState extends ConsumerState<MaddLessonScreen> {
                       _markLesson();
                     })
         else
-          KidButton('▶️ يلا نلعب', kind: BtnKind.go, onTap: () => context.pushReplacement('/play/${pack.id}${fromJourney(context) ? '?from=journey' : ''}')),
+          KidButton('▶️ يلا نلعب', kind: BtnKind.go, onTap: () => context.pushReplacement('/play/${pack.id}${fromQuery(context)}')),
       ]),
     );
   }

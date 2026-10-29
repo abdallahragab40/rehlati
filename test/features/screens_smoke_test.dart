@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rehlati/content/quran_config.dart';
 import 'package:rehlati/core/audio/audio_providers.dart';
 import 'package:rehlati/core/utils/rng.dart';
+import 'package:rehlati/domain/paths.dart';
 import 'package:rehlati/domain/progress/progress_controller.dart';
 import 'package:rehlati/domain/stages.dart';
 import 'package:rehlati/features/journey/journey.dart';
@@ -24,6 +25,7 @@ import 'package:rehlati/features/parent/dashboard_screen.dart';
 import 'package:rehlati/features/parent/guide_screen.dart';
 import 'package:rehlati/features/quran/quran_modes.dart';
 import 'package:rehlati/features/quran/quran_repository.dart';
+import 'package:rehlati/features/paths/paths_screen.dart';
 import 'package:rehlati/features/quran/quran_screens.dart';
 import 'package:rehlati/features/world_map/world_map_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -89,6 +91,8 @@ void main() {
     'kid hub': const KidHubScreen(),
     'time up': const TimeUpScreen(),
     'journey': const JourneyScreen(),
+    'paths': const PathsScreen(),
+    for (final path in learningPaths) 'path ${path.id}': PathScreen(id: path.id),
     'kid play': KidPlayScreen(ids: [for (final b in pgBehaviors.take(3)) b.id]),
   };
 

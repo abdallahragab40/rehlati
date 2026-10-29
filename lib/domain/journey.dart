@@ -2,7 +2,10 @@
 /// وبعدين حاجة جديدة (أو مراجعة سورة). منطق صافي من غير واجهة — سهل يتختبر.
 library;
 
+import 'dart:math' as math;
+
 import 'progress/progress_data.dart';
+import 'school.dart';
 import 'stages.dart';
 
 /// نوع الخطوة — بيحدد السبب اللي بيظهر لولي الأمر.
@@ -129,6 +132,20 @@ Journey planJourney(ProgressData p, {required String day, Set<int> quranReady = 
   final used = <String>{};
   int medals(Stage s) => p.best[s.id] ?? 0;
 
+  // طفل في الابتدائي: البداية والجديد من أعلى صف مفتوح مش أكبر من صفه — مايبدأش بالعد وهو في رابعة.
+  // من غير صف (أو في الحضانة) الاختيار زي ما هو.
+  final grade = schoolGrades.indexOf(p.schoolGrade ?? '');
+  int fit(Stage s) {
+    final g = schoolGrades.indexOf(stageGrade(s) ?? '');
+    return g <= grade ? g : -100;
+  }
+
+  Iterable<Stage> suited(Iterable<Stage> from) {
+    if (grade < 0 || from.isEmpty) return from;
+    final best = from.map(fit).reduce(math.max);
+    return from.where((s) => fit(s) == best);
+  }
+
   /// اختيار ثابت لنفس اليوم من وسط قايمة.
   Stage? pick(Iterable<Stage> from, [int salt = 0]) {
     final list = from.where((s) => !used.contains(s.id)).toList();
@@ -149,7 +166,7 @@ Journey planJourney(ProgressData p, {required String day, Set<int> quranReady = 
   } else if (pick(candidates.where((s) => medals(s) >= 2)) ?? pick(candidates.where((s) => medals(s) >= 1), 1)
       case final s?) {
     warm = stageStep(StepKind.warm, s);
-  } else if (candidates.firstOrNull case final s?) {
+  } else if (suited(candidates).firstOrNull case final s?) {
     used.add(s.id);
     warm = stageStep(StepKind.start, s);
   }
@@ -177,7 +194,8 @@ Journey planJourney(ProgressData p, {required String day, Set<int> quranReady = 
   } else {
     final seen = {for (final s in [warm, practice].nonNulls) s.world};
     final unplayed = candidates.where((s) => medals(s) == 0);
-    final s = pick(unplayed.where((s) => !seen.contains(s.world)), 3) ?? pick(unplayed, 3);
+    final s = pick(suited(unplayed.where((s) => !seen.contains(s.world) && !used.contains(s.id))), 3) ??
+        pick(suited(unplayed.where((s) => !used.contains(s.id))), 3);
     if (s != null) fresh = stageStep(StepKind.fresh, s);
   }
 

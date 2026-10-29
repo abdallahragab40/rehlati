@@ -62,7 +62,157 @@ class VisualView extends StatelessWidget {
         ListenVisual v => Center(child: ListenButton(v.say)),
         PatternVisual v => _Pattern(v),
         ClockVisual v => Center(child: ClockFace(hour: v.hour, minute: v.minute, size: context.clampVw(150, 44, 210))),
+        TensOnesVisual v => _TensOnes(v),
+        GroupsVisual v => TapCountScope(child: _Groups(v)),
+        MoneyVisual v => _Money(v),
+        PassageVisual v => _Passage(v),
       },
+    );
+  }
+}
+
+/// قطعة القراءة: كارت فاتح، العنوان فوق، والنص بخط مريح للقراية الطويلة.
+class _Passage extends StatelessWidget {
+  const _Passage(this.v);
+  final PassageVisual v;
+
+  @override
+  Widget build(BuildContext context) => Directionality(
+        textDirection: v.ltr ? TextDirection.ltr : TextDirection.rtl,
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 14),
+          decoration: BoxDecoration(
+            color: AppColors.paper2,
+            border: Border.all(color: AppColors.line, width: 2),
+            borderRadius: BorderRadius.circular(18),
+          ),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(v.title, style: kidText(context.clampVw(17, 4.6, 22), color: AppColors.grape)),
+            const SizedBox(height: 6),
+            Text(v.text, style: kidText(context.clampVw(17, 4.6, 22), weight: FontWeight.w600, height: 1.7)),
+          ]),
+        ),
+      );
+}
+
+/// الجنيه عملة دهبي، والورق مستطيلات بلون لكل فئة ومكتوب عليها قيمتها — رسم تعليمي مش صورة الفلوس.
+class _Money extends StatelessWidget {
+  const _Money(this.v);
+  final MoneyVisual v;
+
+  static const _colors = {
+    5: Color(0xFF4FA37A), 10: Color(0xFFE0728A), 20: Color(0xFF3F8F5A),
+    50: Color(0xFF8B6BB8), 100: Color(0xFF4C8FC9),
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    final w = context.clampVw(92, 24, 120);
+    Widget piece(int p) => p == 1
+        ? Container(
+            width: w * .45,
+            height: w * .45,
+            alignment: Alignment.center,
+            decoration: const BoxDecoration(
+              color: AppColors.gold,
+              shape: BoxShape.circle,
+              boxShadow: [BoxShadow(color: Color(0x33000000), offset: Offset(0, 2))],
+            ),
+            child: Text(ar(1), style: kidText(w * .2)),
+          )
+        : Container(
+            width: w,
+            height: w * .5,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: _colors[p] ?? AppColors.grape,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.white, width: 3),
+              boxShadow: const [BoxShadow(color: Color(0x33000000), offset: Offset(0, 2))],
+            ),
+            child: Text('${ar(p)} جنيه', style: kidText(w * .17, color: Colors.white)),
+          );
+    return Semantics(
+      label: v.pounds.map((p) => '${ar(p)} جنيه').join('، '),
+      child: ExcludeSemantics(
+        child: Wrap(
+          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: 10,
+          runSpacing: 10,
+          children: [for (final p in v.pounds) piece(p)],
+        ),
+      ),
+    );
+  }
+}
+
+/// المجموعات المتساوية: علبة لكل مجموعة، والعلب بتنزل سطر جديد لو المكان ضيق.
+class _Groups extends StatelessWidget {
+  const _Groups(this.v);
+  final GroupsVisual v;
+
+  @override
+  Widget build(BuildContext context) {
+    final size = context.clampVw(22, 6, 32);
+    return Semantics(
+      label: '${ar(v.groups)} مجموعات، في كل مجموعة ${ar(v.each)} ${v.emoji}',
+      child: ExcludeSemantics(
+        child: Wrap(alignment: WrapAlignment.center, spacing: 10, runSpacing: 10, children: [
+          for (var g = 0; g < v.groups; g++)
+            Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: AppColors.paper2,
+                border: Border.all(color: AppColors.line, width: 2),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: (size + 6) * 3),
+                child: Wrap(alignment: WrapAlignment.center, spacing: 2, runSpacing: 2, children: [
+                  for (var i = 0; i < v.each; i++)
+                    TapCountItem(id: (g, i), child: Text(v.emoji, style: TextStyle(fontSize: size))),
+                ]),
+              ),
+            ),
+        ]),
+      ),
+    );
+  }
+}
+
+/// عيدان العشرات (١٠ مكعبات فوق بعض) على الشمال، والآحاد مكعبات لوحدها على اليمين.
+class _TensOnes extends StatelessWidget {
+  const _TensOnes(this.v);
+  final TensOnesVisual v;
+
+  @override
+  Widget build(BuildContext context) {
+    final cube = context.clampVw(12, 3.2, 18);
+    Widget block(Color c) => Container(
+          width: cube,
+          height: cube,
+          margin: const EdgeInsets.all(.5),
+          decoration: BoxDecoration(color: c, border: Border.all(color: const Color(0x331B3557)), borderRadius: BorderRadius.circular(2)),
+        );
+    return Semantics(
+      label: '${ar(v.tens)} عشرات و ${ar(v.ones)} آحاد',
+      child: ExcludeSemantics(
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: Wrap(alignment: WrapAlignment.center, crossAxisAlignment: WrapCrossAlignment.end, spacing: 18, runSpacing: 12, children: [
+            Wrap(spacing: 6, children: [
+              for (var i = 0; i < v.tens; i++) Column(mainAxisSize: MainAxisSize.min, children: [for (var j = 0; j < 10; j++) block(AppColors.grape)]),
+            ]),
+            if (v.ones > 0)
+              SizedBox(
+                width: (cube + 1) * 3,
+                child: Wrap(alignment: WrapAlignment.center, children: [for (var i = 0; i < v.ones; i++) block(AppColors.gold)]),
+              ),
+          ]),
+        ),
+      ),
     );
   }
 }

@@ -81,6 +81,30 @@ void main() {
       expect(Settings.fromJson(p.settings.toJson()).startLevel, 1);
     });
 
+    test('a subject level overrides the overall start level in that world only', () {
+      final p = ProgressData(age: 6)..settings.startLevel = 2;
+      p.settings.worldLevel['english'] = 1;
+      p.settings.worldLevel['math'] = 3;
+      expect([p.startLevelIn('english'), p.startLevelIn('math'), p.startLevelIn('arabic'), p.startLevelIn(null)], [1, 3, 2, 2]);
+      expect([p.level('english'), p.level('math'), p.level('arabic')], [1, 3, 2]);
+
+      final back = Settings.fromJson(p.settings.toJson());
+      expect(back.worldLevel, {'english': 1, 'math': 3});
+      expect(Settings().toJson().containsKey('worldLevel'), isFalse, reason: 'old settings stay unchanged');
+      expect(Settings.fromJson({}).worldLevel, isEmpty);
+      expect(Settings.fromJson({'worldLevel': {'math': 9, 'english': 0, 'science': 2, 'arabic': 'x'}}).worldLevel,
+          {'math': 3, 'english': 1}, reason: 'levels are clamped; unknown worlds and bad values are dropped');
+    });
+
+    test('a round starts from the subject level the parent chose', () async {
+      final c = await makeContainer();
+      c.read(progressProvider.notifier).update((p) => p
+        ..age = 6
+        ..settings.worldLevel['math'] = 1);
+      c.read(gameProvider.notifier).start('counting');
+      expect(c.read(gameProvider)!.level, 1, reason: 'age 6 alone would start counting at level 2');
+    });
+
     test('two weak rounds start the next round at the easiest level, even for an older child', () async {
       final c = await makeContainer();
       c.read(progressProvider.notifier).update((p) => p.age = 6);

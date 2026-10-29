@@ -25,6 +25,7 @@ class ChoiceTile extends StatelessWidget {
   const ChoiceTile({
     super.key,
     required this.label,
+    this.semanticLabel,
     required this.color,
     this.onTap,
     this.size = TileSize.number,
@@ -38,6 +39,7 @@ class ChoiceTile extends StatelessWidget {
   });
 
   final String label;
+  final String? semanticLabel;
 
   /// بدل النص: شكل أو صورة بحجم (عالم الألعاب).
   final Widget? content;
@@ -72,7 +74,7 @@ class ChoiceTile extends StatelessWidget {
       radius: 26,
       depth: matched ? 2 : 7,
       border: selected ? Border.all(color: AppColors.gold, width: 6) : null,
-      semanticLabel: label,
+      semanticLabel: semanticLabel ?? label,
       child: ConstrainedBox(
         constraints: BoxConstraints(minWidth: minW.isInfinite ? 0 : minW, minHeight: minH),
         child: Padding(
@@ -247,7 +249,12 @@ class QuestionBody extends StatelessWidget {
           key: keyFor('c$i'),
           child: ChoiceTile(
             label: '${q.choices[i]}',
-            content: q.look == ChoiceLook.shape ? ShapeIcon('${q.choices[i]}', size: context.clampVw(44, 12, 62)) : null,
+            semanticLabel: q.choiceSay[q.choices[i]],
+            content: switch (q.look) {
+              ChoiceLook.shape => ShapeIcon('${q.choices[i]}', size: context.clampVw(44, 12, 62)),
+              ChoiceLook.fraction => FractionChoice('${q.choices[i]}'),
+              ChoiceLook.text => null,
+            },
             color: color,
             size: q.bigChoices
                 ? (wide ? TileSize.maddWide : TileSize.madd)
@@ -580,5 +587,24 @@ class QuestionBody extends StatelessWidget {
     );
     final shown = matched ? Opacity(opacity: .75, child: card) : card;
     return open ? shown.anim(key: ValueKey('o$i')).scaleXY(begin: 1.18, end: 1, duration: 300.ms) : shown;
+  }
+}
+
+/// الكسر البسط فوق المقام — مايتلخبطش في الكتابة من اليمين.
+class FractionChoice extends StatelessWidget {
+  const FractionChoice(this.value, {super.key});
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    final parts = value.split('/');
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Text(ar(parts[0]), style: kidText(28, color: Colors.white)),
+        Container(width: 40, height: 2, color: Colors.white),
+        Text(ar(parts[1]), style: kidText(28, color: Colors.white)),
+      ]),
+    );
   }
 }

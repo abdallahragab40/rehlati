@@ -2,6 +2,7 @@
 library;
 
 import 'progress/progress_data.dart';
+import 'school.dart';
 import 'stages.dart';
 
 /// لحد ٣ اقتراحات، كل واحد بسببه (StepKind) — من الأنشطة المفتوحة بس.
@@ -24,11 +25,21 @@ List<JourneyStep> practiceSuggestions(ProgressData p) {
   ];
   if (weak.where(playable).firstOrNull case final id?) add(StepKind.practice, 'stage:$id');
   if (p.surahsNeedingReview.firstOrNull case final s?) add(StepKind.quran, 'quran:$s:review');
-  for (final list in worldStages.values) {
-    if (list.where((s) => playable(s.id) && (p.best[s.id] ?? 0) == 0).firstOrNull case final s?) {
-      add(StepKind.fresh, 'stage:${s.id}');
-      break;
-    }
+  // الجديد: أول مرحلة ما اتلعبتش من أعلى صف مفتوح مش أكبر من صف الطفل (طفل في رابعة مايتقترحلوش العد)
+  final grade = schoolGrades.indexOf(p.schoolGrade ?? '');
+  int fit(Stage s) {
+    final g = schoolGrades.indexOf(stageGrade(s) ?? '');
+    return grade < 0 ? 0 : (g <= grade ? g : -100);
+  }
+
+  final fresh = [
+    for (final list in worldStages.values)
+      for (final s in list)
+        if (playable(s.id) && (p.best[s.id] ?? 0) == 0) s,
+  ];
+  if (fresh.isNotEmpty) {
+    final best = fresh.map(fit).reduce((a, b) => a > b ? a : b);
+    add(StepKind.fresh, 'stage:${fresh.firstWhere((s) => fit(s) == best).id}');
   }
   return out;
 }

@@ -147,15 +147,29 @@ class Pill extends StatelessWidget {
 }
 
 /// خلفية السماء مع التل الأخضر تحت (زي body في الويب).
+/// شكل الكبار (سن ٩ وفوق، أو اختيار ولي الأمر): من غير الأسد ولا التلة الخضرا — بيتحدد في RehlatiApp.
+class GrownUpLook extends InheritedWidget {
+  const GrownUpLook({super.key, required this.on, required super.child});
+  final bool on;
+
+  static bool of(BuildContext context) => context.dependOnInheritedWidgetOfExactType<GrownUpLook>()?.on ?? false;
+
+  @override
+  bool updateShouldNotify(GrownUpLook old) => old.on != on;
+}
+
 class SkyBackground extends StatelessWidget {
   const SkyBackground({super.key, required this.child});
   final Widget child;
 
   @override
-  Widget build(BuildContext context) => CustomPaint(painter: _SkyPainter(), child: child);
+  Widget build(BuildContext context) => CustomPaint(painter: _SkyPainter(hill: !GrownUpLook.of(context)), child: child);
 }
 
 class _SkyPainter extends CustomPainter {
+  _SkyPainter({required this.hill});
+  final bool hill;
+
   @override
   void paint(Canvas canvas, Size s) {
     final r = Offset.zero & s;
@@ -169,6 +183,7 @@ class _SkyPainter extends CustomPainter {
           stops: [0, .58, 1],
         ).createShader(r),
     );
+    if (!hill) return;
     // radial-gradient(120% 70% at 50% 108%, grass 0 42%, transparent 43%)
     canvas.drawOval(
       Rect.fromCenter(center: Offset(s.width / 2, s.height * 1.08), width: s.width * 1.008, height: s.height * .588),
@@ -177,7 +192,7 @@ class _SkyPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_SkyPainter oldDelegate) => false;
+  bool shouldRepaint(_SkyPainter oldDelegate) => oldDelegate.hill != hill;
 }
 
 /// الأسد صاحب الطفل — بيتنطط لما يجاوب صح وبيميل لما يغلط.
@@ -200,6 +215,8 @@ class _LionMascotState extends State<LionMascot> {
 
   @override
   Widget build(BuildContext context) {
+    // شكل الكبار: الأسد مستخبي، بس فاضل في الشجرة عشان المؤثرات اللي بتطلع من مكانه
+    if (GrownUpLook.of(context)) return const SizedBox.shrink();
     final mood = widget.mood, tick = widget.tick, emoji = widget.emoji;
     final size = context.clampVw(54, 14, 78);
     final lion = Text(emoji, style: TextStyle(fontSize: size, height: 1));

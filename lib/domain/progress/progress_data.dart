@@ -6,6 +6,7 @@ library;
 import 'dart:math' as math;
 
 import '../../content/quran_config.dart';
+import '../school.dart';
 import '../stages.dart';
 import '../journey.dart';
 import 'extras.dart';
@@ -28,8 +29,11 @@ class Settings {
     this.westernDigits = false,
     Set<String>? journeyOff,
     this.startLevel,
+    Map<String, int>? worldLevel,
     this.calm = false,
-  }) : journeyOff = journeyOff ?? {};
+    this.grownUp,
+  })  : journeyOff = journeyOff ?? {},
+        worldLevel = worldLevel ?? {};
 
   factory Settings.fromJson(Map<String, dynamic> j) => Settings(
         speech: j['speech'] as bool? ?? true,
@@ -43,7 +47,14 @@ class Settings {
         westernDigits: j['westernDigits'] as bool? ?? false,
         journeyOff: {for (final w in (j['journeyOff'] is List ? j['journeyOff'] as List : const [])) '$w'},
         startLevel: (j['startLevel'] as num?)?.toInt().clamp(1, 3),
+        worldLevel: j['worldLevel'] is Map
+            ? {
+                for (final e in (j['worldLevel'] as Map).entries)
+                  if (worldStages.containsKey(e.key) && e.value is num) '${e.key}': (e.value as num).toInt().clamp(1, 3),
+              }
+            : null,
         calm: j['calm'] as bool? ?? false,
+        grownUp: j['grownUp'] as bool?,
       );
 
   bool speech;
@@ -73,8 +84,14 @@ class Settings {
   /// مستوى البداية اللي ولي الأمر اختاره (١–٣) — null = حسب السن.
   int? startLevel;
 
+  /// مستوى بداية لمادة بعينها (عالم ← ١–٣) بيغلب [startLevel]: سهل في الإنجليزي وأصعب في الحساب مثلًا.
+  final Map<String, int> worldLevel;
+
   /// وضع هادي: من غير حركة ولا كونفيتي، وأصوات اللعبة أوطى.
   bool calm;
+
+  /// شكل الكبار (من غير الأسد والتلة) — null = حسب السن (٩ وفوق).
+  bool? grownUp;
 
   Map<String, dynamic> toJson() => {
         'speech': speech,
@@ -87,7 +104,9 @@ class Settings {
         'westernDigits': westernDigits,
         'journeyOff': journeyOff.toList(),
         'startLevel': startLevel,
+        if (worldLevel.isNotEmpty) 'worldLevel': worldLevel,
         'calm': calm,
+        if (grownUp != null) 'grownUp': grownUp,
       };
 }
 
@@ -119,6 +138,7 @@ class ProgressData {
   ProgressData({
     this.name = '',
     this.age,
+    this.grade,
     this.setupDone = false,
     this.stars = 0,
     this.correct = 0,
@@ -142,7 +162,9 @@ class ProgressData {
     this.rankSeen,
     this.journey,
     Map<String, SkillRecord>? mastery,
+    Map<String, Set<String>>? pathDone,
   })  : mastery = mastery ?? {},
+        pathDone = pathDone ?? {},
         unlocked = unlocked ?? [...initiallyUnlocked],
         skipped = skipped ?? [],
         best = best ?? {},
@@ -161,8 +183,11 @@ class ProgressData {
 
   String name;
 
-  /// عمر الطفل (٤–٦) من شاشة البداية — بيحدد أقل مستوى للأسئلة.
+  /// عمر الطفل (٣–١٢) من شاشة البداية — بيحدد أقل مستوى للأسئلة.
   int? age;
+
+  /// الصف الدراسي ([schoolGrades]) من لوحة ولي الأمر — null = مش متحدد.
+  String? grade;
 
   /// شاشة البداية (الاسم والعمر) خلصت.
   bool setupDone;
@@ -213,6 +238,9 @@ class ProgressData {
   /// stage id -> الإتقان ومواعيد المراجعة.
   final Map<String, SkillRecord> mastery;
 
+  /// مسار التعلّم -> الأنشطة اللي خلصت في دروسه ("درس:مرحلة") — lib/domain/paths.dart.
+  final Map<String, Set<String>> pathDone;
+
   // ---------------------------------------------------------------- JSON
 
   factory ProgressData.fromJson(Map<String, dynamic> j) {
@@ -222,6 +250,7 @@ class ProgressData {
     return ProgressData(
       name: j['name'] as String? ?? '',
       age: (j['age'] as num?)?.toInt(),
+      grade: schoolGrades.contains(j['grade']) ? j['grade'] as String : null,
       // اللي كان بيلعب قبل شاشة البداية مايشوفهاش
       setupDone: j['setupDone'] as bool? ?? ((j['games'] as num? ?? 0) > 0 || (j['stars'] as num? ?? 0) > 0),
       stars: (j['stars'] as num?)?.toInt() ?? 0,
@@ -249,6 +278,9 @@ class ProgressData {
       mastery: j['mastery'] is Map
           ? {for (final e in (j['mastery'] as Map).entries) '${e.key}': SkillRecord.fromJson(e.value)}
           : {},
+      pathDone: j['paths'] is Map
+          ? {for (final e in (j['paths'] as Map).entries) '${e.key}': strs(e.value).toSet()}
+          : {},
       pgFocus: (j['parentGuide'] is Map && (j['parentGuide'] as Map)['focus'] is Map)
           ? {
               for (final e in ((j['parentGuide'] as Map)['focus'] as Map).entries)
@@ -262,6 +294,7 @@ class ProgressData {
         'schemaVersion': schemaVersion,
         'name': name,
         'age': age,
+        if (grade != null) 'grade': grade,
         'setupDone': setupDone,
         'stars': stars,
         'correct': correct,
@@ -284,6 +317,7 @@ class ProgressData {
         'rankSeen': rankSeen,
         'journey': journey?.toJson(),
         'mastery': {for (final e in mastery.entries) e.key: e.value.toJson()},
+        if (pathDone.isNotEmpty) 'paths': {for (final e in pathDone.entries) e.key: e.value.toList()},
         'parentGuide': {
           'focus': {for (final e in pgFocus.entries) e.key: e.value.toJson()},
         },
@@ -297,6 +331,10 @@ class ProgressData {
     if (settings.dev || unlocked.contains(id)) return true;
     // عالم الألعاب مفتوح كله من الأول — دي ألعاب مش مناهج
     if (packs[id]?.world == 'games') return true;
+    // أول مرحلة في مجموعة ابتدائي بتتفتح من الأول لطفل في صفها أو أعلى — مايعديش على مراحل الحضانة
+    final from = packs[id]?.fromGrade;
+    final grade = schoolGrade;
+    if (from != null && grade != null && schoolGrades.indexOf(grade) >= schoolGrades.indexOf(from)) return true;
     // مرحلة ليها after بتتفتح أول ما المرحلة دي تتنجح (٨٠٪+) أو تتخطّى — بتشتغل للتقدّم القديم كمان
     final after = packs[id]?.after;
     return after != null && ((best[after] ?? 0) >= 2 || skipped.contains(after));
@@ -319,6 +357,12 @@ class ProgressData {
     skipped.add(id);
     unlockNext(id);
   }
+
+  /// شكل الكبار: اختيار ولي الأمر، وإلا من سن ٩.
+  bool get grownUpLook => settings.grownUp ?? (age ?? 0) >= 9;
+
+  /// الصف اللي ولي الأمر اختاره، وإلا الصف المعتاد لسنه.
+  String? get schoolGrade => grade ?? usualGrade(age);
 
   /// يفتح المرحلة اللي بعد دي في نفس العالم — ويرجّعها لو اتفتحت جديد.
   Stage? unlockNext(String id) {
@@ -358,15 +402,18 @@ class ProgressData {
     lastStage = id;
   }
 
-  /// أقل مستوى حسب العمر: ٣–٤ سنين ← ١، ٥ ← ٢، ٦–٨ ← ٣.
+  /// أقل مستوى حسب العمر: ٣–٤ سنين ← ١، ٥ ← ٢، ٦ وفوق ← ٣.
   /// ولي الأمر يقدر يختار مستوى بداية تاني (أسهل أو أصعب من سنه).
   int get ageLevel => settings.startLevel ?? ((age ?? 4) - 3).clamp(1, 3);
 
-  /// مستوى الطفل = أعلى مستوى وصلت إليه المراحل المفتوحة (ومش أقل من مستوى عمره)،
+  /// مستوى البداية في عالم: اختيار ولي الأمر للمادة دي لو فيه، وإلا [ageLevel].
+  int startLevelIn(String? world) => settings.worldLevel[world] ?? ageLevel;
+
+  /// مستوى الطفل = أعلى مستوى وصلت إليه المراحل المفتوحة (ومش أقل من مستوى بدايته في العالم ده)،
   /// أو ٤ لو خلّص كل المراحل.
   int level([String? world]) {
     final ids = world != null ? (worldStages[world] ?? const <Stage>[]) : packs.values.toList();
-    var lv = ageLevel;
+    var lv = startLevelIn(world);
     for (final s in ids) {
       if (isUnlocked(s.id)) lv = math.max(lv, s.base);
     }

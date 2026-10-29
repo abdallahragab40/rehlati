@@ -13,7 +13,9 @@ import 'core/audio/voice_lines.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/arabic.dart';
 import 'core/widgets/fx_layer.dart';
+import 'core/widgets/kid_widgets.dart' show GrownUpLook;
 import 'core/widgets/learning_scope.dart';
+import 'domain/paths.dart';
 import 'domain/progress/progress_controller.dart';
 import 'domain/stages.dart';
 import 'features/achievements/achievements_screen.dart';
@@ -21,6 +23,7 @@ import 'features/daily/time_up_screen.dart';
 import 'features/game/game_screen.dart';
 import 'features/home/home_screen.dart';
 import 'features/journey/journey.dart';
+import 'features/paths/paths_screen.dart';
 import 'features/letter_board/letter_board_screen.dart';
 import 'features/madd/madd_lesson_screen.dart';
 import 'features/parent/dashboard_screen.dart';
@@ -70,6 +73,13 @@ final _router = GoRouter(initialLocation: kDebugMode ? _start : '/', routes: [
   ),
   GoRoute(path: '/timeup', builder: (_, _) => const TimeUpScreen()),
   GoRoute(path: '/journey', builder: (_, _) => const LearningScope(track: false, child: JourneyScreen())),
+  GoRoute(path: '/paths', builder: (_, _) => const LearningScope(track: false, child: PathsScreen())),
+  GoRoute(
+    path: '/path/:id',
+    // مسار مش موجود (رابط قديم) ← قايمة المسارات
+    redirect: (_, s) => pathById(s.pathParameters['id']!) == null ? '/paths' : null,
+    builder: (_, s) => LearningScope(track: false, child: PathScreen(id: s.pathParameters['id']!)),
+  ),
   GoRoute(path: '/achievements', builder: (_, _) => const AchievementsScreen()),
   GoRoute(path: '/quran', builder: (_, _) => const LearningScope(track: false, child: QuranHomeScreen())),
   GoRoute(path: '/quran-check', builder: (_, _) => const QuranCheckScreen()),
@@ -115,7 +125,9 @@ class RehlatiApp extends StatelessWidget {
           data: MediaQuery.of(context).copyWith(
             textScaler: MediaQuery.textScalerOf(context).clamp(maxScaleFactor: 1.3),
           ),
-          child: _HomeOnReturn(child: _DigitsSync(child: _MusicConductor(child: BadgeToaster(child: FxLayer(child: child!))))),
+          child: _HomeOnReturn(
+            child: _DigitsSync(child: _GrownUpSync(child: _MusicConductor(child: BadgeToaster(child: FxLayer(child: child!))))),
+          ),
         ),
       );
 }
@@ -161,6 +173,16 @@ class _HomeOnReturnState extends State<_HomeOnReturn> {
 
 /// إعداد الأرقام (١٢٣ ↔ 123): بيتحط في [westernDigits] وكل الشاشات بتتبني تاني
 /// من غير ما حالتها تضيع — أغلبها مش بيسمع للإعدادات فمش هيتحدّث لوحده.
+/// شكل الكبار للطفل الحالي بيوصل لكل الشاشات (الأسد والسما في kid_widgets).
+class _GrownUpSync extends ConsumerWidget {
+  const _GrownUpSync({required this.child});
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) =>
+      GrownUpLook(on: ref.watch(progressProvider.select((p) => p.grownUpLook)), child: child);
+}
+
 class _DigitsSync extends ConsumerWidget {
   const _DigitsSync({required this.child});
   final Widget child;

@@ -45,6 +45,9 @@ enum ChoiceLook {
 
   /// "circle|red" ← شكل ملوّن (الأشكال والألوان).
   shape,
+
+  /// "3/4" ← كسر مرسوم البسط فوق المقام (مايتلخبطش في الكتابة من اليمين).
+  fraction,
 }
 
 // ---------------------------------------------------------------------------
@@ -177,6 +180,35 @@ class ClockVisual extends Visual {
   final int minute;
 }
 
+/// عيدان عشرات ومكعبات آحاد (الآحاد والعشرات) — العشرات على الشمال زي كتابة العدد.
+class TensOnesVisual extends Visual {
+  const TensOnesVisual(this.tens, this.ones);
+  final int tens;
+  final int ones;
+}
+
+/// مجموعات متساوية (الضرب): [groups] علبة في كل واحدة [each] صورة.
+class GroupsVisual extends Visual {
+  const GroupsVisual(this.emoji, this.groups, this.each);
+  final String emoji;
+  final int groups;
+  final int each;
+}
+
+/// فلوس بالجنيه: ١ عملة، والباقي ورق (٥، ١٠، ٢٠، ٥٠، ١٠٠).
+class MoneyVisual extends Visual {
+  const MoneyVisual(this.pounds);
+  final List<int> pounds;
+}
+
+/// قطعة قراءة بعنوانها (اقرأ وافهم) — خط أصغر من باقي المرئيات عشان تتقري كلها.
+class PassageVisual extends Visual {
+  const PassageVisual(this.title, this.text, {this.ltr = false});
+  final String title;
+  final String text;
+  final bool ltr;
+}
+
 /// زرار 🔊 كبير لوحده (اسمع ثم اختر).
 class ListenVisual extends Visual {
   const ListenVisual(this.say);
@@ -284,6 +316,7 @@ class Question {
     this.picName,
     this.beats = const [],
     this.pads = const [],
+    this.choiceSay = const {},
   });
 
   final String type;
@@ -389,6 +422,10 @@ class Question {
   /// كرر الإيقاع: السلسلة (أرقام الطبول) والطبول المتاحة.
   final List<int> beats;
   final List<RhythmPad> pads;
+
+  /// إزاي الاختيار يتنطق لو اتداس غلط أو صح — لما شكله مكتوب مايتقريش لوحده
+  /// (الكسر "3/4" ← "تلاتة من أربعة"، الحرف الساكن "لْ" ← "لام ساكنة").
+  final Map<Object, String> choiceSay;
 
   bool get isEnglish => lang == 'en';
 

@@ -10,10 +10,20 @@ import '../content/math_data.dart';
 import '../core/features.dart';
 import '../core/utils/rng.dart';
 import 'generators/arabic_generators.dart';
+import 'generators/en_primary_generators.dart';
 import 'generators/english_generators.dart';
 import 'generators/games_generators.dart';
+import 'generators/grammar_generators.dart';
+import 'generators/harakat_generators.dart';
+import 'generators/life_generators.dart';
 import 'generators/madd_generators.dart';
+import 'generators/math100_generators.dart';
 import 'generators/math_generators.dart';
+import 'generators/sukun_generators.dart';
+import 'generators/upper_primary_generators.dart';
+import 'generators/mul_generators.dart';
+import 'generators/reading_generators.dart';
+import 'placement.dart';
 import 'progress/progress_data.dart';
 import 'question.dart';
 
@@ -71,6 +81,7 @@ class Stage {
     this.groupName,
     this.madd,
     this.count,
+    this.fromGrade,
   });
 
   final String id;
@@ -102,6 +113,9 @@ class Stage {
 
   /// عدد أسئلة الجولة لو مختلف عن الافتراضي (الجدول الفاضي = ٣).
   final int? count;
+
+  /// أول مرحلة في مجموعة الابتدائي بتتفتح من الأول لطفل في الصف ده أو أعلى ([schoolGrades]).
+  final String? fromGrade;
 
   bool get isLearn => learnItems != null;
   bool get isMadd => madd != null;
@@ -200,21 +214,175 @@ final _madd = [
       id: id, world: 'arabic', n: _arabic.length + i + 1, icon: icon, name: name, base: base,
       color: Color(color), madd: cfg, group: maddGroup, groupName: maddGroupName,
       after: i == 0 ? 'ar_table' : null,
+      fromGrade: i == 0 ? 'p1' : null,
+    ),
+];
+
+/// الحركات (أولى ابتدائي) بعد المدود في آخر عالم العربي. أول مرحلة بتتفتح كمان بعد
+/// "أكمل جدول الحروف" زي المدود. "اسمع واختار المقطع" محتاجة الصوت.
+final _harakat = [
+  for (final (i, (id, icon, name, base, color, gen)) in <(String, String, String, int, int, Generator)>[
+    ('ar_haraka', '✍️', 'اسم الحركة', 1, 0xFFE0662E, arHaraka),
+    ('ar_haraka_pick', '🔎', 'الحرف وحركته', 1, 0xFFD45A26, arHarakaPick),
+    if (voiceEnabled) ('ar_syllable', '👂', 'اسمع واختار المقطع', 2, 0xFFC84E1E, arSyllable),
+  ].indexed)
+    Stage(
+      id: id, world: 'arabic', n: _arabic.length + _madd.length + i + 1, icon: icon, name: name, base: base,
+      color: Color(color), gen: gen, group: 'harakat', groupName: 'الحركات',
+      after: i == 0 ? 'ar_table' : null,
+      fromGrade: i == 0 ? 'p1' : null,
+    ),
+];
+
+/// السكون والتنوين (أولى ابتدائي، الترم التاني) بعد الحركات. أول مرحلة بتتفتح بعد
+/// "الحرف وحركته"، أو من تانية ابتدائي. "اسمع واختار التنوين" محتاجة الصوت.
+final _sukun = [
+  for (final (i, (id, icon, name, base, color, gen)) in <(String, String, String, int, int, Generator)>[
+    ('ar_tanween', '✌️', 'التنوين', 1, 0xFFBC4A1A, arTanween),
+    ('ar_marks', '🔍', 'حركة ولا تنوين؟', 2, 0xFFB04216, arMarks),
+    ('ar_sukun', '🔵', 'فين الحرف الساكن؟', 2, 0xFFA43A12, arSukun),
+    if (voiceEnabled) ('ar_tanween_listen', '👂', 'اسمع واختار التنوين', 2, 0xFF98320E, arTanweenListen),
+  ].indexed)
+    Stage(
+      id: id, world: 'arabic', n: _arabic.length + _madd.length + _harakat.length + i + 1, icon: icon, name: name,
+      base: base, color: Color(color), gen: gen, group: 'sukun', groupName: 'السكون والتنوين',
+      after: i == 0 ? 'ar_haraka_pick' : null,
+      fromGrade: i == 0 ? 'p2' : null,
+    ),
+];
+
+/// القواعد والفهم لسن ٩–١٢ في آخر عالم العربي. أول مرحلة بتتفتح من رابعة ابتدائي،
+/// أو بعد "فين الحرف الساكن؟"، والباقي بالترتيب.
+final _grammar = [
+  for (final (i, (id, icon, name, base, gen)) in <(String, String, String, int, Generator)>[
+    ('ar_wordType', '🏷️', 'اسم ولا فعل ولا حرف؟', 2, arWordType),
+    ('ar_number', '👥', 'مفرد ولا مثنى ولا جمع؟', 2, arNumber),
+    ('ar_gender', '🚻', 'مذكر ولا مؤنث؟', 2, arGender),
+    ('ar_opposite', '↔️', 'عكس الكلمة', 2, arOpposite),
+    ('ar_sentence', '📝', 'كمّل الجملة', 2, arSentence),
+    ('ar_reading', '📰', 'اقرأ وافهم', 2, arReading),
+  ].indexed)
+    Stage(
+      id: id, world: 'arabic', n: _arabic.length + _madd.length + _harakat.length + _sukun.length + i + 1,
+      icon: icon, name: name, base: base, color: const Color(0xFF8E3B6F), gen: gen,
+      group: 'grammar', groupName: 'القواعد والفهم • ٩–١٢ سنة',
+      after: i == 0 ? 'ar_sukun' : null, fromGrade: i == 0 ? 'p4' : null,
+    ),
+];
+
+/// الأعداد لحد ١٠٠ (أولى وتانية ابتدائي) في آخر عالم الحساب من غير ما نلمس مراحله الأصلية.
+/// أول مرحلة بتتفتح كمان بعد "الجمع"، والباقي بالترتيب.
+final _math100 = [
+  for (final (i, (id, icon, name, base, color, gen)) in <(String, String, String, int, int, Generator)>[
+    ('tensOnes', '🧱', 'الآحاد والعشرات', 1, 0xFF6A4CE0, tensOnes),
+    ('skipCount', '🦘', 'العد بالقفز', 1, 0xFF5E44D0, skipCount),
+    ('compare100', '🐊', 'المقارنة لحد ١٠٠', 2, 0xFF533CC0, compare100),
+    ('add100', '➕', 'الجمع لحد ١٠٠', 2, 0xFF4834B0, add100),
+    ('sub100', '➖', 'الطرح لحد ١٠٠', 2, 0xFF3D2CA0, sub100),
+  ].indexed)
+    Stage(
+      id: id, world: 'math', n: _math.length + i + 1, icon: icon, name: name, base: base,
+      color: Color(color), gen: gen, group: 'math100', groupName: 'الأعداد لحد ١٠٠',
+      after: i == 0 ? 'addition' : null,
+      fromGrade: i == 0 ? 'p2' : null,
+    ),
+];
+
+/// جدول الضرب (تانية وتالتة ابتدائي) بعد الأعداد لحد ١٠٠. أول مرحلة بتتفتح كمان بعد
+/// "العد بالقفز" — الجدول عد بالقفز أصلًا.
+final _mul = [
+  for (final (i, (id, icon, name, base, color, gen)) in <(String, String, String, int, int, Generator)>[
+    ('mulGroups', '🧺', 'المجموعات المتساوية', 2, 0xFF2F9E8F, mulGroups),
+    ('times2510', '✖️', 'جدول ٢ و ٥ و ١٠', 2, 0xFF28907F, times2510),
+    ('times34', '✖️', 'جدول ٣ و ٤', 2, 0xFF22826F, times34),
+    ('times6789', '✖️', 'جدول ٦ لـ ٩', 2, 0xFF1C745F, times6789),
+    ('timesAll', '🏆', 'جدول الضرب كله', 3, 0xFF16664F, timesAll),
+  ].indexed)
+    Stage(
+      id: id, world: 'math', n: _math.length + _math100.length + i + 1, icon: icon, name: name, base: base,
+      color: Color(color), gen: gen, group: 'mul', groupName: 'جدول الضرب',
+      after: i == 0 ? 'skipCount' : null,
+      fromGrade: i == 0 ? 'p3' : null,
+    ),
+];
+
+/// الفلوس والساعة (تانية وتالتة ابتدائي) بعد جدول الضرب. أول مرحلة بتتفتح كمان بعد
+/// "الجمع لحد ١٠٠" — عدّ الفلوس جمع.
+final _life = [
+  for (final (i, (id, icon, name, base, color, gen)) in <(String, String, String, int, int, Generator)>[
+    ('moneyCount', '💰', 'عدّ الفلوس', 2, 0xFFD08A1E, moneyCount),
+    ('moneyChange', '🧾', 'الباقي كام؟', 2, 0xFFC27C14, moneyChange),
+    ('clockQuarter', '⏰', 'الساعة بالربع والدقايق', 2, 0xFFB46E0A, clockQuarter),
+  ].indexed)
+    Stage(
+      id: id, world: 'math', n: _math.length + _math100.length + _mul.length + i + 1, icon: icon, name: name,
+      base: base, color: Color(color), gen: gen, group: 'life', groupName: 'الفلوس والساعة',
+      after: i == 0 ? 'add100' : null,
+      fromGrade: i == 0 ? 'p2' : null,
+    ),
+];
+
+/// أول حزمة تدريب لسن ٩–١٢؛ بعد المراحل القديمة للحفاظ على التقدّم.
+final _upperPrimary = [
+  for (final (i, (id, icon, name, gen)) in <(String, String, String, Generator)>[
+    ('divisionExact', '➗', 'القسمة من غير باقي', divisionExact),
+    ('divisionMissing', '🔍', 'العدد الناقص في القسمة', divisionMissing),
+    ('fractionOfNumber', '🍉', 'كسر من عدد', fractionOfNumber),
+    ('fractionEquivalent', '⚖️', 'الكسور المتكافئة', fractionEquivalent),
+  ].indexed)
+    Stage(
+      id: id, world: 'math', n: _math.length + _math100.length + _mul.length + _life.length + i + 1,
+      icon: icon, name: name, base: 1, color: const Color(0xFF3968A8), gen: gen,
+      group: 'upperPrimary', groupName: 'القسمة والكسور • ٩–١٢ سنة',
+      after: i == 0 ? 'timesAll' : null, fromGrade: i == 0 ? 'p4' : null,
+    ),
+];
+
+/// English للابتدائي بعد مراحل English الأصلية: أولى لتالتة (بعد "Choose word"، أو من أولى)،
+/// وبعدين رابعة لسادسة (بعد "One or many?"، أو من رابعة).
+final _enPrimary = [
+  for (final (i, (id, icon, name, base, gen, group, groupName, after, from))
+      in <(String, String, String, int, Generator, String, String, String?, String?)>[
+    ('en_cvc', '📖', 'Read the word', 1, enCvc, 'enP1', 'Primary English • Grades 1–3', 'en_word', 'p1'),
+    ('en_a_an', '🅰️', 'a or an?', 2, enAAn, 'enP1', 'Primary English • Grades 1–3', null, null),
+    ('en_plural', '👯', 'One or many?', 2, enPlural, 'enP1', 'Primary English • Grades 1–3', null, null),
+    ('en_isare', '✍️', 'is, are or am?', 2, enIsAre, 'enP4', 'English grammar • Ages 9–12', 'en_plural', 'p4'),
+    ('en_questions', '❓', 'Question words', 2, enQuestions, 'enP4', 'English grammar • Ages 9–12', null, null),
+    ('en_sentence', '📝', 'Complete the sentence', 2, enSentence, 'enP4', 'English grammar • Ages 9–12', null, null),
+    ('en_reading', '📰', 'Read and answer', 2, enReading, 'enP4', 'English grammar • Ages 9–12', null, null),
+  ].indexed)
+    Stage(
+      id: id, world: 'english', n: _english.length + i + 1, icon: icon, name: name, base: base,
+      color: const Color(0xFF1F5FA8), gen: gen, lang: 'en', group: group, groupName: groupName,
+      after: after, fromGrade: from,
     ),
 ];
 
 /// world -> ترتيب مراحله.
 final Map<String, List<Stage>> worldStages = {
-  'math': _math,
-  'arabic': [..._arabic, ..._madd],
-  'english': _english,
+  'math': [..._math, ..._math100, ..._mul, ..._life, ..._upperPrimary],
+  'arabic': [..._arabic, ..._madd, ..._harakat, ..._sukun, ..._grammar],
+  'english': [..._english, ..._enPrimary],
   'games': _games,
 };
 
-/// id -> المرحلة.
+/// id -> المرحلة — ومعاها مراحل اختبار تحديد المستوى (مش على الخريطة).
 final Map<String, Stage> packs = {
   for (final list in worldStages.values)
     for (final s in list) s.id: s,
+  for (final s in placementStages) s.id: s,
+};
+
+/// العوالم اللي ليها مستوى لكل مادة في لوحة ولي الأمر — الألعاب مش مادة.
+const subjectWorlds = ['math', 'arabic', 'english'];
+
+/// صف المرحلة: صف أول مرحلة في مجموعتها ([Stage.fromGrade])، و null لمراحل الحضانة.
+String? stageGrade(Stage s) => s.group == null ? null : _groupGrade[s.group];
+
+final _groupGrade = {
+  for (final list in worldStages.values)
+    for (final s in list)
+      if (s.group != null && s.fromGrade != null) s.group!: s.fromGrade!,
 };
 
 /// المراحل المفتوحة من الأول.

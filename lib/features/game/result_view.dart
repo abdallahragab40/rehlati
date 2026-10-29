@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/motion.dart';
 import '../journey/journey.dart';
+import '../paths/paths_screen.dart';
 import '../../core/audio/audio_providers.dart';
 import '../../core/audio/voice_lines.dart';
 import '../../core/nav.dart';
@@ -122,6 +123,8 @@ class _ResultViewState extends ConsumerState<ResultView> {
             child: Text('نسبة النجاح ${ar(r.pct)}٪',
                 style: kidText(context.clampVw(16, 4.2, 20), weight: FontWeight.w700, color: AppColors.inkSoft)),
           ),
+          if (r.placed case final placed?)
+            SpeechBubble('🎯 المستوى: $placed — المراحل اللي على قده اتفتحت', kind: BubbleKind.ok),
           if (unlocked != null)
             SpeechBubble('🔓 فتحت مرحلة جديدة: ${unlocked.icon} ${unlocked.name}', kind: BubbleKind.ok),
           if (r.mistakes.isNotEmpty) const SpeechBubble('تعالى نتدرب على الحاجات اللي محتاجة شوية تدريب ❤️'),
@@ -138,9 +141,12 @@ class _ResultViewState extends ConsumerState<ResultView> {
               KidButton('🔁 العب تاني', onTap: widget.engine.replay),
               if (unlocked != null)
                 KidButton('▶️ المرحلة التالية', kind: BtnKind.go, onTap: () => context.pushReplacement(stageRoute(unlocked))),
-              fromJourney(context)
-                  ? KidButton('🧭 كمّل الرحلة', kind: BtnKind.go, onTap: () => context.back())
-                  : KidButton('🗺️ الخريطة', kind: BtnKind.ghost, onTap: () => context.back()),
+              if (fromJourney(context))
+                KidButton('🧭 كمّل الرحلة', kind: BtnKind.go, onTap: () => context.back())
+              else if (fromPath(context))
+                KidButton('🎒 كمّل المسار', kind: BtnKind.go, onTap: () => context.back())
+              else
+                KidButton('🗺️ الخريطة', kind: BtnKind.ghost, onTap: () => context.back()),
             ],
           ),
         ],
