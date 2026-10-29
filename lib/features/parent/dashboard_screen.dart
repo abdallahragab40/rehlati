@@ -110,6 +110,8 @@ class DashboardScreen extends ConsumerWidget {
           const PgGoalsList(),
           h3('🌱 حالة المراحل'),
           const MasteryCard(),
+          h3('🎯 اختبار تحديد المستوى'),
+          const _PlacementCard(),
           h3('🧠 مهارات محتاجة تدريب'),
           _WeakSkills(p),
           h3('📖 سور تحتاج مراجعة'),
@@ -342,6 +344,25 @@ class _WeakSkills extends StatelessWidget {
         ],
     ]);
   }
+}
+
+/// اختبار قصير (١٠ أسئلة) لكل مادة: بيفتح المراحل اللي على قد الطفل وبيحدد مستوى البداية.
+class _PlacementCard extends StatelessWidget {
+  const _PlacementCard();
+
+  @override
+  Widget build(BuildContext context) => Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        Text(
+          'ادّي الجهاز للطفل يجاوب ١٠ أسئلة بتصعب تدريجيًا. على قد ما يوصل، المراحل المناسبة بتتفتح '
+          'ومستوى البداية في المادة بيتظبط. مابيقفلش حاجة كانت مفتوحة.',
+          style: kidText(14.5, weight: FontWeight.w600, color: AppColors.inkSoft),
+        ),
+        const SizedBox(height: 8),
+        Wrap(spacing: 8, runSpacing: 8, children: [
+          for (final (world, label) in [('math', '🧮 الحساب'), ('arabic', '🔤 العربي'), ('english', '🇬🇧 English')])
+            KidButton(label, kind: BtnKind.ghost, onTap: () => context.push('/play/place_$world')),
+        ]),
+      ]);
 }
 
 /// الدايالوج بيملك الـ controller بتاعه (نفس سبب بوابة الأهل).

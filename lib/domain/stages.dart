@@ -23,6 +23,7 @@ import 'generators/sukun_generators.dart';
 import 'generators/upper_primary_generators.dart';
 import 'generators/mul_generators.dart';
 import 'generators/reading_generators.dart';
+import 'placement.dart';
 import 'progress/progress_data.dart';
 import 'question.dart';
 
@@ -365,10 +366,11 @@ final Map<String, List<Stage>> worldStages = {
   'games': _games,
 };
 
-/// id -> المرحلة.
+/// id -> المرحلة — ومعاها مراحل اختبار تحديد المستوى (مش على الخريطة).
 final Map<String, Stage> packs = {
   for (final list in worldStages.values)
     for (final s in list) s.id: s,
+  for (final s in placementStages) s.id: s,
 };
 
 /// العوالم اللي ليها مستوى لكل مادة في لوحة ولي الأمر — الألعاب مش مادة.

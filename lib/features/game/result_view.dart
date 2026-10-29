@@ -123,6 +123,8 @@ class _ResultViewState extends ConsumerState<ResultView> {
             child: Text('نسبة النجاح ${ar(r.pct)}٪',
                 style: kidText(context.clampVw(16, 4.2, 20), weight: FontWeight.w700, color: AppColors.inkSoft)),
           ),
+          if (r.placed case final placed?)
+            SpeechBubble('🎯 المستوى: $placed — المراحل اللي على قده اتفتحت', kind: BubbleKind.ok),
           if (unlocked != null)
             SpeechBubble('🔓 فتحت مرحلة جديدة: ${unlocked.icon} ${unlocked.name}', kind: BubbleKind.ok),
           if (r.mistakes.isNotEmpty) const SpeechBubble('تعالى نتدرب على الحاجات اللي محتاجة شوية تدريب ❤️'),
