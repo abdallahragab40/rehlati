@@ -19,7 +19,7 @@ import 'recitation.dart';
 
 /// الجزء: اسمه وسوره.
 typedef Juz = (String name, int from, int to);
-const juzList = <Juz>[('جزء عمّ', 78, 114), ('جزء تبارك', 67, 77)];
+const juzList = <Juz>[('جزء عمّ', 78, 114), ('جزء تبارك', 67, 77), ('جزء قد سمع', 58, 66)];
 
 /// "complete" بس لما كل آيات الجزء تبقى على الجهاز بصوت القارئ ده — صفر أخطاء لوحده مش كفاية.
 enum DownloadPhase { downloading, cancelled, partial, failed, complete }

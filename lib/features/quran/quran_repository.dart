@@ -117,20 +117,31 @@ class QuranRepository {
     throw QuranException(last is QuranException ? last.message : 'مش قادر أوصل للمصدر: $last');
   }
 
+  static const _range = '${QuranConfig.from}-${QuranConfig.to}';
+
   /// قائمة السور في النطاق المحدد.
   Future<List<QuranChapter>> chapters() async {
     final c = await _load();
-    if (c['chapters'] is List) {
-      return [for (final j in c['chapters'] as List) QuranChapter.fromJson((j as Map).cast<String, dynamic>())];
+    final saved = c['chapters'] is List
+        ? [for (final j in c['chapters'] as List) QuranChapter.fromJson((j as Map).cast<String, dynamic>())]
+        : null;
+    // قائمة متخزّنة لنطاق أقدم (قبل ما جزء يتضاف) بتتجدد — ولو مفيش نت بنكمّل بيها
+    if (saved != null && c['range'] == _range) return saved;
+    final List<QuranChapter> list;
+    try {
+      list = await _firstWorking((s) async {
+        final all = s.parseChapters(await _grab(s.chaptersUrl));
+        final inRange = all.where((x) => x.number >= QuranConfig.from && x.number <= QuranConfig.to).toList()
+          ..sort((a, b) => QuranConfig.descending ? b.number - a.number : a.number - b.number);
+        if (inRange.isEmpty) throw QuranException('المصدر رجّع قائمة فاضية');
+        return inRange;
+      });
+    } on QuranException {
+      if (saved != null) return saved;
+      rethrow;
     }
-    final list = await _firstWorking((s) async {
-      final all = s.parseChapters(await _grab(s.chaptersUrl));
-      final inRange = all.where((x) => x.number >= QuranConfig.from && x.number <= QuranConfig.to).toList()
-        ..sort((a, b) => QuranConfig.descending ? b.number - a.number : a.number - b.number);
-      if (inRange.isEmpty) throw QuranException('المصدر رجّع قائمة فاضية');
-      return inRange;
-    });
     c['chapters'] = [for (final x in list) x.toJson()];
+    c['range'] = _range;
     await _save();
     return list;
   }

@@ -20,7 +20,7 @@ void main() {
   setUp(() => tmp = Directory.systemTemp.createTempSync('quran_lib'));
   tearDown(() => tmp.deleteSync(recursive: true));
 
-  final juzAmma = juzList.first, tabarak = juzList.last;
+  final juzAmma = juzList.first, tabarak = juzList[1];
   final husary = QuranConfig.reciter('husary'), minshawy = QuranConfig.reciter('minshawy');
 
   File ayahFile(Reciter r, int s, int a) =>
@@ -128,7 +128,7 @@ void main() {
   });
 
   group('library', () {
-    final chapters = [for (var n = 67; n <= 114; n++) QuranChapter(n, 'سورة $n', 2)];
+    final chapters = [for (var n = 58; n <= 114; n++) QuranChapter(n, 'سورة $n', 2)];
 
     Future<List<ReciterStatus>> scan() =>
         scanLibrary(root: tmp, chapters: chapters, textCached: (n) async => n == 112);
@@ -146,7 +146,7 @@ void main() {
       final h = lib.firstWhere((x) => x.reciter.id == 'husary');
       final m = lib.firstWhere((x) => x.reciter.id == 'minshawy');
       expect([h.juz.first.complete, h.juz.first.present, h.juz.first.expected], [true, 74, 74]);
-      expect([h.juz.last.complete, h.juz.last.present], [false, 0]);
+      expect([h.juz[1].complete, h.juz[1].present], [false, 0]);
       expect(h.damaged, 1);
       expect(h.juz.first.textCached, 1);
       expect([m.juz.first.complete, m.juz.first.present], [false, 1], reason: "husary's files never count for minshawy");
@@ -166,7 +166,7 @@ void main() {
       put(minshawy, 112, 1);
       await deleteAudio(tmp, husary, juz: juzAmma);
       var lib = await scan();
-      expect(lib.firstWhere((x) => x.reciter.id == 'husary').juz.map((j) => j.present), [0, 1]);
+      expect(lib.firstWhere((x) => x.reciter.id == 'husary').juz.map((j) => j.present), [0, 1, 0]);
       expect(lib.firstWhere((x) => x.reciter.id == 'minshawy').present, 1);
 
       await deleteAudio(tmp, husary);
