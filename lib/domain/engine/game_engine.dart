@@ -113,6 +113,19 @@ class GameSession {
   bool rhythmLock = false;
   int? padLit;
   int padTick = 0;
+
+  /// فين القطة؟: خانة كل كوباية، الأكواب المرفوعة، والطفل يقدر يختار ولا لسه بتتبدّل.
+  final cupSlots = <int>[];
+  final cupLifted = <int>{};
+  bool cupReady = false;
+
+  /// المتاهة: خانة الأرنب، والخانات اللي عدّى عليها، وعدّاد الخبطة في الحيطة.
+  int mazeAt = 0;
+  final mazeTrail = <int>[];
+  int mazeBump = 0;
+
+  /// ارسم بصباعك: بيزيد لما الرسمة تتمسح عشان اللوحة تبدأ من الأول.
+  int traceTick = 0;
   Object? hintTarget;
   String? wrongAnchor, rightAnchor;
   int wrongTick = 0, shakeTick = 0;
@@ -146,6 +159,13 @@ class GameSession {
     painted.clear();
     rhythmLock = false;
     padLit = null;
+    cupSlots.clear();
+    cupLifted.clear();
+    cupReady = false;
+    mazeAt = q.mazeStart;
+    mazeTrail
+      ..clear()
+      ..add(q.mazeStart);
     hintTarget = null;
     wrongAnchor = null;
     rightAnchor = null;
@@ -248,6 +268,7 @@ class GameEngine extends Notifier<GameSession?> {
     _emit();
     final q = s.q;
     if (q.mode == QMode.rhythm) _later(1200, rhythmPlay);
+    if (q.mode == QMode.cups) _cupsShow();
     if (q.isEnglish) {
       _speech.speakEn(q.speak);
     } else {
@@ -355,9 +376,9 @@ class GameEngine extends Notifier<GameSession?> {
     final s = _s, q = s.q;
     if (s.locked) return;
     final value = q.choices[i];
-    final said = value is int ? arNum(value) : (signWord[value] ?? '$value');
+    final said = q.choiceSay[value] ?? (value is int ? arNum(value) : (signWord[value] ?? '$value'));
     // الحرف أو الكلمة اللي اختارها بتتنطق بمقطع التعليم لو موجود
-    final valueClip = value is int ? nk(value) : signClip[value] ?? say(said);
+    final valueClip = q.choiceSay.containsKey(value) ? say(said) : (value is int ? nk(value) : signClip[value] ?? say(said));
     if (value == q.answer) {
       final pr = _rng.sample(praiseSay);
       _solved(anchor: 'c$i', skill: q.skill);
@@ -387,8 +408,8 @@ class GameEngine extends Notifier<GameSession?> {
     final value = q.items[i];
     final expected = q.answerList[s.picked.length];
     // الويب كان بينطق "NaN" للحروف لأنه بيحوّل أي قيمة لرقم
-    final said = value is int ? arNum(value) : '$value';
-    final valueClip = nk(value) ?? say(said);
+    final said = q.choiceSay[value] ?? (value is int ? arNum(value) : '$value');
+    final valueClip = q.choiceSay.containsKey(value) ? say(said) : nk(value) ?? say(said);
     if (value == expected) {
       s.picked.add(value);
       s.used.add(i);
@@ -606,7 +627,7 @@ class GameEngine extends Notifier<GameSession?> {
     s
       ..rhythmLock = true
       ..picked.clear()
-      ..bubble = 'اسمع كويس… 👂'
+      ..bubble = q.lights ? 'شوف كويس… 👀' : 'اسمع كويس… 👂'
       ..bubbleKind = BubbleKind.plain;
     _emit();
     for (var i = 0; i < q.beats.length; i++) {
@@ -616,7 +637,7 @@ class GameEngine extends Notifier<GameSession?> {
       if (state == null || _s.q != q || _s.locked) return;
       _s
         ..rhythmLock = false
-        ..bubble = 'دورك! كرّر الإيقاع 🥁'
+        ..bubble = q.lights ? 'دورك! نوّر الألوان زيها 🎨' : 'دورك! كرّر الإيقاع 🥁'
         ..bubbleKind = BubbleKind.plain;
       _emit();
     });
@@ -624,11 +645,20 @@ class GameEngine extends Notifier<GameSession?> {
 
   void _hitPad(int k) {
     if (state == null) return;
-    _sfx.pad(k);
+    // كرر الألوان: النور لوحده من غير صوت، وبيطفي قبل اللي بعده عشان نفس اللون مرتين يبان
+    if (!_s.q.lights) _sfx.pad(k);
     _s
       ..padLit = k
       ..padTick += 1;
     _emit();
+    if (_s.q.lights) {
+      final tick = _s.padTick;
+      _later(450, () {
+        if (state == null || _s.padTick != tick) return;
+        _s.padLit = null;
+        _emit();
+      });
+    }
   }
 
   /// ضغطة الطفل على طبلة.
@@ -652,11 +682,171 @@ class GameEngine extends Notifier<GameSession?> {
       s
         ..picked.clear()
         ..rhythmLock = true
-        ..bubble = 'مش مظبوط — هنسمعه تاني ❤️'
+        ..bubble = q.lights ? 'مش مظبوط — هنشوفها تاني ❤️' : 'مش مظبوط — هنسمعه تاني ❤️'
         ..bubbleKind = BubbleKind.no;
       _emit();
       _later(900, rhythmPlay);
     }
+  }
+
+  // ------------------------------------------------------------------ فين القطة؟
+
+  /// القطة باينة تحت الكوباية المرفوعة، وبعدين الأكواب بتنزل وتتبدّل.
+  void _cupsShow() {
+    final s = _s, q = s.q;
+    s
+      ..cupReady = false
+      ..cupLifted.add(q.catCup)
+      ..bubble = 'شوف القطة فين 👀'
+      ..bubbleKind = BubbleKind.plain;
+    if (s.cupSlots.isEmpty) s.cupSlots.addAll([for (var i = 0; i < q.cupCount; i++) i]);
+    _emit();
+    _later(cupShowMs, () {
+      if (state == null || _s.q != q) return;
+      _s.cupLifted.clear();
+      _emit();
+      _cupsShuffle(q, q.cupSwaps);
+    });
+  }
+
+  /// مدة ظهور القطة قبل ما الأكواب تنزل، ومدة نزولها قبل أول تبديلة.
+  static const cupShowMs = 1600, cupDropMs = 600;
+
+  void _cupsShuffle(Question q, int left) {
+    _later(left == q.cupSwaps ? cupDropMs : q.cupStepMs, () {
+      if (state == null || _s.q != q || _s.locked) return;
+      final s = _s;
+      if (left == 0) {
+        s
+          ..cupReady = true
+          ..bubble = 'القطة تحت أنهي كوباية؟ 🐱'
+          ..bubbleKind = BubbleKind.plain;
+        _emit();
+        return;
+      }
+      // كوبايتين بيبدّلوا أماكنهم
+      final a = _rng.rnd(0, q.cupCount - 1);
+      var b = _rng.rnd(0, q.cupCount - 2);
+      if (b >= a) b++;
+      final t = s.cupSlots[a];
+      s.cupSlots[a] = s.cupSlots[b];
+      s.cupSlots[b] = t;
+      _emit();
+      _cupsShuffle(q, left - 1);
+    });
+  }
+
+  /// الطفل رفع كوباية: القطة ← نجاح. فاضية ← نوريه القطة فين ونبدّل تاني.
+  void cupPick(int cup) {
+    final s = _s, q = s.q;
+    if (s.locked || !s.cupReady || s.cupLifted.contains(cup)) return;
+    s.cupLifted.add(cup);
+    if (cup == q.catCup) {
+      _solved(anchor: 'cup$cup', skill: q.skill, delay: 1800);
+      final pr = _rng.sample(praiseSay);
+      _speech.speak(pr.$1, clips: [pr.$2]);
+      return;
+    }
+    s
+      ..tries += 1
+      ..streak = 0
+      ..cupReady = false;
+    if (s.tries == 1) {
+      _markMistake(q);
+      _miss(q.skill);
+      _penalize();
+    }
+    _wrongUi(q, 'cup$cup', allowHint: false);
+    s.bubble = 'مش هنا — القطة كانت هنا 🐱 يلا تاني!';
+    _emit();
+    _speech.speak(sayRetry, clips: ['retry']);
+    _later(900, () {
+      if (state == null || _s.q != q) return;
+      _s.cupLifted.add(q.catCup);
+      _emit();
+      _later(1400, () {
+        if (state == null || _s.q != q) return;
+        _s.cupLifted.clear();
+        _emit();
+        _cupsShuffle(q, q.cupSwaps);
+      });
+    });
+  }
+
+  // ------------------------------------------------------------------ المتاهة
+
+  /// خطوة للأرنب: [dr] و[dc] من -١ لـ ١. الحيطة خبطة لطيفة من غير عقاب — المتاهة تجريب.
+  void mazeMove(int dr, int dc) {
+    final s = _s, q = s.q;
+    if (s.locked || q.mode != QMode.maze) return;
+    final n = q.mazeSize, row = s.mazeAt ~/ n, col = s.mazeAt % n;
+    final wall = switch ((dr, dc)) {
+      (-1, 0) => mazeN,
+      (1, 0) => mazeS,
+      (0, 1) => mazeE,
+      _ => mazeW,
+    };
+    if (q.mazeWalls[s.mazeAt] & wall != 0) {
+      s
+        ..mazeBump += 1
+        ..bubble = 'فيه حيطة 🧱 جرّب طريق تاني'
+        ..bubbleKind = BubbleKind.plain;
+      _emit();
+      _sfx.bad();
+      return;
+    }
+    final to = (row + dr) * n + col + dc;
+    // الرجوع خطوة بيمسح آخر الأثر
+    if (s.mazeTrail.length >= 2 && s.mazeTrail[s.mazeTrail.length - 2] == to) {
+      s.mazeTrail.removeLast();
+    } else {
+      s.mazeTrail.add(to);
+    }
+    s.mazeAt = to;
+    if (to == q.mazeGoal) {
+      _solved(anchor: 'maze', skill: q.skill, delay: 1600);
+      final pr = _rng.sample(praiseSay);
+      _speech.speak(pr.$1, clips: [pr.$2]);
+      return;
+    }
+    _emit();
+  }
+
+  // ------------------------------------------------------------------ ارسم بصباعك
+
+  /// الرسمة غطّت الشكل.
+  void traceDone() {
+    final s = _s, q = s.q;
+    if (s.locked || q.mode != QMode.trace) return;
+    final pr = _rng.sample(praiseSay);
+    _solved(anchor: 'trace', skill: q.skill, delay: 1500);
+    q.isEnglish ? _speech.speakEn('Very good!') : _speech.speak(pr.$1, clips: [pr.$2]);
+  }
+
+  /// الطفل رسم كتير برّه الشكل: تشجيع لطيف ونمسح ونبدأ تاني.
+  void traceOff() {
+    final s = _s, q = s.q;
+    if (s.locked || q.mode != QMode.trace) return;
+    s
+      ..tries += 1
+      ..streak = 0
+      ..traceTick += 1;
+    if (s.tries == 1) {
+      _markMistake(q);
+      _miss(q.skill);
+      _penalize();
+    }
+    _wrongUi(q, 'trace', allowHint: false);
+    s.bubble = q.isEnglish ? 'Stay on the grey letter — try again ❤️' : 'خلّي صباعك فوق الشكل الرمادي — جرّب تاني ❤️';
+    _emit();
+    q.isEnglish ? _speech.speakEn(['Try again', q.speakHint ?? '']) : _speech.speak([sayRetry, q.speakHint ?? q.hint]);
+  }
+
+  /// امسح الرسمة من غير ما تتحسب غلطة.
+  void traceClear() {
+    if (_s.locked) return;
+    _s.traceTick += 1;
+    _emit();
   }
 
   /// اقرأ المقطع: مفيش إجابة غلط — الطفل يسمع ويقرأ ويؤكد.
@@ -684,12 +874,12 @@ class GameEngine extends Notifier<GameSession?> {
     final sel = card ?? s.sel;
     if (sel == null || s.placed.containsKey(sel)) {
       s
-        ..bubble = 'اختر مقطعًا أولًا 👆'
+        ..bubble = s.stage.isMadd ? 'اختر مقطعًا أولًا 👆' : 'اختار صورة الأول 👆'
         ..bubbleKind = BubbleKind.plain;
       _emit();
       return;
     }
-    final c = q.sortCards[sel], sk = 'madd:${c.type}';
+    final c = q.sortCards[sel], sk = q.skillOf?.call(c.type) ?? 'madd:${c.type}';
     if (c.type == box) {
       s
         ..placed[sel] = box

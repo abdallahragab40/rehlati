@@ -58,7 +58,10 @@ void main() {
       if (!keyed(q.clips)) add(q.speak);
       if (!keyed(q.clipsHint)) add(q.speakHint ?? q.hint);
       add(q.sayRight);
-      for (final v in [...q.choices, ...q.items, ...q.right, ...q.pairMap.keys]) {
+      for (final v in q.choices) {
+        add(q.choiceSay[v] ?? v);
+      }
+      for (final v in [...q.items, ...q.right, ...q.pairMap.keys]) {
         add(v);
       }
       for (final c in q.cells) {
@@ -69,6 +72,10 @@ void main() {
       }
       for (final c in q.sortCards) {
         add(c.say);
+      }
+      // خطوات الترتيب اللي ليها اسم (الوضوء، الحكاية) بتتنطق باسمها
+      for (final v in q.items) {
+        add(q.choiceSay[v]);
       }
       for (final v in [...q.visuals, ...?q.revealVisuals]) {
         if (v is ListenVisual) add(v.say);

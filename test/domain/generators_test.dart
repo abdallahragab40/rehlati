@@ -20,7 +20,7 @@ void main() {
     expect(worldStages['math']!.length, 13, reason: 'with neighbors and emptyTable');
     expect(worldStages['arabic']!.length, 11 + 9, reason: '11 + 9 madd stages');
     expect(worldStages['english']!.length, 14);
-    expect(worldStages['games']!.length, voiceEnabled ? 12 : 11, reason: 'listenNum needs the voice');
+    expect(worldStages['games']!.length, voiceEnabled ? 12 + 16 : 11 + 15, reason: 'listenNum and animalSound need the voice');
   });
 
   for (final type in types) {
@@ -121,5 +121,28 @@ void _checkSolvable(Question q, int lv, String id) {
       final pads = q.pads.map((p) => p.k).toSet();
       expect(q.beats, isNotEmpty, reason: reason);
       expect(q.beats.every(pads.contains), isTrue, reason: '$reason: every beat has a pad');
+    case QMode.cups:
+      expect(q.cupCount, inInclusiveRange(3, 4), reason: reason);
+      expect(q.catCup, inInclusiveRange(0, q.cupCount - 1), reason: reason);
+      expect(q.cupSwaps, greaterThan(0), reason: reason);
+    case QMode.maze:
+      // كل الخانات متوصّلة، والحيطان متطابقة من الناحيتين
+      final n = q.mazeSize, seen = {q.mazeStart}, todo = [q.mazeStart];
+      while (todo.isNotEmpty) {
+        final c = todo.removeLast();
+        for (final (bit, back, d) in [(mazeN, mazeS, -n), (mazeS, mazeN, n), (mazeE, mazeW, 1), (mazeW, mazeE, -1)]) {
+          if (q.mazeWalls[c] & bit != 0) continue;
+          final to = c + d;
+          expect(q.mazeWalls[to] & back, 0, reason: '$reason: one-sided wall');
+          if (seen.add(to)) todo.add(to);
+        }
+      }
+      expect(seen.length, n * n, reason: '$reason: every cell reachable');
+      expect(seen, contains(q.mazeGoal), reason: reason);
+    case QMode.trace:
+      expect(q.trace, isNotEmpty, reason: reason);
+  }
+  if (q.look == ChoiceLook.picName) {
+    expect(q.items.every(q.choiceSay.containsKey), isTrue, reason: '$reason: every step has a name');
   }
 }
