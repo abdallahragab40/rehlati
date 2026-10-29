@@ -4,6 +4,7 @@ library;
 
 import 'dart:math' as math;
 
+import '../../content/basics_data.dart';
 import '../../content/play_data.dart';
 import '../../core/audio/voice_lines.dart';
 import '../../core/utils/arabic.dart';
@@ -365,4 +366,21 @@ Question traceEn(int lv, Rng r, {String? focus}) {
   final upper = r.sample(lv <= 1 ? traceEnEasy : [for (var c = 65; c <= 90; c++) String.fromCharCode(c)]);
   final l = lv >= 3 && r.chance(.5) ? upper.toLowerCase() : upper;
   return _trace('traceEn', l, 'Trace the letter $l', 'Trace the letter $l', en: true);
+}
+
+/// ارسم الحرف في أول الكلمة ووسطها وآخرها (بـ ـبـ ـب).
+Question traceForms(int lv, Rng r, {String? focus}) {
+  final l = r.sample(traceArAll.where((x) => !nonJoining.contains(x)).toList());
+  final pos = r.sample(const ['first', 'middle', 'last']);
+  final form = letterForm(l, pos);
+  return _trace('traceForms', form, 'ارسم حرف $l في ${positionNames[pos]}', 'ارسم حرف $l في ${positionNames[pos]}',
+      clips: [say('ارسم حرف'), say(l), say('في ${positionNames[pos]}')]);
+}
+
+/// كلمات قصيرة من ٢–٣ حروف، الحروف فيها موصولة.
+const traceWords = ['باب', 'بيت', 'قلم', 'ورد', 'نور', 'دب', 'فيل', 'سمك', 'شمس', 'قمر'];
+
+Question traceWord(int lv, Rng r, {String? focus}) {
+  final w = r.sample(lv <= 1 ? traceWords.take(5).toList() : traceWords);
+  return _trace('traceWord', w, 'اكتب كلمة $w', 'اكتب كلمة $w', clips: [say('اكتب كلمة'), say(w)]);
 }

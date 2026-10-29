@@ -70,7 +70,7 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
     final p = ref.watch(progressProvider);
     final all = worldStages[widget.world]!;
     // عالم الألعاب والسن معروف: المناسب لسنه الأول، والباقي ورا زرار "ألعاب تانية"
-    final age = widget.world == 'games' ? p.age : null;
+    final age = openWorlds.contains(widget.world) ? p.age : null;
     final fit = [for (final s in all) if (fitsAge(s, age)) s];
     final rest = [for (final s in all) if (!fitsAge(s, age)) s];
     final stages = [...fit, if (_showAll) ...rest];

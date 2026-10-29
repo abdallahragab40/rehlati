@@ -467,6 +467,8 @@ class _ShapePainter extends CustomPainter {
         canvas.drawCircle(Offset(w / 2, w / 2), w / 2, paint);
       case 'square':
         canvas.drawRRect(RRect.fromRectAndRadius(Offset.zero & size, Radius.circular(w * .16)), paint);
+      case 'rect':
+        canvas.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(0, w * .22, w, w * .56), Radius.circular(w * .1)), paint);
       case 'triangle':
         canvas.drawPath(Path()..moveTo(w / 2, 0)..lineTo(w, w)..lineTo(0, w)..close(), paint);
       case 'star':

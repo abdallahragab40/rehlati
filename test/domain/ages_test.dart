@@ -13,9 +13,9 @@ import 'engine_test.dart' show makeContainer;
 
 /// الألعاب حسب السن: كل لعبة ليها سن، والخريطة والرحلة والمستوى بيمشوا عليه.
 void main() {
-  test('every game has an age range inside 3–12, and nothing else has one', () {
+  test('every stage in an open world has an age range inside 3–12, and nothing else has one', () {
     for (final s in packs.values) {
-      if (s.world != 'games') {
+      if (!openWorlds.contains(s.world)) {
         expect(s.ages, isNull, reason: s.id);
         continue;
       }
@@ -25,7 +25,7 @@ void main() {
     }
     // كل سن في القايمة لمرحلة ألعاب موجودة (أو مستنية الصوت)
     for (final k in gameAges.keys) {
-      expect(packs[k]?.world == 'games' || k == 'listenNum' || k == 'animalSound', isTrue, reason: k);
+      expect(openWorlds.contains(packs[k]?.world) || k == 'listenNum' || k == 'animalSound', isTrue, reason: k);
     }
   });
 

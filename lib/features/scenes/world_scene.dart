@@ -30,6 +30,15 @@ const _specs = {
   'english': _SceneSpec(
     [Color(0xFF9FD8FF), Color(0xFFE6F6FF)], [Color(0xFF5BBF8E), Color(0xFF84D6A6)],
     [('A', Color(0xFF4CB8FF)), ('b', Color(0xFFFF6B6B)), ('C', Color(0xFFFFC43D))], 'car'),
+  'deen': _SceneSpec(
+    [Color(0xFFB8E8D2), Color(0xFFF0FBF5)], [Color(0xFF4FB985), Color(0xFF7DD3A6)],
+    [('🌙', Color(0xFF3BAF7A)), ('⭐', Color(0xFFFFC43D)), ('🕌', Color(0xFF2FA3C9))], 'none', clouds: 2),
+  'discover': _SceneSpec(
+    [Color(0xFF9FDCFF), Color(0xFFE8F7FF)], [Color(0xFF5BBF6A), Color(0xFF8BD67E)],
+    [('🦋', Color(0xFF36A3D9)), ('🌻', Color(0xFFFFC43D)), ('🐞', Color(0xFFFF6B6B))], 'cat', kite: true),
+  'write': _SceneSpec(
+    [Color(0xFFDCD3FF), Color(0xFFF6F2FF)], [Color(0xFF6CC38A), Color(0xFF94D9A8)],
+    [('أ', Color(0xFF8A6CFF)), ('١', Color(0xFFFF9F1C)), ('A', Color(0xFF4CB8FF))], 'none', clouds: 2),
   // عالم الألعاب: سما وردي مليانة بالونات ملوّنة، ومن غير حد ماشي على الأرض
   'games': _SceneSpec(
     [Color(0xFFFFD9E2), Color(0xFFFFF4E6)], [Color(0xFF4CC9A7), Color(0xFF7FE0C2)],

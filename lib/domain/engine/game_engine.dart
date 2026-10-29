@@ -263,7 +263,7 @@ class GameEngine extends Notifier<GameSession?> {
     // عالم الألعاب: المستوى من السن (الألعاب كلها مفتوحة، فمستوى العالم مابيقولش حاجة عن الطفل)
     final level = p.struggling(stage.id)
         ? stage.base
-        : stage.world == 'games'
+        : openWorlds.contains(stage.world)
             ? math.max(stage.base, p.gamesLevel)
             : math.min(math.max(stage.base, math.min(childLv, stage.base + 1)), 4);
     // مراحل طويلة (زي الجدول الفاضي) ممكن تحدّد عدد أسئلتها بنفسها
@@ -423,9 +423,11 @@ class GameEngine extends Notifier<GameSession?> {
     if (value == q.answer) {
       final pr = _rng.sample(praiseSay);
       _solved(anchor: 'c$i', skill: q.skill);
+      // الإنجليزي بيتشكر بالإنجليزي، والاختيار اللي ليه اسم (صورة) بيتقال باسمه
+      final enSaid = q.choiceSay[value] ?? '$value';
       q.sayRight != null
-          ? _say(q, [q.sayRight!, pr.$1])
-          : _say(q, [said, pr.$1], clips: [valueClip, pr.$2], en: ['$value', 'Very good!']);
+          ? _say(q, [q.sayRight!, pr.$1], en: [q.sayRight!, 'Very good!'])
+          : _say(q, [said, pr.$1], clips: [valueClip, pr.$2], en: [enSaid, 'Very good!']);
     } else {
       s.tries++;
       s.streak = 0;
@@ -438,7 +440,7 @@ class GameEngine extends Notifier<GameSession?> {
       // من غير مقاطع للتلميح بنروح لمقاطع الجُمل الكاملة عشان التلميح مايضيعش
       _say(q, [said, sayRetry, q.speakHint ?? q.hint],
           clips: q.clipsHint == null ? null : [valueClip, 'retry', ...q.clipsHint!],
-          en: ['$value', 'Try again', q.speakHint ?? '']);
+          en: [q.choiceSay[value] ?? '$value', 'Try again', q.speakHint ?? '']);
     }
   }
 

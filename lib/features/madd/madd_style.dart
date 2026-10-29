@@ -77,15 +77,18 @@ class MaddTextView extends ConsumerWidget {
 
 /// زرار السماعة البنفسجي (.mlisten).
 class ListenButton extends ConsumerWidget {
-  const ListenButton(this.say, {super.key, this.size});
+  const ListenButton(this.say, {super.key, this.size, this.en = false});
   final String say;
   final double? size;
+
+  /// بالإنجليزي (Phonics و sight words) — صوت الجهاز الإنجليزي.
+  final bool en;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final d = size ?? context.clampVw(96, 28, 130);
     return Pressable3D(
-      onTap: () => ref.read(speechProvider).speak(say),
+      onTap: () => en ? ref.read(speechProvider).speakEn(say) : ref.read(speechProvider).speak(say),
       color: AppColors.grape,
       radius: d,
       depth: d > 60 ? 8 : 5,

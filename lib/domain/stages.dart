@@ -10,6 +10,9 @@ import '../content/math_data.dart';
 import '../core/features.dart';
 import '../core/utils/rng.dart';
 import 'generators/arabic_generators.dart';
+import 'generators/basics_generators.dart';
+import 'generators/deen_generators.dart';
+import 'generators/english_more_generators.dart';
 import 'generators/en_primary_generators.dart';
 import 'generators/english_generators.dart';
 import 'generators/games_generators.dart';
@@ -54,12 +57,18 @@ class WorldMeta {
 const worlds = [
   WorldMeta(id: 'quran', icon: '📖', name: 'القرآن الكريم', color: Color(0xFF2FC9B4), tone: Color(0xFF1C8E7F),
       title: '📖 عالم القرآن', desc: 'استماع وترديد وحفظ ومراجعة'),
+  WorldMeta(id: 'deen', icon: '🕌', name: 'الدين والأخلاق', color: Color(0xFF3BAF7A), tone: Color(0xFF23855A),
+      title: '🕌 عالم الدين والأخلاق', desc: 'الأذكار والوضوء والصلاة وقصص الأنبياء'),
   WorldMeta(id: 'math', icon: '🧮', name: 'الحساب', color: Color(0xFF7A5CFF), tone: Color(0xFF5B3FD6),
       title: '🔢 عالم الحساب', desc: 'الأرقام والجمع والطرح'),
   WorldMeta(id: 'arabic', icon: '🔤', name: 'العربي', color: Color(0xFFFF9F1C), tone: Color(0xFFCC7A00),
       title: '🔤 عالم العربي', desc: 'الحروف والمدود والكلمات والقراءة'),
   WorldMeta(id: 'english', icon: '🇬🇧', name: 'English', color: Color(0xFF4CB8FF), tone: Color(0xFF1E86CC),
       title: '🇬🇧 English World', desc: 'Letters, words and sounds'),
+  WorldMeta(id: 'write', icon: '✍️', name: 'الكتابة', color: Color(0xFF8A6CFF), tone: Color(0xFF6448D9),
+      title: '✍️ عالم الكتابة', desc: 'ارسم الأرقام والحروف والكلمات بصباعك'),
+  WorldMeta(id: 'discover', icon: '🌍', name: 'اكتشف', color: Color(0xFF36A3D9), tone: Color(0xFF1F7FB0),
+      title: '🌍 عالم اكتشف', desc: 'الحيوانات والفصول والنبات والحواس'),
   WorldMeta(id: 'games', icon: '🎮', name: 'ألعاب', color: Color(0xFFFF6B6B), tone: Color(0xFFD23F3F),
       title: '🎮 عالم الألعاب', desc: 'بالونات وذاكرة وسباق وتلوين'),
 ];
@@ -228,9 +237,6 @@ final _play = [
     ('dragSort', '🧺', 'ودّي الحاجة مكانها', 0xFFC0782B, dragSort, 'move', 4),
     ('maze', '🐰', 'متاهة الأرنب', 0xFF5FBF5F, maze, 'move', 4),
     ('lights', '🚦', 'كرر الألوان', 0xFFC06BE8, lights, 'move', null),
-    ('traceNum', '✍️', 'ارسم الرقم', 0xFF7A5CFF, traceNum, 'draw', 4),
-    ('traceAr', '✍️', 'ارسم الحرف', 0xFFFF9F1C, traceAr, 'draw', 4),
-    ('traceEn', '✍️', 'Trace the letter', 0xFF4CB8FF, traceEn, 'draw', 4),
     ('sudoku', '🔢', 'سودوكو', 0xFF5B3FD6, sudoku, 'puzzle', 3),
     ('hanoi', '🗼', 'برج هانوي', 0xFFD2693C, hanoi, 'puzzle', 3),
     ('slide', '🔲', 'البازل المنزلق', 0xFF2B8A9E, slide, 'puzzle', 3),
@@ -238,11 +244,12 @@ final _play = [
   ].indexed)
     Stage(
       id: id, world: 'games', n: _games.length + i + 1, icon: icon, name: name, base: 1, color: Color(color),
-      gen: gen, count: count, group: group, groupName: playGroups[group], lang: id == 'traceEn' ? 'en' : 'ar',
+      gen: gen, count: count, group: group, groupName: playGroups[group],
     ),
 ];
 
-/// السن المناسب لكل لعبة (من، لحد). اللعبة بتفضل مفتوحة لأي سن — ده ترتيب وعرض بس.
+/// السن المناسب لكل مرحلة في العوالم المفتوحة (من، لحد). المرحلة بتفضل مفتوحة لأي سن —
+/// ده ترتيب وعرض بس.
 const gameAges = <String, (int, int)>{
   'balloons': (3, 8),
   'memoryNum': (4, 9),
@@ -271,12 +278,30 @@ const gameAges = <String, (int, int)>{
   'lights': (4, 12),
   'traceNum': (3, 6),
   'traceAr': (4, 7),
+  'traceForms': (5, 8),
+  'traceWord': (6, 9),
   'traceEn': (5, 8),
+  'deen_dua': (3, 12),
+  'deen_repeat': (3, 10),
+  'deen_wudu': (5, 12),
+  'deen_salah': (6, 12),
+  'deen_pillars': (5, 12),
+  'deen_prophets': (5, 12),
+  'deen_morals': (4, 10),
+  'deen_calendar': (6, 12),
+  'disc_habitat': (3, 8),
+  'disc_seasons': (4, 9),
+  'disc_plant': (5, 10),
+  'disc_senses': (3, 8),
+  'disc_health': (3, 9),
   'sudoku': (6, 12),
   'hanoi': (7, 12),
   'slide': (7, 12),
   'numberSeq': (8, 12),
 };
+
+/// العوالم اللي كل مراحلها مفتوحة من الأول — ألعاب ونشاطات مش منهج بالترتيب.
+const openWorlds = {'games', 'deen', 'discover', 'write'};
 
 /// اللعبة مناسبة لسن الطفل؟ من غير سن (أو مرحلة مش لعبة) = أيوه.
 bool fitsAge(Stage s, int? age) {
@@ -288,9 +313,130 @@ const playGroups = {
   'think': '🧠 ألعاب الذكاء',
   'values': '🌟 آداب ونضافة',
   'move': '🏃 العب وحرّك',
-  'draw': '✍️ ارسم بصباعك',
   'puzzle': '🧩 ألغاز وتحديات',
 };
+
+/// مجموعة مراحل جديدة: أول مرحلة ممكن تتفتح بعد [after] أو من صف [fromGrade]، والباقي بالترتيب.
+/// رقم المرحلة ([Stage.n]) بيتظبط لما العالم يتجمّع ([_numbered]).
+List<Stage> _grp(
+  String world,
+  String group,
+  String groupName,
+  int color,
+  List<(String, String, String, int, Generator)> defs, {
+  String? after,
+  String? fromGrade,
+  String lang = 'ar',
+  Map<String, int> counts = const {},
+}) =>
+    [
+      for (final (i, (id, icon, name, base, gen)) in defs.indexed)
+        Stage(
+          id: id, world: world, n: i + 1, icon: icon, name: name, base: base, color: Color(color), gen: gen,
+          lang: lang, group: group, groupName: groupName, count: counts[id],
+          after: i == 0 ? after : null, fromGrade: i == 0 ? fromGrade : null,
+        ),
+    ];
+
+/// أشكال الحرف في أول الكلمة ووسطها وآخرها — بعد الحركات وقبل المدود.
+final _forms = _grp('arabic', 'forms', 'شكل الحرف في الكلمة', 0xFFE8825C, [
+  ('ar_forms', '🔠', 'أشكال الحرف', 1, arForms),
+  ('ar_position', '📍', 'الحرف فين في الكلمة؟', 1, arPosition),
+], after: 'ar_table', fromGrade: 'p1');
+
+/// الشمسية والقمرية بعد السكون والتنوين والشدّة.
+final _al = _grp('arabic', 'al', 'الشمسية والقمرية', 0xFFD9822B, [
+  ('ar_al', '☀️', 'اللام الشمسية والقمرية', 2, arAl),
+], after: 'ar_sukun', fromGrade: 'p1');
+
+/// قراءة جمل قصيرة بصورة وسؤال، بعد قراءة كلمات المدود.
+final _shortRead = _grp('arabic', 'shortRead', 'أقرأ جمل قصيرة', 0xFFC96A1F, [
+  ('ar_short_read', '📖', 'اقرأ الجملة', 2, arShortRead),
+], after: 'madd_read', fromGrade: 'p1');
+
+/// مفاهيم لغوية للصغيرين: هذا وهذه ومجموعات الكلمات.
+final _concepts = _grp('arabic', 'concepts', 'كلمات ومعاني', 0xFFB8571A, [
+  ('ar_this', '👉', 'هذا ولا هذه؟', 1, arThis),
+  ('ar_groups', '🗂️', 'كلمات من نفس المجموعة', 1, arGroups),
+], after: 'ar_match_word');
+
+/// أساسيات الأعداد (KG2 وأولى ابتدائي) بعد مراحل الحساب الأصلية.
+final _mathBasics = _grp('math', 'basics', 'أساسيات الأعداد', 0xFF8A6CFF, [
+  ('ordinals', '🥇', 'الأول والتاني والتالت', 1, ordinals),
+  ('zeroEvenOdd', '🧦', 'الصفر والزوجي والفردي', 1, zeroEvenOdd),
+  ('geometry', '🔷', 'الأشكال الهندسية', 1, geometry),
+  ('measure', '📏', 'تقيل وطويل وأكتر', 1, measure),
+  ('calendar', '📅', 'الأيام والشهور والفصول', 1, calendar),
+  ('numBonds', '🧩', 'تحليل العدد', 1, numBonds),
+  ('coins', '🪙', 'الجنيه ونصه وربعه', 1, coins),
+  ('picGraph', '📊', 'عدّ وقارن بالصور', 1, picGraph),
+  ('wordProblem', '📝', 'مسائل بالصور', 2, wordProblem),
+], after: 'chooseNumber');
+
+/// Phonics بعد ما الطفل يعرف الحروف: الصوت مش الاسم، وبعدين تجميع كلمات CVC.
+final _phonics = _grp('english', 'phonics', 'Phonics • Letter sounds', 0xFF2E9BD6, [
+  ('en_phonics', '🔊', 'Letter sounds', 1, enPhonics),
+  ('en_firstsound', '👂', 'First sound', 1, enFirstSound),
+  ('en_blend', '🧩', 'Sound it out', 2, enBlend),
+], after: 'en_pick', lang: 'en');
+
+/// مفردات وجمل يومية.
+final _enWords = _grp('english', 'enWords', 'Words & phrases', 0xFF3A8FD1, [
+  ('en_shapes', '🔷', 'Shapes', 1, enShapesGame),
+  ('en_body', '👂', 'My body', 1, enBodyGame),
+  ('en_family', '👨‍👩‍👧', 'My family', 1, enFamilyGame),
+  ('en_sight', '👀', 'Sight words', 2, enSight),
+  ('en_phrases', '💬', 'What do you say?', 2, enPhrase),
+], after: 'en_word', lang: 'en');
+
+/// 🕌 الدين والأخلاق — مفتوح كله.
+final _deen = [
+  ..._grp('deen', 'adhkar', '🤲 الأذكار', 0xFF3BAF7A, [
+    ('deen_dua', '🤲', 'الذكر المناسب', 1, deenDua),
+    ('deen_repeat', '🗣️', 'ردّد الذكر', 1, deenRepeat),
+  ], counts: {'deen_repeat': 5}),
+  ..._grp('deen', 'worship', '🕌 الوضوء والصلاة', 0xFF2FA3C9, [
+    ('deen_wudu', '💧', 'خطوات الوضوء', 1, deenWudu),
+    ('deen_salah', '🕌', 'خطوات الصلاة', 1, deenSalah),
+    ('deen_pillars', '☪️', 'أركان الإسلام والإيمان', 1, deenPillars),
+  ], counts: {'deen_wudu': 5, 'deen_salah': 5}),
+  ..._grp('deen', 'stories', '📜 قصص وأخلاق', 0xFFE89B2B, [
+    ('deen_prophets', '📜', 'قصص الأنبياء', 1, deenProphets),
+    ('deen_morals', '💛', 'الصدق والأمانة', 1, deenMorals),
+    ('deen_calendar', '🌙', 'الشهور الهجرية والأعياد', 1, deenCalendar),
+  ]),
+];
+
+/// 🌍 اكتشف — مفتوح كله.
+final _discover = _grp('discover', 'discover', '🌍 اكتشف الدنيا', 0xFF36A3D9, [
+  ('disc_habitat', '🐾', 'الحيوان بيعيش فين؟', 1, discHabitat),
+  ('disc_seasons', '🍂', 'الفصول الأربعة', 1, discSeasons),
+  ('disc_plant', '🌱', 'أجزاء النبات', 1, discPlant),
+  ('disc_senses', '👃', 'الحواس الخمس', 1, discSenses),
+  ('disc_health', '🥦', 'أكل يقوّيني', 1, discHealth),
+]);
+
+/// ✍️ الكتابة — نفس لوحة الرسم للأرقام والحروف والكلمات. مفتوح كله.
+final _write = [
+  ..._grp('write', 'writeAr', '✍️ بالعربي', 0xFFFF9F1C, [
+    ('traceNum', '✍️', 'ارسم الرقم', 1, traceNum),
+    ('traceAr', '✍️', 'ارسم الحرف', 1, traceAr),
+    ('traceForms', '🔠', 'الحرف في الكلمة', 1, traceForms),
+    ('traceWord', '📝', 'اكتب كلمة', 1, traceWord),
+  ], counts: {'traceNum': 4, 'traceAr': 4, 'traceForms': 4, 'traceWord': 3}),
+  ..._grp('write', 'writeEn', '✍️ English', 0xFF4CB8FF, [
+    ('traceEn', '✍️', 'Trace the letter', 1, traceEn),
+  ], lang: 'en', counts: {'traceEn': 4}),
+];
+
+/// نفس المرحلة بترتيبها الجديد في العالم.
+Stage _at(Stage s, int n) => Stage(
+      id: s.id, world: s.world, n: n, icon: s.icon, name: s.name, base: s.base, color: s.color, gen: s.gen,
+      learnItems: s.learnItems, lang: s.lang, after: s.after, group: s.group, groupName: s.groupName,
+      madd: s.madd, count: s.count, fromGrade: s.fromGrade,
+    );
+
+List<Stage> _numbered(List<Stage> list) => [for (final (i, s) in list.indexed) _at(s, i + 1)];
 
 /// المدود بتتضاف في آخر عالم العربي من غير ما نلمس مراحله الأصلية (appendStages في الويب).
 /// أول مرحلة بس بتتفتح بعد "أكمل جدول الحروف"؛ الباقي بالترتيب.
@@ -328,10 +474,11 @@ final _sukun = [
     ('ar_marks', '🔍', 'حركة ولا تنوين؟', 2, 0xFFB04216, arMarks),
     ('ar_sukun', '🔵', 'فين الحرف الساكن؟', 2, 0xFFA43A12, arSukun),
     if (voiceEnabled) ('ar_tanween_listen', '👂', 'اسمع واختار التنوين', 2, 0xFF98320E, arTanweenListen),
+    ('ar_shadda', 'بّ', 'الشدّة', 2, 0xFF8C2A0A, arShadda),
   ].indexed)
     Stage(
       id: id, world: 'arabic', n: _arabic.length + _madd.length + _harakat.length + i + 1, icon: icon, name: name,
-      base: base, color: Color(color), gen: gen, group: 'sukun', groupName: 'السكون والتنوين',
+      base: base, color: Color(color), gen: gen, group: 'sukun', groupName: 'السكون والتنوين والشدّة',
       after: i == 0 ? 'ar_haraka_pick' : null,
       fromGrade: i == 0 ? 'p2' : null,
     ),
@@ -446,9 +593,16 @@ final _enPrimary = [
 
 /// world -> ترتيب مراحله.
 final Map<String, List<Stage>> worldStages = {
-  'math': [..._math, ..._math100, ..._mul, ..._life, ..._upperPrimary],
-  'arabic': [..._arabic, ..._madd, ..._harakat, ..._sukun, ..._grammar],
-  'english': [..._english, ..._enPrimary],
+  // المراحل اللي اتنشرت قبل كده (الحساب والعربي والمدود و English الأصليين) فاضلة بنفس ترتيبها
+  // بين بعض — المجموعات الجديدة بتدخل بينها في مكانها في المنهج (stage_ids_test.dart)
+  'math': _numbered([..._math, ..._mathBasics, ..._math100, ..._mul, ..._life, ..._upperPrimary]),
+  'arabic': _numbered([
+    ..._arabic, ..._concepts, ..._harakat, ..._forms, ..._madd, ..._shortRead, ..._sukun, ..._al, ..._grammar,
+  ]),
+  'english': _numbered([..._english, if (voiceEnabled) ..._phonics, ..._enWords, ..._enPrimary]),
+  'deen': _numbered(_deen),
+  'discover': _numbered(_discover),
+  'write': _numbered(_write),
   'games': [..._games, ..._play],
 };
 

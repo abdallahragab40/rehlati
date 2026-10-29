@@ -111,7 +111,7 @@ class Journey {
 }
 
 /// العوالم اللي ممكن تدخل الرحلة، بالترتيب.
-const journeyWorlds = ['math', 'arabic', 'english', 'games', 'quran'];
+const journeyWorlds = ['math', 'arabic', 'english', 'deen', 'discover', 'write', 'games', 'quran'];
 
 /// يخطط رحلة النهاردة من التقدّم المحفوظ بس.
 ///

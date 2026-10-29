@@ -34,7 +34,8 @@ void main() {
       final p = ProgressData();
       expect(p.unlockNext('counting')?.id, 'chooseNumber');
       expect(p.unlockNext('counting'), isNull);
-      expect(p.unlockNext('subtraction')?.id, 'tensOnes'); // بعدها الأعداد لحد ١٠٠
+      expect(p.unlockNext('subtraction')?.id, 'ordinals'); // بعدها أساسيات الأعداد
+      expect(p.unlockNext('wordProblem')?.id, 'tensOnes'); // وبعدها الأعداد لحد ١٠٠
       expect(p.unlockNext('sub100')?.id, 'mulGroups'); // بعدها جدول الضرب
       expect(p.unlockNext('timesAll')?.id, 'moneyCount'); // بعدها الفلوس والساعة
       expect(p.unlockNext('clockQuarter')?.id, 'divisionExact');

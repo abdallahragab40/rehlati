@@ -31,7 +31,7 @@ void main() {
       for (final s in guideSections)
         for (final b in s.body) ...switch (b) { GP(:final text) => [text], GList(:final items) => items },
     ].join('\n');
-    for (final (w, word) in [('math', 'مرحلة'), ('arabic', 'مرحلة'), ('english', 'مرحلة'), ('games', 'لعبة')]) {
+    for (final (w, word) in [('math', 'مرحلة'), ('arabic', 'مرحلة'), ('english', 'مرحلة'), ('games', 'لعبة'), ('deen', 'مراحل'), ('discover', 'مراحل'), ('write', 'مراحل')]) {
       expect(text, contains('${ar(worldStages[w]!.length)} $word'), reason: '$w has ${worldStages[w]!.length} stages');
     }
   });

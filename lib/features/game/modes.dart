@@ -14,6 +14,7 @@ import '../../domain/engine/game_engine.dart';
 import '../../domain/question.dart';
 import '../madd/madd_style.dart';
 import 'games_modes.dart';
+import 'basics_modes.dart';
 import 'play_modes.dart';
 import 'puzzle_modes.dart';
 import 'visuals.dart';
@@ -262,7 +263,9 @@ class QuestionBody extends StatelessWidget {
             semanticLabel: q.choiceSay[q.choices[i]],
             content: _look('${q.choices[i]}', context),
             color: color,
-            size: q.look == ChoiceLook.category
+            size: q.look == ChoiceLook.category || q.look == ChoiceLook.bar || q.look == ChoiceLook.group
+                ? TileSize.text
+                : q.look == ChoiceLook.category
                 ? TileSize.text
                 : q.bigChoices
                 ? (wide ? TileSize.maddWide : TileSize.madd)
@@ -299,6 +302,9 @@ class QuestionBody extends StatelessWidget {
         ChoiceLook.opposite => OppositePic(v, size: context.clampVw(104, 28, 140)),
         ChoiceLook.category => CategoryChoice(v),
         ChoiceLook.picName => PicNameChoice(v, q.choiceSay[v]),
+        ChoiceLook.bar => BarChoice(int.parse(v)),
+        ChoiceLook.group => GroupChoice(v),
+        ChoiceLook.coin => CoinChoice(v, size: context.clampVw(64, 17, 78)),
       };
 
   Widget _slots(BuildContext context) {

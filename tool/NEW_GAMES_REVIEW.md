@@ -39,3 +39,18 @@ doubling, growing steps; numbers up to 100). Game difficulty now follows age: 3�
   cups still move, because following them is the game.
 - **صوّر الكلمة** isn't a new stage: «الكلمة والصورة» (`ar_match_word`) in the Arabic world already
   shows a written word and asks for its picture.
+
+## Curriculum additions (next-release)
+
+All text is in `lib/content/basics_data.dart` and `lib/content/deen_data.dart`. Teacher review is
+put off for now (29 Oct 2026). These are the parts that matter most when it happens:
+
+- **Adhkar** (`adhkar`): 14 short adhkar with full tashkeel. They are recited by the synthetic voice
+  in «ردّد الذكر», so listen to every one.
+- **Prayer steps** (`salahSteps`) and **wudu** (`wuduFull`): one rak'ah in 9 steps, and 8 wudu steps.
+- **Prophet stories** (`prophetStories`): 10 two-line stories with a question each.
+- **Pillars, Hijri months, Eids** (`islamPillars`, `imanPillars`, `hijriMonths`, `islamicDays`).
+- **Sun and moon letters** (`alWords`) and **shadda words** (`shaddaWords`): the tashkeel decides the
+  answer, and a test checks that it matches.
+- **Phonics** (`phonics`, `blendWords`): the letter sounds are spelt for the device's English voice
+  ("buh", "kuh", "sss"). How they sound depends on the phone, so listen on a real device.

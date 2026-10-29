@@ -329,8 +329,8 @@ class ProgressData {
 
   bool isUnlocked(String id) {
     if (settings.dev || unlocked.contains(id)) return true;
-    // عالم الألعاب مفتوح كله من الأول — دي ألعاب مش مناهج
-    if (packs[id]?.world == 'games') return true;
+    // الألعاب والكتابة والدين واكتشف مفتوحين كلهم من الأول — نشاطات مش منهج بالترتيب
+    if (openWorlds.contains(packs[id]?.world)) return true;
     // أول مرحلة في مجموعة ابتدائي بتتفتح من الأول لطفل في صفها أو أعلى — مايعديش على مراحل الحضانة
     final from = packs[id]?.fromGrade;
     final grade = schoolGrade;
@@ -344,7 +344,7 @@ class ProgressData {
   /// (يعني الطفل لسه ما نجحش فيها).
   bool canSkip(String id) {
     final s = packs[id];
-    if (s == null || s.world == 'games' || skipped.contains(id) || !isUnlocked(id)) return false;
+    if (s == null || openWorlds.contains(s.world) || skipped.contains(id) || !isUnlocked(id)) return false;
     final order = worldStages[s.world]!;
     final i = order.indexOf(s);
     return [if (i + 1 < order.length) order[i + 1], ...order.where((o) => o.after == id)]
@@ -368,7 +368,7 @@ class ProgressData {
   Stage? unlockNext(String id) {
     final pack = packs[id];
     // مفيش "فتحت مرحلة جديدة" في عالم الألعاب — كله مفتوح أصلًا
-    if (pack == null || pack.world == 'games') return null;
+    if (pack == null || openWorlds.contains(pack.world)) return null;
     final order = worldStages[pack.world]!;
     final i = order.indexWhere((s) => s.id == id);
     if (i < 0 || i + 1 >= order.length) return null;

@@ -151,7 +151,10 @@ void main() {
 
   test('every madd stage has a lesson and the registry keeps web order', () {
     final ids = [for (final s in worldStages['arabic']!) s.id];
-    expect(ids.indexOf('madd_alif'), 11, reason: 'appended after the 11 original stages');
+    // بعد الـ١١ مرحلة الأصلية، والحركات وأشكال الحرف قبلها عشان المدود بتفترض إن الطفل يعرفهم
+    expect(ids.indexOf('madd_alif'), greaterThan(ids.indexOf('ar_match_word')));
+    expect(ids.indexOf('madd_alif'), greaterThan(ids.indexOf('ar_haraka_pick')));
+    expect(ids.indexOf('madd_alif'), greaterThan(ids.indexOf('ar_position')));
     expect(packs['madd_alif']!.after, 'ar_table');
     expect(packs.values.where((s) => s.isMadd).length, 9);
   });

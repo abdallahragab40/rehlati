@@ -73,6 +73,15 @@ enum ChoiceLook {
   /// إيموجي وتحته اسمه من [Question.choiceSay] (خطوات الوضوء).
   picName,
 
+  /// "5" ← قلم بطول ٥ (القياس).
+  bar,
+
+  /// "🍎|4" ← مجموعة من ٤ صور (أكتر وأقل).
+  group,
+
+  /// "h" ← عملة أو ورقة فلوس (ربع، نص، جنيه، ٥، ١٠).
+  coin,
+
   /// "circle|red" ← شكل ملوّن (الأشكال والألوان).
   shape,
 
@@ -244,8 +253,11 @@ class PassageVisual extends Visual {
 
 /// زرار 🔊 كبير لوحده (اسمع ثم اختر).
 class ListenVisual extends Visual {
-  const ListenVisual(this.say);
+  const ListenVisual(this.say, {this.en = false});
   final String say;
+
+  /// بيتنطق بالإنجليزي (Phonics و sight words).
+  final bool en;
 }
 
 /// صورة كبيرة لوحدها (إيموجي) — ومن غير عدّ باللمس زي PicsVisual.
@@ -255,6 +267,43 @@ class EmojiVisual extends Visual {
 
   /// سطر تحت الصورة (موقف «ده يصح ولا لأ؟»).
   final String? caption;
+}
+
+/// شكل هندسي كبير ("circle"، "triangle"، "square"، "rect").
+class ShapeVisual extends Visual {
+  const ShapeVisual(this.shape);
+  final String shape;
+}
+
+/// طابور صور ورا علم 🏁 من اليمين (الأعداد الترتيبية).
+class QueueVisual extends Visual {
+  const QueueVisual(this.items);
+  final List<String> items;
+}
+
+/// [count] صورة متقسّمة أزواج — الفردي بيفضل واحد لوحده (زوجي وفردي).
+class PairsVisual extends Visual {
+  const PairsVisual(this.emoji, this.count);
+  final String emoji;
+  final int count;
+}
+
+/// فلوس صغيرة بمفاتيح العملات ('q'، 'h'، '1'، '5'، '10').
+class CoinsVisual extends Visual {
+  const CoinsVisual(this.coins);
+  final List<String> coins;
+}
+
+/// رسم بياني بالصور: عمود لكل صورة بعددها.
+class PicGraphVisual extends Visual {
+  const PicGraphVisual(this.rows);
+  final List<(String, int)> rows;
+}
+
+/// نبات بأجزائه، والجزء [highlight] عليه سهم (أجزاء النبات).
+class PlantVisual extends Visual {
+  const PlantVisual(this.highlight);
+  final String? highlight;
 }
 
 /// صورة صفة من الأضداد ("big|🐘") — نفس رسمة اختيارات [ChoiceLook.opposite].

@@ -70,7 +70,9 @@ void main() {
 
   test('money and time open after adding to 100 and retain their order after times tables', () {
     final ids = [for (final s in worldStages['math']!) s.id];
-    expect(ids.sublist(23, 26), ['moneyCount', 'moneyChange', 'clockQuarter']);
+    final at = ids.indexOf('moneyCount');
+    expect(ids.sublist(at, at + 3), ['moneyCount', 'moneyChange', 'clockQuarter']);
+    expect(at, greaterThan(ids.indexOf('timesAll')));
     expect(packs['moneyCount']!.after, 'add100');
   });
 }

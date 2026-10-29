@@ -12,6 +12,7 @@ import '../../core/utils/arabic.dart';
 import '../../core/widgets/dashed_box.dart';
 import '../../domain/question.dart';
 import '../madd/madd_style.dart';
+import 'basics_modes.dart';
 import 'play_modes.dart';
 import 'tap_count.dart';
 
@@ -60,7 +61,13 @@ class VisualView extends StatelessWidget {
         LetterChipsVisual v => _LetterChips(v),
         TableVisual v => _Table(v, picked),
         MaddTextVisual v => MaddTextView(v),
-        ListenVisual v => Center(child: ListenButton(v.say)),
+        ListenVisual v => Center(child: ListenButton(v.say, en: v.en)),
+        ShapeVisual v => ShapeView(v),
+        QueueVisual v => QueueView(v),
+        PairsVisual v => PairsView(v),
+        CoinsVisual v => CoinsView(v),
+        PicGraphVisual v => PicGraphView(v),
+        PlantVisual v => PlantView(v),
         EmojiVisual v => EmojiView(v),
         OppositeVisual v => Center(child: OppositePic(v.spec, size: context.clampVw(130, 36, 170))),
         PatternVisual v => _Pattern(v),

@@ -17,12 +17,14 @@ void main() {
     ],
   ];
 
-  test('registry includes the primary expansion stages', () {
-    expect(worldStages['math']!.length, 13 + 5 + 5 + 3 + 4, reason: 'with neighbors and emptyTable, plus numbers to 100, times tables, money/time, division and fractions');
-    expect(worldStages['arabic']!.length, 11 + 9 + (voiceEnabled ? 3 + 4 : 2 + 3) + 6,
-        reason: '11 + 9 madd stages + harakat + sukun and tanween + grammar');
-    expect(worldStages['english']!.length, 14 + 7, reason: 'plus primary English');
-    expect(worldStages['games']!.length, voiceEnabled ? 12 + 16 + 4 : 11 + 15 + 4, reason: 'listenNum and animalSound need the voice');
+  test('registry has every world and the expected stage counts', () {
+    expect(worldStages['math']!.length, 13 + 9 + 5 + 5 + 3 + 4, reason: 'basics, numbers to 100, times tables, money/time, division');
+    expect(worldStages['arabic']!.length, 11 + 2 + 2 + 9 + 1 + 1 + 1 + (voiceEnabled ? 3 + 4 : 2 + 3) + 6,
+        reason: 'letters, concepts, forms, madd, short sentences, shadda, sun/moon letters, harakat, sukun, grammar');
+    expect(worldStages['english']!.length, 14 + (voiceEnabled ? 3 : 0) + 5 + 7, reason: 'phonics needs the voice');
+    expect(worldStages['games']!.length, voiceEnabled ? 12 + 13 + 4 : 11 + 12 + 4, reason: 'listenNum and animalSound need the voice');
+    expect([for (final w in ['deen', 'discover', 'write']) worldStages[w]!.length], [8, 5, 5]);
+    expect({for (final w in worlds) w.id}, {...worldStages.keys, 'quran'});
   });
 
   for (final type in types) {
