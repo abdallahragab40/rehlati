@@ -14,6 +14,7 @@ import 'core/theme/app_theme.dart';
 import 'core/utils/arabic.dart';
 import 'core/widgets/fx_layer.dart';
 import 'core/widgets/learning_scope.dart';
+import 'domain/paths.dart';
 import 'domain/progress/progress_controller.dart';
 import 'domain/stages.dart';
 import 'features/achievements/achievements_screen.dart';
@@ -21,6 +22,7 @@ import 'features/daily/time_up_screen.dart';
 import 'features/game/game_screen.dart';
 import 'features/home/home_screen.dart';
 import 'features/journey/journey.dart';
+import 'features/paths/paths_screen.dart';
 import 'features/letter_board/letter_board_screen.dart';
 import 'features/madd/madd_lesson_screen.dart';
 import 'features/parent/dashboard_screen.dart';
@@ -70,6 +72,13 @@ final _router = GoRouter(initialLocation: kDebugMode ? _start : '/', routes: [
   ),
   GoRoute(path: '/timeup', builder: (_, _) => const TimeUpScreen()),
   GoRoute(path: '/journey', builder: (_, _) => const LearningScope(track: false, child: JourneyScreen())),
+  GoRoute(path: '/paths', builder: (_, _) => const LearningScope(track: false, child: PathsScreen())),
+  GoRoute(
+    path: '/path/:id',
+    // مسار مش موجود (رابط قديم) ← قايمة المسارات
+    redirect: (_, s) => pathById(s.pathParameters['id']!) == null ? '/paths' : null,
+    builder: (_, s) => LearningScope(track: false, child: PathScreen(id: s.pathParameters['id']!)),
+  ),
   GoRoute(path: '/achievements', builder: (_, _) => const AchievementsScreen()),
   GoRoute(path: '/quran', builder: (_, _) => const LearningScope(track: false, child: QuranHomeScreen())),
   GoRoute(path: '/quran-check', builder: (_, _) => const QuranCheckScreen()),

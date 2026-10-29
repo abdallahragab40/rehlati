@@ -19,6 +19,7 @@ import '../../core/utils/arabic.dart';
 import '../../core/utils/rng.dart';
 import '../progress/learning_time.dart';
 import '../progress/progress_controller.dart';
+import '../paths.dart';
 import '../progress/progress_data.dart';
 import '../question.dart';
 import '../stages.dart';
@@ -742,7 +743,10 @@ class GameEngine extends Notifier<GameSession?> {
         final before = p.best[s.stage.id] ?? 0;
         p.addResult(s.stage.id, s.correct, s.total);
         p.recordMastery(s.stage.id, s.correct, s.total);
-        if (s.correct / s.total >= .8) unlocked = p.unlockNext(s.stage.id);
+        if (s.correct / s.total >= .8) {
+          unlocked = p.unlockNext(s.stage.id);
+          markPathStage(p, s.stage.id);
+        }
         // المدود: +٢ لكل جولة، و +٥ أول مرة تنجح فيها المرحلة
         if (s.stage.isMadd) {
           p.madd.rounds[s.stage.id] = (p.madd.rounds[s.stage.id] ?? 0) + 1;

@@ -22,6 +22,7 @@ import '../daily/week_card.dart';
 import '../madd/madd_dashboard_card.dart';
 import '../parent_guide/pg_screens.dart';
 import '../journey/journey.dart';
+import '../paths/paths_screen.dart';
 import '../profiles/profiles.dart';
 import '../quran/quran_download.dart';
 import '../quran/quran_repository.dart';
@@ -88,6 +89,8 @@ class DashboardScreen extends ConsumerWidget {
           const _ChildrenCard(),
           h3('🧭 رحلة النهاردة'),
           const JourneyParentCard(),
+          h3('🎒 مسارات التعلّم'),
+          const PathsParentCard(),
           h3('📅 تقرير الأسبوع'),
           const WeekCard(),
           h3('🗺️ العوالم'),

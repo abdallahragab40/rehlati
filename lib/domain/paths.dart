@@ -1,0 +1,157 @@
+/// مسارات التعلّم: أربع أسابيع، في كل أسبوع دروس، وكل درس كام نشاط من المراحل الموجودة.
+///
+/// الدروس بتتفتح بالترتيب. النشاط بيتحسب للدرس الحالي بس لما الطفل ينجح فيه (٨٠٪+)، من أي مكان
+/// اتلعب منه. المسودة دي معمولة من الأنشطة الموجودة (مستوى KG2 وأول أولى ابتدائي)، وأنشطة
+/// تانية وتالتة ابتدائي هتتضاف للأسابيع لما تتعمل. أهداف الأسابيع محتاجة مراجعة مدرّس.
+library;
+
+import 'progress/progress_data.dart';
+import 'stages.dart';
+
+class PathLesson {
+  const PathLesson(this.id, this.title, this.stages);
+
+  /// ثابت حتى لو العنوان اتغيّر — التقدّم متسجّل بيه.
+  final String id;
+  final String title;
+
+  /// المراحل بالترتيب (ids من [packs]).
+  final List<String> stages;
+}
+
+class PathWeek {
+  const PathWeek(this.title, this.goal, this.lessons);
+  final String title;
+
+  /// هدف الأسبوع — لولي الأمر.
+  final String goal;
+  final List<PathLesson> lessons;
+}
+
+class LearningPath {
+  const LearningPath({
+    required this.id,
+    required this.world,
+    required this.icon,
+    required this.name,
+    required this.ages,
+    required this.desc,
+    required this.weeks,
+  });
+
+  final String id;
+  final String world;
+  final String icon;
+  final String name;
+
+  /// السن المقصود — للعرض بس، المسار مفتوح لأي طفل.
+  final String ages;
+  final String desc;
+  final List<PathWeek> weeks;
+
+  List<PathLesson> get lessons => [for (final w in weeks) ...w.lessons];
+
+  PathWeek weekOf(PathLesson l) => weeks.firstWhere((w) => w.lessons.contains(l));
+
+  // ---------------------------------------------------------------- التقدّم
+
+  Set<String> _done(ProgressData p) => p.pathDone[id] ?? const {};
+
+  bool stepDone(ProgressData p, PathLesson l, String stage) => _done(p).contains('${l.id}:$stage');
+
+  bool lessonDone(ProgressData p, PathLesson l) => l.stages.every((s) => stepDone(p, l, s));
+
+  /// أول درس لسه ما خلصش — null = المسار خلص.
+  PathLesson? current(ProgressData p) => lessons.where((l) => !lessonDone(p, l)).firstOrNull;
+
+  int lessonsDone(ProgressData p) => lessons.where((l) => lessonDone(p, l)).length;
+
+  bool started(ProgressData p) => _done(p).isNotEmpty;
+
+  bool complete(ProgressData p) => current(p) == null;
+}
+
+/// الطفل نجح في مرحلة (٨٠٪+): بتتعلّم في الدرس الحالي لكل مسار هي فيه.
+void markPathStage(ProgressData p, String stage) {
+  for (final path in learningPaths) {
+    final l = path.current(p);
+    if (l != null && l.stages.contains(stage)) p.pathDone.putIfAbsent(path.id, () => {}).add('${l.id}:$stage');
+  }
+}
+
+LearningPath? pathById(String id) => learningPaths.where((p) => p.id == id).firstOrNull;
+
+/// كل مراحل الدرس موجودة وبتتلعب بنتيجة (لوحة الحروف مالهاش نتيجة).
+bool lessonPlayable(PathLesson l) => l.stages.every((s) => packs[s] != null && !packs[s]!.isLearn);
+
+const learningPaths = [readingPath, mathPath];
+
+const readingPath = LearningPath(
+  id: 'reading1',
+  world: 'arabic',
+  icon: '📖',
+  name: 'رحلة القراءة الأولى',
+  ages: '٦–٨ سنين',
+  desc: 'من الحروف وأصواتها لحد قراءة كلمات فيها مدود، في ٤ أسابيع.',
+  weeks: [
+    PathWeek('الحروف وأصواتها', 'يعرف الـ٢٨ حرف بشكلهم، ويربط الحرف بأول صوت في اسم الصورة.', [
+      PathLesson('r1', 'أشكال الحروف', ['ar_pick', 'ar_table']),
+      PathLesson('r2', 'الحرف والصورة', ['ar_match', 'ar_pick']),
+      PathLesson('r3', 'جدول الحروف', ['ar_table', 'ar_match']),
+      PathLesson('r4', 'مراجعة الأسبوع', ['ar_pick', 'ar_match', 'ar_table']),
+    ]),
+    PathWeek('من الحروف للكلمة', 'يكوّن كلمة من حروفها، ويفكّ كلمة لحروفها، ويكمّل الحرف الناقص.', [
+      PathLesson('r5', 'كوّن الكلمة', ['ar_build', 'ar_compose']),
+      PathLesson('r6', 'حلّل الكلمة', ['ar_analyze', 'ar_connect']),
+      PathLesson('r7', 'الحرف الناقص', ['ar_complete', 'ar_build']),
+      PathLesson('r8', 'مراجعة الأسبوع', ['ar_compose', 'ar_analyze', 'ar_complete']),
+    ]),
+    PathWeek('المدود', 'يقرأ المد بالألف والواو والياء، ويفرّق بينهم في المقطع.', [
+      PathLesson('r9', 'المد بالألف والواو', ['madd_alif', 'madd_waw']),
+      PathLesson('r10', 'المد بالياء', ['madd_yaa', 'madd_types']),
+      PathLesson('r11', 'المقاطع', ['madd_complete', 'madd_compose']),
+      PathLesson('r12', 'المد جوه الكلمة', ['madd_find', 'madd_types']),
+    ]),
+    PathWeek('أقرأ كلمات', 'يقرأ كلمات قصيرة فيها مدود، ويختار الكلمة المناسبة للصورة.', [
+      PathLesson('r13', 'أقرأ الكلمة', ['madd_read', 'ar_choose_word']),
+      PathLesson('r14', 'الكلمة والصورة', ['ar_match_word', 'madd_mamdoud']),
+      PathLesson('r15', 'كلمات أطول', ['ar_choose_word', 'madd_read']),
+      PathLesson('r16', 'المراجعة الكبيرة', ['ar_connect', 'madd_find', 'ar_match_word']),
+    ]),
+  ],
+);
+
+const mathPath = LearningPath(
+  id: 'math1',
+  world: 'math',
+  icon: '🔢',
+  name: 'رحلة الأرقام',
+  ages: '٦–٨ سنين',
+  desc: 'الأعداد لحد ٢٠، والترتيب والمقارنة، والجمع والطرح، في ٤ أسابيع.',
+  weeks: [
+    PathWeek('الأعداد لحد ٢٠', 'يعد لحد ٢٠، ويعرف العدد اللي قبل واللي بعد أي عدد.', [
+      PathLesson('m1', 'العد', ['counting', 'chooseNumber']),
+      PathLesson('m2', 'قبل وبعد', ['nextNumber', 'previousNumber']),
+      PathLesson('m3', 'الجيران والتسلسل', ['neighbors', 'sequence']),
+      PathLesson('m4', 'مراجعة الأسبوع', ['chooseNumber', 'neighbors', 'sequence']),
+    ]),
+    PathWeek('الترتيب والمقارنة', 'يقارن عددين، ويرتّب الأعداد تصاعدي وتنازلي، ويكمّل جدول الأعداد.', [
+      PathLesson('m5', 'أكبر وأصغر', ['comparison', 'ascending']),
+      PathLesson('m6', 'من الكبير للصغير', ['descending', 'comparison']),
+      PathLesson('m7', 'جدول الأعداد', ['completeTable', 'sequence']),
+      PathLesson('m8', 'مراجعة الأسبوع', ['ascending', 'descending', 'completeTable']),
+    ]),
+    PathWeek('الجمع', 'يجمع عددين مجموعهم لحد ٢٠، بالصور وبعدين بالأرقام.', [
+      PathLesson('m9', 'نجمع بالصور', ['addition', 'completeTable']),
+      PathLesson('m10', 'نجمع ونكتب', ['addition', 'emptyTable']),
+      PathLesson('m11', 'الجمع والمقارنة', ['addition', 'comparison']),
+      PathLesson('m12', 'مراجعة الأسبوع', ['addition', 'sequence', 'emptyTable']),
+    ]),
+    PathWeek('الطرح', 'يطرح من أعداد لحد ٢٠، ويفرّق بين مسائل الجمع والطرح.', [
+      PathLesson('m13', 'نطرح بالصور', ['subtraction', 'previousNumber']),
+      PathLesson('m14', 'جمع ولا طرح؟', ['subtraction', 'addition']),
+      PathLesson('m15', 'نطرح ونكتب', ['subtraction', 'emptyTable']),
+      PathLesson('m16', 'المراجعة الكبيرة', ['addition', 'subtraction', 'comparison']),
+    ]),
+  ],
+);

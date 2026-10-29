@@ -95,6 +95,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               _DailyStrip(p),
               const SizedBox(height: 12),
               _JourneyButton(p),
+              const SizedBox(height: 10),
+              KidButton('🎒 مسارات التعلّم', onTap: () => context.push(p.limitReached ? '/timeup' : '/paths')),
               const SizedBox(height: 12),
               RankBar(stars: p.stars),
               const SizedBox(height: 18),

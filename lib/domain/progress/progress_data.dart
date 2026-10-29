@@ -154,7 +154,9 @@ class ProgressData {
     this.rankSeen,
     this.journey,
     Map<String, SkillRecord>? mastery,
+    Map<String, Set<String>>? pathDone,
   })  : mastery = mastery ?? {},
+        pathDone = pathDone ?? {},
         unlocked = unlocked ?? [...initiallyUnlocked],
         best = best ?? {},
         starsBy = starsBy ?? {},
@@ -224,6 +226,9 @@ class ProgressData {
   /// stage id -> الإتقان ومواعيد المراجعة.
   final Map<String, SkillRecord> mastery;
 
+  /// مسار التعلّم -> الأنشطة اللي خلصت في دروسه ("درس:مرحلة") — lib/domain/paths.dart.
+  final Map<String, Set<String>> pathDone;
+
   // ---------------------------------------------------------------- JSON
 
   factory ProgressData.fromJson(Map<String, dynamic> j) {
@@ -260,6 +265,9 @@ class ProgressData {
       mastery: j['mastery'] is Map
           ? {for (final e in (j['mastery'] as Map).entries) '${e.key}': SkillRecord.fromJson(e.value)}
           : {},
+      pathDone: j['paths'] is Map
+          ? {for (final e in (j['paths'] as Map).entries) '${e.key}': strs(e.value).toSet()}
+          : {},
       pgFocus: (j['parentGuide'] is Map && (j['parentGuide'] as Map)['focus'] is Map)
           ? {
               for (final e in ((j['parentGuide'] as Map)['focus'] as Map).entries)
@@ -295,6 +303,7 @@ class ProgressData {
         'rankSeen': rankSeen,
         'journey': journey?.toJson(),
         'mastery': {for (final e in mastery.entries) e.key: e.value.toJson()},
+        if (pathDone.isNotEmpty) 'paths': {for (final e in pathDone.entries) e.key: e.value.toList()},
         'parentGuide': {
           'focus': {for (final e in pgFocus.entries) e.key: e.value.toJson()},
         },
