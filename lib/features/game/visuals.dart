@@ -12,6 +12,7 @@ import '../../core/utils/arabic.dart';
 import '../../core/widgets/dashed_box.dart';
 import '../../domain/question.dart';
 import '../madd/madd_style.dart';
+import 'play_modes.dart';
 import 'tap_count.dart';
 
 class VisualView extends StatelessWidget {
@@ -60,6 +61,8 @@ class VisualView extends StatelessWidget {
         TableVisual v => _Table(v, picked),
         MaddTextVisual v => MaddTextView(v),
         ListenVisual v => Center(child: ListenButton(v.say)),
+        EmojiVisual v => EmojiView(v),
+        OppositeVisual v => Center(child: OppositePic(v.spec, size: context.clampVw(130, 36, 170))),
         PatternVisual v => _Pattern(v),
         ClockVisual v => Center(child: ClockFace(hour: v.hour, minute: v.minute, size: context.clampVw(150, 44, 210))),
         TensOnesVisual v => _TensOnes(v),
@@ -635,6 +638,9 @@ class _Pattern extends StatelessWidget {
           ),
           child: child,
         );
+    final hole = cell(Text('؟', style: kidText(box * .55, color: AppColors.grape)), q: true)
+        .anim(onPlay: (c) => c.repeat(reverse: true))
+        .scaleXY(begin: 1, end: 1.08, duration: 800.ms);
     // سطر واحد دايمًا — لو مش واسع كفاية بيصغر بدل ما "؟" تنزل لوحدها تحت
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -642,13 +648,14 @@ class _Pattern extends StatelessWidget {
         fit: BoxFit.scaleDown,
         child: Row(spacing: context.clampVw(6, 2, 12), children: [
           for (final (i, e) in v.items.indexed)
-            cell(Text(e, style: TextStyle(fontSize: box * .55)))
-                .anim()
-                .fadeIn(delay: (i * 70).ms, duration: 250.ms)
-                .scaleXY(begin: .6, end: 1, duration: 300.ms, curve: Curves.easeOutBack),
-          cell(Text('؟', style: kidText(box * .55, color: AppColors.grape)), q: true)
-              .anim(onPlay: (c) => c.repeat(reverse: true))
-              .scaleXY(begin: 1, end: 1.08, duration: 800.ms),
+            if (i == v.hole)
+              hole
+            else
+              cell(Text(e, style: TextStyle(fontSize: box * .55)))
+                  .anim()
+                  .fadeIn(delay: (i * 70).ms, duration: 250.ms)
+                  .scaleXY(begin: .6, end: 1, duration: 300.ms, curve: Curves.easeOutBack),
+          if (v.hole == null) hole,
         ]),
       ),
     );

@@ -14,6 +14,7 @@ import '../../domain/engine/game_engine.dart';
 import '../../domain/question.dart';
 import '../madd/madd_style.dart';
 import 'games_modes.dart';
+import 'play_modes.dart';
 import 'visuals.dart';
 
 typedef KeyFor = GlobalKey Function(String anchor);
@@ -232,7 +233,12 @@ class QuestionBody extends StatelessWidget {
       QMode.sort => _sort(context),
       QMode.balloon => Column(children: [_Hint(q.hint), BalloonSky(s: s, engine: engine, keyFor: keyFor)]),
       QMode.color => ColorGame(s: s, engine: engine, keyFor: keyFor),
-      QMode.rhythm => RhythmGame(s: s, engine: engine, keyFor: keyFor),
+      QMode.rhythm => q.lights
+          ? LightsGame(s: s, engine: engine, keyFor: keyFor)
+          : RhythmGame(s: s, engine: engine, keyFor: keyFor),
+      QMode.cups => CupsGame(s: s, engine: engine, keyFor: keyFor),
+      QMode.maze => MazeGame(s: s, engine: engine, keyFor: keyFor),
+      QMode.trace => TraceGame(s: s, engine: engine, keyFor: keyFor),
     };
     return Column(children: [
       AskRow(q: q, onSpeak: engine.repeat),
@@ -250,13 +256,11 @@ class QuestionBody extends StatelessWidget {
           child: ChoiceTile(
             label: '${q.choices[i]}',
             semanticLabel: q.choiceSay[q.choices[i]],
-            content: switch (q.look) {
-              ChoiceLook.shape => ShapeIcon('${q.choices[i]}', size: context.clampVw(44, 12, 62)),
-              ChoiceLook.fraction => FractionChoice('${q.choices[i]}'),
-              ChoiceLook.text => null,
-            },
+            content: _look('${q.choices[i]}', context),
             color: color,
-            size: q.bigChoices
+            size: q.look == ChoiceLook.category
+                ? TileSize.text
+                : q.bigChoices
                 ? (wide ? TileSize.maddWide : TileSize.madd)
                 : wide
                     ? TileSize.wide
@@ -281,6 +285,17 @@ class QuestionBody extends StatelessWidget {
     final gap = context.clampVw(10, 3, 18);
     return Wrap(alignment: WrapAlignment.center, spacing: gap, runSpacing: gap, children: tiles);
   }
+
+  /// شكل الاختيار لو مش نص (الأشكال، الظل، الأضداد، السلال، صورة باسمها).
+  Widget? _look(String v, BuildContext context) => switch (q.look) {
+        ChoiceLook.text => null,
+        ChoiceLook.shape => ShapeIcon(v, size: context.clampVw(44, 12, 62)),
+        ChoiceLook.fraction => FractionChoice(v),
+        ChoiceLook.shadow => ShadowPic(v, size: context.clampVw(80, 22, 108)),
+        ChoiceLook.opposite => OppositePic(v, size: context.clampVw(104, 28, 140)),
+        ChoiceLook.category => CategoryChoice(v),
+        ChoiceLook.picName => PicNameChoice(v, q.choiceSay[v]),
+      };
 
   Widget _slots(BuildContext context) {
     final n = q.answerList.length;
@@ -337,7 +352,8 @@ class QuestionBody extends StatelessWidget {
             key: keyFor('i$i'),
             child: ChoiceTile(
               label: '${q.items[i]}',
-              content: q.sizePic == null ? null : _sized('${q.items[i]}', context),
+              semanticLabel: q.choiceSay[q.items[i]],
+              content: q.sizePic != null ? _sized('${q.items[i]}', context) : _look('${q.items[i]}', context),
               color: color,
               size: q.bigChoices ? TileSize.madd : (q.numeric ? TileSize.number : TileSize.text),
               onTap: s.locked ? null : () => engine.pick(i),
@@ -402,7 +418,9 @@ class QuestionBody extends StatelessWidget {
     Widget card(int i, {bool feedback = false}) {
       final c = q.sortCards[i];
       final sel = s.sel == i;
-      return Material(
+      // صور السلال (ودّي الحاجة مكانها) كروت صغيرة جنب بعض مش بعرض الشاشة
+      final chip = q.boxes.any((b) => b.color != null);
+      final m = Material(
         color: Colors.transparent,
         child: Container(
           constraints: BoxConstraints(minWidth: context.clampVw(78, 22, 104), minHeight: context.clampVw(68, 18, 84)),
@@ -417,6 +435,7 @@ class QuestionBody extends StatelessWidget {
           child: Text(c.text, textDirection: TextDirection.rtl, style: kidText(cardFont, color: Colors.white, height: 1.5)),
         ),
       );
+      return chip ? IntrinsicWidth(child: m) : m;
     }
 
     final boxes = [
@@ -428,7 +447,7 @@ class QuestionBody extends StatelessWidget {
               onWillAcceptWithDetails: (d) => !s.locked,
               onAcceptWithDetails: (d) => engine.sortPlace(b.key, card: d.data),
               builder: (context, candidates, _) {
-                final (tc, tb) = maddColors(b.key);
+                final (tc, tb) = b.color != null ? (Color(b.color!), Color(b.color!).withValues(alpha: .14)) : maddColors(b.key);
                 final over = candidates.isNotEmpty;
                 Widget box = GestureDetector(
                   key: keyFor('b${b.key}'),

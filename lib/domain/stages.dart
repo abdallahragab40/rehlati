@@ -24,6 +24,7 @@ import 'generators/upper_primary_generators.dart';
 import 'generators/mul_generators.dart';
 import 'generators/reading_generators.dart';
 import 'placement.dart';
+import 'generators/play_generators.dart';
 import 'progress/progress_data.dart';
 import 'question.dart';
 
@@ -206,6 +207,40 @@ final _games = _register('games', [
   const _Def('clock', '🕐', 'كام الساعة', 3, 0xFF7A5CFF, gen: clock),
 ]);
 
+/// ألعاب التفكير والآداب والحركة في آخر عالم الألعاب، كل نوع بعنوان على الخريطة.
+/// مفتوحة كلها زي باقي الألعاب. «مين بيقول كده؟» محتاجة الصوت.
+final _play = [
+  for (final (i, (id, icon, name, color, gen, group, count)) in <(String, String, String, int, Generator, String, int?)>[
+    ('oddOne', '🤔', 'مين الغريب؟', 0xFF7A4FD1, oddOne, 'think', null),
+    ('shadow', '👤', 'ظل الصورة', 0xFF4A5568, shadow, 'think', null),
+    if (voiceEnabled) ('animalSound', '🐮', 'مين بيقول كده؟', 0xFF36B37E, animalSound, 'think', null),
+    ('opposite', '🔄', 'الأضداد', 0xFFE05FA8, opposite, 'think', null),
+    ('storyOrder', '📚', 'رتّب الحكاية', 0xFFE89B2B, storyOrder, 'think', 6),
+    ('category', '🗂️', 'صنّف', 0xFF1FAE9B, category, 'think', null),
+    ('missingPic', '🖼️', 'الصورة الناقصة', 0xFF4C9BFF, missingPic, 'think', null),
+    ('cups', '🐱', 'فين القطة؟', 0xFFFF7A45, cups, 'think', 5),
+    ('cleanSteps', '🧼', 'غسل الإيدين والوضوء', 0xFF2FA3C9, cleanSteps, 'values', 5),
+    ('manner', '✅', 'ده يصح ولا لأ؟', 0xFF36B37E, manner, 'values', null),
+    ('dragSort', '🧺', 'ودّي الحاجة مكانها', 0xFFC0782B, dragSort, 'move', 4),
+    ('maze', '🐰', 'متاهة الأرنب', 0xFF5FBF5F, maze, 'move', 4),
+    ('lights', '🚦', 'كرر الألوان', 0xFFC06BE8, lights, 'move', null),
+    ('traceNum', '✍️', 'ارسم الرقم', 0xFF7A5CFF, traceNum, 'draw', 4),
+    ('traceAr', '✍️', 'ارسم الحرف', 0xFFFF9F1C, traceAr, 'draw', 4),
+    ('traceEn', '✍️', 'Trace the letter', 0xFF4CB8FF, traceEn, 'draw', 4),
+  ].indexed)
+    Stage(
+      id: id, world: 'games', n: _games.length + i + 1, icon: icon, name: name, base: 1, color: Color(color),
+      gen: gen, count: count, group: group, groupName: playGroups[group], lang: id == 'traceEn' ? 'en' : 'ar',
+    ),
+];
+
+const playGroups = {
+  'think': '🧠 ألعاب الذكاء',
+  'values': '🌟 آداب ونضافة',
+  'move': '🏃 العب وحرّك',
+  'draw': '✍️ ارسم بصباعك',
+};
+
 /// المدود بتتضاف في آخر عالم العربي من غير ما نلمس مراحله الأصلية (appendStages في الويب).
 /// أول مرحلة بس بتتفتح بعد "أكمل جدول الحروف"؛ الباقي بالترتيب.
 final _madd = [
@@ -363,7 +398,7 @@ final Map<String, List<Stage>> worldStages = {
   'math': [..._math, ..._math100, ..._mul, ..._life, ..._upperPrimary],
   'arabic': [..._arabic, ..._madd, ..._harakat, ..._sukun, ..._grammar],
   'english': [..._english, ..._enPrimary],
-  'games': _games,
+  'games': [..._games, ..._play],
 };
 
 /// id -> المرحلة — ومعاها مراحل اختبار تحديد المستوى (مش على الخريطة).

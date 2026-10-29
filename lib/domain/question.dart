@@ -37,11 +37,32 @@ enum QMode {
 
   /// كرر الإيقاع: اسمع سلسلة الطبول وأعدها.
   rhythm,
+
+  /// فين القطة؟: القطة تحت كوباية والأكواب بتتبدّل، والطفل يختار الكوباية.
+  cups,
+
+  /// متاهة: حرّك الأرنب بالأسهم لحد الجزرة.
+  maze,
+
+  /// ارسم بصباعك: تتبّع الحرف أو الرقم.
+  trace,
 }
 
 /// شكل الاختيارات لو مش نص.
 enum ChoiceLook {
   text,
+
+  /// ظل الإيموجي (أسود بالكامل) — ظل الصورة.
+  shadow,
+
+  /// "big|🐘" ← صورة بتوصف صفة (الأضداد): كبير/صغير، فوق/تحت، مليان/فاضي…
+  opposite,
+
+  /// "fruit" ← سلة فيها صورتين من النوع واسمه (صنّف).
+  category,
+
+  /// إيموجي وتحته اسمه من [Question.choiceSay] (خطوات الوضوء).
+  picName,
 
   /// "circle|red" ← شكل ملوّن (الأشكال والألوان).
   shape,
@@ -169,8 +190,11 @@ class MaddTextVisual extends Visual {
 
 /// صف النمط وآخره "؟" (اتبع النمط).
 class PatternVisual extends Visual {
-  const PatternVisual(this.items);
+  const PatternVisual(this.items, {this.hole});
   final List<String> items;
+
+  /// مكان الـ "؟" جوه الصف (الصورة الناقصة) — من غيره الـ "؟" في الآخر.
+  final int? hole;
 }
 
 /// ساعة بعقارب (كام الساعة).
@@ -215,6 +239,21 @@ class ListenVisual extends Visual {
   final String say;
 }
 
+/// صورة كبيرة لوحدها (إيموجي) — ومن غير عدّ باللمس زي PicsVisual.
+class EmojiVisual extends Visual {
+  const EmojiVisual(this.emoji, {this.caption});
+  final String emoji;
+
+  /// سطر تحت الصورة (موقف «ده يصح ولا لأ؟»).
+  final String? caption;
+}
+
+/// صورة صفة من الأضداد ("big|🐘") — نفس رسمة اختيارات [ChoiceLook.opposite].
+class OppositeVisual extends Visual {
+  const OppositeVisual(this.spec);
+  final String spec;
+}
+
 // ---------------------------------------------------------------------------
 // أجزاء الأوضاع الخاصة
 // ---------------------------------------------------------------------------
@@ -226,9 +265,12 @@ class FindCell {
 }
 
 class SortBox {
-  const SortBox(this.key, this.label);
+  const SortBox(this.key, this.label, {this.color});
   final String key;
   final String label;
+
+  /// لون الصندوق لو مش صندوق مدود (ودّي الحاجة مكانها).
+  final int? color;
 }
 
 class SortCard {
@@ -256,6 +298,9 @@ class PaintPot {
 }
 
 /// طبلة في "كرر الإيقاع" — [k] كمان رقم صوتها (SfxKind.pad0…).
+/// حيطان خانة المتاهة.
+const mazeN = 1, mazeE = 2, mazeS = 4, mazeW = 8;
+
 class RhythmPad {
   const RhythmPad(this.k, this.icon, this.name, this.color);
   final int k;
@@ -307,6 +352,16 @@ class Question {
     this.mtype,
     this.mword,
     this.look = ChoiceLook.text,
+    this.lights = false,
+    this.cupCount = 0,
+    this.catCup = 0,
+    this.cupSwaps = 0,
+    this.cupStepMs = 0,
+    this.mazeSize = 0,
+    this.mazeWalls = const [],
+    this.mazeStart = 0,
+    this.mazeGoal = 0,
+    this.trace,
     this.sizePic,
     this.track = false,
     this.puzzle,
@@ -403,6 +458,25 @@ class Question {
   // ---------------------------------------------------------- عالم الألعاب
 
   final ChoiceLook look;
+
+  /// كرر الألوان: نفس «كرر الإيقاع» بس الطبول ألوان بتنوّر من غير صوت.
+  final bool lights;
+
+  /// فين القطة؟: عدد الأكواب، الكوباية اللي تحتها القطة، عدد التبديلات ومدة كل تبديلة.
+  final int cupCount;
+  final int catCup;
+  final int cupSwaps;
+  final int cupStepMs;
+
+  /// المتاهة: ضلع الشبكة، والحيطان لكل خانة (صف ورا صف) بالبتات [mazeN]…[mazeW]،
+  /// وخانة الأرنب وخانة الجزرة.
+  final int mazeSize;
+  final List<int> mazeWalls;
+  final int mazeStart;
+  final int mazeGoal;
+
+  /// ارسم بصباعك: الحرف أو الرقم اللي الطفل يتتبّعه.
+  final String? trace;
 
   /// رتّب بالحجم: العناصر أحجام ('1'، '1.55'…) والصورة دي بتترسم بالحجم ده.
   final String? sizePic;

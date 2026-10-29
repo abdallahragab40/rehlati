@@ -73,6 +73,10 @@ void main() {
       for (final c in q.sortCards) {
         add(c.say);
       }
+      // خطوات الترتيب اللي ليها اسم (الوضوء، الحكاية) بتتنطق باسمها
+      for (final v in q.items) {
+        add(q.choiceSay[v]);
+      }
       for (final v in [...q.visuals, ...?q.revealVisuals]) {
         if (v is ListenVisual) add(v.say);
         if (v is MaddTextVisual) add(v.say);
