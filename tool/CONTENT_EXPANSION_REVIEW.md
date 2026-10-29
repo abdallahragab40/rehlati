@@ -90,7 +90,7 @@ Lists live in `lib/domain/generators/grammar_generators.dart`. All words are ful
 read in full (with tanween), not pausal. The voice tool no longer stretches `فِي` and similar words
 inside fully vowelled sentences; syllable prompts like "اقرأ معي. فِي" are unchanged.
 
-Still outside: reading passages with questions, إعراب, verb tenses and conjugation, and
+Still outside: longer reading passages, إعراب, verb tenses and conjugation, and
 grade-by-grade alignment.
 
 | Arabic teacher | Date | Word lists and diacritics | Sentences | Age suitability | Decision |
@@ -116,6 +116,26 @@ Paths: **رحلة القراءة بالإنجليزي** (6–9) and **رحلة �
 | English teacher | Date | Word lists | Sentences and questions | Age suitability | Decision |
 |---|---|---|---|---|---|
 | Pending | | Pending | Pending | Pending | Pending |
+
+## Reading comprehension (ages 9–12, Arabic and English)
+
+`ar_reading` closes the Arabic القواعد والفهم group and `en_reading` closes English grammar. Each round
+shows a short passage and one question. Lists live in `lib/domain/generators/reading_generators.dart`.
+
+- 6 Arabic passages (lightly vowelled MSA, 2–3 sentences: market, bee, Omar's morning, the Nile,
+  a lost cat, winter) and 4 English passages (family, zoo, rainy day, healthy food).
+- Each passage has three questions: two answered directly in the text (levels 1–2), plus one
+  "why" question (from level 3). A test checks wrong choices never appear in their passage,
+  except the deliberate trap `يطول` (the passage says the night gets longer; the question asks about the day).
+- The Nile passage says "من أطول الأنهار في العالم", avoiding the disputed "longest" claim.
+- Arabic questions and answers have recordings; passages are read by the child, not spoken.
+
+Teacher check: passage language and length for each age, whether each "why" question is fair,
+and the Islamic-practice detail in "صباح عمر" (توضأ وصلى الفجر).
+
+| Teacher | Date | Passages | Questions | Decision |
+|---|---|---|---|---|
+| Pending | | Pending | Pending | Pending |
 
 ## Automated validation — 29 October 2026
 

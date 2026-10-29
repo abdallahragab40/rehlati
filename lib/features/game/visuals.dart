@@ -65,9 +65,35 @@ class VisualView extends StatelessWidget {
         TensOnesVisual v => _TensOnes(v),
         GroupsVisual v => TapCountScope(child: _Groups(v)),
         MoneyVisual v => _Money(v),
+        PassageVisual v => _Passage(v),
       },
     );
   }
+}
+
+/// قطعة القراءة: كارت فاتح، العنوان فوق، والنص بخط مريح للقراية الطويلة.
+class _Passage extends StatelessWidget {
+  const _Passage(this.v);
+  final PassageVisual v;
+
+  @override
+  Widget build(BuildContext context) => Directionality(
+        textDirection: v.ltr ? TextDirection.ltr : TextDirection.rtl,
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 14),
+          decoration: BoxDecoration(
+            color: AppColors.paper2,
+            border: Border.all(color: AppColors.line, width: 2),
+            borderRadius: BorderRadius.circular(18),
+          ),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(v.title, style: kidText(context.clampVw(17, 4.6, 22), color: AppColors.grape)),
+            const SizedBox(height: 6),
+            Text(v.text, style: kidText(context.clampVw(17, 4.6, 22), weight: FontWeight.w600, height: 1.7)),
+          ]),
+        ),
+      );
 }
 
 /// الجنيه عملة دهبي، والورق مستطيلات بلون لكل فئة ومكتوب عليها قيمتها — رسم تعليمي مش صورة الفلوس.

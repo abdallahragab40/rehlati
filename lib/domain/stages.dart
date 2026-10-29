@@ -22,6 +22,7 @@ import 'generators/math_generators.dart';
 import 'generators/sukun_generators.dart';
 import 'generators/upper_primary_generators.dart';
 import 'generators/mul_generators.dart';
+import 'generators/reading_generators.dart';
 import 'progress/progress_data.dart';
 import 'question.dart';
 
@@ -258,6 +259,7 @@ final _grammar = [
     ('ar_gender', '🚻', 'مذكر ولا مؤنث؟', 2, arGender),
     ('ar_opposite', '↔️', 'عكس الكلمة', 2, arOpposite),
     ('ar_sentence', '📝', 'كمّل الجملة', 2, arSentence),
+    ('ar_reading', '📰', 'اقرأ وافهم', 2, arReading),
   ].indexed)
     Stage(
       id: id, world: 'arabic', n: _arabic.length + _madd.length + _harakat.length + _sukun.length + i + 1,
@@ -346,6 +348,7 @@ final _enPrimary = [
     ('en_isare', '✍️', 'is, are or am?', 2, enIsAre, 'enP4', 'English grammar • Ages 9–12', 'en_plural', 'p4'),
     ('en_questions', '❓', 'Question words', 2, enQuestions, 'enP4', 'English grammar • Ages 9–12', null, null),
     ('en_sentence', '📝', 'Complete the sentence', 2, enSentence, 'enP4', 'English grammar • Ages 9–12', null, null),
+    ('en_reading', '📰', 'Read and answer', 2, enReading, 'enP4', 'English grammar • Ages 9–12', null, null),
   ].indexed)
     Stage(
       id: id, world: 'english', n: _english.length + i + 1, icon: icon, name: name, base: base,

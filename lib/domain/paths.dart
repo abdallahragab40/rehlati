@@ -322,11 +322,11 @@ const grammarPath = LearningPath(
       PathLesson('q11', 'الأضداد', ['ar_gender', 'ar_opposite']),
       PathLesson('q12', 'مراجعة الأسبوع', ['ar_gender', 'ar_number', 'ar_wordType']),
     ]),
-    PathWeek('نفهم الجملة', 'يختار الكلمة اللي تكمّل معنى الجملة، ويعرف عكس الكلمات المشهورة.', [
-      PathLesson('q13', 'كمّل الجملة', ['ar_sentence', 'ar_opposite']),
-      PathLesson('q14', 'الجملة والمؤنث', ['ar_sentence', 'ar_gender']),
-      PathLesson('q15', 'الجملة والعدد', ['ar_sentence', 'ar_number']),
-      PathLesson('q16', 'المراجعة الكبيرة', ['ar_sentence', 'ar_wordType', 'ar_gender']),
+    PathWeek('نقرا ونفهم', 'يقرا قطعة قصيرة ويجاوب أسئلة عليها، ويكمّل معنى الجملة.', [
+      PathLesson('q13', 'كمّل الجملة', ['ar_sentence', 'ar_reading']),
+      PathLesson('q14', 'اقرأ وافهم', ['ar_reading', 'ar_opposite']),
+      PathLesson('q15', 'القطعة والمؤنث', ['ar_reading', 'ar_gender']),
+      PathLesson('q16', 'المراجعة الكبيرة', ['ar_reading', 'ar_sentence', 'ar_wordType']),
     ]),
   ],
 );
@@ -392,11 +392,11 @@ const englishGrammarPath = LearningPath(
       PathLesson('k11', 'Sentences and is or are', ['en_sentence', 'en_isare']),
       PathLesson('k12', 'Week review', ['en_sentence', 'en_questions', 'en_isare']),
     ]),
-    PathWeek('المراجعة الكبيرة', 'يستخدم القواعد اللي اتعلمها مع بعض.', [
-      PathLesson('k13', 'Grammar mix', ['en_isare', 'en_questions']),
-      PathLesson('k14', 'Words in sentences', ['en_sentence', 'en_a_an']),
-      PathLesson('k15', 'Questions and plurals', ['en_questions', 'en_plural']),
-      PathLesson('k16', 'Big review', ['en_isare', 'en_questions', 'en_sentence']),
+    PathWeek('نقرا ونفهم', 'يقرا قصة قصيرة بالإنجليزي ويجاوب أسئلة عليها.', [
+      PathLesson('k13', 'Read and answer', ['en_reading', 'en_isare']),
+      PathLesson('k14', 'Stories and sentences', ['en_reading', 'en_sentence']),
+      PathLesson('k15', 'Stories and questions', ['en_reading', 'en_questions']),
+      PathLesson('k16', 'Big review', ['en_reading', 'en_isare', 'en_questions']),
     ]),
   ],
 );

@@ -201,6 +201,14 @@ class MoneyVisual extends Visual {
   final List<int> pounds;
 }
 
+/// قطعة قراءة بعنوانها (اقرأ وافهم) — خط أصغر من باقي المرئيات عشان تتقري كلها.
+class PassageVisual extends Visual {
+  const PassageVisual(this.title, this.text, {this.ltr = false});
+  final String title;
+  final String text;
+  final bool ltr;
+}
+
 /// زرار 🔊 كبير لوحده (اسمع ثم اختر).
 class ListenVisual extends Visual {
   const ListenVisual(this.say);
