@@ -10,6 +10,7 @@ import '../content/math_data.dart';
 import '../core/features.dart';
 import '../core/utils/rng.dart';
 import 'generators/arabic_generators.dart';
+import 'generators/en_primary_generators.dart';
 import 'generators/english_generators.dart';
 import 'generators/games_generators.dart';
 import 'generators/grammar_generators.dart';
@@ -334,11 +335,30 @@ final _upperPrimary = [
     ),
 ];
 
+/// English للابتدائي بعد مراحل English الأصلية: أولى لتالتة (بعد "Choose word"، أو من أولى)،
+/// وبعدين رابعة لسادسة (بعد "One or many?"، أو من رابعة).
+final _enPrimary = [
+  for (final (i, (id, icon, name, base, gen, group, groupName, after, from))
+      in <(String, String, String, int, Generator, String, String, String?, String?)>[
+    ('en_cvc', '📖', 'Read the word', 1, enCvc, 'enP1', 'Primary English • Grades 1–3', 'en_word', 'p1'),
+    ('en_a_an', '🅰️', 'a or an?', 2, enAAn, 'enP1', 'Primary English • Grades 1–3', null, null),
+    ('en_plural', '👯', 'One or many?', 2, enPlural, 'enP1', 'Primary English • Grades 1–3', null, null),
+    ('en_isare', '✍️', 'is, are or am?', 2, enIsAre, 'enP4', 'English grammar • Ages 9–12', 'en_plural', 'p4'),
+    ('en_questions', '❓', 'Question words', 2, enQuestions, 'enP4', 'English grammar • Ages 9–12', null, null),
+    ('en_sentence', '📝', 'Complete the sentence', 2, enSentence, 'enP4', 'English grammar • Ages 9–12', null, null),
+  ].indexed)
+    Stage(
+      id: id, world: 'english', n: _english.length + i + 1, icon: icon, name: name, base: base,
+      color: const Color(0xFF1F5FA8), gen: gen, lang: 'en', group: group, groupName: groupName,
+      after: after, fromGrade: from,
+    ),
+];
+
 /// world -> ترتيب مراحله.
 final Map<String, List<Stage>> worldStages = {
   'math': [..._math, ..._math100, ..._mul, ..._life, ..._upperPrimary],
   'arabic': [..._arabic, ..._madd, ..._harakat, ..._sukun, ..._grammar],
-  'english': _english,
+  'english': [..._english, ..._enPrimary],
   'games': _games,
 };
 

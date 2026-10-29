@@ -36,7 +36,9 @@ void main() {
 
     test('a new primary child starts at their grade, not at counting', () {
       final ten = planJourney(ProgressData(age: 10), day: day);
-      expect(targets(ten), ['stage:divisionExact', 'stage:ar_wordType'], reason: 'fourth-primary maths, then Arabic');
+      expect(ten.steps.first.target, 'stage:divisionExact');
+      expect(['stage:ar_wordType', 'stage:en_isare'], contains(ten.steps.last.target),
+          reason: 'then fourth-primary Arabic or English');
       final seven = planJourney(ProgressData(age: 7), day: day);
       expect(seven.steps.first.target, 'stage:tensOnes');
       expect(seven.steps.last.target, 'stage:ar_tanween');

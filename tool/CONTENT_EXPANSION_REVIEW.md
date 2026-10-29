@@ -97,6 +97,26 @@ grade-by-grade alignment.
 |---|---|---|---|---|---|
 | Pending | | Pending | Pending | Pending | Pending |
 
+## Primary English (grades 1–3 and ages 9–12)
+
+English questions are spoken by the device's English voice, so there are no new recordings.
+Lists live in `lib/domain/generators/en_primary_generators.dart`.
+
+| Stage | Opens | What varies | Teacher check |
+|---|---|---|---|
+| `en_cvc` | first primary, or after `en_word` | 14 CVC words with pictures; distractors are real words one letter away (a test enforces it) | Are all distractors familiar enough? |
+| `en_a_an` | in order | 8 "an" nouns and 8 "a" nouns; no hour/unicorn exceptions | Add the exceptions later? |
+| `en_plural` | in order | s and es from the start, y→ies from level 3, irregular (children, mice, teeth, feet) at level 4; distractors are the singular and a common wrong plural (cates, boxs, childs) | Are made-up wrong plurals acceptable as distractors? |
+| `en_isare` | fourth primary, or after `en_plural` | 14 sentences; am (with I) from level 3 | Sentences and level |
+| `en_questions` | in order | 12 questions for What / Where / Who / When / Why / How | Each blank has exactly one natural answer |
+| `en_sentence` | in order | 12 sentences completed by meaning | Each wrong choice is clearly wrong |
+
+Paths: **رحلة القراءة بالإنجليزي** (6–9) and **رحلة قواعد الإنجليزي** (9–12), 4 weeks of 4 lessons each.
+
+| English teacher | Date | Word lists | Sentences and questions | Age suitability | Decision |
+|---|---|---|---|---|---|
+| Pending | | Pending | Pending | Pending | Pending |
+
 ## Automated validation — 29 October 2026
 
 - `flutter analyze`: no issues.

@@ -84,7 +84,9 @@ LearningPath? pathById(String id) => learningPaths.where((p) => p.id == id).firs
 /// كل مراحل الدرس موجودة وبتتلعب بنتيجة (لوحة الحروف مالهاش نتيجة).
 bool lessonPlayable(PathLesson l) => l.stages.every((s) => packs[s] != null && !packs[s]!.isLearn);
 
-const learningPaths = [readingPath, mathPath, math100Path, timesPath, lifePath, upperPrimaryPath, grammarPath];
+const learningPaths = [
+  readingPath, mathPath, math100Path, timesPath, lifePath, upperPrimaryPath, grammarPath, englishPath, englishGrammarPath,
+];
 
 const readingPath = LearningPath(
   id: 'reading1',
@@ -325,6 +327,76 @@ const grammarPath = LearningPath(
       PathLesson('q14', 'الجملة والمؤنث', ['ar_sentence', 'ar_gender']),
       PathLesson('q15', 'الجملة والعدد', ['ar_sentence', 'ar_number']),
       PathLesson('q16', 'المراجعة الكبيرة', ['ar_sentence', 'ar_wordType', 'ar_gender']),
+    ]),
+  ],
+);
+
+const englishPath = LearningPath(
+  id: 'english1',
+  world: 'english',
+  icon: '📖',
+  name: 'رحلة القراءة بالإنجليزي',
+  ages: '٦–٩ سنين',
+  desc: 'يقرا كلمات قصيرة، ويستخدم a و an، ويجمع الأسماء، في ٤ أسابيع.',
+  weeks: [
+    PathWeek('نقرا كلمات قصيرة', 'يقرا كلمات من ٣ حروف (cat, dog, sun) ويربطها بالصورة.', [
+      PathLesson('e1', 'Short words', ['en_cvc']),
+      PathLesson('e2', 'Words and pictures', ['en_cvc', 'en_word']),
+      PathLesson('e3', 'Missing letters', ['en_cvc', 'en_complete']),
+      PathLesson('e4', 'Week review', ['en_cvc', 'en_word', 'en_complete']),
+    ]),
+    PathWeek('a ولا an؟', 'يستخدم a و an صح قبل الأسماء.', [
+      PathLesson('e5', 'a or an', ['en_a_an']),
+      PathLesson('e6', 'a, an and short words', ['en_a_an', 'en_cvc']),
+      PathLesson('e7', 'a, an and animals', ['en_a_an', 'en_animals']),
+      PathLesson('e8', 'Week review', ['en_a_an', 'en_cvc', 'en_word']),
+    ]),
+    PathWeek('واحد ولا كتير؟', 'يجمع الأسماء بإضافة s أو es.', [
+      PathLesson('e9', 'One or many', ['en_plural']),
+      PathLesson('e10', 'Plurals and numbers', ['en_plural', 'en_numbers']),
+      PathLesson('e11', 'Plurals and a or an', ['en_plural', 'en_a_an']),
+      PathLesson('e12', 'Week review', ['en_plural', 'en_a_an', 'en_cvc']),
+    ]),
+    PathWeek('كلمات كل يوم', 'يراجع كلمات الألوان والحيوانات وكلمات كل يوم مع اللي اتعلمه.', [
+      PathLesson('e13', 'Everyday words', ['en_daily', 'en_cvc']),
+      PathLesson('e14', 'Colours and plurals', ['en_colors', 'en_plural']),
+      PathLesson('e15', 'Animals and a or an', ['en_animals', 'en_a_an']),
+      PathLesson('e16', 'Big review', ['en_cvc', 'en_a_an', 'en_plural']),
+    ]),
+  ],
+);
+
+const englishGrammarPath = LearningPath(
+  id: 'english2',
+  world: 'english',
+  icon: '✍️',
+  name: 'رحلة قواعد الإنجليزي',
+  ages: '٩–١٢ سنة',
+  desc: 'is و are و am، وأدوات السؤال، وتكملة الجملة بالمعنى، في ٤ أسابيع.',
+  weeks: [
+    PathWeek('is ولا are؟', 'يختار is أو are (و am مع I) حسب الفاعل.', [
+      PathLesson('k1', 'is or are', ['en_isare']),
+      PathLesson('k2', 'is, are and plurals', ['en_isare', 'en_plural']),
+      PathLesson('k3', 'is, are and a or an', ['en_isare', 'en_a_an']),
+      PathLesson('k4', 'Week review', ['en_isare', 'en_plural', 'en_a_an']),
+    ]),
+    PathWeek('أدوات السؤال', 'يختار What و Where و Who و When و Why و How المناسبة للسؤال.', [
+      PathLesson('k5', 'Question words', ['en_questions']),
+      PathLesson('k6', 'Questions and is or are', ['en_questions', 'en_isare']),
+      PathLesson('k7', 'Questions and sentences', ['en_questions', 'en_sentence']),
+      PathLesson('k8', 'Week review', ['en_questions', 'en_isare', 'en_plural']),
+    ]),
+    PathWeek('نكمّل الجملة', 'يختار الكلمة اللي تكمّل معنى الجملة.', [
+      PathLesson('k9', 'Complete the sentence', ['en_sentence']),
+      PathLesson('k10', 'Sentences and plurals', ['en_sentence', 'en_plural']),
+      PathLesson('k11', 'Sentences and is or are', ['en_sentence', 'en_isare']),
+      PathLesson('k12', 'Week review', ['en_sentence', 'en_questions', 'en_isare']),
+    ]),
+    PathWeek('المراجعة الكبيرة', 'يستخدم القواعد اللي اتعلمها مع بعض.', [
+      PathLesson('k13', 'Grammar mix', ['en_isare', 'en_questions']),
+      PathLesson('k14', 'Words in sentences', ['en_sentence', 'en_a_an']),
+      PathLesson('k15', 'Questions and plurals', ['en_questions', 'en_plural']),
+      PathLesson('k16', 'Big review', ['en_isare', 'en_questions', 'en_sentence']),
     ]),
   ],
 );

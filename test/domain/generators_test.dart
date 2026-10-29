@@ -20,7 +20,7 @@ void main() {
     expect(worldStages['math']!.length, 13 + 5 + 5 + 3 + 4, reason: 'with neighbors and emptyTable, plus numbers to 100, times tables, money/time, division and fractions');
     expect(worldStages['arabic']!.length, 11 + 9 + (voiceEnabled ? 3 + 4 : 2 + 3) + 5,
         reason: '11 + 9 madd stages + harakat + sukun and tanween + grammar');
-    expect(worldStages['english']!.length, 14);
+    expect(worldStages['english']!.length, 14 + 6, reason: 'plus primary English');
     expect(worldStages['games']!.length, voiceEnabled ? 12 : 11, reason: 'listenNum needs the voice');
   });
 
