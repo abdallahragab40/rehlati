@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rehlati/content/guide_content.dart';
+import 'package:rehlati/core/utils/arabic.dart';
+import 'package:rehlati/domain/stages.dart';
 import 'package:rehlati/features/parent/dashboard_screen.dart';
 import 'package:rehlati/features/parent/guide_screen.dart';
 import 'package:rehlati/features/quran/quran_check_screen.dart';
@@ -22,6 +24,16 @@ void main() {
     final parts = span.children!.cast<TextSpan>();
     expect(parts.map((s) => s.text), ['اضغط ', 'جرّب', ' هنا']);
     expect(parts[1].style?.fontWeight, FontWeight.w800);
+  });
+
+  test('the guide\'s stage counts match the app', () {
+    final text = [
+      for (final s in guideSections)
+        for (final b in s.body) ...switch (b) { GP(:final text) => [text], GList(:final items) => items },
+    ].join('\n');
+    for (final (w, word) in [('math', 'مرحلة'), ('arabic', 'مرحلة'), ('english', 'مرحلة'), ('games', 'لعبة')]) {
+      expect(text, contains('${ar(worldStages[w]!.length)} $word'), reason: '$w has ${worldStages[w]!.length} stages');
+    }
   });
 
   test('every guide section has a body and balanced bold markers', () {
