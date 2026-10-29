@@ -108,7 +108,7 @@ void main() {
 
     await tester.tap(find.text('⏭️'));
     await frames();
-    final q = tester.widget<Text>(find.textContaining('كام')).data!;
+    final q = tester.widget<Text>(find.textContaining('×')).data!;
     await tester.enterText(find.byType(TextField), '${answerOf(q)}');
     await tester.tap(find.text('دخول'));
     await frames();

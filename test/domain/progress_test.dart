@@ -52,7 +52,8 @@ void main() {
 
       final passed = ProgressData()..addResult('counting', 9, 10)..unlockNext('counting');
       expect(passed.canSkip('counting'), isFalse, reason: 'nothing left to open');
-      expect(ProgressData(unlocked: ['subtraction']).canSkip('subtraction'), isFalse, reason: 'last stage');
+      final last = worldStages['math']!.last.id;
+      expect(ProgressData(unlocked: [last]).canSkip(last), isFalse, reason: 'last stage');
       expect((ProgressData()..settings.dev = true).canSkip('counting'), isFalse, reason: 'everything is open');
     });
 
