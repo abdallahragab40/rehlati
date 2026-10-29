@@ -143,6 +143,10 @@ abstract final class QuranConfig {
 
   static const defaultReciter = 'husary';
 
+  /// سرعة التلاوة: نفس تسجيل الشيخ أبطأ ومن غير ما طبقة صوته تتغيّر — عشان الطفل يلحق يسمع
+  /// ويردّد. مفيش تلاوة مولّدة: الأبطأ هو التسجيل نفسه.
+  static const recitationSpeeds = <(String, double)>[('عادي', 1.0), ('أهدى', .85), ('بطيء', .75)];
+
   /// القارئ المستخدم في وضع الترديد تحديدًا.
   static const defaultRepeatReciter = 'minshawy_teacher';
 

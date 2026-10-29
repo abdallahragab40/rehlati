@@ -360,6 +360,39 @@ class ReciterPicker extends StatelessWidget {
       );
 }
 
+/// سرعة التلاوة (عادي / أهدى / بطيء) — بنفس شكل [ReciterPicker].
+class RecitationSpeedPicker extends StatelessWidget {
+  const RecitationSpeedPicker({super.key, required this.value, required this.onChanged});
+  final double value;
+  final ValueChanged<double> onChanged;
+
+  @override
+  Widget build(BuildContext context) => Container(
+        constraints: const BoxConstraints(maxWidth: 560),
+        margin: const EdgeInsets.only(top: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: AppColors.paper,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: const [BoxShadow(color: AppColors.shadow, offset: Offset(0, 5))],
+        ),
+        child: Row(children: [
+          Text('🐢 السرعة', style: kidText(16, weight: FontWeight.w700)),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Wrap(spacing: 8, runSpacing: 6, children: [
+              for (final (label, v) in QuranConfig.recitationSpeeds)
+                ChoiceChip(
+                  label: Text(label, style: kidText(15, weight: FontWeight.w700)),
+                  selected: value == v,
+                  onSelected: (_) => onChanged(v),
+                ),
+            ]),
+          ),
+        ]),
+      );
+}
+
 // ---------------------------------------------------------------- تحميل وأخطاء
 
 class QuranLoading extends StatelessWidget {

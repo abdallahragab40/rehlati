@@ -101,6 +101,14 @@ class _SettingsPanelState extends ConsumerState<_SettingsPanel> {
                     speech.speak(sayVoiceTest);
                   }),
                 ),
+              if (voiceEnabled)
+                row(
+                  '🐢 سرعة الإنجليزي',
+                  choices(settings.enSpeechRate, const [('بطيء', .7), ('عادي', .85), ('أسرع', 1.0)], (v) {
+                    ref.read(progressProvider).settings.enSpeechRate = v;
+                    speech.speakEn('Hello! Which letter is this?');
+                  }),
+                ),
               row(
                 '🔢 شكل الأرقام',
                 choices(settings.westernDigits, const [('١٢٣', false), ('123', true)],

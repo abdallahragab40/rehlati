@@ -51,6 +51,7 @@ Future<void> main() async {
   final speech = SpeechService(
     enabled: () => container.read(progressProvider).settings.speech,
     speed: () => container.read(progressProvider).settings.speechRate,
+    enSpeed: () => container.read(progressProvider).settings.enSpeechRate,
   );
   final sfx = SfxService(
     enabled: () => container.read(progressProvider).settings.sfx,

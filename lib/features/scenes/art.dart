@@ -7,6 +7,8 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:path_drawing/path_drawing.dart';
 
+import '../../core/theme/app_theme.dart';
+
 final _paths = <String, Path>{};
 Path _p(String d) => _paths.putIfAbsent(d, () => parseSvgPathData(d));
 
@@ -112,22 +114,41 @@ class BalloonPainter extends ArtPainter {
 }
 
 /// بالونة بحرف أو رقم جواها.
+/// [plate]: الحرف غامق على دايرة بيضا — في اللعبة، عشان يتقري على أي لون (الأبيض على الأصفر مابيبانش).
 class Balloon extends StatelessWidget {
-  const Balloon(this.ch, this.color, {super.key, required this.width});
+  const Balloon(this.ch, this.color, {super.key, required this.width, this.plate = false});
   final String ch;
   final Color color;
   final double width;
+  final bool plate;
 
   @override
-  Widget build(BuildContext context) => ArtBox(
-        painter: BalloonPainter(color),
-        width: width,
-        child: Align(
-          alignment: const Alignment(0, -.42),
-          child: Text(ch,
-              style: TextStyle(fontFamily: 'Baloo', fontSize: width * .42, fontWeight: FontWeight.w800, color: Colors.white, height: 1)),
-        ),
-      );
+  Widget build(BuildContext context) {
+    final label = Text(ch,
+        style: TextStyle(
+            fontFamily: 'Baloo',
+            fontSize: width * (plate ? .36 : .42),
+            fontWeight: FontWeight.w800,
+            color: plate ? AppColors.ink : Colors.white,
+            height: 1));
+    return ArtBox(
+      painter: BalloonPainter(color),
+      width: width,
+      child: Align(
+        // الدايرة في نص جسم البالونة (المركز y=33 من 104)
+        alignment: Alignment(0, plate ? -.56 : -.42),
+        child: plate
+            ? Container(
+                width: width * .56,
+                height: width * .56,
+                alignment: Alignment.center,
+                decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                child: label,
+              )
+            : label,
+      ),
+    );
+  }
 }
 
 // ---------------------------------------------------------------- القطر

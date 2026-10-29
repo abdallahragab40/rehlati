@@ -78,10 +78,10 @@ void main() {
   });
 
   test('settings round-trip and old settings get defaults', () {
-    final s = Settings.fromJson((Settings(speechRate: .8, westernDigits: true).toJson()));
-    expect([s.speechRate, s.westernDigits], [.8, true]);
+    final s = Settings.fromJson((Settings(speechRate: .8, enSpeechRate: .7, westernDigits: true).toJson()));
+    expect([s.speechRate, s.enSpeechRate, s.westernDigits], [.8, .7, true]);
     final old = Settings.fromJson({'speech': true});
-    expect([old.speechRate, old.westernDigits], [1.0, false]);
+    expect([old.speechRate, old.enSpeechRate, old.westernDigits], [1.0, .85, false]);
   });
 
   test('siblings keep separate progress and the first child keeps the old key', () async {

@@ -9,6 +9,9 @@
 الناتج: assets/audio/clips/<key>.m4a و lib/core/audio/clip_manifest.g.dart.
 المقاطع اللي نصها وصوتها ماتغيروش مابتتسجلش تاني (tool/voice_rendered.tsv).
 
+تسجيلات بشرية: tool/recordings/<key>.wav بياخد مكان الصوت المولّد للمقطع ده (نفس التقطيع والتحويل).
+قايمة التسجيل والمواصفات في tool/HUMAN_VOICE_PILOT.md.
+
 الصوت:
   VOICE=ar-SA-ZariyahNeural (الافتراضي، ست) — نفس الصوت لكل المقاطع
   RATE=-5%  — أبطأ سنة عشان الأطفال؛ المقاطع لوحدها بتاخد سرعتها من phrases.tsv.
@@ -38,6 +41,8 @@ from xml.sax.saxutils import escape
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / 'assets/audio/clips'
 CACHE = ROOT / 'tool/voice_rendered.tsv'
+RECORDINGS = ROOT / 'tool/recordings'
+HUMAN = 'human'
 MANIFEST = ROOT / 'lib/core/audio/clip_manifest.g.dart'
 
 VOICE = os.environ.get('VOICE', 'ar-SA-ZariyahNeural')
@@ -128,6 +133,8 @@ def convert(*args):
 
 
 async def render(key, spoken, rate, tmp, sem, voice=None):
+    if voice == HUMAN:
+        return await render_recording(key, tmp, sem)
     mp3 = Path(tmp) / f'{key}.mp3'
     async with sem:
         for attempt in range(4):
@@ -145,6 +152,23 @@ async def render(key, spoken, rate, tmp, sem, voice=None):
         await asyncio.to_thread(convert, '-f', 'WAVE', '-d', 'LEI16', mp3, raw)
         await asyncio.to_thread(trim, raw, cut)
         # AAC ٣٢ كيلوبت مونو: واضح للكلام وحجمه نص الـ mp3
+        await asyncio.to_thread(convert, '-f', 'm4af', '-d', 'aac', '-b', '32000', cut, OUT / f'{key}.m4a')
+
+
+def recording_hash(key):
+    """بصمة التسجيل البشري للمقطع، أو None لو مفيش تسجيل."""
+    wav = RECORDINGS / f'{key}.wav'
+    if not wav.exists():
+        return None
+    return f'{HUMAN}|{PIPELINE}|' + hashlib.sha1(wav.read_bytes()).hexdigest()
+
+
+async def render_recording(key, tmp, sem):
+    """تسجيل المعلّمة: مونو ١٦ بت (أي معدل أو عدد قنوات داخل) ← تقطيع السكوت ← AAC."""
+    async with sem:
+        raw, cut = Path(tmp) / f'{key}.wav', Path(tmp) / f'{key}.cut.wav'
+        await asyncio.to_thread(convert, '-f', 'WAVE', '-d', 'LEI16@24000', '-c', '1', RECORDINGS / f'{key}.wav', raw)
+        await asyncio.to_thread(trim, raw, cut)
         await asyncio.to_thread(convert, '-f', 'm4af', '-d', 'aac', '-b', '32000', cut, OUT / f'{key}.m4a')
 
 
@@ -193,7 +217,8 @@ async def main():
         voice = VOICE
         rate = rate or RATE
         h = hashlib.sha1(f'{PIPELINE}|{ENGINE}|{voice}|{rate}|{PITCH}|{spoken}'.encode()).hexdigest()
-        wanted[key] = (spoken, rate, voice, h)
+        human = None if preview else recording_hash(key)
+        wanted[key] = (spoken, rate, HUMAN, human) if human else (spoken, rate, voice, h)
     if not preview:
         wanted[PAUSE] = (None, None, None, f'silence|{PAUSE_MS}')
 

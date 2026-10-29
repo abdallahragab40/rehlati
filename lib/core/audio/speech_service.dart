@@ -31,13 +31,18 @@ abstract class Speech {
 }
 
 class SpeechService implements Speech {
-  SpeechService({required this.enabled, double Function()? speed}) : speed = speed ?? (() => 1.0);
+  SpeechService({required this.enabled, double Function()? speed, double Function()? enSpeed})
+      : speed = speed ?? (() => 1.0),
+        enSpeed = enSpeed ?? (() => .85);
 
   /// بيقرا إعداد "نطق الأسئلة" لحظة النطق.
   final bool Function() enabled;
 
   /// سرعة النطق من الإعدادات (١ = عادي).
   final double Function() speed;
+
+  /// سرعة الإنجليزي من الإعدادات — منفصلة عن العربي.
+  final double Function() enSpeed;
 
   final _tts = FlutterTts();
   final _clips = AudioPlayer();
@@ -184,29 +189,43 @@ class SpeechService implements Speech {
 
   Future<void> _say(List<String> parts, String lang, int my) async {
     try {
-      final sp = speed();
+      final en = lang == 'en';
+      final sp = en ? enSpeed() : speed();
       if (_currentLang != lang || _currentSpeed != sp) {
-        final v = lang == 'en' ? _enVoice : _arVoice;
+        final v = en ? _enVoice : _arVoice;
         if (v != null) {
           await _tts.setVoice(v);
         } else {
-          await _tts.setLanguage(lang == 'en' ? 'en-US' : 'ar-EG');
+          await _tts.setLanguage(en ? 'en-US' : 'ar-EG');
         }
         // iOS: ٠.٥ هي السرعة العادية؛ أندرويد: ١.٠ — والويب كان ٠.٨٢ عربي و ٠.٧٨ إنجليزي
-        final base = lang == 'en' ? .78 : .82;
+        final base = en ? .78 : .82;
         await _tts.setSpeechRate((!kIsWeb && Platform.isIOS ? base * .5 : base) * sp);
         _currentLang = lang;
         _currentSpeed = sp;
       }
-      for (final p in parts) {
+      // الإنجليزي: كل جملة لوحدها وبينهم وقفة — "cat. Which letter…" كانت بتتقال نفس واحد
+      final said = en ? [for (final p in parts) ...enSentences(p)] : parts;
+      for (var i = 0; i < said.length; i++) {
         if (my != _token) return;
+        if (en && i > 0) {
+          await Future<void>.delayed(enPause);
+          if (my != _token) return;
+        }
         lastEvent = 'اشتغل ✅';
-        await _tts.speak(p);
+        await _tts.speak(said[i]);
       }
     } catch (e) {
       lastEvent = 'خطأ: $e';
     }
   }
+
+  /// الوقفة بين جمل الإنجليزي.
+  static const enPause = Duration(milliseconds: 350);
+
+  /// بيقسم الإنجليزي على آخر الجملة (. ? !) — "A. Apple" بتبقى "A." و "Apple".
+  static List<String> enSentences(String text) =>
+      text.split(RegExp(r'(?<=[.?!])\s+')).map((s) => s.trim()).where((s) => s.isNotEmpty).toList();
 
   Future<void> _halt() async {
     try {

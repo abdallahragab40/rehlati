@@ -74,6 +74,7 @@ abstract class _ModeState<T extends ConsumerStatefulWidget> extends ConsumerStat
         surah: chapter.number,
         ayah: ayah,
         reciterId: reciter ?? ref.read(reciterProvider).reciter,
+        speed: ref.read(reciterProvider).speed,
         onEnd: onEnd,
         onIssue: (i) {
           if (!mounted) return;
@@ -340,6 +341,13 @@ class _RepeatState extends _ModeState<_Repeat> {
         onChanged: (id) {
           ref.read(reciterProvider.notifier).setRepeat(id);
           play(a.number, reciter: id);
+        },
+      ),
+      RecitationSpeedPicker(
+        value: ref.watch(reciterProvider).speed,
+        onChanged: (v) {
+          ref.read(reciterProvider.notifier).setSpeed(v);
+          play(a.number, reciter: rKey);
         },
       ),
     ]);

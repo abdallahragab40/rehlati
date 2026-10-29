@@ -26,6 +26,7 @@ class Settings {
     this.goal = 20,
     this.limitMin = 0,
     this.speechRate = 1.0,
+    this.enSpeechRate = .85,
     this.westernDigits = false,
     Set<String>? journeyOff,
     this.startLevel,
@@ -44,6 +45,7 @@ class Settings {
         goal: (j['goal'] as num?)?.toInt() ?? 20,
         limitMin: (j['limitMin'] as num?)?.toInt() ?? 0,
         speechRate: (j['speechRate'] as num?)?.toDouble() ?? 1.0,
+        enSpeechRate: (j['enSpeechRate'] as num?)?.toDouble() ?? .85,
         westernDigits: j['westernDigits'] as bool? ?? false,
         journeyOff: {for (final w in (j['journeyOff'] is List ? j['journeyOff'] as List : const [])) '$w'},
         startLevel: (j['startLevel'] as num?)?.toInt().clamp(1, 3),
@@ -75,6 +77,10 @@ class Settings {
   /// سرعة النطق: ٠.٨ بطيء، ١ عادي، ١.١٥ أسرع.
   double speechRate;
 
+  /// سرعة الإنجليزي لوحده (صوت الجهاز): ٠.٧ بطيء، ٠.٨٥ عادي، ١ أسرع — العادي أهدى من العربي
+  /// عشان صوت الجهاز الإنجليزي سريع على الأطفال.
+  double enSpeechRate;
+
   /// الأرقام ١٢٣ بدل ١٢٣ الهندية — المدارس في مصر بتعلّم الاتنين.
   bool westernDigits;
 
@@ -101,6 +107,7 @@ class Settings {
         'goal': goal,
         'limitMin': limitMin,
         'speechRate': speechRate,
+        'enSpeechRate': enSpeechRate,
         'westernDigits': westernDigits,
         'journeyOff': journeyOff.toList(),
         'startLevel': startLevel,

@@ -14,6 +14,12 @@ import 'package:rehlati/domain/stages.dart';
 /// لو الاختبار ده فشل بعد تعديل نص: flutter test tool/voice_phrases_test.dart && python3 tool/render_voice.py
 /// بيشتغل بس لما نطق الأسئلة مفتوح (lib/core/features.dart).
 void main() {
+  test('English is spoken one sentence at a time', () {
+    expect(SpeechService.enSentences('cat. Which letter does it start with?'), ['cat.', 'Which letter does it start with?']);
+    expect(SpeechService.enSentences('A . Apple'), ['A .', 'Apple']);
+    expect(SpeechService.enSentences('Complete the word cat'), ['Complete the word cat']);
+  });
+
   if (!voiceEnabled) {
     test('every Arabic line is recorded', () {}, skip: 'question voice is off (lib/core/features.dart)');
     return;

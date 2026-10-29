@@ -82,6 +82,15 @@ void main() {
       return c;
     }
 
+    test('the recitation speed is kept, and an unknown saved speed falls back to normal', () async {
+      expect(container().read(reciterProvider).speed, 1.0);
+      container().read(reciterProvider.notifier).setSpeed(.75);
+      final again = container().read(reciterProvider);
+      expect([again.speed, again.reciter], [.75, QuranConfig.defaultReciter]);
+      await prefs.setDouble('rehlati.recitationSpeed', .5);
+      expect(container().read(reciterProvider).speed, 1.0);
+    });
+
     test('a full disk stops the download early with a recoverable message', () async {
       store
         ..auto = ((_, _) => true)

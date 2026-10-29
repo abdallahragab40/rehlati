@@ -32,6 +32,15 @@ class RenderVoiceTests(unittest.TestCase):
         self.assertEqual(len([r for r in rows if '_tanween_' in r[0]]), 82)
         self.assertEqual(len([r for r in rows if r[0].startswith('sukun_')]), 15)
 
+    def test_a_recording_replaces_the_generated_clip_and_changes_with_the_file(self):
+        with tempfile.TemporaryDirectory() as d, patch.object(voice, 'RECORDINGS', Path(d)):
+            self.assertIsNone(voice.recording_hash('l_ba_fatha'))
+            (Path(d) / 'l_ba_fatha.wav').write_bytes(b'take 1')
+            first = voice.recording_hash('l_ba_fatha')
+            self.assertTrue(first.startswith('human|'))
+            (Path(d) / 'l_ba_fatha.wav').write_bytes(b'take 2')
+            self.assertNotEqual(voice.recording_hash('l_ba_fatha'), first)
+
     def test_dry_run_never_renders_or_writes(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

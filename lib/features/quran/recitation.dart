@@ -58,6 +58,7 @@ class RecitationPlayer {
     required int surah,
     required int ayah,
     required String reciterId,
+    double speed = 1.0,
     void Function()? onEnd,
     void Function(RecitationIssue issue)? onIssue,
   }) async {
@@ -76,6 +77,7 @@ class RecitationPlayer {
         // بنشغّل من النت على طول، وبنحفظ نسخة في الخلفية للمرة الجاية
         unawaited(download(url, file));
       }
+      await _p.setSpeed(speed);
       if (my != _token) return;
       _done = _p.processingStateStream.where((s) => s == ProcessingState.completed).listen((_) {
         if (my == _token) onEnd?.call();
@@ -86,7 +88,8 @@ class RecitationPlayer {
       // لو تلاوة المعلّم مش متاحة، نرجع لقارئ السورة العادي بدل ما نسكت
       if (r.teacher) {
         onIssue?.call(RecitationIssue.teacherFallback);
-        await play(surah: surah, ayah: ayah, reciterId: QuranConfig.defaultReciter, onEnd: onEnd, onIssue: onIssue);
+        await play(
+            surah: surah, ayah: ayah, reciterId: QuranConfig.defaultReciter, speed: speed, onEnd: onEnd, onIssue: onIssue);
       } else {
         onIssue?.call(RecitationIssue.network);
       }
@@ -185,35 +188,43 @@ final recitationProvider = Provider<RecitationPlayer>((ref) {
   return p;
 });
 
-/// القارئ العادي وقارئ الترديد — محفوظين في shared_preferences.
+/// القارئ العادي وقارئ الترديد وسرعة التلاوة — محفوظين في shared_preferences.
 class ReciterPrefs {
-  const ReciterPrefs(this.reciter, this.repeat);
+  const ReciterPrefs(this.reciter, this.repeat, [this.speed = 1.0]);
   final String reciter;
   final String repeat;
+  final double speed;
 }
 
 class ReciterController extends Notifier<ReciterPrefs> {
-  static const _k = 'rehlati.reciter', _kRepeat = 'rehlati.repeatReciter';
+  static const _k = 'rehlati.reciter', _kRepeat = 'rehlati.repeatReciter', _kSpeed = 'rehlati.recitationSpeed';
 
   @override
   ReciterPrefs build() {
     final prefs = ref.read(sharedPrefsProvider);
     String valid(String? id, String fallback) =>
         QuranConfig.reciters.any((r) => r.id == id) ? id! : fallback;
+    final speed = prefs.getDouble(_kSpeed);
     return ReciterPrefs(
       valid(prefs.getString(_k), QuranConfig.defaultReciter),
       valid(prefs.getString(_kRepeat), QuranConfig.defaultRepeatReciter),
+      QuranConfig.recitationSpeeds.any((s) => s.$2 == speed) ? speed! : 1.0,
     );
   }
 
   void setReciter(String id) {
     unawaited(ref.read(sharedPrefsProvider).setString(_k, id));
-    state = ReciterPrefs(id, state.repeat);
+    state = ReciterPrefs(id, state.repeat, state.speed);
   }
 
   void setRepeat(String id) {
     unawaited(ref.read(sharedPrefsProvider).setString(_kRepeat, id));
-    state = ReciterPrefs(state.reciter, id);
+    state = ReciterPrefs(state.reciter, id, state.speed);
+  }
+
+  void setSpeed(double speed) {
+    unawaited(ref.read(sharedPrefsProvider).setDouble(_kSpeed, speed));
+    state = ReciterPrefs(state.reciter, state.repeat, speed);
   }
 }
 

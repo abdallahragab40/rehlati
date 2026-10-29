@@ -288,6 +288,10 @@ class SurahScreen extends ConsumerWidget {
           options: QuranConfig.reciters,
           onChanged: ref.read(reciterProvider.notifier).setReciter,
         ),
+        RecitationSpeedPicker(
+          value: ref.watch(reciterProvider).speed,
+          onChanged: ref.read(reciterProvider.notifier).setSpeed,
+        ),
       ]),
     );
   }

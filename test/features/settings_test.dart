@@ -47,6 +47,8 @@ void main() {
     expect(switchOf('🎵 أصوات اللعبة'), isFalse);
 
     expect(tester.widget<ChoiceChip>(find.widgetWithText(ChoiceChip, '123')).selected, isFalse);
+    await tester.ensureVisible(find.text('123'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('123'));
     await tester.pumpAndSettle();
     expect(tester.widget<ChoiceChip>(find.widgetWithText(ChoiceChip, '123')).selected, isTrue);

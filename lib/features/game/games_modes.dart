@@ -25,7 +25,8 @@ const _balloonColors = [
 
 // ---------------------------------------------------------------- 🎈 البالونات
 
-/// بالونات بتطلع من تحت لفوق وتتمايل، وكل واحدة بسرعتها. الطفل يفرقع الصح.
+/// بالونات بتطلع من تحت لفوق وتتمايل. الطفل يفرقع الصح.
+/// كل بالونة في عمود لوحدها، والجيران نص لفّة عن بعض — كبيرة ومابتدخلش في بعض.
 /// "تقليل الحركة": البالونات واقفة في صف.
 class BalloonSky extends StatefulWidget {
   const BalloonSky({super.key, required this.s, required this.engine, required this.keyFor});
@@ -41,8 +42,11 @@ class _BalloonSkyState extends State<BalloonSky> with SingleTickerProviderStateM
   late final Ticker _ticker;
   final _t = ValueNotifier<double>(0);
 
-  /// لكل بالونة: مكانها الأفقي، مدة الطلعة، بدايتها في المسار، ومدة التمايل.
-  late final List<(double, double, double, double)> _paths;
+  /// مدة الطلعة — نفسها لكل البالونات عشان المسافة بين الجيران تفضل ثابتة. هادية عشان الصغيرين يلحقوا.
+  static const _rise = 9.0;
+
+  /// لكل بالونة: بدايتها في المسار (جزء من اللفّة) ومدة التمايل.
+  late final List<(double, double)> _paths;
 
   @override
   void initState() {
@@ -52,10 +56,8 @@ class _BalloonSkyState extends State<BalloonSky> with SingleTickerProviderStateM
     _paths = [
       for (var i = 0; i < n; i++)
         (
-          (4 + i * (92 / n) + r.nextDouble() * 4) / 100,
-          5 + r.nextDouble() * 3,
-          r.nextDouble() * 8, // بداية مختلفة: البالونات متوزّعة من أول لحظة
-          2.2 + r.nextDouble() * 1.6,
+          (i.isEven ? 0 : .5) + r.nextDouble() * .08,
+          2.4 + r.nextDouble() * 1.4,
         ),
     ];
     _ticker = createTicker((d) {
@@ -76,7 +78,7 @@ class _BalloonSkyState extends State<BalloonSky> with SingleTickerProviderStateM
     final v = q.choices[i];
     final popped = s.rightAnchor == 'c$i';
     final wrong = s.wrongAnchor == 'c$i';
-    Widget b = Balloon(ar(v), _balloonColors[i % _balloonColors.length], width: width);
+    Widget b = Balloon(ar(v), _balloonColors[i % _balloonColors.length], width: width, plate: true);
     if (popped) {
       b = b
           .anim()
@@ -100,9 +102,9 @@ class _BalloonSkyState extends State<BalloonSky> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    final width = context.clampVw(56, 15, 76);
     final n = widget.s.q.choices.length;
     if (MediaQuery.disableAnimationsOf(context)) {
+      final width = context.clampVw(76, 20, 100);
       return Wrap(
         alignment: WrapAlignment.center,
         spacing: 12,
@@ -110,8 +112,7 @@ class _BalloonSkyState extends State<BalloonSky> with SingleTickerProviderStateM
         children: [for (var i = 0; i < n; i++) _balloon(i, width)],
       );
     }
-    final h = (MediaQuery.sizeOf(context).height * .38).clamp(230.0, 310.0);
-    final balloonH = width * 104 / 64;
+    final h = (MediaQuery.sizeOf(context).height * .42).clamp(260.0, 360.0);
     return ClipRRect(
       borderRadius: BorderRadius.circular(26),
       child: Container(
@@ -124,24 +125,30 @@ class _BalloonSkyState extends State<BalloonSky> with SingleTickerProviderStateM
             stops: [0, .7, 1],
           ),
         ),
-        child: LayoutBuilder(
-          builder: (context, box) => ValueListenableBuilder<double>(
+        child: LayoutBuilder(builder: (context, box) {
+          // جسم البالونة ٧٨٪ من عرضها، فعرض ١٢٥٪ من العمود بيملاه من غير ما يدخل في اللي جنبه
+          final width = (box.maxWidth / n * 1.25).clamp(68.0, 100.0);
+          // هامش على الجنبين عشان بالونة الطرف ماتتقصّش
+          final pad = width * .11 + 6;
+          final lane = (box.maxWidth - 2 * pad) / n;
+          final balloonH = width * 104 / 64;
+          return ValueListenableBuilder<double>(
             valueListenable: _t,
             builder: (_, t, _) => Stack(clipBehavior: Clip.none, children: [
               for (var i = 0; i < n; i++)
                 Builder(builder: (_) {
-                  final (left, dur, start, sway) = _paths[i];
-                  final p = ((t + start) / dur) % 1;
-                  final dx = 14 * math.sin(2 * math.pi * (t + start) / (sway * 2));
+                  final (start, sway) = _paths[i];
+                  final p = (t / _rise + start) % 1;
+                  final dx = 6 * math.sin(2 * math.pi * (t + start * _rise) / (sway * 2));
                   return Positioned(
-                    left: (box.maxWidth - width) * left + dx,
+                    left: pad + lane * (i + .5) - width / 2 + dx,
                     bottom: -balloonH + (h + balloonH) * p,
                     child: _balloon(i, width),
                   );
                 }),
             ]),
-          ),
-        ),
+          );
+        }),
       ),
     );
   }
