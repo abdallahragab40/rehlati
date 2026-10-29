@@ -75,6 +75,7 @@ class Stage {
     this.groupName,
     this.madd,
     this.count,
+    this.fromGrade,
   });
 
   final String id;
@@ -106,6 +107,9 @@ class Stage {
 
   /// عدد أسئلة الجولة لو مختلف عن الافتراضي (الجدول الفاضي = ٣).
   final int? count;
+
+  /// أول مرحلة في مجموعة الابتدائي بتتفتح من الأول لطفل في الصف ده أو أعلى ([schoolGrades]).
+  final String? fromGrade;
 
   bool get isLearn => learnItems != null;
   bool get isMadd => madd != null;
@@ -204,6 +208,7 @@ final _madd = [
       id: id, world: 'arabic', n: _arabic.length + i + 1, icon: icon, name: name, base: base,
       color: Color(color), madd: cfg, group: maddGroup, groupName: maddGroupName,
       after: i == 0 ? 'ar_table' : null,
+      fromGrade: i == 0 ? 'p1' : null,
     ),
 ];
 
@@ -219,6 +224,7 @@ final _harakat = [
       id: id, world: 'arabic', n: _arabic.length + _madd.length + i + 1, icon: icon, name: name, base: base,
       color: Color(color), gen: gen, group: 'harakat', groupName: 'الحركات',
       after: i == 0 ? 'ar_table' : null,
+      fromGrade: i == 0 ? 'p1' : null,
     ),
 ];
 
@@ -236,6 +242,7 @@ final _math100 = [
       id: id, world: 'math', n: _math.length + i + 1, icon: icon, name: name, base: base,
       color: Color(color), gen: gen, group: 'math100', groupName: 'الأعداد لحد ١٠٠',
       after: i == 0 ? 'addition' : null,
+      fromGrade: i == 0 ? 'p2' : null,
     ),
 ];
 
@@ -253,6 +260,7 @@ final _mul = [
       id: id, world: 'math', n: _math.length + _math100.length + i + 1, icon: icon, name: name, base: base,
       color: Color(color), gen: gen, group: 'mul', groupName: 'جدول الضرب',
       after: i == 0 ? 'skipCount' : null,
+      fromGrade: i == 0 ? 'p3' : null,
     ),
 ];
 
@@ -268,6 +276,7 @@ final _life = [
       id: id, world: 'math', n: _math.length + _math100.length + _mul.length + i + 1, icon: icon, name: name,
       base: base, color: Color(color), gen: gen, group: 'life', groupName: 'الفلوس والساعة',
       after: i == 0 ? 'add100' : null,
+      fromGrade: i == 0 ? 'p2' : null,
     ),
 ];
 

@@ -317,10 +317,17 @@ class ProgressData {
     if (settings.dev || unlocked.contains(id)) return true;
     // عالم الألعاب مفتوح كله من الأول — دي ألعاب مش مناهج
     if (packs[id]?.world == 'games') return true;
+    // أول مرحلة في مجموعة ابتدائي بتتفتح من الأول لطفل في صفها أو أعلى — مايعديش على مراحل الحضانة
+    final from = packs[id]?.fromGrade;
+    final grade = schoolGrade;
+    if (from != null && grade != null && schoolGrades.indexOf(grade) >= schoolGrades.indexOf(from)) return true;
     // مرحلة ليها after بتتفتح أول ما المرحلة دي تتنجح (٨٠٪+) — بتشتغل للتقدّم القديم كمان
     final after = packs[id]?.after;
     return after != null && (best[after] ?? 0) >= 2;
   }
+
+  /// الصف اللي ولي الأمر اختاره، وإلا الصف المعتاد لسنه.
+  String? get schoolGrade => grade ?? usualGrade(age);
 
   /// يفتح المرحلة اللي بعد دي في نفس العالم — ويرجّعها لو اتفتحت جديد.
   Stage? unlockNext(String id) {

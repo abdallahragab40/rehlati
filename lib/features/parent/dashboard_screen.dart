@@ -429,7 +429,7 @@ class _GradeDialog extends StatelessWidget {
                 ),
             ]),
             const SizedBox(height: 10),
-            Text('⭐ = الصف المعتاد لسنه. الصف مابيغيّرش الأسئلة دلوقتي — هيساعدنا نختار المحتوى المناسب لما ينزل.',
+            Text('⭐ = الصف المعتاد لسنه. الصف بيفتح من الأول مراحل الابتدائي المناسبة (زي جدول الضرب من تالتة).',
                 textAlign: TextAlign.center, style: kidText(13, weight: FontWeight.w600, color: AppColors.inkSoft)),
             if (initial != null) TextButton(onPressed: () => context.pop(''), child: const Text('مش عايز أحدد')),
             TextButton(onPressed: () => context.pop(), child: const Text('إلغاء')),

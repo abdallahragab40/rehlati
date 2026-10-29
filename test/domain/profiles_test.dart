@@ -31,6 +31,37 @@ void main() {
     }
   });
 
+  group('primary groups open by school grade', () {
+    const firsts = ['madd_alif', 'ar_haraka', 'tensOnes', 'moneyCount', 'mulGroups'];
+    List<String> open(ProgressData p) => [for (final id in firsts) if (p.isUnlocked(id)) id];
+
+    test('the usual grade for the age opens the first stage of each group up to that grade', () {
+      expect(open(ProgressData(age: 5)), isEmpty, reason: 'KG2 keeps the old order');
+      expect(open(ProgressData(age: 6)), ['madd_alif', 'ar_haraka']);
+      expect(open(ProgressData(age: 7)), ['madd_alif', 'ar_haraka', 'tensOnes', 'moneyCount']);
+      expect(open(ProgressData(age: 8)), firsts);
+      expect(open(ProgressData(age: 12)), firsts);
+      expect(open(ProgressData()), isEmpty, reason: 'no age yet, nothing opens early');
+    });
+
+    test('a grade the parent picks wins over the age', () {
+      expect(open(ProgressData(age: 8, grade: 'kg2')), isEmpty);
+      expect(open(ProgressData(age: 5, grade: 'p3')), firsts);
+      expect(ProgressData(age: 8, grade: 'p1').schoolGrade, 'p1');
+    });
+
+    test('only the first stage of a group opens early; the rest still open one by one', () {
+      final p = ProgressData(age: 8);
+      expect([p.isUnlocked('times2510'), p.isUnlocked('skipCount'), p.isUnlocked('ar_haraka_pick')], [false, false, false]);
+      expect(p.unlockNext('mulGroups')?.id, 'times2510');
+      expect(p.isUnlocked('times2510'), isTrue);
+    });
+
+    test('older children start primary stages at a level that fits them', () {
+      expect(ProgressData(age: 8).level('math'), 3);
+    });
+  });
+
   test('the school grade is kept apart from age, survives JSON and ignores unknown values', () {
     final p = ProgressData(age: 7, grade: 'p3');
     final back = ProgressData.fromJson(jsonDecode(jsonEncode(p.toJson())) as Map<String, dynamic>);
