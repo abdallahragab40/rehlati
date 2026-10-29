@@ -28,7 +28,9 @@ class RenderVoiceTests(unittest.TestCase):
         strip = lambda s: re.sub(r'[\u064b-\u0652]', '', s)
         self.assertEqual([strip(r[1]) for r in rows if r[0].endswith('_word')], letter_words)
         self.assertEqual([strip(r[1]) for r in rows if r[0].startswith('w_')], reading_words)
-        self.assertEqual(len({r[0] for r in rows}), 162)
+        self.assertEqual(len({r[0] for r in rows}), len(rows), 'teaching keys must be unique')
+        self.assertEqual(len([r for r in rows if '_tanween_' in r[0]]), 82)
+        self.assertEqual(len([r for r in rows if r[0].startswith('sukun_')]), 15)
 
     def test_dry_run_never_renders_or_writes(self):
         with tempfile.TemporaryDirectory() as tmp:

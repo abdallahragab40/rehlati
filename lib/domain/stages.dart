@@ -17,6 +17,8 @@ import 'generators/life_generators.dart';
 import 'generators/madd_generators.dart';
 import 'generators/math100_generators.dart';
 import 'generators/math_generators.dart';
+import 'generators/sukun_generators.dart';
+import 'generators/upper_primary_generators.dart';
 import 'generators/mul_generators.dart';
 import 'progress/progress_data.dart';
 import 'question.dart';
@@ -228,6 +230,23 @@ final _harakat = [
     ),
 ];
 
+/// السكون والتنوين (أولى ابتدائي، الترم التاني) بعد الحركات. أول مرحلة بتتفتح بعد
+/// "الحرف وحركته"، أو من تانية ابتدائي. "اسمع واختار التنوين" محتاجة الصوت.
+final _sukun = [
+  for (final (i, (id, icon, name, base, color, gen)) in <(String, String, String, int, int, Generator)>[
+    ('ar_tanween', '✌️', 'التنوين', 1, 0xFFBC4A1A, arTanween),
+    ('ar_marks', '🔍', 'حركة ولا تنوين؟', 2, 0xFFB04216, arMarks),
+    ('ar_sukun', '🔵', 'فين الحرف الساكن؟', 2, 0xFFA43A12, arSukun),
+    if (voiceEnabled) ('ar_tanween_listen', '👂', 'اسمع واختار التنوين', 2, 0xFF98320E, arTanweenListen),
+  ].indexed)
+    Stage(
+      id: id, world: 'arabic', n: _arabic.length + _madd.length + _harakat.length + i + 1, icon: icon, name: name,
+      base: base, color: Color(color), gen: gen, group: 'sukun', groupName: 'السكون والتنوين',
+      after: i == 0 ? 'ar_haraka_pick' : null,
+      fromGrade: i == 0 ? 'p2' : null,
+    ),
+];
+
 /// الأعداد لحد ١٠٠ (أولى وتانية ابتدائي) في آخر عالم الحساب من غير ما نلمس مراحله الأصلية.
 /// أول مرحلة بتتفتح كمان بعد "الجمع"، والباقي بالترتيب.
 final _math100 = [
@@ -280,10 +299,26 @@ final _life = [
     ),
 ];
 
+/// أول حزمة تدريب لسن ٩–١٢؛ بعد المراحل القديمة للحفاظ على التقدّم.
+final _upperPrimary = [
+  for (final (i, (id, icon, name, gen)) in <(String, String, String, Generator)>[
+    ('divisionExact', '➗', 'القسمة من غير باقي', divisionExact),
+    ('divisionMissing', '🔍', 'العدد الناقص في القسمة', divisionMissing),
+    ('fractionOfNumber', '🍉', 'كسر من عدد', fractionOfNumber),
+    ('fractionEquivalent', '⚖️', 'الكسور المتكافئة', fractionEquivalent),
+  ].indexed)
+    Stage(
+      id: id, world: 'math', n: _math.length + _math100.length + _mul.length + _life.length + i + 1,
+      icon: icon, name: name, base: 1, color: const Color(0xFF3968A8), gen: gen,
+      group: 'upperPrimary', groupName: 'القسمة والكسور • ٩–١٢ سنة',
+      after: i == 0 ? 'timesAll' : null, fromGrade: i == 0 ? 'p4' : null,
+    ),
+];
+
 /// world -> ترتيب مراحله.
 final Map<String, List<Stage>> worldStages = {
-  'math': [..._math, ..._math100, ..._mul, ..._life],
-  'arabic': [..._arabic, ..._madd, ..._harakat],
+  'math': [..._math, ..._math100, ..._mul, ..._life, ..._upperPrimary],
+  'arabic': [..._arabic, ..._madd, ..._harakat, ..._sukun],
   'english': _english,
   'games': _games,
 };

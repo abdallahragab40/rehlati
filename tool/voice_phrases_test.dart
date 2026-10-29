@@ -58,7 +58,10 @@ void main() {
       if (!keyed(q.clips)) add(q.speak);
       if (!keyed(q.clipsHint)) add(q.speakHint ?? q.hint);
       add(q.sayRight);
-      for (final v in [...q.choices, ...q.items, ...q.right, ...q.pairMap.keys]) {
+      for (final v in q.choices) {
+        add(q.choiceSay[v] ?? v);
+      }
+      for (final v in [...q.items, ...q.right, ...q.pairMap.keys]) {
         add(v);
       }
       for (final c in q.cells) {

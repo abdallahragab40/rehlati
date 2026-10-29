@@ -45,6 +45,9 @@ enum ChoiceLook {
 
   /// "circle|red" ← شكل ملوّن (الأشكال والألوان).
   shape,
+
+  /// "3/4" ← كسر مرسوم البسط فوق المقام (مايتلخبطش في الكتابة من اليمين).
+  fraction,
 }
 
 // ---------------------------------------------------------------------------
@@ -305,6 +308,7 @@ class Question {
     this.picName,
     this.beats = const [],
     this.pads = const [],
+    this.choiceSay = const {},
   });
 
   final String type;
@@ -410,6 +414,10 @@ class Question {
   /// كرر الإيقاع: السلسلة (أرقام الطبول) والطبول المتاحة.
   final List<int> beats;
   final List<RhythmPad> pads;
+
+  /// إزاي الاختيار يتنطق لو اتداس غلط أو صح — لما شكله مكتوب مايتقريش لوحده
+  /// (الكسر "3/4" ← "تلاتة من أربعة"، الحرف الساكن "لْ" ← "لام ساكنة").
+  final Map<Object, String> choiceSay;
 
   bool get isEnglish => lang == 'en';
 

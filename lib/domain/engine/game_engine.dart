@@ -356,9 +356,9 @@ class GameEngine extends Notifier<GameSession?> {
     final s = _s, q = s.q;
     if (s.locked) return;
     final value = q.choices[i];
-    final said = value is int ? arNum(value) : (signWord[value] ?? '$value');
+    final said = q.choiceSay[value] ?? (value is int ? arNum(value) : (signWord[value] ?? '$value'));
     // الحرف أو الكلمة اللي اختارها بتتنطق بمقطع التعليم لو موجود
-    final valueClip = value is int ? nk(value) : signClip[value] ?? say(said);
+    final valueClip = q.choiceSay.containsKey(value) ? say(said) : (value is int ? nk(value) : signClip[value] ?? say(said));
     if (value == q.answer) {
       final pr = _rng.sample(praiseSay);
       _solved(anchor: 'c$i', skill: q.skill);

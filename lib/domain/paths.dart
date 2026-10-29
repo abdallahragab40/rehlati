@@ -1,8 +1,8 @@
 /// مسارات التعلّم: أربع أسابيع، في كل أسبوع دروس، وكل درس كام نشاط من المراحل الموجودة.
 ///
 /// الدروس بتتفتح بالترتيب. النشاط بيتحسب للدرس الحالي بس لما الطفل ينجح فيه (٨٠٪+)، من أي مكان
-/// اتلعب منه. المسودة دي معمولة من الأنشطة الموجودة (مستوى KG2 وأول أولى ابتدائي)، وأنشطة
-/// تانية وتالتة ابتدائي هتتضاف للأسابيع لما تتعمل. أهداف الأسابيع محتاجة مراجعة مدرّس.
+/// اتلعب منه. المسارات بتغطي مهارات من KG2 للابتدائي، مع بداية للقسمة والكسور لسن ٩–١٢.
+/// أهداف الأسابيع محتاجة مراجعة مدرّس.
 library;
 
 import 'progress/progress_data.dart';
@@ -84,7 +84,7 @@ LearningPath? pathById(String id) => learningPaths.where((p) => p.id == id).firs
 /// كل مراحل الدرس موجودة وبتتلعب بنتيجة (لوحة الحروف مالهاش نتيجة).
 bool lessonPlayable(PathLesson l) => l.stages.every((s) => packs[s] != null && !packs[s]!.isLearn);
 
-const learningPaths = [readingPath, mathPath, math100Path, timesPath, lifePath];
+const learningPaths = [readingPath, mathPath, math100Path, timesPath, lifePath, upperPrimaryPath];
 
 const readingPath = LearningPath(
   id: 'reading1',
@@ -258,6 +258,38 @@ const lifePath = LearningPath(
       PathLesson('f14', 'الساعة والطرح', ['clockQuarter', 'sub100']),
       PathLesson('f15', 'الفلوس كلها', ['moneyCount', 'moneyChange']),
       PathLesson('f16', 'المراجعة الكبيرة', ['clockQuarter', 'moneyCount', 'moneyChange']),
+    ]),
+  ],
+);
+
+/// Introductory practice, not a complete grade 4–6 curriculum.
+const upperPrimaryPath = LearningPath(
+  id: 'math5', world: 'math', icon: '➗', name: 'رحلة القسمة والكسور', ages: '٩–١٢ سنة',
+  desc: 'بداية تدريب للسن ده: القسمة وعلاقتها بالضرب، وكسر من عدد، والكسور المتكافئة، في ٤ أسابيع.',
+  weeks: [
+    PathWeek('القسمة عكس الضرب', 'يقسم أعدادًا من جدول الضرب من غير باقي، ويستخدم الضرب للتحقق.', [
+      PathLesson('u1', 'نراجع جدول الضرب', ['timesAll']),
+      PathLesson('u2', 'نقسم بالتساوي', ['divisionExact']),
+      PathLesson('u3', 'نضرب ونتأكد', ['divisionExact', 'timesAll']),
+      PathLesson('u4', 'مراجعة الأسبوع', ['divisionExact', 'timesAll']),
+    ]),
+    PathWeek('العدد اللي قسمناه', 'يلاقي المقسوم الناقص بضرب المقسوم عليه في ناتج القسمة.', [
+      PathLesson('u5', 'العدد الناقص', ['divisionMissing']),
+      PathLesson('u6', 'نقسم ونتحقق', ['divisionMissing', 'divisionExact']),
+      PathLesson('u7', 'الضرب يساعدنا', ['divisionMissing', 'timesAll']),
+      PathLesson('u8', 'مراجعة الأسبوع', ['divisionExact', 'divisionMissing']),
+    ]),
+    PathWeek('كسر من عدد', 'يقسم العدد إلى أجزاء متساوية، ويحسب قيمة جزء أو عدة أجزاء منه.', [
+      PathLesson('u9', 'الأجزاء المتساوية', ['fractionOfNumber']),
+      PathLesson('u10', 'القسمة والكسر', ['fractionOfNumber', 'divisionExact']),
+      PathLesson('u11', 'نحسب الأجزاء', ['fractionOfNumber', 'divisionMissing']),
+      PathLesson('u12', 'مراجعة الأسبوع', ['fractionOfNumber', 'divisionExact']),
+    ]),
+    PathWeek('الكسور المتكافئة', 'يختار كسرًا مكافئًا بضرب البسط والمقام في نفس العدد.', [
+      PathLesson('u13', 'نفس القيمة', ['fractionEquivalent']),
+      PathLesson('u14', 'البسط والمقام', ['fractionEquivalent', 'timesAll']),
+      PathLesson('u15', 'نطبق الكسور', ['fractionEquivalent', 'fractionOfNumber']),
+      PathLesson('u16', 'المراجعة الكبيرة', ['divisionExact', 'fractionOfNumber', 'fractionEquivalent']),
     ]),
   ],
 );

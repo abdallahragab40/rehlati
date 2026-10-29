@@ -161,3 +161,129 @@ w_saa	سَاعَة	سَاعَة
 w_fil	فِيل	فِيل	
 l_hamza_name	هَمْزَة	هَمْزَة	
 l_tamarbuta_name	تَاء مَرْبُوطَة	تَاء مَرْبُوطَة	
+# Sukun and tanween: vowelled drafts; teacher listening sign-off pending.
+l_ba_tanween_fath	بًا	بًا	-15%
+l_ba_tanween_damm	بٌ	بٌ	-15%
+l_ba_tanween_kasr	بٍ	بٍ	-15%
+l_ta_tanween_fath	تًا	تًا	-15%
+l_ta_tanween_damm	تٌ	تٌ	-15%
+l_ta_tanween_kasr	تٍ	تٍ	-15%
+l_tha_tanween_fath	ثًا	ثًا	-15%
+l_tha_tanween_damm	ثٌ	ثٌ	-15%
+l_tha_tanween_kasr	ثٍ	ثٍ	-15%
+l_jim_tanween_fath	جًا	جًا	-15%
+l_jim_tanween_damm	جٌ	جٌ	-15%
+l_jim_tanween_kasr	جٍ	جٍ	-15%
+l_ha_tanween_fath	حًا	حًا	-15%
+l_ha_tanween_damm	حٌ	حٌ	-15%
+l_ha_tanween_kasr	حٍ	حٍ	-15%
+l_kha_tanween_fath	خًا	خًا	-15%
+l_kha_tanween_damm	خٌ	خٌ	-15%
+l_kha_tanween_kasr	خٍ	خٍ	-15%
+l_dal_tanween_fath	دًا	دًا	-15%
+l_dal_tanween_damm	دٌ	دٌ	-15%
+l_dal_tanween_kasr	دٍ	دٍ	-15%
+l_dhal_tanween_fath	ذًا	ذًا	-15%
+l_dhal_tanween_damm	ذٌ	ذٌ	-15%
+l_dhal_tanween_kasr	ذٍ	ذٍ	-15%
+l_ra_tanween_fath	رًا	رًا	-15%
+l_ra_tanween_damm	رٌ	رٌ	-15%
+l_ra_tanween_kasr	رٍ	رٍ	-15%
+l_zay_tanween_fath	زًا	زًا	-15%
+l_zay_tanween_damm	زٌ	زٌ	-15%
+l_zay_tanween_kasr	زٍ	زٍ	-15%
+l_sin_tanween_fath	سًا	سًا	-15%
+l_sin_tanween_damm	سٌ	سٌ	-15%
+l_sin_tanween_kasr	سٍ	سٍ	-15%
+l_shin_tanween_fath	شًا	شًا	-15%
+l_shin_tanween_damm	شٌ	شٌ	-15%
+l_shin_tanween_kasr	شٍ	شٍ	-15%
+l_sad_tanween_fath	صًا	صًا	-15%
+l_sad_tanween_damm	صٌ	صٌ	-15%
+l_sad_tanween_kasr	صٍ	صٍ	-15%
+l_dad_tanween_fath	ضًا	ضًا	-15%
+l_dad_tanween_damm	ضٌ	ضٌ	-15%
+l_dad_tanween_kasr	ضٍ	ضٍ	-15%
+l_taa_tanween_fath	طًا	طًا	-15%
+l_taa_tanween_damm	طٌ	طٌ	-15%
+l_taa_tanween_kasr	طٍ	طٍ	-15%
+l_dha_tanween_fath	ظًا	ظًا	-15%
+l_dha_tanween_damm	ظٌ	ظٌ	-15%
+l_dha_tanween_kasr	ظٍ	ظٍ	-15%
+l_ayn_tanween_fath	عًا	عًا	-15%
+l_ayn_tanween_damm	عٌ	عٌ	-15%
+l_ayn_tanween_kasr	عٍ	عٍ	-15%
+l_ghayn_tanween_fath	غًا	غًا	-15%
+l_ghayn_tanween_damm	غٌ	غٌ	-15%
+l_ghayn_tanween_kasr	غٍ	غٍ	-15%
+l_fa_tanween_fath	فًا	فًا	-15%
+l_fa_tanween_damm	فٌ	فٌ	-15%
+l_fa_tanween_kasr	فٍ	فٍ	-15%
+l_qaf_tanween_fath	قًا	قًا	-15%
+l_qaf_tanween_damm	قٌ	قٌ	-15%
+l_qaf_tanween_kasr	قٍ	قٍ	-15%
+l_kaf_tanween_fath	كًا	كًا	-15%
+l_kaf_tanween_damm	كٌ	كٌ	-15%
+l_kaf_tanween_kasr	كٍ	كٍ	-15%
+l_lam_tanween_fath	لًا	لًا	-15%
+l_lam_tanween_damm	لٌ	لٌ	-15%
+l_lam_tanween_kasr	لٍ	لٍ	-15%
+l_mim_tanween_fath	مًا	مًا	-15%
+l_mim_tanween_damm	مٌ	مٌ	-15%
+l_mim_tanween_kasr	مٍ	مٍ	-15%
+l_nun_tanween_fath	نًا	نًا	-15%
+l_nun_tanween_damm	نٌ	نٌ	-15%
+l_nun_tanween_kasr	نٍ	نٍ	-15%
+l_haa_tanween_fath	هًا	هًا	-15%
+l_haa_tanween_damm	هٌ	هٌ	-15%
+l_haa_tanween_kasr	هٍ	هٍ	-15%
+l_waw_tanween_fath	وًا	وًا	-15%
+l_waw_tanween_damm	وٌ	وٌ	-15%
+l_waw_tanween_kasr	وٍ	وٍ	-15%
+l_ya_tanween_fath	يًا	يًا	-15%
+l_ya_tanween_damm	يٌ	يٌ	-15%
+l_ya_tanween_kasr	يٍ	يٍ	-15%
+l_alif_sakin_name	أَلِف سَاكِنَة	أَلِف سَاكِنَة	
+l_ba_sakin_name	بَاء سَاكِنَة	بَاء سَاكِنَة	
+l_ta_sakin_name	تَاء سَاكِنَة	تَاء سَاكِنَة	
+l_tha_sakin_name	ثَاء سَاكِنَة	ثَاء سَاكِنَة	
+l_jim_sakin_name	جِيم سَاكِنَة	جِيم سَاكِنَة	
+l_ha_sakin_name	حَاء سَاكِنَة	حَاء سَاكِنَة	
+l_kha_sakin_name	خَاء سَاكِنَة	خَاء سَاكِنَة	
+l_dal_sakin_name	دَال سَاكِنَة	دَال سَاكِنَة	
+l_dhal_sakin_name	ذَال سَاكِنَة	ذَال سَاكِنَة	
+l_ra_sakin_name	رَاء سَاكِنَة	رَاء سَاكِنَة	
+l_zay_sakin_name	زَاي سَاكِنَة	زَاي سَاكِنَة	
+l_sin_sakin_name	سِين سَاكِنَة	سِين سَاكِنَة	
+l_shin_sakin_name	شِين سَاكِنَة	شِين سَاكِنَة	
+l_sad_sakin_name	صَاد سَاكِنَة	صَاد سَاكِنَة	
+l_dad_sakin_name	ضَاد سَاكِنَة	ضَاد سَاكِنَة	
+l_taa_sakin_name	طَاء سَاكِنَة	طَاء سَاكِنَة	
+l_dha_sakin_name	ظَاء سَاكِنَة	ظَاء سَاكِنَة	
+l_ayn_sakin_name	عَيْن سَاكِنَة	عَيْن سَاكِنَة	
+l_ghayn_sakin_name	غَيْن سَاكِنَة	غَيْن سَاكِنَة	
+l_fa_sakin_name	فَاء سَاكِنَة	فَاء سَاكِنَة	
+l_qaf_sakin_name	قَاف سَاكِنَة	قَاف سَاكِنَة	
+l_kaf_sakin_name	كَاف سَاكِنَة	كَاف سَاكِنَة	
+l_lam_sakin_name	لَام سَاكِنَة	لَام سَاكِنَة	
+l_mim_sakin_name	مِيم سَاكِنَة	مِيم سَاكِنَة	
+l_nun_sakin_name	نُون سَاكِنَة	نُون سَاكِنَة	
+l_haa_sakin_name	هَاء سَاكِنَة	هَاء سَاكِنَة	
+l_waw_sakin_name	وَاو سَاكِنَة	وَاو سَاكِنَة	
+l_ya_sakin_name	يَاء سَاكِنَة	يَاء سَاكِنَة	
+l_tamarbuta_tanween_damm	ةٌ	تٌ	-15%
+sukun_kalb	كَلْبٌ	كَلْبٌ	-15%
+sukun_bahr	بَحْرٌ	بَحْرٌ	-15%
+sukun_shams	شَمْسٌ	شَمْسٌ	-15%
+sukun_qird	قِرْدٌ	قِرْدٌ	-15%
+sukun_nahr	نَهْرٌ	نَهْرٌ	-15%
+sukun_bayt	بَيْتٌ	بَيْتٌ	-15%
+sukun_bint	بِنْتٌ	بِنْتٌ	-15%
+sukun_qalb	قَلْبٌ	قَلْبٌ	-15%
+sukun_saqr	صَقْرٌ	صَقْرٌ	-15%
+sukun_khubz	خُبْزٌ	خُبْزٌ	-15%
+sukun_zahra	زَهْرَةٌ	زَهْرَةٌ	-15%
+sukun_warda	وَرْدَةٌ	وَرْدَةٌ	-15%
+sukun_malab	مَلْعَبٌ	مَلْعَبٌ	-15%
+sukun_thalab	ثَعْلَبٌ	ثَعْلَبٌ	-15%
+sukun_arnab	أَرْنَبٌ	أَرْنَبٌ	-15%

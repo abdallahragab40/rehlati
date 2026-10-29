@@ -61,8 +61,8 @@ void main() {
           recorded(q.speak, q.clips);
           // غلطة في وضع الاختيار: القيمة + حاول تاني + التلميح (نفس شكل GameEngine.answer)
           for (final c in q.choices) {
-            final said = c is int ? arNum(c) : (signWord[c] ?? '$c');
-            final clip = c is int ? nk(c) : signClip[c] ?? say(said);
+            final said = q.choiceSay[c] ?? (c is int ? arNum(c) : (signWord[c] ?? '$c'));
+            final clip = q.choiceSay.containsKey(c) ? say(said) : (c is int ? nk(c) : signClip[c] ?? say(said));
             recorded(
               [said, sayRetry, q.speakHint ?? q.hint],
               q.clipsHint == null ? null : [clip, 'retry', ...q.clipsHint!],

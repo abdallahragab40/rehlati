@@ -18,6 +18,15 @@ const _alias = {'ا': 'أ', 'إ': 'أ', 'آ': 'أ', 'ى': 'أ'};
 const _extraNames = {'ء': 'l_hamza_name', 'ئ': 'l_hamza_name', 'ؤ': 'l_hamza_name', 'ة': 'l_tamarbuta_name'};
 
 const _harakat = {'َ': 'fatha', 'ُ': 'damma', 'ِ': 'kasra'};
+const _tanween = {'ً': 'tanween_fath', 'ٌ': 'tanween_damm', 'ٍ': 'tanween_kasr'};
+
+/// كلمات السكون مشكولة كاملة بتنوينها — مقاطعها منفصلة عن كلمات القراءة بالوقف (شمس ≠ شَمْسٌ).
+const sukunTeachingWords = {
+  'كَلْبٌ': 'kalb', 'بَحْرٌ': 'bahr', 'شَمْسٌ': 'shams', 'قِرْدٌ': 'qird',
+  'نَهْرٌ': 'nahr', 'بَيْتٌ': 'bayt', 'بِنْتٌ': 'bint', 'قَلْبٌ': 'qalb',
+  'صَقْرٌ': 'saqr', 'خُبْزٌ': 'khubz', 'زَهْرَةٌ': 'zahra', 'وَرْدَةٌ': 'warda',
+  'مَلْعَبٌ': 'malab', 'ثَعْلَبٌ': 'thalab', 'أَرْنَبٌ': 'arnab',
+};
 
 /// كلمات القراءة (arWords) ← مفاتيحها.
 const _readingWords = {
@@ -38,6 +47,22 @@ String? teachKey(String part) {
   if (part.length == 2 && _harakat.containsKey(part[1])) {
     final s = _slugOf(part[0]);
     if (s != null) return 'l_${s}_${_harakat[part[1]]}';
+  }
+  if (part.length == 2 || part.length == 3) {
+    final mark = part[1];
+    final s = _slugOf(part[0]);
+    if (s != null && part[0] != 'أ' && _tanween.containsKey(mark) &&
+        (mark == 'ً' ? part.length == 3 && part[2] == 'ا' : part.length == 2)) {
+      return 'l_${s}_${_tanween[mark]}';
+    }
+  }
+  if (part == 'ةٌ') return 'l_tamarbuta_tanween_damm';
+  final word = sukunTeachingWords[part];
+  if (word != null) return 'sukun_$word';
+  if (part.endsWith(' ساكنة')) {
+    final name = part.substring(0, part.length - ' ساكنة'.length);
+    final letter = arLetters.where((l) => l.name == name).firstOrNull;
+    if (letter != null) return 'l_${_slug[letter.letter]}_sakin_name';
   }
   return _pictureWords[part] ?? _readingWords[part];
 }

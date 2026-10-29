@@ -68,9 +68,9 @@ void main() {
     }
   });
 
-  test('money and time open after adding to 100 and close the maths world', () {
+  test('money and time open after adding to 100 and retain their order after times tables', () {
     final ids = [for (final s in worldStages['math']!) s.id];
-    expect(ids.sublist(23), ['moneyCount', 'moneyChange', 'clockQuarter']);
+    expect(ids.sublist(23, 26), ['moneyCount', 'moneyChange', 'clockQuarter']);
     expect(packs['moneyCount']!.after, 'add100');
   });
 }

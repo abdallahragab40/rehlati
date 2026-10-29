@@ -1,6 +1,6 @@
 # رحلتي — Rehlati
 
-Flutter (Android + iOS, phones and tablets) port of the رحلتي التعليمية web app: an Egyptian-Arabic learning app for kids aged 4–6, with five worlds (Quran, Math, Arabic, English, Games).
+Flutter (Android + iOS, phones and tablets) port of the رحلتي التعليمية web app: an Egyptian-Arabic learning app with early-years and primary practice, with five worlds (Quran, Math, Arabic, English, Games).
 
 - Original web app: github.com/MahmoudRabea93/rehlati, by Mahmoud Rabea Hassan, adapted with the author's permission. Licence: [LICENSE](LICENSE); third-party terms: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
 
@@ -40,3 +40,11 @@ keyPassword=...
 ```
 
 Without it, release builds fall back to the debug key, which works for `flutter run --release` but is rejected by Google Play.
+
+## Content review in progress
+
+The first ages 9–12 practice pack adds division and fractions, with the learning path
+**رحلة القسمة والكسور**. This is introductory practice, not a complete grade 4–6 curriculum.
+Sukun and tanween have separate vowelled teaching recordings. Teacher sign-off is pending:
+[review brief](tool/CONTENT_EXPANSION_REVIEW.md), [listening sheet](tool/sukun-tanween-review.html),
+and [per-clip decisions](tool/SUKUN_TANWEEN_REVIEW.tsv).

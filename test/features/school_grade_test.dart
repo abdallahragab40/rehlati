@@ -45,7 +45,7 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('setup offers ages up to 12 and says when their content is still coming', (tester) async {
+  testWidgets('setup offers ages up to 12 and describes the introductory older maths pack', (tester) async {
     final c = await pump(
       tester,
       {'rehlati.intro.v1': true},
@@ -61,7 +61,7 @@ void main() {
 
     await tester.tap(find.text('١١'));
     await tester.pump(const Duration(milliseconds: 300));
-    expect(find.textContaining('محتوى سن ٩–١٢ لسه بيتجهّز'), findsOneWidget);
+    expect(find.textContaining('فيه رحلة للقسمة والكسور لسن ٩–١٢'), findsOneWidget);
 
     await tester.ensureVisible(find.text('🚀 يلا نبدأ'));
     await tester.pump(const Duration(milliseconds: 300));

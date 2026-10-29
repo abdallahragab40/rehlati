@@ -13,7 +13,7 @@ not licensed production assets. Nothing here creates a cloud account or incurs c
 
 ## Inputs
 
-- `teaching.tsv`: 162 draft clips: 28 names, 84 short syllables, 28 picture words,
+- `teaching.tsv`: 162 original draft clips: 28 names, 84 short syllables, 28 picture words,
   20 reading words, plus همزة and تاء مربوطة for spelling, matching `lib/content/language_data.dart`.
 - Text and spoken input are separate TSV columns so reviewed pronunciation corrections
   can be made without changing the displayed label. No extra ه or repeated vowels are added.
@@ -79,3 +79,10 @@ References checked October 14, 2026:
 - Have a فصحى reviewer confirm hamza (أَ أُ إِ) versus long alif in the letter lesson.
 - Re-render every clip from a source cleared for commercial use, then re-run
   `flutter test` and `flutter test integration_test/voice_device_test.dart -d <device>`.
+
+## Sukun and tanween extension (29 October 2026)
+
+125 further vowelled draft inputs are included for tanween syllables, sukun word readings,
+and consonant names. Their audible final /n/ requires special review; pausal pronunciation
+is not suitable for these tanween tasks. Use [the listening sheet](sukun-tanween-review.html)
+and [teacher brief](CONTENT_EXPANSION_REVIEW.md). Sign-off is pending.
