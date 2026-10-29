@@ -28,8 +28,10 @@ class Settings {
     this.westernDigits = false,
     Set<String>? journeyOff,
     this.startLevel,
+    Map<String, int>? worldLevel,
     this.calm = false,
-  }) : journeyOff = journeyOff ?? {};
+  })  : journeyOff = journeyOff ?? {},
+        worldLevel = worldLevel ?? {};
 
   factory Settings.fromJson(Map<String, dynamic> j) => Settings(
         speech: j['speech'] as bool? ?? true,
@@ -43,6 +45,12 @@ class Settings {
         westernDigits: j['westernDigits'] as bool? ?? false,
         journeyOff: {for (final w in (j['journeyOff'] is List ? j['journeyOff'] as List : const [])) '$w'},
         startLevel: (j['startLevel'] as num?)?.toInt().clamp(1, 3),
+        worldLevel: j['worldLevel'] is Map
+            ? {
+                for (final e in (j['worldLevel'] as Map).entries)
+                  if (worldStages.containsKey(e.key) && e.value is num) '${e.key}': (e.value as num).toInt().clamp(1, 3),
+              }
+            : null,
         calm: j['calm'] as bool? ?? false,
       );
 
@@ -73,6 +81,9 @@ class Settings {
   /// مستوى البداية اللي ولي الأمر اختاره (١–٣) — null = حسب السن.
   int? startLevel;
 
+  /// مستوى بداية لمادة بعينها (عالم ← ١–٣) بيغلب [startLevel]: سهل في الإنجليزي وأصعب في الحساب مثلًا.
+  final Map<String, int> worldLevel;
+
   /// وضع هادي: من غير حركة ولا كونفيتي، وأصوات اللعبة أوطى.
   bool calm;
 
@@ -87,6 +98,7 @@ class Settings {
         'westernDigits': westernDigits,
         'journeyOff': journeyOff.toList(),
         'startLevel': startLevel,
+        if (worldLevel.isNotEmpty) 'worldLevel': worldLevel,
         'calm': calm,
       };
 }
@@ -343,11 +355,14 @@ class ProgressData {
   /// ولي الأمر يقدر يختار مستوى بداية تاني (أسهل أو أصعب من سنه).
   int get ageLevel => settings.startLevel ?? ((age ?? 4) - 3).clamp(1, 3);
 
-  /// مستوى الطفل = أعلى مستوى وصلت إليه المراحل المفتوحة (ومش أقل من مستوى عمره)،
+  /// مستوى البداية في عالم: اختيار ولي الأمر للمادة دي لو فيه، وإلا [ageLevel].
+  int startLevelIn(String? world) => settings.worldLevel[world] ?? ageLevel;
+
+  /// مستوى الطفل = أعلى مستوى وصلت إليه المراحل المفتوحة (ومش أقل من مستوى بدايته في العالم ده)،
   /// أو ٤ لو خلّص كل المراحل.
   int level([String? world]) {
     final ids = world != null ? (worldStages[world] ?? const <Stage>[]) : packs.values.toList();
-    var lv = ageLevel;
+    var lv = startLevelIn(world);
     for (final s in ids) {
       if (isUnlocked(s.id)) lv = math.max(lv, s.base);
     }

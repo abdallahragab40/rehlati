@@ -217,6 +217,9 @@ final Map<String, Stage> packs = {
     for (final s in list) s.id: s,
 };
 
+/// العوالم اللي ليها مستوى لكل مادة في لوحة ولي الأمر — الألعاب مش مادة.
+const subjectWorlds = ['math', 'arabic', 'english'];
+
 /// المراحل المفتوحة من الأول.
 const initiallyUnlocked = ['counting', 'ar_learn', 'en_learn'];
 
