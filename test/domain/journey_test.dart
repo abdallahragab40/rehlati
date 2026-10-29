@@ -34,6 +34,24 @@ void main() {
       expect(j.steps.every((s) => s.stage != null && !s.stage!.isLearn), isTrue);
     });
 
+    test('a new primary child starts at their grade, not at counting', () {
+      final ten = planJourney(ProgressData(age: 10), day: day);
+      expect(targets(ten), ['stage:divisionExact', 'stage:ar_wordType'], reason: 'fourth-primary maths, then Arabic');
+      final seven = planJourney(ProgressData(age: 7), day: day);
+      expect(seven.steps.first.target, 'stage:tensOnes');
+      expect(seven.steps.last.target, 'stage:ar_tanween');
+      final parentPicked = planJourney(ProgressData(age: 10, grade: 'kg2'), day: day);
+      expect(parentPicked.steps.first.target, 'stage:counting', reason: 'the parent\'s grade wins');
+      expect(planJourney(ProgressData(age: 4), day: day).steps.first.target, 'stage:counting');
+    });
+
+    test('the parent report suggests a new stage at the child\'s grade', () {
+      List<String> fresh(ProgressData p) =>
+          [for (final s in practiceSuggestions(p)) if (s.kind == StepKind.fresh) s.target];
+      expect(fresh(ProgressData(age: 10)), ['stage:divisionExact']);
+      expect(fresh(ProgressData(age: 4)), ['stage:counting']);
+    });
+
     test('a returning child gets a warm-up, the weak stage, then an unplayed stage', () {
       final j = planJourney(returning(), day: day);
       expect(kinds(j), [StepKind.warm, StepKind.practice, StepKind.fresh]);

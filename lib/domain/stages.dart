@@ -351,6 +351,15 @@ final Map<String, Stage> packs = {
 /// العوالم اللي ليها مستوى لكل مادة في لوحة ولي الأمر — الألعاب مش مادة.
 const subjectWorlds = ['math', 'arabic', 'english'];
 
+/// صف المرحلة: صف أول مرحلة في مجموعتها ([Stage.fromGrade])، و null لمراحل الحضانة.
+String? stageGrade(Stage s) => s.group == null ? null : _groupGrade[s.group];
+
+final _groupGrade = {
+  for (final list in worldStages.values)
+    for (final s in list)
+      if (s.group != null && s.fromGrade != null) s.group!: s.fromGrade!,
+};
+
 /// المراحل المفتوحة من الأول.
 const initiallyUnlocked = ['counting', 'ar_learn', 'en_learn'];
 
