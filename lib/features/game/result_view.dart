@@ -17,6 +17,7 @@ import '../../core/widgets/fx_layer.dart';
 import '../../core/widgets/kid_widgets.dart';
 import '../../domain/engine/game_engine.dart';
 import '../../domain/progress/progress_controller.dart';
+import '../../domain/school_lessons.dart';
 import '../parent/avatar.dart';
 import '../world_map/world_map_screen.dart';
 
@@ -145,6 +146,8 @@ class _ResultViewState extends ConsumerState<ResultView> {
                 KidButton('🧭 كمّل الرحلة', kind: BtnKind.go, onTap: () => context.back())
               else if (fromPath(context))
                 KidButton('🎒 كمّل المسار', kind: BtnKind.go, onTap: () => context.back())
+              else if (isSchool(r.stage.id))
+                KidButton('📚 الدروس', kind: BtnKind.ghost, onTap: () => context.back())
               else
                 KidButton('🗺️ الخريطة', kind: BtnKind.ghost, onTap: () => context.back()),
             ],

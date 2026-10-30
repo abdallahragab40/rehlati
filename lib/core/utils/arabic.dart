@@ -34,6 +34,9 @@ const timesWord = (one: 'مرة واحدة', two: 'مرتين', few: 'مرات',
 const stampWord = (one: 'ختم واحد', two: 'ختمين', few: 'أختام', many: 'ختم');
 const pieceWord = (one: 'قطعة واحدة', two: 'قطعتين', few: 'قطع', many: 'قطعة');
 const worldWord = (one: 'عالم واحد', two: 'عالمين', few: 'عوالم', many: 'عالم');
+const questionWord = (one: 'سؤال واحد', two: 'سؤالين', few: 'أسئلة', many: 'سؤال');
+const lessonWord = (one: 'درس واحد', two: 'درسين', few: 'دروس', many: 'درس');
+const examWord = (one: 'امتحان واحد', two: 'امتحانين', few: 'امتحانات', many: 'امتحان');
 const situationWord = (one: 'موقف واحد', two: 'موقفين', few: 'مواقف', many: 'موقف');
 const damagedFileWord = (one: 'ملف تالف', two: 'ملفين تالفين', few: 'ملفات تالفة', many: 'ملف تالف');
 

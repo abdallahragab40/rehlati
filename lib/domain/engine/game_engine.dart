@@ -24,6 +24,7 @@ import '../paths.dart';
 import '../placement.dart';
 import '../progress/progress_data.dart';
 import '../question.dart';
+import '../school_lessons.dart';
 import '../stages.dart';
 
 enum DotState { pending, done, miss }
@@ -288,13 +289,17 @@ class GameEngine extends Notifier<GameSession?> {
   void start(String stageId, {bool practice = false, List<String>? types}) {
     _cancelTimers();
     _speech.stop();
-    final stage = packs[stageId]!;
+    final stage = stageById(stageId)!;
     final p = _progress.data;
     final level = roundLevel(p, stage);
     // مراحل طويلة (زي الجدول الفاضي) ممكن تحدّد عدد أسئلتها بنفسها
     final count = practice ? practiceCount : (stage.count ?? questionsPerRound);
     final list = <Question>[];
-    if (!practice && isPlacement(stage.id)) {
+    final school = practice ? null : schoolRound(stage.id);
+    if (school != null) {
+      // درس من كتاب المدرسة أو امتحان وحدته: الأسئلة من مراحل الدرس
+      list.addAll(schoolQuestions(school, p, _rng));
+    } else if (!practice && isPlacement(stage.id)) {
       // اختبار المستوى: سؤالين من كل درجة بالترتيب، من غير تعلّم متكيّف
       list.addAll(placementRound(stage.world, _rng));
     } else if (practice && types != null && types.isNotEmpty) {
@@ -1130,7 +1135,10 @@ class GameEngine extends Notifier<GameSession?> {
     final s = _s;
     Stage? unlocked;
     String? placed;
-    if (!s.practice && isPlacement(s.stage.id)) {
+    if (!s.practice && isSchool(s.stage.id)) {
+      // درس المدرسة مش مرحلة: مفيش ميداليات ولا فتح مراحل — أحسن نسبة بس لولي الأمر
+      _progress.update((p) => p.recordSchool(s.stage.id, s.correct, s.total));
+    } else if (!s.practice && isPlacement(s.stage.id)) {
       // مفيش ميداليات ولا إتقان للاختبار نفسه — بيفتح مراحل الدرجات اللي عدّاها وبيحدد المستوى
       final reached = placementReached([for (final d in s.dots) d == DotState.done]);
       _progress.update((p) => unlocked = applyPlacement(p, s.stage.world, reached));

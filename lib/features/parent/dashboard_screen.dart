@@ -170,6 +170,22 @@ class _ProgressTab extends ConsumerWidget {
       const JourneyParentCard(),
       _h3('🎒 مسارات التعلّم'),
       const PathsParentCard(),
+      _h3('📚 دروس المدرسة'),
+      _LinkCard(
+        icon: '📚',
+        title: 'دروس كتاب الوزارة — أولى وتانية',
+        sub: () {
+          final lessons = p.school.keys.where((k) => k.split(':').length == 4).length;
+          final exams = p.school.length - lessons;
+          return p.school.isEmpty
+              ? 'أسئلة على كل درس، وامتحان لكل وحدة، وورقة عمل تتطبع من أي درس.'
+              : '${[
+                  if (lessons > 0) 'ذاكر ${countOf(lessons, lessonWord)}',
+                  if (exams > 0) 'عمل ${countOf(exams, examWord)}',
+                ].join(' و')}.';
+        }(),
+        onTap: () => context.push('/school'),
+      ),
       _h3('📅 تقرير الأسبوع'),
       const ShareWeekButton(),
       const WeekCard(),

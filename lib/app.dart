@@ -17,9 +17,11 @@ import 'core/widgets/kid_widgets.dart' show GrownUpLook;
 import 'core/widgets/learning_scope.dart';
 import 'domain/paths.dart';
 import 'domain/progress/progress_controller.dart';
+import 'domain/school_lessons.dart';
 import 'domain/stages.dart';
 import 'features/achievements/achievements_screen.dart';
 import 'features/achievements/passport_screen.dart';
+import 'features/school/school_screen.dart';
 import 'features/daily/time_up_screen.dart';
 import 'features/game/game_screen.dart';
 import 'features/home/home_screen.dart';
@@ -58,7 +60,7 @@ final _router = GoRouter(initialLocation: kDebugMode ? _start : '/', routes: [
     builder: (_, s) => LearningScope(
       key: ValueKey(s.pathParameters['stage']),
       stopsItself: true,
-      world: packs[s.pathParameters['stage']]?.world,
+      world: stageById(s.pathParameters['stage']!)?.world,
       child: GameScreen(stageId: s.pathParameters['stage']!),
     ),
   ),
@@ -84,6 +86,7 @@ final _router = GoRouter(initialLocation: kDebugMode ? _start : '/', routes: [
   ),
   GoRoute(path: '/achievements', builder: (_, _) => const AchievementsScreen()),
   GoRoute(path: '/passport', builder: (_, _) => const PassportScreen()),
+  GoRoute(path: '/school', builder: (_, _) => const LearningScope(track: false, child: SchoolScreen())),
   GoRoute(path: '/quran', builder: (_, _) => const LearningScope(track: false, child: QuranHomeScreen())),
   GoRoute(path: '/quran-check', builder: (_, _) => const QuranCheckScreen()),
   GoRoute(

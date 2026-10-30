@@ -23,6 +23,7 @@ import 'package:rehlati/domain/progress/badges.dart';
 import 'package:rehlati/domain/progress/progress_data.dart';
 import 'package:rehlati/domain/progress/ranks.dart';
 import 'package:rehlati/domain/question.dart';
+import 'package:rehlati/domain/school_lessons.dart';
 import 'package:rehlati/domain/stages.dart';
 
 void main() {
@@ -146,6 +147,11 @@ void main() {
     // المحرك والشاشات
     for (final s in packs.values.where((s) => !s.isEnglish)) {
       add(sayStageIntro(s.name));
+    }
+    // دروس المدرسة وامتحاناتها بتبدأ باسمها زي أي مرحلة
+    for (final id in allSchoolRoundIds()) {
+      final s = schoolStage(id)!;
+      if (!s.isEnglish) add(sayStageIntro(s.name));
     }
     for (final (t, _) in praiseSay) {
       add(t);

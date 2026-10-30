@@ -13,6 +13,7 @@ import 'package:rehlati/domain/stages.dart';
 import 'package:rehlati/features/journey/journey.dart';
 import 'package:rehlati/features/achievements/achievements_screen.dart';
 import 'package:rehlati/features/achievements/passport_screen.dart';
+import 'package:rehlati/features/school/school_screen.dart';
 import 'package:rehlati/features/game/game_screen.dart';
 import 'package:rehlati/features/home/home_screen.dart';
 import 'package:rehlati/features/intro/intro_screen.dart';
@@ -83,6 +84,7 @@ void main() {
     for (final s in packs.values.where((s) => s.isLearn)) 'learn ${s.id}': LetterBoardScreen(stageId: s.id),
     'achievements': const AchievementsScreen(),
     'passport': const PassportScreen(),
+    'school lessons': const SchoolScreen(),
     'dashboard': const DashboardScreen(),
     'dashboard guide': const DashboardScreen(tab: DashTab.guide),
     'dashboard settings': const DashboardScreen(tab: DashTab.settings),

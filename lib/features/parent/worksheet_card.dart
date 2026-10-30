@@ -54,25 +54,28 @@ class WorksheetCard extends ConsumerWidget {
             );
             return;
           }
-          showDialog(
-            context: context,
-            builder: (_) => SharePreview(
-              pages: [
-                for (var i = 0; i < sheet.length; i++)
-                  WorksheetPage(name: childName(p), section: sheet[i], page: i + 1, pages: sheet.length, date: now),
-              ],
-              width: _pageSize.width,
-              fileName: 'rehlati-worksheet-${ProgressData.dayKey(now)}',
-              subject: 'ورقة عمل ${childName(p)}',
-              pdf: pagesToPdf,
-              note: countOf(sheet.length, (one: 'صفحة واحدة', two: 'صفحتين', few: 'صفحات', many: 'صفحة')),
-            ),
-          );
+          showWorksheet(context, p, sheet, now);
         }),
       ),
     ]);
   }
 }
+
+/// معاينة الورقة ومشاركتها PDF — من لوحة ولي الأمر ومن دروس المدرسة.
+Future<void> showWorksheet(BuildContext context, ProgressData p, List<WorksheetSection> sheet, DateTime now) => showDialog(
+      context: context,
+      builder: (_) => SharePreview(
+        pages: [
+          for (var i = 0; i < sheet.length; i++)
+            WorksheetPage(name: childName(p), section: sheet[i], page: i + 1, pages: sheet.length, date: now),
+        ],
+        width: _pageSize.width,
+        fileName: 'rehlati-worksheet-${ProgressData.dayKey(now)}',
+        subject: 'ورقة عمل ${childName(p)}',
+        pdf: pagesToPdf,
+        note: countOf(sheet.length, (one: 'صفحة واحدة', two: 'صفحتين', few: 'صفحات', many: 'صفحة')),
+      ),
+    );
 
 /// صفحة واحدة: عنوان، ٨ أسئلة في عمودين، ومفتاح الإجابات.
 class WorksheetPage extends StatelessWidget {

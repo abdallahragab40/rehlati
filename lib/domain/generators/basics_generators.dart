@@ -203,7 +203,9 @@ Question arGroups(int lv, Rng r, {String? focus}) {
 
 /// ٥ = ٢ + ؟ بالدواير. من المستوى التالت: «أنهي اتنين مع بعض يعملوا ٥؟».
 Question numBonds(int lv, Rng r, {String? focus}) {
-  final total = switch (lv) { <= 1 => r.rnd(3, 5), 2 => r.rnd(4, 7), _ => r.rnd(5, 10) };
+  // focus = العدد اللي بنحلّله (مهارة bond:N) — من التعلّم المتكيّف أو درس «مكونات العدد»
+  final f = int.tryParse(focus ?? '');
+  final total = f != null && f >= 2 && f <= 10 ? f : switch (lv) { <= 1 => r.rnd(3, 5), 2 => r.rnd(4, 7), _ => r.rnd(5, 10) };
   final a = r.rnd(1, total - 1), b = total - a;
   if (lv >= 3 && r.chance(.5)) {
     final pairs = <(int, int)>{(a, b)};

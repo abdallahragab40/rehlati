@@ -8,6 +8,7 @@ import 'package:rehlati/core/features.dart';
 import 'package:rehlati/core/utils/arabic.dart';
 import 'package:rehlati/core/utils/rng.dart';
 import 'package:rehlati/domain/progress/progress_data.dart';
+import 'package:rehlati/domain/school_lessons.dart';
 import 'package:rehlati/domain/stages.dart';
 
 /// كل جملة عربية لازم يكون ليها مقطع مسجّل، وإلا الطفل هيسمع صوت الجهاز الآلي.
@@ -90,6 +91,23 @@ void main() {
       }
     });
   }
+
+  test('school lessons and exams start with a recorded intro, and their questions are recorded', () {
+    for (final id in allSchoolRoundIds()) {
+      final s = schoolStage(id)!;
+      final qs = schoolQuestions(schoolRound(id)!, ProgressData(age: 6), Rng.seeded(id.hashCode));
+      if (s.isEnglish) {
+        for (final q in qs.where((q) => q.isEnglish)) {
+          expect(SpeechService.enClipsFor(q.speak), isNotNull, reason: '$id: ${q.speak}');
+        }
+        continue;
+      }
+      recorded([sayStageIntro(s.name), qs.first.speak], qs.first.clips == null ? null : [say(sayStageIntro(s.name)), ...qs.first.clips!]);
+      for (final q in qs) {
+        recorded(q.speak, q.clips);
+      }
+    }
+  });
 
   for (final s in packs.values.where((s) => !s.isLearn && !s.isEnglish)) {
     test('${s.id} questions are recorded', () {

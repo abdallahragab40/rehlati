@@ -13,7 +13,7 @@ String _sound(String s) => '$s, $s';
 /// «Which picture starts with /b/?» — الطفل بيسمع الصوت ويختار الصورة.
 Question enPhonics(int lv, Rng r, {String? focus}) {
   final pool = lv <= 1 ? phonics.take(8).toList() : phonics;
-  final (letter, sound, words) = r.sample(pool);
+  final (letter, sound, words) = phonics.where((p) => p.$1 == focus).firstOrNull ?? r.sample(pool);
   final right = r.sample(words);
   final others = r.shuffle([for (final p in pool) if (p.$1 != letter) r.sample(p.$3)]).take(lv <= 1 ? 1 : 2);
   final shown = r.shuffle([right, ...others]);
@@ -32,7 +32,7 @@ Question enPhonics(int lv, Rng r, {String? focus}) {
 /// «What sound does 🐶 start with?» — صورة وبيختار الحرف بصوته.
 Question enFirstSound(int lv, Rng r, {String? focus}) {
   final pool = lv <= 1 ? phonics.take(8).toList() : phonics;
-  final (letter, sound, words) = r.sample(pool);
+  final (letter, sound, words) = phonics.where((p) => p.$1 == focus).firstOrNull ?? r.sample(pool);
   final w = r.sample(words);
   final letters = r.shuffle([letter, ...r.shuffle([for (final p in pool) if (p.$1 != letter) p.$1]).take(lv <= 1 ? 2 : 3)]);
   return Question(
