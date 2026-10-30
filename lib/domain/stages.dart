@@ -17,6 +17,7 @@ import 'generators/english_more_generators.dart';
 import 'generators/fade_generators.dart';
 import 'generators/grade2_arabic_generators.dart';
 import 'generators/grade3_arabic_generators.dart';
+import 'generators/grade3_math_generators.dart';
 import 'generators/school_english_generators.dart';
 import 'generators/school_math_generators.dart';
 import 'generators/term2_arabic_generators.dart';
@@ -424,6 +425,14 @@ final _math2 = _grp('math', 'math2', 'حساب تانية ابتدائي', 0xFF5
   ('barGraph', '📊', 'التمثيل بالأعمدة', 2, barGraph),
 ], after: 'add100');
 
+/// حساب تالتة ابتدائي من كتاب الوزارة — بعد «جدول ٢ و٥ و١٠»، حتى للتقدّم القديم.
+final _math3 = _grp('math', 'math3', 'حساب تالتة ابتدائي', 0xFF3E7BD6, [
+  ('thousands', '🔢', 'الآلاف', 2, thousands),
+  ('areaPerimeter', '🟩', 'المساحة والمحيط', 2, areaPerimeter),
+  ('mulStrategies', '✖️', 'استراتيجيات الضرب', 2, mulStrategies),
+  ('dotPlot', '⚫', 'التمثيل بالنقاط', 2, dotPlot),
+], after: 'times2510');
+
 /// Phonics بعد ما الطفل يعرف الحروف: الصوت مش الاسم، وبعدين تجميع كلمات CVC.
 final _phonics = _grp('english', 'phonics', 'Phonics • Letter sounds', 0xFF2E9BD6, [
   ('en_phonics', '🔊', 'Letter sounds', 1, enPhonics),
@@ -665,7 +674,7 @@ final _enPrimary = [
 final Map<String, List<Stage>> worldStages = {
   // المراحل اللي اتنشرت قبل كده (الحساب والعربي والمدود و English الأصليين) فاضلة بنفس ترتيبها
   // بين بعض — المجموعات الجديدة بتدخل بينها في مكانها في المنهج (stage_ids_test.dart)
-  'math': _numbered([..._math, ..._mathBasics, ..._math1, ..._math100, ..._math2, ..._mul, ..._life, ..._upperPrimary]),
+  'math': _numbered([..._math, ..._mathBasics, ..._math1, ..._math100, ..._math2, ..._mul, ..._math3, ..._life, ..._upperPrimary]),
   'arabic': _numbered([
     ..._arabic, ..._concepts, ..._harakat, ..._forms, ..._madd, ..._shortRead, ..._sukun, ..._al, ..._fade, ..._ar2, ..._grammar,
   ]),

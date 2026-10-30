@@ -298,6 +298,22 @@ class CoinsVisual extends Visual {
 }
 
 /// رسم بياني بالصور: عمود لكل صورة بعددها.
+/// شكل على شبكة مربعات: [cells] المربعات الملوّنة (x, y) من تحت على الشمال.
+/// من غير شبكة ([grid] = false) الشكل بيترسم مستطيل وعليه [sides] (الطول، العرض).
+class GridAreaVisual extends Visual {
+  const GridAreaVisual(this.cols, this.rows, this.cells, {this.grid = true, this.sides});
+  final int cols, rows;
+  final List<(int, int)> cells;
+  final bool grid;
+  final (int, int)? sides;
+}
+
+/// تمثيل بالنقاط: (الرقم تحت، عدد النقط فوقه).
+class DotPlotVisual extends Visual {
+  const DotPlotVisual(this.rows);
+  final List<(int, int)> rows;
+}
+
 /// شكل متقسّم قطع ملوّنة (مثلثات ومربعات). كل قطعة نقط (x, y) على شبكة والـ y لفوق.
 /// [apart] = القطع متفرّقة عن بعض (قبل ما تتجمع).
 class ComposeVisual extends Visual {

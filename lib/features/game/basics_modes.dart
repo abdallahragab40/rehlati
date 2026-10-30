@@ -222,6 +222,131 @@ class PicGraphView extends StatelessWidget {
   }
 }
 
+// ---------------------------------------------------------------- 🟩 المساحة والمحيط
+
+class GridAreaView extends StatelessWidget {
+  const GridAreaView(this.v, {super.key});
+  final GridAreaVisual v;
+
+  @override
+  Widget build(BuildContext context) {
+    final maxW = context.clampVw(260, 66, 320);
+    final unit = math.min(maxW / v.cols, 34.0);
+    return Center(
+      child: Semantics(
+        label: v.sides == null ? 'شكل من ${ar(v.cells.length)} مربعات' : 'مستطيل طوله ${ar(v.sides!.$1)} وعرضه ${ar(v.sides!.$2)}',
+        child: CustomPaint(size: Size(v.cols * unit + 40, v.rows * unit + 36), painter: _GridAreaPainter(v, unit)),
+      ),
+    );
+  }
+}
+
+class _GridAreaPainter extends CustomPainter {
+  _GridAreaPainter(this.v, this.unit);
+  final GridAreaVisual v;
+  final double unit;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final ox = 20.0, oy = 8.0;
+    Rect cell(int x, int y) => Rect.fromLTWH(ox + x * unit, oy + (v.rows - 1 - y) * unit, unit, unit);
+    final fill = Paint()..color = const Color(0xFF9CDB6B);
+    for (final (x, y) in v.cells) {
+      canvas.drawRect(cell(x, y), fill);
+    }
+    if (v.grid) {
+      final line = Paint()
+        ..color = AppColors.line
+        ..strokeWidth = 1.5;
+      for (var x = 0; x <= v.cols; x++) {
+        canvas.drawLine(Offset(ox + x * unit, oy), Offset(ox + x * unit, oy + v.rows * unit), line);
+      }
+      for (var y = 0; y <= v.rows; y++) {
+        canvas.drawLine(Offset(ox, oy + y * unit), Offset(ox + v.cols * unit, oy + y * unit), line);
+      }
+    }
+    // حدود الشكل نفسه
+    final edge = Paint()
+      ..color = AppColors.ink
+      ..strokeWidth = 3
+      ..style = PaintingStyle.stroke;
+    final set = v.cells.toSet();
+    for (final (x, y) in v.cells) {
+      final r = cell(x, y);
+      if (!set.contains((x, y + 1))) canvas.drawLine(r.topLeft, r.topRight, edge);
+      if (!set.contains((x, y - 1))) canvas.drawLine(r.bottomLeft, r.bottomRight, edge);
+      if (!set.contains((x - 1, y))) canvas.drawLine(r.topLeft, r.bottomLeft, edge);
+      if (!set.contains((x + 1, y))) canvas.drawLine(r.topRight, r.bottomRight, edge);
+    }
+    if (v.sides case (final w, final h)) {
+      void label(String t, Offset at) {
+        final tp = TextPainter(
+          text: TextSpan(text: t, style: kidText(18, color: AppColors.ink)),
+          textDirection: TextDirection.rtl,
+        )..layout();
+        tp.paint(canvas, at - Offset(tp.width / 2, tp.height / 2));
+      }
+
+      label(ar(w), Offset(ox + w * unit / 2, oy + v.rows * unit + 14));
+      label(ar(h), Offset(ox - 11, oy + (v.rows - h) * unit + h * unit / 2));
+    }
+  }
+
+  @override
+  bool shouldRepaint(_GridAreaPainter old) => old.v != v || old.unit != unit;
+}
+
+// ---------------------------------------------------------------- ⚫ التمثيل بالنقاط
+
+class DotPlotView extends StatelessWidget {
+  const DotPlotView(this.v, {super.key});
+  final DotPlotVisual v;
+
+  @override
+  Widget build(BuildContext context) {
+    final top = v.rows.map((r) => r.$2).reduce(math.max);
+    const dot = 22.0;
+    return Semantics(
+      label: [for (final (n, c) in v.rows) '${ar(n)}: ${ar(c)}'].join('، '),
+      child: ExcludeSemantics(
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(14, 10, 14, 6),
+              decoration: BoxDecoration(color: AppColors.paper2, borderRadius: BorderRadius.circular(18)),
+              child: Column(mainAxisSize: MainAxisSize.min, children: [
+                Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                  for (final (_, c) in v.rows)
+                    SizedBox(
+                      width: 46,
+                      child: Column(mainAxisSize: MainAxisSize.min, children: [
+                        SizedBox(height: (top - c) * (dot + 4)),
+                        for (var i = 0; i < c; i++)
+                          Container(
+                            width: dot,
+                            height: dot,
+                            margin: const EdgeInsets.only(top: 4),
+                            decoration: const BoxDecoration(color: AppColors.grape, shape: BoxShape.circle),
+                          ),
+                      ]),
+                    ),
+                ]),
+                Container(width: 46.0 * v.rows.length, height: 3, color: AppColors.inkSoft),
+                Row(children: [
+                  for (final (n, _) in v.rows)
+                    SizedBox(width: 46, child: Text(ar(n), textAlign: TextAlign.center, style: kidText(18))),
+                ]),
+              ]),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 // ---------------------------------------------------------------- 🔺 تكوين أشكال
 
 /// القطع ملوّنة بحدود واضحة. متفرّقة: كل قطعة بتتزق بعيد عن نص الشكل.

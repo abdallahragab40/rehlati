@@ -39,7 +39,8 @@ void main() {
       expect(p.unlockNext('composeShapes')?.id, 'tensOnes'); // وبعدها الأعداد لحد ١٠٠
       expect(p.unlockNext('sub100')?.id, 'hundreds'); // بعدها حساب تانية
       expect(p.unlockNext('barGraph')?.id, 'mulGroups'); // بعدها جدول الضرب
-      expect(p.unlockNext('timesAll')?.id, 'moneyCount'); // بعدها الفلوس والساعة
+      expect(p.unlockNext('timesAll')?.id, 'thousands'); // بعدها حساب تالتة
+      expect(p.unlockNext('dotPlot')?.id, 'moneyCount'); // بعدها الفلوس والساعة
       expect(p.unlockNext('clockQuarter')?.id, 'divisionExact');
       expect(p.unlockNext(worldStages['math']!.last.id), isNull); // آخر مرحلة
     });

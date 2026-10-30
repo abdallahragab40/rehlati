@@ -70,6 +70,8 @@ class VisualView extends StatelessWidget {
         BarGraphVisual v => BarGraphView(v),
         PrepVisual v => PrepView(v),
         ComposeVisual v => ComposeView(v),
+        GridAreaVisual v => GridAreaView(v),
+        DotPlotVisual v => DotPlotView(v),
         PlantVisual v => PlantView(v),
         EmojiVisual v => EmojiView(v),
         OppositeVisual v => Center(child: OppositePic(v.spec, size: context.clampVw(130, 36, 170))),

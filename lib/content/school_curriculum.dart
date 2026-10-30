@@ -343,11 +343,11 @@ final schoolBooks = <SchoolBook>[
     SchoolUnit('الأنماط والبيانات والقياس', [
       SchoolLesson('الأنماط', [_i('sequence'), _i('skipCount')]),
       SchoolLesson('التمثيل البياني بالأعمدة', [_i('barGraph')]),
-      _soon('التمثيل البياني بالنقاط'),
+      SchoolLesson('التمثيل البياني بالنقاط', [_i('dotPlot')]),
       SchoolLesson('قياس الأطوال', [_i('measure')]),
     ]),
     SchoolUnit('الآلاف والضرب', [
-      _soon('الآلاف'),
+      SchoolLesson('الآلاف', [_i('thousands')]),
       SchoolLesson('المصفوفات ومفهوم الضرب', [_i('mulGroups')]),
       SchoolLesson('خاصية الإبدال في الضرب', [_i('times2510')]),
     ]),
@@ -360,9 +360,12 @@ final schoolBooks = <SchoolBook>[
     ]),
     SchoolUnit('المضلعات والمساحة', [
       SchoolLesson('المضلعات والأشكال الرباعية', [_i('geometry')]),
-      _soon('المساحة'),
+      SchoolLesson('المساحة', [_i('areaPerimeter', 'area')]),
     ]),
-    SchoolUnit('المحيط والمساحة', [_soon('المحيط والمساحة'), _soon('الضرب في مضاعفات ١٠')]),
+    SchoolUnit('المحيط والمساحة', [
+      SchoolLesson('المحيط والمساحة', [_i('areaPerimeter')]),
+      SchoolLesson('الضرب في مضاعفات ١٠', [_i('mulStrategies', 'tens')]),
+    ]),
     SchoolUnit('استراتيجيات الضرب والجمع والطرح', [
       SchoolLesson('الضرب في ٩', [_i('times6789')]),
       SchoolLesson('مقارنة وترتيب الأعداد', [_i('hundreds')]),
@@ -372,10 +375,10 @@ final schoolBooks = <SchoolBook>[
   ]),
   SchoolBook('p3', 2, 'math', [
     SchoolUnit('خواص الضرب', [
-      _soon('خاصية التجميع والتوزيع'),
-      _soon('تقدير ناتج الضرب'),
+      SchoolLesson('خاصية التجميع والتوزيع', [_i('mulStrategies', 'props')]),
+      SchoolLesson('تقدير ناتج الضرب', [_i('mulStrategies', 'estimate')]),
       SchoolLesson('الضرب والقسمة', [_i('timesAll'), _i('divisionExact')]),
-      _soon('محيط المربع والمستطيل'),
+      SchoolLesson('محيط المربع والمستطيل', [_i('areaPerimeter', 'perimeter')]),
       SchoolLesson('مسائل كلامية', [_i('wordProblem')]),
     ]),
     SchoolUnit('الكسور', [SchoolLesson('كسور الوحدة', [_i('fractionOfNumber')])]),
@@ -386,7 +389,7 @@ final schoolBooks = <SchoolBook>[
     ]),
     SchoolUnit('حقائق الضرب والمحيط والمساحة', [
       SchoolLesson('حقائق الضرب', [_i('timesAll')]),
-      _soon('المحيط والمساحة'),
+      SchoolLesson('المحيط والمساحة', [_i('areaPerimeter')]),
     ]),
     SchoolUnit('الكسور والوقت والبيانات', [
       SchoolLesson('تكوين أنصاف', [_i('fractionOfNumber')]),
