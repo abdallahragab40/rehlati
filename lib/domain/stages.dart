@@ -15,6 +15,7 @@ import 'generators/basics_generators.dart';
 import 'generators/deen_generators.dart';
 import 'generators/english_more_generators.dart';
 import 'generators/fade_generators.dart';
+import 'generators/grade2_arabic_generators.dart';
 import 'generators/en_primary_generators.dart';
 import 'generators/english_generators.dart';
 import 'generators/games_generators.dart';
@@ -359,6 +360,16 @@ final _fade = _grp('arabic', 'fade', 'من التشكيل للقراءة الع�
   ('ar_fade_none', '📖', 'اقرأ من غير تشكيل', 2, fadeGen('ar_fade_none', 2)),
 ], after: 'ar_sukun');
 
+/// قواعد تانية ابتدائي (الترم الأول) من كتاب الوزارة — بتتفتح بعد الشمسية والقمرية.
+/// مش بالصف: طفل تانية جديد يبدأ بالتنوين والسكون الأول، والدروس دي متاحة له من «دروس المدرسة».
+final _ar2 = _grp('arabic', 'ar2', 'قواعد تانية ابتدائي', 0xFF9C4A8B, [
+  ('ar_far', '🔭', 'ذلك وتلك', 2, arFar),
+  ('ar_adverb', '⏰', 'ظرف الزمان والمكان', 2, arAdverb),
+  ('ar_command', '📣', 'الأمر والنهي', 2, arCommand),
+  ('ar_similar', '👂', 'الحروف المتشابهة في النطق', 2, arSimilar),
+  ('ar_relative', '🔗', 'الأسماء الموصولة', 2, arRelative),
+], after: 'ar_al');
+
 /// قراءة جمل قصيرة بصورة وسؤال، بعد قراءة كلمات المدود.
 final _shortRead = _grp('arabic', 'shortRead', 'أقرأ جمل قصيرة', 0xFFC96A1F, [
   ('ar_short_read', '📖', 'اقرأ الجملة', 2, arShortRead),
@@ -607,7 +618,7 @@ final Map<String, List<Stage>> worldStages = {
   // بين بعض — المجموعات الجديدة بتدخل بينها في مكانها في المنهج (stage_ids_test.dart)
   'math': _numbered([..._math, ..._mathBasics, ..._math100, ..._mul, ..._life, ..._upperPrimary]),
   'arabic': _numbered([
-    ..._arabic, ..._concepts, ..._harakat, ..._forms, ..._madd, ..._shortRead, ..._sukun, ..._al, ..._fade, ..._grammar,
+    ..._arabic, ..._concepts, ..._harakat, ..._forms, ..._madd, ..._shortRead, ..._sukun, ..._al, ..._fade, ..._ar2, ..._grammar,
   ]),
   'english': _numbered([..._english, if (voiceEnabled) ..._phonics, ..._enWords, ..._enPrimary]),
   'deen': _numbered(_deen),

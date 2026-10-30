@@ -112,14 +112,14 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('أسماء الإشارة', [_i('ar_this')]),
     ]),
     SchoolUnit('عادات صحية', [
-      _soon('ذلك – تلك'),
+      SchoolLesson('ذلك – تلك', [_i('ar_far')]),
       SchoolLesson('اللام الشمسية واللام القمرية', [_i('ar_al')]),
-      _soon('ظرف الزمان وظرف المكان'),
+      SchoolLesson('ظرف الزمان وظرف المكان', [_i('ar_adverb')]),
     ]),
     SchoolUnit('الرياضة والتكنولوجيا', [
-      _soon('الأمر والنهي'),
-      _soon('الحروف المتشابهة في النطق'),
-      _soon('الأسماء الموصولة'),
+      SchoolLesson('الأمر والنهي', [_i('ar_command')]),
+      SchoolLesson('الحروف المتشابهة في النطق', [_i('ar_similar')]),
+      SchoolLesson('الأسماء الموصولة', [_i('ar_relative')]),
     ]),
   ]),
   SchoolBook('p2', 2, 'arabic', [
