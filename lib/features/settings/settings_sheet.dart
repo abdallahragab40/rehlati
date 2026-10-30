@@ -119,6 +119,7 @@ class _SettingsPanelState extends ConsumerState<_SettingsPanel> {
                   progress.update((p) => p.settings.speech = true);
                   speech.speak(sayVoiceTest);
                 })),
+              // الأدلة بقت جوه اللوحة (تبويب الدليل) — الإعدادات هنا للطفل
               row('👨‍👩‍👦 لوحة ولي الأمر', smallBtn('افتح', () async {
                 // الراوتر بيتمسك قبل ما الدايالوج يتقفل — context بتاعه بيموت بعد pop
                 final router = GoRouter.of(context);
@@ -127,16 +128,6 @@ class _SettingsPanelState extends ConsumerState<_SettingsPanel> {
                   context.pop();
                   router.push('/parent');
                 }
-              })),
-              row('❤️ دليل ولي الأمر', smallBtn('افتح', () {
-                final router = GoRouter.of(context);
-                context.pop();
-                router.push('/pg');
-              })),
-              row('📘 دليل الوالدين', smallBtn('افتح', () {
-                final router = GoRouter.of(context);
-                context.pop();
-                router.push('/guide');
               })),
               const SizedBox(height: 16),
               Wrap(

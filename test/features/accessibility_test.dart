@@ -77,6 +77,9 @@ void main() {
     for (final path in learningPaths) 'path ${path.id}': PathScreen(id: path.id),
     'time up': const TimeUpScreen(),
     'dashboard': const DashboardScreen(),
+    'dashboard guide': const DashboardScreen(tab: DashTab.guide),
+    'dashboard settings': const DashboardScreen(tab: DashTab.settings),
+    'first-launch intro': const HomeScreen(),
   };
 
   for (final e in screens.entries) {

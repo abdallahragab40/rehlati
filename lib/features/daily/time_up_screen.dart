@@ -51,10 +51,7 @@ class _TimeUpScreenState extends ConsumerState<TimeUpScreen> {
           const SizedBox(height: 14),
           Wrap(alignment: WrapAlignment.center, spacing: 10, runSpacing: 4, children: [
             KidButton('🏠 الصفحة الرئيسية', kind: BtnKind.ghost, onTap: () => context.go('/')),
-            KidButton('👨‍👩‍👦 ولي الأمر', kind: BtnKind.ghost, onTap: () async {
-              final router = GoRouter.of(context);
-              if (await askParent(context)) router.push('/parent');
-            }),
+            KidButton('👨‍👩‍👦 ولي الأمر', kind: BtnKind.ghost, onTap: () => openParentArea(context)),
           ]),
         ]),
       ),

@@ -4,17 +4,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../motion.dart';
 import '../../domain/progress/progress_controller.dart';
+import '../../features/parent/parent_gate.dart';
 import '../../features/settings/settings_sheet.dart';
 import '../theme/app_theme.dart';
 import '../utils/arabic.dart';
 import 'fx_layer.dart';
 import 'kid_widgets.dart';
 
-/// الشريط العلوي: رجوع، عدّاد النجوم (بينبض مع كل نجمة)، العنوان، الإعدادات.
+/// الشريط العلوي: رجوع، عدّاد النجوم (بينبض مع كل نجمة)، العنوان، ولي الأمر، الإعدادات.
 class TopBar extends ConsumerWidget {
-  const TopBar({super.key, this.onBack, this.title});
+  const TopBar({super.key, this.onBack, this.title, this.parent = false});
   final VoidCallback? onBack;
   final String? title;
+
+  /// زرار لوحة ولي الأمر (ورا السؤال) — في الرئيسية بس، عشان الأهل يلاقوها.
+  final bool parent;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -56,6 +60,24 @@ class TopBar extends ConsumerWidget {
                   ),
           ),
           const SizedBox(width: 10),
+          if (parent) ...[
+            // الاسم جنب الأيقونة على الشاشات العريضة بس — على الموبايل الأيقونة لوحدها عشان العنوان يفضل باين
+            MediaQuery.sizeOf(context).width >= 520
+                ? Pressable3D(
+                    onTap: () => openParentArea(context),
+                    radius: 999,
+                    depth: 4,
+                    shadowColor: AppColors.shadow,
+                    semanticLabel: 'ولي الأمر',
+                    padding: const EdgeInsets.symmetric(horizontal: 14),
+                    child: SizedBox(
+                      height: 48,
+                      child: Center(widthFactor: 1, child: ExcludeSemantics(child: Text('👨‍👩‍👦 ولي الأمر', style: kidText(16)))),
+                    ),
+                  )
+                : IconBubbleButton('👨‍👩‍👦', onTap: () => openParentArea(context), label: 'ولي الأمر'),
+            const SizedBox(width: 10),
+          ],
           IconBubbleButton('⚙️', onTap: () => showSettingsSheet(context), label: 'الإعدادات'),
         ],
       ),
@@ -65,10 +87,19 @@ class TopBar extends ConsumerWidget {
 
 /// إطار كل شاشة: سما، شريط علوي، ومحتوى متوسّط بعرض أقصى (للتابلت).
 class ScreenFrame extends StatelessWidget {
-  const ScreenFrame({super.key, required this.child, this.onBack, this.title, this.background, this.scroll = true});
+  const ScreenFrame({
+    super.key,
+    required this.child,
+    this.onBack,
+    this.title,
+    this.background,
+    this.scroll = true,
+    this.parent = false,
+  });
   final Widget child;
   final VoidCallback? onBack;
   final String? title;
+  final bool parent;
 
   /// مشهد متحرك ورا المحتوى (خرائط العوالم).
   final Widget? background;
@@ -84,7 +115,7 @@ class ScreenFrame extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: pad),
           child: Column(
             children: [
-              TopBar(onBack: onBack, title: title),
+              TopBar(onBack: onBack, title: title, parent: parent),
               Expanded(
                 child: scroll
                     ? SingleChildScrollView(padding: const EdgeInsets.only(bottom: 28), child: child)

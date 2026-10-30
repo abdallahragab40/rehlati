@@ -27,9 +27,10 @@ String parentRoute(String path) {
       return world == null ? '/' : '/world/$world';
     case 'quran' when seg.length > 1:
       return '/${seg.sublist(0, seg.length - 1).join('/')}';
+    // دليل ولي الأمر جوه اللوحة، وشاشة "أتعلم أتصرف إزاي؟" بتاعة الطفل من الرئيسية
     case 'pg' when seg.length > 1:
-      return seg[1] == 'play' ? '/pg/kids' : '/pg';
-    case 'guide' || 'quran-check':
+      return switch (seg[1]) { 'play' => '/pg/kids', 'kids' => '/', _ => '/pg' };
+    case 'pg' || 'guide' || 'quran-check':
       return '/parent';
     default:
       return '/';

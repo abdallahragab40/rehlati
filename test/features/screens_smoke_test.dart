@@ -81,6 +81,8 @@ void main() {
     for (final s in packs.values.where((s) => s.isLearn)) 'learn ${s.id}': LetterBoardScreen(stageId: s.id),
     'achievements': const AchievementsScreen(),
     'dashboard': const DashboardScreen(),
+    'dashboard guide': const DashboardScreen(tab: DashTab.guide),
+    'dashboard settings': const DashboardScreen(tab: DashTab.settings),
     'guide': const GuideScreen(),
     'quran home': const QuranHomeScreen(),
     'surah': const SurahScreen(surah: 112),

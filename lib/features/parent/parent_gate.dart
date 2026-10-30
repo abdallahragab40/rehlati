@@ -21,6 +21,12 @@ Future<bool> askParent(BuildContext context) async {
   return ok ?? false;
 }
 
+/// لوحة ولي الأمر ورا السؤال — من زرار الرئيسية وشاشة الراحة.
+Future<void> openParentArea(BuildContext context) async {
+  final router = GoRouter.of(context);
+  if (await askParent(context)) router.push('/parent');
+}
+
 /// الدايالوج بيملك الـ controller بتاعه — لو اتقفل بعد ما الدايالوج يرجع، الحقل
 /// بيكون لسه ظاهر في أنيميشن القفل وبيقع.
 class _GateDialog extends StatefulWidget {

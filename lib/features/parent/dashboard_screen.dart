@@ -51,8 +51,94 @@ String skillLabel(String skill) {
   return ar(i < 0 ? skill : skill.substring(i + 1));
 }
 
-class DashboardScreen extends ConsumerWidget {
-  const DashboardScreen({super.key});
+/// تبويبات اللوحة: التقدّم أول حاجة، والدليل والإعدادات كل واحد لوحده.
+enum DashTab { progress, guide, settings }
+
+class DashboardScreen extends ConsumerStatefulWidget {
+  const DashboardScreen({super.key, this.tab = DashTab.progress});
+
+  /// التبويب اللي بتفتح عليه (للاختبارات).
+  final DashTab tab;
+
+  @override
+  ConsumerState<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends ConsumerState<DashboardScreen> {
+  late DashTab _tab = widget.tab;
+
+  @override
+  Widget build(BuildContext context) {
+    final name = ref.watch(progressProvider.select((p) => p.name));
+    // "لسارة" بتتوصل، والاسم اللاتيني محتاج "لـ" قبله
+    final to = name.isEmpty ? 'للطفل' : RegExp('^[\u0600-\u06FF]').hasMatch(name) ? 'ل$name' : 'لـ$name';
+    return ScreenFrame(
+      onBack: () => context.back(),
+      title: 'لوحة ولي الأمر',
+      child: QCard(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          Text('👨‍👩‍👦 لوحة ولي الأمر', style: kidText(24)),
+          const StorageIssueNote(),
+          const SizedBox(height: 10),
+          // من غير ما يدوّر على زرار الرجوع: الجهاز بيرجع للطفل على الرئيسية
+          KidButton('🧒 سلّم الجهاز $to', kind: BtnKind.go, onTap: () => context.go('/')),
+          const SizedBox(height: 12),
+          _TabBar(tab: _tab, onPick: (t) => setState(() => _tab = t)),
+          switch (_tab) {
+            DashTab.progress => const _ProgressTab(),
+            DashTab.guide => const _GuideTab(),
+            DashTab.settings => const _SettingsTab(),
+          },
+          const SizedBox(height: 16),
+          Center(child: KidButton('رجوع', kind: BtnKind.ghost, onTap: () => context.back())),
+        ]),
+      ),
+    );
+  }
+}
+
+class _TabBar extends StatelessWidget {
+  const _TabBar({required this.tab, required this.onPick});
+  final DashTab tab;
+  final ValueChanged<DashTab> onPick;
+
+  @override
+  Widget build(BuildContext context) => Row(children: [
+        for (final (i, (t, label)) in const [
+          (DashTab.progress, '📊 التقدّم'),
+          (DashTab.guide, '❤️ الدليل'),
+          (DashTab.settings, '⚙️ الإعدادات'),
+        ].indexed) ...[
+          if (i > 0) const SizedBox(width: 6),
+          Expanded(
+            child: Semantics(
+              selected: t == tab,
+              child: Pressable3D(
+                onTap: () => onPick(t),
+                color: t == tab ? AppColors.gold : AppColors.paper2,
+                radius: 18,
+                depth: 4,
+                shadowColor: AppColors.shadow,
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                // ٤٨ نقطة على الأقل — أصغر هدف لمس مريح
+                child: SizedBox(
+                  height: 48,
+                  child: Center(child: FittedBox(fit: BoxFit.scaleDown, child: Text(label, maxLines: 1, style: kidText(16)))),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ]);
+}
+
+Widget _h3(String t) => Padding(
+      padding: const EdgeInsets.only(top: 18, bottom: 6),
+      child: Text(t, style: kidText(19)),
+    );
+
+class _ProgressTab extends ConsumerWidget {
+  const _ProgressTab();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -62,92 +148,138 @@ class DashboardScreen extends ConsumerWidget {
     // أسماء السور من الكاش (ولو مش متحمّلة وفيه نت بتتجاب) — لو فشلت بنعرض الرقم
     final names = {for (final c in ref.watch(quranChaptersProvider).value ?? const []) c.number: c.name};
 
-    Widget h3(String t) => Padding(
-          padding: const EdgeInsets.only(top: 18, bottom: 6),
-          child: Text(t, style: kidText(19)),
-        );
-
-    return ScreenFrame(
-      onBack: () => context.back(),
-      title: 'لوحة ولي الأمر',
-      child: QCard(
-        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Text('👨‍👩‍👦 لوحة ولي الأمر', style: kidText(24)),
-          const StorageIssueNote(),
-          const SizedBox(height: 10),
-          const _ChildRow(),
-          const SizedBox(height: 6),
-          RankBar(stars: p.stars),
-          const SizedBox(height: 14),
-          _Stats(tiles: [
-            (ar(p.stars), 'نجمة'),
-            (ar(p.games), 'لعبة'),
-            ('${ar(acc)}٪', 'دقة الإجابات'),
-            (ar(p.correct), 'صح'),
-            (ar(p.wrong), 'غلط'),
-            (fmtTime(p.timeMs), 'وقت التعلّم'),
-          ]),
-          h3('👧👦 الأطفال'),
-          const _ChildrenCard(),
-          h3('🧭 رحلة النهاردة'),
-          const JourneyParentCard(),
-          h3('🎒 مسارات التعلّم'),
-          const PathsParentCard(),
-          h3('📅 تقرير الأسبوع'),
-          const WeekCard(),
-          h3('🗺️ العوالم'),
-          _Table(header: const ['العالم', 'النجوم', 'الإنجاز'], rows: [
-            for (final w in worlds)
-              [
-                '${w.icon} ${w.name}',
-                '${'⭐' * p.starsIn(w.id).clamp(0, 5)} ${ar(p.starsIn(w.id))}',
-                w.id == 'quran'
-                    ? countOf(p.quran.keys.map((k) => k.split(':').first).toSet().length, surahWord)
-                    : '${ar(p.worldPct(w.id))}٪',
-              ],
-          ]),
-          h3('🟦 المدود'),
-          MaddDashboardCard(p),
-          h3('⭐ السلوكيات التي تعمل عليها'),
-          const PgGoalsList(),
-          h3('🌱 حالة المراحل'),
-          const MasteryCard(),
-          h3('🎯 اختبار تحديد المستوى'),
-          const _PlacementCard(),
-          h3('🧑 شكل التطبيق'),
-          const _LookCard(),
-          h3('🧠 مهارات محتاجة تدريب'),
-          _WeakSkills(p),
-          h3('📖 سور تحتاج مراجعة'),
-          NoteBox(Text(p.surahsNeedingReview.isEmpty
-              ? 'مفيش سور متأخرة في المراجعة'
-              : p.surahsNeedingReview.map((s) => names[s] ?? 'سورة رقم ${ar(s)}').join(' • '))),
-          h3('📥 القرآن من غير نت'),
-          const QuranDownloadCard(),
-          h3('💾 نسخة احتياطية'),
-          const BackupCard(),
-          h3('⏰ تذكير يومي'),
-          const _ReminderCard(),
-          h3('🏆 الإنجازات'),
-          BadgeGrid(earned: p.achievements, small: true),
-          h3('ℹ️ المصادر والتراخيص'),
-          const CreditsCard(),
-          Padding(
-            padding: const EdgeInsets.only(top: 14),
-            child: Text('آخر نشاط: ${fmtDate(p.lastActivity)}',
-                style: kidText(15, weight: FontWeight.w700, color: AppColors.inkSoft)),
-          ),
-          const SizedBox(height: 16),
-          Wrap(alignment: WrapAlignment.center, spacing: 10, runSpacing: 4, children: [
-            KidButton('❤️ دليل ولي الأمر', onTap: () => context.push('/pg')),
-            KidButton('📘 دليل الوالدين', kind: BtnKind.ghost, onTap: () => context.push('/guide')),
-            KidButton('🔍 التحقق من نص القرآن', kind: BtnKind.go, onTap: () => context.push('/quran-check')),
-            KidButton('رجوع', kind: BtnKind.ghost, onTap: () => context.back()),
-          ]),
-        ]),
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      const SizedBox(height: 14),
+      const _ChildRow(),
+      const SizedBox(height: 6),
+      RankBar(stars: p.stars),
+      const SizedBox(height: 14),
+      _Stats(tiles: [
+        (ar(p.stars), 'نجمة'),
+        (ar(p.games), 'لعبة'),
+        ('${ar(acc)}٪', 'دقة الإجابات'),
+        (ar(p.correct), 'صح'),
+        (ar(p.wrong), 'غلط'),
+        (fmtTime(p.timeMs), 'وقت التعلّم'),
+      ]),
+      _h3('👧👦 الأطفال'),
+      const _ChildrenCard(),
+      _h3('🧭 رحلة النهاردة'),
+      const JourneyParentCard(),
+      _h3('🎒 مسارات التعلّم'),
+      const PathsParentCard(),
+      _h3('📅 تقرير الأسبوع'),
+      const WeekCard(),
+      _h3('🧠 مهارات محتاجة تدريب'),
+      _WeakSkills(p),
+      _h3('📖 سور تحتاج مراجعة'),
+      NoteBox(Text(p.surahsNeedingReview.isEmpty
+          ? 'مفيش سور متأخرة في المراجعة'
+          : p.surahsNeedingReview.map((s) => names[s] ?? 'سورة رقم ${ar(s)}').join(' • '))),
+      _h3('🗺️ العوالم'),
+      _Table(header: const ['العالم', 'النجوم', 'الإنجاز'], rows: [
+        for (final w in worlds)
+          [
+            '${w.icon} ${w.name}',
+            '${'⭐' * p.starsIn(w.id).clamp(0, 5)} ${ar(p.starsIn(w.id))}',
+            w.id == 'quran'
+                ? countOf(p.quran.keys.map((k) => k.split(':').first).toSet().length, surahWord)
+                : '${ar(p.worldPct(w.id))}٪',
+          ],
+      ]),
+      _h3('🟦 المدود'),
+      MaddDashboardCard(p),
+      _h3('🌱 حالة المراحل'),
+      const MasteryCard(),
+      _h3('🏆 الإنجازات'),
+      BadgeGrid(earned: p.achievements, small: true),
+      Padding(
+        padding: const EdgeInsets.only(top: 14),
+        child: Text('آخر نشاط: ${fmtDate(p.lastActivity)}',
+            style: kidText(15, weight: FontWeight.w700, color: AppColors.inkSoft)),
       ),
-    );
+    ]);
   }
+}
+
+class _GuideTab extends StatelessWidget {
+  const _GuideTab();
+
+  @override
+  Widget build(BuildContext context) => Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        const SizedBox(height: 14),
+        _LinkCard(
+          icon: '❤️',
+          title: 'دليل ولي الأمر',
+          sub: 'طفلك بيضرب أو بيعند أو بيعيط؟ اكتب اللي بيحصل وخد خطوات هادية تتصرّف بيها.',
+          onTap: () => context.push('/pg'),
+        ),
+        _LinkCard(
+          icon: '📘',
+          title: 'إزاي تستخدم التطبيق',
+          sub: 'العوالم، النجوم وفتح المراحل، عالم القرآن، والأرقام اللي تبص عليها في اللوحة.',
+          onTap: () => context.push('/guide'),
+        ),
+        _h3('⭐ السلوكيات التي تعمل عليها'),
+        const PgGoalsList(),
+      ]);
+}
+
+class _SettingsTab extends StatelessWidget {
+  const _SettingsTab();
+
+  @override
+  Widget build(BuildContext context) => Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        _h3('🎯 اختبار تحديد المستوى'),
+        const _PlacementCard(),
+        _h3('🧑 شكل التطبيق'),
+        const _LookCard(),
+        _h3('⏰ تذكير يومي'),
+        const _ReminderCard(),
+        _h3('📥 القرآن من غير نت'),
+        const QuranDownloadCard(),
+        const SizedBox(height: 8),
+        Center(child: KidButton('🔍 التحقق من نص القرآن', kind: BtnKind.go, onTap: () => context.push('/quran-check'))),
+        _h3('💾 نسخة احتياطية'),
+        const BackupCard(),
+        _h3('ℹ️ المصادر والتراخيص'),
+        const CreditsCard(),
+      ]);
+}
+
+/// كارت بيفتح شاشة تانية: أيقونة وعنوان وسطر شرح.
+class _LinkCard extends StatelessWidget {
+  const _LinkCard({required this.icon, required this.title, required this.sub, required this.onTap});
+  final String icon, title, sub;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: Pressable3D(
+          onTap: onTap,
+          color: AppColors.paper2,
+          radius: 20,
+          depth: 5,
+          shadowColor: AppColors.shadow,
+          semanticLabel: title,
+          padding: const EdgeInsets.all(14),
+          child: ExcludeSemantics(
+            child: Row(children: [
+              Text(icon, style: const TextStyle(fontSize: 32)),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(title, style: kidText(18)),
+                  const SizedBox(height: 2),
+                  Text(sub, style: kidText(14, weight: FontWeight.w600, color: AppColors.inkSoft, height: 1.5)),
+                ]),
+              ),
+              const Text('‹', style: TextStyle(fontSize: 28, color: AppColors.inkSoft)),
+            ]),
+          ),
+        ),
+      );
 }
 
 /// مشكلة في حفظ التقدّم — بتفضل ظاهرة لحد ما ولي الأمر يقفلها.

@@ -22,10 +22,10 @@ class GuideScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ScreenFrame(
         onBack: () => context.back(),
-        title: '📘 دليل الوالدين',
+        title: '📘 إزاي تستخدم التطبيق',
         child: QCard(
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            Text('📘 دليل الوالدين', style: kidText(24)),
+            Text('📘 إزاي تستخدم التطبيق', style: kidText(24)),
             const SizedBox(height: 10),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),

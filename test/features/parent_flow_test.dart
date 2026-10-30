@@ -72,6 +72,30 @@ void main() {
     expect(find.text('بدون اسم'), findsOneWidget);
   });
 
+  testWidgets('the home screen has a parent button behind the gate', (tester) async {
+    tester.view.physicalSize = const Size(1200, 2600);
+    addTearDown(tester.view.reset);
+    await pumpApp(tester, home: const ScreenFrame(parent: true, child: SizedBox(height: 100)));
+
+    await tester.tap(find.text('👨‍👩‍👦'));
+    await tester.pumpAndSettle();
+    final q = tester.widget<Text>(find.textContaining('×')).data!;
+    await tester.enterText(find.byType(TextField), '${answerOf(q)}');
+    await tester.tap(find.text('دخول'));
+    await tester.pumpAndSettle();
+    expect(find.byType(DashboardScreen), findsOneWidget);
+
+    // التبويبات: الدليل فيه الدليلين، والإعدادات فيها التذكير
+    await tester.tap(find.text('❤️ الدليل'));
+    await tester.pumpAndSettle();
+    expect(find.text('دليل ولي الأمر'), findsWidgets);
+    expect(find.text('إزاي تستخدم التطبيق'), findsOneWidget);
+    await tester.tap(find.text('⚙️ الإعدادات'));
+    await tester.pumpAndSettle();
+    expect(find.text('⏰ تذكير يومي'), findsOneWidget);
+    expect(find.text('👧👦 الأطفال'), findsNothing);
+  });
+
   testWidgets('a wrong answer keeps the child out', (tester) async {
     tester.view.physicalSize = const Size(1200, 2600);
     addTearDown(tester.view.reset);

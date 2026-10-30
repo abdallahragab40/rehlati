@@ -15,6 +15,8 @@ void main() {
     expect(parentRoute('/quran'), '/');
     expect(parentRoute('/pg/b/hit'), '/pg');
     expect(parentRoute('/pg/play'), '/pg/kids');
+    expect(parentRoute('/pg/kids'), '/');
+    expect(parentRoute('/pg'), '/parent');
     expect(parentRoute('/guide'), '/parent');
     expect(parentRoute('/parent'), '/');
     expect(parentRoute('/play/unknown'), '/');

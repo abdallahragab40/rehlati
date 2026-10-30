@@ -69,12 +69,13 @@ void main() {
       expect(find.text('👨‍👩‍👦 لوحة ولي الأمر'), findsOneWidget);
     }
 
-    // ١) أول تشغيل: الترحيب (مرة واحدة) ثم شاشة البداية
+    // ١) أول تشغيل: الترحيب (مرة واحدة)، "مين معانا؟"، ثم شاشة البداية
     await app.main();
     await settle(20);
     await tapWhenReady(find.text('التالي'));
     await tapWhenReady(find.text('التالي'));
     await tapWhenReady(find.text('🎒 يلا نبدأ الرحلة'));
+    await tapWhenReady(find.text('أنا البطل'));
     await setup('سارة', '٤');
 
     // ٢) جولة كاملة في العد
@@ -119,6 +120,7 @@ void main() {
 
     // ٥) طفل تاني من لوحة ولي الأمر
     await openParent();
+    await tapWhenReady(find.text('⚙️ الإعدادات'));
     // مكتبة القرآن بتتمسح من فولدر الجهاز الحقيقي وبتعرض الأجزاء للقارئ المختار
     final juzRow = find.textContaining('التلاوة:');
     for (var i = 0; i < 50 && juzRow.evaluate().isEmpty; i++) {
@@ -126,6 +128,7 @@ void main() {
     }
     expect(juzRow, findsNWidgets(3));
     expect(find.text('📤 صدّر نسخة'), findsOneWidget);
+    await tapWhenReady(find.text('📊 التقدّم'));
     await tapWhenReady(find.text('➕ إضافة طفل'));
     await setup('عمر', '٦');
     expect(container().read(progressProvider).stars, 0);

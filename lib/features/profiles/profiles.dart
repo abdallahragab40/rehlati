@@ -14,6 +14,7 @@ import '../../core/widgets/top_bar.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
 import '../../domain/school.dart';
+import '../intro/intro_screen.dart';
 import '../parent/avatar.dart';
 import '../parent/parent_gate.dart';
 
@@ -88,13 +89,21 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
   }
 
   void _done() {
+    final parent = ref.read(parentSetupProvider);
+    final router = parent ? GoRouter.of(context) : null;
     ref.read(progressProvider.notifier).update((p) {
       p
         ..name = _name.text.trim()
         ..age = _age ?? 4
         ..setupDone = true;
     });
-    ref.read(speechProvider).speak(sayWelcome, clips: ['welcome']);
+    if (router != null) {
+      // ولي الأمر جاي من الترحيب: يكمّل على لوحته (الرئيسية بتستنى تحتها)
+      ref.read(parentSetupProvider.notifier).set(false);
+      router.push('/parent');
+    } else {
+      ref.read(speechProvider).speak(sayWelcome, clips: ['welcome']);
+    }
   }
 
   @override

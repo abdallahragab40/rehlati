@@ -46,6 +46,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     }
     return ScreenFrame(
       title: 'المستوى ${ar(p.level())}',
+      parent: true,
       child: Column(
         children: [
           const SizedBox(height: 6),
