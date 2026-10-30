@@ -93,15 +93,16 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('المد بالواو', [_i('madd_waw')]),
     ]),
     SchoolUnit('أخلاقنا الجميلة', [
-      _soon('أنا – نحن'),
+      SchoolLesson('أنا – نحن', [_i('ar_pronoun', 'ana')]),
       SchoolLesson('المد بالياء', [_i('madd_yaa')]),
       SchoolLesson('هذا – هذه', [_i('ar_this')]),
       SchoolLesson('التنوين', [_i('ar_tanween'), _i('ar_marks')]),
     ]),
     SchoolUnit('في السوق', [
-      _soon('أنتَ – أنتِ'),
+      SchoolLesson('أنتَ – أنتِ', [_i('ar_pronoun', 'anta')]),
       SchoolLesson('الشدة', [_i('ar_shadda')]),
-      _soon('الفعل الماضي والمضارع'),
+      SchoolLesson('الفعل الماضي والمضارع', [_i('ar_tense')]),
+      SchoolLesson('هو – هي', [_i('ar_pronoun', 'huwa')]),
       SchoolLesson('مراجعة القواعد الإملائية', [_i('madd_types'), _i('ar_tanween'), _i('ar_shadda')]),
     ]),
   ]),
@@ -124,18 +125,18 @@ final schoolBooks = <SchoolBook>[
   ]),
   SchoolBook('p2', 2, 'arabic', [
     SchoolUnit('من حولي', [
-      _soon('ضمائر الغائب'),
-      _soon('التاء المربوطة والتاء المفتوحة'),
-      _soon('أسلوب النداء'),
+      SchoolLesson('ضمائر الغائب', [_i('ar_pronoun', 'ghaib')]),
+      SchoolLesson('التاء المربوطة والتاء المفتوحة', [_i('ar_taa')]),
+      SchoolLesson('أسلوب النداء', [_i('ar_style', 'nida')]),
     ]),
     SchoolUnit('في مدرستي', [
-      _soon('أسلوب التعجب'),
+      SchoolLesson('أسلوب التعجب', [_i('ar_style', 'taajjub')]),
       SchoolLesson('الشدة مع التنوين', [_i('ar_shadda'), _i('ar_tanween')]),
-      _soon('أسلوب الاستفهام'),
+      SchoolLesson('أسلوب الاستفهام', [_i('ar_style', 'istifham')]),
     ]),
     SchoolUnit('أماكن جميلة', [
-      _soon('حروف الجر'),
-      _soon('حروف العطف'),
+      SchoolLesson('حروف الجر', [_i('ar_particles', 'jarr')]),
+      SchoolLesson('حروف العطف', [_i('ar_particles', 'atf')]),
     ]),
   ]),
 

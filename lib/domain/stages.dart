@@ -18,6 +18,7 @@ import 'generators/fade_generators.dart';
 import 'generators/grade2_arabic_generators.dart';
 import 'generators/school_english_generators.dart';
 import 'generators/school_math_generators.dart';
+import 'generators/term2_arabic_generators.dart';
 import 'generators/en_primary_generators.dart';
 import 'generators/english_generators.dart';
 import 'generators/games_generators.dart';
@@ -362,14 +363,20 @@ final _fade = _grp('arabic', 'fade', 'من التشكيل للقراءة الع�
   ('ar_fade_none', '📖', 'اقرأ من غير تشكيل', 2, fadeGen('ar_fade_none', 2)),
 ], after: 'ar_sukun');
 
-/// قواعد تانية ابتدائي (الترم الأول) من كتاب الوزارة — بتتفتح بعد الشمسية والقمرية.
+/// قواعد أولى وتانية ابتدائي من كتاب الوزارة (الترمين) — بتتفتح بعد الشمسية والقمرية.
 /// مش بالصف: طفل تانية جديد يبدأ بالتنوين والسكون الأول، والدروس دي متاحة له من «دروس المدرسة».
-final _ar2 = _grp('arabic', 'ar2', 'قواعد تانية ابتدائي', 0xFF9C4A8B, [
+final _ar2 = _grp('arabic', 'ar2', 'قواعد أولى وتانية ابتدائي', 0xFF9C4A8B, [
   ('ar_far', '🔭', 'ذلك وتلك', 2, arFar),
   ('ar_adverb', '⏰', 'ظرف الزمان والمكان', 2, arAdverb),
   ('ar_command', '📣', 'الأمر والنهي', 2, arCommand),
   ('ar_similar', '👂', 'الحروف المتشابهة في النطق', 2, arSimilar),
   ('ar_relative', '🔗', 'الأسماء الموصولة', 2, arRelative),
+  // الترم التاني
+  ('ar_pronoun', '🙋', 'الضمائر', 2, arPronoun),
+  ('ar_tense', '⏳', 'الماضي والمضارع', 2, arTense),
+  ('ar_taa', '🔚', 'التاء المربوطة والمفتوحة', 2, arTaa),
+  ('ar_style', '❗', 'النداء والتعجب والاستفهام', 2, arStyle),
+  ('ar_particles', '🔗', 'حروف الجر والعطف', 2, arParticles),
 ], after: 'ar_al');
 
 /// قراءة جمل قصيرة بصورة وسؤال، بعد قراءة كلمات المدود.
