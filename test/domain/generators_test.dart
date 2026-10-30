@@ -18,10 +18,10 @@ void main() {
   ];
 
   test('registry has every world and the expected stage counts', () {
-    expect(worldStages['math']!.length, 13 + 12 + 5 + 3 + 5 + 4 + 3 + 4 + 10, reason: 'basics, numbers to 100, grade 2, times tables, money/time, division');
-    expect(worldStages['arabic']!.length, 11 + 2 + 2 + 9 + 1 + 1 + 1 + (voiceEnabled ? 3 + 4 : 2 + 3) + 3 + 14 + 6 + 6,
+    expect(worldStages['math']!.length, 13 + 12 + 5 + 3 + 5 + 4 + 3 + 4 + 10 + 6, reason: 'basics, numbers to 100, grade 2, times tables, money/time, division');
+    expect(worldStages['arabic']!.length, 11 + 2 + 2 + 9 + 1 + 1 + 1 + (voiceEnabled ? 3 + 4 : 2 + 3) + 3 + 14 + 6 + 6 + 5,
         reason: 'letters, concepts, forms, madd, short sentences, shadda, sun/moon letters, harakat, sukun, fading marks, grade 2 grammar, grammar');
-    expect(worldStages['english']!.length, 14 + (voiceEnabled ? 3 : 0) + 5 + 15 + 6 + 7 + 8, reason: 'phonics needs the voice; 29 from the school books');
+    expect(worldStages['english']!.length, 14 + (voiceEnabled ? 3 : 0) + 5 + 15 + 6 + 7 + 8 + 12, reason: 'phonics needs the voice; 41 from the school books');
     expect(worldStages['games']!.length, voiceEnabled ? 12 + 13 + 4 : 11 + 12 + 4, reason: 'listenNum and animalSound need the voice');
     expect([for (final w in ['deen', 'discover', 'write']) worldStages[w]!.length], [8, 5, 5]);
     expect({for (final w in worlds) w.id}, {...worldStages.keys, 'quran'});

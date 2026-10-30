@@ -20,16 +20,16 @@ import '../parent/parent_gate.dart';
 import '../parent/worksheet_card.dart';
 
 /// الصفوف اللي ليها كتب في التطبيق.
-const schoolScreenGrades = [('p1', 'أولى'), ('p2', 'تانية'), ('p3', 'تالتة'), ('p4', 'رابعة')];
+const schoolScreenGrades = [('p1', 'أولى'), ('p2', 'تانية'), ('p3', 'تالتة'), ('p4', 'رابعة'), ('p5', 'خامسة')];
 
 const _subjects = [('arabic', '🔤 عربي'), ('math', '🧮 حساب'), ('english', '🇬🇧 English')];
 
 /// الترم من التاريخ: من فبراير لحد يوليو التاني، والباقي الأول.
 int currentTerm(DateTime now) => now.month >= 2 && now.month <= 7 ? 2 : 1;
 
-/// الدروس تنفع الطفل ده؟ أولى لرابعة، أو من ٦ لـ ١٠ سنين لو الصف مش متحدد.
+/// الدروس تنفع الطفل ده؟ أولى لخامسة، أو من ٦ لـ ١١ سنة لو الصف مش متحدد.
 bool schoolFits(ProgressData p) =>
-    p.grade != null ? schoolScreenGrades.any((g) => g.$1 == p.grade) : (p.age ?? 0) >= 6 && (p.age ?? 0) <= 10;
+    p.grade != null ? schoolScreenGrades.any((g) => g.$1 == p.grade) : (p.age ?? 0) >= 6 && (p.age ?? 0) <= 11;
 
 class SchoolScreen extends ConsumerStatefulWidget {
   const SchoolScreen({super.key});
@@ -42,7 +42,7 @@ class _SchoolScreenState extends ConsumerState<SchoolScreen> {
   late String _grade = () {
     final p = ref.read(progressProvider);
     if (schoolScreenGrades.any((g) => g.$1 == p.grade)) return p.grade!;
-    return switch (p.age ?? 6) { <= 6 => 'p1', 7 => 'p2', 8 => 'p3', _ => 'p4' };
+    return switch (p.age ?? 6) { <= 6 => 'p1', 7 => 'p2', 8 => 'p3', 9 => 'p4', _ => 'p5' };
   }();
   late int _term = currentTerm(ProgressData.clock());
   String _subject = 'arabic';

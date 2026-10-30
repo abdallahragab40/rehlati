@@ -487,3 +487,148 @@ Question enShould(int lv, Rng r, {String? focus}) {
   return _enBlank('en_should', 'en_should:$answer', pic, sentence, answer, ['should', "shouldn't"], r,
       hint: "should = a good idea. shouldn't = a bad idea.");
 }
+
+// ================================================================ Connect 5 (خامسة)
+
+/// (الأيام، الجملة، الإجابة) — علامة لكل يوم في الأسبوع: ✔ عمله، ✖ ماعملوش.
+const frequencySentences = [
+  ('✔✔✔✔✔✔✔', 'I ___ brush my teeth before bed.', 'always'),
+  ('✔✔✔✔✔✔✖', 'She ___ walks to school.', 'usually'),
+  ('✔✖✔✖✖✔✖', 'We ___ eat pizza.', 'sometimes'),
+  ('✖✖✖✖✖✖✖', 'He ___ drinks soda.', 'never'),
+  ('✔✔✔✔✔✔✔', 'My dad ___ reads the news.', 'always'),
+  ('✖✔✖✖✔✖✖', 'They ___ play chess.', 'sometimes'),
+];
+
+Question enFrequency(int lv, Rng r, {String? focus}) {
+  final (days, sentence, answer) = r.sample(frequencySentences);
+  return Question(
+    type: 'en_frequency', mode: QMode.choice, lang: 'en', ltr: true, numeric: false, bigChoices: true, skill: 'en_freq:$answer',
+    ask: 'Choose the right word', speak: 'Choose the right word.',
+    visuals: [CaptionVisual('This week: $days'), WordLineVisual.text(sentence, big: true)],
+    choices: r.shuffle(['always', 'usually', 'sometimes', 'never']), answer: answer,
+    hint: 'every day = always, most days = usually, some days = sometimes, no days = never.',
+    speakHint: 'Every day is always. No days is never.',
+    sayRight: sentence.replaceFirst('___', answer),
+  );
+}
+
+const someAnySentences = [
+  ('🥛', 'There is ___ milk in the fridge.', 'some'), ('🍎', 'Are there ___ apples?', 'any'),
+  ('🥚', "There aren't ___ eggs.", 'any'), ('🍪', 'I have ___ cookies.', 'some'),
+  ('🧀', 'Is there ___ cheese?', 'any'), ('🍞', 'We need ___ bread.', 'some'),
+];
+
+Question enSomeAny(int lv, Rng r, {String? focus}) {
+  final (pic, sentence, answer) = r.sample(someAnySentences);
+  return _enBlank('en_someAny', 'en_someAny:$answer', pic, sentence, answer, ['some', 'any'], r,
+      hint: 'some in positive sentences. any in questions and negatives.');
+}
+
+const didSentences = [
+  ('___ you play football yesterday?', 'Did', ['Did', 'Do', 'Does']),
+  ('___ she visit her grandma last week?', 'Did', ['Did', 'Do', 'Does']),
+  ('He ___ go to school yesterday. He was sick.', "didn't", ["didn't", "doesn't", "don't"]),
+  ('We ___ watch TV last night.', "didn't", ["didn't", "doesn't", "don't"]),
+  ('Where ___ they go last summer?', 'did', ['did', 'do', 'does']),
+  ('What ___ you eat yesterday?', 'did', ['did', 'do', 'does']),
+];
+
+Question enDid(int lv, Rng r, {String? focus}) {
+  final (sentence, answer, choices) = r.sample(didSentences);
+  return _enBlank('en_did', 'en_did:${answer.toLowerCase()}', null, sentence, answer, choices, r,
+      hint: "yesterday, last week = past: Did …? / didn't.");
+}
+
+const timePrepSentences = [
+  ('My birthday is ___ July.', 'in'), ('We have English ___ Monday.', 'on'), ("School starts ___ 8 o'clock.", 'at'),
+  ('It is cold ___ winter.', 'in'), ('I sleep ___ night.', 'at'), ('The party is ___ Friday.', 'on'),
+  ('He was born ___ 2015.', 'in'),
+];
+
+Question enInOnAt(int lv, Rng r, {String? focus}) {
+  final (sentence, answer) = r.sample(timePrepSentences);
+  return _enBlank('en_inOnAt', 'en_time:$answer', null, sentence, answer, ['in', 'on', 'at'], r,
+      hint: 'in + month, season, year. on + day. at + time.');
+}
+
+const couldSentences = [
+  ('👶', 'When I was a baby, I ___ walk.', "couldn't", ['could', "couldn't"]),
+  ('🏊', 'I learned to swim last year. Now I ___ swim.', 'can', ['can', "can't"]),
+  ('🚲', 'At five, she ___ ride a bike. She learned at four.', 'could', ['could', "couldn't"]),
+  ('🐧', 'A penguin ___ fly.', "can't", ['can', "can't"]),
+  ('📖', 'At three, he ___ read. He was too young.', "couldn't", ['could', "couldn't"]),
+  ('🎹', 'My sister plays every day. She ___ play the piano very well.', 'can', ['can', "can't"]),
+];
+
+Question enCould(int lv, Rng r, {String? focus}) {
+  final (pic, sentence, answer, choices) = r.sample(couldSentences);
+  return _enBlank('en_could', 'en_could:$answer', pic, sentence, answer, choices, r,
+      hint: 'can / can\'t = now. could / couldn\'t = in the past.');
+}
+
+const haveToSentences = [
+  ('🏫', 'She ___ wear a uniform at school.', 'has to'), ('🦷', 'I ___ brush my teeth every day.', 'have to'),
+  ('🩺', 'He ___ see a doctor. He is sick.', 'has to'), ('📚', 'We ___ do our homework.', 'have to'),
+  ('🐶', 'My brother ___ walk the dog.', 'has to'), ('🤫', 'They ___ be quiet in the library.', 'have to'),
+];
+
+Question enHaveTo(int lv, Rng r, {String? focus}) {
+  final (pic, sentence, answer) = r.sample(haveToSentences);
+  return _enBlank('en_haveTo', 'en_haveTo:$answer', pic, sentence, answer, ['have to', 'has to'], r,
+      hint: 'he / she / it → has to. I / you / we / they → have to.');
+}
+
+const goingToSentences = [
+  ('Tomorrow I ___ visit my grandma.', 'am going to'), ('Next week they ___ travel to Luxor.', 'are going to'),
+  ('He ___ play football this evening.', 'is going to'), ('We ___ camp at the beach.', 'are going to'),
+  ('She ___ pack her suitcase.', 'is going to'),
+];
+
+Question enGoingTo(int lv, Rng r, {String? focus}) {
+  final (sentence, answer) = r.sample(goingToSentences);
+  return _enBlank('en_goingTo', 'en_goingTo:${answer.split(' ').first}', null, sentence, answer,
+      ['am going to', 'is going to', 'are going to'], r,
+      hint: 'I am going to. He / she is going to. We / they are going to.');
+}
+
+const continuousSentences = [
+  ('Look! The baby ___.', 'is sleeping', ['sleeps', 'is sleeping']),
+  ('Every morning, she ___ milk.', 'drinks', ['drinks', 'is drinking']),
+  ('Listen! Someone ___ the piano.', 'is playing', ['plays', 'is playing']),
+  ('My dad ___ to work every day.', 'goes', ['goes', 'is going']),
+  ('Right now, we ___ English.', 'are studying', ['study', 'are studying']),
+  ('Owls ___ at night.', 'hunt', ['hunt', 'are hunting']),
+];
+
+Question enContinuous(int lv, Rng r, {String? focus}) {
+  final (sentence, answer, choices) = r.sample(continuousSentences);
+  return _enBlank('en_continuous', 'en_cont:${answer.contains(' ') ? 'cont' : 'simple'}', null, sentence, answer, choices, r,
+      hint: 'every day, always = present simple. now, look, listen = am / is / are + -ing.');
+}
+
+const enHealth = [
+  Word('headache', '🤕'), Word('fever', '🤒'), Word('medicine', '💊'), Word('bandage', '🩹'), Word('thermometer', '🌡️'),
+  Word('injection', '💉'), Word('ambulance', '🚑'), Word('tooth', '🦷'),
+];
+final enHealthGame = vocabGame('en_health', enHealth, 'en_health', ask: 'At the doctor\'s. What is this?',
+    hint: (w) => 'The word is "$w".');
+
+const enSpace = [
+  Word('moon', '🌙'), Word('Earth', '🌍'), Word('star', '⭐'), Word('rocket', '🚀'), Word('astronaut', '🧑‍🚀'),
+  Word('planet', '🪐'), Word('comet', '☄️'), Word('galaxy', '🌌'), Word('alien', '👽'),
+];
+final enSpaceGame = vocabGame('en_space', enSpace, 'en_space', ask: 'Our solar system. What is this?', hint: (w) => 'The word is "$w".');
+
+const enNature = [
+  Word('storm', '⛈️'), Word('tornado', '🌪️'), Word('wildfire', '🔥'), Word('flood', '🌊'), Word('lightning', '⚡'),
+  Word('rainbow', '🌈'), Word('volcano', '🌋'), Word('drought', '🌵'),
+];
+final enNatureGame = vocabGame('en_nature', enNature, 'en_nature', ask: 'When nature changes. What is this?',
+    hint: (w) => 'The word is "$w".');
+
+const enHobbies = [
+  Word('painting', '🎨'), Word('cycling', '🚴'), Word('chess', '♟️'), Word('piano', '🎹'), Word('photography', '📷'),
+  Word('gardening', '🪴'), Word('board games', '🎲'), Word('skating', '⛸️'),
+];
+final enHobbiesGame = vocabGame('en_hobbies', enHobbies, 'en_hobby', ask: 'What is the hobby?', hint: (w) => 'The hobby is $w.');

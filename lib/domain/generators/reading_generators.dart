@@ -96,6 +96,19 @@ const enPassages = [
     ('Why did the kite fly away?', 'The wind was strong', ['It was old', 'Ali let it go']),
     ('Who helped them?', 'Their uncle', ['Their teacher', 'A farmer']),
   ]),
+  // خامسة: وحدة The Talking Earth وقصة Offline but Happy — النصوص من عندنا
+  Passage('The Talking Earth', 'Mariam took a canoe trip through a swamp in a national park. She saw an alligator resting in the sun '
+      'and an owl in a tall tree. A scientist told her that the swamp gives water and homes to many animals.', [
+    ('How did Mariam travel?', 'In a canoe', ['By bus', 'On a camel']),
+    ('Where was the owl?', 'In a tall tree', ['In the water', 'On a rock']),
+    ('Why is the swamp important?', 'It gives animals water and homes', ['It is very hot', 'It has many cars']),
+  ]),
+  Passage('Offline but Happy', 'The Wi-Fi stopped working, and Youssef felt bored and lonely. His sister gave him some chalk. '
+      'They drew a rocket on the sidewalk and played until sunset. Youssef laughed. "That was better than my tablet!"', [
+    ('Why was Youssef bored?', 'The Wi-Fi stopped working', ['It was raining', 'He was sick']),
+    ('What did they draw?', 'A rocket', ['A cat', 'A house']),
+    ('How did Youssef feel at the end?', 'Happy', ['Lonely', 'Angry']),
+  ]),
   Passage('Healthy Food', 'Ali eats fruit and vegetables every day. He drinks milk in the morning and water when he is thirsty. '
       'He does not eat many sweets because they are bad for his teeth.', [
     ('What does Ali drink in the morning?', 'Milk', ['Juice', 'Tea']),

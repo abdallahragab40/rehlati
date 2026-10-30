@@ -222,6 +222,172 @@ class PicGraphView extends StatelessWidget {
   }
 }
 
+// ---------------------------------------------------------------- 📍 المستوى الإحداثي
+
+class CoordView extends StatelessWidget {
+  const CoordView(this.v, {super.key});
+  final CoordVisual v;
+
+  @override
+  Widget build(BuildContext context) {
+    final side = context.clampVw(230, 58, 270);
+    return Center(
+      child: Semantics(
+        label: [for (final (n, x, y) in v.points) '$n (${ar(x)}، ${ar(y)})'].join('، '),
+        child: CustomPaint(size: Size(side, side), painter: _CoordPainter(v)),
+      ),
+    );
+  }
+}
+
+class _CoordPainter extends CustomPainter {
+  _CoordPainter(this.v);
+  final CoordVisual v;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    const n = 6, pad = 26.0;
+    // مكان فوق ويمين للحروف اللي جنب النقط على الطرف
+    final u = (size.width - pad - 22) / n;
+    Offset at(num x, num y) => Offset(pad + x * u, size.height - pad - y * u);
+    final grid = Paint()
+      ..color = AppColors.line
+      ..strokeWidth = 1.2;
+    final axis = Paint()
+      ..color = AppColors.ink
+      ..strokeWidth = 3;
+    void label(String t, Offset c, {Color color = AppColors.inkSoft, double size = 13}) {
+      final tp = TextPainter(text: TextSpan(text: t, style: kidText(size, color: color)), textDirection: TextDirection.rtl)..layout();
+      tp.paint(canvas, c - Offset(tp.width / 2, tp.height / 2));
+    }
+
+    for (var i = 0; i <= n; i++) {
+      canvas.drawLine(at(i, 0), at(i, n), grid);
+      canvas.drawLine(at(0, i), at(n, i), grid);
+      label(ar(i), at(i, 0) + const Offset(0, 14));
+      if (i > 0) label(ar(i), at(0, i) - const Offset(14, 0));
+    }
+    canvas.drawLine(at(0, 0), at(n, 0), axis);
+    canvas.drawLine(at(0, 0), at(0, n), axis);
+    for (final (name, x, y) in v.points) {
+      canvas.drawCircle(at(x, y), 7, Paint()..color = AppColors.grape);
+      label(name, at(x, y) + Offset(x >= n - 1 ? -14 : 14, y >= n - 1 ? 14 : -14), color: AppColors.ink, size: 17);
+    }
+  }
+
+  @override
+  bool shouldRepaint(_CoordPainter old) => old.v != v;
+}
+
+// ---------------------------------------------------------------- 📦 الحجم
+
+class BoxView extends StatelessWidget {
+  const BoxView(this.v, {super.key});
+  final BoxVisual v;
+
+  @override
+  Widget build(BuildContext context) {
+    final maxW = context.clampVw(240, 60, 280);
+    final u = math.min(maxW / (v.l + v.w * .6 + 1.5), 30.0);
+    return Center(
+      child: Semantics(
+        label: 'صندوق ${ar(v.l)} في ${ar(v.w)} في ${ar(v.h)}',
+        child: CustomPaint(size: Size((v.l + v.w * .6) * u + 48, (v.h + v.w * .5) * u + 40), painter: _BoxPainter(v, u)),
+      ),
+    );
+  }
+}
+
+class _BoxPainter extends CustomPainter {
+  _BoxPainter(this.v, this.u);
+  final BoxVisual v;
+  final double u;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    // إسقاط مايل: العمق لفوق ولليمين
+    final dx = u * .6, dy = u * .5;
+    final o = Offset(24, size.height - 24);
+    Offset p(num x, num y, num z) => o + Offset(x * u + z * dx, -y * u - z * dy);
+    final line = Paint()
+      ..color = AppColors.ink
+      ..strokeWidth = 1.4
+      ..style = PaintingStyle.stroke;
+    void face(List<Offset> pts, Color c) {
+      final path = Path()..addPolygon(pts, true);
+      canvas.drawPath(path, Paint()..color = c);
+    }
+
+    face([p(0, 0, 0), p(v.l, 0, 0), p(v.l, v.h, 0), p(0, v.h, 0)], const Color(0xFF6EC6FF));
+    face([p(0, v.h, 0), p(v.l, v.h, 0), p(v.l, v.h, v.w), p(0, v.h, v.w)], const Color(0xFFB3E2FF));
+    face([p(v.l, 0, 0), p(v.l, 0, v.w), p(v.l, v.h, v.w), p(v.l, v.h, 0)], const Color(0xFF3FA6E8));
+    for (var x = 0; x <= v.l; x++) {
+      canvas.drawLine(p(x, 0, 0), p(x, v.h, 0), line);
+      canvas.drawLine(p(x, v.h, 0), p(x, v.h, v.w), line);
+    }
+    for (var y = 0; y <= v.h; y++) {
+      canvas.drawLine(p(0, y, 0), p(v.l, y, 0), line);
+      canvas.drawLine(p(v.l, y, 0), p(v.l, y, v.w), line);
+    }
+    for (var z = 0; z <= v.w; z++) {
+      canvas.drawLine(p(0, v.h, z), p(v.l, v.h, z), line);
+      canvas.drawLine(p(v.l, 0, z), p(v.l, v.h, z), line);
+    }
+    if (!v.labels) return;
+    void label(String t, Offset c) {
+      final tp = TextPainter(text: TextSpan(text: t, style: kidText(16, color: AppColors.ink)), textDirection: TextDirection.rtl)..layout();
+      tp.paint(canvas, c - Offset(tp.width / 2, tp.height / 2));
+    }
+
+    label(ar(v.l), (p(0, 0, 0) + p(v.l, 0, 0)) / 2 + const Offset(0, 13));
+    label(ar(v.h), (p(0, 0, 0) + p(0, v.h, 0)) / 2 - const Offset(13, 0));
+    label(ar(v.w), (p(v.l, 0, 0) + p(v.l, 0, v.w)) / 2 + const Offset(14, 6));
+  }
+
+  @override
+  bool shouldRepaint(_BoxPainter old) => old.v != v || old.u != u;
+}
+
+// ---------------------------------------------------------------- 🥧 القطاعات الدائرية
+
+class PieView extends StatelessWidget {
+  const PieView(this.v, {super.key});
+  final PieVisual v;
+
+  static const colors = [Color(0xFFE5534B), Color(0xFF3F8FD6), Color(0xFFF2B233), Color(0xFF4CAF50)];
+
+  @override
+  Widget build(BuildContext context) {
+    final side = context.clampVw(180, 46, 220);
+    return Center(
+      child: Semantics(label: 'دايرة مقسومة قطاعات', child: CustomPaint(size: Size(side, side), painter: _PiePainter(v))),
+    );
+  }
+}
+
+class _PiePainter extends CustomPainter {
+  _PiePainter(this.v);
+  final PieVisual v;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final rect = Offset.zero & size;
+    var start = -math.pi / 2;
+    for (final (i, e) in v.eighths.indexed) {
+      final sweep = e / 8 * 2 * math.pi;
+      canvas.drawArc(rect, start, sweep, true, Paint()..color = PieView.colors[i % 4]);
+      canvas.drawArc(rect, start, sweep, true, Paint()
+        ..color = Colors.white
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 3);
+      start += sweep;
+    }
+  }
+
+  @override
+  bool shouldRepaint(_PiePainter old) => old.v != v;
+}
+
 // ---------------------------------------------------------------- 📐 الزوايا والخطوط
 
 class AngleView extends StatelessWidget {

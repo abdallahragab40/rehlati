@@ -20,6 +20,8 @@ import 'generators/grade3_arabic_generators.dart';
 import 'generators/grade3_math_generators.dart';
 import 'generators/grade4_arabic_generators.dart';
 import 'generators/grade4_math_generators.dart';
+import 'generators/grade5_arabic_generators.dart';
+import 'generators/grade5_math_generators.dart';
 import 'generators/school_english_generators.dart';
 import 'generators/school_math_generators.dart';
 import 'generators/term2_arabic_generators.dart';
@@ -471,6 +473,41 @@ final _en4 = _grp('english', 'en4', 'Grammar from school • Grade 4', 0xFF1F4F8
   ('en_should', '🧴', "should, shouldn't", 3, enShould),
 ], after: 'en_isare', lang: 'en');
 
+/// عربي خامسة ابتدائي — بعد «الفعل والفاعل»، حتى للتقدّم القديم.
+final _ar5 = _grp('arabic', 'ar5', 'قواعد خامسة ابتدائي', 0xFF6A2F7E, [
+  ('ar_mafool', '🎯', 'المفعول به', 3, arMafool),
+  ('ar_hamzaQat', '✂️', 'همزة القطع وألف الوصل', 3, arHamzaQat),
+  ('ar_hamzaEnd', '🔚', 'الهمزة في آخر الكلمة', 3, arHamzaEnd),
+  ('ar_mafaeel', '❔', 'المفعول لأجله والمطلق والظرف', 3, arMafaeel),
+  ('ar_majrur', '🔽', 'الاسم المجرور والمضاف إليه', 3, arMajrur),
+], after: 'ar_fail');
+
+/// حساب خامسة ابتدائي — بعد «الكسور العشرية» بتاعة رابعة، حتى للتقدّم القديم.
+final _math5 = _grp('math', 'math5', 'حساب خامسة ابتدائي', 0xFF27509E, [
+  ('decimals5', '🔟', 'الكسور العشرية لحد جزء من ألف', 3, decimals5),
+  ('equations', '🟰', 'المعادلات والتعبيرات', 3, equations),
+  ('fractions5', '🍕', 'جمع وضرب وقسمة الكسور', 3, fractions5),
+  ('coordinates', '📍', 'المستوى الإحداثي', 3, coordinates),
+  ('volume', '📦', 'الحجم', 3, volume),
+  ('pieChart', '🥧', 'القطاعات الدائرية', 3, pieChart),
+], after: 'decimals');
+
+/// إنجليزي خامسة (Connect 5) — بعد «Present simple» بتاعة رابعة، حتى للتقدّم القديم.
+final _en5 = _grp('english', 'en5', 'Grammar from school • Grade 5', 0xFF1B3F78, [
+  ('en_frequency', '📆', 'always, sometimes, never', 3, enFrequency),
+  ('en_someAny', '🥛', 'some, any', 3, enSomeAny),
+  ('en_did', '❓', "Did you…? I didn't", 3, enDid),
+  ('en_inOnAt', '🕗', 'in, on, at (time)', 3, enInOnAt),
+  ('en_could', '🏊', 'can, could', 3, enCould),
+  ('en_haveTo', '📋', 'have to, has to', 3, enHaveTo),
+  ('en_goingTo', '🧳', 'going to', 3, enGoingTo),
+  ('en_continuous', '👀', 'Look! He is running', 3, enContinuous),
+  ('en_health', '🤒', "At the doctor's", 2, enHealthGame),
+  ('en_space', '🚀', 'Space', 2, enSpaceGame),
+  ('en_nature', '⛈️', 'When nature changes', 2, enNatureGame),
+  ('en_hobbies', '🎨', 'Hobbies', 2, enHobbiesGame),
+], after: 'en_present', lang: 'en');
+
 /// Phonics بعد ما الطفل يعرف الحروف: الصوت مش الاسم، وبعدين تجميع كلمات CVC.
 final _phonics = _grp('english', 'phonics', 'Phonics • Letter sounds', 0xFF2E9BD6, [
   ('en_phonics', '🔊', 'Letter sounds', 1, enPhonics),
@@ -722,11 +759,11 @@ final _enPrimary = [
 final Map<String, List<Stage>> worldStages = {
   // المراحل اللي اتنشرت قبل كده (الحساب والعربي والمدود و English الأصليين) فاضلة بنفس ترتيبها
   // بين بعض — المجموعات الجديدة بتدخل بينها في مكانها في المنهج (stage_ids_test.dart)
-  'math': _numbered([..._math, ..._mathBasics, ..._math1, ..._math100, ..._math2, ..._mul, ..._math3, ..._life, ..._upperPrimary, ..._math4]),
+  'math': _numbered([..._math, ..._mathBasics, ..._math1, ..._math100, ..._math2, ..._mul, ..._math3, ..._life, ..._upperPrimary, ..._math4, ..._math5]),
   'arabic': _numbered([
-    ..._arabic, ..._concepts, ..._harakat, ..._forms, ..._madd, ..._shortRead, ..._sukun, ..._al, ..._fade, ..._ar2, ..._grammar, ..._ar4,
+    ..._arabic, ..._concepts, ..._harakat, ..._forms, ..._madd, ..._shortRead, ..._sukun, ..._al, ..._fade, ..._ar2, ..._grammar, ..._ar4, ..._ar5,
   ]),
-  'english': _numbered([..._english, if (voiceEnabled) ..._phonics, ..._enWords, ..._enSchool, ..._en3, ..._enPrimary, ..._en4]),
+  'english': _numbered([..._english, if (voiceEnabled) ..._phonics, ..._enWords, ..._enSchool, ..._en3, ..._enPrimary, ..._en4, ..._en5]),
   'deen': _numbered(_deen),
   'discover': _numbered(_discover),
   'write': _numbered(_write),

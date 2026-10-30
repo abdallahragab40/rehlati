@@ -548,4 +548,94 @@ final schoolBooks = <SchoolBook>[
     SchoolUnit('Exploring Wonders in Egypt', [SchoolLesson("should, shouldn't", [_i('en_should')])]),
     SchoolUnit('Story Time: The Lost Kite', [SchoolLesson('Reading: The Lost Kite', [_i('en_reading', 'The Lost Kite')])]),
   ]),
+  // ---------------------------------------------------------------- خامسة ابتدائي
+  SchoolBook('p5', 1, 'arabic', [
+    SchoolUnit('نيلنا أمانة', [
+      SchoolLesson('المفعول به', [_i('ar_mafool', 'single')]),
+      SchoolLesson('همزة القطع وألف الوصل', [_i('ar_hamzaQat')]),
+      SchoolLesson('المفعول به: المفرد وجمع التكسير', [_i('ar_mafool', 'single')]),
+    ]),
+    SchoolUnit('فن التواصل', [
+      SchoolLesson('المفعول به: جمع المؤنث السالم', [_i('ar_mafool', 'fem')]),
+      SchoolLesson('الهمزة المتطرفة على السطر', [_i('ar_hamzaEnd', 'line')]),
+      SchoolLesson('المفعول به: المثنى وجمع المذكر السالم', [_i('ar_mafool', 'dual')]),
+    ]),
+    SchoolUnit('جمال الاختلاف', [
+      SchoolLesson('المفعول لأجله', [_i('ar_mafaeel', 'ajlih')]),
+      SchoolLesson('الهمزة المتطرفة على الألف', [_i('ar_hamzaEnd', 'alif')]),
+      SchoolLesson('إعراب ظرفي الزمان والمكان', [_i('ar_mafaeel', 'zarf'), _i('ar_adverb')]),
+    ]),
+  ]),
+  SchoolBook('p5', 2, 'arabic', [
+    SchoolUnit('الاختيار والمسئولية', [
+      SchoolLesson('المفعول المطلق', [_i('ar_mafaeel', 'mutlaq')]),
+      SchoolLesson('الهمزة المتطرفة على الواو', [_i('ar_hamzaEnd', 'waw')]),
+      SchoolLesson('الاسم المجرور', [_i('ar_majrur', 'jar')]),
+    ]),
+    SchoolUnit('أخلاقيات التواصل', [
+      SchoolLesson('الاسم المجرور: المثنى وجمع المذكر السالم', [_i('ar_majrur', 'jar')]),
+      SchoolLesson('الهمزة المتطرفة على الياء', [_i('ar_hamzaEnd', 'yaa')]),
+      SchoolLesson('المضاف والمضاف إليه', [_i('ar_majrur', 'idafa')]),
+    ]),
+    SchoolUnit('أنا وصورتي في أعين الآخرين', [
+      SchoolLesson('المضاف إليه بأنواعه', [_i('ar_majrur', 'idafa')]),
+      SchoolLesson('تنوين الهمزة المتطرفة', [_i('ar_hamzaEnd')]),
+    ]),
+  ]),
+  SchoolBook('p5', 1, 'math', [
+    SchoolUnit('القيمة المكانية للأعداد العشرية', [
+      SchoolLesson('الكسور العشرية حتى جزء من الألف', [_i('decimals5', 'place')]),
+      SchoolLesson('مقارنة وتقريب الكسور العشرية', [_i('decimals5', 'round'), _i('decimals')]),
+      SchoolLesson('جمع وطرح الكسور العشرية', [_i('decimals5', 'addsub')]),
+    ]),
+    SchoolUnit('العلاقات بين الأعداد', [
+      SchoolLesson('التعبيرات والمعادلات والمتغيرات', [_i('equations')]),
+      SchoolLesson('العوامل الأولية والعامل المشترك الأكبر', [_i('factors', 'factors')]),
+      SchoolLesson('المضاعفات والمضاعف المشترك الأصغر', [_i('factors', 'multiples')]),
+    ]),
+    SchoolUnit('ضرب الأعداد الصحيحة', [
+      SchoolLesson('الضرب في عدد من رقمين', [_i('longMulDiv', 'mul'), _i('mulStrategies', 'props')]),
+    ]),
+    SchoolUnit('القسمة على أعداد صحيحة', [SchoolLesson('القسمة وتقدير خارج القسمة', [_i('longMulDiv', 'div')])]),
+    SchoolUnit('الضرب والقسمة مع الكسور العشرية', [
+      SchoolLesson('الضرب والقسمة على قوى العدد ١٠', [_i('decimals5', 'powers')]),
+      SchoolLesson('ضرب الكسور العشرية', [_i('decimals5', 'mul')]),
+      SchoolLesson('الكسور العشرية والنظام المتري', [_i('unitConvert')]),
+    ]),
+    SchoolUnit('التعبيرات العددية والأنماط', [
+      SchoolLesson('ترتيب العمليات والأقواس', [_i('orderOps')]),
+      SchoolLesson('الأنماط العددية', [_i('sequence'), _i('skipCount')]),
+    ]),
+  ]),
+  SchoolBook('p5', 2, 'math', [
+    SchoolUnit('جمع الكسور وطرحها', [SchoolLesson('الكسور غير متحدة المقام', [_i('fractions5', 'addsub')])]),
+    SchoolUnit('الأعداد الكسرية', [SchoolLesson('جمع وطرح الأعداد الكسرية', [_i('fractionOps', 'mixed'), _i('fractions5', 'addsub')])]),
+    SchoolUnit('ضرب الكسور وقسمتها', [
+      SchoolLesson('ضرب الكسور', [_i('fractions5', 'mul'), _i('fractionOps', 'times')]),
+      SchoolLesson('قسمة كسور الوحدة', [_i('fractions5', 'div')]),
+    ]),
+    SchoolUnit('الأشكال الهندسية والمستوى الإحداثي', [
+      SchoolLesson('تصنيف الأشكال والمثلثات', [_i('geometry4', 'shapes')]),
+      SchoolLesson('المساحة', [_i('areaPerimeter', 'area')]),
+      SchoolLesson('المستوى الإحداثي', [_i('coordinates')]),
+    ]),
+    SchoolUnit('الحجم', [SchoolLesson('الحجم والسعة', [_i('volume')])]),
+    SchoolUnit('القطاعات الدائرية', [SchoolLesson('القطاعات الدائرية', [_i('pieChart')])]),
+  ]),
+  SchoolBook('p5', 1, 'english', [
+    SchoolUnit('Food, Nature, and Culture', [SchoolLesson('always, sometimes, never', [_i('en_frequency')]), SchoolLesson('Food', [_i('en_food')])]),
+    SchoolUnit('My Healthy Body', [SchoolLesson('a, an, some, any', [_i('en_someAny'), _i('en_a_an')]), SchoolLesson('My body', [_i('en_body')])]),
+    SchoolUnit('When Nature Changes', [SchoolLesson("Did you…? I didn't", [_i('en_did')]), SchoolLesson('Weather', [_i('en_nature'), _i('en_weather')])]),
+    SchoolUnit('My Community', [SchoolLesson('in, on, at (time)', [_i('en_inOnAt')]), SchoolLesson('Places', [_i('en_places')])]),
+    SchoolUnit('Our World, Our Resources', [SchoolLesson('bigger, taller', [_i('en_compare', 'comp')])]),
+    SchoolUnit('The Talking Earth', [SchoolLesson('Reading: The Talking Earth', [_i('en_reading', 'The Talking Earth')])]),
+  ]),
+  SchoolBook('p5', 2, 'english', [
+    SchoolUnit('Hobbies Make Us Shine', [SchoolLesson('Hobbies', [_i('en_hobbies')]), SchoolLesson('can, could', [_i('en_could')])]),
+    SchoolUnit("At the Doctor's", [SchoolLesson("At the doctor's", [_i('en_health')]), SchoolLesson('have to, must', [_i('en_haveTo'), _i('en_safety')])]),
+    SchoolUnit('Suitcase Stories', [SchoolLesson('going to', [_i('en_goingTo')])]),
+    SchoolUnit('Jobs in the Animal Kingdom', [SchoolLesson('Present simple or continuous', [_i('en_continuous')])]),
+    SchoolUnit('Our Solar System', [SchoolLesson('Space', [_i('en_space')]), SchoolLesson('bigger, the biggest', [_i('en_compare')])]),
+    SchoolUnit('Offline but Happy', [SchoolLesson('Reading: Offline but Happy', [_i('en_reading', 'Offline but Happy')])]),
+  ]),
 ];

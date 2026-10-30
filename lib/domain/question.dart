@@ -298,6 +298,25 @@ class CoinsVisual extends Visual {
 }
 
 /// رسم بياني بالصور: عمود لكل صورة بعددها.
+/// مستوى إحداثي من ٠ لـ ٦، وعليه نقط (الاسم، س، ص).
+class CoordVisual extends Visual {
+  const CoordVisual(this.points);
+  final List<(String, int, int)> points;
+}
+
+/// صندوق من مكعبات (طول × عرض × ارتفاع)، و[labels] الأبعاد مكتوبة جنبه.
+class BoxVisual extends Visual {
+  const BoxVisual(this.l, this.w, this.h, {this.labels = true});
+  final int l, w, h;
+  final bool labels;
+}
+
+/// دايرة مقسومة قطاعات بالأتمان، كل قطاع بلون (أحمر، أزرق، أصفر، أخضر بالترتيب).
+class PieVisual extends Visual {
+  const PieVisual(this.eighths);
+  final List<int> eighths;
+}
+
 /// زاوية مرسومة بشعاعين وقوس، و[degrees] قياسها.
 class AngleVisual extends Visual {
   const AngleVisual(this.degrees);
