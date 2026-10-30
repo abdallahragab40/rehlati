@@ -11,7 +11,7 @@ const creditLines = [
   'نص القرآن: النص العثماني من مشروع تنزيل (tanzil.net)، عن طريق AlQuran Cloud (alquran.cloud) — كما هو من غير تعديل.',
   'التلاوات: EveryAyah (everyayah.com) — الحقوق للقرّاء.',
   'التحقق من النص: Quran.com — للمقارنة بس، ومابيتخزّنش على الجهاز.',
-  'صوت الأسئلة: Microsoft Azure (Zariyah).',
+  'صوت الأسئلة: Microsoft Azure (Shakir و Ana).',
   'الخطوط: Baloo Bhaijaan 2 و Amiri Quran — رخصة SIL Open Font License 1.1.',
 ];
 

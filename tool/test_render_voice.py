@@ -18,6 +18,23 @@ class RenderVoiceTests(unittest.TestCase):
         self.assertEqual(root.attrib['{http://www.w3.org/XML/1998/namespace}lang'], 'ar-SA')
         self.assertEqual(''.join(root.itertext()), 'بَ & <')
 
+    def test_pronunciation_marks_only_whole_unmarked_words(self):
+        lex = {'خد': 'خُد', 'الصح': 'الصَّحّ', 'حرف': 'حَرْف'}
+        self.assertEqual(voice.voiced('خد وقتك واختار الحرف الصح!', lex), 'خُد وقتك واختار الحرف الصَّحّ!')
+        self.assertEqual(voice.voiced('حَرْف، حرف؟ حرفين', lex), 'حَرْف، حَرْف؟ حرفين')
+
+    def test_pronunciation_list_is_clean(self):
+        import re
+        rows = voice.read_tsv(voice.ROOT / 'tool/pronounce.tsv', 2)
+        words = [r[0] for r in rows]
+        self.assertEqual(len(set(words)), len(words), 'each word once')
+        strip = lambda s: re.sub(r'[ً-ْ]', '', s)
+        for word, say in (r[:2] for r in rows):
+            self.assertIsNone(re.search(r'[ً-ْ]', word), word)
+            self.assertTrue(re.search(r'[ً-ْ]', say), f'{word}: no marks')
+            # التشكيل بس (وأحيانًا حرف مد بيتشال زي الكوباية ← الكُبَّايَة)
+            self.assertLessEqual(abs(len(strip(say)) - len(word)), 1, word)
+
     def test_teaching_words_match_app_inventory(self):
         import re
         source = (voice.ROOT / 'lib/content/language_data.dart').read_text()
@@ -62,7 +79,7 @@ class RenderVoiceTests(unittest.TestCase):
             app_audio = root / 'assets'
             app_audio.mkdir()
             (app_audio / 'existing.m4a').write_bytes(b'app audio')
-            out = root / 'build/voice-preview/edge/ar-SA-ZariyahNeural/teaching'
+            out = root / 'build/voice-preview/edge' / voice.VOICE / 'teaching'
             out.mkdir(parents=True)
             (out / 'review.txt').write_text('keep this')
             async def fake_render(key, *args):

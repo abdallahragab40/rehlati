@@ -14,6 +14,23 @@ import 'package:rehlati/domain/stages.dart';
 /// لو الاختبار ده فشل بعد تعديل نص: flutter test tool/voice_phrases_test.dart && python3 tool/render_voice.py
 /// بيشتغل بس لما نطق الأسئلة مفتوح (lib/core/features.dart).
 void main() {
+  test('English plays its recordings sentence by sentence, with a pause between', () {
+    final keys = SpeechService.enClipsFor(['Try again', 'B is for Ball'])!;
+    expect(keys, [SpeechService.enKey('Try again'), 'pause', SpeechService.enKey('B is for Ball')]);
+    expect(clipKeys, contains('pause'));
+    expect(SpeechService.enClipsFor('Very good! A sentence nobody recorded.'), isNull, reason: 'one missing → device voice');
+  });
+
+  test('every fixed English line is recorded', () {
+    for (final t in ['Very good!', 'Try again', 'Not this one', 'Hello! Which letter is this?',
+        'This stage is locked. Finish the one before it first.']) {
+      expect(SpeechService.enClipsFor(t), isNotNull, reason: t);
+    }
+    for (final it in enLetters) {
+      expect(SpeechService.enClipsFor('${it.letter} . ${it.word}'), isNotNull, reason: it.letter);
+    }
+  });
+
   test('English is spoken one sentence at a time', () {
     expect(SpeechService.enSentences('cat. Which letter does it start with?'), ['cat.', 'Which letter does it start with?']);
     expect(SpeechService.enSentences('A . Apple'), ['A .', 'Apple']);
@@ -55,6 +72,24 @@ void main() {
       expect(clipKeys, contains(k), reason: 'teaching clip not rendered: $k ($p)');
     }
   });
+
+  // نفس اللي GameEngine بيقوله بالإنجليزي: السؤال، والاختيار + Try again + التلميح، والاختيار + Very good!
+  for (final s in packs.values.where((s) => !s.isLearn && s.isEnglish)) {
+    test('${s.id} English lines are recorded', () {
+      final r = Rng.seeded(s.id.hashCode);
+      for (var lv = 1; lv <= 4; lv++) {
+        for (var i = 0; i < 60; i++) {
+          final q = makeQuestion(s.id, lv, r, progress: ProgressData());
+          expect(SpeechService.enClipsFor(q.speak), isNotNull, reason: q.speak);
+          for (final c in q.choices) {
+            final said = q.choiceSay[c] ?? '$c';
+            expect(SpeechService.enClipsFor([said, 'Try again', q.speakHint ?? '']), isNotNull, reason: '$said / ${q.speakHint}');
+            expect(SpeechService.enClipsFor([q.sayRight ?? said, 'Very good!']), isNotNull, reason: said);
+          }
+        }
+      }
+    });
+  }
 
   for (final s in packs.values.where((s) => !s.isLearn && !s.isEnglish)) {
     test('${s.id} questions are recorded', () {

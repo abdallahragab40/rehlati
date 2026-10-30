@@ -4,6 +4,8 @@
 /// - مقاطع مفاتيح (`n3`، `plus`…) بتتركّب لأسئلة الحساب اللي تركيباتها كتير.
 /// - مقطع لكل جملة كاملة، اسمه [SpeechService.phraseKey] للجملة بعد التنظيف.
 /// - مقاطع تعليم بالفصحى للحروف والمقاطع والكلمات ([teachKey]) — ليها الأولوية على الجملة.
+///
+/// الإنجليزي: مقطع لكل جملة ([SpeechService.enKey]) بصوت Ana، وبينهم وقفة.
 library;
 
 import 'dart:async';
@@ -60,7 +62,7 @@ class SpeechService implements Speech {
   int voiceCount = 0;
   List<String> arVoices = const [];
   String? get arVoiceName => _arVoice == null ? null : '${_arVoice!['name']} (${_arVoice!['locale']})';
-  int get clipCount => clipKeys.length + phraseKeys.length;
+  int get clipCount => clipKeys.length + phraseKeys.length + enPhraseKeys.length;
 
   Future<void> init() async {
     try {
@@ -81,7 +83,7 @@ class SpeechService implements Speech {
     }
   }
 
-  /// صوت الجهاز الاحتياطي: الأقرب للمقاطع المسجّلة (سعودي ← خليجي/شامي/مصري ← أي عربي) وإنجليزي (US ← GB).
+  /// صوت الجهاز الاحتياطي: الأقرب للمقاطع المسجّلة (مصري ← سعودي/خليجي/شامي ← أي عربي) وإنجليزي (US ← GB).
   Future<void> _pickVoices() async {
     final raw = await _tts.getVoices;
     final voices = <Map<String, String>>[
@@ -93,8 +95,8 @@ class SpeechService implements Speech {
     bool loc(Map<String, String> v, String re) => RegExp(re, caseSensitive: false).hasMatch(v['locale']!);
     final ar = voices.where((v) => loc(v, r'^ar')).toList();
     arVoices = [for (final v in ar) '${v['name']} (${v['locale']})'];
-    _arVoice = ar.where((v) => loc(v, r'sa')).firstOrNull ??
-        ar.where((v) => loc(v, r'ae|jo|eg|ma')).firstOrNull ??
+    _arVoice = ar.where((v) => loc(v, r'eg')).firstOrNull ??
+        ar.where((v) => loc(v, r'sa|ae|jo|ma')).firstOrNull ??
         ar.firstOrNull;
     final en = voices.where((v) => loc(v, r'^en')).toList();
     _enVoice = en.where((v) => loc(v, r'us')).firstOrNull ?? en.where((v) => loc(v, r'gb')).firstOrNull ?? en.firstOrNull;
@@ -116,6 +118,25 @@ class SpeechService implements Speech {
     }
     return 'p_${h.toRadixString(16).padLeft(8, '0')}';
   }
+
+  /// مفتاح مقطع جملة إنجليزي: e_ + نفس بصمة [phraseKey].
+  static String enKey(String sentence) => 'e_${phraseKey(sentence).substring(2)}';
+
+  /// المقاطع الإنجليزي جملة جملة وبينهم [pauseKey]، أو null لو أي جملة مالهاش مقطع.
+  static List<String>? enClipsFor(Object text) {
+    final keys = [for (final p in _parts(text)) for (final s in enSentences(p)) enKey(s)];
+    if (keys.isEmpty || !keys.every(enPhraseKeys.contains)) {
+      if (kDebugMode) debugPrint('[voice] no English recording, using TTS: $text');
+      return null;
+    }
+    return [for (final (i, k) in keys.indexed) ...[if (i > 0) pauseKey, k]];
+  }
+
+  /// فاصل السكوت المسجّل (tool/render_voice.py).
+  static const pauseKey = 'pause';
+
+  /// المقاطع الإنجليزي متسجّلة على سرعة "عادي" في الإعدادات.
+  static const enClipSpeed = .85;
 
   /// المقاطع اللي هتتشغّل بالترتيب، أو null لو أي جزء ناقص (ساعتها الجملة كلها بالـ TTS
   /// عشان مايتخلطش صوتين في نفس الجملة).
@@ -164,12 +185,12 @@ class SpeechService implements Speech {
     await _halt();
     if (my != _token) return;
 
-    // الأولوية للمقاطع المسجّلة لو كلها متوفرة — الإنجليزي مالوش مقاطع
-    final keys = lang == 'ar' ? clipsFor(text, clips) : null;
+    // الأولوية للمقاطع المسجّلة لو كلها متوفرة
+    final keys = lang == 'ar' ? clipsFor(text, clips) : enClipsFor(text);
     if (keys != null) {
       try {
         await _clips.setAudioSources([for (final k in keys) AudioSource.asset('assets/audio/clips/$k.m4a')]);
-        await _clips.setSpeed(speed());
+        await _clips.setSpeed(lang == 'ar' ? speed() : enSpeed() / enClipSpeed);
         if (my != _token) return;
         lastEvent = 'مقاطع مسجّلة ✅';
         _speaking.value = true;

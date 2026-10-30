@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-"""يسجّل كل الأصوات العربية للتطبيق بصوت واحد: زارية (ar-SA-ZariyahNeural، Microsoft Neural TTS).
+"""يسجّل كل أصوات التطبيق: العربي بصوت شاكر (ar-EG-ShakirNeural) والإنجليزي بصوت Ana
+(en-US-AnaNeural) — Microsoft Neural TTS. الاختيار ده من العميل (٣٠ أكتوبر ٢٠٢٦).
 
 المصادر:
-  tool/clips.tsv    مقاطع مفاتيح بتتركّب لأسئلة الحساب (n3 + plus + n4 …)
-  tool/phrases.tsv  كل جملة كاملة — بيولّده: flutter test tool/voice_phrases_test.dart
-  tool/teaching.tsv الحروف والمقاطع والكلمات مشكولة بالفصحى (lib/core/audio/teaching.dart)
+  tool/clips.tsv      مقاطع مفاتيح بتتركّب لأسئلة الحساب (n3 + plus + n4 …)
+  tool/phrases.tsv    كل جملة كاملة — بيولّده: flutter test tool/voice_phrases_test.dart
+  tool/teaching.tsv   الحروف والمقاطع والكلمات مشكولة بالفصحى (lib/core/audio/teaching.dart)
+  tool/phrases_en.tsv الإنجليزي جملة جملة — بيولّده نفس الاختبار
+  tool/pronounce.tsv  تشكيل للصوت بس: الكلمة زي ما مكتوبة ← إزاي تتنطق (clips و phrases)
 
 الناتج: assets/audio/clips/<key>.m4a و lib/core/audio/clip_manifest.g.dart.
 المقاطع اللي نصها وصوتها ماتغيروش مابتتسجلش تاني (tool/voice_rendered.tsv).
@@ -13,7 +16,8 @@
 قايمة التسجيل والمواصفات في tool/HUMAN_VOICE_PILOT.md.
 
 الصوت:
-  VOICE=ar-SA-ZariyahNeural (الافتراضي، ست) — نفس الصوت لكل المقاطع
+  VOICE=ar-EG-ShakirNeural (الافتراضي، راجل مصري) — نفس الصوت لكل المقاطع العربي
+  EN_VOICE=en-US-AnaNeural (صوت طفلة) على EN_RATE=-15% = سرعة "عادي" في الإعدادات
   RATE=-5%  — أبطأ سنة عشان الأطفال؛ المقاطع لوحدها بتاخد سرعتها من phrases.tsv.
   من غير تغيير طبقة الصوت: الـ pitch بيخلّي الصوت العصبي يبان آلي
 
@@ -30,6 +34,7 @@ import asyncio
 import hashlib
 import html
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -45,7 +50,9 @@ RECORDINGS = ROOT / 'tool/recordings'
 HUMAN = 'human'
 MANIFEST = ROOT / 'lib/core/audio/clip_manifest.g.dart'
 
-VOICE = os.environ.get('VOICE', 'ar-SA-ZariyahNeural')
+VOICE = os.environ.get('VOICE', 'ar-EG-ShakirNeural')
+EN_VOICE = os.environ.get('EN_VOICE', 'en-US-AnaNeural')
+EN_RATE = os.environ.get('EN_RATE', '-15%')
 RATE = os.environ.get('RATE', '-5%')
 PITCH = os.environ.get('PITCH', '+0Hz')
 AZURE_KEY = os.environ.get('AZURE_SPEECH_KEY')
@@ -65,6 +72,21 @@ def read_tsv(path, cols):
         parts[2:3] = [parts[2] or parts[1]] if cols > 2 else []
         rows.append(parts[:cols])
     return rows
+
+
+def read_lexicon(path):
+    """tool/pronounce.tsv: الكلمة زي ما مكتوبة ← نطقها المشكول."""
+    if not path.exists():
+        return {}
+    return {w: say for w, say in (r[:2] for r in read_tsv(path, 2)) if w and say}
+
+
+_WORD = re.compile('[\u0621-\u0652\u0640]+')
+
+
+def voiced(text, lexicon):
+    """بيبدّل الكلمات اللي مالهاش تشكيل بنطقها من القاموس — الكلمة المشكولة بتفضل زي ما هي."""
+    return _WORD.sub(lambda m: lexicon.get(m.group(), m.group()), text)
 
 
 def ssml(text, rate, voice=None):
@@ -190,16 +212,19 @@ async def main():
         OUT = ROOT / 'build/voice-preview' / ENGINE / VOICE / args.pack
         CACHE = OUT / 'rendered.tsv'
         clips = read_tsv(ROOT / 'tool/teaching.tsv', 4)
-        phrases = []
+        phrases = english = []
     else:
-        clips = read_tsv(ROOT / 'tool/clips.tsv', 4)
+        lexicon = read_lexicon(ROOT / 'tool/pronounce.tsv')
+        clips = [[k, t, voiced(s, lexicon), r] for k, t, s, r in read_tsv(ROOT / 'tool/clips.tsv', 4)]
         phrases_path = ROOT / 'tool/phrases.tsv'
         if not phrases_path.exists():
             sys.exit('tool/phrases.tsv missing — run: flutter test tool/voice_phrases_test.dart')
-        phrases = read_tsv(phrases_path, 4)
+        phrases = [[k, t, voiced(s, lexicon), r] for k, t, s, r in read_tsv(phrases_path, 4)]
         teaching = read_tsv(ROOT / 'tool/teaching.tsv', 4)
+        en_path = ROOT / 'tool/phrases_en.tsv'
+        english = [[k, t, s, EN_RATE] for k, t, s, _ in read_tsv(en_path, 4)] if en_path.exists() else []
     if args.dry_run:
-        rows = clips + phrases + ([] if preview else teaching)
+        rows = clips + phrases + ([] if preview else teaching) + english
         print(f'{ENGINE} · {VOICE} · {len(rows)} clips · {OUT.relative_to(ROOT)}')
         for key, text, spoken, rate in rows:
             print(f'{key}\t{text}\t{spoken}\t{rate or RATE}')
@@ -213,8 +238,9 @@ async def main():
     done = dict(row[:2] for row in read_tsv(CACHE, 2)) if CACHE.exists() else {}
     force = os.environ.get('FORCE') == '1'
     wanted = {}
-    for key, _text, spoken, rate in clips + phrases + ([] if preview else teaching):
-        voice = VOICE
+    en_keys = {k for k, *_ in english}
+    for key, _text, spoken, rate in clips + phrases + ([] if preview else teaching) + english:
+        voice = EN_VOICE if key in en_keys else VOICE
         rate = rate or RATE
         h = hashlib.sha1(f'{PIPELINE}|{ENGINE}|{voice}|{rate}|{PITCH}|{spoken}'.encode()).hexdigest()
         human = None if preview else recording_hash(key)
@@ -226,7 +252,7 @@ async def main():
         (k, s, r, v) for k, (s, r, v, h) in wanted.items()
         if s is not None and (force or done.get(k) != h or not (OUT / f'{k}.m4a').exists())
     ]
-    print(f'{ENGINE} · {VOICE} · {len(todo)} to render of {len(wanted)}')
+    print(f'{ENGINE} · {VOICE} + {EN_VOICE} · {len(todo)} to render of {len(wanted)}')
     sem = asyncio.Semaphore(6)
     with tempfile.TemporaryDirectory() as tmp:
         jobs = [render(k, s, r, tmp, sem, v) for k, s, r, v in todo]
@@ -254,7 +280,9 @@ async def main():
             '// GENERATED by tool/render_voice.py — do not edit.\n'
             "const clipKeys = <String>{\n" + ''.join(f"  '{k}',\n" for k in clip_keys) + '};\n\n'
             "/// مقاطع الجُمل الكاملة: SpeechService.phraseKey(نص الجملة).\n"
-            "const phraseKeys = <String>{\n" + ''.join(f"  '{k}',\n" for k in phrase_keys) + '};\n',
+            "const phraseKeys = <String>{\n" + ''.join(f"  '{k}',\n" for k in phrase_keys) + '};\n\n'
+            "/// مقاطع الإنجليزي جملة جملة: SpeechService.enKey(الجملة).\n"
+            "const enPhraseKeys = <String>{\n" + ''.join(f"  '{k}',\n" for k in sorted(en_keys)) + '};\n',
             encoding='utf-8',
         )
     if preview:

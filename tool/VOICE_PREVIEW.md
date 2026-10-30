@@ -1,6 +1,8 @@
 # Arabic teaching voice previews
 
-Question voice is **on** in the app, with one voice for everything: `ar-SA-ZariyahNeural`.
+Question voice is **on** in the app: Arabic in `ar-EG-ShakirNeural` and English in `en-US-AnaNeural`
+(the client's pick, 30 Oct 2026). Unmarked words in game lines get their voice-only marks from
+`tool/pronounce.tsv`; English sentences come from `tool/phrases_en.tsv`.
 Letters, short syllables and taught words come from the vowelled `teaching.tsv`; instructions
 come from `clips.tsv` and `phrases.tsv`. `python3 tool/render_voice.py` renders all of them
 into `assets/audio/clips/`.
