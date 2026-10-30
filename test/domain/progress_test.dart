@@ -36,7 +36,7 @@ void main() {
       expect(p.unlockNext('counting'), isNull);
       expect(p.unlockNext('subtraction')?.id, 'ordinals'); // بعدها أساسيات الأعداد
       expect(p.unlockNext('wordProblem')?.id, 'position');
-      expect(p.unlockNext('threeNumbers')?.id, 'tensOnes'); // وبعدها الأعداد لحد ١٠٠
+      expect(p.unlockNext('composeShapes')?.id, 'tensOnes'); // وبعدها الأعداد لحد ١٠٠
       expect(p.unlockNext('sub100')?.id, 'hundreds'); // بعدها حساب تانية
       expect(p.unlockNext('barGraph')?.id, 'mulGroups'); // بعدها جدول الضرب
       expect(p.unlockNext('timesAll')?.id, 'moneyCount'); // بعدها الفلوس والساعة

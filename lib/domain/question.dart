@@ -298,6 +298,14 @@ class CoinsVisual extends Visual {
 }
 
 /// رسم بياني بالصور: عمود لكل صورة بعددها.
+/// شكل متقسّم قطع ملوّنة (مثلثات ومربعات). كل قطعة نقط (x, y) على شبكة والـ y لفوق.
+/// [apart] = القطع متفرّقة عن بعض (قبل ما تتجمع).
+class ComposeVisual extends Visual {
+  const ComposeVisual(this.pieces, {this.apart = false});
+  final List<List<(double, double)>> pieces;
+  final bool apart;
+}
+
 /// حاجة جوه مكان أو فوقه أو تحته (in / on / under).
 class PrepVisual extends Visual {
   const PrepVisual(this.thing, this.place, this.prep);

@@ -75,6 +75,8 @@ SchoolLesson _enLetters(List<String> letters) => SchoolLesson('Letters ${letters
       ],
     ]);
 
+// درس لسه مالوش مراحل («قريبًا») — كل دروس أولى وتانية جاهزة دلوقتي، وده للكتب الجاية
+// ignore: unused_element
 SchoolLesson _soon(String title) => SchoolLesson(title, const []);
 
 final schoolBooks = <SchoolBook>[
@@ -186,7 +188,7 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('جمع وطرح الآحاد والعشرات', [_i('add100'), _i('sub100')]),
       SchoolLesson('الأعداد الأكبر من ١٠٠', [_i('hundreds')]),
     ]),
-    SchoolUnit('تكوين أشكال', [_soon('تكوين أشكال')]),
+    SchoolUnit('تكوين أشكال', [SchoolLesson('تكوين أشكال', [_i('composeShapes')])]),
     SchoolUnit('ما الوقت؟', [SchoolLesson('ما الوقت؟', [_i('clockQuarter')])]),
     SchoolUnit('الجمع والطرح', [SchoolLesson('الجمع والطرح', [_i('addition'), _i('subtraction'), _i('wordProblem')])]),
   ]),

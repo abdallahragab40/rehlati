@@ -6,7 +6,10 @@ import 'package:rehlati/domain/progress/progress_data.dart';
 import 'package:rehlati/domain/question.dart';
 
 void main() {
-  final gens = {'position': position, 'threeNumbers': threeNumbers, 'rounding': rounding, 'hundreds': hundreds, 'barGraph': barGraph};
+  final gens = {
+    'position': position, 'threeNumbers': threeNumbers, 'rounding': rounding, 'hundreds': hundreds, 'barGraph': barGraph,
+    'composeShapes': composeShapes,
+  };
 
   for (final MapEntry(key: id, value: gen) in gens.entries) {
     test('$id: one right answer among different choices at every level', () {
@@ -105,5 +108,20 @@ void main() {
       expect(p.isUnlocked(id), isTrue, reason: id);
     }
     expect(p.isUnlocked('threeNumbers'), isFalse, reason: 'opens after position, in order');
+  });
+
+  test('shape figures: the parts text matches the pieces, and pieces apart are the same pieces', () {
+    for (final (pieces, _, parts) in composeFigures) {
+      final tri = pieces.where((p) => p.length == 3).length, sq = pieces.where((p) => p.length == 4).length;
+      final words = {'مثلثين': (2, 0), '٤ مثلثات': (4, 0), 'مربعين': (0, 2), '٣ مربعات': (0, 3), 'مربع ومثلث': (1, 1)};
+      expect(words[parts], (tri, sq), reason: parts);
+    }
+    final r = Rng.seeded(14);
+    for (var i = 0; i < 200; i++) {
+      final q = composeShapes(3, r);
+      final v = q.visuals.single as ComposeVisual;
+      if (q.ask.startsWith('كام')) expect(q.answer, v.pieces.length);
+      expect(v.apart, q.ask.startsWith('القطع'));
+    }
   });
 }

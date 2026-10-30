@@ -222,6 +222,70 @@ class PicGraphView extends StatelessWidget {
   }
 }
 
+// ---------------------------------------------------------------- 🔺 تكوين أشكال
+
+/// القطع ملوّنة بحدود واضحة. متفرّقة: كل قطعة بتتزق بعيد عن نص الشكل.
+class ComposeView extends StatelessWidget {
+  const ComposeView(this.v, {super.key});
+  final ComposeVisual v;
+
+  @override
+  Widget build(BuildContext context) {
+    final side = context.clampVw(200, 50, 240);
+    return Center(
+      child: Semantics(
+        label: 'شكل من ${ar(v.pieces.length)} قطع',
+        child: CustomPaint(size: Size(side, side * .85), painter: _ComposePainter(v)),
+      ),
+    );
+  }
+}
+
+class _ComposePainter extends CustomPainter {
+  _ComposePainter(this.v);
+  final ComposeVisual v;
+
+  static const _fills = [Color(0xFFFFC44D), Color(0xFF6EC6FF), Color(0xFFFF8A80), Color(0xFF9CDB6B), Color(0xFFC59BFF)];
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final all = [for (final p in v.pieces) ...p];
+    final minX = all.map((p) => p.$1).reduce(math.min), maxX = all.map((p) => p.$1).reduce(math.max);
+    final minY = all.map((p) => p.$2).reduce(math.min), maxY = all.map((p) => p.$2).reduce(math.max);
+    final cx = (minX + maxX) / 2, cy = (minY + maxY) / 2;
+    // التفريق: كل قطعة بتبعد عن النص بنسبة من حجم الشكل
+    final gap = v.apart ? .35 * math.max(maxX - minX, maxY - minY) : 0.0;
+    List<(double, double)> moved(List<(double, double)> piece) {
+      if (gap == 0) return piece;
+      final px = piece.map((p) => p.$1).reduce((a, b) => a + b) / piece.length;
+      final py = piece.map((p) => p.$2).reduce((a, b) => a + b) / piece.length;
+      final dx = px - cx, dy = py - cy, d = math.sqrt(dx * dx + dy * dy);
+      return d == 0 ? piece : [for (final p in piece) (p.$1 + dx / d * gap, p.$2 + dy / d * gap)];
+    }
+
+    final pieces = [for (final p in v.pieces) moved(p)];
+    final pts = [for (final p in pieces) ...p];
+    final x0 = pts.map((p) => p.$1).reduce(math.min), x1 = pts.map((p) => p.$1).reduce(math.max);
+    final y0 = pts.map((p) => p.$2).reduce(math.min), y1 = pts.map((p) => p.$2).reduce(math.max);
+    final scale = math.min((size.width - 16) / (x1 - x0), (size.height - 16) / (y1 - y0));
+    final ox = (size.width - (x1 - x0) * scale) / 2, oy = (size.height - (y1 - y0) * scale) / 2;
+    Offset at((double, double) p) => Offset(ox + (p.$1 - x0) * scale, size.height - oy - (p.$2 - y0) * scale);
+    final border = Paint()
+      ..color = AppColors.ink
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 3
+      ..strokeJoin = StrokeJoin.round;
+    for (final (i, piece) in pieces.indexed) {
+      final path = Path()..addPolygon([for (final p in piece) at(p)], true);
+      canvas.drawPath(path, Paint()..color = _fills[i % _fills.length]);
+      canvas.drawPath(path, border);
+    }
+  }
+
+  @override
+  bool shouldRepaint(_ComposePainter old) => old.v != v;
+}
+
 // ---------------------------------------------------------------- 📦 in / on / under
 
 /// الحاجة جوه المكان (نصها التحتاني ورا المكان)، أو فوقه لازقة فيه، أو تحته.

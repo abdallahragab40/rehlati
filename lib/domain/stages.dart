@@ -407,6 +407,7 @@ final _mathBasics = _grp('math', 'basics', 'أساسيات الأعداد', 0xFF
 final _math1 = _grp('math', 'math1', 'حساب أولى ابتدائي', 0xFF7A5CFF, [
   ('position', '↔️', 'من اليمين ومن الشمال', 1, position),
   ('threeNumbers', '🧮', 'حساب ثلاثة أعداد', 2, threeNumbers),
+  ('composeShapes', '🧩', 'تكوين أشكال', 1, composeShapes),
 ], after: 'wordProblem');
 
 /// حساب تانية ابتدائي (الترم الأول) من كتاب الوزارة — بعد الجمع لحد ١٠٠.

@@ -277,3 +277,56 @@ Question barGraph(int lv, Rng r, {String? focus}) {
     hint: 'اطرح: ${ar(hi.$2)} − ${ar(lo.$2)} ➖', speakHint: 'اطرح العمود الصغير من الكبير',
   );
 }
+
+// ---------------------------------------------------------------- تكوين أشكال
+
+/// شكل متكوّن من قطع: (القطع، اسم الشكل، القطع بالكلام). النقط على شبكة والـ y لفوق.
+const composeFigures = [
+  ([[(0.0, 0.0), (2.0, 0.0), (0.0, 2.0)], [(2.0, 0.0), (2.0, 2.0), (0.0, 2.0)]], 'مربع', 'مثلثين'),
+  ([[(0.0, 0.0), (2.0, 0.0), (1.0, 1.0)], [(2.0, 0.0), (2.0, 2.0), (1.0, 1.0)], [(2.0, 2.0), (0.0, 2.0), (1.0, 1.0)], [(0.0, 2.0), (0.0, 0.0), (1.0, 1.0)]], 'مربع', '٤ مثلثات'),
+  ([[(0.0, 0.0), (2.0, 0.0), (2.0, 2.0), (0.0, 2.0)], [(2.0, 0.0), (4.0, 0.0), (4.0, 2.0), (2.0, 2.0)]], 'مستطيل', 'مربعين'),
+  ([[(0.0, 0.0), (2.0, 0.0), (2.0, 2.0), (0.0, 2.0)], [(2.0, 0.0), (4.0, 0.0), (4.0, 2.0), (2.0, 2.0)], [(4.0, 0.0), (6.0, 0.0), (6.0, 2.0), (4.0, 2.0)]], 'مستطيل', '٣ مربعات'),
+  ([[(0.0, 0.0), (2.0, 0.0), (0.0, 2.0)], [(2.0, 0.0), (2.0, 2.0), (0.0, 2.0)], [(2.0, 0.0), (4.0, 0.0), (2.0, 2.0)], [(4.0, 0.0), (4.0, 2.0), (2.0, 2.0)]], 'مستطيل', '٤ مثلثات'),
+  ([[(0.0, 0.0), (2.0, 0.0), (0.0, 2.0)], [(2.0, 0.0), (4.0, 0.0), (2.0, 2.0)], [(0.0, 2.0), (2.0, 2.0), (0.0, 4.0)], [(2.0, 0.0), (2.0, 2.0), (0.0, 2.0)]], 'مثلث', '٤ مثلثات'),
+  ([[(0.0, 0.0), (2.0, 0.0), (2.0, 2.0)], [(2.0, 0.0), (4.0, 0.0), (2.0, 2.0)]], 'مثلث', 'مثلثين'),
+  ([[(0.0, 0.0), (2.0, 0.0), (2.0, 2.0), (0.0, 2.0)], [(0.0, 2.0), (2.0, 2.0), (1.0, 3.3)]], 'بيت', 'مربع ومثلث'),
+];
+
+/// كام قطعة عملت الشكل؟ القطع دي تعمل أنهي شكل؟ ومن المستوى التاني: الشكل اتعمل من إيه؟
+Question composeShapes(int lv, Rng r, {String? focus}) {
+  final pool = lv <= 1 ? composeFigures.where((f) => f.$1.length <= 3).toList() : composeFigures;
+  final (pieces, name, parts) = r.sample(pool);
+  final kind = lv <= 1 ? r.rnd(0, 1) : r.rnd(0, 2);
+  if (kind == 0) {
+    const ask = 'كام قطعة عملت الشكل ده؟';
+    return Question(
+      type: 'composeShapes', mode: QMode.choice, skill: 'compose:count',
+      ask: ask, speak: ask, clips: [say(ask)],
+      visuals: [ComposeVisual(pieces)],
+      choices: r.numberChoices(pieces.length, 3, 2, 5), answer: pieces.length,
+      hint: 'عُدّ كل لون لوحده 🎨', speakHint: 'عد كل لون لوحده', clipsHint: [say('عد كل لون لوحده')],
+    );
+  }
+  if (kind == 1) {
+    const ask = 'القطع دي لو اتجمعت تعمل أنهي شكل؟';
+    final others = r.shuffle(['مربع', 'مستطيل', 'مثلث', 'بيت'].where((x) => x != name).toList()).take(2);
+    return Question(
+      type: 'composeShapes', mode: QMode.choice, skill: 'compose:make', numeric: false,
+      ask: ask, speak: ask, clips: [say(ask)],
+      visuals: [ComposeVisual(pieces, apart: true)],
+      choices: r.shuffle([name, ...others]), answer: name,
+      hint: 'تخيّل القطع بتقرّب من بعض لحد ما تلزق 🧩', speakHint: 'تخيل القطع بتقرب من بعض لحد ما تلزق',
+      clipsHint: [say('تخيل القطع بتقرب من بعض لحد ما تلزق')],
+    );
+  }
+  const ask = 'الشكل ده اتعمل من إيه؟';
+  final others = r.shuffle({for (final f in composeFigures) f.$3}.where((x) => x != parts).toList()).take(2);
+  return Question(
+    type: 'composeShapes', mode: QMode.choice, skill: 'compose:parts', numeric: false,
+    ask: ask, speak: ask, clips: [say(ask)],
+    visuals: [ComposeVisual(pieces)],
+    choices: r.shuffle([parts, ...others]), answer: parts,
+    hint: 'بص على كل لون: مثلث ولا مربع؟ وعُدّهم 🔺🟦', speakHint: 'بص على كل لون، مثلث ولا مربع، وعدهم',
+    clipsHint: [say('بص على كل لون، مثلث ولا مربع، وعدهم')],
+  );
+}
