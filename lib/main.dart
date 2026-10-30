@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app.dart';
 import 'content/quran_config.dart';
+import 'core/audio/asset_cache.dart';
 import 'core/audio/audio_providers.dart';
 import 'core/audio/music_service.dart';
 import 'core/audio/sfx_service.dart';
@@ -64,6 +65,8 @@ Future<void> main() async {
     sfxProvider.overrideWithValue(sfx),
     musicProvider.overrideWithValue(music),
   ]);
+  // قبل أي صوت: مقاطع اتسجّلت تاني ماتتسمعش بنسختها القديمة من الكاش
+  await refreshAudioAssetCache();
   await Future.wait([speech.init(), sfx.init()]);
   unawaited(music.init());
 
