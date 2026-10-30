@@ -33,6 +33,7 @@ const gameWord = (one: 'لعبة واحدة', two: 'لعبتين', few: 'ألع�
 const timesWord = (one: 'مرة واحدة', two: 'مرتين', few: 'مرات', many: 'مرة');
 const stampWord = (one: 'ختم واحد', two: 'ختمين', few: 'أختام', many: 'ختم');
 const pieceWord = (one: 'قطعة واحدة', two: 'قطعتين', few: 'قطع', many: 'قطعة');
+const worldWord = (one: 'عالم واحد', two: 'عالمين', few: 'عوالم', many: 'عالم');
 const situationWord = (one: 'موقف واحد', two: 'موقفين', few: 'مواقف', many: 'موقف');
 const damagedFileWord = (one: 'ملف تالف', two: 'ملفين تالفين', few: 'ملفات تالفة', many: 'ملف تالف');
 

@@ -69,8 +69,8 @@ String? teachKey(String part) {
 
 final _pictureWords = {for (final l in arLetters) l.word: 'l_${_slug[l.letter]}_word'};
 
-/// لوحة الحروف: الاسم، صوته بالفتحة والضمة والكسرة، وبعدين الكلمة — "باء … بَ بُ بِ … بطة".
+/// لوحة الحروف: الاسم وبعدين الكلمة — "باء … بطة". الحركات ليها مراحلها لوحدها.
 List<String> letterLesson(Letter l) {
   final s = _slug[l.letter]!;
-  return ['l_${s}_name', 'pause', 'l_${s}_fatha', 'l_${s}_damma', 'l_${s}_kasra', 'pause', 'l_${s}_word'];
+  return ['l_${s}_name', 'pause', 'l_${s}_word'];
 }

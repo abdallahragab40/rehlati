@@ -7,6 +7,7 @@ library;
 import 'dart:async';
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../content/math_data.dart';
@@ -208,6 +209,7 @@ class GameSession {
 
 class GameEngine extends Notifier<GameSession?> {
   final _timers = <Timer>[];
+  (ValueListenable<bool>, VoidCallback)? _speechWait;
   final _fx = StreamController<GameFx>.broadcast();
 
   Stream<GameFx> get fx => _fx.stream;
@@ -249,6 +251,36 @@ class GameEngine extends Notifier<GameSession?> {
       t.cancel();
     }
     _timers.clear();
+    if (_speechWait case (final speaking, final listener)) speaking.removeListener(listener);
+    _speechWait = null;
+  }
+
+  /// أقصى وقت بنستنى فيه الكلام يخلص قبل السؤال الجاي، والسكتة بعده.
+  static const speechWaitMaxMs = 7000, speechGapMs = 300;
+
+  /// [f] بعد [ms] على الأقل، وبعد ما الكلام اللي شغّال (المدح أو الشرح) يخلص —
+  /// عشان السؤال الجاي مايقطعهوش في النص.
+  void _afterSpeech(int ms, void Function() f) {
+    _later(ms, () {
+      final speaking = _speech.speaking;
+      if (!speaking.value) return f();
+      var fired = false;
+      void go() {
+        if (fired) return;
+        fired = true;
+        if (_speechWait case (final sp, final l)) sp.removeListener(l);
+        _speechWait = null;
+        f();
+      }
+
+      void listener() {
+        if (!speaking.value) _later(speechGapMs, go);
+      }
+
+      speaking.addListener(listener);
+      _speechWait = (speaking, listener);
+      _later(speechWaitMaxMs, go);
+    });
   }
 
   // ------------------------------------------------------------------ الجولة
@@ -375,7 +407,7 @@ class GameEngine extends Notifier<GameSession?> {
     _emit();
     _fx.add(FxCorrect(anchor, firstTry: first, streak: s.streak));
     if (playSfx) (first && s.streak >= 3) ? _sfx.combo() : _sfx.good();
-    _later(delay, _next);
+    _afterSpeech(delay, _next);
   }
 
   void _wrongUi(Question q, String? anchor, {bool allowHint = true}) {

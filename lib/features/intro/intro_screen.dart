@@ -27,6 +27,16 @@ class IntroController extends Notifier<bool> {
     state = true;
     await ref.read(sharedPrefsProvider).setBool(key, true);
   }
+
+  /// رجع من شاشة الاسم والعمر: true لو كان جاي من ترحيب ولي الأمر، false من "مين معانا؟".
+  bool? backedAsParent;
+
+  Future<void> back() async {
+    backedAsParent = ref.read(parentSetupProvider);
+    ref.read(parentSetupProvider.notifier).set(false);
+    state = false;
+    await ref.read(sharedPrefsProvider).remove(key);
+  }
 }
 
 final introSeenProvider = NotifierProvider<IntroController, bool>(IntroController.new);
@@ -55,7 +65,15 @@ class _IntroScreenState extends ConsumerState<IntroScreen> {
   static const _count = 3;
   final _pages = PageController();
   int _page = 0;
-  _Step _step = _Step.slides;
+  late _Step _step = _resumeStep();
+
+  /// راجع من شاشة الاسم والعمر: يرجع للخطوة اللي كان فيها بدل الترحيب من الأول.
+  _Step _resumeStep() {
+    final intro = ref.read(introSeenProvider.notifier);
+    final parent = intro.backedAsParent;
+    intro.backedAsParent = null;
+    return parent == null ? _Step.slides : (parent ? _Step.parent : _Step.role);
+  }
 
   @override
   void dispose() {
@@ -91,7 +109,10 @@ class _IntroScreenState extends ConsumerState<IntroScreen> {
       },
       child: switch (_step) {
         _Step.slides => _slides(context),
-        _Step.role => _RoleChoice(onParent: _asParent, onKid: () => ref.read(introSeenProvider.notifier).done()),
+        _Step.role => _RoleChoice(
+          onParent: _asParent,
+          onKid: () => ref.read(introSeenProvider.notifier).done(),
+        ),
         _Step.parent => _ParentWelcome(onAdd: _addChild, onBack: () => setState(() => _step = _Step.role)),
       },
     );
@@ -474,7 +495,9 @@ class _ParentWelcome extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: kidText(13.5, weight: FontWeight.w600, color: AppColors.inkSoft, height: 1.6),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 12),
+              KidButton('✨ شوف كل المميزات', kind: BtnKind.ghost, onTap: () => showAllFeatures(context)),
+              const SizedBox(height: 8),
               KidButton('➕ ضيف طفلك', kind: BtnKind.go, onTap: onAdd),
               const SizedBox(height: 6),
               KidButton('رجوع', kind: BtnKind.ghost, onTap: onBack),
@@ -485,6 +508,82 @@ class _ParentWelcome extends StatelessWidget {
     );
   }
 }
+
+/// كل اللي في التطبيق، للطفل ولولي الأمر — من ترحيب ولي الأمر قبل ما يضيف طفله.
+Future<void> showAllFeatures(BuildContext context) => showDialog<void>(
+  context: context,
+  barrierColor: const Color(0x8C0C1C30),
+  builder: (c) {
+    final body = kidText(14.5, weight: FontWeight.w600, height: 1.55);
+    Widget point(String icon, String text) => Padding(
+      padding: const EdgeInsets.only(bottom: 9),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(width: 32, child: Text(icon, style: const TextStyle(fontSize: 20))),
+          Expanded(child: Text(text, style: body)),
+        ],
+      ),
+    );
+    Widget head(String t) => Padding(
+      padding: const EdgeInsets.only(top: 6, bottom: 10),
+      child: Text(t, style: kidText(19, color: AppColors.grape)),
+    );
+    return Dialog(
+      backgroundColor: AppColors.paper,
+      insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 28),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 520),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(18, 18, 18, 4),
+              child: Text('✨ كل المميزات', textAlign: TextAlign.center, style: kidText(24)),
+            ),
+            Flexible(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(18, 6, 18, 6),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    head('🦁 للطفل'),
+                    point('🌍', '${countOf(worlds.length, worldWord)}: ${worlds.map((w) => w.name).join('، ')}.'),
+                    point('🎚️', 'الأسئلة على قد سنه، وبتصعب أو تسهل لوحدها حسب إجاباته.'),
+                    point('🧭', 'رحلة النهاردة: خطة قصيرة كل يوم من المراحل اللي محتاجها.'),
+                    point('🎒', 'مسارات تعلّم بأهداف كل أسبوع: القراءة الأولى، الأرقام، جدول الضرب، الفلوس والساعة، والإنجليزي.'),
+                    point('📖', 'القرآن بأصوات قرّاء حقيقيين: استماع وترديد وحفظ ومراجعة و«كمّل الآية»، وسرعة أهدى للصغيرين.'),
+                    point('🔤', 'الحروف بصوت واضح، ومن التشكيل الكامل لحد القراءة من غير تشكيل.'),
+                    point('✍️', 'رسم الحروف والأرقام بالصباع.'),
+                    point('🛂', 'جواز رحلتي: أختام لكل عالم، ونجوم وكؤوس مع كل تقدّم.'),
+                    head('👨‍👩‍👦 لولي الأمر'),
+                    point('📅', 'تقرير الأسبوع، وتقدر تبعته صورة على واتساب.'),
+                    point('🏅', 'شهادات لما يحفظ سورة أو يخلص مسار أو يتقن عالم.'),
+                    point('📝', 'ورقة عمل للطباعة في المهارات اللي محتاجة تدريب، والإجابات تحت.'),
+                    point('🧠', 'المهارات اللي محتاجة تدريب والسور اللي محتاجة مراجعة.'),
+                    point('🎯', 'اختبار تحديد المستوى لكل مادة، والسنة الدراسية ومستوى البداية.'),
+                    point('🎙️', 'صوت ماما وبابا: سجّل الحروف والأرقام بصوتك والتطبيق يقولها بيه.'),
+                    point('⏳', 'وقت اللعب في اليوم، وتذكير يومي.'),
+                    point('👧', 'أكتر من طفل على نفس الجهاز، كل واحد بتقدّمه.'),
+                    point('❤️', 'دليل التربية الهادية: تتصرّف إزاي لما طفلك يضرب أو يعند أو يعيط.'),
+                    point('📥', 'القرآن يشتغل من غير نت، ونسخة احتياطية من التقدّم.'),
+                    point('🔒', 'من غير حساب ولا تسجيل دخول، وكل البيانات على الجهاز ده بس.'),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(18, 6, 18, 18),
+              child: KidButton('تمام', kind: BtnKind.primary, onTap: () => Navigator.of(c).pop()),
+            ),
+          ],
+        ),
+      ),
+    );
+  },
+);
 
 /// نقط الصفحات — الحالية أعرض.
 class _Dots extends StatelessWidget {

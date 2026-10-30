@@ -110,6 +110,8 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
   Widget build(BuildContext context) {
     final siblings = ref.watch(childrenProvider).length;
     return ScreenFrame(
+      // أول طفل: يرجع لـ"مين معانا؟" (الأخ التاني ليه زرار إلغاء تحت)
+      onBack: siblings > 1 ? null : () => ref.read(introSeenProvider.notifier).back(),
       child: Column(children: [
         const SizedBox(height: 10),
         const Banner3D('رحلتي التعليمية'),
@@ -149,14 +151,28 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
               textAlign: TextAlign.center,
               maxLength: 20,
               style: kidText(22),
+              // المثال كان بيتقري كأنه اسم مكتوب والناس بتحاول تمسحه — فالخانة شكلها خانة كتابة
+              // والكلام اللي جواها باهت، والمثال تحتها
               decoration: InputDecoration(
-                hintText: 'مثلاً: يوسف',
+                hintText: 'اكتب الاسم هنا',
+                hintStyle: kidText(18, weight: FontWeight.w500, color: AppColors.inkSoft.withValues(alpha: .45)),
+                prefixIcon: const Icon(Icons.edit_rounded, color: AppColors.inkSoft),
                 counterText: '',
                 filled: true,
-                fillColor: AppColors.paper2,
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(18), borderSide: BorderSide.none),
+                fillColor: Colors.white,
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(18),
+                  borderSide: const BorderSide(color: AppColors.line, width: 2),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(18),
+                  borderSide: const BorderSide(color: AppColors.grape, width: 2.5),
+                ),
               ),
             ),
+            const SizedBox(height: 4),
+            Text('مثلاً: يوسف أو مريم',
+                textAlign: TextAlign.center, style: kidText(13, weight: FontWeight.w600, color: AppColors.inkSoft)),
             const SizedBox(height: 16),
             Text('عنده كام سنة؟', style: kidText(17)),
             const SizedBox(height: 8),

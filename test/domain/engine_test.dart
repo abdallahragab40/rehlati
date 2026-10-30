@@ -63,6 +63,20 @@ void main() {
     expect(c.read(gameProvider)!.idx, 1);
   });
 
+  test('the next question waits for the praise to finish speaking', () async {
+    final c = await makeContainer();
+    final speech = c.read(speechProvider) as FakeSpeech;
+    final engine = c.read(gameProvider.notifier)..start('counting');
+    speech.speaking.value = true;
+    engine.answer(correctIndex(c.read(gameProvider)!.q));
+
+    await Future<void>.delayed(const Duration(milliseconds: 1600));
+    expect(c.read(gameProvider)!.idx, 0, reason: 'still speaking');
+    speech.speaking.value = false;
+    await Future<void>.delayed(const Duration(milliseconds: GameEngine.speechGapMs + 50));
+    expect(c.read(gameProvider)!.idx, 1);
+  });
+
   test('two wrong tries highlight the answer and give no star', () async {
     final c = await makeContainer();
     final engine = c.read(gameProvider.notifier)..start('counting');
