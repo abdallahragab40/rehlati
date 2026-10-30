@@ -75,8 +75,7 @@ SchoolLesson _enLetters(List<String> letters) => SchoolLesson('Letters ${letters
       ],
     ]);
 
-// درس لسه مالوش مراحل («قريبًا») — كل دروس أولى وتانية جاهزة دلوقتي، وده للكتب الجاية
-// ignore: unused_element
+// درس لسه مالوش مراحل («قريبًا»).
 SchoolLesson _soon(String title) => SchoolLesson(title, const []);
 
 final schoolBooks = <SchoolBook>[
@@ -305,5 +304,115 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('The Pyramids', [_i('en_reading', 'The Pyramids')]),
       SchoolLesson('Counting to 100', [_i('en_count100', 'to100')]),
     ]),
+  ]),
+  // ---------------------------------------------------------------- تالتة ابتدائي (من غير مراحل جديدة لسه)
+  SchoolBook('p3', 1, 'arabic', [
+    SchoolUnit('العمل والأمل', [
+      SchoolLesson('أدوات الاستفهام', [_i('ar_style', 'istifham')]),
+      SchoolLesson('المقاطع الصوتية', [_i('ar_analyze'), _i('ar_syllable')]),
+      _soon('هؤلاء – أولئك'),
+    ]),
+    SchoolUnit('صفاتي الجميلة', [
+      SchoolLesson('المفرد والمثنى والجمع', [_i('ar_number')]),
+      SchoolLesson('التنوين', [_i('ar_tanween'), _i('ar_marks')]),
+      _soon('أسلوب النفي (لم – لن)'),
+    ]),
+    SchoolUnit('أحب بلدي', [
+      _soon('حروف الجر (عن – على)'),
+      SchoolLesson('التاء المفتوحة والمربوطة', [_i('ar_taa')]),
+      _soon('حروف العطف (ثم – ف)'),
+    ]),
+  ]),
+  SchoolBook('p3', 2, 'arabic', [
+    SchoolUnit('قصص من بلادي', [
+      SchoolLesson('أنواع الجمع', [_i('ar_number')]),
+      _soon('علامات الترقيم'),
+      SchoolLesson('أنواع الكلمة', [_i('ar_wordType')]),
+    ]),
+    SchoolUnit('أخلاق جميلة', [
+      SchoolLesson('أنواع الفعل', [_i('ar_tense'), _i('ar_command')]),
+      _soon('الهمزة المتطرفة بعد المد'),
+    ]),
+    SchoolUnit('كل منا له دور', [
+      _soon('الجملة الاسمية والجملة الفعلية'),
+      SchoolLesson('المقاطع الصوتية', [_i('ar_analyze'), _i('ar_syllable')]),
+      SchoolLesson('الأسماء الموصولة', [_i('ar_relative')]),
+    ]),
+  ]),
+  SchoolBook('p3', 1, 'math', [
+    SchoolUnit('الأنماط والبيانات والقياس', [
+      SchoolLesson('الأنماط', [_i('sequence'), _i('skipCount')]),
+      SchoolLesson('التمثيل البياني بالأعمدة', [_i('barGraph')]),
+      _soon('التمثيل البياني بالنقاط'),
+      SchoolLesson('قياس الأطوال', [_i('measure')]),
+    ]),
+    SchoolUnit('الآلاف والضرب', [
+      _soon('الآلاف'),
+      SchoolLesson('المصفوفات ومفهوم الضرب', [_i('mulGroups')]),
+      SchoolLesson('خاصية الإبدال في الضرب', [_i('times2510')]),
+    ]),
+    SchoolUnit('الضرب والقسمة والوقت', [
+      SchoolLesson('مضاعفات ٢ و٣ و٤', [_i('times2510'), _i('times34')]),
+      SchoolLesson('مضاعفات ٥ و١٠', [_i('times2510')]),
+      SchoolLesson('الوقت', [_i('clockQuarter')]),
+      SchoolLesson('مفهوم القسمة', [_i('divisionExact')]),
+      SchoolLesson('العلاقة بين الضرب والقسمة', [_i('divisionMissing')]),
+    ]),
+    SchoolUnit('المضلعات والمساحة', [
+      SchoolLesson('المضلعات والأشكال الرباعية', [_i('geometry')]),
+      _soon('المساحة'),
+    ]),
+    SchoolUnit('المحيط والمساحة', [_soon('المحيط والمساحة'), _soon('الضرب في مضاعفات ١٠')]),
+    SchoolUnit('استراتيجيات الضرب والجمع والطرح', [
+      SchoolLesson('الضرب في ٩', [_i('times6789')]),
+      SchoolLesson('مقارنة وترتيب الأعداد', [_i('hundreds')]),
+      SchoolLesson('الجمع والطرح', [_i('add100'), _i('sub100')]),
+      SchoolLesson('السعة', [_i('measure')]),
+    ]),
+  ]),
+  SchoolBook('p3', 2, 'math', [
+    SchoolUnit('خواص الضرب', [
+      _soon('خاصية التجميع والتوزيع'),
+      _soon('تقدير ناتج الضرب'),
+      SchoolLesson('الضرب والقسمة', [_i('timesAll'), _i('divisionExact')]),
+      _soon('محيط المربع والمستطيل'),
+      SchoolLesson('مسائل كلامية', [_i('wordProblem')]),
+    ]),
+    SchoolUnit('الكسور', [SchoolLesson('كسور الوحدة', [_i('fractionOfNumber')])]),
+    SchoolUnit('الكسور على خط الأعداد', [SchoolLesson('مقارنة الكسور', [_i('fractionEquivalent')])]),
+    SchoolUnit('الكسور المتكافئة والقسمة', [
+      SchoolLesson('الكسور المتكافئة', [_i('fractionEquivalent')]),
+      SchoolLesson('القسمة', [_i('divisionExact'), _i('divisionMissing')]),
+    ]),
+    SchoolUnit('حقائق الضرب والمحيط والمساحة', [
+      SchoolLesson('حقائق الضرب', [_i('timesAll')]),
+      _soon('المحيط والمساحة'),
+    ]),
+    SchoolUnit('الكسور والوقت والبيانات', [
+      SchoolLesson('تكوين أنصاف', [_i('fractionOfNumber')]),
+      SchoolLesson('الوقت المنقضي', [_i('clockQuarter')]),
+      SchoolLesson('التمثيلات البيانية', [_i('barGraph')]),
+    ]),
+  ]),
+  SchoolBook('p3', 1, 'english', [
+    SchoolUnit("Let's Learn Together!", [
+      SchoolLesson('Greetings', [_i('en_phrases')]),
+      SchoolLesson('I am, you are, he is', [_i('en_isare')]),
+    ]),
+    SchoolUnit('My Family and I', [SchoolLesson('Family', [_i('en_family')]), _soon('my, his, her')]),
+    SchoolUnit('New Adventures', [
+      SchoolLesson('Places', [_i('en_places')]),
+      SchoolLesson('in, on, under', [_i('en_prep')]),
+      _soon('Past tense: walked, played'),
+    ]),
+    SchoolUnit("Let's Tell Stories!", [SchoolLesson('Feelings', [_i('en_feelings')]), _soon('Past simple stories')]),
+    SchoolUnit('Together Is Better', [SchoolLesson('Actions', [_i('en_actions')])]),
+  ]),
+  SchoolBook('p3', 2, 'english', [
+    SchoolUnit('Safety', [_soon("Stop! Don't touch!"), SchoolLesson('Blends sl, st, gr, tr', [_i('en_sounds', 'blendS')])]),
+    SchoolUnit('Food and Health', [SchoolLesson('a, an', [_i('en_a_an')]), _soon('Food words')]),
+    SchoolUnit('Heroes Around Us', [SchoolLesson('Magic e', [_i('en_sounds', 'long')])]),
+    SchoolUnit('Living with Technology', [_soon('and, or, but')]),
+    SchoolUnit('Animals & Habitats', [SchoolLesson('Animals', [_i('en_animals')]), _soon("can, can't")]),
   ]),
 ];
