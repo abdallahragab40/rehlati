@@ -2,8 +2,11 @@
 e_c40bf6cc	A
 e_386cfa9e	A .
 e_bfb6a185	A and a are the same letter
+e_0b430e62	A bus
+e_5039030a	A camel
 e_80a44c68	A cat
 e_43187823	A fish lives in water.
+e_9907e181	A horse
 e_e1a502d8	A house
 e_fa85a2f3	A is for Apple
 e_3fb5dc76	A rainbow
@@ -133,6 +136,8 @@ e_897d4abc	Complete the word Watch
 e_32342911	Complete the word Xylophone
 e_f121030c	Complete the word Yacht
 e_155356eb	Complete the word Zebra
+e_af6cf693	Count by tens
+e_3212fc31	Count one more
 e_5a1873f0	Cow
 e_3bc9bc35	Cows give us milk.
 e_c10bf213	D
@@ -242,13 +247,19 @@ e_44e67b40	Hand
 e_41bda2f1	Happy
 e_5549af62	Hat
 e_8efef4a4	Hat.
+e_5beb31d6	He
 e_7ca37edd	He does not like them
+e_51663390	He is a boy, she is a girl, it is an animal or a thing, they are more than one
+e_58ab8e4e	He is happy.
 e_94a998a4	He is my brother.
+e_124be4e2	He is my grandfather.
 e_b6e00083	Heart
 e_f55c314b	Hello
 e_aa21c9de	Hello!
+e_6c31faf5	Her dad
 e_e020e2dc	Her friend
 e_280b0fe5	Her grandmother
+e_229c2833	Her mom
 e_4c404192	Her teacher
 e_52f50eae	Home
 e_41465646	Horse
@@ -264,7 +275,9 @@ e_4d62bdfa	How old are you?
 e_7436c554	How old is Adam?
 e_cc0c0364	I
 e_9f03e186	I .
+e_d5420724	I am a student.
 e_22692a83	I am hungry.
+e_47d7616b	I am seven.
 e_d337b408	I am ten years old.
 e_8200b505	I and i are the same letter
 e_548d43c4	I drink milk every morning.
@@ -282,6 +295,7 @@ e_11a63260	In is inside.
 e_96ee518c	In winter it is cold.
 e_b22ec4de	Is it a or an?
 e_5d3f731c	Is it in, on or under?
+e_46e8d230	It
 e_a99e438c	It is Baby
 e_e5be4cd6	It is Bear
 e_2565b9b3	It is Bird
@@ -345,7 +359,9 @@ e_9dbdde82	It is Two
 e_d5078c67	It is Water
 e_e3db3fc5	It is White
 e_b008e7e0	It is Yellow
+e_885230e7	It is a cat.
 e_4875c5dc	It is hot today.
+e_88e10c43	It is small.
 e_a3368609	It is time to sleep.
 e_73bde0d9	It is under the table.
 e_a395393b	It was raining
@@ -416,6 +432,7 @@ e_730af99f	Lion
 e_bf9f4dc8	Lion starts with L
 e_cb4711a3	Lion.
 e_429a0e54	Listen again.
+e_8059846b	Listen to the end of the word.
 e_6988eb3a	Look at the picture and read each word
 e_bdc92908	Look at the picture.
 e_cf344048	Look.
@@ -510,10 +527,14 @@ e_5926e4c8	Say each sound slowly
 e_4edd4b69	Say it slowly.
 e_0ad5c96a	Say the alphabet from A until you reach the empty box
 e_7cb24c30	Say the sounds faster.
+e_7554ef78	Say the tens first, then the ones
 e_15001d4d	Say them in order
 e_e7df7fe9	School
 e_c212b600	September
 e_db3f1e9e	Seven
+e_4bb89181	She
+e_a410f038	She is my grandmother.
+e_6161e4e1	She is tired.
 e_f644bc97	She was ill
 e_b0020094	Sheep
 e_70bb9e41	Sister
@@ -538,6 +559,7 @@ e_6f083616	T is for Tree
 e_a8136946	T-shirt
 e_329d9b7a	Tap a big letter, then tap its small letter
 e_168c7dc9	Tea
+e_3a4f0a3f	Teen numbers end in teen
 e_1f8c8bf4	Ten
 e_fd18b61b	Thank you!
 e_e5681fac	The apple is in the basket.
@@ -610,6 +632,7 @@ e_dd721c0c	The dog is under the chair.
 e_fbd694c8	The giraffe was tall
 e_9013038b	The monkeys were funny
 e_867cf737	The park was closed
+e_29839fb2	The silent e makes the vowel say its name: c-a-k-e.
 e_0ea9b6a4	The teddy bear is in the basket.
 e_42687bf3	The teddy bear is in the bed.
 e_22851ead	The teddy bear is in the box.
@@ -648,12 +671,15 @@ e_03fd3427	The word is Watch
 e_666b9e7a	The word is Xylophone
 e_173ace0f	The word is Yacht
 e_8524d264	The word is Zebra
+e_584f211f	They
 e_6576e5de	They are T-shirt.
 e_f120ba9c	They are at school.
 e_c6539b97	They are bad for his teeth
 e_287c04f4	They are dress.
 e_e4997f40	They are expensive
+e_58a9f6ba	They are friends.
 e_ccadd3ad	They are jacket.
+e_b89d8be3	They are my family.
 e_33f1692b	They are pants.
 e_0f6f4269	They are shoes.
 e_1d046dd6	They are socks.
@@ -670,6 +696,9 @@ e_2e430863	Three
 e_99eb4fd7	Thursday
 e_7edf6d58	Tiger
 e_2fb950c2	Tiger.
+e_63a12134	To the Pyramids
+e_0b11a010	To the beach
+e_b1d73153	To the zoo
 e_afc72a55	Tooth
 e_78c8f974	Trace the letter A
 e_7bc8fe2d	Trace the letter B
@@ -730,6 +759,9 @@ e_e58886a5	Triangle
 e_213e90fa	Try again
 e_fe18fbb0	Tuesday
 e_20af1fc9	Two
+e_e196b309	Two letters, one sound: sh, ch, th.
+e_d74b1d40	Two letters, two sounds: c + l = cl.
+e_60e3a5d6	Two letters, two sounds: s + k = sk.
 e_d00c09b0	U
 e_729e6fba	U .
 e_fc278985	U and u are the same letter
@@ -756,11 +788,20 @@ e_e59293e6	Watch starts with W
 e_a6809412	Watch.
 e_d63556b0	Water
 e_8ec0fde4	We are in the garden.
+e_c28e07eb	We clean in class.
+e_daaad4ba	We draw in class.
+e_208d8737	We listen in class.
 e_09547aa0	We read books at school.
+e_2f1ea2a4	We read in class.
+e_3545e6ab	We sing in class.
+e_24038cae	We sit in class.
 e_021c0405	We sleep at night.
+e_b5b2b4de	We stand in class.
+e_e49eff5d	We write in class.
 e_e8239b77	Wednesday
 e_0815494f	What
 e_a633150e	What colour is the sky?
+e_bd78f6d8	What comes next?
 e_f5e38d46	What day comes after Friday?
 e_661b7003	What day comes after Monday?
 e_1970c826	What day comes after Saturday?
@@ -775,6 +816,7 @@ e_6d219f46	What day comes before Sunday?
 e_f1b7a88c	What day comes before Thursday?
 e_ffdef3e1	What day comes before Tuesday?
 e_5629faec	What day comes before Wednesday?
+e_1c7bc5b7	What did Hana ride?
 e_1595e540	What did Mona draw?
 e_52d2202d	What do you say?
 e_af9fa7b7	What does Adam like?
@@ -815,6 +857,7 @@ e_1638b2b4	When did Omar go to the zoo?
 e_485309f7	When do you go to school?
 e_332fec60	When is your birthday?
 e_91dad0f8	Where
+e_2cd0848a	Where did Hana go?
 e_67194a41	Where do you live?
 e_ae4067a9	Where does Sara live?
 e_a24107c4	Where is the apple?
@@ -824,9 +867,11 @@ e_666f7d14	Where is the cat?
 e_0e0d2f5e	Where is the dog?
 e_bea0393e	Where is the teddy bear?
 e_d57db091	Where is this?
+e_675700ad	Which action is this?
 e_ad7673ed	Which letter does it start with?
 e_d7f9d7a3	Which letter is this?
 e_d182d622	Which letters are missing?
+e_c7d54a14	Which number is this?
 e_dc57ceb5	Which one is the big A?
 e_5c5f53fa	Which one is the big B?
 e_5c5d1563	Which one is the big C?
@@ -923,12 +968,14 @@ e_b6fda06c	Which picture starts with the letter Y?
 e_b6ffdf03	Which picture starts with the letter Z?
 e_33f4126e	Which room is this?
 e_556b114b	Which season is it?
+e_d3487e3c	Which sound is missing?
 e_cc862414	Which word is it?
 e_6ceb2d06	White
 e_8d80552f	Who
 e_12b4fdd9	Who is that boy?
 e_51157d8f	Who is your teacher?
 e_32f9f640	Who saw the picture?
+e_79d6b13a	Who took pictures?
 e_7b8038d9	Why
 e_5f7fac49	Why are you sad?
 e_f0f14097	Why did Mona stay at home?
@@ -1014,6 +1061,10 @@ e_16fb7f77	bedroom
 e_60ae601c	bet
 e_d7b8f81a	bicycle
 e_53cacdb9	big
+e_c4602668	bike
+e_695c4032	bike.
+e_eb0cbd62	block
+e_510dfea4	block.
 e_82fbf5cd	blue
 e_c1948a38	book
 e_bf968f7c	bookes
@@ -1040,23 +1091,33 @@ e_03d5b964	butterfly
 e_20725f35	butterflys
 e_e60c2c52	c
 e_8aea8859	cake
+e_2634d355	cake.
 e_f0743965	can
 e_027455bb	cap
 e_047458e1	car
 e_06745c07	cat
 e_4d847d6f	cates
 e_9d2d8a9c	cats
+e_5cb49d8a	chair
+e_9454292c	chair.
 e_e954aefb	chairs
+e_a20c85a8	cheese
+e_9fb631f2	cheese.
 e_d0e9838c	cherries
 e_497ae878	cherry
 e_b77b4951	cherrys
 e_e5a0205d	child
 e_67a9c9d2	children
 e_a912a86a	childs
+e_506dff3e	clean
+e_15a40f5d	clock
+e_84445209	clock.
 e_2dbc1605	cloudy
 e_ea44dd0f	cold
 e_fe8de755	cop
 e_fa8de109	cot
+e_6b91d120	cube
+e_648c190a	cube.
 e_fa56340f	cup
 e_f6562dc3	cut
 e_e10c2473	d
@@ -1066,6 +1127,7 @@ e_e668bd09	dog
 e_6113de55	doges
 e_30e2470e	dogs
 e_d3689f20	dot
+e_a88bf413	draw
 e_68e41ef0	dress
 e_eb3117ee	duh
 e_119c6bdb	duh o guh
@@ -1077,6 +1139,18 @@ e_bfeef84c	duh...
 e_e00c22e0	e
 e_fb3868e6	e...
 e_ff55af40	ears
+e_a57e9c10	eighteen
+e_4f5dda2b	eighty
+e_acc90c05	eighty-eight
+e_fad38e3a	eighty-five
+e_0041ba12	eighty-four
+e_26575a2a	eighty-nine
+e_83a51c0a	eighty-one
+e_53f42ecf	eighty-seven
+e_a615b442	eighty-six
+e_f9db5d72	eighty-three
+e_cf88e810	eighty-two
+e_8ff53680	eleven
 e_43edbc4b	eyes
 e_e30c2799	f
 e_f85a0760	fall
@@ -1087,6 +1161,17 @@ e_807ee9b1	fff, fff
 e_bf55eac3	fff, fff, Fish
 e_ab777e47	fff, fff, Frog
 e_60cef875	fff...
+e_07cc2b2a	fifteen
+e_bd93ede1	fifty
+e_de30fcd7	fifty-eight
+e_933ee57c	fifty-five
+e_0293a798	fifty-four
+e_75d2edac	fifty-nine
+e_229d4918	fifty-one
+e_e21b1581	fifty-seven
+e_4681b284	fifty-six
+e_f9a473bc	fifty-three
+e_3b0b395e	fifty-two
 e_09add7e2	five apples
 e_944c391b	five babies
 e_5b426cf3	five balls
@@ -1105,11 +1190,23 @@ e_380b9483	five pens
 e_1145677f	five teeth
 e_7cdec6de	five watches
 e_b2e48278	fix
+e_bdeaa8d7	flag
+e_f167fffb	flag.
 e_bff162e2	fly
 e_a1f3723f	fog
 e_2d505a99	foot
 e_659bc978	football
 e_3f7f1e5e	foots
+e_8583378f	forty
+e_665eb609	forty-eight
+e_76cf0fe6	forty-five
+e_1d74603e	forty-four
+e_9b8e33f6	forty-nine
+e_2218e4ae	forty-one
+e_61eea68b	forty-seven
+e_2080727e	forty-six
+e_70d07746	forty-three
+e_eb71e6b4	forty-two
 e_9b2eb632	four apples
 e_59cc4eab	four babies
 e_c94b1c63	four balls
@@ -1127,11 +1224,16 @@ e_8fad245d	four mice
 e_f1ebc873	four pens
 e_1820cccf	four teeth
 e_25483e0e	four watches
+e_01a53a61	fourteen
 e_b6f3934e	fox
 e_b75ff566	foxes
 e_3e70c907	foxs
 e_e20c2606	g
+e_4249d707	game
+e_833db58b	game.
 e_775718f4	garden
+e_8a7324ef	gift
+e_b442dbd3	gift.
 e_4220774b	go
 e_38351db3	guh
 e_f1b77675	guh, guh
@@ -1140,6 +1242,8 @@ e_a6e4a712	guh, guh, Goat
 e_189d9e27	guh.
 e_ed0c3757	h
 e_ebbf0cbd	ham
+e_c4ba2f20	hand
+e_bf18130a	hand.
 e_99863551	happy
 e_f2bf17c2	hat
 e_08b4ad08	hen
@@ -1162,6 +1266,8 @@ e_100e165b	jacket
 e_ebb76fff	juice
 e_ee0c38ea	k
 e_33e6572f	kitchen
+e_dbfbe216	kite
+e_85851e28	kite.
 e_563d18db	ks
 e_b72e49af	ks.
 e_c3e9f5bd	kuh a tuh
@@ -1171,6 +1277,9 @@ e_7298fa0d	kuh, kuh, Cake
 e_f8f6ac13	kuh, kuh, Cat
 e_aac672bb	kuh...
 e_e90c310b	l
+e_6bf0ef3b	lamp
+e_01485e0f	lamp.
+e_3b3b76a6	listen
 e_03b1d87b	living room
 e_37b563c9	lll, lll
 e_6abadd2d	lll, lll, Leaf
@@ -1179,6 +1288,8 @@ e_3f515151	log
 e_e80c2f78	m
 e_e9a2ff6f	man
 e_dfa2efb1	map
+e_e7774569	mask
+e_a7c20ec5	mask.
 e_c9ad5a6b	men
 e_5a69615f	mice
 e_888e7aa2	milk
@@ -1193,6 +1304,17 @@ e_4c2dfe93	my
 e_eb0c3431	n
 e_25999158	net
 e_e6de9f61	night
+e_e21ee631	nineteen
+e_c1faa93e	ninety
+e_8901fbb4	ninety-eight
+e_66d1e5e1	ninety-five
+e_76268991	ninety-four
+e_64169be1	ninety-nine
+e_d5790463	ninety-one
+e_abb0372a	ninety-seven
+e_54550fc7	ninety-six
+e_8310a7d7	ninety-three
+e_a96cc84d	ninety-two
 e_11b54859	nnn
 e_0fa067cb	nnn e tuh
 e_3d632b91	nnn, nnn
@@ -1200,11 +1322,14 @@ e_d905db8b	nnn, nnn, Nest
 e_0bc2474a	nnn, nnn, Nose
 e_57611355	nnn.
 e_710f7f1d	nnn...
+e_918d404a	nose
+e_855c5d6c	nose.
 e_29b19c8a	not
 e_257281e8	nut
 e_ea0c329e	o
 e_3196115c	o...
 e_61342fd0	on
+e_2ba4b5cb	one hundred
 e_f50c43ef	p
 e_4f55eeec	pan
 e_de2337e1	pants
@@ -1233,6 +1358,8 @@ e_f70c4715	r
 e_56b6fa9e	rainy
 e_cedfa3c5	read
 e_40f480dc	red
+e_10421806	rose
+e_c00c06f8	rose.
 e_8ae14409	rrr, rrr
 e_2fda6c9d	rrr, rrr, Rabbit
 e_9951623b	rrr, rrr, Rain
@@ -1240,11 +1367,47 @@ e_2acd4eca	run
 e_147eb74c	running
 e_f60c4582	s
 e_e61cac07	sad
+e_c20e7781	salt
+e_2bc6687d	salt.
 e_3f32c75d	scared
 e_9f519cc9	school
 e_b526ec40	see
+e_a4c6ff66	seventeen
+e_914f96c5	seventy
+e_630f9e5b	seventy-eight
+e_19d9e778	seventy-five
+e_0a68c1b4	seventy-four
+e_176e4f58	seventy-nine
+e_505d666c	seventy-one
+e_8185ba1d	seventy-seven
+e_4a6a21b0	seventy-six
+e_c9352620	seventy-three
+e_adc6c632	seventy-two
+e_ac56f17f	ship
+e_9ddde283	ship.
+e_9b47cc32	shoe
+e_8e065014	shoe.
 e_b3068a53	shoes
 e_a847e0a9	shop
+e_15d2601e	sing
+e_c630015f	sit
+e_c5d13fab	sixteen
+e_6232229c	sixty
+e_dc65ec4e	sixty-eight
+e_8a6ae9bb	sixty-five
+e_f3bb2537	sixty-four
+e_efb0cb5b	sixty-nine
+e_769a2381	sixty-one
+e_e54ea53c	sixty-seven
+e_0dff6f19	sixty-six
+e_99df83a1	sixty-three
+e_f90981eb	sixty-two
+e_3a0ffee1	skate
+e_362e1fdd	skate.
+e_7cad5f3b	sled
+e_59ecae0f	sled.
+e_aff5e25b	snake
+e_75137e2f	snake.
 e_255e0fd1	snowy
 e_ee568736	soap
 e_9e725352	socks
@@ -1256,6 +1419,9 @@ e_c9570a77	sss, sss, Sock
 e_36be91e7	sss, sss, Sun
 e_7a38343a	sss.
 e_2006a216	sss...
+e_75493323	stand
+e_d13b2f71	star
+e_bf2b928d	star.
 e_7665043e	street
 e_dd4e3aa8	sum
 e_fce32734	summer
@@ -1263,6 +1429,8 @@ e_e04e3f61	sun
 e_494372ec	sunny
 e_9f312044	supermarket
 e_f7372cda	surprised
+e_4eed64ac	swan
+e_c1b538a6	swan.
 e_5584392f	sweet
 e_81f4ae28	swimming
 e_f10c3da3	t
@@ -1274,6 +1442,18 @@ e_1c11f8a2	tennis
 e_b40eb21c	the
 e_21c164ef	the beach
 e_ecf0b8a9	the sky
+e_63374a36	thirteen
+e_1a956a35	thirty
+e_e5adc4ab	thirty-eight
+e_21ca3828	thirty-five
+e_efde7704	thirty-four
+e_577f55e8	thirty-nine
+e_af8ba05c	thirty-one
+e_b788bc0d	thirty-seven
+e_2494bba0	thirty-six
+e_ff7bcd90	thirty-three
+e_a83fb162	thirty-two
+e_888603c3	three
 e_df5a5e68	three apples
 e_11f0cc61	three babies
 e_a3661111	three balls
@@ -1291,6 +1471,9 @@ e_82bd8a93	three mice
 e_5e6a916d	three pens
 e_9bf5fc1d	three teeth
 e_1b29a590	three watches
+e_d7f82e17	three.
+e_f3ac9ae3	thumb
+e_65b7b0b7	thumb.
 e_720c3fd5	tired
 e_42454824	to
 e_0a0a25b5	tooth
@@ -1302,6 +1485,17 @@ e_34d33c87	tuh, tuh
 e_a4ea2602	tuh, tuh, Tiger
 e_a01e8adf	tuh, tuh, Tree
 e_513c6330	tuh.
+e_f5352bb4	twelve
+e_00500da8	twenty
+e_1852361a	twenty-eight
+e_825d8b1f	twenty-five
+e_7a930b5b	twenty-four
+e_9d9ecbcf	twenty-nine
+e_493624ad	twenty-one
+e_37348a60	twenty-seven
+e_8151aa7d	twenty-six
+e_a202f41d	twenty-three
+e_1dd883e7	twenty-two
 e_08a36dde	two apples
 e_8ab92bef	two babies
 e_509b04c7	two balls

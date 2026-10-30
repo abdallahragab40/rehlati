@@ -76,6 +76,13 @@ const enPassages = [
     ('What did Mona draw?', 'A rainbow', ['A cat', 'A house']),
     ('Who saw the picture?', 'Her grandmother', ['Her teacher', 'Her friend']),
   ]),
+  // وحدة The Pyramids في كتاب تانية (الترم التاني) — النص من عندنا
+  Passage('The Pyramids', 'Hana and her family took a trip to the Pyramids. They saw the Sphinx with its big lion body. '
+      'Hana rode a camel, and her dad took pictures. The Pyramids are very old and very big!', [
+    ('Where did Hana go?', 'To the Pyramids', ['To the beach', 'To the zoo']),
+    ('What did Hana ride?', 'A camel', ['A horse', 'A bus']),
+    ('Who took pictures?', 'Her dad', ['Her mom', 'Her teacher']),
+  ]),
   Passage('Healthy Food', 'Ali eats fruit and vegetables every day. He drinks milk in the morning and water when he is thirsty. '
       'He does not eat many sweets because they are bad for his teeth.', [
     ('What does Ali drink in the morning?', 'Milk', ['Juice', 'Tea']),

@@ -446,6 +446,10 @@ final _enSchool = _grp('english', 'enSchool', 'Words from school • Grades 1–
   ('en_transport', '🚌', 'Transportation', 1, enTransportGame),
   ('en_clothes', '👕', 'Clothes', 1, enClothesGame),
   ('en_sports', '⚽', 'Sports', 1, enSportsGame),
+  ('en_actions', '✍️', 'Classroom actions', 1, enActionsGame),
+  ('en_pronouns', '🙋', 'I, he, she, it, they', 1, enPronouns),
+  ('en_count100', '💯', 'Numbers to 100', 1, enCount100),
+  ('en_sounds', '🔤', 'Blends and long vowels', 2, enSounds),
 ], after: 'en_family', lang: 'en');
 
 /// 🕌 الدين والأخلاق — مفتوح كله.

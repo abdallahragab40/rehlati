@@ -259,10 +259,19 @@ final schoolBooks = <SchoolBook>[
   ]),
   SchoolBook('p1', 2, 'english', [
     SchoolUnit('My Week', [SchoolLesson('Days of the week', [_i('en_days')]), _enLetters(['W', 'Q', 'V', 'Z'])]),
-    SchoolUnit('Feelings', [SchoolLesson('Feelings', [_i('en_feelings')]), _enLetters(['Y', 'X'])]),
+    SchoolUnit('Feelings', [
+      SchoolLesson('Feelings', [_i('en_feelings')]),
+      _enLetters(['Y', 'X']),
+      SchoolLesson('I, he, she, it, they', [_i('en_pronouns')]),
+      SchoolLesson('Blends sk, sn, st, sw', [_i('en_sounds', 'blendS')]),
+    ]),
     SchoolUnit('Seasons', [SchoolLesson('Months, seasons and weather', [_i('en_months'), _i('en_seasons'), _i('en_weather')]), SchoolLesson('Short vowels a, e', [_i('en_cvc')])]),
     SchoolUnit('My House', [SchoolLesson('Rooms at home', [_i('en_rooms')]), SchoolLesson('Short vowels i, o', [_i('en_cvc')])]),
-    SchoolUnit('Neighborhood', [SchoolLesson('Places and transport', [_i('en_places'), _i('en_transport')]), SchoolLesson('Short vowel u', [_i('en_cvc')])]),
+    SchoolUnit('Neighborhood', [
+      SchoolLesson('Places and transport', [_i('en_places'), _i('en_transport')]),
+      SchoolLesson('Short vowel u', [_i('en_cvc')]),
+      SchoolLesson('Blends cl, bl, fl, sl', [_i('en_sounds', 'blendL')]),
+    ]),
   ]),
   SchoolBook('p2', 1, 'english', [
     SchoolUnit("Let's Get Started!", [
@@ -271,20 +280,28 @@ final schoolBooks = <SchoolBook>[
     ]),
     SchoolUnit('Colors, Shapes, and Numbers', [
       SchoolLesson('Colors, shapes and numbers', [_i('en_colors'), _i('en_shapes'), _i('en_numbers')]),
+      SchoolLesson('Numbers 11–20', [_i('en_count100', 'to20')]),
     ]),
     SchoolUnit('Classroom Actions & Routines', [
-      _soon('Classroom actions'),
+      SchoolLesson('Classroom actions', [_i('en_actions')]),
       SchoolLesson('First sounds', [_i('en_firstsound')]),
     ]),
-    SchoolUnit('Everyday Life', [SchoolLesson('My family', [_i('en_family')])]),
-    SchoolUnit('My Home', [SchoolLesson('My home', [_i('en_rooms'), _i('en_prep')])]),
-    SchoolUnit('Rooms at Home', [SchoolLesson('Rooms at home', [_i('en_rooms')])]),
+    SchoolUnit('Everyday Life', [
+      SchoolLesson('My family', [_i('en_family')]),
+      SchoolLesson('Long vowels o, u and th', [_i('en_sounds', 'long'), _i('en_sounds', 'digraph')]),
+    ]),
+    SchoolUnit('My Home', [SchoolLesson('My home', [_i('en_rooms'), _i('en_prep')]), SchoolLesson('sh and th', [_i('en_sounds', 'digraph')])]),
+    SchoolUnit('Rooms at Home', [SchoolLesson('Rooms at home', [_i('en_rooms')]), SchoolLesson('ch', [_i('en_sounds', 'digraph')])]),
   ]),
   SchoolBook('p2', 2, 'english', [
-    SchoolUnit('Our Environment', [SchoolLesson('There is / There are', [_i('en_isare')])]),
-    SchoolUnit('At the Store', [SchoolLesson('Clothes', [_i('en_clothes')])]),
-    SchoolUnit('Sports', [SchoolLesson('Plural with s', [_i('en_plural')]), _soon('Counting to 50'), SchoolLesson('Sports', [_i('en_sports')])]),
+    SchoolUnit('Our Environment', [SchoolLesson('There is / There are', [_i('en_isare')]), SchoolLesson('Long vowels a, i', [_i('en_sounds', 'long')])]),
+    SchoolUnit('At the Store', [SchoolLesson('Clothes', [_i('en_clothes')]), SchoolLesson('Long vowels u, o', [_i('en_sounds', 'long')])]),
+    SchoolUnit('Sports', [SchoolLesson('Plural with s', [_i('en_plural')]), SchoolLesson('Counting to 50', [_i('en_count100', 'to50')]), SchoolLesson('Sports', [_i('en_sports')]),
+      SchoolLesson('Final blends', [_i('en_sounds', 'final')])]),
     SchoolUnit('Transportation', [SchoolLesson('Transportation', [_i('en_transport'), _i('en_places')])]),
-    SchoolUnit('The Pyramids', [_soon('The Pyramids')]),
+    SchoolUnit('The Pyramids', [
+      SchoolLesson('The Pyramids', [_i('en_reading', 'The Pyramids')]),
+      SchoolLesson('Counting to 100', [_i('en_count100', 'to100')]),
+    ]),
   ]),
 ];

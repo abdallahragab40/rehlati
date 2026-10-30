@@ -114,3 +114,143 @@ Question enPrep(int lv, Rng r, {String? focus}) {
     sayRight: sentence(prep),
   );
 }
+
+// ---------------------------------------------------------------- Classroom actions
+
+const enActions = [
+  Word('write', '✍️'), Word('read', '📖'), Word('draw', '🖍️'), Word('sing', '🎤'), Word('clean', '🧹'), Word('sit', '🪑'),
+  Word('stand', '🧍'), Word('listen', '👂'),
+];
+final enActionsGame = vocabGame('en_actions', enActions, 'en_action', ask: 'Which action is this?', hint: (w) => 'We $w in class.');
+
+// ---------------------------------------------------------------- الأعداد لحد ١٠٠
+
+const _ones = [
+  'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen',
+  'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen',
+];
+const _tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+
+/// ٢٥ ← twenty-five.
+String enNumberWord(int n) => n == 100
+    ? 'one hundred'
+    : n < 20
+        ? _ones[n]
+        : '${_tens[n ~/ 10]}${n % 10 == 0 ? '' : '-${_ones[n % 10]}'}';
+
+/// العدد مكتوب بالأرقام والطفل يختار اسمه، أو «What comes next?» بالعد بالعشرات أو واحد واحد.
+/// focus: to20 / to50 / to100 بيحدد المدى (درس المدرسة)، ومن غيره المستوى.
+Question enCount100(int lv, Rng r, {String? focus}) {
+  final (lo, hi) = switch (focus) {
+    'to20' => (11, 20),
+    'to50' => (20, 50),
+    'to100' => (20, 100),
+    _ => switch (lv) { <= 1 => (11, 20), 2 => (20, 50), _ => (20, 100) },
+  };
+  if (r.chance(.4)) {
+    final byTen = hi > 20 && r.chance(.5);
+    final step = byTen ? 10 : 1;
+    final start = byTen ? r.rnd(1, hi ~/ 10 - 3) * 10 : r.rnd(lo, hi - 3);
+    final seq = [for (var i = 0; i < 3; i++) start + i * step];
+    final next = start + 3 * step;
+    final options = {next, next + step, if (next - 2 * step > 0) next - 2 * step, next + 1, next - 1}..remove(seq.last);
+    return Question(
+      type: 'en_count100', mode: QMode.choice, lang: 'en', ltr: true, numeric: false, wide: true, skill: 'en_next:$step',
+      ask: 'What comes next?', speak: 'What comes next?',
+      visuals: [CaptionVisual('${seq.join(', ')}, ?')],
+      choices: r.shuffle([enNumberWord(next), ...r.shuffle(options.where((x) => x != next && x <= 100).toList()).take(2).map(enNumberWord)]),
+      answer: enNumberWord(next),
+      hint: byTen ? 'Count by tens: ten, twenty, thirty…' : 'Count one more.',
+      speakHint: byTen ? 'Count by tens' : 'Count one more',
+    );
+  }
+  final n = r.rnd(lo, hi);
+  // الأرقام المقلوبة (٢٥ و٥٢) وجيران العدد
+  final swapped = n % 10 * 10 + n ~/ 10;
+  final wrong = {if (n >= 20 && n % 10 != 0 && swapped != n && swapped >= 10) swapped, n + 1, n - 1, n + 10, n - 10}
+    ..removeWhere((x) => x < 11 || x > 100 || x == n);
+  return Question(
+    type: 'en_count100', mode: QMode.choice, lang: 'en', ltr: true, numeric: false, wide: true, skill: 'en_num100:$n',
+    ask: 'Which number is this?', speak: 'Which number is this?',
+    visuals: [BigLetterVisual('$n')],
+    choices: r.shuffle([enNumberWord(n), ...r.shuffle(wrong.toList()).take(2).map(enNumberWord)]),
+    answer: enNumberWord(n),
+    hint: n < 20 ? 'Teen numbers end in -teen.' : 'Say the tens first, then the ones.',
+    speakHint: n < 20 ? 'Teen numbers end in teen' : 'Say the tens first, then the ones',
+    sayRight: enNumberWord(n),
+  );
+}
+
+// ---------------------------------------------------------------- Pronouns
+
+/// (الصورة، الجملة، الضمير) — الصورة بتفرّق He وShe وIt، وam / are بيفرّقوا I وThey.
+const pronounSentences = [
+  ('👦', '___ is happy.', 'He'), ('👧', '___ is tired.', 'She'), ('🐶', '___ is small.', 'It'),
+  ('👴', '___ is my grandfather.', 'He'), ('👵', '___ is my grandmother.', 'She'), ('🐱', '___ is a cat.', 'It'),
+  ('👫', '___ are friends.', 'They'), ('👨‍👩‍👧', '___ are my family.', 'They'), ('🙋', '___ am a student.', 'I'),
+  ('🙋', '___ am seven.', 'I'),
+];
+
+Question enPronouns(int lv, Rng r, {String? focus}) {
+  final (pic, sentence, answer) = r.sample(pronounSentences);
+  final others = r.shuffle(['I', 'He', 'She', 'It', 'They'].where((p) => p != answer).toList()).take(lv <= 1 ? 1 : 2);
+  return Question(
+    type: 'en_pronouns', mode: QMode.choice, lang: 'en', ltr: true, numeric: false, bigChoices: true, skill: 'en_pron:$answer',
+    ask: 'Choose the right word', speak: 'Choose the right word.',
+    visuals: [PicsVisual(pic, 1, big: true), WordLineVisual.text(sentence, big: true)],
+    choices: r.shuffle([answer, ...others]),
+    answer: answer,
+    hint: 'He = a boy, She = a girl, It = an animal or a thing, They = more than one, I = me.',
+    speakHint: 'He is a boy, she is a girl, it is an animal or a thing, they are more than one',
+    sayRight: sentence.replaceFirst('___', answer),
+  );
+}
+
+// ---------------------------------------------------------------- Phonics: blends, digraphs, long vowels
+
+/// (الكلمة، الصورة، الصوت الناقص، المجموعة). الناقص في أول الكلمة، أو آخرها (final)، أو حرف العلة (long).
+const soundWords = [
+  ('skate', '⛸️', 'sk', 'blendS'), ('snake', '🐍', 'sn', 'blendS'), ('star', '⭐', 'st', 'blendS'), ('swan', '🦢', 'sw', 'blendS'),
+  ('clock', '🕐', 'cl', 'blendL'), ('block', '🧱', 'bl', 'blendL'), ('flag', '🚩', 'fl', 'blendL'), ('sled', '🛷', 'sl', 'blendL'),
+  ('ship', '🚢', 'sh', 'digraph'), ('shoe', '👞', 'sh', 'digraph'), ('chair', '🪑', 'ch', 'digraph'),
+  ('cheese', '🧀', 'ch', 'digraph'), ('thumb', '👍', 'th', 'digraph'), ('three', '3️⃣', 'th', 'digraph'),
+  ('lamp', '🪔', 'mp', 'final'), ('gift', '🎁', 'ft', 'final'), ('salt', '🧂', 'lt', 'final'), ('hand', '✋', 'nd', 'final'),
+  ('mask', '🎭', 'sk', 'final'),
+  ('cake', '🎂', 'a', 'long'), ('game', '🎮', 'a', 'long'), ('kite', '🪁', 'i', 'long'), ('bike', '🚲', 'i', 'long'),
+  ('nose', '👃', 'o', 'long'), ('rose', '🌹', 'o', 'long'), ('cube', '🧊', 'u', 'long'),
+];
+
+const _soundHints = {
+  'blendS': 'Two letters, two sounds: s + k = sk.',
+  'blendL': 'Two letters, two sounds: c + l = cl.',
+  'digraph': 'Two letters, one sound: sh, ch, th.',
+  'final': 'Listen to the end of the word.',
+  'long': 'The silent e makes the vowel say its name: c-a-k-e.',
+};
+
+/// الصوت الناقص في الكلمة. focus: blendS / blendL / digraph / final / long (درس المدرسة).
+Question enSounds(int lv, Rng r, {String? focus}) {
+  final kinds = _soundHints.containsKey(focus)
+      ? [focus!]
+      : lv <= 1
+          ? ['blendS', 'blendL', 'digraph']
+          : _soundHints.keys.toList();
+  final kind = r.sample(kinds);
+  final (word, pic, sound, _) = r.sample(soundWords.where((w) => w.$4 == kind).toList());
+  final at = switch (kind) { 'final' => word.length - sound.length, 'long' => word.indexOf(sound), _ => 0 };
+  final shown = '${word.substring(0, at)}${'_' * sound.length}${word.substring(at + sound.length)}';
+  final options = {for (final w in soundWords) if (w.$4 == kind) w.$3}.toList();
+  final choices = [sound, ...r.shuffle(options.where((s) => s != sound).toList()).take(lv <= 1 ? 1 : 2)];
+  return Question(
+    type: 'en_sounds', mode: QMode.choice, lang: 'en', ltr: true, numeric: false, bigChoices: true, skill: 'en_sound:$kind',
+    ask: 'Which sound is missing?', speak: 'Which sound is missing? $word.',
+    visuals: [PicsVisual(pic, 1, big: true), BigLetterVisual(shown)],
+    choices: r.shuffle(choices),
+    answer: sound,
+    // الصوت لوحده مش بيتسجّل حلو — الكلمة كاملة بتتقال لما يجاوب صح
+    choiceSay: {for (final c in choices) c: ''},
+    hint: _soundHints[kind]!,
+    speakHint: _soundHints[kind]!,
+    sayRight: word,
+  );
+}

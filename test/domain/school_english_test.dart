@@ -9,6 +9,7 @@ void main() {
     'en_prep': enPrep, 'en_days': enDaysGame, 'en_months': enMonthsGame, 'en_feelings': enFeelingsGame,
     'en_weather': enWeatherGame, 'en_seasons': enSeasonsGame, 'en_rooms': enRoomsGame, 'en_places': enPlacesGame,
     'en_transport': enTransportGame, 'en_clothes': enClothesGame, 'en_sports': enSportsGame,
+    'en_actions': enActionsGame, 'en_pronouns': enPronouns, 'en_count100': enCount100, 'en_sounds': enSounds,
   };
 
   for (final MapEntry(key: id, value: gen) in gens.entries) {
@@ -48,5 +49,40 @@ void main() {
 
   test('English stages are unlocked for children who already passed My family', () {
     expect(ProgressData(best: {'en_family': 2}).isUnlocked('en_prep'), isTrue);
+  });
+
+  test('number words', () {
+    expect([for (final n in [11, 20, 25, 52, 99, 100]) enNumberWord(n)],
+        ['eleven', 'twenty', 'twenty-five', 'fifty-two', 'ninety-nine', 'one hundred']);
+  });
+
+  test('the counting lesson stays in its range', () {
+    final r = Rng.seeded(12);
+    final words = {for (var n = 11; n <= 20; n++) enNumberWord(n)};
+    for (var i = 0; i < 200; i++) {
+      final q = enCount100(4, r, focus: 'to20');
+      if (q.ask == 'Which number is this?') expect(words, contains(q.answer));
+    }
+  });
+
+  test('the missing sound rebuilds the word', () {
+    final r = Rng.seeded(13);
+    for (var lv = 1; lv <= 4; lv++) {
+      for (var i = 0; i < 200; i++) {
+        final q = enSounds(lv, r);
+        final shown = q.visuals.whereType<BigLetterVisual>().single.text;
+        expect(shown.replaceFirst(RegExp('_+'), '${q.answer}'), q.sayRight);
+      }
+    }
+    for (final focus in ['blendS', 'blendL', 'digraph', 'final', 'long']) {
+      expect(enSounds(1, Rng.seeded(1), focus: focus).skill, 'en_sound:$focus');
+    }
+  });
+
+  test('pronoun sentences: am goes with I, are with They', () {
+    for (final (_, s, p) in pronounSentences) {
+      if (s.contains(' am ')) expect(p, 'I');
+      if (s.contains(' are ')) expect(p, 'They');
+    }
   });
 }
