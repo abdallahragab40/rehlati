@@ -152,8 +152,8 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('العدد صفر', [_i('zeroEvenOdd')]),
     ]),
     SchoolUnit('ما هو الموقع؟', [
-      SchoolLesson('حدد الموقع', [_i('ordinals')]),
-      _soon('أين هو؟'),
+      SchoolLesson('حدد الموقع', [_i('ordinals'), _i('position')]),
+      SchoolLesson('أين هو؟', [_i('position')]),
     ]),
     SchoolUnit('الجمع', [
       SchoolLesson('الجمع', [_i('addition')]),
@@ -171,7 +171,7 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('جمع وطرح الأعداد', [_i('addition'), _i('subtraction')]),
     ]),
     SchoolUnit('قراءة الساعة', [SchoolLesson('قراءة الوقت على الساعة', [_i('clockQuarter')])]),
-    SchoolUnit('العمليات بثلاثة أعداد', [_soon('جمع وطرح ثلاثة أعداد')]),
+    SchoolUnit('العمليات بثلاثة أعداد', [SchoolLesson('جمع وطرح ثلاثة أعداد', [_i('threeNumbers')])]),
   ]),
   SchoolBook('p1', 2, 'math', [
     SchoolUnit('أشكال مختلفة', [SchoolLesson('أشكال مختلفة', [_i('geometry')])]),
@@ -183,7 +183,7 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('ترتيب الأعداد حتى ١٠٠', [_i('compare100'), _i('ascending')]),
       SchoolLesson('خط الأعداد حتى ١٠٠', [_i('skipCount')]),
       SchoolLesson('جمع وطرح الآحاد والعشرات', [_i('add100'), _i('sub100')]),
-      _soon('الأعداد الأكبر من ١٠٠'),
+      SchoolLesson('الأعداد الأكبر من ١٠٠', [_i('hundreds')]),
     ]),
     SchoolUnit('تكوين أشكال', [_soon('تكوين أشكال')]),
     SchoolUnit('ما الوقت؟', [SchoolLesson('ما الوقت؟', [_i('clockQuarter')])]),
@@ -192,16 +192,16 @@ final schoolBooks = <SchoolBook>[
   SchoolBook('p2', 1, 'math', [
     SchoolUnit('البيانات', [
       SchoolLesson('التمثيل البياني بالصور', [_i('picGraph')]),
-      _soon('التمثيل البياني بالأعمدة'),
+      SchoolLesson('التمثيل البياني بالأعمدة', [_i('barGraph')]),
     ]),
     SchoolUnit('الجمع والطرح', [
       SchoolLesson('الجمع والطرح', [_i('add100'), _i('sub100')]),
       SchoolLesson('مسائل كلامية', [_i('wordProblem')]),
     ]),
-    SchoolUnit('الأعداد المكوّنة من ٣ أرقام', [_soon('الأعداد من ٣ أرقام')]),
+    SchoolUnit('الأعداد المكوّنة من ٣ أرقام', [SchoolLesson('الأعداد من ٣ أرقام', [_i('hundreds')])]),
     SchoolUnit('الجمع والطرح بإعادة التجميع', [
       SchoolLesson('الجمع والطرح بإعادة التجميع', [_i('add100'), _i('sub100')]),
-      _soon('تقدير نواتج الجمع والطرح'),
+      SchoolLesson('تقدير نواتج الجمع والطرح', [_i('rounding')]),
     ]),
     SchoolUnit('الأشكال والقياس', [
       SchoolLesson('الأشكال الهندسية', [_i('geometry')]),
@@ -221,7 +221,7 @@ final schoolBooks = <SchoolBook>[
     ]),
     SchoolUnit('الجمع', [
       SchoolLesson('الجمع بإعادة التجميع', [_i('add100')]),
-      _soon('التقدير والتقريب'),
+      SchoolLesson('التقدير والتقريب', [_i('rounding')]),
     ]),
     SchoolUnit('الطرح', [SchoolLesson('الطرح ومسائله', [_i('sub100'), _i('wordProblem')])]),
     SchoolUnit('الكسور', [SchoolLesson('الكسور', [_i('fractionOfNumber')])]),

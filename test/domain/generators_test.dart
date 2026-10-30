@@ -18,7 +18,7 @@ void main() {
   ];
 
   test('registry has every world and the expected stage counts', () {
-    expect(worldStages['math']!.length, 13 + 9 + 5 + 5 + 3 + 4, reason: 'basics, numbers to 100, times tables, money/time, division');
+    expect(worldStages['math']!.length, 13 + 11 + 5 + 3 + 5 + 3 + 4, reason: 'basics, numbers to 100, grade 2, times tables, money/time, division');
     expect(worldStages['arabic']!.length, 11 + 2 + 2 + 9 + 1 + 1 + 1 + (voiceEnabled ? 3 + 4 : 2 + 3) + 3 + 5 + 6,
         reason: 'letters, concepts, forms, madd, short sentences, shadda, sun/moon letters, harakat, sukun, fading marks, grade 2 grammar, grammar');
     expect(worldStages['english']!.length, 14 + (voiceEnabled ? 3 : 0) + 5 + 7, reason: 'phonics needs the voice');

@@ -154,7 +154,7 @@ class QueueView extends StatelessWidget {
       child: FittedBox(
         fit: BoxFit.scaleDown,
         child: Row(spacing: 6, children: [
-          Text('🏁', style: _emoji(size)),
+          if (v.flag) Text('🏁', style: _emoji(size)),
           for (final e in v.items) Text(e, style: _emoji(size)),
         ]),
       ),
@@ -220,6 +220,96 @@ class PicGraphView extends StatelessWidget {
       ),
     );
   }
+}
+
+// ---------------------------------------------------------------- 📊 الأعمدة
+
+/// أعمدة ملوّنة على شبكة بخطوط كل [BarGraphVisual.scale]، والأرقام على اليمين، والصور تحت.
+class BarGraphView extends StatelessWidget {
+  const BarGraphView(this.v, {super.key});
+  final BarGraphVisual v;
+
+  static const _colors = [Color(0xFFE5534B), Color(0xFFF2B233), Color(0xFFF08A24), Color(0xFF8E5CD9), Color(0xFFE0457B)];
+
+  @override
+  Widget build(BuildContext context) {
+    final top = (v.rows.map((r) => r.$2).reduce(math.max) / v.scale).ceil() + 1;
+    const unit = 26.0, bar = 42.0, gap = 18.0, axis = 34.0;
+    final width = axis + v.rows.length * (bar + gap) + gap / 2;
+    return Semantics(
+      label: [for (final (e, n) in v.rows) '$e ${ar(n)}'].join('، '),
+      child: ExcludeSemantics(
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(10, 12, 10, 6),
+            decoration: BoxDecoration(color: AppColors.paper2, borderRadius: BorderRadius.circular(18)),
+            child: Column(mainAxisSize: MainAxisSize.min, children: [
+              CustomPaint(
+                size: Size(width, top * unit + 8),
+                painter: _BarsPainter(v, top, unit, bar, gap, axis, _colors),
+              ),
+              const SizedBox(height: 4),
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: SizedBox(
+                  width: width,
+                  child: Row(children: [
+                    const SizedBox(width: axis + gap / 2),
+                    for (final (e, _) in v.rows)
+                      SizedBox(
+                        width: bar + gap,
+                        child: Align(
+                          alignment: AlignmentDirectional.centerStart,
+                          child: SizedBox(width: bar, child: Text(e, textAlign: TextAlign.center, style: _emoji(30))),
+                        ),
+                      ),
+                  ]),
+                ),
+              ),
+            ]),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _BarsPainter extends CustomPainter {
+  _BarsPainter(this.v, this.top, this.unit, this.bar, this.gap, this.axis, this.colors);
+  final BarGraphVisual v;
+  final int top;
+  final double unit, bar, gap, axis;
+  final List<Color> colors;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final base = size.height;
+    final line = Paint()
+      ..color = AppColors.line
+      ..strokeWidth = 1.5;
+    // الأرقام على اليمين (زي القراية) والخطوط ناحية الشمال
+    for (var t = 0; t <= top; t++) {
+      final y = base - t * unit;
+      canvas.drawLine(Offset(0, y), Offset(size.width - axis, y), line..color = t == 0 ? AppColors.inkSoft : AppColors.line);
+      final tp = TextPainter(
+        text: TextSpan(text: ar(t * v.scale), style: kidText(14, weight: FontWeight.w700, color: AppColors.inkSoft)),
+        textDirection: TextDirection.rtl,
+      )..layout();
+      tp.paint(canvas, Offset(size.width - axis + 6, y - tp.height / 2));
+    }
+    for (final (i, (_, n)) in v.rows.indexed) {
+      final right = size.width - axis - gap / 2 - i * (bar + gap);
+      final h = n / v.scale * unit;
+      canvas.drawRRect(
+        RRect.fromRectAndCorners(Rect.fromLTWH(right - bar, base - h, bar, h), topLeft: const Radius.circular(6), topRight: const Radius.circular(6)),
+        Paint()..color = colors[i % colors.length],
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_BarsPainter old) => old.v != v;
 }
 
 // ---------------------------------------------------------------- 🌱 النبات

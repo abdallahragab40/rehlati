@@ -277,8 +277,11 @@ class ShapeVisual extends Visual {
 
 /// طابور صور ورا علم 🏁 من اليمين (الأعداد الترتيبية).
 class QueueVisual extends Visual {
-  const QueueVisual(this.items);
+  const QueueVisual(this.items, {this.flag = true});
   final List<String> items;
+
+  /// علم البداية على اليمين (الطابور). من غيره الصف بيتعد من اليمين أو الشمال.
+  final bool flag;
 }
 
 /// [count] صورة متقسّمة أزواج — الفردي بيفضل واحد لوحده (زوجي وفردي).
@@ -295,6 +298,13 @@ class CoinsVisual extends Visual {
 }
 
 /// رسم بياني بالصور: عمود لكل صورة بعددها.
+/// تمثيل بالأعمدة: (صورة، قيمة)، وخطوط الشبكة كل [scale] — أول عمود على اليمين.
+class BarGraphVisual extends Visual {
+  const BarGraphVisual(this.rows, this.scale);
+  final List<(String, int)> rows;
+  final int scale;
+}
+
 class PicGraphVisual extends Visual {
   const PicGraphVisual(this.rows);
   final List<(String, int)> rows;

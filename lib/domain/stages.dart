@@ -16,6 +16,7 @@ import 'generators/deen_generators.dart';
 import 'generators/english_more_generators.dart';
 import 'generators/fade_generators.dart';
 import 'generators/grade2_arabic_generators.dart';
+import 'generators/school_math_generators.dart';
 import 'generators/en_primary_generators.dart';
 import 'generators/english_generators.dart';
 import 'generators/games_generators.dart';
@@ -394,6 +395,20 @@ final _mathBasics = _grp('math', 'basics', 'أساسيات الأعداد', 0xFF
   ('wordProblem', '📝', 'مسائل بالصور', 2, wordProblem),
 ], after: 'chooseNumber');
 
+/// حساب أولى ابتدائي (الترم الأول) من كتاب الوزارة — بعد «مسائل بالصور»، حتى للتقدّم القديم.
+final _math1 = _grp('math', 'math1', 'حساب أولى ابتدائي', 0xFF7A5CFF, [
+  ('position', '↔️', 'من اليمين ومن الشمال', 1, position),
+  ('threeNumbers', '🧮', 'حساب ثلاثة أعداد', 2, threeNumbers),
+], after: 'wordProblem');
+
+/// حساب تانية ابتدائي (الترم الأول) من كتاب الوزارة — بعد الجمع لحد ١٠٠.
+/// مش بالصف: طفل تانية جديد يبدأ بالآحاد والعشرات، والدروس دي متاحة له من «دروس المدرسة».
+final _math2 = _grp('math', 'math2', 'حساب تانية ابتدائي', 0xFF5B6BE0, [
+  ('hundreds', '💯', 'الأعداد لحد ١٠٠٠', 2, hundreds),
+  ('rounding', '🎯', 'التقريب والتقدير', 2, rounding),
+  ('barGraph', '📊', 'التمثيل بالأعمدة', 2, barGraph),
+], after: 'add100');
+
 /// Phonics بعد ما الطفل يعرف الحروف: الصوت مش الاسم، وبعدين تجميع كلمات CVC.
 final _phonics = _grp('english', 'phonics', 'Phonics • Letter sounds', 0xFF2E9BD6, [
   ('en_phonics', '🔊', 'Letter sounds', 1, enPhonics),
@@ -616,7 +631,7 @@ final _enPrimary = [
 final Map<String, List<Stage>> worldStages = {
   // المراحل اللي اتنشرت قبل كده (الحساب والعربي والمدود و English الأصليين) فاضلة بنفس ترتيبها
   // بين بعض — المجموعات الجديدة بتدخل بينها في مكانها في المنهج (stage_ids_test.dart)
-  'math': _numbered([..._math, ..._mathBasics, ..._math100, ..._mul, ..._life, ..._upperPrimary]),
+  'math': _numbered([..._math, ..._mathBasics, ..._math1, ..._math100, ..._math2, ..._mul, ..._life, ..._upperPrimary]),
   'arabic': _numbered([
     ..._arabic, ..._concepts, ..._harakat, ..._forms, ..._madd, ..._shortRead, ..._sukun, ..._al, ..._fade, ..._ar2, ..._grammar,
   ]),

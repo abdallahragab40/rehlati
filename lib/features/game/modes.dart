@@ -260,7 +260,8 @@ class QuestionBody extends StatelessWidget {
           key: keyFor('c$i'),
           child: ChoiceTile(
             label: '${q.choices[i]}',
-            semanticLabel: q.choiceSay[q.choices[i]],
+            // اختيار مالوش اسم بيتنطق (عدد كبير مكتوب بس) بيتقري بالمكتوب
+            semanticLabel: switch (q.choiceSay[q.choices[i]]) { final s? when s.isNotEmpty => s, _ => null },
             content: _look('${q.choices[i]}', context),
             color: color,
             size: q.look == ChoiceLook.category || q.look == ChoiceLook.bar || q.look == ChoiceLook.group
