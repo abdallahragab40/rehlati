@@ -441,3 +441,23 @@
 
 **حساب تالتة كله بقى ليه مراحل.** في تالتة فاضل الإنجليزي بس: my/his/her، والماضي البسيط، والأمر والنهي، وكلمات الأكل، وand/or/but، وcan/can't.
 
+### مراجعة المدرّس: إنجليزي تالتة
+
+في آخر `lib/domain/generators/school_english_generators.dart`، مجموعة «Grammar from school • Grade 3».
+
+- **my, his, her** (`en_possessive`): الفاعل بيحدد الكلمة. «He loves ___ dog.» ← his.
+- **Yesterday I played** (`en_past`)
+  - المنتظم بـ ed: played، walked، cleaned، kicked، clapped، called.
+  - الشاذ في درس الحكايات: went، saw، ate، ran.
+- **Safety rules** (`en_safety`)
+  - must وmustn't، وDon't touch!، وStop!.
+  - كل جملة ليها صورة (خوذة، إشارة، نار…).
+- **Food** (`en_food`)
+  - rice، bread، cheese، honey، soup، fries، cookies، sweets، lollipop، vegetables، nuts، soda.
+  - مفيش yogurt عشان مالهاش صورة.
+- **and, or, but** (`en_conj`)
+  - and = الاتنين، or = واحد بس (غالبًا في سؤال)، but = عكس.
+- **can, can't** (`en_can`): الحيوانات اللي تقدر تعوم أو تطير أو تتسلق.
+
+**كل دروس كتب أولى وتانية وتالتة بقى ليها مراحل.**
+

@@ -75,7 +75,8 @@ SchoolLesson _enLetters(List<String> letters) => SchoolLesson('Letters ${letters
       ],
     ]);
 
-// درس لسه مالوش مراحل («قريبًا»).
+// درس لسه مالوش مراحل («قريبًا») — كل دروس أولى لتالتة جاهزة دلوقتي، وده للكتب الجاية.
+// ignore: unused_element
 SchoolLesson _soon(String title) => SchoolLesson(title, const []);
 
 final schoolBooks = <SchoolBook>[
@@ -402,20 +403,20 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('Greetings', [_i('en_phrases')]),
       SchoolLesson('I am, you are, he is', [_i('en_isare')]),
     ]),
-    SchoolUnit('My Family and I', [SchoolLesson('Family', [_i('en_family')]), _soon('my, his, her')]),
+    SchoolUnit('My Family and I', [SchoolLesson('Family', [_i('en_family')]), SchoolLesson('my, his, her', [_i('en_possessive')])]),
     SchoolUnit('New Adventures', [
       SchoolLesson('Places', [_i('en_places')]),
       SchoolLesson('in, on, under', [_i('en_prep')]),
-      _soon('Past tense: walked, played'),
+      SchoolLesson('Past tense: walked, played', [_i('en_past', 'regular')]),
     ]),
-    SchoolUnit("Let's Tell Stories!", [SchoolLesson('Feelings', [_i('en_feelings')]), _soon('Past simple stories')]),
+    SchoolUnit("Let's Tell Stories!", [SchoolLesson('Feelings', [_i('en_feelings')]), SchoolLesson('Past simple stories', [_i('en_past', 'irregular')])]),
     SchoolUnit('Together Is Better', [SchoolLesson('Actions', [_i('en_actions')])]),
   ]),
   SchoolBook('p3', 2, 'english', [
-    SchoolUnit('Safety', [_soon("Stop! Don't touch!"), SchoolLesson('Blends sl, st, gr, tr', [_i('en_sounds', 'blendS')])]),
-    SchoolUnit('Food and Health', [SchoolLesson('a, an', [_i('en_a_an')]), _soon('Food words')]),
+    SchoolUnit('Safety', [SchoolLesson("Stop! Don't touch!", [_i('en_safety')]), SchoolLesson('Blends sl, st, gr, tr', [_i('en_sounds', 'blendS')])]),
+    SchoolUnit('Food and Health', [SchoolLesson('a, an', [_i('en_a_an')]), SchoolLesson('Food words', [_i('en_food')])]),
     SchoolUnit('Heroes Around Us', [SchoolLesson('Magic e', [_i('en_sounds', 'long')])]),
-    SchoolUnit('Living with Technology', [_soon('and, or, but')]),
-    SchoolUnit('Animals & Habitats', [SchoolLesson('Animals', [_i('en_animals')]), _soon("can, can't")]),
+    SchoolUnit('Living with Technology', [SchoolLesson('and, or, but', [_i('en_conj')])]),
+    SchoolUnit('Animals & Habitats', [SchoolLesson('Animals', [_i('en_animals')]), SchoolLesson("can, can't", [_i('en_can')])]),
   ]),
 ];

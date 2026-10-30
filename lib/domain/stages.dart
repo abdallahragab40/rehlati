@@ -468,6 +468,16 @@ final _enSchool = _grp('english', 'enSchool', 'Words from school • Grades 1–
   ('en_sounds', '🔤', 'Blends and long vowels', 2, enSounds),
 ], after: 'en_family', lang: 'en');
 
+/// Connect 3 (تالتة): قواعد وكلمات — بعد «I, he, she, it, they».
+final _en3 = _grp('english', 'en3', 'Grammar from school • Grade 3', 0xFF2563A8, [
+  ('en_possessive', '🎒', 'my, his, her', 2, enPossessive),
+  ('en_past', '⏪', 'Yesterday I played', 2, enPast),
+  ('en_safety', '⛑️', 'Safety rules', 2, enSafety),
+  ('en_food', '🍚', 'Food', 1, enFoodGame),
+  ('en_conj', '🔗', 'and, or, but', 2, enConj),
+  ('en_can', '🐒', "can, can't", 2, enCan),
+], after: 'en_pronouns', lang: 'en');
+
 /// 🕌 الدين والأخلاق — مفتوح كله.
 final _deen = [
   ..._grp('deen', 'adhkar', '🤲 الأذكار', 0xFF3BAF7A, [
@@ -678,7 +688,7 @@ final Map<String, List<Stage>> worldStages = {
   'arabic': _numbered([
     ..._arabic, ..._concepts, ..._harakat, ..._forms, ..._madd, ..._shortRead, ..._sukun, ..._al, ..._fade, ..._ar2, ..._grammar,
   ]),
-  'english': _numbered([..._english, if (voiceEnabled) ..._phonics, ..._enWords, ..._enSchool, ..._enPrimary]),
+  'english': _numbered([..._english, if (voiceEnabled) ..._phonics, ..._enWords, ..._enSchool, ..._en3, ..._enPrimary]),
   'deen': _numbered(_deen),
   'discover': _numbered(_discover),
   'write': _numbered(_write),

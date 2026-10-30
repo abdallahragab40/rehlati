@@ -10,6 +10,8 @@ void main() {
     'en_weather': enWeatherGame, 'en_seasons': enSeasonsGame, 'en_rooms': enRoomsGame, 'en_places': enPlacesGame,
     'en_transport': enTransportGame, 'en_clothes': enClothesGame, 'en_sports': enSportsGame,
     'en_actions': enActionsGame, 'en_pronouns': enPronouns, 'en_count100': enCount100, 'en_sounds': enSounds,
+    'en_possessive': enPossessive, 'en_past': enPast, 'en_safety': enSafety, 'en_food': enFoodGame, 'en_conj': enConj,
+    'en_can': enCan,
   };
 
   for (final MapEntry(key: id, value: gen) in gens.entries) {
@@ -83,6 +85,25 @@ void main() {
     for (final (_, s, p) in pronounSentences) {
       if (s.contains(' am ')) expect(p, 'I');
       if (s.contains(' are ')) expect(p, 'They');
+    }
+  });
+
+  test('grade 3 sentences have one blank and the answer among the choices', () {
+    for (final (_, s, a) in [...possessiveSentences, ...canSentences]) {
+      expect('___'.allMatches(s), hasLength(1), reason: s);
+      expect(a, isNotEmpty);
+    }
+    for (final (s, a, choices) in [...pastSentences, ...pastIrregular]) {
+      expect('___'.allMatches(s), hasLength(1), reason: s);
+      expect(choices, contains(a));
+      expect(s, startsWith('Yesterday'));
+    }
+    for (final (_, s, a, choices) in safetySentences) {
+      expect(choices, contains(a), reason: s);
+    }
+    expect(enPast(1, Rng.seeded(1), focus: 'irregular').skill, 'en_past:irr');
+    for (final (_, s, a) in possessiveSentences) {
+      expect(a, switch (s.split(' ').first) { 'I' => 'my', 'He' => 'his', _ => 'her' }, reason: s);
     }
   });
 }

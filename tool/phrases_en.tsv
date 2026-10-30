@@ -2,15 +2,23 @@
 e_c40bf6cc	A
 e_386cfa9e	A .
 e_bfb6a185	A and a are the same letter
+e_28cf448e	A bird can fly.
 e_0b430e62	A bus
 e_5039030a	A camel
+e_e7115fcd	A car is coming.
 e_80a44c68	A cat
+e_d902b38e	A fish can swim.
+e_70e1ca88	A fish can't fly.
 e_43187823	A fish lives in water.
 e_9907e181	A horse
 e_e1a502d8	A house
 e_fa85a2f3	A is for Apple
+e_9ad5cb70	A monkey can climb.
 e_3fb5dc76	A rainbow
+e_fa7b7b22	A turtle can't run fast.
+e_a1442fdd	Add -ed: play played.
 e_1666a7db	Ali is my brother.
+e_c607b753	An elephant can't fly.
 e_81b60676	Ant
 e_898bfc88	Ant.
 e_b6779c5f	Apple
@@ -146,9 +154,14 @@ e_ae44a061	D and d are the same letter
 e_07ef3ae8	D is for Dog
 e_662dcc9e	December
 e_df593b47	Diamond
+e_61ceb934	Do
+e_4af5c4f3	Do you want tea or juice?
 e_4b6dbda9	Dog
 e_ff4464d2	Dog starts with D
 e_44c15b85	Dog.
+e_3baadc0d	Don't
+e_56971a39	Don't talk to strangers.
+e_842db32d	Don't touch!
 e_248c3398	Duck
 e_3eb56782	Duck.
 e_c00bf080	E
@@ -231,6 +244,7 @@ e_d9ff16f3	Gift.
 e_037e5ccf	Giraffe
 e_db6f50b9	Giraffe starts with G
 e_60ec3633	Giraffe.
+e_41d0c56b	Go
 e_8e9ba7fe	Goat
 e_4f092c70	Goat.
 e_4a5b08c3	Good morning!
@@ -253,6 +267,8 @@ e_51663390	He is a boy, she is a girl, it is an animal or a thing, they are more
 e_58ab8e4e	He is happy.
 e_94a998a4	He is my brother.
 e_124be4e2	He is my grandfather.
+e_f644c559	He is washing his hands.
+e_5bbe56dd	He loves his dog.
 e_b6e00083	Heart
 e_f55c314b	Hello
 e_aa21c9de	Hello!
@@ -276,12 +292,17 @@ e_7436c554	How old is Adam?
 e_cc0c0364	I
 e_9f03e186	I .
 e_d5420724	I am a student.
+e_47575019	I am doing my homework.
 e_22692a83	I am hungry.
 e_47d7616b	I am seven.
 e_d337b408	I am ten years old.
 e_8200b505	I and i are the same letter
 e_548d43c4	I drink milk every morning.
 e_317e8df2	I is for Ice cream
+e_251801f3	I like apples and bananas.
+e_6fffc4e6	I like cats, but I don't like dogs.
+e_65cdbc0d	I love my mom.
+e_3e04e5dc	I my, he his, she her.
 e_07d11789	I see with my eyes.
 e_ea5ab36c	I wash my hands with soap.
 e_a82074cf	I write with a pencil.
@@ -293,6 +314,7 @@ e_4d4cfe78	In London
 e_b6b7883d	In a village
 e_11a63260	In is inside.
 e_96ee518c	In winter it is cold.
+e_99c4c3d8	Is it a cat or a dog?
 e_b22ec4de	Is it a or an?
 e_5d3f731c	Is it in, on or under?
 e_46e8d230	It
@@ -361,6 +383,7 @@ e_e3db3fc5	It is White
 e_b008e7e0	It is Yellow
 e_885230e7	It is a cat.
 e_4875c5dc	It is hot today.
+e_5979707f	It is hot.
 e_88e10c43	It is small.
 e_a3368609	It is time to sleep.
 e_73bde0d9	It is under the table.
@@ -453,6 +476,7 @@ e_73d919ca	Moon.
 e_c110aa3b	More than one
 e_13b97d3a	Mother
 e_4620047c	Mouth
+e_cd0877c8	My dad and my mom are at home.
 e_9e79e2fd	My father drives a car.
 e_035dca8c	My friends are happy.
 e_4b677c4a	My mother is a doctor.
@@ -533,8 +557,10 @@ e_e7df7fe9	School
 e_c212b600	September
 e_db3f1e9e	Seven
 e_4bb89181	She
+e_2dfd7bec	She is brushing her hair.
 e_a410f038	She is my grandmother.
 e_6161e4e1	She is tired.
+e_418ceec7	She loves her cat.
 e_f644bc97	She was ill
 e_b0020094	Sheep
 e_70bb9e41	Sister
@@ -543,10 +569,13 @@ e_2fa62ca8	Sleep
 e_8d7e86f5	Sock
 e_992e4ac1	Sock.
 e_6b7c12d8	Soda
+e_a8f9ed79	Some verbs change: go went, see saw.
 e_86e2f5d1	Someone asks your name.
 e_62558b51	Sorry!
 e_fac98c66	Square
 e_51677b91	Star
+e_4b7f7705	Stop
+e_fda88dac	Stop!
 e_42d8d701	Sun
 e_38d8efbb	Sun starts with S
 e_6a5abefd	Sun.
@@ -632,6 +661,7 @@ e_dd721c0c	The dog is under the chair.
 e_fbd694c8	The giraffe was tall
 e_9013038b	The monkeys were funny
 e_867cf737	The park was closed
+e_f650bee1	The phone is new, but it doesn't work.
 e_29839fb2	The silent e makes the vowel say its name: c-a-k-e.
 e_0ea9b6a4	The teddy bear is in the basket.
 e_42687bf3	The teddy bear is in the bed.
@@ -645,6 +675,18 @@ e_274e8485	The teddy bear is under the basket.
 e_a7333908	The teddy bear is under the bed.
 e_34b9a15a	The teddy bear is under the box.
 e_0079f69a	The teddy bear is under the chair.
+e_76cac444	The word is "bread".
+e_dd0ea7d3	The word is "cheese".
+e_60317dfd	The word is "cookies".
+e_cf33d901	The word is "fries".
+e_4641b219	The word is "honey".
+e_16cc4aa5	The word is "lollipop".
+e_103a467a	The word is "nuts".
+e_f8d0f893	The word is "rice".
+e_ed0f6c57	The word is "soda".
+e_3f85e8cd	The word is "soup".
+e_cb4db74f	The word is "sweets".
+e_f388d20a	The word is "vegetables".
 e_12228f9c	The word is Apple
 e_16ec0959	The word is Ball
 e_1583bb58	The word is Cat
@@ -822,6 +864,7 @@ e_52d2202d	What do you say?
 e_af9fa7b7	What does Adam like?
 e_c6b5a09b	What does Ali drink in the morning?
 e_dcbca661	What does Ali drink when he is thirsty?
+e_45b21dba	What food is this?
 e_6a5bc848	What is this?
 e_bb1fc4f8	What is your name?
 e_fce3f837	What month comes after April?
@@ -997,8 +1040,22 @@ e_5e8fec70	Yacht
 e_3949b0dc	Yacht starts with Y
 e_3a9117fa	Yacht.
 e_d9cdec69	Yellow
+e_d3bcaade	Yesterday = past.
+e_fe5089a9	Yesterday, I ate an apple.
+e_8ff532cb	Yesterday, I called my grandma.
+e_afe49ebc	Yesterday, I played football.
+e_2e839969	Yesterday, he kicked the ball.
+e_ff1e98ee	Yesterday, he went to the park.
+e_d252c202	Yesterday, she ran very fast.
+e_b3e0f730	Yesterday, she walked to school.
+e_126d9622	Yesterday, they clapped their hands.
+e_b149287f	Yesterday, they saw a lion at the zoo.
+e_f4198c2a	Yesterday, we cleaned our room.
 e_73d1dab9	You bumped into someone.
 e_ff04aa50	You meet your friend.
+e_21885187	You must wear a helmet on a bike.
+e_6afd2661	You must wear a seat belt.
+e_04684f66	You mustn't cross when the light is red.
 e_a1a0543f	You wake up in the morning.
 e_760537bd	You want a cookie.
 e_a52c336c	Your friend gives you a gift.
@@ -1037,11 +1094,13 @@ e_9cd751fc	an orange
 e_d723a254	an owl
 e_6031d3a6	an umbrella
 e_0f29c2a6	and
+e_4a5aad6e	and = both, or = one of them, but = something different.
 e_b50aaefe	angry
 e_10bc2abf	apple
 e_6a4dc167	applees
 e_24375f24	apples
 e_406f344d	are
+e_1c618417	ate
 e_e70c2de5	b
 e_795735e5	babies
 e_45b1c069	baby
@@ -1092,7 +1151,13 @@ e_20725f35	butterflys
 e_e60c2c52	c
 e_8aea8859	cake
 e_2634d355	cake.
+e_b3f184a9	call
+e_54f0dbc0	called
+e_1f34232e	calls
 e_f0743965	can
+e_684ba472	can = it is able to.
+e_ed786bd6	can't
+e_3ba5a4d8	can't = it is not able to.
 e_027455bb	cap
 e_047458e1	car
 e_06745c07	cat
@@ -1109,11 +1174,17 @@ e_b77b4951	cherrys
 e_e5a0205d	child
 e_67a9c9d2	children
 e_a912a86a	childs
+e_4324fd83	clap
+e_9aaf36a0	clapped
+e_a33bc0d0	claps
 e_506dff3e	clean
+e_cd84ee3f	cleaned
+e_ea28e637	cleans
 e_15a40f5d	clock
 e_84445209	clock.
 e_2dbc1605	cloudy
 e_ea44dd0f	cold
+e_284b0124	cookies
 e_fe8de755	cop
 e_fa8de109	cot
 e_6b91d120	cube
@@ -1139,6 +1210,8 @@ e_bfeef84c	duh...
 e_e00c22e0	e
 e_fb3868e6	e...
 e_ff55af40	ears
+e_6c6e2525	eat
+e_0764c662	eats
 e_a57e9c10	eighteen
 e_4f5dda2b	eighty
 e_acc90c05	eighty-eight
@@ -1228,6 +1301,7 @@ e_01a53a61	fourteen
 e_b6f3934e	fox
 e_b75ff566	foxes
 e_3e70c907	foxs
+e_4a8ded2c	fries
 e_e20c2606	g
 e_4249d707	game
 e_833db58b	game.
@@ -1235,6 +1309,7 @@ e_775718f4	garden
 e_8a7324ef	gift
 e_b442dbd3	gift.
 e_4220774b	go
+e_09784e5b	goes
 e_38351db3	guh
 e_f1b77675	guh, guh
 e_c94cf063	guh, guh, Gift
@@ -1247,12 +1322,15 @@ e_bf18130a	hand.
 e_99863551	happy
 e_f2bf17c2	hat
 e_08b4ad08	hen
+e_f4b48d8c	her
 e_80e8d09d	hhh a tuh
 e_0a361151	hhh, hhh
 e_21e9a682	hhh, hhh, Hat
 e_5848f366	hhh, hhh, Horse
 e_c5e15e9b	hhh...
+e_fdd2b0cb	his
 e_02d2b8aa	hit
+e_316a8164	honey
 e_4f9cd7b3	hospital
 e_fec3a7d4	hot
 e_10f5d87c	hungry
@@ -1265,6 +1343,9 @@ e_ef0c3a7d	j
 e_100e165b	jacket
 e_ebb76fff	juice
 e_ee0c38ea	k
+e_c61c131f	kick
+e_41c0b1de	kicked
+e_4a329304	kicks
 e_33e6572f	kitchen
 e_dbfbe216	kite
 e_85851e28	kite.
@@ -1285,6 +1366,7 @@ e_37b563c9	lll, lll
 e_6abadd2d	lll, lll, Leaf
 e_14f565a7	lll, lll, Lion
 e_3f515151	log
+e_89ceec8a	lollipop
 e_e80c2f78	m
 e_e9a2ff6f	man
 e_dfa2efb1	map
@@ -1300,6 +1382,10 @@ e_d39e5f9f	mop
 e_a45b05cc	motorcycle
 e_592318c4	mouse
 e_093fe815	mouses
+e_c508c328	must
+e_9b09a79f	must = you have to.
+e_5cb7f3a1	mustn't
+e_f2e687fb	mustn't / Don't = no!
 e_4c2dfe93	my
 e_eb0c3431	n
 e_25999158	net
@@ -1326,10 +1412,12 @@ e_918d404a	nose
 e_855c5d6c	nose.
 e_29b19c8a	not
 e_257281e8	nut
+e_8e420701	nuts
 e_ea0c329e	o
 e_3196115c	o...
 e_61342fd0	on
 e_2ba4b5cb	one hundred
+e_5d342984	or
 e_f50c43ef	p
 e_4f55eeec	pan
 e_de2337e1	pants
@@ -1344,6 +1432,9 @@ e_694b8a7e	pet
 e_6840fb8f	pig
 e_6f410694	pin
 e_cccb0055	plane
+e_c2cbd863	play
+e_4299e5a2	played
+e_b6e52130	plays
 e_866a3091	post office
 e_55727a72	puh
 e_f42abe15	puh i guh
@@ -1356,8 +1447,10 @@ e_6d72a03a	pup
 e_f40c425c	q
 e_f70c4715	r
 e_56b6fa9e	rainy
+e_4aff1df6	ran
 e_cedfa3c5	read
 e_40f480dc	red
+e_0552c2b0	rice
 e_10421806	rose
 e_c00c06f8	rose.
 e_8ae14409	rrr, rrr
@@ -1365,13 +1458,16 @@ e_2fda6c9d	rrr, rrr, Rabbit
 e_9951623b	rrr, rrr, Rain
 e_2acd4eca	run
 e_147eb74c	running
+e_1a32ed3b	runs
 e_f60c4582	s
 e_e61cac07	sad
 e_c20e7781	salt
 e_2bc6687d	salt.
+e_d71c946a	saw
 e_3f32c75d	scared
 e_9f519cc9	school
 e_b526ec40	see
+e_5f45d449	sees
 e_a4c6ff66	seventeen
 e_914f96c5	seventy
 e_630f9e5b	seventy-eight
@@ -1411,6 +1507,8 @@ e_75137e2f	snake.
 e_255e0fd1	snowy
 e_ee568736	soap
 e_9e725352	socks
+e_eb4fc6b8	soda
+e_f624f702	soup
 e_63f1336c	spring
 e_c33f0730	sss
 e_a28fdbc1	sss u nnn
@@ -1432,6 +1530,7 @@ e_f7372cda	surprised
 e_4eed64ac	swan
 e_c1b538a6	swan.
 e_5584392f	sweet
+e_fb264bd4	sweets
 e_81f4ae28	swimming
 e_f10c3da3	t
 e_112cdf96	tall
@@ -1518,13 +1617,18 @@ e_f7a99176	u...
 e_89193acd	under
 e_f30c40c9	v
 e_9625faa2	van
+e_13cd7de1	vegetables
 e_09ffc6f9	volleyball
 e_f20c3f36	w
+e_a0262210	walk
+e_9afa1011	walked
+e_7f0821d9	walks
 e_5fb7b228	watch
 e_aceae80c	watches
 e_092dc541	watchs
 e_49c69a10	water
 e_5c47afa9	we
+e_d8b9cf23	went
 e_1af8295a	windy
 e_c4bb620c	winter
 e_be269f5c	write

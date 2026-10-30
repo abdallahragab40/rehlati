@@ -254,3 +254,102 @@ Question enSounds(int lv, Rng r, {String? focus}) {
     sayRight: word,
   );
 }
+
+// ================================================================ Connect 3 (تالتة)
+
+/// جملة بخانة وصورة: الإجابة الواحدة الصح بتيجي من الصورة أو من كلمة في الجملة.
+Question _enBlank(String type, String skill, String? pic, String sentence, String answer, List<String> choices, Rng r,
+        {required String hint}) =>
+    Question(
+      type: type, mode: QMode.choice, lang: 'en', ltr: true, numeric: false, bigChoices: true, skill: skill,
+      ask: 'Choose the right word', speak: 'Choose the right word.',
+      visuals: [if (pic != null) PicsVisual(pic, 1, big: true), WordLineVisual.text(sentence, big: true)],
+      choices: r.shuffle([...choices]), answer: answer,
+      hint: hint, speakHint: hint,
+      sayRight: sentence.replaceFirst('___', answer),
+    );
+
+/// (الصورة، الجملة، الكلمة) — الفاعل في الجملة بيحدد الكلمة: I → my، he → his، she → her.
+/// (الصورة لوحدها مكانتش كفاية: «These are ___ books.» مع 🙋 كانت تنفع his وher كمان.)
+const possessiveSentences = [
+  ('👦', 'He loves ___ dog.', 'his'), ('👧', 'She loves ___ cat.', 'her'), ('🙋', 'I love ___ mom.', 'my'),
+  ('👦', 'He is washing ___ hands.', 'his'), ('👧', 'She is brushing ___ hair.', 'her'), ('🙋', 'I am doing ___ homework.', 'my'),
+];
+
+Question enPossessive(int lv, Rng r, {String? focus}) {
+  final (pic, sentence, answer) = r.sample(possessiveSentences);
+  return _enBlank('en_possessive', 'en_poss:$answer', pic, sentence, answer, ['my', 'his', 'her'], r,
+      hint: 'I → my, he → his, she → her.');
+}
+
+/// (الجملة، الإجابة، الاختيارات) — Yesterday = ماضي. المنتظم بـ ed، ومن المستوى التالت أفعال شاذة (went, saw).
+const pastSentences = [
+  ('Yesterday, I ___ football.', 'played', ['play', 'plays', 'played']),
+  ('Yesterday, she ___ to school.', 'walked', ['walk', 'walks', 'walked']),
+  ('Yesterday, we ___ our room.', 'cleaned', ['clean', 'cleans', 'cleaned']),
+  ('Yesterday, he ___ the ball.', 'kicked', ['kick', 'kicks', 'kicked']),
+  ('Yesterday, they ___ their hands.', 'clapped', ['clap', 'claps', 'clapped']),
+  ('Yesterday, I ___ my grandma.', 'called', ['call', 'calls', 'called']),
+];
+const pastIrregular = [
+  ('Yesterday, he ___ to the park.', 'went', ['go', 'goes', 'went']),
+  ('Yesterday, they ___ a lion at the zoo.', 'saw', ['see', 'sees', 'saw']),
+  ('Yesterday, I ___ an apple.', 'ate', ['eat', 'eats', 'ate']),
+  ('Yesterday, she ___ very fast.', 'ran', ['run', 'runs', 'ran']),
+];
+
+/// focus: regular / irregular.
+Question enPast(int lv, Rng r, {String? focus}) {
+  final irregular = focus == 'irregular' || (focus != 'regular' && lv >= 3 && r.chance(.4));
+  final (sentence, answer, choices) = r.sample(irregular ? pastIrregular : pastSentences);
+  return _enBlank('en_past', 'en_past:${irregular ? 'irr' : 'reg'}', null, sentence, answer, choices, r,
+      hint: irregular ? 'Some verbs change: go → went, see → saw.' : 'Yesterday = past. Add -ed: play → played.');
+}
+
+/// (الصورة، الجملة، الإجابة، الاختيارات).
+const safetySentences = [
+  ('⛑️', 'You ___ wear a helmet on a bike.', 'must', ['must', "mustn't"]),
+  ('🚦', 'You ___ cross when the light is red.', "mustn't", ['must', "mustn't"]),
+  ('🔥', '___ touch! It is hot.', "Don't", ['Do', "Don't"]),
+  ('🛑', '___! A car is coming.', 'Stop', ['Stop', 'Go']),
+  ('🚗', 'You ___ wear a seat belt.', 'must', ['must', "mustn't"]),
+  ('🧑‍🦯', '___ talk to strangers.', "Don't", ['Do', "Don't"]),
+];
+
+Question enSafety(int lv, Rng r, {String? focus}) {
+  final (pic, sentence, answer, choices) = r.sample(safetySentences);
+  return _enBlank('en_safety', 'en_safety:$answer', pic, sentence, answer, choices, r,
+      hint: "must = you have to. mustn't / Don't = no!");
+}
+
+const enFood = [
+  Word('rice', '🍚'), Word('bread', '🍞'), Word('cheese', '🧀'), Word('honey', '🍯'), Word('soup', '🍲'), Word('fries', '🍟'),
+  Word('cookies', '🍪'), Word('sweets', '🍬'), Word('lollipop', '🍭'), Word('vegetables', '🥦'), Word('nuts', '🥜'),
+  Word('soda', '🥤'),
+];
+final enFoodGame = vocabGame('en_food', enFood, 'en_food', ask: 'What food is this?', hint: (w) => 'The word is "$w".');
+
+/// (الجملة، الإجابة) — and = الاتنين، or = واحد بس (غالبًا سؤال)، but = عكس.
+const conjSentences = [
+  ('I like apples ___ bananas.', 'and'), ('My dad ___ my mom are at home.', 'and'),
+  ('Do you want tea ___ juice?', 'or'), ('Is it a cat ___ a dog?', 'or'),
+  ("I like cats, ___ I don't like dogs.", 'but'), ("The phone is new, ___ it doesn't work.", 'but'),
+];
+
+Question enConj(int lv, Rng r, {String? focus}) {
+  final (sentence, answer) = r.sample(conjSentences);
+  return _enBlank('en_conj', 'en_conj:$answer', null, sentence, answer, ['and', 'or', 'but'], r,
+      hint: 'and = both, or = one of them, but = something different.');
+}
+
+/// (الصورة، الجملة، الإجابة).
+const canSentences = [
+  ('🐟', 'A fish ___ swim.', 'can'), ('🐟', 'A fish ___ fly.', "can't"), ('🐦', 'A bird ___ fly.', 'can'),
+  ('🐘', 'An elephant ___ fly.', "can't"), ('🐒', 'A monkey ___ climb.', 'can'), ('🐢', 'A turtle ___ run fast.', "can't"),
+];
+
+Question enCan(int lv, Rng r, {String? focus}) {
+  final (pic, sentence, answer) = r.sample(canSentences);
+  return _enBlank('en_can', 'en_can:$answer', pic, sentence, answer, ['can', "can't"], r,
+      hint: "can = it is able to. can't = it is not able to.");
+}
