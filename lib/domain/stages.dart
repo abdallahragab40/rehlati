@@ -16,6 +16,7 @@ import 'generators/deen_generators.dart';
 import 'generators/english_more_generators.dart';
 import 'generators/fade_generators.dart';
 import 'generators/grade2_arabic_generators.dart';
+import 'generators/grade3_arabic_generators.dart';
 import 'generators/school_english_generators.dart';
 import 'generators/school_math_generators.dart';
 import 'generators/term2_arabic_generators.dart';
@@ -363,9 +364,9 @@ final _fade = _grp('arabic', 'fade', 'من التشكيل للقراءة الع�
   ('ar_fade_none', '📖', 'اقرأ من غير تشكيل', 2, fadeGen('ar_fade_none', 2)),
 ], after: 'ar_sukun');
 
-/// قواعد أولى وتانية ابتدائي من كتاب الوزارة (الترمين) — بتتفتح بعد الشمسية والقمرية.
+/// قواعد أولى لتالتة ابتدائي من كتب الوزارة (الترمين) — بتتفتح بعد الشمسية والقمرية.
 /// مش بالصف: طفل تانية جديد يبدأ بالتنوين والسكون الأول، والدروس دي متاحة له من «دروس المدرسة».
-final _ar2 = _grp('arabic', 'ar2', 'قواعد أولى وتانية ابتدائي', 0xFF9C4A8B, [
+final _ar2 = _grp('arabic', 'ar2', 'قواعد أولى لتالتة ابتدائي', 0xFF9C4A8B, [
   ('ar_far', '🔭', 'ذلك وتلك', 2, arFar),
   ('ar_adverb', '⏰', 'ظرف الزمان والمكان', 2, arAdverb),
   ('ar_command', '📣', 'الأمر والنهي', 2, arCommand),
@@ -377,6 +378,11 @@ final _ar2 = _grp('arabic', 'ar2', 'قواعد أولى وتانية ابتدا�
   ('ar_taa', '🔚', 'التاء المربوطة والمفتوحة', 2, arTaa),
   ('ar_style', '❗', 'النداء والتعجب والاستفهام', 2, arStyle),
   ('ar_particles', '🔗', 'حروف الجر والعطف', 2, arParticles),
+  // تالتة
+  ('ar_negation', '🚫', 'النفي بلم ولن', 3, arNegation),
+  ('ar_punct', '❓', 'علامات الترقيم', 2, arPunct),
+  ('ar_hamza', '💧', 'الهمزة بعد المد', 2, arHamza),
+  ('ar_sentenceKind', '🧱', 'الجملة الاسمية والفعلية', 3, arSentenceKind),
 ], after: 'ar_al');
 
 /// قراءة جمل قصيرة بصورة وسؤال، بعد قراءة كلمات المدود.

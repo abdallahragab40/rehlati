@@ -23,7 +23,32 @@ const farThings = [
 ];
 
 /// اسم الإشارة للبعيد (ذلك / تلك)، ومن المستوى التاني مع القريب (هذا / هذه) — المسافة مكتوبة تحت الصورة.
+/// (صورة، جمع العاقل) لـ هؤلاء وأولئك — درس تالتة.
+const farPeople = [
+  ('👦👦👦', 'أَوْلَادٌ'), ('👧👧👧', 'بَنَاتٌ'), ('🧑‍🏫🧑‍🏫', 'مُعَلِّمُونَ'), ('🧑‍⚕️🧑‍⚕️', 'أَطِبَّاءُ'),
+  ('🧑‍🎓🧑‍🎓🧑‍🎓', 'طُلَّابٌ'), ('🧑‍🌾🧑‍🌾', 'فَلَّاحُونَ'),
+];
+
+/// هؤلاء للقريب وأولئك للبعيد مع جمع الناس. focus = 'plural' (درس تالتة)، ومن المستوى التالت بتطلع لوحدها.
+Question _farPlural(int lv, Rng r) {
+  final (pic, word) = r.sample(farPeople);
+  final far = r.chance(.5);
+  final right = '${far ? 'أُولَئِكَ' : 'هَؤُلَاءِ'} $word';
+  final ask = far ? 'الناس دول بعاد. نقول إيه؟' : 'الناس دول قريبين. نقول إيه؟';
+  return Question(
+    type: 'ar_far', mode: QMode.choice, skill: 'far:plural${far ? 'Far' : 'Near'}', numeric: false, wide: true,
+    ask: ask, speak: ask, clips: [say(ask)],
+    visuals: [EmojiVisual(pic, caption: far ? '🔭 بعيد' : '👇 قريب')],
+    choices: r.shuffle([for (final d in ['هَؤُلَاءِ', 'أُولَئِكَ', if (lv >= 2) 'ذَلِكَ']) '$d $word']),
+    answer: right,
+    hint: 'للجمع: هَؤُلَاءِ للقريب، وأُولَئِكَ للبعيد 👉',
+    speakHint: 'للجمع، هؤلاء للقريب، وأولئك للبعيد',
+    sayRight: right,
+  );
+}
+
 Question arFar(int lv, Rng r, {String? focus}) {
+  if (focus == 'plural' || (focus == null && lv >= 3 && r.chance(.35))) return _farPlural(lv, r);
   final (pic, word, fem) = _focused(farThings, r, focus, (x) => x.$2);
   final far = lv <= 1 || r.chance(.6);
   String phrase(String d) => '$d $word';

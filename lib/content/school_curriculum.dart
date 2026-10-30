@@ -310,31 +310,31 @@ final schoolBooks = <SchoolBook>[
     SchoolUnit('العمل والأمل', [
       SchoolLesson('أدوات الاستفهام', [_i('ar_style', 'istifham')]),
       SchoolLesson('المقاطع الصوتية', [_i('ar_analyze'), _i('ar_syllable')]),
-      _soon('هؤلاء – أولئك'),
+      SchoolLesson('هؤلاء – أولئك', [_i('ar_far', 'plural')]),
     ]),
     SchoolUnit('صفاتي الجميلة', [
       SchoolLesson('المفرد والمثنى والجمع', [_i('ar_number')]),
       SchoolLesson('التنوين', [_i('ar_tanween'), _i('ar_marks')]),
-      _soon('أسلوب النفي (لم – لن)'),
+      SchoolLesson('أسلوب النفي (لم – لن)', [_i('ar_negation')]),
     ]),
     SchoolUnit('أحب بلدي', [
-      _soon('حروف الجر (عن – على)'),
+      SchoolLesson('حروف الجر (عن – على)', [_i('ar_particles', 'jarr2')]),
       SchoolLesson('التاء المفتوحة والمربوطة', [_i('ar_taa')]),
-      _soon('حروف العطف (ثم – ف)'),
+      SchoolLesson('حروف العطف (ثم – ف)', [_i('ar_particles', 'atf2')]),
     ]),
   ]),
   SchoolBook('p3', 2, 'arabic', [
     SchoolUnit('قصص من بلادي', [
       SchoolLesson('أنواع الجمع', [_i('ar_number')]),
-      _soon('علامات الترقيم'),
+      SchoolLesson('علامات الترقيم', [_i('ar_punct')]),
       SchoolLesson('أنواع الكلمة', [_i('ar_wordType')]),
     ]),
     SchoolUnit('أخلاق جميلة', [
       SchoolLesson('أنواع الفعل', [_i('ar_tense'), _i('ar_command')]),
-      _soon('الهمزة المتطرفة بعد المد'),
+      SchoolLesson('الهمزة المتطرفة بعد المد', [_i('ar_hamza')]),
     ]),
     SchoolUnit('كل منا له دور', [
-      _soon('الجملة الاسمية والجملة الفعلية'),
+      SchoolLesson('الجملة الاسمية والجملة الفعلية', [_i('ar_sentenceKind')]),
       SchoolLesson('المقاطع الصوتية', [_i('ar_analyze'), _i('ar_syllable')]),
       SchoolLesson('الأسماء الموصولة', [_i('ar_relative')]),
     ]),
