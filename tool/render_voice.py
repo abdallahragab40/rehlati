@@ -17,6 +17,7 @@
 
 الصوت:
   VOICE=ar-EG-ShakirNeural (الافتراضي، راجل مصري) — نفس الصوت لكل المقاطع العربي
+  TEACH_VOICE=VOICE — صوت قسم الحروف (teaching.tsv) لوحده: الفصحى بصوت مش مصري لو العميل اختار كده
   EN_VOICE=en-US-AnaNeural (صوت طفلة) على EN_RATE=-15% = سرعة "عادي" في الإعدادات
   RATE=-5%  — أبطأ سنة عشان الأطفال؛ المقاطع لوحدها بتاخد سرعتها من phrases.tsv.
   من غير تغيير طبقة الصوت: الـ pitch بيخلّي الصوت العصبي يبان آلي
@@ -51,6 +52,7 @@ HUMAN = 'human'
 MANIFEST = ROOT / 'lib/core/audio/clip_manifest.g.dart'
 
 VOICE = os.environ.get('VOICE', 'ar-EG-ShakirNeural')
+TEACH_VOICE = os.environ.get('TEACH_VOICE') or VOICE
 EN_VOICE = os.environ.get('EN_VOICE', 'en-US-AnaNeural')
 EN_RATE = os.environ.get('EN_RATE', '-15%')
 RATE = os.environ.get('RATE', '-5%')
@@ -239,8 +241,9 @@ async def main():
     force = os.environ.get('FORCE') == '1'
     wanted = {}
     en_keys = {k for k, *_ in english}
+    teach_keys = set() if preview else {k for k, *_ in teaching}
     for key, _text, spoken, rate in clips + phrases + ([] if preview else teaching) + english:
-        voice = EN_VOICE if key in en_keys else VOICE
+        voice = EN_VOICE if key in en_keys else TEACH_VOICE if key in teach_keys else VOICE
         rate = rate or RATE
         h = hashlib.sha1(f'{PIPELINE}|{ENGINE}|{voice}|{rate}|{PITCH}|{spoken}'.encode()).hexdigest()
         human = None if preview else recording_hash(key)
