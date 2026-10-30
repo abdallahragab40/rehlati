@@ -80,7 +80,7 @@ void main() {
     final r = Rng.seeded(8);
     for (var i = 0; i < 300; i++) {
       final q = hundreds(2, r);
-      if (q.visuals.isEmpty || q.visuals.single is! BigLetterVisual || q.ask.contains('اكتب')) continue;
+      if (q.visuals.isEmpty || q.visuals.single is! BigLetterVisual || q.ask.contains('اكتب') || (q.skill ?? '').startsWith('words:')) continue;
       final text = (q.visuals.single as BigLetterVisual).text;
       final n = int.parse(text.split('').map((d) => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).join());
       expect(n, inInclusiveRange(100, 999));
@@ -123,5 +123,21 @@ void main() {
       if (q.ask.startsWith('كام')) expect(q.answer, v.pieces.length);
       expect(v.apart, q.ask.startsWith('القطع'));
     }
+  });
+
+  test('number words like the grade 2 book', () {
+    expect([for (final n in [100, 200, 345, 410, 512, 999, 707]) arNumberWords(n)], [
+      'مائة', 'مائتان', 'ثلاثمائة وخمسة وأربعون', 'أربعمائة وعشرة', 'خمسمائة واثنا عشر', 'تسعمائة وتسعة وتسعون', 'سبعمائة وسبعة',
+    ]);
+    final r = Rng.seeded(15);
+    var seen = 0;
+    for (var i = 0; i < 400; i++) {
+      final q = hundreds(3, r);
+      if (!(q.skill?.startsWith('words:') ?? false)) continue;
+      seen++;
+      expect(q.choices.toSet(), hasLength(q.choices.length));
+      expect(q.choiceSay.values.every((v) => v.isEmpty), isTrue, reason: 'big numbers are not read out');
+    }
+    expect(seen, greaterThan(50));
   });
 }

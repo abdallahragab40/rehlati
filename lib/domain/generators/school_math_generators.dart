@@ -168,12 +168,52 @@ Question rounding(int lv, Rng r, {String? focus}) {
 
 // ---------------------------------------------------------------- الأعداد لحد ١٠٠٠
 
-/// المئات والعشرات والآحاد، الصيغة الممتدة، والمقارنة. العدد مكتوب والسؤال بس اللي بيتقال.
+const _arUnits = ['', 'واحد', 'اثنان', 'ثلاثة', 'أربعة', 'خمسة', 'ستة', 'سبعة', 'ثمانية', 'تسعة'];
+const _arTeens = [
+  'عشرة', 'أحد عشر', 'اثنا عشر', 'ثلاثة عشر', 'أربعة عشر', 'خمسة عشر', 'ستة عشر', 'سبعة عشر', 'ثمانية عشر', 'تسعة عشر',
+];
+const _arTens = ['', '', 'عشرون', 'ثلاثون', 'أربعون', 'خمسون', 'ستون', 'سبعون', 'ثمانون', 'تسعون'];
+const _arHundreds = ['', 'مائة', 'مائتان', 'ثلاثمائة', 'أربعمائة', 'خمسمائة', 'ستمائة', 'سبعمائة', 'ثمانمائة', 'تسعمائة'];
+
+/// الصيغة الكلامية زي كتاب تانية: ٣٤٥ ← ثلاثمائة وخمسة وأربعون (الآحاد قبل العشرات).
+String arNumberWords(int n) {
+  final h = n ~/ 100, rest = n % 100, t = rest ~/ 10, u = rest % 10;
+  final restWords = switch (rest) {
+    0 => '',
+    < 10 => _arUnits[rest],
+    < 20 => _arTeens[rest - 10],
+    _ => u == 0 ? _arTens[t] : '${_arUnits[u]} و${_arTens[t]}',
+  };
+  if (h == 0) return restWords;
+  return restWords.isEmpty ? _arHundreds[h] : '${_arHundreds[h]} و$restWords';
+}
+
+/// المئات والعشرات والآحاد، الصيغة الممتدة، والمقارنة، ومن المستوى التاني الصيغة الكلامية.
+/// العدد مكتوب والسؤال بس اللي بيتقال.
 Question hundreds(int lv, Rng r, {String? focus}) {
   // المستوى الأول عشرات كاملة (٣٤٠)، وبعده أي عدد من ١٠٠ لـ ٩٩٩
   final num = lv <= 1 ? r.rnd(10, 99) * 10 : r.rnd(100, 999);
   final h = num ~/ 100, t = num ~/ 10 % 10, o = num % 10;
-  final kind = lv <= 1 ? r.rnd(0, 1) : r.rnd(0, 2);
+  final kind = lv <= 1 ? r.rnd(0, 1) : r.rnd(0, 3);
+  if (kind == 3) {
+    // الصيغة الكلامية: الغلط بنفس الأرقام في خانات تانية، أو مية زيادة أو ناقصة
+    final wrong = {h * 100 + o * 10 + t, num + 100, num - 100, num + 10, num - 10}
+      ..removeWhere((x) => x == num || x < 100 || x > 999 || (x % 100 ~/ 10 == x % 10 && x == h * 100 + o * 10 + t));
+    final options = [num, ...r.shuffle(wrong.toList()).take(2)];
+    final toWords = r.chance(.5);
+    final ask = toWords ? 'اختار العدد ده مكتوب بالحروف' : 'العدد ده مكتوب بالأرقام إزاي؟';
+    String show(int x) => toWords ? arNumberWords(x) : ar(x);
+    return Question(
+      type: 'hundreds', mode: QMode.choice, skill: 'words:${toWords ? 'out' : 'in'}', numeric: false, wide: true,
+      ask: ask, speak: ask, clips: [say(ask)],
+      visuals: [BigLetterVisual(toWords ? ar(num) : arNumberWords(num))],
+      choices: r.shuffle(options.map(show).toList()), answer: show(num),
+      choiceSay: {for (final x in options) show(x): ''},
+      hint: 'ابدأ بالمئات، وبعدين الآحاد، وفي الآخر العشرات: ${arNumberWords(num)} ☝️',
+      speakHint: 'ابدأ بالمئات، وبعدين الآحاد، وفي الآخر العشرات',
+      clipsHint: [say('ابدأ بالمئات، وبعدين الآحاد، وفي الآخر العشرات')],
+    );
+  }
   if (kind == 0) {
     final (ask, answer) = r.sample([('العدد ده فيه كام مية؟', h), ('العدد ده فيه كام عشرة؟', t), ('العدد ده فيه كام آحاد؟', o)]);
     return Question(
