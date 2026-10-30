@@ -18,6 +18,7 @@ import 'package:just_audio/just_audio.dart';
 
 import '../features.dart';
 import 'clip_manifest.g.dart';
+import 'parent_voice.dart';
 import 'teaching.dart';
 import 'voice_lines.dart';
 
@@ -189,7 +190,11 @@ class SpeechService implements Speech {
     final keys = lang == 'ar' ? clipsFor(text, clips) : enClipsFor(text);
     if (keys != null) {
       try {
-        await _clips.setAudioSources([for (final k in keys) AudioSource.asset('assets/audio/clips/$k.m4a')]);
+        // تسجيل ولي الأمر (صوت ماما وبابا) بيحل محل المقطع الجاهز
+        await _clips.setAudioSources([
+          for (final k in keys)
+            if (ParentVoice.pathFor(k) case final f?) AudioSource.file(f) else AudioSource.asset('assets/audio/clips/$k.m4a'),
+        ]);
         await _clips.setSpeed(lang == 'ar' ? speed() : enSpeed() / enClipSpeed);
         if (my != _token) return;
         lastEvent = 'مقاطع مسجّلة ✅';

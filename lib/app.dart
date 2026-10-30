@@ -19,6 +19,7 @@ import 'domain/paths.dart';
 import 'domain/progress/progress_controller.dart';
 import 'domain/stages.dart';
 import 'features/achievements/achievements_screen.dart';
+import 'features/achievements/passport_screen.dart';
 import 'features/daily/time_up_screen.dart';
 import 'features/game/game_screen.dart';
 import 'features/home/home_screen.dart';
@@ -26,6 +27,7 @@ import 'features/journey/journey.dart';
 import 'features/paths/paths_screen.dart';
 import 'features/letter_board/letter_board_screen.dart';
 import 'features/madd/madd_lesson_screen.dart';
+import 'features/parent/parent_voice_screen.dart';
 import 'features/parent/dashboard_screen.dart';
 import 'features/parent/guide_screen.dart';
 import 'features/parent_guide/pg_screens.dart';
@@ -81,6 +83,7 @@ final _router = GoRouter(initialLocation: kDebugMode ? _start : '/', routes: [
     builder: (_, s) => LearningScope(track: false, child: PathScreen(id: s.pathParameters['id']!)),
   ),
   GoRoute(path: '/achievements', builder: (_, _) => const AchievementsScreen()),
+  GoRoute(path: '/passport', builder: (_, _) => const PassportScreen()),
   GoRoute(path: '/quran', builder: (_, _) => const LearningScope(track: false, child: QuranHomeScreen())),
   GoRoute(path: '/quran-check', builder: (_, _) => const QuranCheckScreen()),
   GoRoute(
@@ -97,6 +100,7 @@ final _router = GoRouter(initialLocation: kDebugMode ? _start : '/', routes: [
   ),
   GoRoute(path: '/parent', builder: (_, _) => const DashboardScreen()),
   GoRoute(path: '/guide', builder: (_, _) => const GuideScreen()),
+  GoRoute(path: '/parent-voice', builder: (_, _) => const ParentVoiceScreen()),
   GoRoute(path: '/pg', builder: (_, _) => const PgHomeScreen()),
   GoRoute(path: '/pg/b/:id', builder: (_, s) => PgDetailScreen(id: s.pathParameters['id']!)),
   GoRoute(path: '/pg/goals', builder: (_, _) => const PgGoalsScreen()),

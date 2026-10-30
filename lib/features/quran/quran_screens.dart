@@ -12,6 +12,7 @@ import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
 import '../../core/widgets/top_bar.dart';
 import '../../domain/progress/progress_controller.dart';
+import '../../domain/certificates.dart' show memorizedSurahs;
 import '../../domain/progress/progress_data.dart';
 import 'quran_repository.dart';
 import 'quran_widgets.dart';
@@ -26,7 +27,7 @@ const quranModes = [
   QuranMode('listen', '🎧', 'الاستماع', 'اسمع السورة آية آية'),
   QuranMode('repeat', '🗣️', 'الترديد', 'ردّد ورا الشيخ'),
   QuranMode('memorize', '📖', 'الحفظ', 'رتّب كلمات الآية'),
-  QuranMode('review', '🔄', 'المراجعة', 'إيه الآية اللي بعدها؟'),
+  QuranMode('review', '🔄', 'المراجعة', 'إيه الآية اللي بعدها؟ وكمّل الآية'),
 ];
 
 /// بيحمّل السورة (من الكاش أو النت) ويعرض التحميل أو الخطأ، وبعدين [builder].
@@ -99,7 +100,10 @@ class QuranHomeScreen extends ConsumerWidget {
         Text(QuranConfig.rangeTitle,
             style: kidText(context.clampVw(22, 6, 32), color: Colors.white)
                 .copyWith(shadows: const [Shadow(color: Color(0x4D1B3557), offset: Offset(0, 3))])),
-        const HeroText('اختار سورة وابدأ الرحلة'),
+        HeroText(switch (memorizedSurahs(p).length) {
+          0 => 'اختار سورة وابدأ الرحلة',
+          final n => '🏅 حفظت ${countOf(n, surahWord)} — ما شاء الله!',
+        }),
         const SizedBox(height: 22),
         body,
       ]),

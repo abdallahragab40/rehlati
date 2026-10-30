@@ -12,6 +12,7 @@ import 'package:rehlati/domain/progress/progress_controller.dart';
 import 'package:rehlati/domain/stages.dart';
 import 'package:rehlati/features/journey/journey.dart';
 import 'package:rehlati/features/achievements/achievements_screen.dart';
+import 'package:rehlati/features/achievements/passport_screen.dart';
 import 'package:rehlati/features/game/game_screen.dart';
 import 'package:rehlati/features/home/home_screen.dart';
 import 'package:rehlati/features/intro/intro_screen.dart';
@@ -23,6 +24,7 @@ import 'package:rehlati/features/madd/madd_lesson_screen.dart';
 import 'package:rehlati/features/parent_guide/pg_screens.dart';
 import 'package:rehlati/features/parent/dashboard_screen.dart';
 import 'package:rehlati/features/parent/guide_screen.dart';
+import 'package:rehlati/features/parent/parent_voice_screen.dart';
 import 'package:rehlati/features/quran/quran_modes.dart';
 import 'package:rehlati/features/quran/quran_repository.dart';
 import 'package:rehlati/features/paths/paths_screen.dart';
@@ -80,10 +82,12 @@ void main() {
     for (final s in packs.values.where((s) => s.isMadd)) 'madd lesson ${s.id}': MaddLessonScreen(stageId: s.id),
     for (final s in packs.values.where((s) => s.isLearn)) 'learn ${s.id}': LetterBoardScreen(stageId: s.id),
     'achievements': const AchievementsScreen(),
+    'passport': const PassportScreen(),
     'dashboard': const DashboardScreen(),
     'dashboard guide': const DashboardScreen(tab: DashTab.guide),
     'dashboard settings': const DashboardScreen(tab: DashTab.settings),
     'guide': const GuideScreen(),
+    'parent voice': const ParentVoiceScreen(),
     'quran home': const QuranHomeScreen(),
     'surah': const SurahScreen(surah: 112),
     for (final m in quranModes) 'quran ${m.id}': QuranModeScreen(surah: 112, mode: m.id),

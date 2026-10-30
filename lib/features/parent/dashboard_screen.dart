@@ -30,6 +30,8 @@ import 'avatar.dart';
 import 'backup_card.dart';
 import 'credits_card.dart';
 import 'mastery_card.dart';
+import 'share_cards.dart';
+import 'worksheet_card.dart';
 
 String fmtTime(int ms) {
   final m = (ms / 60000).round();
@@ -169,7 +171,12 @@ class _ProgressTab extends ConsumerWidget {
       _h3('🎒 مسارات التعلّم'),
       const PathsParentCard(),
       _h3('📅 تقرير الأسبوع'),
+      const ShareWeekButton(),
       const WeekCard(),
+      _h3('🏅 الشهادات'),
+      const CertificatesCard(),
+      _h3('📝 ورقة عمل للطباعة'),
+      const WorksheetCard(),
       _h3('🧠 مهارات محتاجة تدريب'),
       _WeakSkills(p),
       _h3('📖 سور تحتاج مراجعة'),
@@ -232,6 +239,13 @@ class _SettingsTab extends StatelessWidget {
   Widget build(BuildContext context) => Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         _h3('🎯 اختبار تحديد المستوى'),
         const _PlacementCard(),
+        _h3('🎙️ صوت ماما وبابا'),
+        _LinkCard(
+          icon: '🎙️',
+          title: 'سجّل الحروف والأرقام بصوتك',
+          sub: 'التطبيق يقولها لطفلك بصوتك — والتسجيلات على الجهاز بس',
+          onTap: () => context.push('/parent-voice'),
+        ),
         _h3('🧑 شكل التطبيق'),
         const _LookCard(),
         _h3('⏰ تذكير يومي'),

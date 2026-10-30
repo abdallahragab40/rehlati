@@ -3,6 +3,7 @@
 /// أي عالم جديد = بيانات + مولّدات + قائمة مراحل هنا. المحرك والواجهة والنجوم مشتركين.
 library;
 
+import 'dart:math' as math;
 import 'dart:ui' show Color;
 
 import '../content/language_data.dart';
@@ -13,6 +14,7 @@ import 'generators/arabic_generators.dart';
 import 'generators/basics_generators.dart';
 import 'generators/deen_generators.dart';
 import 'generators/english_more_generators.dart';
+import 'generators/fade_generators.dart';
 import 'generators/en_primary_generators.dart';
 import 'generators/english_generators.dart';
 import 'generators/games_generators.dart';
@@ -349,6 +351,14 @@ final _al = _grp('arabic', 'al', 'الشمسية والقمرية', 0xFFD9822B, 
   ('ar_al', '☀️', 'اللام الشمسية والقمرية', 2, arAl),
 ], after: 'ar_sukun', fromGrade: 'p1');
 
+/// من التشكيل للقراءة العادية بعد السكون والتنوين: نفس الكلمات بتشكيل كامل، وبعدين أقل، وبعدين من غيره.
+/// بتتفتح بعد "فين الحرف الساكن؟" بس (مش من الصف) — التدرّج محتاج الطفل يعرف السكون والتنوين الأول.
+final _fade = _grp('arabic', 'fade', 'من التشكيل للقراءة العادية', 0xFFB5651D, [
+  ('ar_fade_full', '🔤', 'اقرأ الكلمة المشكولة', 2, fadeGen('ar_fade_full', 0)),
+  ('ar_fade_less', '🌗', 'تشكيل أقل', 2, fadeGen('ar_fade_less', 1)),
+  ('ar_fade_none', '📖', 'اقرأ من غير تشكيل', 2, fadeGen('ar_fade_none', 2)),
+], after: 'ar_sukun');
+
 /// قراءة جمل قصيرة بصورة وسؤال، بعد قراءة كلمات المدود.
 final _shortRead = _grp('arabic', 'shortRead', 'أقرأ جمل قصيرة', 0xFFC96A1F, [
   ('ar_short_read', '📖', 'اقرأ الجملة', 2, arShortRead),
@@ -597,7 +607,7 @@ final Map<String, List<Stage>> worldStages = {
   // بين بعض — المجموعات الجديدة بتدخل بينها في مكانها في المنهج (stage_ids_test.dart)
   'math': _numbered([..._math, ..._mathBasics, ..._math100, ..._mul, ..._life, ..._upperPrimary]),
   'arabic': _numbered([
-    ..._arabic, ..._concepts, ..._harakat, ..._forms, ..._madd, ..._shortRead, ..._sukun, ..._al, ..._grammar,
+    ..._arabic, ..._concepts, ..._harakat, ..._forms, ..._madd, ..._shortRead, ..._sukun, ..._al, ..._fade, ..._grammar,
   ]),
   'english': _numbered([..._english, if (voiceEnabled) ..._phonics, ..._enWords, ..._enPrimary]),
   'deen': _numbered(_deen),
@@ -630,6 +640,15 @@ const initiallyUnlocked = ['counting', 'ar_learn', 'en_learn'];
 
 /// السؤال الجاي لأي نوع: id مرحلة ("counting"، "madd_alif") أو نوع لعبة مدود ("madd_alif:letter").
 /// "تدريب على الأخطاء" بيستخدم النوع الكامل عشان يرجّع نفس قيود المرحلة.
+/// مستوى جولة المرحلة دي للطفل ده (المحرك وورقة العمل).
+/// آخر جولتين ضعاف في المرحلة ← أسهل مستوى ليها، حتى لو تحت مستوى السن.
+/// عالم الألعاب: المستوى من السن (الألعاب كلها مفتوحة، فمستوى العالم مابيقولش حاجة عن الطفل).
+int roundLevel(ProgressData p, Stage stage) => p.struggling(stage.id)
+    ? stage.base
+    : openWorlds.contains(stage.world)
+        ? math.max(stage.base, p.gamesLevel)
+        : math.min(math.max(stage.base, math.min(p.level(stage.world), stage.base + 1)), 4);
+
 Question makeQuestion(String type, int lv, Rng r, {String? focus, required ProgressData progress}) {
   final i = type.indexOf(':');
   final stage = packs[i < 0 ? type : type.substring(0, i)]!;

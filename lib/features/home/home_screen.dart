@@ -10,6 +10,7 @@ import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
 import '../../core/widgets/top_bar.dart';
+import '../../domain/passport.dart';
 import '../../domain/progress/badges.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
@@ -130,6 +131,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           Wrap(alignment: WrapAlignment.center, spacing: 10, runSpacing: 4, children: [
             KidButton('🏆 إنجازاتي (${ar(p.achievements.length)} / ${ar(badges.length)})',
                 kind: BtnKind.ghost, onTap: () => context.push('/achievements')),
+            KidButton('🛂 جواز رحلتي (${ar(stampCount(p))} / ${ar(stampTotal)})',
+                kind: BtnKind.ghost, onTap: () => context.push('/passport')),
             KidButton('🧒 أتعلم أتصرف إزاي؟', kind: BtnKind.ghost, onTap: () => context.push('/pg/kids')),
           ]),
           const SizedBox(height: 8),

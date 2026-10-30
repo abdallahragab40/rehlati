@@ -12,6 +12,7 @@ import 'content/quran_config.dart';
 import 'core/audio/asset_cache.dart';
 import 'core/audio/audio_providers.dart';
 import 'core/audio/music_service.dart';
+import 'core/audio/parent_voice.dart';
 import 'core/audio/sfx_service.dart';
 import 'core/audio/speech_service.dart';
 import 'domain/progress/progress_controller.dart';
@@ -34,19 +35,10 @@ Future<void> main() async {
 
   // جلسة صوت واحدة: الصوت يشتغل حتى لو الجهاز على الصامت، ويمتزج مع أي صوت تاني
   final session = await AudioSession.instance;
-  await session.configure(const AudioSessionConfiguration(
-    avAudioSessionCategory: AVAudioSessionCategory.playback,
-    avAudioSessionCategoryOptions: AVAudioSessionCategoryOptions.mixWithOthers,
-    avAudioSessionMode: AVAudioSessionMode.defaultMode,
-    androidAudioAttributes: AndroidAudioAttributes(
-      contentType: AndroidAudioContentType.speech,
-      usage: AndroidAudioUsage.media,
-    ),
-    androidAudioFocusGainType: AndroidAudioFocusGainType.gainTransientMayDuck,
-  ));
+  await session.configure(appAudioSession);
 
   final prefs = await SharedPreferences.getInstance();
-  await AvatarController.init();
+  await Future.wait([AvatarController.init(), ParentVoice.init()]);
 
   late final ProviderContainer container;
   final speech = SpeechService(

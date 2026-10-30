@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- عالم القرآن بيجيب النص والتلاوة من النت (فلاتر بيضيفها في الـ debug بس) -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- صوت ماما وبابا: ولي الأمر بيسجّل الحروف والأرقام من لوحته بس -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- التذكير اليومي (بيتفعّل من لوحة ولي الأمر بس) -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />

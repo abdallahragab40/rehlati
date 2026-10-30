@@ -31,6 +31,7 @@ const minuteWord = (one: 'دقيقة واحدة', two: 'دقيقتين', few: '�
 const hourWord = (one: 'ساعة', two: 'ساعتين', few: 'ساعات', many: 'ساعة');
 const gameWord = (one: 'لعبة واحدة', two: 'لعبتين', few: 'ألعاب', many: 'لعبة');
 const timesWord = (one: 'مرة واحدة', two: 'مرتين', few: 'مرات', many: 'مرة');
+const stampWord = (one: 'ختم واحد', two: 'ختمين', few: 'أختام', many: 'ختم');
 const pieceWord = (one: 'قطعة واحدة', two: 'قطعتين', few: 'قطع', many: 'قطعة');
 const situationWord = (one: 'موقف واحد', two: 'موقفين', few: 'مواقف', many: 'موقف');
 const damagedFileWord = (one: 'ملف تالف', two: 'ملفين تالفين', few: 'ملفات تالفة', many: 'ملف تالف');

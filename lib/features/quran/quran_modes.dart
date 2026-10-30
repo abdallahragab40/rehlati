@@ -15,6 +15,7 @@ import '../../core/audio/audio_providers.dart';
 import '../../core/nav.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
+import '../../core/utils/rng.dart';
 import '../../core/widgets/dashed_box.dart';
 import '../../core/widgets/fx_layer.dart';
 import '../../core/widgets/kid_widgets.dart';
@@ -425,7 +426,8 @@ class _MemorizeState extends _ModeState<_Memorize> {
         Timer(const Duration(milliseconds: 900), () {
           if (!mounted) return;
           if (idx + 1 >= widget.ayahs.length) {
-            complete('memorize', 3, 'ختمت حفظ السورة! ${ar(right)} من ${ar(widget.ayahs.length)} ⭐');
+            complete('memorize', 3,
+                'ختمت حفظ السورة! ${ar(right)} من ${ar(widget.ayahs.length)} ⭐\n🏅 شهادتك جاهزة — ورّيها لبابا أو ماما');
           } else if (!timeUp()) {
             setState(() {
               idx++;
@@ -519,6 +521,28 @@ class _MemorizeState extends _ModeState<_Memorize> {
 
 // ---------------------------------------------------------------- ٤) المراجعة
 
+/// سؤال «كمّل الآية»: الآية من غير آخر كلمة، والاختيارات آخر كلمات آيات تانية من نفس السورة
+/// (غالبًا على نفس الفاصلة، فبتحتاج حفظ مش تخمين). كل الكلمات بنصها بالظبط من المصدر.
+/// null = مفيش آية فيها كلمتين أو مفيش اختيارات كفاية.
+({int index, String shown, String answer, List<String> options})? completeAyahQuestion(List<Ayah> ayahs, Rng rng) {
+  final ok = [for (var i = 0; i < ayahs.length; i++) if (ayahWords(ayahs[i].text).length >= 2) i];
+  if (ok.isEmpty) return null;
+  final i = rng.sample(ok);
+  final words = ayahWords(ayahs[i].text);
+  final answer = words.last;
+  final lasts = {for (final a in ayahs) ayahWords(a.text).last}..remove(answer);
+  final others = {...lasts, for (final a in ayahs) ...ayahWords(a.text)}..remove(answer);
+  final pick = [...rng.shuffle(lasts.toList()).take(2)];
+  if (pick.length < 2) pick.addAll(rng.shuffle(others.where((w) => !pick.contains(w)).toList()).take(2 - pick.length));
+  if (pick.length < 2) return null;
+  return (
+    index: i,
+    shown: words.sublist(0, words.length - 1).join(' '),
+    answer: answer,
+    options: rng.shuffle([answer, ...pick]),
+  );
+}
+
 class _Review extends ConsumerStatefulWidget {
   const _Review({required this.chapter, required this.ayahs});
   final QuranChapter chapter;
@@ -534,6 +558,9 @@ class _ReviewState extends _ModeState<_Review> {
   late List<Ayah> opts;
   int? rightNo, wrongNo;
   int wrongTick = 0;
+
+  /// السؤال الحالي «كمّل الآية» (التاني والرابع لو فيه آية تنفع) — null = «إيه الآية اللي بعدها؟».
+  ({int index, String shown, String answer, List<String> options})? fill;
 
   @override
   QuranChapter get chapter => widget.chapter;
@@ -556,11 +583,15 @@ class _ReviewState extends _ModeState<_Review> {
   void _draw() {
     final rng = ref.read(rngProvider);
     final a = widget.ayahs;
-    i = rng.rnd(0, a.length - 2);
-    final correct = a[i + 1];
-    // الاختيارات كلها آيات حقيقية من نفس السورة — مفيش أي نص مُولَّد
-    final others = a.where((x) => x.number != correct.number && x.number != a[i].number).toList();
-    opts = rng.shuffle([correct, ...rng.shuffle(others).take(2)]);
+    fill = q.isOdd ? completeAyahQuestion(a, rng) : null;
+    // «كمّل الآية» ممكن تختار آخر آية — مالهاش «اللي بعدها»
+    i = fill?.index ?? rng.rnd(0, a.length - 2);
+    if (fill == null) {
+      final correct = a[i + 1];
+      // الاختيارات كلها آيات حقيقية من نفس السورة — مفيش أي نص مُولَّد
+      final others = a.where((x) => x.number != correct.number && x.number != a[i].number).toList();
+      opts = rng.shuffle([correct, ...rng.shuffle(others).take(2)]);
+    }
     missed = false;
     locked = false;
     rightNo = null;
@@ -569,21 +600,26 @@ class _ReviewState extends _ModeState<_Review> {
     bubbleKind = BubbleKind.plain;
   }
 
-  void _pick(Ayah o) {
+  void _pick(Ayah o) => _answer(o.number == widget.ayahs[i + 1].number, o.number, widget.ayahs[i + 1].number);
+
+  /// «كمّل الآية»: الاختيار بيتعلّم بمكانه في القايمة.
+  void _pickWord(int k) => _answer(fill!.options[k] == fill!.answer, k, widget.ayahs[i].number);
+
+  /// [mark] اللي بيتلوّن، و[ayah] الآية اللي بتتسمع بعد الإجابة الصح.
+  void _answer(bool ok, int mark, int ayahNo) {
     if (locked) return;
-    final correct = widget.ayahs[i + 1];
-    if (o.number == correct.number) {
+    if (ok) {
       locked = true;
       // بتتحسب صح لو من أول محاولة بس — في الويب كانت أي إجابة صح بتتحسب فالمراجعة ماكانتش بتفشل أبدًا
       if (!missed) right++;
       ref.read(sfxProvider).good();
       setState(() {
-        rightNo = o.number;
+        rightNo = mark;
         lion = LionMood.cheer;
         lionTick++;
       });
       say(missed ? 'أحسنت! ❤️' : 'صح! ⭐', BubbleKind.ok);
-      play(correct.number);
+      play(ayahNo);
       Timer(const Duration(milliseconds: 1400), () {
         if (!mounted) return;
         q++;
@@ -599,7 +635,7 @@ class _ReviewState extends _ModeState<_Review> {
       missed = true;
       ref.read(sfxProvider).bad();
       setState(() {
-        wrongNo = o.number;
+        wrongNo = mark;
         wrongTick++;
         lion = LionMood.sad;
         lionTick++;
@@ -621,6 +657,7 @@ class _ReviewState extends _ModeState<_Review> {
       );
     }
     final style = TextStyle(fontFamily: quranFont, fontSize: context.clampVw(19, 4.8, 24), height: 2, color: AppColors.ink);
+    if (fill case final f?) return _fillCard(f, style);
     return Column(children: [
       AyahDots(count: total, current: q),
       QCard(
@@ -643,6 +680,75 @@ class _ReviewState extends _ModeState<_Review> {
     ]);
   }
 
+  /// «كمّل الآية»: الآية لحد قبل آخر كلمة، وبعد الإجابة الصح بتظهر كاملة.
+  Widget _fillCard(({int index, String shown, String answer, List<String> options}) f, TextStyle style) {
+    final ayah = widget.ayahs[i];
+    return Column(children: [
+      AyahDots(count: total, current: q),
+      QCard(
+        key: ValueKey('f$q'),
+        child: Column(children: [
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Flexible(child: Text('كمّل الآية', style: kidText(context.clampVw(22, 6, 30)))),
+            const SizedBox(width: 10),
+            PlayerButton('🔊', semantic: 'اسمع الآية', onTap: () => play(ayah.number)),
+          ]),
+          const SizedBox(height: 14),
+          if (rightNo != null)
+            AyahBox(ayah, active: true)
+          else
+            Container(
+              width: double.infinity,
+              margin: const EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color: const Color(0x242FC9B4),
+                borderRadius: BorderRadius.circular(18),
+                border: Border.all(color: quranMint, width: 3),
+              ),
+              child: Text.rich(
+                TextSpan(children: [
+                  TextSpan(text: '${f.shown} '),
+                  const WidgetSpan(alignment: PlaceholderAlignment.middle, child: _Blank()),
+                ]),
+                textAlign: TextAlign.center,
+                style: ayahStyle(context),
+              ),
+            ),
+          const SizedBox(height: 4),
+          Wrap(alignment: WrapAlignment.center, spacing: 10, runSpacing: 10, children: [
+            for (var k = 0; k < f.options.length; k++) _word(k, f.options[k], style),
+          ]),
+        ]),
+      ),
+    ]);
+  }
+
+  Widget _word(int k, String w, TextStyle style) {
+    final isRight = rightNo == k, isWrong = wrongNo == k;
+    final box = Semantics(
+      button: true,
+      label: w,
+      child: GestureDetector(
+        onTap: () => _pickWord(k),
+        child: Container(
+          constraints: const BoxConstraints(minWidth: 96, minHeight: 56),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          decoration: BoxDecoration(
+            color: isRight ? AppColors.okBg : (isWrong ? AppColors.noBg : AppColors.paper2),
+            borderRadius: BorderRadius.circular(18),
+            border: Border.all(
+              color: isRight ? const Color(0xFF2ECC71) : (isWrong ? AppColors.coral : AppColors.line),
+              width: 3,
+            ),
+          ),
+          child: Text(w, textAlign: TextAlign.center, style: style),
+        ),
+      ),
+    );
+    return isWrong ? box.anim(key: ValueKey('fw$wrongTick')).shakeX(hz: 5, amount: 9, duration: 400.ms) : box;
+  }
+
   Widget _choice(Ayah o, TextStyle style) {
     final isRight = rightNo == o.number, isWrong = wrongNo == o.number;
     final box = GestureDetector(
@@ -663,4 +769,21 @@ class _ReviewState extends _ModeState<_Review> {
     );
     return isWrong ? box.anim(key: ValueKey('rw$wrongTick')).shakeX(hz: 5, amount: 9, duration: 400.ms) : box;
   }
+}
+
+/// مكان الكلمة الناقصة في «كمّل الآية».
+class _Blank extends StatelessWidget {
+  const _Blank();
+
+  @override
+  Widget build(BuildContext context) => Container(
+        width: 70,
+        height: 34,
+        decoration: BoxDecoration(
+          color: AppColors.paper,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: AppColors.grape, width: 2.5),
+        ),
+        child: Center(child: Text('؟', style: kidText(20, color: AppColors.grape))),
+      );
 }

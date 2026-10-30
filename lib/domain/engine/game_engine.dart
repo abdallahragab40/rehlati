@@ -258,14 +258,7 @@ class GameEngine extends Notifier<GameSession?> {
     _speech.stop();
     final stage = packs[stageId]!;
     final p = _progress.data;
-    final childLv = p.level(stage.world);
-    // آخر جولتين ضعاف في المرحلة دي ← أسهل مستوى ليها، حتى لو تحت مستوى السن
-    // عالم الألعاب: المستوى من السن (الألعاب كلها مفتوحة، فمستوى العالم مابيقولش حاجة عن الطفل)
-    final level = p.struggling(stage.id)
-        ? stage.base
-        : openWorlds.contains(stage.world)
-            ? math.max(stage.base, p.gamesLevel)
-            : math.min(math.max(stage.base, math.min(childLv, stage.base + 1)), 4);
+    final level = roundLevel(p, stage);
     // مراحل طويلة (زي الجدول الفاضي) ممكن تحدّد عدد أسئلتها بنفسها
     final count = practice ? practiceCount : (stage.count ?? questionsPerRound);
     final list = <Question>[];
