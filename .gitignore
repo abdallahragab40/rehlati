@@ -51,3 +51,8 @@ android/key.properties
 
 # Local planning and release notes — not pushed
 docs/
+
+# API keys (tool/.env and any other env file) — never commit
+.env
+*.env
+.env.*
