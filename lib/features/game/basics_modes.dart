@@ -222,6 +222,46 @@ class PicGraphView extends StatelessWidget {
   }
 }
 
+// ---------------------------------------------------------------- 📦 in / on / under
+
+/// الحاجة جوه المكان (نصها التحتاني ورا المكان)، أو فوقه لازقة فيه، أو تحته.
+class PrepView extends StatelessWidget {
+  const PrepView(this.v, {super.key});
+  final PrepVisual v;
+
+  @override
+  Widget build(BuildContext context) {
+    final big = context.clampVw(110, 26, 140), small = big * .5;
+    final w = big * 1.3, h = big * 1.75;
+    final placeTop = switch (v.prep) { 'under' => 0.0, _ => h - big };
+    final thingTop = switch (v.prep) {
+      'in' => placeTop - small * .45,
+      'on' => placeTop - small * .92,
+      _ => big * .98,
+    };
+    Widget at(double top, String e, double size) => Positioned(
+          top: top,
+          left: 0,
+          right: 0,
+          child: Text(e, textAlign: TextAlign.center, style: _emoji(size)),
+        );
+    return Semantics(
+      label: '${v.thing} ${v.prep} ${v.place}',
+      child: ExcludeSemantics(
+        child: SizedBox(
+          width: w,
+          height: h,
+          // في «in» المكان بيترسم فوق الحاجة عشان تبان طالعة منه
+          child: Stack(clipBehavior: Clip.none, children: [
+            if (v.prep == 'in') ...[at(thingTop, v.thing, small), at(placeTop, v.place, big)]
+            else ...[at(placeTop, v.place, big), at(thingTop, v.thing, small)],
+          ]),
+        ),
+      ),
+    );
+  }
+}
+
 // ---------------------------------------------------------------- 📊 الأعمدة
 
 /// أعمدة ملوّنة على شبكة بخطوط كل [BarGraphVisual.scale]، والأرقام على اليمين، والصور تحت.

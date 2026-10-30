@@ -298,6 +298,12 @@ class CoinsVisual extends Visual {
 }
 
 /// رسم بياني بالصور: عمود لكل صورة بعددها.
+/// حاجة جوه مكان أو فوقه أو تحته (in / on / under).
+class PrepVisual extends Visual {
+  const PrepVisual(this.thing, this.place, this.prep);
+  final String thing, place, prep;
+}
+
 /// تمثيل بالأعمدة: (صورة، قيمة)، وخطوط الشبكة كل [scale] — أول عمود على اليمين.
 class BarGraphVisual extends Visual {
   const BarGraphVisual(this.rows, this.scale);

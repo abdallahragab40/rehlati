@@ -201,19 +201,22 @@ Question enTable(int lv, Rng r, {String? focus}) {
 }
 
 /// مولّد عام لأي قائمة مفردات: صورة ← الكلمة.
-Question Function(int, Rng, {String? focus}) vocabGame(String type, List<Word> list, String skillTag) {
+/// [ask] السؤال، و[hint] جملة التلميح للكلمة الصح (مثلًا "They feel happy").
+Question Function(int, Rng, {String? focus}) vocabGame(String type, List<Word> list, String skillTag,
+    {String ask = 'What is this?', String Function(String word)? hint}) {
   return (int lv, Rng r, {String? focus}) {
     final n = [6, 8, 10, list.length][lv.clamp(1, 4) - 1];
     final pool = list.take(n).toList();
     final it = pool.where((x) => x.word == focus).firstOrNull ?? r.sample<Word>(pool);
+    final h = hint?.call(it.word) ?? 'It is ${it.word}';
     return Question(
       type: type, mode: QMode.choice, lang: 'en', ltr: true, wide: true, skill: '$skillTag:${it.word}',
-      ask: 'What is this?', speak: 'What is this?',
+      ask: ask, speak: ask,
       visuals: [PicsVisual(it.emoji, 1, big: true)],
       choices: r.textChoices(it.word, [for (final x in pool) x.word], 3),
       answer: it.word,
-      hint: 'It is ${it.word}',
-      speakHint: 'It is ${it.word}',
+      hint: h,
+      speakHint: h,
     );
   };
 }

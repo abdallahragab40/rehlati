@@ -13,7 +13,9 @@ e_898bfc88	Ant.
 e_b6779c5f	Apple
 e_ac976f4f	Apple starts with A
 e_af4b45e3	Apple.
+e_98dbac97	April
 e_2680df31	At seven o'clock.
+e_5ddb609c	August
 e_c70bfb85	B
 e_a1209043	B .
 e_4b666169	B and b are the same letter
@@ -100,6 +102,7 @@ e_caf17cdd	Cat starts with C
 e_d25960ab	Cat.
 e_60cf7a7b	Choose the correct word
 e_b1dc6d1b	Choose the question word.
+e_214fbe24	Choose the right sentence.
 e_ec80ff8b	Choose the right word.
 e_812746a9	Circle
 e_8936d342	Complete the alphabet.
@@ -136,6 +139,7 @@ e_c10bf213	D
 e_73b8d425	D .
 e_ae44a061	D and d are the same letter
 e_07ef3ae8	D is for Dog
+e_662dcc9e	December
 e_df593b47	Diamond
 e_4b6dbda9	Dog
 e_ff4464d2	Dog starts with D
@@ -158,6 +162,7 @@ e_6ce79a2f	F .
 e_0bb54071	F and f are the same letter
 e_edb12e02	F is for Fish
 e_23516d83	Father
+e_fca77633	February
 e_24225d02	Find every letter A.
 e_a629e56d	Find every letter B.
 e_2426da30	Find every letter C.
@@ -208,6 +213,7 @@ e_a4e111da	Follow the grey letter
 e_bd7cbfe9	Food
 e_ad7ca6b9	Foot
 e_af9641c5	Four
+e_bc09cf52	Friday
 e_3df32aad	Friend
 e_1e743f07	Frog
 e_19ff6d8b	Frog.
@@ -251,6 +257,7 @@ e_b532b2fb	House
 e_a54e3820	House starts with H
 e_13cf854f	House.
 e_644e442d	How
+e_808bef35	How do they feel?
 e_1cfe9112	How many apples do you have?
 e_ed20469a	How many elephants did he see?
 e_4d62bdfa	How old are you?
@@ -271,8 +278,10 @@ e_11a84cb0	Ice cream.
 e_66208c4e	In Cairo
 e_4d4cfe78	In London
 e_b6b7883d	In a village
+e_11a63260	In is inside.
 e_96ee518c	In winter it is cold.
 e_b22ec4de	Is it a or an?
+e_5d3f731c	Is it in, on or under?
 e_a99e438c	It is Baby
 e_e5be4cd6	It is Bear
 e_2565b9b3	It is Bird
@@ -340,13 +349,55 @@ e_4875c5dc	It is hot today.
 e_a3368609	It is time to sleep.
 e_73bde0d9	It is under the table.
 e_a395393b	It was raining
+e_5ed8c23e	It's a bicycle.
+e_8568ceb3	It's a bus.
+e_461faf7b	It's a car.
+e_8b74ee64	It's a motorcycle.
+e_39d965db	It's a plane.
+e_a393a8a7	It's a taxi.
+e_072b053b	It's a train.
+e_cfc438fc	It's a truck.
+e_f88a502d	It's basketball.
+e_e9691960	It's cloudy.
+e_b014b80a	It's cold.
+e_11a93d37	It's fall.
+e_6fbc5c6b	It's football.
+e_1a7ee43d	It's hot.
+e_03459063	It's rainy.
+e_ce5dcf31	It's running.
+e_ef5016da	It's snowy.
+e_87414bf7	It's spring.
+e_39d041cf	It's summer.
+e_6cd9fe35	It's sunny.
+e_52acb4ef	It's swimming.
+e_6852e74d	It's tennis.
+e_197dc939	It's the bathroom.
+e_3a401288	It's the beach.
+e_267b1b21	It's the bedroom.
+e_c385eedd	It's the dining room.
+e_0da00a3c	It's the garden.
+e_682ce9e1	It's the hospital.
+e_e40f9add	It's the kitchen.
+e_de2d529d	It's the living room.
+e_e0c8ffc7	It's the park.
+e_a56394b3	It's the post office.
+e_7a6612c7	It's the school.
+e_72449d8f	It's the shop.
+e_1b8b6b52	It's the street.
+e_b5fda904	It's the supermarket.
+e_d3291e78	It's volleyball.
+e_1b2386f3	It's windy.
+e_29a0185f	It's winter.
 e_cf0c081d	J
 e_e856a88b	J .
 e_bd947529	J and j are the same letter
 e_530ef020	J is for Juice
+e_9d2cfb7d	January
 e_c02c5b9f	Juice
 e_95dde93a	Juice starts with J
 e_36d457a3	Juice.
+e_011ca01f	July
+e_e920f785	June
 e_ce0c068a	K
 e_996fdc10	K .
 e_59600795	K and k are the same letter
@@ -372,9 +423,12 @@ e_c80bfd18	M
 e_ec075672	M .
 e_bd311f45	M and m are the same letter
 e_c963a8b8	M is for Moon
+e_c0846390	March
 e_6acfc014	Match each big letter with its small letter
+e_3ba7e226	May
 e_ef6fa4c2	Milk
 e_d8c09f84	Milk.
+e_3a56e759	Monday
 e_57718c28	Monkey
 e_58644560	Moon
 e_3740d3f0	Moon starts with M
@@ -397,13 +451,16 @@ e_1433f56a	Nose
 e_9d927edf	Nose starts with N
 e_11cb1a0c	Nose.
 e_d9fb9faa	Not this one
+e_3ea53a3f	November
 e_ca0c003e	O
 e_e5361c7c	O .
 e_2991c6f5	O and o are the same letter
 e_350167a1	O is for Orange
+e_ecf21807	October
 e_8c1879c7	On Friday
 e_f9eae130	On Monday
 e_2b91224c	On Sunday
+e_69d2a47c	On is on top.
 e_1cb1b18f	One
 e_044af777	One is, many are, I am
 e_727b390b	Orange
@@ -448,11 +505,14 @@ e_d60c1322	S
 e_e0069098	S .
 e_e1a76df5	S and s are the same letter
 e_afd90827	S is for Sun
+e_0e68b936	Saturday
 e_5926e4c8	Say each sound slowly
 e_4edd4b69	Say it slowly.
 e_0ad5c96a	Say the alphabet from A until you reach the empty box
 e_7cb24c30	Say the sounds faster.
+e_15001d4d	Say them in order
 e_e7df7fe9	School
+e_c212b600	September
 e_db3f1e9e	Seven
 e_f644bc97	She was ill
 e_b0020094	Sheep
@@ -469,25 +529,99 @@ e_51677b91	Star
 e_42d8d701	Sun
 e_38d8efbb	Sun starts with S
 e_6a5abefd	Sun.
+e_d0f065f9	Sunday
 e_7e406f48	Swimming
 e_d10c0b43	T
 e_622408d5	T .
 e_15996681	T and t are the same letter
 e_6f083616	T is for Tree
+e_a8136946	T-shirt
 e_329d9b7a	Tap a big letter, then tap its small letter
 e_168c7dc9	Tea
 e_1f8c8bf4	Ten
 e_fd18b61b	Thank you!
+e_e5681fac	The apple is in the basket.
+e_014a3abb	The apple is in the bed.
+e_8c90d135	The apple is in the box.
+e_e49138f9	The apple is in the chair.
+e_c51883f6	The apple is on the basket.
+e_f401c3c9	The apple is on the bed.
+e_66544c07	The apple is on the box.
+e_1438b04b	The apple is on the chair.
+e_ab768f6d	The apple is under the basket.
+e_1ed85bb0	The apple is under the bed.
+e_5f091d42	The apple is under the box.
+e_011e7722	The apple is under the chair.
 e_695a7b4e	The apples are red.
 e_97855c5b	The baby is crying because she is hungry.
+e_9a546a69	The ball is in the basket.
+e_d7d49594	The ball is in the bed.
+e_45be051e	The ball is in the box.
+e_7cd30ba6	The ball is in the chair.
+e_ac6cbbfb	The ball is on the basket.
+e_9f46a9a2	The ball is on the bed.
+e_df2a3948	The ball is on the box.
+e_dec6c2a8	The ball is on the chair.
+e_40c790be	The ball is under the basket.
+e_dc425d11	The ball is under the bed.
+e_3eb40fcf	The ball is under the box.
+e_98a71913	The ball is under the chair.
+e_164b56ef	The bird is in the basket.
+e_24c1c0ce	The bird is in the bed.
+e_1966d91c	The bird is in the box.
+e_a3501654	The bird is in the chair.
+e_e58955b5	The bird is on the basket.
+e_4a7e88d8	The bird is on the bed.
+e_5853d98a	The bird is on the box.
+e_fdb6820a	The bird is on the chair.
+e_9bf601fc	The bird is under the basket.
+e_fca8b8ab	The bird is under the bed.
+e_0a1acfc5	The bird is under the box.
+e_812d4f49	The bird is under the chair.
 e_96ef444c	The birds are in the tree.
 e_e2c03087	The book is on the table.
 e_0395de47	The cat is black.
+e_9b7f6338	The cat is in the basket.
+e_03a1996f	The cat is in the bed.
+e_a12fe6b1	The cat is in the box.
+e_a5d8780d	The cat is in the chair.
+e_0f1281da	The cat is on the basket.
+e_0f4e9815	The cat is on the bed.
+e_01dc80fb	The cat is on the box.
+e_f4122a07	The cat is on the chair.
+e_0c6ab789	The cat is under the basket.
+e_91b6a334	The cat is under the bed.
+e_7f9f493e	The cat is under the box.
+e_83045246	The cat is under the chair.
 e_dbf0212a	The cats are black.
 e_53181cfb	The children are playing.
+e_7cdc2f1e	The dog is in the basket.
+e_ee62a8f1	The dog is in the bed.
+e_4e59f2af	The dog is in the box.
+e_5aabcaf3	The dog is in the chair.
+e_f0d55bd4	The dog is on the basket.
+e_6fa7cc03	The dog is on the bed.
+e_0d9952dd	The dog is on the box.
+e_2fbe45a1	The dog is on the chair.
+e_8904ffe7	The dog is under the basket.
+e_e4cb60c6	The dog is under the bed.
+e_c764ec74	The dog is under the box.
+e_dd721c0c	The dog is under the chair.
 e_fbd694c8	The giraffe was tall
 e_9013038b	The monkeys were funny
 e_867cf737	The park was closed
+e_0ea9b6a4	The teddy bear is in the basket.
+e_42687bf3	The teddy bear is in the bed.
+e_22851ead	The teddy bear is in the box.
+e_65e80fb1	The teddy bear is in the chair.
+e_5e9581ae	The teddy bear is on the basket.
+e_8abbbda1	The teddy bear is on the bed.
+e_2a63ba3f	The teddy bear is on the box.
+e_87b5e0c3	The teddy bear is on the chair.
+e_274e8485	The teddy bear is under the basket.
+e_a7333908	The teddy bear is under the bed.
+e_34b9a15a	The teddy bear is under the box.
+e_0079f69a	The teddy bear is under the chair.
 e_12228f9c	The word is Apple
 e_16ec0959	The word is Ball
 e_1583bb58	The word is Cat
@@ -514,13 +648,26 @@ e_03fd3427	The word is Watch
 e_666b9e7a	The word is Xylophone
 e_173ace0f	The word is Yacht
 e_8524d264	The word is Zebra
+e_6576e5de	They are T-shirt.
 e_f120ba9c	They are at school.
 e_c6539b97	They are bad for his teeth
+e_287c04f4	They are dress.
 e_e4997f40	They are expensive
+e_ccadd3ad	They are jacket.
+e_33f1692b	They are pants.
+e_0f6f4269	They are shoes.
+e_1d046dd6	They are socks.
+e_bb598baa	They feel angry.
+e_afb2e513	They feel happy.
+e_a12c884d	They feel sad.
+e_dcbb3aef	They feel scared.
+e_83537e02	They feel surprised.
+e_0d0eea23	They feel tired.
 e_ff6c48d0	Think about what fits
 e_55dc277f	Think: a thing, a place, a person, a time, or a reason?
 e_d400831d	This stage is locked.
 e_2e430863	Three
+e_99eb4fd7	Thursday
 e_7edf6d58	Tiger
 e_2fb950c2	Tiger.
 e_afc72a55	Tooth
@@ -581,6 +728,7 @@ e_1c5b77d6	Tree starts with T
 e_12dfd8c1	Tree.
 e_e58886a5	Triangle
 e_213e90fa	Try again
+e_fe18fbb0	Tuesday
 e_20af1fc9	Two
 e_d00c09b0	U
 e_729e6fba	U .
@@ -589,6 +737,7 @@ e_3b7a2b95	U is for Umbrella
 e_ef623a05	Umbrella
 e_21053039	Umbrella starts with U
 e_02a191b1	Umbrella.
+e_df85d0d8	Under is below.
 e_88e43ca7	Use an before a vowel sound
 e_d30c0e69	V
 e_1b526a1f	V .
@@ -609,8 +758,23 @@ e_d63556b0	Water
 e_8ec0fde4	We are in the garden.
 e_09547aa0	We read books at school.
 e_021c0405	We sleep at night.
+e_e8239b77	Wednesday
 e_0815494f	What
 e_a633150e	What colour is the sky?
+e_f5e38d46	What day comes after Friday?
+e_661b7003	What day comes after Monday?
+e_1970c826	What day comes after Saturday?
+e_3b7ddf87	What day comes after Sunday?
+e_5384e37d	What day comes after Thursday?
+e_ab15de9e	What day comes after Tuesday?
+e_0b6b17d7	What day comes after Wednesday?
+e_dbab8313	What day comes before Friday?
+e_61e3c1de	What day comes before Monday?
+e_83ce37bf	What day comes before Saturday?
+e_6d219f46	What day comes before Sunday?
+e_f1b7a88c	What day comes before Thursday?
+e_ffdef3e1	What day comes before Tuesday?
+e_5629faec	What day comes before Wednesday?
 e_1595e540	What did Mona draw?
 e_52d2202d	What do you say?
 e_af9fa7b7	What does Adam like?
@@ -618,8 +782,34 @@ e_c6b5a09b	What does Ali drink in the morning?
 e_dcbca661	What does Ali drink when he is thirsty?
 e_6a5bc848	What is this?
 e_bb1fc4f8	What is your name?
+e_fce3f837	What month comes after April?
+e_b8225f68	What month comes after August?
+e_51eafc7e	What month comes after December?
+e_cbd1c609	What month comes after February?
+e_95330765	What month comes after January?
+e_1f8042e9	What month comes after July?
+e_46834c0b	What month comes after June?
+e_91073bde	What month comes after March?
+e_6ee117fc	What month comes after May?
+e_ba25e105	What month comes after November?
+e_19274247	What month comes after October?
+e_9b5a8a4a	What month comes after September?
+e_6b3fad7c	What month comes before April?
+e_af50694d	What month comes before August?
+e_2610eb1f	What month comes before December?
+e_9c43ccb0	What month comes before February?
+e_d673c6c2	What month comes before January?
+e_ed1702d4	What month comes before July?
+e_46284aea	What month comes before June?
+e_fad76941	What month comes before March?
+e_1e6291bf	What month comes before May?
+e_84e40024	What month comes before November?
+e_bff32e14	What month comes before October?
+e_d6008cb1	What month comes before September?
 e_be7aea07	What sound does it start with?
+e_d0e1ee36	What sport is this?
 e_1a4c4969	What word is it?
+e_0a0734c6	What's the weather like?
 e_021e3a39	When
 e_1638b2b4	When did Omar go to the zoo?
 e_485309f7	When do you go to school?
@@ -627,7 +817,13 @@ e_332fec60	When is your birthday?
 e_91dad0f8	Where
 e_67194a41	Where do you live?
 e_ae4067a9	Where does Sara live?
+e_a24107c4	Where is the apple?
+e_c0c538ad	Where is the ball?
+e_82aa571b	Where is the bird?
 e_666f7d14	Where is the cat?
+e_0e0d2f5e	Where is the dog?
+e_bea0393e	Where is the teddy bear?
+e_d57db091	Where is this?
 e_ad7673ed	Which letter does it start with?
 e_d7f9d7a3	Which letter is this?
 e_d182d622	Which letters are missing?
@@ -725,6 +921,8 @@ e_36f859be	Which picture starts with the letter W?
 e_b6fb61d5	Which picture starts with the letter X?
 e_b6fda06c	Which picture starts with the letter Y?
 e_b6ffdf03	Which picture starts with the letter Z?
+e_33f4126e	Which room is this?
+e_556b114b	Which season is it?
 e_cc862414	Which word is it?
 e_6ceb2d06	White
 e_8d80552f	Who
@@ -792,6 +990,7 @@ e_9cd751fc	an orange
 e_d723a254	an owl
 e_6031d3a6	an umbrella
 e_0f29c2a6	and
+e_b50aaefe	angry
 e_10bc2abf	apple
 e_6a4dc167	applees
 e_24375f24	apples
@@ -806,9 +1005,14 @@ e_348f1364	ball
 e_56bfbea0	balles
 e_d43b0d35	balls
 e_d9889f50	banana
+e_9e048c56	basketball
 e_70b773a8	bat
+e_82138fe3	bathroom
+e_f4b2c848	beach
 e_50ae46ec	bed
+e_16fb7f77	bedroom
 e_60ae601c	bet
+e_d7b8f81a	bicycle
 e_53cacdb9	big
 e_82fbf5cd	blue
 e_c1948a38	book
@@ -849,6 +1053,7 @@ e_b77b4951	cherrys
 e_e5a0205d	child
 e_67a9c9d2	children
 e_a912a86a	childs
+e_2dbc1605	cloudy
 e_ea44dd0f	cold
 e_fe8de755	cop
 e_fa8de109	cot
@@ -856,10 +1061,12 @@ e_fa56340f	cup
 e_f6562dc3	cut
 e_e10c2473	d
 e_d66293ab	dig
+e_547125cb	dining room
 e_e668bd09	dog
 e_6113de55	doges
 e_30e2470e	dogs
 e_d3689f20	dot
+e_68e41ef0	dress
 e_eb3117ee	duh
 e_119c6bdb	duh o guh
 e_27b99d67	duh, duh
@@ -872,6 +1079,7 @@ e_fb3868e6	e...
 e_ff55af40	ears
 e_43edbc4b	eyes
 e_e30c2799	f
+e_f85a0760	fall
 e_a8f7fa72	fan
 e_bb357f55	feet
 e_e2f7de62	fff o ks
@@ -900,6 +1108,7 @@ e_b2e48278	fix
 e_bff162e2	fly
 e_a1f3723f	fog
 e_2d505a99	foot
+e_659bc978	football
 e_3f7f1e5e	foots
 e_9b2eb632	four apples
 e_59cc4eab	four babies
@@ -922,6 +1131,7 @@ e_b6f3934e	fox
 e_b75ff566	foxes
 e_3e70c907	foxs
 e_e20c2606	g
+e_775718f4	garden
 e_4220774b	go
 e_38351db3	guh
 e_f1b77675	guh, guh
@@ -930,6 +1140,7 @@ e_a6e4a712	guh, guh, Goat
 e_189d9e27	guh.
 e_ed0c3757	h
 e_ebbf0cbd	ham
+e_99863551	happy
 e_f2bf17c2	hat
 e_08b4ad08	hen
 e_80e8d09d	hhh a tuh
@@ -938,15 +1149,19 @@ e_21e9a682	hhh, hhh, Hat
 e_5848f366	hhh, hhh, Horse
 e_c5e15e9b	hhh...
 e_02d2b8aa	hit
+e_4f9cd7b3	hospital
 e_fec3a7d4	hot
 e_10f5d87c	hungry
 e_ec0c35c4	i
 e_a7af4d5a	i...
+e_41387a9e	in
 e_4e388f15	is
 e_47388410	it
 e_ef0c3a7d	j
+e_100e165b	jacket
 e_ebb76fff	juice
 e_ee0c38ea	k
+e_33e6572f	kitchen
 e_563d18db	ks
 e_b72e49af	ks.
 e_c3e9f5bd	kuh a tuh
@@ -956,6 +1171,7 @@ e_7298fa0d	kuh, kuh, Cake
 e_f8f6ac13	kuh, kuh, Cat
 e_aac672bb	kuh...
 e_e90c310b	l
+e_03b1d87b	living room
 e_37b563c9	lll, lll
 e_6abadd2d	lll, lll, Leaf
 e_14f565a7	lll, lll, Lion
@@ -970,6 +1186,7 @@ e_462e4c5f	mmm, mmm
 e_d3d6ce74	mmm, mmm, Milk
 e_a7eb16c2	mmm, mmm, Moon
 e_d39e5f9f	mop
+e_a45b05cc	motorcycle
 e_592318c4	mouse
 e_093fe815	mouses
 e_4c2dfe93	my
@@ -987,8 +1204,11 @@ e_29b19c8a	not
 e_257281e8	nut
 e_ea0c329e	o
 e_3196115c	o...
+e_61342fd0	on
 e_f50c43ef	p
 e_4f55eeec	pan
+e_de2337e1	pants
+e_63780eb9	park
 e_784ba21b	peg
 e_6f4b93f0	pen
 e_78627a04	pencil
@@ -998,6 +1218,8 @@ e_b6f93739	pens
 e_694b8a7e	pet
 e_6840fb8f	pig
 e_6f410694	pin
+e_cccb0055	plane
+e_866a3091	post office
 e_55727a72	puh
 e_f42abe15	puh i guh
 e_9826642f	puh, puh
@@ -1008,17 +1230,25 @@ e_011e74e0	puh...
 e_6d72a03a	pup
 e_f40c425c	q
 e_f70c4715	r
+e_56b6fa9e	rainy
 e_cedfa3c5	read
 e_40f480dc	red
 e_8ae14409	rrr, rrr
 e_2fda6c9d	rrr, rrr, Rabbit
 e_9951623b	rrr, rrr, Rain
 e_2acd4eca	run
+e_147eb74c	running
 e_f60c4582	s
+e_e61cac07	sad
+e_3f32c75d	scared
 e_9f519cc9	school
 e_b526ec40	see
 e_b3068a53	shoes
+e_a847e0a9	shop
+e_255e0fd1	snowy
 e_ee568736	soap
+e_9e725352	socks
+e_63f1336c	spring
 e_c33f0730	sss
 e_a28fdbc1	sss u nnn
 e_6a27277b	sss, sss
@@ -1026,13 +1256,21 @@ e_c9570a77	sss, sss, Sock
 e_36be91e7	sss, sss, Sun
 e_7a38343a	sss.
 e_2006a216	sss...
+e_7665043e	street
 e_dd4e3aa8	sum
+e_fce32734	summer
 e_e04e3f61	sun
+e_494372ec	sunny
+e_9f312044	supermarket
+e_f7372cda	surprised
 e_5584392f	sweet
+e_81f4ae28	swimming
 e_f10c3da3	t
 e_112cdf96	tall
+e_0e5e77a9	taxi
 e_c944ea21	teeth
 e_bd01f454	ten
+e_1c11f8a2	tennis
 e_b40eb21c	the
 e_21c164ef	the beach
 e_ecf0b8a9	the sky
@@ -1053,9 +1291,12 @@ e_82bd8a93	three mice
 e_5e6a916d	three pens
 e_9bf5fc1d	three teeth
 e_1b29a590	three watches
+e_720c3fd5	tired
 e_42454824	to
 e_0a0a25b5	tooth
 e_93f976b2	tooths
+e_78556c69	train
+e_f542bdc8	truck
 e_9b28ce3e	tuh
 e_34d33c87	tuh, tuh
 e_a4ea2602	tuh, tuh, Tiger
@@ -1080,14 +1321,18 @@ e_48021a13	two teeth
 e_71e62baa	two watches
 e_f00c3c10	u
 e_f7a99176	u...
+e_89193acd	under
 e_f30c40c9	v
 e_9625faa2	van
+e_09ffc6f9	volleyball
 e_f20c3f36	w
 e_5fb7b228	watch
 e_aceae80c	watches
 e_092dc541	watchs
 e_49c69a10	water
 e_5c47afa9	we
+e_1af8295a	windy
+e_c4bb620c	winter
 e_be269f5c	write
 e_fd0c5087	x
 e_fc0c4ef4	y

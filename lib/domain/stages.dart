@@ -16,6 +16,7 @@ import 'generators/deen_generators.dart';
 import 'generators/english_more_generators.dart';
 import 'generators/fade_generators.dart';
 import 'generators/grade2_arabic_generators.dart';
+import 'generators/school_english_generators.dart';
 import 'generators/school_math_generators.dart';
 import 'generators/en_primary_generators.dart';
 import 'generators/english_generators.dart';
@@ -425,6 +426,21 @@ final _enWords = _grp('english', 'enWords', 'Words & phrases', 0xFF3A8FD1, [
   ('en_phrases', '💬', 'What do you say?', 2, enPhrase),
 ], after: 'en_word', lang: 'en');
 
+/// كلمات وجمل كتاب Connect (أولى الترم التاني وتانية) — بعد My family، حتى للتقدّم القديم.
+final _enSchool = _grp('english', 'enSchool', 'Words from school • Grades 1–2', 0xFF2F7FC4, [
+  ('en_prep', '📦', 'in, on, under', 1, enPrep),
+  ('en_days', '📅', 'Days of the week', 1, enDaysGame),
+  ('en_feelings', '😀', 'Feelings', 1, enFeelingsGame),
+  ('en_weather', '☀️', 'Weather', 1, enWeatherGame),
+  ('en_seasons', '🍂', 'Seasons', 1, enSeasonsGame),
+  ('en_months', '🗓️', 'Months', 2, enMonthsGame),
+  ('en_rooms', '🏠', 'Rooms at home', 1, enRoomsGame),
+  ('en_places', '🏥', 'Places', 1, enPlacesGame),
+  ('en_transport', '🚌', 'Transportation', 1, enTransportGame),
+  ('en_clothes', '👕', 'Clothes', 1, enClothesGame),
+  ('en_sports', '⚽', 'Sports', 1, enSportsGame),
+], after: 'en_family', lang: 'en');
+
 /// 🕌 الدين والأخلاق — مفتوح كله.
 final _deen = [
   ..._grp('deen', 'adhkar', '🤲 الأذكار', 0xFF3BAF7A, [
@@ -635,7 +651,7 @@ final Map<String, List<Stage>> worldStages = {
   'arabic': _numbered([
     ..._arabic, ..._concepts, ..._harakat, ..._forms, ..._madd, ..._shortRead, ..._sukun, ..._al, ..._fade, ..._ar2, ..._grammar,
   ]),
-  'english': _numbered([..._english, if (voiceEnabled) ..._phonics, ..._enWords, ..._enPrimary]),
+  'english': _numbered([..._english, if (voiceEnabled) ..._phonics, ..._enWords, ..._enSchool, ..._enPrimary]),
   'deen': _numbered(_deen),
   'discover': _numbered(_discover),
   'write': _numbered(_write),

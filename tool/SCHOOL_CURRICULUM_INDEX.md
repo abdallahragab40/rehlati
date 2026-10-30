@@ -158,17 +158,17 @@
 | 3 I Love My Family | العيلة، Numbers 1–5، Who's this? This is my…، How many…? | Nn, Pp, Hh, Dd | ✅ `en_family`، `en_numbers` |
 | 4 My Body and My Senses | أعضاء الجسم والحواس، I can see with my eyes… | Rr, Ee, Cc, Kk | ✅ `en_body` (الحواس 🟡) |
 | 5 On the Farm | حيوانات المزرعة، milk, cheese, eggs، big/small، Numbers 6–10 | Mm, Gg, Oo, Ff | ✅ `en_animals`، `en_numbers` |
-| 6 Animals Around Me | pets، حيوانات الغابة، in/on/under، The lion has 4 legs | Bb, Ll, Uu, Jj | 🟡 `en_animals` (حروف الجر ❌) |
+| 6 Animals Around Me | pets، حيوانات الغابة، in/on/under، The lion has 4 legs | Bb, Ll, Uu, Jj | ✅ `en_animals`، `en_prep` (جديدة) |
 
 ### Primary 1, Term 2
 
 | Unit | المفردات والتراكيب | Phonics | عندنا |
 |---|---|---|---|
-| 1 My Week | أيام الأسبوع، before/after، الوجبات والأكل | w, q, v, z | ❌ أيام الأسبوع (`calendar` بالعربي بس) |
-| 2 Feelings | happy, sad, angry, scared, tired, surprised، الضمائر I, he, she, it, we, they, you، Numbers to 15 | y, x، الحروف المتجمعة مع s (sk, sn, st, sw) | ❌ |
-| 3 Seasons | الشهور، الفصول، الطقس | الحروف المتحركة القصيرة a, e | ❌ الشهور والطقس، 🟡 `en_cvc` |
-| 4 My House | أوض البيت والعفش، I sleep in the bedroom | الحروف المتحركة القصيرة i, o | ❌ |
-| 5 Neighborhood | hospital, school, shop, street، المواصلات، الأفعال | الحرف المتحرك القصير u، الحروف المتجمعة مع l (cl, bl, fl, sl) | ❌ |
+| 1 My Week | أيام الأسبوع، before/after، الوجبات والأكل | w, q, v, z | ✅ `en_days` (جديدة) |
+| 2 Feelings | happy, sad, angry, scared, tired, surprised، الضمائر I, he, she, it, we, they, you، Numbers to 15 | y, x، الحروف المتجمعة مع s (sk, sn, st, sw) | ✅ `en_feelings` (جديدة؛ الضمائر ❌) |
+| 3 Seasons | الشهور، الفصول، الطقس | الحروف المتحركة القصيرة a, e | ✅ `en_months`، `en_seasons`، `en_weather` (جديدة)، 🟡 `en_cvc` |
+| 4 My House | أوض البيت والعفش، I sleep in the bedroom | الحروف المتحركة القصيرة i, o | ✅ `en_rooms` (جديدة)، 🟡 `en_cvc` |
+| 5 Neighborhood | hospital, school, shop, street، المواصلات، الأفعال | الحرف المتحرك القصير u، الحروف المتجمعة مع l (cl, bl, fl, sl) | ✅ `en_places`، `en_transport` (جديدة)؛ الحروف المتجمعة ❌ |
 | 6 Story: Two Friends and One Apple | قصة | — | — |
 
 ### Primary 2, Term 1
@@ -179,17 +179,17 @@
 | 2 Colors, Shapes, and Numbers | الألوان والأشكال، 1–20 والعشرات، How many…? | الحروف المتحركة القصيرة o, u، الحرف المتحرك الطويل a (cake) | ✅ `en_colors`، `en_shapes`، 🟡 `en_numbers` |
 | 3 Classroom Actions & Routines | write, draw, read, open, close… | أول صوت في الكلمة | 🟡 `en_firstsound` (الأفعال ❌) |
 | 4 Everyday Life | العيلة، This is my sister | الحروف المتحركة الطويلة o, u، th | ✅ `en_family` (الحروف الطويلة ❌) |
-| 5 My Home | البيت، The lamp is on the table | sh، th في mother | ❌ |
-| 6 Rooms at Home | أوض البيت، There is a… | ch | ❌ |
+| 5 My Home | البيت، The lamp is on the table | sh، th في mother | ✅ `en_rooms`، `en_prep`؛ sh و th ❌ |
+| 6 Rooms at Home | أوض البيت، There is a… | ch | ✅ `en_rooms`؛ ch ❌ |
 
 ### Primary 2, Term 2
 
 | Unit | المفردات والتراكيب | Phonics | عندنا |
 |---|---|---|---|
 | 1 Our Environment | park, tree, river, rubbish, bin…، There is (إثبات ونفي) | الحروف المتحركة الطويلة a, i | 🟡 `en_isare` |
-| 2 At the Store | الأدوات والهدوم، There are (إثبات ونفي) | الحروف المتحركة الطويلة u, o | ❌ |
-| 3 Sports | الرياضات، العد من ٢٠ لـ ٥٠، الجمع بـ s | الحروف المتجمعة في الآخر -mp, -ft, -lt | 🟡 `en_plural`، `en_numbers` |
-| 4 Transportation | المواصلات والأماكن | مراجعة | ❌ |
+| 2 At the Store | الأدوات والهدوم، There are (إثبات ونفي) | الحروف المتحركة الطويلة u, o | ✅ `en_clothes` (جديدة)؛ الحروف الطويلة ❌ |
+| 3 Sports | الرياضات، العد من ٢٠ لـ ٥٠، الجمع بـ s | الحروف المتجمعة في الآخر -mp, -ft, -lt | ✅ `en_plural`، `en_sports` (جديدة)؛ العد لحد ٥٠ ❌ |
+| 4 Transportation | المواصلات والأماكن | مراجعة | ✅ `en_transport`، `en_places` (جديدة) |
 | 5 The Pyramids | الأهرامات، المضارع البسيط، العد من ٥٠ لـ ١٠٠ بالعشرات | الحروف المتجمعة في الآخر -nd, -sk | ❌ |
 | 6 A Day with My Family | قصة | — | — |
 
@@ -274,4 +274,19 @@
 - **التمثيل بالأعمدة** (`barGraph`)
   - أعمدة بمقياس ١ أو ٢ أو ١٠.
   - الأسئلة: كام؟ أنهي أكتر أو أقل؟ والفرق.
+
+## مراجعة المدرّس: مراحل الإنجليزي الجديدة
+
+في `lib/domain/generators/school_english_generators.dart`، مجموعة «Words from school • Grades 1–2» بعد My family. الكلمات من جداول Scope and Sequence في كتاب Connect، والصور والجمل من عندنا. الصوت بصوت آنا.
+
+- **in, on, under** (`en_prep`)
+  - صورة الحاجة جوه صندوق أو سلة، أو فوق صندوق أو سرير، أو تحت صندوق أو كرسي أو سرير.
+  - الأسئلة: «Where is the cat?»، ومن المستوى التاني «اختار الجملة الصح».
+  - الكنبة اتشالت لأن صورتها فيها أباجورة.
+- **Days of the week / Months** (`en_days`، `en_months`)
+  - الأسئلة: «What day comes after Monday?»، ومن المستوى التاني «before» كمان.
+  - الأسبوع بيبدأ السبت.
+- **كلمات بصور** (`en_feelings`، `en_weather`، `en_seasons`، `en_rooms`، `en_places`، `en_transport`، `en_clothes`، `en_sports`)
+  - **للمراجعة:** الكتاب فيه skirt ومالهاش صورة، فحطينا dress وsocks. وzoo مالهاش صورة واضحة.
+- **لسه مش موجود:** الضمائر (I, he, she…)، وأفعال الفصل (write, draw…)، والعد لحد ٥٠ ولحد ١٠٠ بالإنجليزي، والحروف المتجمعة والحروف المتحركة الطويلة، ووحدة The Pyramids.
 
