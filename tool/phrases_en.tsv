@@ -7,18 +7,24 @@ e_0b430e62	A bus
 e_5039030a	A camel
 e_e7115fcd	A car is coming.
 e_80a44c68	A cat
+e_18b6ab69	A cheetah is faster than a turtle.
+e_032d587f	A farmer
 e_d902b38e	A fish can swim.
 e_70e1ca88	A fish can't fly.
 e_43187823	A fish lives in water.
+e_a1a9a918	A giraffe is taller than a dog.
 e_9907e181	A horse
 e_e1a502d8	A house
 e_fa85a2f3	A is for Apple
 e_9ad5cb70	A monkey can climb.
 e_3fb5dc76	A rainbow
 e_fa7b7b22	A turtle can't run fast.
+e_c005ad62	A turtle is slower than a rabbit.
 e_a1442fdd	Add -ed: play played.
 e_1666a7db	Ali is my brother.
+e_6578b523	Ali let it go
 e_c607b753	An elephant can't fly.
+e_ab898cd0	An elephant is bigger than a mouse.
 e_81b60676	Ant
 e_898bfc88	Ant.
 e_b6779c5f	Apple
@@ -35,6 +41,7 @@ e_ac92ea89	Baby
 e_9b703d84	Ball
 e_418174b1	Ball starts with B
 e_5bb1129e	Ball.
+e_b07325f6	Be kind to others
 e_f131e373	Bear
 e_5f079fdb	Because I lost my pen.
 e_db06864d	Because it is good.
@@ -100,13 +107,16 @@ e_bc5e79a5	Brother
 e_02b8b9cf	Brown
 e_c4da6e99	Bus
 e_9adc4a15	Bus.
+e_12523795	Buy new shoes
 e_c60bf9f2	C
 e_319bc0a8	C .
 e_f84c3835	C and c are the same letter
 e_7b94dc81	C is for Cat
+e_7df3d17a	Cairo Tower is the tallest building in our street.
 e_0b16d479	Cake
 e_cbf044f5	Cake.
 e_4a31aaab	Can I have one, please?
+e_5811639a	Can we count it?
 e_66fef081	Car
 e_68fef3a7	Cat
 e_caf17cdd	Cat starts with C
@@ -116,6 +126,7 @@ e_b1dc6d1b	Choose the question word.
 e_214fbe24	Choose the right sentence.
 e_ec80ff8b	Choose the right word.
 e_812746a9	Circle
+e_9b69ae09	Come to school early
 e_8936d342	Complete the alphabet.
 e_a0071590	Complete the sentence.
 e_31fbcfd3	Complete the word Apple
@@ -155,7 +166,11 @@ e_07ef3ae8	D is for Dog
 e_662dcc9e	December
 e_df593b47	Diamond
 e_61ceb934	Do
+e_81b0569f	Do you help your neighbors?
 e_4af5c4f3	Do you want tea or juice?
+e_5b28a489	Do your friends volunteer?
+e_87bd47d0	Does
+e_bdbc3ea8	Does she live near the park?
 e_4b6dbda9	Dog
 e_ff4464d2	Dog starts with D
 e_44c15b85	Dog.
@@ -262,7 +277,9 @@ e_41bda2f1	Happy
 e_5549af62	Hat
 e_8efef4a4	Hat.
 e_5beb31d6	He
+e_eb972755	He brushes his teeth every night.
 e_7ca37edd	He does not like them
+e_9e24892b	He doesn't like fish.
 e_51663390	He is a boy, she is a girl, it is an animal or a thing, they are more than one
 e_58ab8e4e	He is happy.
 e_94a998a4	He is my brother.
@@ -276,7 +293,11 @@ e_6c31faf5	Her dad
 e_e020e2dc	Her friend
 e_280b0fe5	Her grandmother
 e_229c2833	Her mom
+e_c1b33260	Her shoes were old
 e_4c404192	Her teacher
+e_35da0e70	His ball
+e_4586b5f0	His crayons
+e_80ec63db	His lunch
 e_52f50eae	Home
 e_41465646	Horse
 e_29ba05b8	Horse.
@@ -291,6 +312,7 @@ e_4d62bdfa	How old are you?
 e_7436c554	How old is Adam?
 e_cc0c0364	I
 e_9f03e186	I .
+e_7a7bcb59	I / you / we / they don't, Do.
 e_d5420724	I am a student.
 e_47575019	I am doing my homework.
 e_22692a83	I am hungry.
@@ -304,6 +326,7 @@ e_6fffc4e6	I like cats, but I don't like dogs.
 e_65cdbc0d	I love my mom.
 e_3e04e5dc	I my, he his, she her.
 e_07d11789	I see with my eyes.
+e_cd9ae24e	I smell with my nose.
 e_ea5ab36c	I wash my hands with soap.
 e_a82074cf	I write with a pencil.
 e_90852ebe	Ice cream
@@ -313,6 +336,8 @@ e_66208c4e	In Cairo
 e_4d4cfe78	In London
 e_b6b7883d	In a village
 e_11a63260	In is inside.
+e_73f94634	In the city
+e_aaf52565	In the field
 e_96ee518c	In winter it is cold.
 e_99c4c3d8	Is it a cat or a dog?
 e_b22ec4de	Is it a or an?
@@ -387,6 +412,7 @@ e_5979707f	It is hot.
 e_88e10c43	It is small.
 e_a3368609	It is time to sleep.
 e_73bde0d9	It is under the table.
+e_1dced3b8	It was old
 e_a395393b	It was raining
 e_5ed8c23e	It's a bicycle.
 e_8568ceb3	It's a bus.
@@ -451,6 +477,7 @@ e_4f636d84	L is for Lion
 e_a6751975	Leaf
 e_6556ea41	Leaf.
 e_a1f580d7	Leg
+e_bbc22228	Let's celebrate!
 e_730af99f	Lion
 e_bf9f4dc8	Lion starts with L
 e_cb4711a3	Lion.
@@ -463,6 +490,7 @@ e_c80bfd18	M
 e_ec075672	M .
 e_bd311f45	M and m are the same letter
 e_c963a8b8	M is for Moon
+e_75621ac7	Many things: the + -est (the biggest).
 e_c0846390	March
 e_6acfc014	Match each big letter with its small letter
 e_3ba7e226	May
@@ -476,7 +504,9 @@ e_73d919ca	Moon.
 e_c110aa3b	More than one
 e_13b97d3a	Mother
 e_4620047c	Mouth
+e_f5ba0629	My cat doesn't eat vegetables.
 e_cd0877c8	My dad and my mom are at home.
+e_602bbb69	My dad drinks coffee in the morning.
 e_9e79e2fd	My father drives a car.
 e_035dca8c	My friends are happy.
 e_4b677c4a	My mother is a doctor.
@@ -502,6 +532,7 @@ e_8c1879c7	On Friday
 e_f9eae130	On Monday
 e_2b91224c	On Sunday
 e_69d2a47c	On is on top.
+e_a0f712b4	On the beach
 e_1cb1b18f	One
 e_044af777	One is, many are, I am
 e_727b390b	Orange
@@ -561,7 +592,10 @@ e_2dfd7bec	She is brushing her hair.
 e_a410f038	She is my grandmother.
 e_6161e4e1	She is tired.
 e_418ceec7	She loves her cat.
+e_75754c2c	She plays football every day.
 e_f644bc97	She was ill
+e_6d934b68	She was late
+e_5e781008	She was sad
 e_b0020094	Sheep
 e_70bb9e41	Sister
 e_2cbc324b	Six
@@ -605,10 +639,35 @@ e_5f091d42	The apple is under the box.
 e_011e7722	The apple is under the chair.
 e_695a7b4e	The apples are red.
 e_97855c5b	The baby is crying because she is hungry.
+e_4009f252	The ball is between the car and the cat.
+e_75dc9540	The ball is between the car and the dog.
+e_2ae242e2	The ball is between the car and the house.
+e_b385eece	The ball is between the car and the tree.
+e_9511f3b6	The ball is between the cat and the car.
+e_0b99857a	The ball is between the cat and the dog.
+e_2c53fa24	The ball is between the cat and the house.
+e_52c53740	The ball is between the cat and the tree.
+e_1ed6fc30	The ball is between the dog and the car.
+e_7edc107e	The ball is between the dog and the cat.
+e_f396572e	The ball is between the dog and the house.
+e_762fa462	The ball is between the dog and the tree.
+e_b5158d86	The ball is between the house and the car.
+e_351046d8	The ball is between the house and the cat.
+e_ab4e36ea	The ball is between the house and the dog.
+e_00569c90	The ball is between the house and the tree.
+e_5aea2a02	The ball is between the tree and the car.
+e_3af9022c	The ball is between the tree and the cat.
+e_7a7ac95e	The ball is between the tree and the dog.
+e_7c6d9288	The ball is between the tree and the house.
 e_9a546a69	The ball is in the basket.
 e_d7d49594	The ball is in the bed.
 e_45be051e	The ball is in the box.
 e_7cd30ba6	The ball is in the chair.
+e_4bac6d0e	The ball is next to the car.
+e_aba6f400	The ball is next to the cat.
+e_746796c2	The ball is next to the dog.
+e_f187a89c	The ball is next to the house.
+e_913494c8	The ball is next to the tree.
 e_ac6cbbfb	The ball is on the basket.
 e_9f46a9a2	The ball is on the bed.
 e_df2a3948	The ball is on the box.
@@ -630,12 +689,63 @@ e_fca8b8ab	The bird is under the bed.
 e_0a1acfc5	The bird is under the box.
 e_812d4f49	The bird is under the chair.
 e_96ef444c	The birds are in the tree.
+e_54715ec1	The blue whale is the biggest animal in the world.
 e_e2c03087	The book is on the table.
+e_f6bb7c16	The car is between the ball and the cat.
+e_17f848d4	The car is between the ball and the dog.
+e_4c2dd3a6	The car is between the ball and the house.
+e_57748f8a	The car is between the ball and the tree.
+e_cb89ec52	The car is between the cat and the ball.
+e_326edc29	The car is between the cat and the dog.
+e_f0f1ef63	The car is between the cat and the house.
+e_26d5d69d	The car is between the cat and the tree.
+e_2b8301c4	The car is between the dog and the ball.
+e_ded4ed1d	The car is between the dog and the cat.
+e_e467ff65	The car is between the dog and the house.
+e_9a8d8237	The car is between the dog and the tree.
+e_3ce2f1fa	The car is between the house and the ball.
+e_127a15c7	The car is between the house and the cat.
+e_c5912791	The car is between the house and the dog.
+e_3ed52ea5	The car is between the house and the tree.
+e_ca325c00	The car is between the tree and the ball.
+e_8f87e8a9	The car is between the tree and the cat.
+e_ebfeb2f7	The car is between the tree and the dog.
+e_33a2a021	The car is between the tree and the house.
+e_53c17cda	The car is next to the ball.
+e_6f4e2ca7	The car is next to the cat.
+e_a26607f1	The car is next to the dog.
+e_85fe339b	The car is next to the house.
+e_01f20105	The car is next to the tree.
+e_62b2f5ee	The cat is between the ball and the car.
+e_a4bad4a2	The cat is between the ball and the dog.
+e_576eed7c	The cat is between the ball and the house.
+e_f1bba6a8	The cat is between the ball and the tree.
+e_5be70aa2	The cat is between the car and the ball.
+e_c6ef5c19	The cat is between the car and the dog.
+e_e0d09553	The cat is between the car and the house.
+e_1532822d	The cat is between the car and the tree.
+e_65022ce2	The cat is between the dog and the ball.
+e_9da1a989	The cat is between the dog and the car.
+e_d07cf193	The cat is between the dog and the house.
+e_1e4da46d	The cat is between the dog and the tree.
+e_6e6fbc78	The cat is between the house and the ball.
+e_3d7ef627	The cat is between the house and the car.
+e_07d1656f	The cat is between the house and the dog.
+e_497a2843	The cat is between the house and the tree.
+e_394b1bae	The cat is between the tree and the ball.
+e_6a3afbcd	The cat is between the tree and the car.
+e_75a54075	The cat is between the tree and the dog.
+e_7c8f997f	The cat is between the tree and the house.
 e_0395de47	The cat is black.
 e_9b7f6338	The cat is in the basket.
 e_03a1996f	The cat is in the bed.
 e_a12fe6b1	The cat is in the box.
 e_a5d8780d	The cat is in the chair.
+e_b48c2fc0	The cat is next to the ball.
+e_dfcfbeff	The cat is next to the car.
+e_dc54fcb7	The cat is next to the dog.
+e_ddcdc2e1	The cat is next to the house.
+e_2a1d19ab	The cat is next to the tree.
 e_0f1281da	The cat is on the basket.
 e_0f4e9815	The cat is on the bed.
 e_01dc80fb	The cat is on the box.
@@ -645,11 +755,37 @@ e_91b6a334	The cat is under the bed.
 e_7f9f493e	The cat is under the box.
 e_83045246	The cat is under the chair.
 e_dbf0212a	The cats are black.
+e_b549cb5b	The cheetah is the fastest animal on land.
 e_53181cfb	The children are playing.
+e_039922bc	The dog is between the ball and the car.
+e_638aaf52	The dog is between the ball and the cat.
+e_8ec1c7e2	The dog is between the ball and the house.
+e_972f75ce	The dog is between the ball and the tree.
+e_9759a7b0	The dog is between the car and the ball.
+e_71c73b59	The dog is between the car and the cat.
+e_c0a02b71	The dog is between the car and the house.
+e_54706b1b	The dog is between the car and the tree.
+e_cac8e71e	The dog is between the cat and the ball.
+e_68348cfd	The dog is between the cat and the car.
+e_76530acf	The dog is between the cat and the house.
+e_81f7ad41	The dog is between the cat and the tree.
+e_14562d56	The dog is between the house and the ball.
+e_b95daf65	The dog is between the house and the car.
+e_b9622c93	The dog is between the house and the cat.
+e_b7d2f6f9	The dog is between the house and the tree.
+e_dc93b064	The dog is between the tree and the ball.
+e_7289b9eb	The dog is between the tree and the car.
+e_72853cbd	The dog is between the tree and the cat.
+e_01aa8085	The dog is between the tree and the house.
 e_7cdc2f1e	The dog is in the basket.
 e_ee62a8f1	The dog is in the bed.
 e_4e59f2af	The dog is in the box.
 e_5aabcaf3	The dog is in the chair.
+e_668eb686	The dog is next to the ball.
+e_7d3dded5	The dog is next to the car.
+e_7d425c03	The dog is next to the cat.
+e_c3d40b27	The dog is next to the house.
+e_d04539a9	The dog is next to the tree.
 e_f0d55bd4	The dog is on the basket.
 e_6fa7cc03	The dog is on the bed.
 e_0d9952dd	The dog is on the box.
@@ -658,7 +794,33 @@ e_8904ffe7	The dog is under the basket.
 e_e4cb60c6	The dog is under the bed.
 e_c764ec74	The dog is under the box.
 e_dd721c0c	The dog is under the chair.
+e_75a5b050	The giraffe is the tallest animal in the zoo.
 e_fbd694c8	The giraffe was tall
+e_f53851de	The house is between the ball and the car.
+e_95333d90	The house is between the ball and the cat.
+e_b78f18f2	The house is between the ball and the dog.
+e_fd7fdb98	The house is between the ball and the tree.
+e_fe47d292	The house is between the car and the ball.
+e_cafe4a8f	The house is between the car and the cat.
+e_6e0d7769	The house is between the car and the dog.
+e_1407f6dd	The house is between the car and the tree.
+e_8a6e328c	The house is between the cat and the ball.
+e_ddb6e343	The house is between the cat and the car.
+e_29327ee3	The house is between the cat and the dog.
+e_4d5829df	The house is between the cat and the tree.
+e_f4495f32	The house is between the dog and the ball.
+e_3f8a4959	The house is between the dog and the car.
+e_5f7b712f	The house is between the dog and the cat.
+e_b3cef4fd	The house is between the dog and the tree.
+e_c7564d1e	The house is between the tree and the ball.
+e_08e94efd	The house is between the tree and the car.
+e_08edcc2b	The house is between the tree and the cat.
+e_7b55c705	The house is between the tree and the dog.
+e_9d9d2f90	The house is next to the ball.
+e_f9325e0f	The house is next to the car.
+e_d9413639	The house is next to the cat.
+e_7568b367	The house is next to the dog.
+e_7400a7fb	The house is next to the tree.
 e_9013038b	The monkeys were funny
 e_867cf737	The park was closed
 e_f650bee1	The phone is new, but it doesn't work.
@@ -675,18 +837,62 @@ e_274e8485	The teddy bear is under the basket.
 e_a7333908	The teddy bear is under the bed.
 e_34b9a15a	The teddy bear is under the box.
 e_0079f69a	The teddy bear is under the chair.
+e_96a6816a	The tree is between the ball and the car.
+e_36b4f4d4	The tree is between the ball and the cat.
+e_61788c76	The tree is between the ball and the dog.
+e_2e4f8f10	The tree is between the ball and the house.
+e_9980d53e	The tree is between the car and the ball.
+e_8f0acc4b	The tree is between the car and the cat.
+e_18451325	The tree is between the car and the dog.
+e_bce7fdef	The tree is between the car and the house.
+e_d0ec2fd0	The tree is between the cat and the ball.
+e_ef92244f	The tree is between the cat and the car.
+e_6bc879a7	The tree is between the cat and the dog.
+e_410edc91	The tree is between the cat and the house.
+e_81bba7a6	The tree is between the dog and the ball.
+e_71005d75	The tree is between the dog and the car.
+e_f105a423	The tree is between the dog and the cat.
+e_92dbc847	The tree is between the dog and the house.
+e_56f0cefc	The tree is between the house and the ball.
+e_e1d378f3	The tree is between the house and the car.
+e_61ce3245	The tree is between the house and the cat.
+e_f52e5eb3	The tree is between the house and the dog.
+e_44b3c154	The tree is next to the ball.
+e_0a19011b	The tree is next to the car.
+e_0a1483ed	The tree is next to the cat.
+e_9f27f06b	The tree is next to the dog.
+e_058428d5	The tree is next to the house.
+e_00eb007a	The wind was strong
+e_d197f862	The word is "balloons".
 e_76cac444	The word is "bread".
+e_9ee9b6e6	The word is "cake".
+e_0cee725c	The word is "candles".
 e_dd0ea7d3	The word is "cheese".
+e_c4f42a81	The word is "city".
 e_60317dfd	The word is "cookies".
+e_c07f75a7	The word is "desert".
+e_aac65340	The word is "fireworks".
+e_fc098edf	The word is "forest".
 e_cf33d901	The word is "fries".
+e_e021c630	The word is "gift".
 e_4641b219	The word is "honey".
 e_16cc4aa5	The word is "lollipop".
+e_f8d6e43d	The word is "mountain".
+e_cc46c5c5	The word is "music".
 e_103a467a	The word is "nuts".
+e_55ba7bf3	The word is "oasis".
+e_51e4e8be	The word is "party".
+e_5b640b64	The word is "pollution".
+e_b2ce21cb	The word is "recycle".
+e_23c9e376	The word is "ribbon".
 e_f8d0f893	The word is "rice".
+e_e00cc72c	The word is "river".
+e_789cb2ed	The word is "sea".
 e_ed0f6c57	The word is "soda".
 e_3f85e8cd	The word is "soup".
 e_cb4db74f	The word is "sweets".
 e_f388d20a	The word is "vegetables".
+e_eceaa036	The word is "village".
 e_12228f9c	The word is Apple
 e_16ec0959	The word is Ball
 e_1583bb58	The word is Cat
@@ -713,6 +919,8 @@ e_03fd3427	The word is Watch
 e_666b9e7a	The word is Xylophone
 e_173ace0f	The word is Yacht
 e_8524d264	The word is Zebra
+e_a2e33cb5	Their teacher
+e_2341ef50	Their uncle
 e_584f211f	They
 e_6576e5de	They are T-shirt.
 e_f120ba9c	They are at school.
@@ -725,14 +933,26 @@ e_b89d8be3	They are my family.
 e_33f1692b	They are pants.
 e_0f6f4269	They are shoes.
 e_1d046dd6	They are socks.
+e_40368cf0	They don't play in the street.
 e_bb598baa	They feel angry.
 e_afb2e513	They feel happy.
 e_a12c884d	They feel sad.
 e_dcbb3aef	They feel scared.
 e_83537e02	They feel surprised.
 e_0d0eea23	They feel tired.
+e_b297e7ff	They go to school by bus.
 e_ff6c48d0	Think about what fits
 e_55dc277f	Think: a thing, a place, a person, a time, or a reason?
+e_6bfde492	This is a carpenter.
+e_5a8a52a2	This is a cook.
+e_8972c27b	This is a doctor.
+e_7ad47d15	This is a engineer.
+e_f364fe43	This is a farmer.
+e_1e4809ad	This is a firefighter.
+e_9d10e63f	This is a photographer.
+e_8ada51e4	This is a pilot.
+e_0c9e9956	This is a police officer.
+e_c2a6a254	This is a teacher.
 e_d400831d	This stage is locked.
 e_2e430863	Three
 e_99eb4fd7	Thursday
@@ -804,6 +1024,7 @@ e_20af1fc9	Two
 e_e196b309	Two letters, one sound: sh, ch, th.
 e_d74b1d40	Two letters, two sounds: c + l = cl.
 e_60e3a5d6	Two letters, two sounds: s + k = sk.
+e_45dfe1bc	Two things: -er + than (bigger than).
 e_d00c09b0	U
 e_729e6fba	U .
 e_fc278985	U and u are the same letter
@@ -830,6 +1051,8 @@ e_e59293e6	Watch starts with W
 e_a6809412	Watch.
 e_d63556b0	Water
 e_8ec0fde4	We are in the garden.
+e_16a09a29	We can count apples.
+e_326c8000	We can not count water.
 e_c28e07eb	We clean in class.
 e_daaad4ba	We draw in class.
 e_208d8737	We listen in class.
@@ -839,6 +1062,7 @@ e_3545e6ab	We sing in class.
 e_24038cae	We sit in class.
 e_021c0405	We sleep at night.
 e_b5b2b4de	We stand in class.
+e_bf799f09	We visit our grandma on Fridays.
 e_e49eff5d	We write in class.
 e_e8239b77	Wednesday
 e_0815494f	What
@@ -860,13 +1084,16 @@ e_ffdef3e1	What day comes before Tuesday?
 e_5629faec	What day comes before Wednesday?
 e_1c7bc5b7	What did Hana ride?
 e_1595e540	What did Mona draw?
+e_421ad333	What did Omar share?
 e_52d2202d	What do you say?
 e_af9fa7b7	What does Adam like?
 e_c6b5a09b	What does Ali drink in the morning?
 e_dcbca661	What does Ali drink when he is thirsty?
 e_45b21dba	What food is this?
+e_38ce1099	What is this job?
 e_6a5bc848	What is this?
 e_bb1fc4f8	What is your name?
+e_2f009806	What lesson does the story teach?
 e_fce3f837	What month comes after April?
 e_b8225f68	What month comes after August?
 e_51eafc7e	What month comes after December?
@@ -900,6 +1127,7 @@ e_1638b2b4	When did Omar go to the zoo?
 e_485309f7	When do you go to school?
 e_332fec60	When is your birthday?
 e_91dad0f8	Where
+e_79023a48	Where did Ali fly his kite?
 e_2cd0848a	Where did Hana go?
 e_67194a41	Where do you live?
 e_ae4067a9	Where does Sara live?
@@ -1015,6 +1243,7 @@ e_d3487e3c	Which sound is missing?
 e_cc862414	Which word is it?
 e_6ceb2d06	White
 e_8d80552f	Who
+e_c47db490	Who helped them?
 e_12b4fdd9	Who is that boy?
 e_51157d8f	Who is your teacher?
 e_32f9f640	Who saw the picture?
@@ -1023,6 +1252,8 @@ e_7b8038d9	Why
 e_5f7fac49	Why are you sad?
 e_f0f14097	Why did Mona stay at home?
 e_7f5050a1	Why did everyone laugh?
+e_fa12fa6b	Why did some children laugh?
+e_211171c4	Why did the kite fly away?
 e_00c3dfc8	Why do you like milk?
 e_ca3f951a	Why does Ali not eat many sweets?
 e_dd0c1e27	X
@@ -1056,6 +1287,12 @@ e_ff04aa50	You meet your friend.
 e_21885187	You must wear a helmet on a bike.
 e_6afd2661	You must wear a seat belt.
 e_04684f66	You mustn't cross when the light is red.
+e_31ecbe92	You should drink water when you hike.
+e_a0fbdfa1	You should wear a life jacket on the boat.
+e_77504a41	You should wear sunscreen at the beach.
+e_953d7bf0	You shouldn't leave trash on the beach.
+e_f64472b0	You shouldn't swim alone in the sea.
+e_21abfa88	You shouldn't touch the corals.
 e_a1a0543f	You wake up in the morning.
 e_760537bd	You want a cookie.
 e_a52c336c	Your friend gives you a gift.
@@ -1072,12 +1309,19 @@ e_f3e55957	Zero.
 e_e40c292c	a
 e_56a5d0c9	a ball
 e_32a9c8c5	a banana
+e_1252f560	a bar of chocolate
 e_91f27549	a book
+e_0b2d980e	a bottle of water
 e_e4147dba	a car
+e_9e8c78cf	a carton of milk
+e_99b73979	a carton of milk, a bottle of water, a slice of bread, a bar of chocolate.
 e_de147448	a cat
 e_f6ede5ae	a dog
+e_bcb733d5	a jar of honey
 e_52ec2767	a kite
 e_6feb13ef	a pen
+e_bfdbdb95	a piece of cake
+e_713c8249	a slice of bread
 e_b1386254	a tree
 e_8789ba93	a, a
 e_a83929d0	a, a, Ant
@@ -1097,6 +1341,7 @@ e_0f29c2a6	and
 e_4a5aad6e	and = both, or = one of them, but = something different.
 e_b50aaefe	angry
 e_10bc2abf	apple
+e_e9370243	apple.
 e_6a4dc167	applees
 e_24375f24	apples
 e_406f344d	are
@@ -1109,8 +1354,11 @@ e_60b75a78	bad
 e_63b75f31	bag
 e_348f1364	ball
 e_56bfbea0	balles
+e_6dd435bd	balloons
 e_d43b0d35	balls
 e_d9889f50	banana
+e_f013135a	banana.
+e_76b77d1a	bar
 e_9e048c56	basketball
 e_70b773a8	bat
 e_82138fe3	bathroom
@@ -1118,8 +1366,11 @@ e_f4b2c848	beach
 e_50ae46ec	bed
 e_16fb7f77	bedroom
 e_60ae601c	bet
+e_a4ee076f	between
+e_65652aa8	between is in the middle, next to is beside
 e_d7b8f81a	bicycle
 e_53cacdb9	big
+e_82eef0ad	bigger
 e_c4602668	bike
 e_695c4032	bike.
 e_eb0cbd62	block
@@ -1128,10 +1379,14 @@ e_82fbf5cd	blue
 e_c1948a38	book
 e_bf968f7c	bookes
 e_07d5b411	books
+e_66a9cf89	bottle
 e_70c67e32	box
 e_514c98f2	boxes
 e_c978c053	boxs
 e_c8647fe5	bread
+e_fac46df3	brush
+e_c4f6b883	brushes
+e_a67ad325	brushing
 e_70d588bc	bud
 e_73d58d75	bug
 e_0b39352e	buh e duh
@@ -1158,8 +1413,11 @@ e_f0743965	can
 e_684ba472	can = it is able to.
 e_ed786bd6	can't
 e_3ba5a4d8	can't = it is not able to.
+e_8b44e2f1	candles
 e_027455bb	cap
 e_047458e1	car
+e_e272d977	carpenter
+e_88ad264a	carton
 e_06745c07	cat
 e_4d847d6f	cates
 e_9d2d8a9c	cats
@@ -1174,6 +1432,7 @@ e_b77b4951	cherrys
 e_e5a0205d	child
 e_67a9c9d2	children
 e_a912a86a	childs
+e_0dc48142	city
 e_4324fd83	clap
 e_9aaf36a0	clapped
 e_a33bc0d0	claps
@@ -1184,22 +1443,31 @@ e_15a40f5d	clock
 e_84445209	clock.
 e_2dbc1605	cloudy
 e_ea44dd0f	cold
+e_ef3e2929	cook
 e_284b0124	cookies
 e_fe8de755	cop
 e_fa8de109	cot
+e_54a13f8c	countable
 e_6b91d120	cube
 e_648c190a	cube.
 e_fa56340f	cup
 e_f6562dc3	cut
 e_e10c2473	d
+e_2cb41ebc	desert
 e_d66293ab	dig
 e_547125cb	dining room
+e_a1f02512	doctor
+e_808a97e9	doesn't
 e_e668bd09	dog
 e_6113de55	doges
 e_30e2470e	dogs
+e_69b0596d	don't
 e_d3689f20	dot
 e_a88bf413	draw
 e_68e41ef0	dress
+e_15743f91	drink
+e_30a5b70f	drinking
+e_a80090c6	drinks
 e_eb3117ee	duh
 e_119c6bdb	duh o guh
 e_27b99d67	duh, duh
@@ -1212,6 +1480,8 @@ e_fb3868e6	e...
 e_ff55af40	ears
 e_6c6e2525	eat
 e_0764c662	eats
+e_597d11c6	egg
+e_c7e33038	egg.
 e_a57e9c10	eighteen
 e_4f5dda2b	eighty
 e_acc90c05	eighty-eight
@@ -1224,10 +1494,14 @@ e_a615b442	eighty-six
 e_f9db5d72	eighty-three
 e_cf88e810	eighty-two
 e_8ff53680	eleven
+e_9c3dd718	engineer
 e_43edbc4b	eyes
 e_e30c2799	f
 e_f85a0760	fall
 e_a8f7fa72	fan
+e_808e8652	farmer
+e_029402af	fast
+e_279cb564	faster
 e_bb357f55	feet
 e_e2f7de62	fff o ks
 e_807ee9b1	fff, fff
@@ -1245,6 +1519,8 @@ e_e21b1581	fifty-seven
 e_4681b284	fifty-six
 e_f9a473bc	fifty-three
 e_3b0b395e	fifty-two
+e_2f4cf9ce	firefighter
+e_25570d85	fireworks
 e_09add7e2	five apples
 e_944c391b	five babies
 e_5b426cf3	five balls
@@ -1270,6 +1546,7 @@ e_a1f3723f	fog
 e_2d505a99	foot
 e_659bc978	football
 e_3f7f1e5e	foots
+e_4f292a60	forest
 e_8583378f	forty
 e_665eb609	forty-eight
 e_76cf0fe6	forty-five
@@ -1310,6 +1587,7 @@ e_8a7324ef	gift
 e_b442dbd3	gift.
 e_4220774b	go
 e_09784e5b	goes
+e_0b4ec68d	going
 e_38351db3	guh
 e_f1b77675	guh, guh
 e_c94cf063	guh, guh, Gift
@@ -1321,6 +1599,8 @@ e_c4ba2f20	hand
 e_bf18130a	hand.
 e_99863551	happy
 e_f2bf17c2	hat
+e_0768518d	he / she / it add -s: she plays.
+e_eb1f2e4c	he / she / it doesn't, Does.
 e_08b4ad08	hen
 e_f4b48d8c	her
 e_80e8d09d	hhh a tuh
@@ -1341,6 +1621,7 @@ e_4e388f15	is
 e_47388410	it
 e_ef0c3a7d	j
 e_100e165b	jacket
+e_cdedae92	jar
 e_ebb76fff	juice
 e_ee0c38ea	k
 e_c61c131f	kick
@@ -1375,13 +1656,16 @@ e_a7c20ec5	mask.
 e_c9ad5a6b	men
 e_5a69615f	mice
 e_888e7aa2	milk
+e_844aea64	milk.
 e_462e4c5f	mmm, mmm
 e_d3d6ce74	mmm, mmm, Milk
 e_a7eb16c2	mmm, mmm, Moon
 e_d39e5f9f	mop
 e_a45b05cc	motorcycle
+e_49cbe0a2	mountain
 e_592318c4	mouse
 e_093fe815	mouses
+e_9f9c4fd4	music
 e_c508c328	must
 e_9b09a79f	must = you have to.
 e_5cb7f3a1	mustn't
@@ -1389,6 +1673,7 @@ e_f2e687fb	mustn't / Don't = no!
 e_4c2dfe93	my
 e_eb0c3431	n
 e_25999158	net
+e_fee13031	next to
 e_e6de9f61	night
 e_e21ee631	nineteen
 e_c1faa93e	ninety
@@ -1415,6 +1700,7 @@ e_257281e8	nut
 e_8e420701	nuts
 e_ea0c329e	o
 e_3196115c	o...
+e_7d3d112e	oasis
 e_61342fd0	on
 e_2ba4b5cb	one hundred
 e_5d342984	or
@@ -1422,6 +1708,7 @@ e_f50c43ef	p
 e_4f55eeec	pan
 e_de2337e1	pants
 e_63780eb9	park
+e_5e3dad97	party
 e_784ba21b	peg
 e_6f4b93f0	pen
 e_78627a04	pencil
@@ -1429,12 +1716,18 @@ e_fa06c955	pencils
 e_5c7f35b4	penes
 e_b6f93739	pens
 e_694b8a7e	pet
+e_490aa90a	photographer
+e_f4c5f285	piece
 e_6840fb8f	pig
+e_10066ae1	pilot
 e_6f410694	pin
 e_cccb0055	plane
 e_c2cbd863	play
 e_4299e5a2	played
+e_71ef5835	playing
 e_b6e52130	plays
+e_92a761cd	police officer
+e_ee5a9959	pollution
 e_866a3091	post office
 e_55727a72	puh
 e_f42abe15	puh i guh
@@ -1449,8 +1742,12 @@ e_f70c4715	r
 e_56b6fa9e	rainy
 e_4aff1df6	ran
 e_cedfa3c5	read
+e_dde3f6ee	recycle
 e_40f480dc	red
+e_42b4cb29	ribbon
 e_0552c2b0	rice
+e_ff485eba	rice.
+e_4660d711	river
 e_10421806	rose
 e_c00c06f8	rose.
 e_8ae14409	rrr, rrr
@@ -1466,6 +1763,7 @@ e_2bc6687d	salt.
 e_d71c946a	saw
 e_3f32c75d	scared
 e_9f519cc9	school
+e_b926f28c	sea
 e_b526ec40	see
 e_5f45d449	sees
 e_a4c6ff66	seventeen
@@ -1485,6 +1783,10 @@ e_9b47cc32	shoe
 e_8e065014	shoe.
 e_b3068a53	shoes
 e_a847e0a9	shop
+e_c5c23c2a	should
+e_ee7b2910	should = a good idea.
+e_0b70261f	shouldn't
+e_52e1c1e3	shouldn't = a bad idea.
 e_15d2601e	sing
 e_c630015f	sit
 e_c5d13fab	sixteen
@@ -1502,6 +1804,12 @@ e_3a0ffee1	skate
 e_362e1fdd	skate.
 e_7cad5f3b	sled
 e_59ecae0f	sled.
+e_6789b051	slice
+e_6d9542b8	slow
+e_15cf3d8f	slower
+e_f052b280	smell
+e_db4b5108	smelling
+e_452fb489	smells
 e_aff5e25b	snake
 e_75137e2f	snake.
 e_255e0fd1	snowy
@@ -1534,13 +1842,19 @@ e_fb264bd4	sweets
 e_81f4ae28	swimming
 e_f10c3da3	t
 e_112cdf96	tall
+e_b2085c21	taller
 e_0e5e77a9	taxi
+e_03274595	teacher
 e_c944ea21	teeth
 e_bd01f454	ten
 e_1c11f8a2	tennis
 e_b40eb21c	the
 e_21c164ef	the beach
+e_44f6d969	the biggest
+e_bbb102d2	the fastest
 e_ecf0b8a9	the sky
+e_1b01e6fb	the slowest
+e_deb0cd95	the tallest
 e_63374a36	thirteen
 e_1a956a35	thirty
 e_e5adc4ab	thirty-eight
@@ -1614,10 +1928,15 @@ e_48021a13	two teeth
 e_71e62baa	two watches
 e_f00c3c10	u
 e_f7a99176	u...
+e_ab7fd931	uncountable
 e_89193acd	under
 e_f30c40c9	v
 e_9625faa2	van
 e_13cd7de1	vegetables
+e_471a1a63	village
+e_34d03e9c	visit
+e_88522b5c	visiting
+e_12d3123d	visits
 e_09ffc6f9	volleyball
 e_f20c3f36	w
 e_a0262210	walk
@@ -1627,6 +1946,7 @@ e_5fb7b228	watch
 e_aceae80c	watches
 e_092dc541	watchs
 e_49c69a10	water
+e_61a4cf9a	water.
 e_5c47afa9	we
 e_d8b9cf23	went
 e_1af8295a	windy

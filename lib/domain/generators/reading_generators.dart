@@ -83,6 +83,19 @@ const enPassages = [
     ('What did Hana ride?', 'A camel', ['A horse', 'A bus']),
     ('Who took pictures?', 'Her dad', ['Her mom', 'Her teacher']),
   ]),
+  // رابعة: قصة عن اللطف (وحدة The Hundred Dresses) وحكاية الطيارة الورق (The Lost Kite) — النصوص من عندنا
+  Passage('Kind Words', 'Nour was new at school. Some children laughed at her old shoes. Omar did not laugh. '
+      'He sat next to Nour and shared his crayons. Soon, everyone wanted to play with her.', [
+    ('Why did some children laugh?', 'Her shoes were old', ['She was late', 'She was sad']),
+    ('What did Omar share?', 'His crayons', ['His lunch', 'His ball']),
+    ('What lesson does the story teach?', 'Be kind to others', ['Buy new shoes', 'Come to school early']),
+  ]),
+  Passage('The Lost Kite', 'Ali flew his red kite in the field near the village. The wind was strong, and the kite flew away. '
+      'Ali and his sister ran after it. They found it in a palm tree, and their uncle helped them get it down.', [
+    ('Where did Ali fly his kite?', 'In the field', ['On the beach', 'In the city']),
+    ('Why did the kite fly away?', 'The wind was strong', ['It was old', 'Ali let it go']),
+    ('Who helped them?', 'Their uncle', ['Their teacher', 'A farmer']),
+  ]),
   Passage('Healthy Food', 'Ali eats fruit and vegetables every day. He drinks milk in the morning and water when he is thirsty. '
       'He does not eat many sweets because they are bad for his teeth.', [
     ('What does Ali drink in the morning?', 'Milk', ['Juice', 'Tea']),

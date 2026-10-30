@@ -71,6 +71,8 @@ class VisualView extends StatelessWidget {
         PrepVisual v => PrepView(v),
         ComposeVisual v => ComposeView(v),
         GridAreaVisual v => GridAreaView(v),
+        AngleVisual v => AngleView(v),
+        LinesVisual v => LinesView(v),
         DotPlotVisual v => DotPlotView(v),
         PlantVisual v => PlantView(v),
         EmojiVisual v => EmojiView(v),

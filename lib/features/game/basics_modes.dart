@@ -222,6 +222,102 @@ class PicGraphView extends StatelessWidget {
   }
 }
 
+// ---------------------------------------------------------------- 📐 الزوايا والخطوط
+
+class AngleView extends StatelessWidget {
+  const AngleView(this.v, {super.key});
+  final AngleVisual v;
+
+  @override
+  Widget build(BuildContext context) {
+    final w = context.clampVw(220, 56, 260);
+    return Center(
+      child: Semantics(label: 'زاوية', child: CustomPaint(size: Size(w, w * .62), painter: _AnglePainter(v.degrees))),
+    );
+  }
+}
+
+class _AnglePainter extends CustomPainter {
+  _AnglePainter(this.degrees);
+  final int degrees;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    // الرأس تحت في النص، وضلع أفقي لليمين والتاني بالزاوية
+    final o = Offset(size.width * (degrees > 90 ? .55 : .25), size.height - 8);
+    final len = math.min(size.width * .7, size.height * 1.1);
+    final rad = degrees * math.pi / 180;
+    final arm = Paint()
+      ..color = AppColors.ink
+      ..strokeWidth = 4
+      ..strokeCap = StrokeCap.round;
+    canvas.drawLine(o, o + Offset(len * .95, 0), arm);
+    canvas.drawLine(o, o + Offset(math.cos(rad) * len * .9, -math.sin(rad) * len * .9), arm);
+    final arc = Paint()
+      ..color = AppColors.grape
+      ..strokeWidth = 3
+      ..style = PaintingStyle.stroke;
+    const r = 34.0;
+    if (degrees == 90) {
+      canvas.drawRect(Rect.fromLTWH(o.dx, o.dy - 22, 22, 22), arc);
+    } else {
+      canvas.drawArc(Rect.fromCircle(center: o, radius: r), 0, -rad, false, arc);
+    }
+  }
+
+  @override
+  bool shouldRepaint(_AnglePainter old) => old.degrees != degrees;
+}
+
+class LinesView extends StatelessWidget {
+  const LinesView(this.v, {super.key});
+  final LinesVisual v;
+
+  @override
+  Widget build(BuildContext context) {
+    final w = context.clampVw(220, 56, 260);
+    return Center(
+      child: Semantics(label: 'خطين', child: CustomPaint(size: Size(w, w * .62), painter: _LinesPainter(v.kind))),
+    );
+  }
+}
+
+class _LinesPainter extends CustomPainter {
+  _LinesPainter(this.kind);
+  final int kind;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final a = Paint()
+      ..color = AppColors.ink
+      ..strokeWidth = 4
+      ..strokeCap = StrokeCap.round;
+    final b = Paint()
+      ..color = AppColors.grape
+      ..strokeWidth = 4
+      ..strokeCap = StrokeCap.round;
+    final w = size.width, h = size.height;
+    switch (kind) {
+      case 0:
+        canvas.drawLine(Offset(w * .1, h * .3), Offset(w * .9, h * .15), a);
+        canvas.drawLine(Offset(w * .1, h * .8), Offset(w * .9, h * .65), b);
+      case 1:
+        canvas.drawLine(Offset(w * .1, h * .55), Offset(w * .9, h * .55), a);
+        canvas.drawLine(Offset(w * .5, h * .05), Offset(w * .5, h * .95), b);
+        canvas.drawRect(Rect.fromLTWH(w * .5, h * .55 - 16, 16, 16), Paint()
+          ..color = AppColors.inkSoft
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2);
+      default:
+        canvas.drawLine(Offset(w * .1, h * .85), Offset(w * .9, h * .15), a);
+        canvas.drawLine(Offset(w * .15, h * .3), Offset(w * .85, h * .7), b);
+    }
+  }
+
+  @override
+  bool shouldRepaint(_LinesPainter old) => old.kind != kind;
+}
+
 // ---------------------------------------------------------------- 🟩 المساحة والمحيط
 
 class GridAreaView extends StatelessWidget {

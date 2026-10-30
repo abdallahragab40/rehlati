@@ -18,6 +18,8 @@ import 'generators/fade_generators.dart';
 import 'generators/grade2_arabic_generators.dart';
 import 'generators/grade3_arabic_generators.dart';
 import 'generators/grade3_math_generators.dart';
+import 'generators/grade4_arabic_generators.dart';
+import 'generators/grade4_math_generators.dart';
 import 'generators/school_english_generators.dart';
 import 'generators/school_math_generators.dart';
 import 'generators/term2_arabic_generators.dart';
@@ -433,6 +435,42 @@ final _math3 = _grp('math', 'math3', 'حساب تالتة ابتدائي', 0xFF3
   ('dotPlot', '⚫', 'التمثيل بالنقاط', 2, dotPlot),
 ], after: 'times2510');
 
+/// عربي رابعة ابتدائي من كتاب الوزارة — بعد «اقرأ وافهم» (آخر القواعد والفهم)، حتى للتقدّم القديم.
+final _ar4 = _grp('arabic', 'ar4', 'قواعد رابعة ابتدائي', 0xFF7B3F8C, [
+  ('ar_nounSigns', '🏷️', 'علامات الاسم', 3, arNounSigns),
+  ('ar_alPrefix', '🔤', 'بـ وكـ وفـ ولـ مع «ال»', 3, arAlPrefix),
+  ('ar_mubtada', '🧩', 'المبتدأ والخبر', 3, arMubtada),
+  ('ar_hiddenAlif', '👻', 'حروف تُنطق ولا تُكتب', 3, arHiddenAlif),
+  ('ar_alifLayyina', '〰️', 'الألف اللينة', 3, arAlifLayyina),
+  ('ar_fail', '🏃', 'الفعل والفاعل', 3, arFail),
+], after: 'ar_reading');
+
+/// حساب رابعة ابتدائي من كتاب الوزارة — بعد «القسمة من غير باقي»، حتى للتقدّم القديم.
+final _math4 = _grp('math', 'math4', 'حساب رابعة ابتدائي', 0xFF2F5FB8, [
+  ('roundLarge', '🎯', 'تقريب الأعداد الكبيرة', 3, roundLarge),
+  ('bigAddSub', '➕', 'الجمع والطرح بإعادة التسمية', 3, bigAddSub),
+  ('unitConvert', '📏', 'تحويل وحدات القياس', 3, unitConvert),
+  ('mulCompare', '✖️', 'الضرب كعلاقة وخواصه', 3, mulCompare),
+  ('factors', '🧮', 'العوامل والمضاعفات', 3, factors),
+  ('longMulDiv', '➗', 'الضرب والقسمة الطويلة', 3, longMulDiv),
+  ('orderOps', '🔢', 'ترتيب العمليات', 3, orderOps),
+  ('fractionOps', '🍕', 'العمليات على الكسور', 3, fractionOps),
+  ('decimals', '🔟', 'الكسور العشرية', 3, decimals),
+  ('geometry4', '📐', 'الزوايا والخطوط والأشكال', 3, geometry4),
+], after: 'divisionExact');
+
+/// إنجليزي رابعة (Connect 4) — بعد «is, are or am?»، حتى للتقدّم القديم.
+final _en4 = _grp('english', 'en4', 'Grammar from school • Grade 4', 0xFF1F4F8F, [
+  ('en_present', '🔁', 'Present simple', 3, enPresent),
+  ('en_compare', '📏', 'bigger, the biggest', 3, enCompare),
+  ('en_prep2', '↔️', 'next to, between', 2, enPrep2),
+  ('en_jobs', '🧑‍⚕️', 'Jobs', 2, enJobsGame),
+  ('en_environment', '🏜️', 'Places and the planet', 2, enEnvironmentGame),
+  ('en_containers', '🥛', 'a bottle of, a slice of', 3, enContainers),
+  ('en_celebrate', '🎉', "Let's celebrate", 2, enCelebrateGame),
+  ('en_should', '🧴', "should, shouldn't", 3, enShould),
+], after: 'en_isare', lang: 'en');
+
 /// Phonics بعد ما الطفل يعرف الحروف: الصوت مش الاسم، وبعدين تجميع كلمات CVC.
 final _phonics = _grp('english', 'phonics', 'Phonics • Letter sounds', 0xFF2E9BD6, [
   ('en_phonics', '🔊', 'Letter sounds', 1, enPhonics),
@@ -684,11 +722,11 @@ final _enPrimary = [
 final Map<String, List<Stage>> worldStages = {
   // المراحل اللي اتنشرت قبل كده (الحساب والعربي والمدود و English الأصليين) فاضلة بنفس ترتيبها
   // بين بعض — المجموعات الجديدة بتدخل بينها في مكانها في المنهج (stage_ids_test.dart)
-  'math': _numbered([..._math, ..._mathBasics, ..._math1, ..._math100, ..._math2, ..._mul, ..._math3, ..._life, ..._upperPrimary]),
+  'math': _numbered([..._math, ..._mathBasics, ..._math1, ..._math100, ..._math2, ..._mul, ..._math3, ..._life, ..._upperPrimary, ..._math4]),
   'arabic': _numbered([
-    ..._arabic, ..._concepts, ..._harakat, ..._forms, ..._madd, ..._shortRead, ..._sukun, ..._al, ..._fade, ..._ar2, ..._grammar,
+    ..._arabic, ..._concepts, ..._harakat, ..._forms, ..._madd, ..._shortRead, ..._sukun, ..._al, ..._fade, ..._ar2, ..._grammar, ..._ar4,
   ]),
-  'english': _numbered([..._english, if (voiceEnabled) ..._phonics, ..._enWords, ..._enSchool, ..._en3, ..._enPrimary]),
+  'english': _numbered([..._english, if (voiceEnabled) ..._phonics, ..._enWords, ..._enSchool, ..._en3, ..._enPrimary, ..._en4]),
   'deen': _numbered(_deen),
   'discover': _numbered(_discover),
   'write': _numbered(_write),

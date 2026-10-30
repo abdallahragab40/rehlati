@@ -419,4 +419,133 @@ final schoolBooks = <SchoolBook>[
     SchoolUnit('Living with Technology', [SchoolLesson('and, or, but', [_i('en_conj')])]),
     SchoolUnit('Animals & Habitats', [SchoolLesson('Animals', [_i('en_animals')]), SchoolLesson("can, can't", [_i('en_can')])]),
   ]),
+  // ---------------------------------------------------------------- رابعة ابتدائي
+  SchoolBook('p4', 1, 'arabic', [
+    SchoolUnit('أنا وحلمي', [
+      SchoolLesson('أنواع الكلمة وعلامات الاسم', [_i('ar_wordType'), _i('ar_nounSigns')]),
+      SchoolLesson('دخول فـ بـ كـ لـ على «ال»', [_i('ar_alPrefix')]),
+      SchoolLesson('المفرد والمثنى والجمع', [_i('ar_number')]),
+    ]),
+    SchoolUnit('أخلاقي حياتي', [
+      SchoolLesson('الضمائر', [_i('ar_pronoun')]),
+      SchoolLesson('علامات الترقيم', [_i('ar_punct')]),
+      SchoolLesson('ركنا الجملة الاسمية', [_i('ar_mubtada', 'single')]),
+    ]),
+    SchoolUnit('رسالة من أطفال مصر', [
+      SchoolLesson('المبتدأ والخبر المثنى', [_i('ar_mubtada', 'dual')]),
+      SchoolLesson('حروف تُنطق ولا تُكتب', [_i('ar_hiddenAlif')]),
+      SchoolLesson('المبتدأ والخبر جمع المذكر السالم', [_i('ar_mubtada', 'plural')]),
+    ]),
+  ]),
+  SchoolBook('p4', 2, 'arabic', [
+    SchoolUnit('أخلاقي تصنع عالمي', [
+      SchoolLesson('مراجعة المبتدأ والخبر', [_i('ar_mubtada')]),
+      SchoolLesson('الألف اللينة في الحروف', [_i('ar_alifLayyina', 'harf')]),
+      SchoolLesson('الجملة الفعلية: الفعل والفاعل', [_i('ar_fail', 'single')]),
+    ]),
+    SchoolUnit('أحلم وأخطط', [
+      SchoolLesson('الفاعل: المفرد وجمع التكسير وجمع المؤنث', [_i('ar_fail', 'single')]),
+      SchoolLesson('الألف اللينة في الأسماء', [_i('ar_alifLayyina', 'ism')]),
+      SchoolLesson('الفاعل: المثنى وجمع المذكر السالم', [_i('ar_fail', 'dual')]),
+    ]),
+    SchoolUnit('نعيش في سلام', [
+      SchoolLesson('إفراد الفعل مع فاعله', [_i('ar_fail', 'agree')]),
+      SchoolLesson('الألف اللينة في الأفعال', [_i('ar_alifLayyina', 'fiil')]),
+      SchoolLesson('الضمائر والفاعل الضمير', [_i('ar_pronoun')]),
+    ]),
+  ]),
+  SchoolBook('p4', 1, 'math', [
+    SchoolUnit('القيمة المكانية', [
+      SchoolLesson('الأعداد الكبيرة والقيمة المكانية', [_i('thousands')]),
+      SchoolLesson('مقارنة وترتيب الأعداد', [_i('thousands')]),
+      SchoolLesson('قواعد التقريب', [_i('roundLarge')]),
+    ]),
+    SchoolUnit('استراتيجيات الجمع والطرح', [
+      SchoolLesson('الجمع والطرح بإعادة التسمية', [_i('bigAddSub')]),
+      SchoolLesson('المسائل متعددة الخطوات', [_i('bigAddSub'), _i('wordProblem')]),
+    ]),
+    SchoolUnit('مفاهيم القياس', [
+      SchoolLesson('الطول والكتلة والسعة', [_i('unitConvert')]),
+      SchoolLesson('قياس الوقت والوقت المنقضي', [_i('unitConvert'), _i('clockQuarter')]),
+    ]),
+    SchoolUnit('المساحة والمحيط', [
+      SchoolLesson('المحيط', [_i('areaPerimeter', 'perimeter')]),
+      SchoolLesson('المساحة', [_i('areaPerimeter', 'area')]),
+      SchoolLesson('أبعاد مجهولة والأشكال المركبة', [_i('areaPerimeter')]),
+    ]),
+    SchoolUnit('الضرب كعلاقة', [
+      SchoolLesson('المقارنة باستخدام الضرب', [_i('mulCompare')]),
+      SchoolLesson('خواص الضرب وأنماطه', [_i('mulCompare'), _i('mulStrategies', 'props')]),
+    ]),
+    SchoolUnit('العوامل والمضاعفات', [
+      SchoolLesson('العوامل والأعداد الأولية', [_i('factors', 'factors')]),
+      SchoolLesson('المضاعفات', [_i('factors', 'multiples')]),
+    ]),
+    SchoolUnit('الضرب والقسمة', [
+      SchoolLesson('الضرب في عدد من رقم أو رقمين', [_i('longMulDiv', 'mul'), _i('mulStrategies', 'tens')]),
+      SchoolLesson('القسمة على عدد من رقم واحد', [_i('longMulDiv', 'div')]),
+    ]),
+    SchoolUnit('ترتيب العمليات', [SchoolLesson('ترتيب العمليات', [_i('orderOps')])]),
+  ]),
+  SchoolBook('p4', 2, 'math', [
+    SchoolUnit('الكسور الاعتيادية', [
+      SchoolLesson('كسور الوحدة وتحليل الكسور', [_i('fractionOfNumber'), _i('fractionOps', 'addsub')]),
+      SchoolLesson('الأعداد الكسرية', [_i('fractionOps', 'mixed')]),
+      SchoolLesson('جمع وطرح الكسور', [_i('fractionOps', 'addsub')]),
+      SchoolLesson('مقارنة الكسور', [_i('fractionOps', 'compare')]),
+      SchoolLesson('الكسور المتكافئة', [_i('fractionEquivalent')]),
+      SchoolLesson('ضرب كسر في عدد', [_i('fractionOps', 'times')]),
+    ]),
+    SchoolUnit('الكسور العشرية', [
+      SchoolLesson('الأعشار والأجزاء من مئة', [_i('decimals')]),
+      SchoolLesson('مقارنة وجمع الكسور العشرية', [_i('decimals')]),
+    ]),
+    SchoolUnit('بيانات تحتوي على كسور', [
+      SchoolLesson('التمثيل البياني بالنقاط', [_i('dotPlot')]),
+      SchoolLesson('تحليل التمثيل البياني', [_i('barGraph')]),
+    ]),
+    SchoolUnit('الهندسة', [
+      SchoolLesson('النقاط والخطوط والتوازي والتعامد', [_i('geometry4', 'lines')]),
+      SchoolLesson('تصنيف الزوايا', [_i('geometry4', 'angles')]),
+      SchoolLesson('تصنيف المثلثات والأشكال الرباعية', [_i('geometry4', 'shapes')]),
+    ]),
+    SchoolUnit('الزوايا والدائرة', [SchoolLesson('قياس الزوايا', [_i('geometry4', 'angles')])]),
+  ]),
+  SchoolBook('p4', 1, 'english', [
+    SchoolUnit('The Five Senses', [
+      SchoolLesson('Present simple', [_i('en_present', 'affirm')]),
+      SchoolLesson('My senses', [_i('en_body')]),
+    ]),
+    SchoolUnit('My Community', [
+      SchoolLesson("don't, doesn't, Do, Does", [_i('en_present', 'negq')]),
+      SchoolLesson('Places', [_i('en_places')]),
+    ]),
+    SchoolUnit('Animals in Our World', [
+      SchoolLesson('bigger, taller', [_i('en_compare', 'comp')]),
+      SchoolLesson('Animals', [_i('en_animals')]),
+    ]),
+    SchoolUnit('Egypt – My Homeland', [
+      SchoolLesson('next to, between', [_i('en_prep2')]),
+      SchoolLesson('in, on, under', [_i('en_prep')]),
+    ]),
+    SchoolUnit('A Day at Work', [
+      SchoolLesson('Jobs', [_i('en_jobs')]),
+      SchoolLesson('the biggest, the tallest', [_i('en_compare', 'super')]),
+    ]),
+    SchoolUnit('The Hundred Dresses', [SchoolLesson('Reading: Kind Words', [_i('en_reading', 'Kind Words')])]),
+  ]),
+  SchoolBook('p4', 2, 'english', [
+    SchoolUnit('This is Where I Live', [
+      SchoolLesson('Places and environments', [_i('en_environment')]),
+      SchoolLesson('Past simple', [_i('en_past')]),
+    ]),
+    SchoolUnit('Our World, Our Responsibility', [
+      SchoolLesson('and, or, but', [_i('en_conj')]),
+      SchoolLesson('Going green', [_i('en_environment')]),
+    ]),
+    SchoolUnit("What's in the Package?", [SchoolLesson('a bottle of, a slice of', [_i('en_containers')])]),
+    SchoolUnit("Let's Celebrate", [SchoolLesson('Celebrations', [_i('en_celebrate')])]),
+    SchoolUnit('Exploring Wonders in Egypt', [SchoolLesson("should, shouldn't", [_i('en_should')])]),
+    SchoolUnit('Story Time: The Lost Kite', [SchoolLesson('Reading: The Lost Kite', [_i('en_reading', 'The Lost Kite')])]),
+  ]),
 ];

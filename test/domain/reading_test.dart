@@ -48,8 +48,10 @@ void main() {
   });
 
   test('reading closes the 9–12 Arabic and English groups', () {
-    expect(worldStages['arabic']!.last.id, 'ar_reading');
-    expect(worldStages['english']!.last.id, 'en_reading');
-    expect([packs['ar_reading']!.group, packs['en_reading']!.group], ['grammar', 'enP4']);
+    // بعدها مجموعات رابعة ابتدائي، فالقراءة آخر مجموعتها مش آخر العالم
+    for (final (world, id, group) in [('arabic', 'ar_reading', 'grammar'), ('english', 'en_reading', 'enP4')]) {
+      expect(packs[id]!.group, group);
+      expect(worldStages[world]!.where((s) => s.group == group).last.id, id);
+    }
   });
 }

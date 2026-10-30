@@ -298,6 +298,18 @@ class CoinsVisual extends Visual {
 }
 
 /// رسم بياني بالصور: عمود لكل صورة بعددها.
+/// زاوية مرسومة بشعاعين وقوس، و[degrees] قياسها.
+class AngleVisual extends Visual {
+  const AngleVisual(this.degrees);
+  final int degrees;
+}
+
+/// خطين: ٠ متوازيان، ١ متعامدان، ٢ متقاطعان (مش عمودي).
+class LinesVisual extends Visual {
+  const LinesVisual(this.kind);
+  final int kind;
+}
+
 /// شكل على شبكة مربعات: [cells] المربعات الملوّنة (x, y) من تحت على الشمال.
 /// من غير شبكة ([grid] = false) الشكل بيترسم مستطيل وعليه [sides] (الطول، العرض).
 class GridAreaVisual extends Visual {

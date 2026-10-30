@@ -353,3 +353,137 @@ Question enCan(int lv, Rng r, {String? focus}) {
   return _enBlank('en_can', 'en_can:$answer', pic, sentence, answer, ['can', "can't"], r,
       hint: "can = it is able to. can't = it is not able to.");
 }
+
+// ================================================================ Connect 4 (رابعة)
+
+/// المضارع البسيط: الفاعل بيحدد شكل الفعل. focus: affirm (plays/play) / negq (doesn't / Does).
+const presentSentences = [
+  ('She ___ football every day.', 'plays', ['play', 'plays', 'playing']),
+  ('They ___ to school by bus.', 'go', ['go', 'goes', 'going']),
+  ('My dad ___ coffee in the morning.', 'drinks', ['drink', 'drinks', 'drinking']),
+  ('I ___ with my nose.', 'smell', ['smell', 'smells', 'smelling']),
+  ('He ___ his teeth every night.', 'brushes', ['brush', 'brushes', 'brushing']),
+  ('We ___ our grandma on Fridays.', 'visit', ['visit', 'visits', 'visiting']),
+];
+const presentNegQ = [
+  ('He ___ like fish.', "doesn't", ["don't", "doesn't"]),
+  ('They ___ play in the street.', "don't", ["don't", "doesn't"]),
+  ('___ she live near the park?', 'Does', ['Do', 'Does']),
+  ('___ you help your neighbors?', 'Do', ['Do', 'Does']),
+  ('My cat ___ eat vegetables.', "doesn't", ["don't", "doesn't"]),
+  ('___ your friends volunteer?', 'Do', ['Do', 'Does']),
+];
+
+Question enPresent(int lv, Rng r, {String? focus}) {
+  final negq = focus == 'negq' || (focus != 'affirm' && lv >= 2 && r.chance(.5));
+  final (sentence, answer, choices) = r.sample(negq ? presentNegQ : presentSentences);
+  return _enBlank('en_present', 'en_present:${negq ? 'negq' : 'aff'}', null, sentence, answer, choices, r,
+      hint: negq ? "he / she / it → doesn't, Does. I / you / we / they → don't, Do." : 'he / she / it → add -s: she plays.');
+}
+
+/// (الصورة، الجملة، الإجابة، الاختيارات) — focus: comp (bigger) / super (the biggest).
+const compareSentences = [
+  ('🐘🐭', 'An elephant is ___ than a mouse.', 'bigger', ['big', 'bigger', 'the biggest']),
+  ('🦒🐶', 'A giraffe is ___ than a dog.', 'taller', ['tall', 'taller', 'the tallest']),
+  ('🐆🐢', 'A cheetah is ___ than a turtle.', 'faster', ['fast', 'faster', 'the fastest']),
+  ('🐢🐇', 'A turtle is ___ than a rabbit.', 'slower', ['slow', 'slower', 'the slowest']),
+];
+const superSentences = [
+  ('🐋', 'The blue whale is ___ animal in the world.', 'the biggest', ['big', 'bigger', 'the biggest']),
+  ('🦒', 'The giraffe is ___ animal in the zoo.', 'the tallest', ['tall', 'taller', 'the tallest']),
+  ('🐆', 'The cheetah is ___ animal on land.', 'the fastest', ['fast', 'faster', 'the fastest']),
+  ('🗼', 'Cairo Tower is ___ building in our street.', 'the tallest', ['tall', 'taller', 'the tallest']),
+];
+
+Question enCompare(int lv, Rng r, {String? focus}) {
+  final sup = focus == 'super' || (focus != 'comp' && lv >= 3 && r.chance(.5));
+  final (pic, sentence, answer, choices) = r.sample(sup ? superSentences : compareSentences);
+  return _enBlank('en_compare', 'en_compare:${sup ? 'super' : 'comp'}', pic, sentence, answer, choices, r,
+      hint: sup ? 'Many things: the + -est (the biggest).' : 'Two things: -er + than (bigger than).');
+}
+
+/// next to و between: صف صور، والجملة عن اللي في النص أو جنبه.
+Question enPrep2(int lv, Rng r, {String? focus}) {
+  const things = [('🌳', 'tree'), ('🏠', 'house'), ('🚗', 'car'), ('🐱', 'cat'), ('🐶', 'dog'), ('⚽', 'ball')];
+  final row = r.shuffle([...things]).take(3).toList();
+  final between = r.chance(.5);
+  // الصف بيتقري من الشمال (إنجليزي): أول عنصر على الشمال
+  final sentence = between
+      ? 'The ${row[1].$2} is ___ the ${row[0].$2} and the ${row[2].$2}.'
+      : 'The ${row[0].$2} is ___ the ${row[1].$2}.';
+  return Question(
+    type: 'en_prep2', mode: QMode.choice, lang: 'en', ltr: true, numeric: false, bigChoices: true, skill: 'en_prep2:${between ? 'between' : 'next'}',
+    ask: 'Choose the right word', speak: 'Choose the right word.',
+    visuals: [CaptionVisual(row.map((x) => x.$1).join('   ')), WordLineVisual.text(sentence, big: true)],
+    choices: r.shuffle(['between', 'next to', 'under']), answer: between ? 'between' : 'next to',
+    hint: 'between = in the middle of two things. next to = beside.',
+    speakHint: 'between is in the middle, next to is beside',
+    sayRight: sentence.replaceFirst('___', between ? 'between' : 'next to'),
+  );
+}
+
+const enJobs = [
+  Word('doctor', '🧑‍⚕️'), Word('teacher', '🧑‍🏫'), Word('engineer', '👷'), Word('firefighter', '🧑‍🚒'),
+  Word('police officer', '👮'), Word('farmer', '🧑‍🌾'), Word('pilot', '🧑‍✈️'), Word('cook', '🧑‍🍳'),
+  Word('photographer', '📸'), Word('carpenter', '🪚'),
+];
+final enJobsGame = vocabGame('en_jobs', enJobs, 'en_job', ask: 'What is this job?', hint: (w) => 'This is a $w.');
+
+const enEnvironment = [
+  Word('desert', '🏜️'), Word('forest', '🌲'), Word('river', '🏞️'), Word('village', '🏘️'), Word('city', '🏙️'),
+  Word('oasis', '🌴'), Word('sea', '🌊'), Word('mountain', '⛰️'), Word('recycle', '♻️'), Word('pollution', '🏭'),
+];
+final enEnvironmentGame = vocabGame('en_environment', enEnvironment, 'en_env', ask: 'What is this?', hint: (w) => 'The word is "$w".');
+
+/// countable / uncountable: a carton of milk, a bottle of water…
+const containerSentences = [
+  ('🥛', 'a ___ of milk', 'carton', ['carton', 'slice', 'bar']),
+  ('💧', 'a ___ of water', 'bottle', ['bottle', 'piece', 'slice']),
+  ('🍞', 'a ___ of bread', 'slice', ['slice', 'bottle', 'carton']),
+  ('🍫', 'a ___ of chocolate', 'bar', ['bar', 'bottle', 'carton']),
+  ('🍰', 'a ___ of cake', 'piece', ['piece', 'bottle', 'carton']),
+  ('🍯', 'a ___ of honey', 'jar', ['jar', 'slice', 'bar']),
+];
+
+Question enContainers(int lv, Rng r, {String? focus}) {
+  if (lv >= 2 && r.chance(.4)) {
+    const words = [('apple', true), ('water', false), ('egg', true), ('milk', false), ('banana', true), ('rice', false)];
+    final (w, countable) = r.sample(words);
+    return Question(
+      type: 'en_containers', mode: QMode.choice, lang: 'en', ltr: true, numeric: false, bigChoices: true,
+      skill: 'en_count:${countable ? 'c' : 'u'}',
+      ask: 'Can we count it?', speak: 'Can we count it? $w.',
+      visuals: [BigLetterVisual(w)],
+      choices: const ['countable', 'uncountable'], answer: countable ? 'countable' : 'uncountable',
+      hint: 'We can count apples (one apple, two apples). We can\'t count water.',
+      speakHint: 'We can count apples. We can not count water.',
+      sayRight: w,
+    );
+  }
+  final (pic, phrase, answer, choices) = r.sample(containerSentences);
+  return _enBlank('en_containers', 'en_container', pic, phrase, answer, choices, r,
+      hint: 'a carton of milk, a bottle of water, a slice of bread, a bar of chocolate.');
+}
+
+const enCelebrate = [
+  Word('gift', '🎁'), Word('balloons', '🎈'), Word('fireworks', '🎆'), Word('candles', '🕯️'), Word('music', '🎵'),
+  Word('cake', '🎂'), Word('party', '🎉'), Word('ribbon', '🎀'),
+];
+final enCelebrateGame = vocabGame('en_celebrate', enCelebrate, 'en_celebrate', ask: "Let's celebrate! What is this?",
+    hint: (w) => 'The word is "$w".');
+
+/// should / shouldn't للنصيحة.
+const shouldSentences = [
+  ('🧴', 'You ___ wear sunscreen at the beach.', 'should'),
+  ('🐠', 'You ___ touch the corals.', "shouldn't"),
+  ('💧', 'You ___ drink water when you hike.', 'should'),
+  ('🗑️', 'You ___ leave trash on the beach.', "shouldn't"),
+  ('🦺', 'You ___ wear a life jacket on the boat.', 'should'),
+  ('🌊', 'You ___ swim alone in the sea.', "shouldn't"),
+];
+
+Question enShould(int lv, Rng r, {String? focus}) {
+  final (pic, sentence, answer) = r.sample(shouldSentences);
+  return _enBlank('en_should', 'en_should:$answer', pic, sentence, answer, ['should', "shouldn't"], r,
+      hint: "should = a good idea. shouldn't = a bad idea.");
+}
