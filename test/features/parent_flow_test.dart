@@ -107,7 +107,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byType(DashboardScreen), findsNothing);
-    expect(find.text('إجابة غير صحيحة.'), findsOneWidget);
+    expect(find.text('إجابة غلط — السؤال ده لولي الأمر بس'), findsOneWidget);
   });
 
   testWidgets('only the parent answer skips a stage on the map', (tester) async {

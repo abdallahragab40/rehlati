@@ -90,9 +90,9 @@ void main() {
 
   test('primary English opens from first primary, English grammar from fourth', () {
     expect([packs['en_cvc']!.after, packs['en_isare']!.after], ['en_word', 'en_plural']);
-    expect(ProgressData(age: 6).isUnlocked('en_cvc'), isTrue);
-    expect(ProgressData(age: 6).isUnlocked('en_isare'), isFalse);
-    expect(ProgressData(age: 9).isUnlocked('en_isare'), isTrue);
-    expect(ProgressData(age: 5).isUnlocked('en_cvc'), isFalse);
+    expect(ProgressData(grade: 'p1').isUnlocked('en_cvc'), isTrue);
+    expect(ProgressData(grade: 'p1').isUnlocked('en_isare'), isFalse);
+    expect(ProgressData(grade: 'p4').isUnlocked('en_isare'), isTrue);
+    expect(ProgressData(grade: 'kg2').isUnlocked('en_cvc'), isFalse);
   });
 }

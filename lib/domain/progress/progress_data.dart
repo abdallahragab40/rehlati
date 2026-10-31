@@ -144,7 +144,6 @@ class DayLog {
 class ProgressData {
   ProgressData({
     this.name = '',
-    this.age,
     this.grade,
     this.setupDone = false,
     this.stars = 0,
@@ -192,14 +191,18 @@ class ProgressData {
 
   String name;
 
-  /// عمر الطفل (٣–١٢) من شاشة البداية — بيحدد أقل مستوى للأسئلة.
-  int? age;
-
-  /// الصف الدراسي ([schoolGrades]) من لوحة ولي الأمر — null = مش متحدد.
+  /// المرحلة الدراسية ([schoolGrades]) من شاشة البداية — المحتوى كله بيتعرض على قدها.
+  /// null = لسه ما اتحددتش (تقدّم قديم من غير سن) — الرئيسية بتفتح شاشة البداية لحد ما تتحدد.
   String? grade;
 
-  /// شاشة البداية (الاسم والعمر) خلصت.
+  /// السن المعتاد للمرحلة — للألعاب ومستوى الأسئلة. السن نفسه مابقاش بيتسأل.
+  int? get age => gradeAge(grade);
+
+  /// شاشة البداية (الاسم والمرحلة) خلصت.
   bool setupDone;
+
+  /// الاسم والمرحلة الاتنين متحددين — من غيرهم الرئيسية بتفتح شاشة البداية.
+  bool get profileReady => setupDone && name.trim().isNotEmpty && grade != null;
   int stars;
   int correct;
   int wrong;
@@ -266,8 +269,12 @@ class ProgressData {
     List<String> strs(Object? o) => o is List ? [for (final v in o) '$v'] : [];
     return ProgressData(
       name: j['name'] as String? ?? '',
-      age: (j['age'] as num?)?.toInt(),
-      grade: schoolGrades.contains(j['grade']) ? j['grade'] as String : null,
+      // التقدّم القديم: 'pre' بقت KG1، ولو مفيش مرحلة بناخدها من السن اللي كان متسجّل
+      grade: switch (j['grade']) {
+        'pre' => 'kg1',
+        final String g when schoolGrades.contains(g) => g,
+        _ => gradeForAge((j['age'] as num?)?.toInt()),
+      },
       // اللي كان بيلعب قبل شاشة البداية مايشوفهاش
       setupDone: j['setupDone'] as bool? ?? ((j['games'] as num? ?? 0) > 0 || (j['stars'] as num? ?? 0) > 0),
       stars: (j['stars'] as num?)?.toInt() ?? 0,
@@ -311,7 +318,6 @@ class ProgressData {
   Map<String, dynamic> toJson() => {
         'schemaVersion': schemaVersion,
         'name': name,
-        'age': age,
         if (grade != null) 'grade': grade,
         'setupDone': setupDone,
         'stars': stars,
@@ -352,8 +358,7 @@ class ProgressData {
     if (openWorlds.contains(packs[id]?.world)) return true;
     // أول مرحلة في مجموعة ابتدائي بتتفتح من الأول لطفل في صفها أو أعلى — مايعديش على مراحل الحضانة
     final from = packs[id]?.fromGrade;
-    final grade = schoolGrade;
-    if (from != null && grade != null && schoolGrades.indexOf(grade) >= schoolGrades.indexOf(from)) return true;
+    if (from != null && grade != null && gradeIndex(grade) >= gradeIndex(from)) return true;
     // مرحلة ليها after بتتفتح أول ما المرحلة دي تتنجح (٨٠٪+) أو تتخطّى — بتشتغل للتقدّم القديم كمان
     final after = packs[id]?.after;
     return after != null && ((best[after] ?? 0) >= 2 || skipped.contains(after));
@@ -377,11 +382,8 @@ class ProgressData {
     unlockNext(id);
   }
 
-  /// شكل الكبار: اختيار ولي الأمر، وإلا من سن ٩.
-  bool get grownUpLook => settings.grownUp ?? (age ?? 0) >= 9;
-
-  /// الصف اللي ولي الأمر اختاره، وإلا الصف المعتاد لسنه.
-  String? get schoolGrade => grade ?? usualGrade(age);
+  /// شكل الكبار: اختيار ولي الأمر، وإلا من رابعة ابتدائي.
+  bool get grownUpLook => settings.grownUp ?? gradeIndex(grade) >= gradeIndex('p4');
 
   /// يفتح المرحلة اللي بعد دي في نفس العالم — ويرجّعها لو اتفتحت جديد.
   Stage? unlockNext(String id) {
@@ -421,11 +423,11 @@ class ProgressData {
     lastStage = id;
   }
 
-  /// أقل مستوى حسب العمر: ٣–٤ سنين ← ١، ٥ ← ٢، ٦ وفوق ← ٣.
-  /// ولي الأمر يقدر يختار مستوى بداية تاني (أسهل أو أصعب من سنه).
+  /// أقل مستوى حسب المرحلة: KG1 ← ١، KG2 ← ٢، أولى وفوق ← ٣ (من غير مرحلة ← ١).
+  /// ولي الأمر يقدر يختار مستوى بداية تاني (أسهل أو أصعب من مرحلته).
   int get ageLevel => settings.startLevel ?? ((age ?? 4) - 3).clamp(1, 3);
 
-  /// مستوى الألعاب من السن: ٣–٤ ← ١، ٥–٦ ← ٢، ٧–٨ ← ٣، ٩ وفوق ← ٤. من غير سن ← ٢ (زي الأول).
+  /// مستوى الألعاب من المرحلة: KG1 ← ١، KG2 وأولى ← ٢، تانية وتالتة ← ٣، رابعة وفوق ← ٤. من غير مرحلة ← ٢.
   int get gamesLevel => settings.worldLevel['games'] ??
       switch (age) {
         null => 2,

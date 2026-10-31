@@ -48,11 +48,11 @@ void main() {
 
     ProviderContainer container() => ProviderScope.containerOf(tester.element(find.byType(Scaffold).first));
 
-    Future<void> setup(String name, String age) async {
+    Future<void> setup(String name, String grade) async {
       await tapWhenReady(find.byType(TextField));
       await tester.enterText(find.byType(TextField), name);
       await settle(3);
-      await tapWhenReady(find.text(age));
+      await tapWhenReady(find.text(grade));
       await tapWhenReady(find.text('🚀 يلا نبدأ'));
       expect(container().read(progressProvider).name, name);
     }
@@ -76,7 +76,7 @@ void main() {
     await tapWhenReady(find.text('التالي'));
     await tapWhenReady(find.text('🎒 يلا نبدأ الرحلة'));
     await tapWhenReady(find.text('أنا البطل'));
-    await setup('سارة', '٤');
+    await setup('سارة', 'KG1');
 
     // ٢) جولة كاملة في العد
     await tapWhenReady(find.text('الحساب'));
@@ -130,7 +130,7 @@ void main() {
     expect(find.text('📤 صدّر نسخة'), findsOneWidget);
     await tapWhenReady(find.text('📊 التقدّم'));
     await tapWhenReady(find.text('➕ إضافة طفل'));
-    await setup('عمر', '٦');
+    await setup('عمر', 'أولى');
     expect(container().read(progressProvider).stars, 0);
 
     // ٦) التبديل من صورة الطفل في الرئيسية

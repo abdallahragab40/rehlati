@@ -14,9 +14,11 @@ import 'package:share_plus/share_plus.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
+import '../../core/widgets/toast.dart';
 import '../../domain/progress/backup.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
+import '../../domain/school.dart';
 import '../profiles/profiles.dart';
 import 'avatar.dart';
 
@@ -30,8 +32,7 @@ Future<File> writeBackupFile(Directory dir, List<BackupChild> children, DateTime
 class BackupCard extends ConsumerWidget {
   const BackupCard({super.key});
 
-  void _say(BuildContext context, String msg) =>
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+  void _say(BuildContext context, String msg, {ToastKind kind = ToastKind.error}) => showToast(context, msg, kind: kind);
 
   Future<void> _export(BuildContext context, WidgetRef ref) async {
     final kids = ref.read(childrenProvider);
@@ -112,7 +113,7 @@ class BackupCard extends ConsumerWidget {
         title: Text('استرجاع نسخة', style: kidText(20)),
         content: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           for (final k in children)
-            Text('🧒 ${childName(k.progress)}${k.progress.age != null ? ' • ${ageText(k.progress.age!)}' : ''} • ⭐ ${ar(k.progress.stars)}'
+            Text('🧒 ${childName(k.progress)}${k.progress.grade != null ? ' • ${gradeName(k.progress.grade!)}' : ''} • ⭐ ${ar(k.progress.stars)}'
                 '${k.photo != null ? ' • 📷' : ''}', style: kidText(16)),
           const SizedBox(height: 8),
           Text('هيتضافوا كأطفال جداد — الأطفال اللي على الجهاز مش هيتغيّروا.',
@@ -164,7 +165,9 @@ class BackupCard extends ConsumerWidget {
       }
     }
     ref.invalidate(avatarProvider);
-    if (context.mounted) _say(context, photosOk ? '✅ النسخة اترجعت' : '✅ التقدّم اترجع، بس الصورة ماتحفظتش');
+    if (context.mounted) {
+      _say(context, photosOk ? 'النسخة اترجعت' : 'التقدّم اترجع، بس الصورة ماتحفظتش', kind: photosOk ? ToastKind.ok : ToastKind.warn);
+    }
   }
 
   /// كل صورة في النسخة لازم تبقى صورة فعلًا — بتتعمل من جديد قبل أي تعديل، والملف كله بيترفض لو واحدة بايظة.

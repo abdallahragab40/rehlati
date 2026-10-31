@@ -11,6 +11,7 @@ import '../../core/reminder.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
+import '../../core/widgets/toast.dart';
 import '../../core/widgets/top_bar.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
@@ -356,25 +357,18 @@ class _ChildRowState extends ConsumerState<_ChildRow> {
       context: context,
       builder: (_) => _NameDialog(initial: ref.read(progressProvider).name),
     );
-    if (name != null) ref.read(progressProvider.notifier).update((p) => p.name = name.trim());
+    if (name == null || !mounted || name.trim() == ref.read(progressProvider).name) return;
+    ref.read(progressProvider.notifier).update((p) => p.name = name.trim());
+    showToast(context, 'الاسم اتحفظ: ${name.trim()}', kind: ToastKind.ok);
   }
 
-  Future<void> _editAge() async {
-    final age = await showDialog<int>(
-      context: context,
-      builder: (_) => _AgeDialog(initial: ref.read(progressProvider).age),
-    );
-    if (age != null) ref.read(progressProvider.notifier).update((p) => p.age = age);
-  }
-
+  /// المرحلة إجباري — مفيش "مش عايز أحدد". تغييرها بيغيّر المحتوى المعروض، والتقدّم بيفضل زي ما هو.
   Future<void> _editGrade() async {
-    final p = ref.read(progressProvider);
-    final grade = await showDialog<String>(
-      context: context,
-      builder: (_) => _GradeDialog(initial: p.grade, usual: usualGrade(p.age)),
-    );
-    // '' = ولي الأمر شال الصف
-    if (grade != null) ref.read(progressProvider.notifier).update((p) => p.grade = grade.isEmpty ? null : grade);
+    final old = ref.read(progressProvider).grade;
+    final grade = await showDialog<String>(context: context, builder: (_) => _GradeDialog(initial: old));
+    if (grade == null || grade == old || !mounted) return;
+    ref.read(progressProvider.notifier).update((p) => p.grade = grade);
+    showToast(context, 'المرحلة بقت ${gradeName(grade)} — المحتوى اتظبط عليها، والنجوم والتقدّم زي ما هم', kind: ToastKind.ok, icon: '🎒');
   }
 
   Future<void> _pickPhoto() async {
@@ -402,6 +396,7 @@ class _ChildRowState extends ConsumerState<_ChildRow> {
   @override
   Widget build(BuildContext context) {
     final name = ref.watch(progressProvider.select((p) => p.name));
+    final grade = ref.watch(progressProvider.select((p) => p.grade));
     final custom = ref.watch(avatarProvider) != null;
     final kb = ref.read(avatarProvider.notifier).sizeKB;
     Widget small(String label, VoidCallback onTap) => Pressable3D(
@@ -422,11 +417,11 @@ class _ChildRowState extends ConsumerState<_ChildRow> {
       Expanded(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(name.isNotEmpty ? name : 'بدون اسم', style: kidText(20)),
+          if (grade != null) Text('🎒 ${gradeName(grade)}', style: kidText(15, color: AppColors.inkSoft)),
           const SizedBox(height: 6),
           Wrap(spacing: 8, runSpacing: 8, children: [
             small('✏️ الاسم', _editName),
-            small('🎂 السن', _editAge),
-            small('🏫 الصف', _editGrade),
+            small('🎒 المرحلة', _editGrade),
             small(custom ? '📷 تغيير الصورة' : '📷 إضافة صورة الطفل', _pickPhoto),
             if (custom) small('🗑️ رجّع الافتراضية', _clearPhoto),
           ]),
@@ -512,7 +507,7 @@ class _WeakSkills extends StatelessWidget {
   }
 }
 
-/// شكل الكبار: من غير الأسد والتلة الخضرا — تلقائي من سن ٩، وولي الأمر يقدر يغيّره.
+/// شكل الكبار: من غير الأسد والتلة الخضرا — تلقائي من رابعة ابتدائي، وولي الأمر يقدر يغيّره.
 class _LookCard extends ConsumerWidget {
   const _LookCard();
 
@@ -521,7 +516,7 @@ class _LookCard extends ConsumerWidget {
     final p = ref.watch(progressProvider);
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       Wrap(spacing: 6, runSpacing: 4, children: [
-        for (final (v, label) in [(null, 'حسب السن'), (true, 'شكل الكبار'), (false, 'شكل الصغار')])
+        for (final (v, label) in [(null, 'حسب المرحلة'), (true, 'شكل الكبار'), (false, 'شكل الصغار')])
           ChoiceChip(
             label: Text(label),
             selected: p.settings.grownUp == v,
@@ -530,7 +525,7 @@ class _LookCard extends ConsumerWidget {
       ]),
       const SizedBox(height: 4),
       Text(
-        'شكل الكبار من غير الأسد والرسوم، للأطفال من ٩ سنين وفوق. "حسب السن" بيختاره لوحده '
+        'شكل الكبار من غير الأسد والرسوم، من رابعة ابتدائي وفوق. "حسب المرحلة" بيختاره لوحده '
         '(دلوقتي: ${p.grownUpLook ? 'شكل الكبار' : 'شكل الصغار'}).',
         style: kidText(14.5, weight: FontWeight.w600, color: AppColors.inkSoft),
       ),
@@ -569,6 +564,16 @@ class _NameDialog extends StatefulWidget {
 class _NameDialogState extends State<_NameDialog> {
   late final _ctrl = TextEditingController(text: widget.initial);
 
+  /// الاسم إجباري زي شاشة البداية — الدايالوج مابيقفلش على اسم فاضي.
+  void _save() {
+    final issue = nameProblem(_ctrl.text);
+    if (issue != null) {
+      showToast(context, issue, kind: ToastKind.warn);
+      return;
+    }
+    context.pop(_ctrl.text);
+  }
+
   @override
   void dispose() {
     _ctrl.dispose();
@@ -583,46 +588,19 @@ class _NameDialogState extends State<_NameDialog> {
           autofocus: true,
           maxLength: 20,
           style: kidText(20, weight: FontWeight.w700),
-          onSubmitted: (v) => context.pop(v),
+          onSubmitted: (_) => _save(),
         ),
         actions: [
           TextButton(onPressed: () => context.pop(), child: const Text('إلغاء')),
-          FilledButton(onPressed: () => context.pop(_ctrl.text), child: const Text('حفظ')),
+          FilledButton(onPressed: _save, child: const Text('حفظ')),
         ],
       );
 }
 
-/// Dialog مش AlertDialog: AlertDialog بيقيس المحتوى بـ IntrinsicWidth، و AgePicker جواه LayoutBuilder.
-class _AgeDialog extends StatelessWidget {
-  const _AgeDialog({required this.initial});
-  final int? initial;
-
-  @override
-  Widget build(BuildContext context) => Dialog(
-        backgroundColor: AppColors.paper,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        child: Padding(
-          padding: const EdgeInsets.all(22),
-          child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            Text('عنده كام سنة؟', textAlign: TextAlign.center, style: kidText(20)),
-            const SizedBox(height: 12),
-            AgePicker(selected: initial, onPick: (a) => context.pop(a)),
-            const SizedBox(height: 10),
-            Text('السن بيحدد مستوى البداية بس — التقدّم والنجوم مابيتغيروش.',
-                textAlign: TextAlign.center, style: kidText(13, weight: FontWeight.w600, color: AppColors.inkSoft)),
-            TextButton(onPressed: () => context.pop(), child: const Text('إلغاء')),
-          ]),
-        ),
-      );
-}
-
-/// الصف الدراسي اختياري ومنفصل عن السن — بيتخزّن دلوقتي عشان المحتوى الجاي يمشي على المنهج.
+/// Dialog مش AlertDialog: AlertDialog بيقيس المحتوى بـ IntrinsicWidth، و GradePicker جواه LayoutBuilder.
 class _GradeDialog extends StatelessWidget {
-  const _GradeDialog({required this.initial, required this.usual});
+  const _GradeDialog({required this.initial});
   final String? initial;
-
-  /// الصف المعتاد للسن — بيتعلّم بنجمة كاقتراح.
-  final String? usual;
 
   @override
   Widget build(BuildContext context) => Dialog(
@@ -633,18 +611,11 @@ class _GradeDialog extends StatelessWidget {
           child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             Text('في سنة كام؟', textAlign: TextAlign.center, style: kidText(20)),
             const SizedBox(height: 12),
-            Wrap(alignment: WrapAlignment.center, spacing: 8, runSpacing: 8, children: [
-              for (final g in schoolGrades)
-                ChoiceChip(
-                  label: Text(g == usual ? '${gradeName(g)} ⭐' : gradeName(g), style: kidText(15)),
-                  selected: g == initial,
-                  onSelected: (_) => context.pop(g),
-                ),
-            ]),
+            GradePicker(selected: initial, onPick: (g) => context.pop(g)),
             const SizedBox(height: 10),
-            Text('⭐ = الصف المعتاد لسنه. الصف بيفتح من الأول مراحل الابتدائي المناسبة (زي جدول الضرب من تالتة).',
+            Text('المرحلة بتحدد المحتوى اللي بيظهر (الخرايط، المسارات، دروس المدرسة) ومستوى البداية، '
+                'وبتفتح من الأول مراحل صفه (زي جدول الضرب من تالتة). التقدّم والنجوم مابيتغيروش.',
                 textAlign: TextAlign.center, style: kidText(13, weight: FontWeight.w600, color: AppColors.inkSoft)),
-            if (initial != null) TextButton(onPressed: () => context.pop(''), child: const Text('مش عايز أحدد')),
             TextButton(onPressed: () => context.pop(), child: const Text('إلغاء')),
           ]),
         ),
@@ -689,8 +660,7 @@ class _ChildrenCard extends ConsumerWidget {
             Text(id == active ? '✅' : '🧒', style: const TextStyle(fontSize: 22)),
             const SizedBox(width: 10),
             Expanded(
-              child: Text('${childName(p)}${p.age != null ? ' • ${ageText(p.age!)}' : ''}'
-                  '${p.grade != null ? ' • ${gradeName(p.grade!)}' : ''} • ⭐ ${ar(p.stars)}',
+              child: Text('${childName(p)}${p.grade != null ? ' • ${gradeName(p.grade!)}' : ''} • ⭐ ${ar(p.stars)}',
                   style: kidText(16)),
             ),
             if (id != active)
@@ -710,7 +680,7 @@ class _ChildrenCard extends ConsumerWidget {
         child: KidButton('➕ إضافة طفل', kind: BtnKind.ghost, onTap: () async {
           final router = GoRouter.of(context);
           await ref.read(progressProvider.notifier).addChild();
-          router.go('/'); // الصفحة الرئيسية بتفتح على شاشة الاسم والعمر
+          router.go('/'); // الصفحة الرئيسية بتفتح على شاشة الاسم والمرحلة
         }),
       ),
     ]);

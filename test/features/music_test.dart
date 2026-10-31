@@ -33,7 +33,7 @@ void main() {
       ..physicalSize = const Size(1170, 2532)
       ..devicePixelRatio = 3;
     addTearDown(tester.view.reset);
-    SharedPreferences.setMockInitialValues({ProgressRepository.key: jsonEncode({'setupDone': true})});
+    SharedPreferences.setMockInitialValues({ProgressRepository.key: jsonEncode({'setupDone': true, 'name': 'سارة', 'grade': 'p1'})});
     final prefs = await SharedPreferences.getInstance();
     final music = FakeMusic();
     await tester.pumpWidget(ProviderScope(

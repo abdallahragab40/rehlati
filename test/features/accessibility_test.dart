@@ -85,7 +85,7 @@ void main() {
   for (final e in screens.entries) {
     testWidgets('${e.key}: labelled tap targets of a comfortable size', (tester) async {
       final semantics = tester.ensureSemantics();
-      await pump(tester, e.value, prefs: e.key == 'home' ? {ProgressRepository.key: '{"setupDone": true}'} : const {});
+      await pump(tester, e.value, prefs: e.key == 'home' ? {ProgressRepository.key: '{"setupDone": true, "name": "سارة", "grade": "p1"}'} : const {});
       await expectLater(tester, meetsGuideline(labeledTapTargetGuideline));
       await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
       await expectLater(tester, meetsGuideline(iOSTapTargetGuideline));

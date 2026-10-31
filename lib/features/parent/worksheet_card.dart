@@ -13,6 +13,7 @@ import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/utils/rng.dart';
 import '../../core/widgets/kid_widgets.dart';
+import '../../core/widgets/toast.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
 import '../../domain/question.dart';
@@ -49,9 +50,7 @@ class WorksheetCard extends ConsumerWidget {
           final now = ProgressData.clock();
           final sheet = buildWorksheet(p, Rng());
           if (sheet.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('العب كام مرحلة الأول — الورقة بتتعمل من المراحل اللي اتلعبت')),
-            );
+            showToast(context, 'العب كام مرحلة الأول — الورقة بتتعمل من المراحل اللي اتلعبت', kind: ToastKind.warn, icon: '📝');
             return;
           }
           showWorksheet(context, p, sheet, now);

@@ -95,7 +95,7 @@ void main() {
   test('school lessons and exams start with a recorded intro, and their questions are recorded', () {
     for (final id in allSchoolRoundIds()) {
       final s = schoolStage(id)!;
-      final qs = schoolQuestions(schoolRound(id)!, ProgressData(age: 6), Rng.seeded(id.hashCode));
+      final qs = schoolQuestions(schoolRound(id)!, ProgressData(grade: 'p1'), Rng.seeded(id.hashCode));
       if (s.isEnglish) {
         for (final q in qs.where((q) => q.isEnglish)) {
           expect(SpeechService.enClipsFor(q.speak), isNotNull, reason: '$id: ${q.speak}');

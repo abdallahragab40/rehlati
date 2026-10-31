@@ -76,8 +76,8 @@ void main() {
 
   test('the grammar group opens from fourth primary, or after the sukun stage', () {
     expect(packs['ar_wordType']!.after, 'ar_sukun');
-    expect(ProgressData(age: 9).isUnlocked('ar_wordType'), isTrue);
-    expect(ProgressData(age: 8).isUnlocked('ar_wordType'), isFalse);
-    expect(ProgressData(age: 9).isUnlocked('ar_number'), isFalse, reason: 'the rest open one by one');
+    expect(ProgressData(grade: 'p4').isUnlocked('ar_wordType'), isTrue);
+    expect(ProgressData(grade: 'p3').isUnlocked('ar_wordType'), isFalse);
+    expect(ProgressData(grade: 'p4').isUnlocked('ar_number'), isFalse, reason: 'the rest open one by one');
   });
 }

@@ -1,4 +1,4 @@
-/// شاشات الترحيب — بتظهر مرة واحدة بس، أول ما التطبيق يتفتح بعد التثبيت، قبل شاشة الاسم والعمر.
+/// شاشات الترحيب — بتظهر مرة واحدة بس، أول ما التطبيق يتفتح بعد التثبيت، قبل شاشة الاسم والمرحلة.
 /// بعدها "مين معانا؟": ولي الأمر (ورا السؤال) بيتعرّف على لوحته ويضيف طفله، والطفل بيدخل على طول.
 /// شاشة البداية بتاعة النظام (لون السما والأيقونة) بتفضل في كل فتحة — iOS بيطلبها دايمًا.
 library;
@@ -16,7 +16,7 @@ import '../../domain/progress/progress_controller.dart';
 import '../../domain/stages.dart';
 import '../parent/parent_gate.dart';
 
-/// الترحيب اتشاف على الجهاز ده؟ للجهاز كله مش لكل طفل — الأخ التاني بيدخل على الاسم والعمر على طول.
+/// الترحيب اتشاف على الجهاز ده؟ للجهاز كله مش لكل طفل — الأخ التاني بيدخل على الاسم والمرحلة على طول.
 class IntroController extends Notifier<bool> {
   static const key = 'rehlati.intro.v1';
 
@@ -28,7 +28,7 @@ class IntroController extends Notifier<bool> {
     await ref.read(sharedPrefsProvider).setBool(key, true);
   }
 
-  /// رجع من شاشة الاسم والعمر: true لو كان جاي من ترحيب ولي الأمر، false من "مين معانا؟".
+  /// رجع من شاشة الاسم والمرحلة: true لو كان جاي من ترحيب ولي الأمر، false من "مين معانا؟".
   bool? backedAsParent;
 
   Future<void> back() async {
@@ -41,7 +41,7 @@ class IntroController extends Notifier<bool> {
 
 final introSeenProvider = NotifierProvider<IntroController, bool>(IntroController.new);
 
-/// ولي الأمر اختار يضيف طفله من الترحيب ← بعد الاسم والعمر تفتح لوحته بدل الرئيسية.
+/// ولي الأمر اختار يضيف طفله من الترحيب ← بعد الاسم والمرحلة تفتح لوحته بدل الرئيسية.
 /// في الذاكرة بس: لو التطبيق اتقفل في النص الطفل بيبدأ عادي.
 class ParentSetupController extends Notifier<bool> {
   @override
@@ -67,7 +67,7 @@ class _IntroScreenState extends ConsumerState<IntroScreen> {
   int _page = 0;
   late _Step _step = _resumeStep();
 
-  /// راجع من شاشة الاسم والعمر: يرجع للخطوة اللي كان فيها بدل الترحيب من الأول.
+  /// راجع من شاشة الاسم والمرحلة: يرجع للخطوة اللي كان فيها بدل الترحيب من الأول.
   _Step _resumeStep() {
     final intro = ref.read(introSeenProvider.notifier);
     final parent = intro.backedAsParent;
@@ -551,7 +551,7 @@ Future<void> showAllFeatures(BuildContext context) => showDialog<void>(
                   children: [
                     head('🦁 للطفل'),
                     point('🌍', '${countOf(worlds.length, worldWord)}: ${worlds.map((w) => w.name).join('، ')}.'),
-                    point('🎚️', 'الأسئلة على قد سنه، وبتصعب أو تسهل لوحدها حسب إجاباته.'),
+                    point('🎚️', 'المحتوى على قد مرحلته من KG1 لسادسة، والأسئلة بتصعب أو تسهل لوحدها حسب إجاباته.'),
                     point('🧭', 'رحلة النهاردة: خطة قصيرة كل يوم من المراحل اللي محتاجها.'),
                     point('🎒', 'مسارات تعلّم بأهداف كل أسبوع: القراءة الأولى، الأرقام، جدول الضرب، الفلوس والساعة، والإنجليزي.'),
                     point('📖', 'القرآن بأصوات قرّاء حقيقيين: استماع وترديد وحفظ ومراجعة و«كمّل الآية»، وسرعة أهدى للصغيرين.'),
@@ -563,7 +563,7 @@ Future<void> showAllFeatures(BuildContext context) => showDialog<void>(
                     point('🏅', 'شهادات لما يحفظ سورة أو يخلص مسار أو يتقن عالم.'),
                     point('📝', 'ورقة عمل للطباعة في المهارات اللي محتاجة تدريب، والإجابات تحت.'),
                     point('🧠', 'المهارات اللي محتاجة تدريب والسور اللي محتاجة مراجعة.'),
-                    point('🎯', 'اختبار تحديد المستوى لكل مادة، والسنة الدراسية ومستوى البداية.'),
+                    point('🎯', 'اختبار تحديد المستوى لكل مادة، والمرحلة الدراسية ومستوى البداية.'),
                     point('🎙️', 'صوت ماما وبابا: سجّل الحروف والأرقام بصوتك والتطبيق يقولها بيه.'),
                     point('⏳', 'وقت اللعب في اليوم، وتذكير يومي.'),
                     point('👧', 'أكتر من طفل على نفس الجهاز، كل واحد بتقدّمه.'),

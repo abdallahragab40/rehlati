@@ -26,9 +26,9 @@ List<JourneyStep> practiceSuggestions(ProgressData p) {
   if (weak.where(playable).firstOrNull case final id?) add(StepKind.practice, 'stage:$id');
   if (p.surahsNeedingReview.firstOrNull case final s?) add(StepKind.quran, 'quran:$s:review');
   // الجديد: أول مرحلة ما اتلعبتش من أعلى صف مفتوح مش أكبر من صف الطفل (طفل في رابعة مايتقترحلوش العد)
-  final grade = schoolGrades.indexOf(p.schoolGrade ?? '');
+  final grade = gradeIndex(p.grade);
   int fit(Stage s) {
-    final g = schoolGrades.indexOf(stageGrade(s) ?? '');
+    final g = gradeIndex(stageGrade(s));
     return grade < 0 ? 0 : (g <= grade ? g : -100);
   }
 

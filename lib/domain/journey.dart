@@ -122,7 +122,7 @@ Journey planJourney(ProgressData p, {required String day, Set<int> quranReady = 
   final seed = day.codeUnits.fold<int>(0, (h, c) => (h * 31 + c) & 0x3fffffff);
 
   // مراحل لعب مفتوحة (لوحة الحروف مش جولة بنتيجة فمابتدخلش)،
-  // من غير اللي ولي الأمر اتخطّاها والطفل لسه ما لعبهاش، ومن غير ألعاب مش لسنه
+  // من غير اللي ولي الأمر اتخطّاها والطفل لسه ما لعبهاش، ومن غير ألعاب مش لسن مرحلته
   final candidates = [
     for (final w in journeyWorlds)
       if (w != 'quran' && !off.contains(w))
@@ -134,9 +134,9 @@ Journey planJourney(ProgressData p, {required String day, Set<int> quranReady = 
 
   // طفل في الابتدائي: البداية والجديد من أعلى صف مفتوح مش أكبر من صفه — مايبدأش بالعد وهو في رابعة.
   // من غير صف (أو في الحضانة) الاختيار زي ما هو.
-  final grade = schoolGrades.indexOf(p.schoolGrade ?? '');
+  final grade = gradeIndex(p.grade);
   int fit(Stage s) {
-    final g = schoolGrades.indexOf(stageGrade(s) ?? '');
+    final g = gradeIndex(stageGrade(s));
     return g <= grade ? g : -100;
   }
 

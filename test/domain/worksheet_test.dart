@@ -7,7 +7,7 @@ import 'package:rehlati/domain/worksheet.dart';
 
 void main() {
   ProgressData played() {
-    final p = ProgressData(age: 6);
+    final p = ProgressData(grade: 'p1');
     for (final w in ['math', 'arabic', 'english']) {
       for (final s in worldStages[w]!.take(4)) {
         p.unlocked.add(s.id);

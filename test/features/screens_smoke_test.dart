@@ -114,6 +114,8 @@ void main() {
   // تدريب صغير: الطفل غلط ٣ مرات في المد بالواو، ومعاه هدف في دليل ولي الأمر
   testWidgets('madd small practice and dashboard with data render', (tester) async {
     final blob = jsonEncode({
+      'name': 'يوسف',
+      'grade': 'kg2',
       'skills': {'madd_alif|madd:waw': 3},
       'best': {'ar_table': 2, 'madd_alif': 2},
       'madd': {'types': {'alif': {'ok': 9, 'tries': 10}}, 'words': {'باب': {'ok': 2, 'tries': 2}}},
@@ -134,6 +136,7 @@ void main() {
   testWidgets('a journey with skipped steps renders for the child and the parent', (tester) async {
     String blob(List<Map<String, Object>> steps) => jsonEncode({
           'name': 'يوسف',
+          'grade': 'p1',
           'setupDone': true,
           'journey': {'day': ProgressData.dayKey(DateTime.now()), 'steps': steps},
         });

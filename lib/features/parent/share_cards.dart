@@ -16,6 +16,7 @@ import '../../content/quran_config.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
+import '../../core/widgets/toast.dart';
 import '../../domain/certificates.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
@@ -102,7 +103,7 @@ class _SharePreviewState extends State<SharePreview> {
       await SharePlus.instance.share(ShareParams(files: [out], subject: widget.subject, sharePositionOrigin: origin));
     } catch (_) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('مقدرناش نعمل الملف — جرّب تاني')));
+        showToast(context, 'مقدرناش نعمل الملف — جرّب تاني', kind: ToastKind.error);
       }
     }
     if (mounted) setState(() => _busy = false);

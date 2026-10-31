@@ -13,8 +13,10 @@ import '../../core/utils/arabic.dart';
 import '../../core/utils/rng.dart';
 import '../../core/widgets/kid_widgets.dart';
 import '../../core/widgets/top_bar.dart';
+import '../../core/widgets/toast.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
+import '../../domain/school.dart';
 import '../../domain/school_lessons.dart';
 import '../parent/parent_gate.dart';
 import '../parent/worksheet_card.dart';
@@ -27,9 +29,12 @@ const _subjects = [('arabic', '🔤 عربي'), ('math', '🧮 حساب'), ('eng
 /// الترم من التاريخ: من فبراير لحد يوليو التاني، والباقي الأول.
 int currentTerm(DateTime now) => now.month >= 2 && now.month <= 7 ? 2 : 1;
 
-/// الدروس تنفع الطفل ده؟ أولى لسادسة، أو من ٦ لـ ١٢ سنة لو الصف مش متحدد.
-bool schoolFits(ProgressData p) =>
-    p.grade != null ? schoolScreenGrades.any((g) => g.$1 == p.grade) : (p.age ?? 0) >= 6 && (p.age ?? 0) <= 12;
+/// الدروس تنفع الطفل ده؟ من أولى لسادسة بس — مفيش كتب للحضانة.
+bool schoolFits(ProgressData p) => schoolScreenGrades.any((g) => g.$1 == p.grade);
+
+/// الصفوف اللي بتظهر للطفل: صفه واللي قبله للمراجعة — مش الصفوف الأعلى.
+List<(String, String)> schoolGradesFor(ProgressData p) =>
+    [for (final g in schoolScreenGrades) if (!schoolFits(p) || gradeIndex(g.$1) <= gradeIndex(p.grade)) g];
 
 class SchoolScreen extends ConsumerStatefulWidget {
   const SchoolScreen({super.key});
@@ -41,8 +46,7 @@ class SchoolScreen extends ConsumerStatefulWidget {
 class _SchoolScreenState extends ConsumerState<SchoolScreen> {
   late String _grade = () {
     final p = ref.read(progressProvider);
-    if (schoolScreenGrades.any((g) => g.$1 == p.grade)) return p.grade!;
-    return switch (p.age ?? 6) { <= 6 => 'p1', 7 => 'p2', 8 => 'p3', 9 => 'p4', 10 => 'p5', _ => 'p6' };
+    return schoolFits(p) ? p.grade! : 'p1';
   }();
   late int _term = currentTerm(ProgressData.clock());
   String _subject = 'arabic';
@@ -71,7 +75,7 @@ class _SchoolScreenState extends ConsumerState<SchoolScreen> {
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         QCard(
           child: Column(children: [
-            chips(schoolScreenGrades, _grade, (v) => _grade = v),
+            chips([for (final (g, label) in schoolGradesFor(p)) (g, g == p.grade ? '$label ⭐' : label)], _grade, (v) => _grade = v),
             const SizedBox(height: 6),
             chips(const [(1, 'الترم الأول'), (2, 'الترم التاني')], _term, (v) => _term = v),
             const SizedBox(height: 6),
@@ -202,9 +206,7 @@ Future<void> _open(BuildContext context, String id) => showDialog<void>(
                   final p = ref.read(progressProvider);
                   final sheet = schoolWorksheet(id, p, Rng());
                   if (sheet.isEmpty) {
-                    ScaffoldMessenger.of(c).showSnackBar(
-                      const SnackBar(content: Text('الدرس ده أغلب أسئلته بالصوت أو باللعب — مفيش كفاية أسئلة تتطبع')),
-                    );
+                    showToast(c, 'الدرس ده أغلب أسئلته بالصوت أو باللعب — مفيش كفاية أسئلة تتطبع', kind: ToastKind.warn, icon: '📝');
                     return;
                   }
                   Navigator.of(c).pop();

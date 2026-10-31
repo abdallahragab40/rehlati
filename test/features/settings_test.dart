@@ -57,7 +57,7 @@ void main() {
   testWidgets('resetting progress needs the parent gate', (tester) async {
     tester.view.physicalSize = const Size(1200, 2600);
     addTearDown(tester.view.reset);
-    SharedPreferences.setMockInitialValues({ProgressRepository.key: '{"stars": 5, "setupDone": true}'});
+    SharedPreferences.setMockInitialValues({ProgressRepository.key: '{"stars": 5, "setupDone": true, "name": "سارة", "grade": "p1"}'});
     final prefs = await SharedPreferences.getInstance();
     final c = ProviderContainer(overrides: [
       sharedPrefsProvider.overrideWithValue(prefs),

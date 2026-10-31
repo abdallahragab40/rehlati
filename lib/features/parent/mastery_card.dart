@@ -61,7 +61,7 @@ class MasteryCard extends ConsumerWidget {
       Text('🎚️ مستوى البداية', style: kidText(15)),
       const SizedBox(height: 4),
       Wrap(spacing: 6, runSpacing: 4, children: [
-        for (final (v, label) in [(null, 'حسب السن'), (1, 'سهل'), (2, 'متوسط'), (3, 'أصعب')])
+        for (final (v, label) in [(null, 'حسب المرحلة'), (1, 'سهل'), (2, 'متوسط'), (3, 'أصعب')])
           ChoiceChip(
             label: Text(label),
             selected: p.settings.startLevel == v,

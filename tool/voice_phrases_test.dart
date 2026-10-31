@@ -155,9 +155,10 @@ void main() {
       // أسئلة الدرس بتركيزه (عدد كسري، وقت منقضي…) — فيه جمل مابتطلعش من غير التركيز
       if (s.isEnglish) continue;
       final round = schoolRound(id)!;
-      for (final age in [6, 9, 12]) {
+      // نفس البذور اللي كانت بالسن (٦ و٩ و١٢) عشان الجمل المتسجّلة ماتتغيرش
+      for (final (age, grade) in [(6, 'p1'), (9, 'p4'), (12, 'p6')]) {
         for (var seed = 0; seed < 8; seed++) {
-          for (final q in schoolQuestions(round, ProgressData(age: age), Rng.seeded(seed * 31 + age))) {
+          for (final q in schoolQuestions(round, ProgressData(grade: grade), Rng.seeded(seed * 31 + age))) {
             if (!q.isEnglish) addQuestion(q);
           }
         }

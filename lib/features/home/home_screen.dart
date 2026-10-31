@@ -11,6 +11,7 @@ import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
 import '../../core/widgets/top_bar.dart';
 import '../../domain/passport.dart';
+import '../../domain/paths.dart';
 import '../../domain/progress/badges.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
@@ -18,6 +19,7 @@ import '../../domain/stages.dart';
 import '../achievements/rank_widgets.dart';
 import '../intro/intro_screen.dart';
 import '../parent/avatar.dart';
+import '../paths/paths_screen.dart';
 import '../profiles/profiles.dart';
 import '../school/school_screen.dart';
 
@@ -34,7 +36,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (ref.read(progressProvider).setupDone) ref.read(speechProvider).speak(sayWelcome, clips: ['welcome']);
+      if (ref.read(progressProvider).profileReady) ref.read(speechProvider).speak(sayWelcome, clips: ['welcome']);
     });
   }
 
@@ -42,9 +44,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     final p = ref.watch(progressProvider);
     final siblings = ref.watch(childrenProvider).length > 1;
-    if (!p.setupDone) {
-      // أول تشغيل على الجهاز بس: الترحيب قبل الاسم والعمر — مش للأخ التاني ولا بعد مسح التقدّم
-      return siblings || ref.watch(introSeenProvider) ? const SetupScreen() : const IntroScreen();
+    if (!p.profileReady) {
+      // أول تشغيل على الجهاز بس: الترحيب قبل الاسم والمرحلة — مش للأخ التاني ولا بعد مسح التقدّم.
+      // تقدّم قديم ناقصه الاسم أو المرحلة بيروح على شاشة البداية على طول، وتقدّمه بيفضل زي ما هو.
+      return siblings || p.setupDone || ref.watch(introSeenProvider) ? const SetupScreen() : const IntroScreen();
     }
     return ScreenFrame(
       title: 'المستوى ${ar(p.level())}',
@@ -99,7 +102,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               const SizedBox(height: 12),
               _JourneyButton(p),
               const SizedBox(height: 10),
-              KidButton('🎒 مسارات التعلّم', onTap: () => context.push(p.limitReached ? '/timeup' : '/paths')),
+              // مفيش مسارات لـ KG1 — الزرار بيظهر لو فيه مسار على قد مرحلته أو مسار بدأه قبل كده
+              if (pathsFor(p).isNotEmpty || learningPaths.any((path) => path.started(p))) ...[
+                KidButton('🎒 مسارات التعلّم', onTap: () => context.push(p.limitReached ? '/timeup' : '/paths')),
+              ],
               if (schoolFits(p)) ...[
                 const SizedBox(height: 10),
                 KidButton('📚 دروس المدرسة', onTap: () => context.push('/school')),

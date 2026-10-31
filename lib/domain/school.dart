@@ -1,16 +1,14 @@
-/// السن والصف الدراسي — التطبيق بيغطي من ٣ لـ ١٢ سنة (من قبل الحضانة لحد سادسة ابتدائي).
+/// المرحلة الدراسية — التطبيق بيغطي من KG1 لحد سادسة ابتدائي، والمحتوى كله بيتعرض على قد المرحلة.
 ///
-/// الصف بيتخزّن لوحده بعيد عن السن: طفل عنده ٧ سنين ممكن يكون في أولى أو تانية حسب ميلاده.
+/// ولي الأمر بيختار المرحلة في شاشة البداية (إجباري)، والسن مابقاش بيتسأل: الألعاب والمستويات
+/// بتاخد السن المعتاد للمرحلة ([gradeAge]).
 library;
 
-/// الأعمار اللي ولي الأمر يقدر يختارها.
-const kidAges = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+/// المراحل بالترتيب: KG1 و KG2، وابتدائي من أولى لسادسة.
+const schoolGrades = ['kg1', 'kg2', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6'];
 
-/// الصفوف بالترتيب: قبل المدرسة، KG1 و KG2، وابتدائي من أولى لسادسة.
-const schoolGrades = ['pre', 'kg1', 'kg2', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6'];
-
+/// اسم المرحلة كامل: "KG1"، "تالتة ابتدائي".
 String gradeName(String grade) => switch (grade) {
-      'pre' => 'لسه مادخلش المدرسة',
       'kg1' => 'KG1',
       'kg2' => 'KG2',
       'p1' => 'أولى ابتدائي',
@@ -22,15 +20,30 @@ String gradeName(String grade) => switch (grade) {
       _ => grade,
     };
 
-/// الصف المعتاد للسن في مصر (KG1 من ٤ سنين وأولى ابتدائي من ٦) — اقتراح بس، ولي الأمر بيأكّده.
-String? usualGrade(int? age) => switch (age) {
-      null => null,
-      <= 3 => 'pre',
-      4 => 'kg1',
-      5 => 'kg2',
-      >= 11 => 'p6',
-      final a => 'p${a - 5}',
+/// اسم قصير لزرار المرحلة: "KG1"، "تالتة".
+String gradeShort(String grade) => switch (grade) {
+      'kg1' || 'kg2' => grade.toUpperCase(),
+      _ => gradeName(grade).split(' ').first,
     };
 
-/// "٧ سنين" بس "١١ سنة" — بعد العشرة المعدود بيبقى مفرد.
-String yearsWord(int age) => age <= 10 ? 'سنين' : 'سنة';
+bool isKg(String? grade) => grade == 'kg1' || grade == 'kg2';
+
+/// ترتيب المرحلة في [schoolGrades] — -1 لو مش متحددة.
+int gradeIndex(String? grade) => grade == null ? -1 : schoolGrades.indexOf(grade);
+
+/// السن المعتاد للمرحلة في مصر (KG1 من ٤ سنين وأولى ابتدائي من ٦) — للألعاب ومستوى الأسئلة.
+int? gradeAge(String? grade) => switch (gradeIndex(grade)) {
+      -1 => null,
+      final i => 4 + i,
+    };
+
+/// المرحلة المعتادة لسن — للتقدّم القديم اللي اتسجّل بالسن بس (٣ سنين بقت KG1).
+String? gradeForAge(int? age) => switch (age) {
+      null => null,
+      <= 4 => 'kg1',
+      >= 11 => 'p6',
+      final a => schoolGrades[a - 4],
+    };
+
+/// "رابعة – سادسة"، "KG2 – تانية" — مدى مراحل للعرض.
+String gradeRange(String from, String to) => from == to ? gradeShort(from) : '${gradeShort(from)} – ${gradeShort(to)}';

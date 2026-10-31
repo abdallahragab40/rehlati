@@ -6,6 +6,7 @@ import 'package:rehlati/core/utils/rng.dart';
 import 'package:rehlati/domain/engine/game_engine.dart';
 import 'package:rehlati/domain/progress/progress_controller.dart';
 import 'package:rehlati/domain/progress/progress_data.dart';
+import 'package:rehlati/domain/school.dart';
 import 'package:rehlati/domain/school_lessons.dart';
 import 'package:rehlati/domain/stages.dart';
 import 'package:rehlati/domain/worksheet.dart';
@@ -57,12 +58,12 @@ void main() {
     expect(schoolRound(lessonId(p2, 1, soon)), isNull);
   });
 
-  test('every ready lesson and exam makes a full round at every age', () {
+  test('every ready lesson and exam makes a full round at every grade', () {
     for (final id in allSchoolRoundIds()) {
       final round = schoolRound(id)!;
-      for (final age in [6, 7, 8, 9, 10, 11, 12]) {
-        final qs = schoolQuestions(round, ProgressData(age: age), Rng.seeded(id.hashCode + age));
-        expect(qs, hasLength(round.count), reason: '$id age $age');
+      for (final (i, grade) in schoolGrades.indexed) {
+        final qs = schoolQuestions(round, ProgressData(grade: grade), Rng.seeded(id.hashCode + i));
+        expect(qs, hasLength(round.count), reason: '$id $grade');
       }
     }
   });
@@ -72,7 +73,7 @@ void main() {
     // الظاء: آخر الحروف في المستوى ١ ومع ذلك لازم تطلع
     final unit = book.units.indexWhere((u) => u.lessons.any((l) => l.title == 'حرف الظاء'));
     final l = book.units[unit].lessons.indexWhere((l) => l.title == 'حرف الظاء');
-    final qs = schoolQuestions(schoolRound(lessonId(book, unit, l))!, ProgressData(age: 6), Rng.seeded(4));
+    final qs = schoolQuestions(schoolRound(lessonId(book, unit, l))!, ProgressData(grade: 'p1'), Rng.seeded(4));
     for (final q in qs) {
       expect(q.skill, anyOf('ar_letter:ظ', 'form:ظ'), reason: q.ask);
     }
@@ -81,13 +82,13 @@ void main() {
   test('a number-bond lesson stays on its number', () {
     final book = schoolBook('p1', 1, 'math')!;
     final l = book.units[0].lessons.indexWhere((l) => l.title == 'مكونات العدد ٨');
-    final qs = schoolQuestions(schoolRound(lessonId(book, 0, l))!, ProgressData(age: 6), Rng.seeded(2));
+    final qs = schoolQuestions(schoolRound(lessonId(book, 0, l))!, ProgressData(grade: 'p1'), Rng.seeded(2));
     expect(qs.map((q) => q.skill).toSet(), {'bond:8'});
   });
 
   test('worksheets come from the lesson, and lessons made of sound only say so', () {
     final book = schoolBook('p1', 1, 'math')!;
-    final sheet = schoolWorksheet(lessonId(book, 2, 0), ProgressData(age: 6), Rng.seeded(1));
+    final sheet = schoolWorksheet(lessonId(book, 2, 0), ProgressData(grade: 'p1'), Rng.seeded(1));
     expect(sheet, hasLength(1));
     expect(sheet.single.questions.length, worksheetPerSection);
     expect(sheet.single.questions.every(printable), isTrue);

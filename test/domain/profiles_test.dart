@@ -8,24 +8,20 @@ import 'package:rehlati/domain/school.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  test('age sets the lowest question level', () {
+  test('the grade sets the lowest question level', () {
     expect(ProgressData().level('math'), 1);
-    expect(ProgressData(age: 5).level('math'), 2);
-    expect(ProgressData(age: 6).level('math'), 3);
+    expect(ProgressData(grade: 'kg1').level('math'), 1);
+    expect(ProgressData(grade: 'kg2').level('math'), 2);
+    expect(ProgressData(grade: 'p1').level('math'), 3);
+    expect(ProgressData(grade: 'p6').level('math'), 3);
   });
 
-  test('ages outside 4–6 start at the nearest level', () {
-    expect(ProgressData(age: 3).level('math'), 1);
-    expect(ProgressData(age: 7).level('math'), 3);
-    expect(ProgressData(age: 8).level('math'), 3);
-    expect(ProgressData(age: 12).level('math'), 3);
-  });
-
-  test('ages run from 3 to 12 and the usual grade follows the Egyptian school ages', () {
-    expect(kidAges, [for (var a = 3; a <= 12; a++) a]);
-    expect([for (final a in kidAges) usualGrade(a)], ['pre', 'kg1', 'kg2', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p6']);
-    expect(usualGrade(null), isNull);
-    expect([yearsWord(10), yearsWord(11)], ['سنين', 'سنة']);
+  test('grades run from KG1 to sixth primary, each with a name and a usual age', () {
+    expect(schoolGrades, ['kg1', 'kg2', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6']);
+    expect([for (final g in schoolGrades) gradeAge(g)], [4, 5, 6, 7, 8, 9, 10, 11]);
+    expect(gradeAge(null), isNull);
+    expect([for (final g in schoolGrades) gradeShort(g)], ['KG1', 'KG2', 'أولى', 'تانية', 'تالتة', 'رابعة', 'خامسة', 'سادسة']);
+    expect(gradeRange('p4', 'p6'), 'رابعة – سادسة');
     for (final g in schoolGrades) {
       expect(gradeName(g), isNot(g), reason: 'every grade has an Arabic name');
     }
@@ -35,43 +31,56 @@ void main() {
     const firsts = ['madd_alif', 'ar_haraka', 'tensOnes', 'moneyCount', 'mulGroups'];
     List<String> open(ProgressData p) => [for (final id in firsts) if (p.isUnlocked(id)) id];
 
-    test('the usual grade for the age opens the first stage of each group up to that grade', () {
-      expect(open(ProgressData(age: 5)), isEmpty, reason: 'KG2 keeps the old order');
-      expect(open(ProgressData(age: 6)), ['madd_alif', 'ar_haraka']);
-      expect(open(ProgressData(age: 7)), ['madd_alif', 'ar_haraka', 'tensOnes', 'moneyCount']);
-      expect(open(ProgressData(age: 8)), firsts);
-      expect(open(ProgressData(age: 12)), firsts);
-      expect(open(ProgressData()), isEmpty, reason: 'no age yet, nothing opens early');
+    test('the grade opens the first stage of each group up to that grade', () {
+      expect(open(ProgressData(grade: 'kg1')), isEmpty);
+      expect(open(ProgressData(grade: 'kg2')), isEmpty, reason: 'KG2 keeps the old order');
+      expect(open(ProgressData(grade: 'p1')), ['madd_alif', 'ar_haraka']);
+      expect(open(ProgressData(grade: 'p2')), ['madd_alif', 'ar_haraka', 'tensOnes', 'moneyCount']);
+      expect(open(ProgressData(grade: 'p3')), firsts);
+      expect(open(ProgressData(grade: 'p6')), firsts);
+      expect(open(ProgressData()), isEmpty, reason: 'no grade yet, nothing opens early');
     });
 
-    test('a grade the parent picks wins over the age', () {
-      expect(open(ProgressData(age: 8, grade: 'kg2')), isEmpty);
-      expect(open(ProgressData(age: 5, grade: 'p3')), firsts);
-      expect(ProgressData(age: 8, grade: 'p1').schoolGrade, 'p1');
+    test('each school-book group opens from its own grade', () {
+      const books = {'thousands': 'p3', 'en_possessive': 'p3', 'roundLarge': 'p4', 'ar_nounSigns': 'p4', 'en_present': 'p4',
+          'decimals5': 'p5', 'ar_mafool': 'p5', 'en_frequency': 'p5', 'divisibility': 'p6', 'ar_nakira': 'p6', 'en_ableTo': 'p6'};
+      for (final MapEntry(key: id, value: g) in books.entries) {
+        final i = schoolGrades.indexOf(g);
+        expect(ProgressData(grade: g).isUnlocked(id), isTrue, reason: '$id at $g');
+        expect(ProgressData(grade: schoolGrades[i - 1]).isUnlocked(id), isFalse, reason: '$id below $g');
+      }
     });
 
     test('only the first stage of a group opens early; the rest still open one by one', () {
-      final p = ProgressData(age: 8);
+      final p = ProgressData(grade: 'p3');
       expect([p.isUnlocked('times2510'), p.isUnlocked('skipCount'), p.isUnlocked('ar_haraka_pick')], [false, false, false]);
       expect(p.unlockNext('mulGroups')?.id, 'times2510');
       expect(p.isUnlocked('times2510'), isTrue);
     });
-
-    test('older children start primary stages at a level that fits them', () {
-      expect(ProgressData(age: 8).level('math'), 3);
-    });
   });
 
-  test('the school grade is kept apart from age, survives JSON and ignores unknown values', () {
-    final p = ProgressData(age: 7, grade: 'p3');
-    final back = ProgressData.fromJson(jsonDecode(jsonEncode(p.toJson())) as Map<String, dynamic>);
-    expect([back.age, back.grade], [7, 'p3']);
+  test('the grade survives JSON; old progress gets its grade from the saved age', () {
+    final back = ProgressData.fromJson(jsonDecode(jsonEncode(ProgressData(grade: 'p3').toJson())) as Map<String, dynamic>);
+    expect([back.grade, back.age], ['p3', 8]);
+    expect(ProgressData(grade: 'p3').toJson().containsKey('age'), isFalse, reason: 'the age is not asked or saved any more');
     expect(ProgressData.fromJson({'grade': 'p9'}).grade, isNull);
     expect(ProgressData.fromJson({'grade': 3}).grade, isNull);
-    expect(ProgressData().toJson().containsKey('grade'), isFalse, reason: 'old payloads stay unchanged');
+    expect(ProgressData().toJson().containsKey('grade'), isFalse);
+    // قبل كده: السن من شاشة البداية، والصف اختياري من لوحة ولي الأمر (وكان فيه "قبل المدرسة")
+    expect([for (final a in [3, 4, 5, 6, 7, 8, 9, 10, 11, 12]) ProgressData.fromJson({'age': a}).grade],
+        ['kg1', 'kg1', 'kg2', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p6']);
+    expect(ProgressData.fromJson({'age': 8, 'grade': 'p1'}).grade, 'p1', reason: 'the parent\'s grade wins over the old age');
+    expect(ProgressData.fromJson({'age': 3, 'grade': 'pre'}).grade, 'kg1');
   });
 
-  test('old progress skips the setup screen, new progress shows it', () {
+  test('the profile needs a name and a grade before the home screen opens', () {
+    expect(ProgressData(name: 'سارة', grade: 'p1', setupDone: true).profileReady, isTrue);
+    expect(ProgressData(name: 'سارة', setupDone: true).profileReady, isFalse);
+    expect(ProgressData(name: '  ', grade: 'p1', setupDone: true).profileReady, isFalse);
+    expect(ProgressData(name: 'سارة', grade: 'p1').profileReady, isFalse);
+  });
+
+  test('old progress skips the intro, new progress shows it', () {
     expect(ProgressData.fromJson({'games': 3}).setupDone, isTrue);
     expect(ProgressData.fromJson({}).setupDone, isFalse);
     expect(ProgressData.fromJson(ProgressData(setupDone: true).toJson()).setupDone, isTrue);

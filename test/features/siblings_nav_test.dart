@@ -66,7 +66,7 @@ void main() {
     await tap(find.text('➕ إضافة طفل'));
     await tester.enterText(find.byType(TextField), 'عمر');
     await settle();
-    await tap(find.text('٦'));
+    await tap(find.text('أولى'));
     await tap(find.text('🚀 يلا نبدأ'));
 
     // التبديل من صورة الطفل في الرئيسية

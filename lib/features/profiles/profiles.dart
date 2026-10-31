@@ -1,4 +1,4 @@
-/// الإخوات على نفس الجهاز: شاشة البداية (الاسم والعمر) واختيار الطفل.
+/// الإخوات على نفس الجهاز: شاشة البداية (الاسم والمرحلة) واختيار الطفل.
 library;
 
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ import '../../core/audio/voice_lines.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
+import '../../core/widgets/toast.dart';
 import '../../core/widgets/top_bar.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
@@ -20,49 +21,49 @@ import '../parent/parent_gate.dart';
 
 String childName(ProgressData p) => p.name.isNotEmpty ? p.name : 'بطل';
 
-/// "٧ سنين"، "١١ سنة".
-String ageText(int age) => '${ar(age)} ${yearsWord(age)}';
-
-/// ملاحظة لولي الأمر تحت اختيار السن، مع توضيح نطاق المحتوى المتاح.
-String ageHint(int? age) => switch (age) {
-      3 => 'الأسئلة معمولة لسن ٤–٦ — هيبدأ من أسهل مستوى، والأحسن تقعد جنبه أول كام مرة.',
-      6 => 'الأسئلة بتبدأ على قد سنه، والمدود والحركات بتاعة أولى ابتدائي هتبقى مفتوحة له.',
-      7 || 8 => 'هيبدأ من أصعب مستوى، ومراحل الابتدائي اللي على قد سنه هتبقى مفتوحة له من الأول.',
-      int a when a >= 9 => 'فيه رحلة للقسمة والكسور ورحلة للقواعد والفهم وقواعد الإنجليزي لسن ٩–١٢، مع مراحل الابتدائي للمراجعة. دي بداية المحتوى للسن ده.',
-      _ => 'الأسئلة بتبدأ على قد سنه، وبتصعب أو تسهل لوحدها حسب إجاباته.',
+/// ملاحظة لولي الأمر تحت اختيار المرحلة: المحتوى اللي هيتعرض للطفل.
+String gradeHint(String? grade) => switch (grade) {
+      null => 'المحتوى كله بيتعرض على قد المرحلة اللي تختارها، وتقدر تغيّرها بعدين من لوحة ولي الأمر.',
+      'kg1' => 'الحروف والأرقام والألوان والألعاب السهلة، من أسهل مستوى — والأحسن تقعد جنبه أول كام مرة.',
+      'kg2' => 'الحروف والأرقام لحد ٢٠ وأساسيات الأعداد، ومسارات القراءة والأرقام الأولى.',
+      'p1' || 'p2' || 'p3' => 'دروس كتاب الوزارة بتاعة ${gradeName(grade)}، ومراحل صفه مفتوحة من الأول.',
+      _ => 'دروس كتاب الوزارة بتاعة ${gradeName(grade)}، والقواعد والكسور ومراحل صفه مفتوحة من الأول، بشكل الكبار.',
     };
 
-/// أزرار السن: صف واحد لو فيه مكان، وإلا صفين — من غير ما الزرار يصغر عن هدف لمس مريح.
-class AgePicker extends StatelessWidget {
-  const AgePicker({super.key, required this.selected, required this.onPick});
+/// أزرار المرحلة: KG1 لسادسة — صف واحد لو فيه مكان، وإلا صفين — من غير ما الزرار يصغر عن هدف لمس مريح.
+class GradePicker extends StatelessWidget {
+  const GradePicker({super.key, required this.selected, required this.onPick, this.missing = false});
 
-  final int? selected;
-  final ValueChanged<int> onPick;
+  final String? selected;
+  final ValueChanged<String> onPick;
+
+  /// ولي الأمر داس "يلا نبدأ" من غير ما يختار — الأزرار بتتعلّم بإطار أحمر.
+  final bool missing;
 
   @override
   Widget build(BuildContext context) => LayoutBuilder(builder: (context, c) {
         const gap = 8.0;
-        final perRow = c.maxWidth >= kidAges.length * 64 ? kidAges.length : (kidAges.length / 2).ceil();
-        Widget button(int a) => Pressable3D(
-              onTap: () => onPick(a),
-              color: selected == a ? AppColors.gold : AppColors.paper2,
+        final perRow = c.maxWidth >= schoolGrades.length * 72 ? schoolGrades.length : (schoolGrades.length / 2).ceil();
+        Widget button(String g) => Pressable3D(
+              onTap: () => onPick(g),
+              color: selected == g ? AppColors.gold : (missing ? AppColors.noBg : AppColors.paper2),
               radius: 22,
               depth: 5,
-              shadowColor: AppColors.shadow,
-              semanticLabel: '${ar(a)} ${yearsWord(a)}',
+              shadowColor: missing ? AppColors.coral : AppColors.shadow,
+              semanticLabel: gradeName(g),
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Column(children: [
-                Text(ar(a), style: kidText(30, height: 1.2)),
-                Text(yearsWord(a), style: kidText(12, color: AppColors.inkSoft)),
+                FittedBox(child: Text(gradeShort(g), style: kidText(22, height: 1.3))),
+                Text(isKg(g) ? 'حضانة' : 'ابتدائي', style: kidText(12, color: AppColors.inkSoft)),
               ]),
             );
         return Column(children: [
-          for (var i = 0; i < kidAges.length; i += perRow) ...[
+          for (var i = 0; i < schoolGrades.length; i += perRow) ...[
             if (i > 0) const SizedBox(height: gap),
             Row(children: [
-              for (final (j, a) in kidAges.skip(i).take(perRow).indexed) ...[
+              for (final (j, g) in schoolGrades.skip(i).take(perRow).indexed) ...[
                 if (j > 0) const SizedBox(width: gap),
-                Expanded(child: button(a)),
+                Expanded(child: button(g)),
               ],
             ]),
           ],
@@ -70,7 +71,15 @@ class AgePicker extends StatelessWidget {
       });
 }
 
-/// أول مرة (أو طفل جديد): الاسم والعمر — العمر بيحدد أقل مستوى للأسئلة.
+/// الاسم لازم حرفين على الأقل بعد ما نشيل المسافات — null لو تمام، وإلا رسالة الخطأ.
+String? nameProblem(String name) => switch (name.trim().length) {
+      0 => 'اكتب اسم الطفل الأول ✏️',
+      1 => 'الاسم قصير قوي — اكتب حرفين على الأقل',
+      _ => null,
+    };
+
+/// أول مرة (أو طفل جديد، أو تقدّم قديم ناقصه الاسم أو المرحلة): الاسم والمرحلة الاتنين إجباري،
+/// ولو حاجة ناقصة بيظهر toast ومايكملش. المرحلة بتحدد المحتوى اللي بيتعرض ومستوى الأسئلة.
 class SetupScreen extends ConsumerStatefulWidget {
   const SetupScreen({super.key});
 
@@ -80,21 +89,41 @@ class SetupScreen extends ConsumerStatefulWidget {
 
 class _SetupScreenState extends ConsumerState<SetupScreen> {
   late final _name = TextEditingController(text: ref.read(progressProvider).name);
-  late int? _age = ref.read(progressProvider).age;
+  late String? _grade = ref.read(progressProvider).grade;
+  final _nameFocus = FocusNode();
+
+  /// بعد أول محاولة ناقصة: الخانة الناقصة بتتعلّم بالأحمر لحد ما تتملا.
+  bool _tried = false;
 
   @override
   void dispose() {
     _name.dispose();
+    _nameFocus.dispose();
     super.dispose();
   }
 
   void _done() {
+    final nameIssue = nameProblem(_name.text);
+    if (nameIssue != null || _grade == null) {
+      setState(() => _tried = true);
+      showToast(
+        context,
+        // الاتنين ناقصين: رسالة واحدة بالاتنين — وإلا الناقص بس (الاسم القصير ليه رسالته)
+        _name.text.trim().isEmpty && _grade == null
+            ? 'اكتب اسم الطفل واختار المرحلة الدراسية عشان نبدأ'
+            : (nameIssue ?? 'اختار المرحلة الدراسية الأول 🎒'),
+        kind: ToastKind.warn,
+      );
+      ref.read(sfxProvider).bad();
+      if (nameIssue != null) _nameFocus.requestFocus();
+      return;
+    }
     final parent = ref.read(parentSetupProvider);
     final router = parent ? GoRouter.of(context) : null;
     ref.read(progressProvider.notifier).update((p) {
       p
         ..name = _name.text.trim()
-        ..age = _age ?? 4
+        ..grade = _grade
         ..setupDone = true;
     });
     if (router != null) {
@@ -109,9 +138,13 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
   @override
   Widget build(BuildContext context) {
     final siblings = ref.watch(childrenProvider).length;
+    // تقدّم قديم ناقصه الاسم أو المرحلة: مفيش رجوع ولا إلغاء — الإلغاء كان هيمسح تقدّمه
+    final returning = ref.watch(progressProvider.select((p) => p.setupDone));
+    final nameMissing = _tried && nameProblem(_name.text) != null;
+    final gradeMissing = _tried && _grade == null;
     return ScreenFrame(
       // أول طفل: يرجع لـ"مين معانا؟" (الأخ التاني ليه زرار إلغاء تحت)
-      onBack: siblings > 1 ? null : () => ref.read(introSeenProvider.notifier).back(),
+      onBack: siblings > 1 || returning ? null : () => ref.read(introSeenProvider.notifier).back(),
       child: Column(children: [
         const SizedBox(height: 10),
         const Banner3D('رحلتي التعليمية'),
@@ -125,9 +158,10 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
             boxShadow: const [BoxShadow(color: AppColors.shadow, offset: Offset(0, 8))],
           ),
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            Text(siblings > 1 ? '👋 بطل جديد!' : '👋 أهلاً بيكم في رحلتي', textAlign: TextAlign.center, style: kidText(24)),
+            Text(returning ? '👋 نكمّل الرحلة!' : (siblings > 1 ? '👋 بطل جديد!' : '👋 أهلاً بيكم في رحلتي'),
+                textAlign: TextAlign.center, style: kidText(24)),
             const SizedBox(height: 6),
-            Text('خطوة صغيرة لولي الأمر قبل ما نبدأ',
+            Text(returning ? 'محتاجين الاسم والمرحلة الدراسية عشان نعرض المحتوى المناسب' : 'خطوة صغيرة لولي الأمر قبل ما نبدأ',
                 textAlign: TextAlign.center, style: kidText(15, weight: FontWeight.w600, color: AppColors.inkSoft)),
             const SizedBox(height: 18),
             Center(
@@ -144,10 +178,16 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
               ),
             ),
             const SizedBox(height: 14),
-            Text('اسم الطفل', style: kidText(17)),
+            Text('اسم الطفل *', style: kidText(17)),
             const SizedBox(height: 6),
             TextField(
               controller: _name,
+              focusNode: _nameFocus,
+              textInputAction: TextInputAction.done,
+              // الخطأ الأحمر بيروح أول ما الاسم يبقى تمام
+              onChanged: (_) {
+                if (_tried) setState(() {});
+              },
               textAlign: TextAlign.center,
               maxLength: 20,
               style: kidText(22),
@@ -162,7 +202,7 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                 fillColor: Colors.white,
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(18),
-                  borderSide: const BorderSide(color: AppColors.line, width: 2),
+                  borderSide: BorderSide(color: nameMissing ? AppColors.coral : AppColors.line, width: nameMissing ? 2.5 : 2),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(18),
@@ -174,15 +214,22 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
             Text('مثلاً: يوسف أو مريم',
                 textAlign: TextAlign.center, style: kidText(13, weight: FontWeight.w600, color: AppColors.inkSoft)),
             const SizedBox(height: 16),
-            Text('عنده كام سنة؟', style: kidText(17)),
+            Text('في سنة كام؟ *', style: kidText(17)),
             const SizedBox(height: 8),
-            AgePicker(selected: _age, onPick: (a) => setState(() => _age = a)),
+            GradePicker(
+              selected: _grade,
+              missing: gradeMissing,
+              onPick: (g) {
+                ref.read(sfxProvider).pad(schoolGrades.indexOf(g) % 3);
+                setState(() => _grade = g);
+              },
+            ),
             const SizedBox(height: 8),
-            Text(ageHint(_age),
+            Text(gradeHint(_grade),
                 textAlign: TextAlign.center, style: kidText(13, weight: FontWeight.w600, color: AppColors.inkSoft)),
             const SizedBox(height: 18),
             KidButton('🚀 يلا نبدأ', kind: BtnKind.go, onTap: _done),
-            if (siblings > 1) ...[
+            if (siblings > 1 && !returning) ...[
               const SizedBox(height: 6),
               KidButton('إلغاء', kind: BtnKind.ghost, onTap: () async {
                 final id = ref.read(activeChildProvider);

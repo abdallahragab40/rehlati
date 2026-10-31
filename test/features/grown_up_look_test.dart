@@ -3,12 +3,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rehlati/core/widgets/kid_widgets.dart';
 import 'package:rehlati/domain/progress/progress_data.dart';
 
-/// شكل الكبار: تلقائي من سن ٩، وولي الأمر يغيّره، والأسد بيستخبى.
+/// شكل الكبار: تلقائي من رابعة ابتدائي، وولي الأمر يغيّره، والأسد بيستخبى.
 void main() {
-  test('on automatically from age 9, and the parent choice wins either way', () {
-    expect([for (final a in [null, 4, 8, 9, 12]) ProgressData(age: a).grownUpLook], [false, false, false, true, true]);
-    expect((ProgressData(age: 12)..settings.grownUp = false).grownUpLook, isFalse);
-    expect((ProgressData(age: 6)..settings.grownUp = true).grownUpLook, isTrue);
+  test('on automatically from grade 4, and the parent choice wins either way', () {
+    expect([for (final g in [null, 'kg1', 'p3', 'p4', 'p6']) ProgressData(grade: g).grownUpLook], [false, false, false, true, true]);
+    expect((ProgressData(grade: 'p6')..settings.grownUp = false).grownUpLook, isFalse);
+    expect((ProgressData(grade: 'p1')..settings.grownUp = true).grownUpLook, isTrue);
     expect(Settings.fromJson((Settings()..grownUp = true).toJson()).grownUp, isTrue);
     expect(Settings().toJson().containsKey('grownUp'), isFalse, reason: 'old settings stay unchanged');
     expect(Settings.fromJson({}).grownUp, isNull);

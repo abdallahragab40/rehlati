@@ -122,7 +122,7 @@ void main() {
         for (var seed = 0; seed < 20; seed++) {
           final qs = schoolQuestions(
             round,
-            ProgressData(age: 6),
+            ProgressData(grade: 'p1'),
             Rng.seeded(seed),
           );
           expect(qs, hasLength(round.count));

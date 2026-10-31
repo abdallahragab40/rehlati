@@ -16,6 +16,7 @@ import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
 import '../../core/widgets/top_bar.dart';
+import '../../core/widgets/toast.dart';
 
 class ParentVoiceScreen extends ConsumerStatefulWidget {
   const ParentVoiceScreen({super.key});
@@ -39,7 +40,7 @@ class _ParentVoiceScreenState extends ConsumerState<ParentVoiceScreen> {
     super.dispose();
   }
 
-  void _say(String msg) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+  void _say(String msg) => showToast(context, msg, kind: ToastKind.error);
 
   /// التسجيل بيحوّل الجلسة لـ playAndRecord — بنرجّعها زي ما التطبيق عايزها.
   static Future<void> _restoreSession() async {

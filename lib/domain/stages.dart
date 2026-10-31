@@ -45,6 +45,7 @@ import 'generators/play_generators.dart';
 import 'generators/puzzle_generators.dart';
 import 'progress/progress_data.dart';
 import 'question.dart';
+import 'school.dart';
 
 typedef Generator = Question Function(int lv, Rng r, {String? focus});
 
@@ -323,6 +324,20 @@ bool fitsAge(Stage s, int? age) {
   return age == null || a == null || (age >= a.$1 && age <= a.$2);
 }
 
+/// مجموعات مالهاش [Stage.fromGrade] (بتتفتح بالترتيب بس) بس ليها مرحلة — عشان الخريطة تعرضها على قدها.
+const _groupShownFrom = {'basics': 'kg2', 'math1': 'p1', 'math2': 'p2', 'fade': 'p1', 'ar2': 'p2', 'enSchool': 'p1'};
+
+/// أول مرحلة دراسية المرحلة دي بتظهر لها على الخريطة — null = من KG1.
+String? stageShownFrom(Stage s) => stageGrade(s) ?? _groupShownFrom[s.group];
+
+/// المرحلة على قد المرحلة الدراسية [grade]؟ الألعاب والعوالم المفتوحة بالسن المعتاد للمرحلة،
+/// والمواد بمرحلة المجموعة (مش أعلى من مرحلة الطفل). من غير مرحلة = كله.
+bool fitsGrade(Stage s, String? grade) {
+  if (grade == null) return true;
+  if (openWorlds.contains(s.world)) return fitsAge(s, gradeAge(grade));
+  return gradeIndex(stageShownFrom(s)) <= gradeIndex(grade);
+}
+
 const playGroups = {
   'think': '🧠 ألعاب الذكاء',
   'values': '🌟 آداب ونضافة',
@@ -431,15 +446,15 @@ final _math2 = _grp('math', 'math2', 'حساب تانية ابتدائي', 0xFF5
   ('barGraph', '📊', 'التمثيل بالأعمدة', 2, barGraph),
 ], after: 'add100');
 
-/// حساب تالتة ابتدائي من كتاب الوزارة — بعد «جدول ٢ و٥ و١٠»، حتى للتقدّم القديم.
+/// حساب تالتة ابتدائي من كتاب الوزارة — بعد «جدول ٢ و٥ و١٠»، حتى للتقدّم القديم — وأولها مفتوح من الأول لطفل في الصف ده أو أعلى.
 final _math3 = _grp('math', 'math3', 'حساب تالتة ابتدائي', 0xFF3E7BD6, [
   ('thousands', '🔢', 'الآلاف', 2, thousands),
   ('areaPerimeter', '🟩', 'المساحة والمحيط', 2, areaPerimeter),
   ('mulStrategies', '✖️', 'استراتيجيات الضرب', 2, mulStrategies),
   ('dotPlot', '⚫', 'التمثيل بالنقاط', 2, dotPlot),
-], after: 'times2510');
+], after: 'times2510', fromGrade: 'p3');
 
-/// عربي رابعة ابتدائي من كتاب الوزارة — بعد «اقرأ وافهم» (آخر القواعد والفهم)، حتى للتقدّم القديم.
+/// عربي رابعة ابتدائي من كتاب الوزارة — بعد «اقرأ وافهم» (آخر القواعد والفهم)، حتى للتقدّم القديم — وأولها مفتوح من الأول لطفل في الصف ده أو أعلى.
 final _ar4 = _grp('arabic', 'ar4', 'قواعد رابعة ابتدائي', 0xFF7B3F8C, [
   ('ar_nounSigns', '🏷️', 'علامات الاسم', 3, arNounSigns),
   ('ar_alPrefix', '🔤', 'بـ وكـ وفـ ولـ مع «ال»', 3, arAlPrefix),
@@ -447,9 +462,9 @@ final _ar4 = _grp('arabic', 'ar4', 'قواعد رابعة ابتدائي', 0xFF7
   ('ar_hiddenAlif', '👻', 'حروف تُنطق ولا تُكتب', 3, arHiddenAlif),
   ('ar_alifLayyina', '〰️', 'الألف اللينة', 3, arAlifLayyina),
   ('ar_fail', '🏃', 'الفعل والفاعل', 3, arFail),
-], after: 'ar_reading');
+], after: 'ar_reading', fromGrade: 'p4');
 
-/// حساب رابعة ابتدائي من كتاب الوزارة — بعد «القسمة من غير باقي»، حتى للتقدّم القديم.
+/// حساب رابعة ابتدائي من كتاب الوزارة — بعد «القسمة من غير باقي»، حتى للتقدّم القديم — وأولها مفتوح من الأول لطفل في الصف ده أو أعلى.
 final _math4 = _grp('math', 'math4', 'حساب رابعة ابتدائي', 0xFF2F5FB8, [
   ('roundLarge', '🎯', 'تقريب الأعداد الكبيرة', 3, roundLarge),
   ('bigAddSub', '➕', 'الجمع والطرح بإعادة التسمية', 3, bigAddSub),
@@ -461,9 +476,9 @@ final _math4 = _grp('math', 'math4', 'حساب رابعة ابتدائي', 0xFF2
   ('fractionOps', '🍕', 'العمليات على الكسور', 3, fractionOps),
   ('decimals', '🔟', 'الكسور العشرية', 3, decimals),
   ('geometry4', '📐', 'الزوايا والخطوط والأشكال', 3, geometry4),
-], after: 'divisionExact');
+], after: 'divisionExact', fromGrade: 'p4');
 
-/// إنجليزي رابعة (Connect 4) — بعد «is, are or am?»، حتى للتقدّم القديم.
+/// إنجليزي رابعة (Connect 4) — بعد «is, are or am?»، حتى للتقدّم القديم — وأولها مفتوح من الأول لطفل في الصف ده أو أعلى.
 final _en4 = _grp('english', 'en4', 'Grammar from school • Grade 4', 0xFF1F4F8F, [
   ('en_present', '🔁', 'Present simple', 3, enPresent),
   ('en_compare', '📏', 'bigger, the biggest', 3, enCompare),
@@ -473,18 +488,18 @@ final _en4 = _grp('english', 'en4', 'Grammar from school • Grade 4', 0xFF1F4F8
   ('en_containers', '🥛', 'a bottle of, a slice of', 3, enContainers),
   ('en_celebrate', '🎉', "Let's celebrate", 2, enCelebrateGame),
   ('en_should', '🧴', "should, shouldn't", 3, enShould),
-], after: 'en_isare', lang: 'en');
+], after: 'en_isare', lang: 'en', fromGrade: 'p4');
 
-/// عربي خامسة ابتدائي — بعد «الفعل والفاعل»، حتى للتقدّم القديم.
+/// عربي خامسة ابتدائي — بعد «الفعل والفاعل»، حتى للتقدّم القديم — وأولها مفتوح من الأول لطفل في الصف ده أو أعلى.
 final _ar5 = _grp('arabic', 'ar5', 'قواعد خامسة ابتدائي', 0xFF6A2F7E, [
   ('ar_mafool', '🎯', 'المفعول به', 3, arMafool),
   ('ar_hamzaQat', '✂️', 'همزة القطع وألف الوصل', 3, arHamzaQat),
   ('ar_hamzaEnd', '🔚', 'الهمزة في آخر الكلمة', 3, arHamzaEnd),
   ('ar_mafaeel', '❔', 'المفعول لأجله والمطلق والظرف', 3, arMafaeel),
   ('ar_majrur', '🔽', 'الاسم المجرور والمضاف إليه', 3, arMajrur),
-], after: 'ar_fail');
+], after: 'ar_fail', fromGrade: 'p5');
 
-/// حساب خامسة ابتدائي — بعد «الكسور العشرية» بتاعة رابعة، حتى للتقدّم القديم.
+/// حساب خامسة ابتدائي — بعد «الكسور العشرية» بتاعة رابعة، حتى للتقدّم القديم — وأولها مفتوح من الأول لطفل في الصف ده أو أعلى.
 final _math5 = _grp('math', 'math5', 'حساب خامسة ابتدائي', 0xFF27509E, [
   ('decimals5', '🔟', 'الكسور العشرية لحد جزء من ألف', 3, decimals5),
   ('equations', '🟰', 'المعادلات والتعبيرات', 3, equations),
@@ -492,9 +507,9 @@ final _math5 = _grp('math', 'math5', 'حساب خامسة ابتدائي', 0xFF2
   ('coordinates', '📍', 'المستوى الإحداثي', 3, coordinates),
   ('volume', '📦', 'الحجم', 3, volume),
   ('pieChart', '🥧', 'القطاعات الدائرية', 3, pieChart),
-], after: 'decimals');
+], after: 'decimals', fromGrade: 'p5');
 
-/// إنجليزي خامسة (Connect 5) — بعد «Present simple» بتاعة رابعة، حتى للتقدّم القديم.
+/// إنجليزي خامسة (Connect 5) — بعد «Present simple» بتاعة رابعة، حتى للتقدّم القديم — وأولها مفتوح من الأول لطفل في الصف ده أو أعلى.
 final _en5 = _grp('english', 'en5', 'Grammar from school • Grade 5', 0xFF1B3F78, [
   ('en_frequency', '📆', 'always, sometimes, never', 3, enFrequency),
   ('en_someAny', '🥛', 'some, any', 3, enSomeAny),
@@ -508,9 +523,9 @@ final _en5 = _grp('english', 'en5', 'Grammar from school • Grade 5', 0xFF1B3F7
   ('en_space', '🚀', 'Space', 2, enSpaceGame),
   ('en_nature', '⛈️', 'When nature changes', 2, enNatureGame),
   ('en_hobbies', '🎨', 'Hobbies', 2, enHobbiesGame),
-], after: 'en_present', lang: 'en');
+], after: 'en_present', lang: 'en', fromGrade: 'p5');
 
-/// عربي سادسة ابتدائي — بعد «الاسم المجرور»، حتى للتقدّم القديم.
+/// عربي سادسة ابتدائي — بعد «الاسم المجرور»، حتى للتقدّم القديم — وأولها مفتوح من الأول لطفل في الصف ده أو أعلى.
 final _ar6 = _grp('arabic', 'ar6', 'قواعد سادسة ابتدائي', 0xFF5A2470, [
   ('ar_nakira', '🔖', 'النكرة والمعرفة', 3, arNakira),
   ('ar_hamzaMid', '🪜', 'الهمزة في وسط الكلمة', 3, arHamzaMid),
@@ -519,9 +534,9 @@ final _ar6 = _grp('arabic', 'ar6', 'قواعد سادسة ابتدائي', 0xFF5
   ('ar_kana', '🔁', 'كان وإن وأخواتهما', 4, arKana),
   ('ar_naat', '🎨', 'النعت والحال', 4, arNaat),
   ('ar_mudari', '⏩', 'الفعل المضارع', 4, arMudari),
-], after: 'ar_majrur');
+], after: 'ar_majrur', fromGrade: 'p6');
 
-/// حساب سادسة ابتدائي — بعد «الكسور العشرية لحد جزء من ألف»، حتى للتقدّم القديم.
+/// حساب سادسة ابتدائي — بعد «الكسور العشرية لحد جزء من ألف»، حتى للتقدّم القديم — وأولها مفتوح من الأول لطفل في الصف ده أو أعلى.
 final _math6 = _grp('math', 'math6', 'حساب سادسة ابتدائي', 0xFF1F4488, [
   ('divisibility', '🔍', 'قابلية القسمة والعوامل الأولية', 3, divisibility),
   ('integers', '➖', 'الأعداد الصحيحة', 3, integers),
@@ -531,9 +546,9 @@ final _math6 = _grp('math', 'math6', 'حساب سادسة ابتدائي', 0xFF1
   ('fractionDiv6', '➗', 'قسمة الكسور', 4, fractionDiv6),
   ('quadrants', '🧭', 'المستوى الإحداثي بأرباعه', 3, quadrants),
   ('area6', '🔷', 'مساحات المضلعات ومساحة السطح', 4, area6),
-], after: 'decimals5');
+], after: 'decimals5', fromGrade: 'p6');
 
-/// إنجليزي سادسة (Connect 6) — بعد «always, sometimes, never»، حتى للتقدّم القديم.
+/// إنجليزي سادسة (Connect 6) — بعد «always, sometimes, never»، حتى للتقدّم القديم — وأولها مفتوح من الأول لطفل في الصف ده أو أعلى.
 final _en6 = _grp('english', 'en6', 'Grammar from school • Grade 6', 0xFF173462, [
   ('en_ableTo', '💪', 'able to', 3, enAbleTo),
   ('en_bothEither', '🔀', 'both, either, neither', 4, enBothEither),
@@ -545,7 +560,7 @@ final _en6 = _grp('english', 'en6', 'Grammar from school • Grade 6', 0xFF17346
   ('en_travel', '🧳', 'Travel and transport', 3, enTravelGame),
   ('en_art', '🖌️', 'Art', 3, enArtGame),
   ('en_heritage', '🏺', 'Made in Egypt', 3, enHeritageGame),
-], after: 'en_frequency', lang: 'en');
+], after: 'en_frequency', lang: 'en', fromGrade: 'p6');
 
 /// Phonics بعد ما الطفل يعرف الحروف: الصوت مش الاسم، وبعدين تجميع كلمات CVC.
 final _phonics = _grp('english', 'phonics', 'Phonics • Letter sounds', 0xFF2E9BD6, [
@@ -582,7 +597,7 @@ final _enSchool = _grp('english', 'enSchool', 'Words from school • Grades 1–
   ('en_sounds', '🔤', 'Blends and long vowels', 2, enSounds),
 ], after: 'en_family', lang: 'en');
 
-/// Connect 3 (تالتة): قواعد وكلمات — بعد «I, he, she, it, they».
+/// Connect 3 (تالتة): قواعد وكلمات — بعد «I, he, she, it, they»، وأولها مفتوح من الأول لطفل في تالتة أو أعلى.
 final _en3 = _grp('english', 'en3', 'Grammar from school • Grade 3', 0xFF2563A8, [
   ('en_possessive', '🎒', 'my, his, her', 2, enPossessive),
   ('en_past', '⏪', 'Yesterday I played', 2, enPast),
@@ -590,7 +605,7 @@ final _en3 = _grp('english', 'en3', 'Grammar from school • Grade 3', 0xFF2563A
   ('en_food', '🍚', 'Food', 1, enFoodGame),
   ('en_conj', '🔗', 'and, or, but', 2, enConj),
   ('en_can', '🐒', "can, can't", 2, enCan),
-], after: 'en_pronouns', lang: 'en');
+], after: 'en_pronouns', lang: 'en', fromGrade: 'p3');
 
 /// 🕌 الدين والأخلاق — مفتوح كله.
 final _deen = [
@@ -701,7 +716,7 @@ final _grammar = [
     Stage(
       id: id, world: 'arabic', n: _arabic.length + _madd.length + _harakat.length + _sukun.length + i + 1,
       icon: icon, name: name, base: base, color: const Color(0xFF8E3B6F), gen: gen,
-      group: 'grammar', groupName: 'القواعد والفهم • ٩–١٢ سنة',
+      group: 'grammar', groupName: 'القواعد والفهم • رابعة – سادسة',
       after: i == 0 ? 'ar_sukun' : null, fromGrade: i == 0 ? 'p4' : null,
     ),
 ];
@@ -769,7 +784,7 @@ final _upperPrimary = [
     Stage(
       id: id, world: 'math', n: _math.length + _math100.length + _mul.length + _life.length + i + 1,
       icon: icon, name: name, base: 1, color: const Color(0xFF3968A8), gen: gen,
-      group: 'upperPrimary', groupName: 'القسمة والكسور • ٩–١٢ سنة',
+      group: 'upperPrimary', groupName: 'القسمة والكسور • رابعة – سادسة',
       after: i == 0 ? 'timesAll' : null, fromGrade: i == 0 ? 'p4' : null,
     ),
 ];
@@ -782,10 +797,10 @@ final _enPrimary = [
     ('en_cvc', '📖', 'Read the word', 1, enCvc, 'enP1', 'Primary English • Grades 1–3', 'en_word', 'p1'),
     ('en_a_an', '🅰️', 'a or an?', 2, enAAn, 'enP1', 'Primary English • Grades 1–3', null, null),
     ('en_plural', '👯', 'One or many?', 2, enPlural, 'enP1', 'Primary English • Grades 1–3', null, null),
-    ('en_isare', '✍️', 'is, are or am?', 2, enIsAre, 'enP4', 'English grammar • Ages 9–12', 'en_plural', 'p4'),
-    ('en_questions', '❓', 'Question words', 2, enQuestions, 'enP4', 'English grammar • Ages 9–12', null, null),
-    ('en_sentence', '📝', 'Complete the sentence', 2, enSentence, 'enP4', 'English grammar • Ages 9–12', null, null),
-    ('en_reading', '📰', 'Read and answer', 2, enReading, 'enP4', 'English grammar • Ages 9–12', null, null),
+    ('en_isare', '✍️', 'is, are or am?', 2, enIsAre, 'enP4', 'English grammar • Grades 4–6', 'en_plural', 'p4'),
+    ('en_questions', '❓', 'Question words', 2, enQuestions, 'enP4', 'English grammar • Grades 4–6', null, null),
+    ('en_sentence', '📝', 'Complete the sentence', 2, enSentence, 'enP4', 'English grammar • Grades 4–6', null, null),
+    ('en_reading', '📰', 'Read and answer', 2, enReading, 'enP4', 'English grammar • Grades 4–6', null, null),
   ].indexed)
     Stage(
       id: id, world: 'english', n: _english.length + i + 1, icon: icon, name: name, base: base,

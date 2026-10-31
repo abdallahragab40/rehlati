@@ -63,12 +63,12 @@ void main() {
   });
 
   test('entry respects grade override and earned prerequisites', () {
-    for (final age in [9, 10, 11, 12]) {
-      expect(ProgressData(age: age).isUnlocked('divisionExact'), isTrue);
+    for (final grade in ['p4', 'p5', 'p6']) {
+      expect(ProgressData(grade: grade).isUnlocked('divisionExact'), isTrue);
     }
-    expect(ProgressData(age: 8).isUnlocked('divisionExact'), isFalse);
-    expect(ProgressData(age: 12, grade: 'p2').isUnlocked('divisionExact'), isFalse);
-    final p = ProgressData(age: 8)..best['timesAll'] = 2;
+    expect(ProgressData(grade: 'p3').isUnlocked('divisionExact'), isFalse);
+    expect(ProgressData(grade: 'p2').isUnlocked('divisionExact'), isFalse);
+    final p = ProgressData(grade: 'p3')..best['timesAll'] = 2;
     expect(p.isUnlocked('divisionExact'), isTrue);
     expect(p.isUnlocked('fractionOfNumber'), isFalse);
     expect(p.unlockNext('divisionMissing')!.id, 'fractionOfNumber');

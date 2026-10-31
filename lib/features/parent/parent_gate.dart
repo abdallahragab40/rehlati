@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/arabic.dart';
+import '../../core/widgets/toast.dart';
 
 /// بوابة بسيطة تمنع الطفل من الدخول: سؤال ضرب (a من ١١–١٩ × b من ٣–٩).
 /// Apple Kids Category بتطلب بوابة زي دي قبل أي إعدادات أو روابط خارجية.
@@ -16,7 +17,7 @@ Future<bool> askParent(BuildContext context) async {
     builder: (_) => _GateDialog(a: 11 + r.nextInt(9), b: 3 + r.nextInt(7)),
   );
   if (ok == false && context.mounted) {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('إجابة غير صحيحة.')));
+    showToast(context, 'إجابة غلط — السؤال ده لولي الأمر بس', kind: ToastKind.error, icon: '🔒');
   }
   return ok ?? false;
 }

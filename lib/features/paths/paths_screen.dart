@@ -13,6 +13,7 @@ import '../../core/widgets/top_bar.dart';
 import '../../domain/paths.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
+import '../../domain/school.dart';
 import '../../domain/stages.dart';
 import '../parent/parent_gate.dart';
 import '../world_map/world_map_screen.dart';
@@ -27,12 +28,54 @@ String pathStatus(LearningPath path, ProgressData p) {
   return 'درس ${ar(path.lessons.indexOf(cur) + 1)} من ${ar(path.lessons.length)}';
 }
 
-class PathsScreen extends ConsumerWidget {
+/// المسارات اللي على قد مرحلة الطفل — الرئيسية مابتعرضش الزرار لو مفيش ولا واحد.
+List<LearningPath> pathsFor(ProgressData p) => [for (final path in learningPaths) if (path.fits(p.grade)) path];
+
+class PathsScreen extends ConsumerStatefulWidget {
   const PathsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PathsScreen> createState() => _PathsScreenState();
+}
+
+class _PathsScreenState extends ConsumerState<PathsScreen> {
+  /// مسارات المراحل التانية مستخبية ورا زرار، زي ألعاب السن التاني في الخريطة.
+  bool _showAll = false;
+
+  @override
+  Widget build(BuildContext context) {
     final p = ref.watch(progressProvider);
+    final fit = pathsFor(p);
+    final rest = [for (final path in learningPaths) if (!fit.contains(path)) path];
+    Widget tile(LearningPath path) => Container(
+          margin: const EdgeInsets.only(bottom: 12),
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: worldMeta(path.world).color.withValues(alpha: .14),
+            borderRadius: BorderRadius.circular(22),
+          ),
+          child: Row(children: [
+            Text(path.icon, style: const TextStyle(fontSize: 40)),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(path.name, style: kidText(19)),
+                Text(pathStatus(path, p), style: kidText(14, color: AppColors.inkSoft)),
+                Text('🎒 ${path.gradesText}', style: kidText(12.5, weight: FontWeight.w700, color: AppColors.inkSoft)),
+                const SizedBox(height: 6),
+                LinearProgressIndicator(
+                  value: path.lessonsDone(p) / path.lessons.length,
+                  minHeight: 8,
+                  borderRadius: BorderRadius.circular(8),
+                  color: worldMeta(path.world).tone,
+                  backgroundColor: AppColors.paper,
+                ),
+              ]),
+            ),
+            const SizedBox(width: 10),
+            KidButton(path.started(p) ? '▶️ كمّل' : '▶️ يلا', kind: BtnKind.go, onTap: () => context.push('/path/${path.id}')),
+          ]),
+        );
     return ScreenFrame(
       onBack: () => context.back(),
       title: 'مسارات التعلّم',
@@ -43,36 +86,22 @@ class PathsScreen extends ConsumerWidget {
           Text('درس صغير كل يوم، خطوة ورا خطوة',
               textAlign: TextAlign.center, style: kidText(16, weight: FontWeight.w700, color: AppColors.inkSoft)),
           const SizedBox(height: 14),
-          for (final path in learningPaths)
-            Container(
-              margin: const EdgeInsets.only(bottom: 12),
-              padding: const EdgeInsets.all(14),
-              decoration: BoxDecoration(
-                color: worldMeta(path.world).color.withValues(alpha: .14),
-                borderRadius: BorderRadius.circular(22),
+          if (p.grade != null && fit.isNotEmpty) ...[
+            Text('🎯 مسارات ${gradeName(p.grade!)}', style: kidText(17)),
+            const SizedBox(height: 8),
+          ],
+          for (final path in fit) tile(path),
+          if (rest.isNotEmpty) ...[
+            Center(
+              child: KidButton(
+                _showAll ? '🔼 خبّي المسارات التانية' : '🎒 مسارات لمراحل تانية (${ar(rest.length)})',
+                kind: BtnKind.ghost,
+                onTap: () => setState(() => _showAll = !_showAll),
               ),
-              child: Row(children: [
-                Text(path.icon, style: const TextStyle(fontSize: 40)),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Text(path.name, style: kidText(19)),
-                    Text(pathStatus(path, p), style: kidText(14, color: AppColors.inkSoft)),
-                    const SizedBox(height: 6),
-                    LinearProgressIndicator(
-                      value: path.lessonsDone(p) / path.lessons.length,
-                      minHeight: 8,
-                      borderRadius: BorderRadius.circular(8),
-                      color: worldMeta(path.world).tone,
-                      backgroundColor: AppColors.paper,
-                    ),
-                  ]),
-                ),
-                const SizedBox(width: 10),
-                KidButton(path.started(p) ? '▶️ كمّل' : '▶️ يلا',
-                    kind: BtnKind.go, onTap: () => context.push('/path/${path.id}')),
-              ]),
             ),
+            const SizedBox(height: 10),
+            if (_showAll) for (final path in rest) tile(path),
+          ],
           const SizedBox(height: 4),
           Center(child: KidButton('🏠 الرئيسية', kind: BtnKind.ghost, onTap: () => context.go('/'))),
         ]),
@@ -226,7 +255,7 @@ class PathsParentCard extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            Text('${path.icon} ${path.name} (${path.ages}): ${pathStatus(path, p)}', style: kidText(15)),
+            Text('${path.icon} ${path.name} (${path.gradesText}): ${pathStatus(path, p)}', style: kidText(15)),
             if (path.skippedCount(p) > 0) Text('⏭️ خطوات اتخطّيتها: ${ar(path.skippedCount(p))}', style: body),
             if (path.current(p) case final l?)
               Text('الأسبوع ${ar(path.weeks.indexOf(path.weekOf(l)) + 1)} — ${path.weekOf(l).goal}', style: body),

@@ -1,11 +1,13 @@
 /// مسارات التعلّم: أربع أسابيع، في كل أسبوع دروس، وكل درس كام نشاط من المراحل الموجودة.
 ///
 /// الدروس بتتفتح بالترتيب. النشاط بيتحسب للدرس الحالي بس لما الطفل ينجح فيه (٨٠٪+)، من أي مكان
-/// اتلعب منه. المسارات بتغطي مهارات من KG2 للابتدائي، مع بداية للقسمة والكسور لسن ٩–١٢.
+/// اتلعب منه. المسارات بتغطي مهارات من KG2 للابتدائي، مع بداية للقسمة والكسور من رابعة لسادسة.
+/// كل مسار ليه مدى مراحل ([LearningPath.grades]): المسارات اللي على قد مرحلة الطفل بتظهر الأول.
 /// أهداف الأسابيع محتاجة مراجعة مدرّس.
 library;
 
 import 'progress/progress_data.dart';
+import 'school.dart';
 import 'stages.dart';
 
 class PathLesson {
@@ -34,7 +36,7 @@ class LearningPath {
     required this.world,
     required this.icon,
     required this.name,
-    required this.ages,
+    required this.grades,
     required this.desc,
     required this.weeks,
   });
@@ -44,8 +46,15 @@ class LearningPath {
   final String icon;
   final String name;
 
-  /// السن المقصود — للعرض بس، المسار مفتوح لأي طفل.
-  final String ages;
+  /// المراحل الدراسية المقصودة (من، لحد) — المسار مفتوح لأي طفل، بس بيتعرض الأول للمراحل دي.
+  final (String, String) grades;
+
+  /// "أولى – تالتة".
+  String get gradesText => gradeRange(grades.$1, grades.$2);
+
+  /// على قد المرحلة؟ من غير مرحلة = أيوه.
+  bool fits(String? grade) =>
+      grade == null || (gradeIndex(grade) >= gradeIndex(grades.$1) && gradeIndex(grade) <= gradeIndex(grades.$2));
   final String desc;
   final List<PathWeek> weeks;
 
@@ -116,7 +125,7 @@ const readingPath = LearningPath(
   world: 'arabic',
   icon: '📖',
   name: 'رحلة القراءة الأولى',
-  ages: '٦–٨ سنين',
+  grades: ('kg2', 'p2'),
   desc: 'من الحروف وأصواتها والحركات لحد قراءة كلمات فيها مدود، في ٤ أسابيع.',
   weeks: [
     PathWeek('الحروف وأصواتها', 'يعرف الـ٢٨ حرف بشكلهم، ويربط الحرف بأول صوت في اسم الصورة.', [
@@ -152,7 +161,7 @@ const mathPath = LearningPath(
   world: 'math',
   icon: '🔢',
   name: 'رحلة الأرقام',
-  ages: '٦–٨ سنين',
+  grades: ('kg2', 'p2'),
   desc: 'الأعداد لحد ٢٠، والترتيب والمقارنة، والجمع والطرح، في ٤ أسابيع.',
   weeks: [
     PathWeek('الأعداد لحد ٢٠', 'يعد لحد ٢٠، ويعرف العدد اللي قبل واللي بعد أي عدد.', [
@@ -187,7 +196,7 @@ const math100Path = LearningPath(
   world: 'math',
   icon: '🧱',
   name: 'رحلة الأرقام لحد ١٠٠',
-  ages: '٧–٨ سنين',
+  grades: ('p1', 'p3'),
   desc: 'الآحاد والعشرات، والعد بالقفز، والمقارنة، والجمع والطرح لحد ١٠٠، في ٤ أسابيع.',
   weeks: [
     PathWeek('الآحاد والعشرات', 'يعرف إن كل ١٠ آحاد = عشرة، ويقرأ أي عدد لحد ٩٩ كعشرات وآحاد، ويعد بالعشرات.', [
@@ -222,7 +231,7 @@ const timesPath = LearningPath(
   world: 'math',
   icon: '✖️',
   name: 'رحلة جدول الضرب',
-  ages: '٨–٩ سنين',
+  grades: ('p2', 'p4'),
   desc: 'الضرب كمجموعات متساوية، وبعدين جدول الضرب خطوة خطوة، في ٤ أسابيع.',
   weeks: [
     PathWeek('الضرب يعني مجموعات', 'يفهم الضرب كجمع مجموعات متساوية، ويحفظ جدول ٢ و ٥ و ١٠.', [
@@ -257,7 +266,7 @@ const lifePath = LearningPath(
   world: 'math',
   icon: '💰',
   name: 'رحلة الفلوس والساعة',
-  ages: '٨–٩ سنين',
+  grades: ('p2', 'p4'),
   desc: 'يعدّ الفلوس ويحسب الباقي، ويقرا الساعة بالربع وبالدقايق، في ٤ أسابيع.',
   weeks: [
     PathWeek('نعدّ الفلوس', 'يعرف الجنيه والخمسة والعشرة والعشرين والخمسين، ويعدّ فلوس لحد ١٠٠.', [
@@ -289,8 +298,8 @@ const lifePath = LearningPath(
 
 /// Introductory practice, not a complete grade 4–6 curriculum.
 const upperPrimaryPath = LearningPath(
-  id: 'math5', world: 'math', icon: '➗', name: 'رحلة القسمة والكسور', ages: '٩–١٢ سنة',
-  desc: 'بداية تدريب للسن ده: القسمة وعلاقتها بالضرب، وكسر من عدد، والكسور المتكافئة، في ٤ أسابيع.',
+  id: 'math5', world: 'math', icon: '➗', name: 'رحلة القسمة والكسور', grades: ('p4', 'p6'),
+  desc: 'بداية تدريب للمرحلة دي: القسمة وعلاقتها بالضرب، وكسر من عدد، والكسور المتكافئة، في ٤ أسابيع.',
   weeks: [
     PathWeek('القسمة عكس الضرب', 'يقسم أعدادًا من جدول الضرب من غير باقي، ويستخدم الضرب للتحقق.', [
       PathLesson('u1', 'نراجع جدول الضرب', ['timesAll']),
@@ -324,7 +333,7 @@ const grammarPath = LearningPath(
   world: 'arabic',
   icon: '🏷️',
   name: 'رحلة القواعد والفهم',
-  ages: '٩–١٢ سنة',
+  grades: ('p4', 'p6'),
   desc: 'الاسم والفعل والحرف، والمفرد والمثنى والجمع، والمذكر والمؤنث، وفهم الجملة، في ٤ أسابيع.',
   weeks: [
     PathWeek('الاسم والفعل والحرف', 'يفرّق بين الاسم والفعل والحرف في كلمة مشكولة.', [
@@ -359,7 +368,7 @@ const englishPath = LearningPath(
   world: 'english',
   icon: '📖',
   name: 'رحلة القراءة بالإنجليزي',
-  ages: '٦–٩ سنين',
+  grades: ('p1', 'p4'),
   desc: 'يقرا كلمات قصيرة، ويستخدم a و an، ويجمع الأسماء، في ٤ أسابيع.',
   weeks: [
     PathWeek('نقرا كلمات قصيرة', 'يقرا كلمات من ٣ حروف (cat, dog, sun) ويربطها بالصورة.', [
@@ -394,7 +403,7 @@ const englishGrammarPath = LearningPath(
   world: 'english',
   icon: '✍️',
   name: 'رحلة قواعد الإنجليزي',
-  ages: '٩–١٢ سنة',
+  grades: ('p4', 'p6'),
   desc: 'is و are و am، وأدوات السؤال، وتكملة الجملة بالمعنى، في ٤ أسابيع.',
   weeks: [
     PathWeek('is ولا are؟', 'يختار is أو are (و am مع I) حسب الفاعل.', [

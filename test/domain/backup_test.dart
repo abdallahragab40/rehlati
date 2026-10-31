@@ -27,7 +27,7 @@ class FailingRepo extends ProgressRepository {
   }
 }
 
-ProgressData sara() => ProgressData(name: 'سارة', age: 5, stars: 40, unlocked: ['counting', 'chooseNumber'], best: {'counting': 3})
+ProgressData sara() => ProgressData(name: 'سارة', grade: 'kg2', stars: 40, unlocked: ['counting', 'chooseNumber'], best: {'counting': 3})
   ..recordMastery('counting', 9, 10)
   ..addTime(60000);
 

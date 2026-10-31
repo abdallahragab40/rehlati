@@ -29,7 +29,7 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
   BubbleKind _sayKind = BubbleKind.no;
   int _sadTick = 0;
 
-  /// عالم الألعاب: الألعاب اللي مش لسن الطفل مستخبية ورا زرار.
+  /// المراحل اللي مش على قد مرحلة الطفل الدراسية مستخبية ورا زرار.
   bool _showAll = false;
 
   void _open(Stage s) {
@@ -69,11 +69,20 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
     final meta = worldMeta(widget.world);
     final p = ref.watch(progressProvider);
     final all = worldStages[widget.world]!;
-    // عالم الألعاب والسن معروف: المناسب لسنه الأول، والباقي ورا زرار "ألعاب تانية"
-    final age = openWorlds.contains(widget.world) ? p.age : null;
-    final fit = [for (final s in all) if (fitsAge(s, age)) s];
-    final rest = [for (final s in all) if (!fitsAge(s, age)) s];
+    // اللي على قد مرحلة الطفل الأول، والباقي ورا زرار: الألعاب بسن المرحلة، والمواد بصف المجموعة.
+    // المرحلة اللي الطفل وصلها بالترتيب أو لعبها بتفضل ظاهرة حتى لو أعلى من صفه.
+    final open = openWorlds.contains(widget.world);
+    final en = widget.world == 'english';
+    bool reached(Stage s) => !open && (p.unlocked.contains(s.id) || p.best.containsKey(s.id) || p.skipped.contains(s.id));
+    bool shown(Stage s) => p.settings.dev || fitsGrade(s, p.grade) || reached(s);
+    final fit = [for (final s in all) if (shown(s)) s];
+    final rest = [for (final s in all) if (!shown(s)) s];
     final stages = [...fit, if (_showAll) ...rest];
+    final (more, hide, restTitle) = open
+        ? ('🎮 ألعاب تانية', '🔼 خبّي الألعاب التانية', '🎮 ألعاب لمراحل تانية')
+        : en
+            ? ('📚 Higher grades', '🔼 Hide higher grades', '📚 Higher grades')
+            : ('📚 مراحل الصفوف الأعلى', '🔼 خبّي مراحل الصفوف الأعلى', '📚 مراحل الصفوف الأعلى');
     return ScreenFrame(
       onBack: () => context.back(),
       title: 'المستوى ${ar(p.level(widget.world))}',
@@ -93,11 +102,11 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 26),
               child: Column(children: [
-                if (age != null) _GroupHeader('🎯 ألعاب مناسبة لسن ${ar(age)} ${yearsWord(age)}'),
+                if (open && p.grade != null && rest.isNotEmpty) _GroupHeader('🎯 على قد ${gradeName(p.grade!)}'),
                 for (var i = 0; i < stages.length; i++) ...[
-                  if (age != null && i == fit.length) ...[
-                    _MoreGames(shown: true, count: rest.length, onTap: () => setState(() => _showAll = false)),
-                    const _GroupHeader('🎮 ألعاب لسن تاني'),
+                  if (rest.isNotEmpty && i == fit.length) ...[
+                    _MoreStages(label: hide, onTap: () => setState(() => _showAll = false)),
+                    _GroupHeader(restTitle),
                   ],
                   // عنوان مجموعة (زي المدود) بيظهر مرة قبل أول مرحلة فيها
                   if (stages[i].group != null &&
@@ -126,7 +135,7 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
                   ),
                 ],
                 if (rest.isNotEmpty && !_showAll)
-                  _MoreGames(shown: false, count: rest.length, onTap: () => setState(() => _showAll = true)),
+                  _MoreStages(label: '$more (${ar(rest.length)})', onTap: () => setState(() => _showAll = true)),
               ]),
             ),
           ]),
@@ -167,7 +176,7 @@ class _StageCard extends StatelessWidget {
   });
   final Stage stage;
 
-  /// ترتيبها على الخريطة (عالم الألعاب بيقدّم المناسب للسن، فممكن يختلف عن [Stage.n]).
+  /// ترتيبها على الخريطة (الخريطة بتقدّم اللي على قد مرحلة الطفل، فممكن يختلف عن [Stage.n]).
   final int number;
   final bool open;
   final int medals;
@@ -244,17 +253,16 @@ class _StageCard extends StatelessWidget {
   }
 }
 
-/// "ألعاب تانية (١٢)" — الألعاب اللي سنها مختلف، مستخبية لحد ما حد يطلبها.
-class _MoreGames extends StatelessWidget {
-  const _MoreGames({required this.shown, required this.count, required this.onTap});
-  final bool shown;
-  final int count;
+/// "ألعاب تانية (١٢)" أو "مراحل الصفوف الأعلى (٢٠)" — اللي مش على قد مرحلة الطفل، مستخبي لحد ما حد يطلبه.
+class _MoreStages extends StatelessWidget {
+  const _MoreStages({required this.label, required this.onTap});
+  final String label;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.only(bottom: 18),
-        child: KidButton(shown ? '🔼 خبّي الألعاب التانية' : '🎮 ألعاب تانية (${ar(count)})', kind: BtnKind.ghost, onTap: onTap),
+        child: KidButton(label, kind: BtnKind.ghost, onTap: onTap),
       );
 }
 

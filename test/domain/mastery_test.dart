@@ -74,7 +74,7 @@ void main() {
 
   group('difficulty', () {
     test('a parent starting level overrides the age floor', () {
-      final p = ProgressData(age: 6);
+      final p = ProgressData(grade: 'p1');
       expect(p.ageLevel, 3);
       p.settings.startLevel = 1;
       expect(p.ageLevel, 1);
@@ -82,7 +82,7 @@ void main() {
     });
 
     test('a subject level overrides the overall start level in that world only', () {
-      final p = ProgressData(age: 6)..settings.startLevel = 2;
+      final p = ProgressData(grade: 'p1')..settings.startLevel = 2;
       p.settings.worldLevel['english'] = 1;
       p.settings.worldLevel['math'] = 3;
       expect([p.startLevelIn('english'), p.startLevelIn('math'), p.startLevelIn('arabic'), p.startLevelIn(null)], [1, 3, 2, 2]);
@@ -99,7 +99,7 @@ void main() {
     test('a round starts from the subject level the parent chose', () async {
       final c = await makeContainer();
       c.read(progressProvider.notifier).update((p) => p
-        ..age = 6
+        ..grade = 'p1'
         ..settings.worldLevel['math'] = 1);
       c.read(gameProvider.notifier).start('counting');
       expect(c.read(gameProvider)!.level, 1, reason: 'age 6 alone would start counting at level 2');
@@ -107,7 +107,7 @@ void main() {
 
     test('two weak rounds start the next round at the easiest level, even for an older child', () async {
       final c = await makeContainer();
-      c.read(progressProvider.notifier).update((p) => p.age = 6);
+      c.read(progressProvider.notifier).update((p) => p.grade = 'p1');
       final engine = c.read(gameProvider.notifier)..start('counting');
       expect(c.read(gameProvider)!.level, 2, reason: 'age 6 normally starts one above the stage base');
 

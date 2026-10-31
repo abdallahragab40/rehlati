@@ -96,7 +96,7 @@ void main() {
     // أخ جديد من لوحة ولي الأمر على جهاز من قبل الترحيب
     await pumpHome(tester, {
       ProgressRepository.profilesKey: jsonEncode({'active': 'c1', 'ids': ['main', 'c1']}),
-      ProgressRepository.key: jsonEncode({'name': 'يوسف', 'setupDone': true}),
+      ProgressRepository.key: jsonEncode({'name': 'يوسف', 'setupDone': true, 'grade': 'kg2'}),
     });
     expect(find.byType(SetupScreen), findsOneWidget);
     expect(find.byType(IntroScreen), findsNothing);
@@ -130,8 +130,8 @@ void main() {
     expect(prefs.getBool(IntroController.key), isTrue);
 
     await tester.enterText(find.byType(TextField), 'يوسف');
-    await tester.ensureVisible(find.text('٥'));
-    await tap(tester, '٥');
+    await tester.ensureVisible(find.text('KG2'));
+    await tap(tester, 'KG2');
     await tester.ensureVisible(find.text('🚀 يلا نبدأ'));
     await tap(tester, '🚀 يلا نبدأ');
     expect(find.byType(DashboardScreen), findsOneWidget);
