@@ -132,16 +132,22 @@ abstract final class QuranConfig {
   /// شاشة التحقق بتقارن المصدرين حرف بحرف — من غير تخزين.
   static final checkSources = <TextSource>[quranCom, cloud];
 
-  /// تلاوات مرتّلة معروفة ومعتمدة فقط.
+  /// تلاوات مرتّلة معروفة ومعتمدة فقط. الأول هو الأساسي (و[reciter] بيرجعله لو القارئ المحفوظ اتشال).
   static const reciters = <Reciter>[
-    Reciter('husary', 'الشيخ محمود خليل الحصري', 'Husary_128kbps'),
-    Reciter('abdulbasit', 'الشيخ عبد الباسط عبد الصمد (مرتّل)', 'Abdul_Basit_Murattal_192kbps'),
+    Reciter('minshawy_teacher', 'الشيخ محمد صديق المنشاوي (مع ترديد الأطفال)', 'Minshawy_Teacher_128kbps', teacher: true),
     Reciter('minshawy', 'الشيخ محمد صديق المنشاوي (مرتّل)', 'Minshawy_Murattal_128kbps'),
-    Reciter('minshawy_teacher', 'المنشاوي — المعلّم (مع ترديد الأطفال)', 'Minshawy_Teacher_128kbps', teacher: true),
+    Reciter('husary', 'الشيخ محمود خليل الحصري', 'Husary_128kbps'),
     Reciter('husary_muallim', 'الحصري — المعلّم (مع الترديد)', 'Husary_Muallim_128kbps', teacher: true),
+    Reciter('abdulbasit', 'الشيخ عبد الباسط عبد الصمد (مرتّل)', 'Abdul_Basit_Murattal_192kbps'),
   ];
 
-  static const defaultReciter = 'husary';
+  /// القارئ الأساسي في كل أنشطة القرآن: المنشاوي المعلّم — الشيخ بيقرأ الآية والأطفال بيرددوا وراه.
+  /// ولي الأمر أو الطفل يقدر يغيّره من شاشة السورة، والاختيار بيتحفظ.
+  static const defaultReciter = 'minshawy_teacher';
+
+  /// لو تلاوة المعلّم مش متاحة (نت ضعيف أو الملف ناقص): المنشاوي المرتّل — نفس صوت الشيخ من غير ترديد.
+  /// لازم يكون قارئ مش teacher عشان البديل مايرجعش لنفسه.
+  static const fallbackReciter = 'minshawy';
 
   /// سرعة التلاوة: نفس تسجيل الشيخ أبطأ ومن غير ما طبقة صوته تتغيّر — عشان الطفل يلحق يسمع
   /// ويردّد. مفيش تلاوة مولّدة: الأبطأ هو التسجيل نفسه.

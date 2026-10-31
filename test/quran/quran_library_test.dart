@@ -82,6 +82,18 @@ void main() {
       return c;
     }
 
+    test('Minshawy with children repeating is the default, and its fallback is the same sheikh without repeating', () async {
+      final r = container().read(reciterProvider);
+      expect([r.reciter, r.repeat], ['minshawy_teacher', 'minshawy_teacher']);
+      expect(QuranConfig.reciter(r.reciter).folder, 'Minshawy_Teacher_128kbps');
+      expect(QuranConfig.reciter('removed-reciter').id, 'minshawy_teacher');
+      final fallback = QuranConfig.reciter(QuranConfig.fallbackReciter);
+      expect([fallback.id, fallback.teacher], ['minshawy', false], reason: 'a teacher fallback would retry itself forever');
+      // اختيار قديم محفوظ بيفضل زي ما هو
+      await prefs.setString('rehlati.reciter', 'husary');
+      expect(container().read(reciterProvider).reciter, 'husary');
+    });
+
     test('the recitation speed is kept, and an unknown saved speed falls back to normal', () async {
       expect(container().read(reciterProvider).speed, 1.0);
       container().read(reciterProvider.notifier).setSpeed(.75);

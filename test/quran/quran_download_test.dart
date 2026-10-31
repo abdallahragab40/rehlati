@@ -122,7 +122,7 @@ void main() {
     await c.read(quranDownloadProvider.notifier).start(juz);
     final s = c.read(quranDownloadProvider)!;
     expect([s.phase, s.done, s.total, s.failed], [DownloadPhase.complete, total, total, 0]);
-    expect(downloadLabel(s), allOf(contains('✅'), contains('الحصري')));
+    expect(downloadLabel(s), allOf(contains('✅'), contains('المنشاوي (مع ترديد الأطفال)')));
   });
 
   test('cancel after the first ayah is cancelled, not offline-ready, and retry fetches only the rest', () async {

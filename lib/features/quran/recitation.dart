@@ -89,7 +89,7 @@ class RecitationPlayer {
       if (r.teacher) {
         onIssue?.call(RecitationIssue.teacherFallback);
         await play(
-            surah: surah, ayah: ayah, reciterId: QuranConfig.defaultReciter, speed: speed, onEnd: onEnd, onIssue: onIssue);
+            surah: surah, ayah: ayah, reciterId: QuranConfig.fallbackReciter, speed: speed, onEnd: onEnd, onIssue: onIssue);
       } else {
         onIssue?.call(RecitationIssue.network);
       }
