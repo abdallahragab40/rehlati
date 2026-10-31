@@ -36,6 +36,7 @@ e_ac976f4f	Apple starts with A
 e_af4b45e3	Apple.
 e_98dbac97	April
 e_73960517	Are there any apples?
+e_822b729b	Art and artists.
 e_1cfa7bb1	At five, she could ride a bike.
 e_2680df31	At seven o'clock.
 e_e8928bea	At the doctor's.
@@ -111,6 +112,8 @@ e_afef4a62	Birds can fly.
 e_2b043744	Black
 e_e9dd1fed	Blue
 e_28742158	Book
+e_516318c2	Both
+e_f8a666ff	Both Ali and Omar like painting.
 e_bc5e79a5	Brother
 e_02b8b9cf	Brown
 e_c4da6e99	Bus
@@ -136,6 +139,7 @@ e_214fbe24	Choose the right sentence.
 e_ec80ff8b	Choose the right word.
 e_812746a9	Circle
 e_9b69ae09	Come to school early
+e_c35d27e4	Community builders.
 e_8936d342	Complete the alphabet.
 e_a0071590	Complete the sentence.
 e_31fbcfd3	Complete the word Apple
@@ -177,6 +181,7 @@ e_df593b47	Diamond
 e_3c6928de	Did
 e_a766d195	Did she visit her grandma last week?
 e_2260b2d3	Did you play football yesterday?
+e_cc8877f5	Did you use to play outside?
 e_61ceb934	Do
 e_81b0569f	Do you help your neighbors?
 e_4af5c4f3	Do you want tea or juice?
@@ -197,7 +202,9 @@ e_d564a4a5	E and e are the same letter
 e_5e48c484	E is for Elephant
 e_cb731c53	Ear
 e_f7ee9777	Earth
+e_8b8a5ad0	Egypt used to make cloth by hand.
 e_a6f50710	Eight
+e_8b582b34	Either
 e_8d91d924	Elephant
 e_b499cc24	Elephant starts with E
 e_e698aabe	Elephant.
@@ -289,14 +296,20 @@ e_4e1938f9	H and h are the same letter
 e_2ef52cde	H is for House
 e_44e67b40	Hand
 e_41bda2f1	Happy
+e_5049a783	Has
 e_5549af62	Hat
 e_8efef4a4	Hat.
+e_75fa501b	Have
+e_0bea8a2c	Have you ever seen a mummy?
 e_5beb31d6	He
+e_174b0dea	He / she / it has + done.
+e_d782e27c	He / she is able to.
 e_da71d1d4	He / she is going to.
 e_eb972755	He brushes his teeth every night.
 e_79de974d	He didn't go to school yesterday.
 e_7ca37edd	He does not like them
 e_9e24892b	He doesn't like fish.
+e_c500c335	He has never been to Aswan.
 e_b0d230ec	He has to see a doctor.
 e_51663390	He is a boy, she is a girl, it is an animal or a thing, they are more than one
 e_c45c3d70	He is going to play football this evening.
@@ -304,8 +317,10 @@ e_58ab8e4e	He is happy.
 e_94a998a4	He is my brother.
 e_124be4e2	He is my grandfather.
 e_0b906b2e	He is sick.
+e_b7dd4c6f	He is the boy whose bike is red.
 e_f644c559	He is washing his hands.
 e_5bbe56dd	He loves his dog.
+e_04303f40	He neither sings nor dances.
 e_cdb02902	He never drinks soda.
 e_efff2e2b	He was born in 2015.
 e_4947f453	He was sick
@@ -340,9 +355,12 @@ e_7436c554	How old is Adam?
 e_cc0c0364	I
 e_9f03e186	I .
 e_7a7bcb59	I / you / we / they don't, Do.
+e_899e108f	I / you / we / they have + done.
 e_f5e08b81	I / you / we / they have to.
 e_a29b2d21	I always brush my teeth before bed.
 e_d5420724	I am a student.
+e_626d20e7	I am able to swim very fast.
+e_f09ca153	I am able to.
 e_47575019	I am doing my homework.
 e_0f112b05	I am going to.
 e_22692a83	I am hungry.
@@ -352,11 +370,13 @@ e_8200b505	I and i are the same letter
 e_548d43c4	I drink milk every morning.
 e_66cba655	I have some cookies.
 e_18411f1e	I have to brush my teeth every day.
+e_2fc638c4	I have visited Luxor three times.
 e_317e8df2	I is for Ice cream
 e_2dd9e281	I learned to swim last year.
 e_251801f3	I like apples and bananas.
 e_6fffc4e6	I like cats, but I don't like dogs.
 e_65cdbc0d	I love my mom.
+e_d6bce8eb	I met a girl who loves sculpture.
 e_3e04e5dc	I my, he his, she her.
 e_07d11789	I see with my eyes.
 e_a635e2b8	I sleep at night.
@@ -366,6 +386,11 @@ e_a82074cf	I write with a pencil.
 e_90852ebe	Ice cream
 e_c6b6765a	Ice cream starts with I
 e_11a84cb0	Ice cream.
+e_4f1ecfea	If + present simple, … will + verb.
+e_b06ad7d9	If it rains, we will stay at home.
+e_6221a891	If she studies hard, she will pass.
+e_24aa538c	If we miss the bus, we will be late.
+e_4f32b88d	If you take the metro, you will arrive early.
 e_66208c4e	In Cairo
 e_4d4cfe78	In London
 e_d77a32b7	In a canoe
@@ -535,6 +560,7 @@ e_c80bfd18	M
 e_ec075672	M .
 e_bd311f45	M and m are the same letter
 e_c963a8b8	M is for Moon
+e_e9f00dd2	Made in Egypt.
 e_75621ac7	Many things: the + -est (the biggest).
 e_c0846390	March
 e_6acfc014	Match each big letter with its small letter
@@ -558,6 +584,7 @@ e_602bbb69	My dad drinks coffee in the morning.
 e_d8a6a833	My dad goes to work every day.
 e_9e79e2fd	My father drives a car.
 e_035dca8c	My friends are happy.
+e_a52bb804	My grandpa used to travel by train, but now he drives.
 e_4b677c4a	My mother is a doctor.
 e_eb2f60d5	My name is Omar.
 e_039ea1a7	My sister plays every day.
@@ -565,6 +592,8 @@ e_cb0c01d1	N
 e_b4bb8337	N .
 e_39808b41	N and n are the same letter
 e_008a90b3	N is for Nose
+e_b0862b48	Neither
+e_d7a988cb	Neither my mom nor my dad likes coffee.
 e_defd20ab	Nest
 e_8d7a315f	Nest.
 e_746b79e4	Next week they are going to travel to Luxor.
@@ -601,6 +630,7 @@ e_175e9119	P and p are the same letter
 e_219f69c0	P is for Pizza
 e_d4509490	Pen
 e_f8da271a	Pen.
+e_fb015c54	People didn't use to have phones long ago.
 e_cd478f2f	Pig
 e_28a61e93	Pig.
 e_8bb8038d	Pink
@@ -648,10 +678,14 @@ e_c212b600	September
 e_db3f1e9e	Seven
 e_4bb89181	She
 e_a0ae1259	She can play the piano very well.
+e_4d8d4a92	She has finished her homework.
 e_7f212b51	She has to wear a uniform at school.
+e_9c97540f	She is able to speak three languages.
+e_a1158628	She is both talented and kind.
 e_2dfd7bec	She is brushing her hair.
 e_e4ca857d	She is going to pack her suitcase.
 e_a410f038	She is my grandmother.
+e_766b3a49	She is the artist whose painting won.
 e_6161e4e1	She is tired.
 e_3843da59	She learned at four.
 e_418ceec7	She loves her cat.
@@ -896,7 +930,10 @@ e_f9325e0f	The house is next to the car.
 e_d9413639	The house is next to the cat.
 e_7568b367	The house is next to the dog.
 e_7400a7fb	The house is next to the tree.
+e_d2c312de	The man who invented the clock was clever.
 e_9013038b	The monkeys were funny
+e_d51aa4d7	The museum which we visited was huge.
+e_290379ef	The paramedic is able to help people quickly.
 e_867cf737	The park was closed
 e_e3098bfa	The party is on Friday.
 e_f650bee1	The phone is new, but it doesn't work.
@@ -942,18 +979,24 @@ e_00eb007a	The wind was strong
 e_766f4126	The word is "Earth".
 e_04ae5b15	The word is "alien".
 e_3084062c	The word is "ambulance".
+e_b99ba7dc	The word is "amulet".
 e_d5920bc1	The word is "astronaut".
 e_d197f862	The word is "balloons".
 e_2492b3f0	The word is "bandage".
 e_76cac444	The word is "bread".
+e_9ed1aef8	The word is "bricks".
+e_a65c7ead	The word is "cable car".
 e_9ee9b6e6	The word is "cake".
 e_0cee725c	The word is "candles".
+e_b6b5a856	The word is "canvas".
 e_dd0ea7d3	The word is "cheese".
 e_c4f42a81	The word is "city".
+e_9bb5ba43	The word is "clay".
 e_2b7dd0a2	The word is "comet".
 e_60317dfd	The word is "cookies".
 e_c07f75a7	The word is "desert".
 e_6f648c65	The word is "drought".
+e_bfc6f5b0	The word is "elevator".
 e_50b8803c	The word is "fever".
 e_aac65340	The word is "fireworks".
 e_01d02696	The word is "flood".
@@ -961,18 +1004,28 @@ e_fc098edf	The word is "forest".
 e_cf33d901	The word is "fries".
 e_e48d466e	The word is "galaxy".
 e_e021c630	The word is "gift".
+e_6f7db288	The word is "gold".
 e_cb6c618f	The word is "headache".
 e_4641b219	The word is "honey".
 e_74936b77	The word is "injection".
 e_c4e78908	The word is "lightning".
 e_16cc4aa5	The word is "lollipop".
+e_105f4222	The word is "luggage".
+e_0cd869ec	The word is "map".
 e_51d1fb8a	The word is "medicine".
+e_9f70a763	The word is "metro".
+e_c898a23d	The word is "monorail".
 e_bbd06e3b	The word is "moon".
 e_f8d6e43d	The word is "mountain".
+e_3e4cd5ba	The word is "museum".
 e_cc46c5c5	The word is "music".
 e_103a467a	The word is "nuts".
 e_55ba7bf3	The word is "oasis".
+e_cda7bbde	The word is "paintbrush".
+e_847d8369	The word is "palette".
+e_ca85dee4	The word is "papyrus".
 e_51e4e8be	The word is "party".
+e_96b8d2ac	The word is "passport".
 e_d7291848	The word is "planet".
 e_5b640b64	The word is "pollution".
 e_2971b654	The word is "rainbow".
@@ -981,13 +1034,19 @@ e_23c9e376	The word is "ribbon".
 e_f8d0f893	The word is "rice".
 e_e00cc72c	The word is "river".
 e_5ca843ea	The word is "rocket".
+e_123ec225	The word is "sculpture".
 e_789cb2ed	The word is "sea".
+e_efb235ca	The word is "sketch".
 e_ed0f6c57	The word is "soda".
 e_3f85e8cd	The word is "soup".
 e_9c1184e2	The word is "star".
+e_8d7b68eb	The word is "stone".
 e_8a52a6ef	The word is "storm".
 e_cb4db74f	The word is "sweets".
+e_a19aa9cf	The word is "temple".
+e_854ea5eb	The word is "tent".
 e_63f09b3e	The word is "thermometer".
+e_5de56516	The word is "ticket".
 e_af15a3e4	The word is "tooth".
 e_158e4bbf	The word is "tornado".
 e_f388d20a	The word is "vegetables".
@@ -1026,6 +1085,7 @@ e_31ddafd6	There aren't any eggs.
 e_63077bb1	There is some milk in the fridge.
 e_584f211f	They
 e_6576e5de	They are T-shirt.
+e_5bd734f0	They are able to fix the car.
 e_f120ba9c	They are at school.
 e_c6539b97	They are bad for his teeth
 e_287c04f4	They are dress.
@@ -1044,6 +1104,7 @@ e_dcbb3aef	They feel scared.
 e_83537e02	They feel surprised.
 e_0d0eea23	They feel tired.
 e_b297e7ff	They go to school by bus.
+e_7d37cade	They have discovered a new tomb.
 e_762413f6	They have to be quiet in the library.
 e_3bcfc3a9	They sometimes play chess.
 e_ff6c48d0	Think about what fits
@@ -1058,6 +1119,15 @@ e_9d10e63f	This is a photographer.
 e_8ada51e4	This is a pilot.
 e_0c9e9956	This is a police officer.
 e_c2a6a254	This is a teacher.
+e_7fe00262	This is for a architect.
+e_e69d6685	This is for a delivery worker.
+e_5b30789f	This is for a mechanic.
+e_698b9f0f	This is for a paramedic.
+e_c48ca58a	This is for a street cleaner.
+e_68902c90	This is for a tailor.
+e_511c855e	This is for a traffic officer.
+e_5c35fbfd	This is for a water engineer.
+e_12db9bcf	This is the gadget which tells the time.
 e_d400831d	This stage is locked.
 e_2e430863	Three
 e_99eb4fd7	Thursday
@@ -1120,6 +1190,7 @@ e_46c8aabe	Trace the letter w
 e_41c8a2df	Trace the letter x
 e_40c8a14c	Trace the letter y
 e_43c8a605	Trace the letter z
+e_7a2d07cd	Travel and transport.
 e_edb780f5	Tree
 e_1c5b77d6	Tree starts with T
 e_12dfd8c1	Tree.
@@ -1156,15 +1227,19 @@ e_ec266ec8	Watch
 e_e59293e6	Watch starts with W
 e_a6809412	Watch.
 e_d63556b0	Water
+e_0e2ac7e5	We / they are able to.
 e_f17808a7	We / they are going to.
+e_2d0963f9	We are able to build a robot.
 e_3785616a	We are going to camp at the beach.
 e_8ec0fde4	We are in the garden.
 e_16a09a29	We can count apples.
 e_326c8000	We can not count water.
 e_c28e07eb	We clean in class.
+e_b7403cbc	We didn't use to have electric buses, but now we do.
 e_a8875bf8	We didn't watch TV last night.
 e_daaad4ba	We draw in class.
 e_f1f72d78	We have English on Monday.
+e_a623fe7e	We have just eaten lunch.
 e_4b1efe55	We have to do our homework.
 e_208d8737	We listen in class.
 e_9a99eae3	We need some bread.
@@ -1176,6 +1251,7 @@ e_021c0405	We sleep at night.
 e_372b0cb7	We sometimes eat pizza.
 e_b5b2b4de	We stand in class.
 e_bf799f09	We visit our grandma on Fridays.
+e_5b8bfa23	We will go either to the museum or to the zoo.
 e_e49eff5d	We write in class.
 e_e8239b77	Wednesday
 e_0815494f	What
@@ -1368,6 +1444,7 @@ e_12b4fdd9	Who is that boy?
 e_51157d8f	Who is your teacher?
 e_32f9f640	Who saw the picture?
 e_79d6b13a	Who took pictures?
+e_6a11ed28	Who uses this?
 e_7b8038d9	Why
 e_5f7fac49	Why are you sad?
 e_f0f14097	Why did Mona stay at home?
@@ -1405,6 +1482,7 @@ e_126d9622	Yesterday, they clapped their hands.
 e_b149287f	Yesterday, they saw a lion at the zoo.
 e_f4198c2a	Yesterday, we cleaned our room.
 e_73d1dab9	You bumped into someone.
+e_28dfb54a	You can have either tea or juice.
 e_ff04aa50	You meet your friend.
 e_21885187	You must wear a helmet on a bike.
 e_6afd2661	You must wear a seat belt.
@@ -1417,6 +1495,7 @@ e_f64472b0	You shouldn't swim alone in the sea.
 e_21abfa88	You shouldn't touch the corals.
 e_a1a0543f	You wake up in the morning.
 e_760537bd	You want a cookie.
+e_8a096a37	You will feel better if you drink water.
 e_a52c336c	Your friend gives you a gift.
 e_d980a17f	Your friend is going home.
 e_df0c214d	Z
@@ -1452,8 +1531,10 @@ e_4dbe4082	a...
 e_6030e10c	alien
 e_6736afe4	always
 e_4024f153	am
+e_e0b958d6	am able to
 e_b3157636	am going to
 e_8ff9071d	ambulance
+e_6d4822db	amulet
 e_4124f2e6	an
 e_81422ea3	an ant
 e_f50f4766	an apple
@@ -1472,7 +1553,9 @@ e_10bc2abf	apple
 e_e9370243	apple.
 e_6a4dc167	applees
 e_24375f24	apples
+e_0a474554	architect
 e_406f344d	are
+e_37131cb8	are able to
 e_a7e78d18	are going to
 e_e2e2878e	are hunting
 e_ce3bc1e8	are studying
@@ -1515,11 +1598,14 @@ e_b72d77d8	board games
 e_c1948a38	book
 e_bf968f7c	bookes
 e_07d5b411	books
+e_ea81eea2	both
+e_c06414e5	both … and = the two.
 e_66a9cf89	bottle
 e_70c67e32	box
 e_514c98f2	boxes
 e_c978c053	boxs
 e_c8647fe5	bread
+e_e30bcf0b	bricks
 e_fac46df3	brush
 e_c4f6b883	brushes
 e_a67ad325	brushing
@@ -1540,6 +1626,7 @@ e_221bdc30	butterflies
 e_03d5b964	butterfly
 e_20725f35	butterflys
 e_e60c2c52	c
+e_7bcf1d1c	cable car
 e_8aea8859	cake
 e_2634d355	cake.
 e_b3f184a9	call
@@ -1551,6 +1638,7 @@ e_684ba472	can = it is able to.
 e_ed786bd6	can't
 e_3ba5a4d8	can't = it is not able to.
 e_8b44e2f1	candles
+e_83172271	canvas
 e_027455bb	cap
 e_047458e1	car
 e_e272d977	carpenter
@@ -1574,6 +1662,7 @@ e_0dc48142	city
 e_4324fd83	clap
 e_9aaf36a0	clapped
 e_a33bc0d0	claps
+e_4a250888	clay
 e_506dff3e	clean
 e_cd84ee3f	cleaned
 e_ea28e637	cleans
@@ -1596,9 +1685,11 @@ e_fa56340f	cup
 e_f6562dc3	cut
 e_d3277542	cycling
 e_e10c2473	d
+e_ccad7c6d	delivery worker
 e_2cb41ebc	desert
 e_d762953e	did
 e_63ea0393	didn't
+e_f3a1d109	didn't use to
 e_d66293ab	dig
 e_547125cb	dining room
 e_621cd814	do
@@ -1641,6 +1732,9 @@ e_53f42ecf	eighty-seven
 e_a615b442	eighty-six
 e_f9db5d72	eighty-three
 e_cf88e810	eighty-two
+e_9b80f214	either
+e_85626868	either … or = one of the two.
+e_1608c7b7	elevator
 e_8ff53680	eleven
 e_9c3dd718	engineer
 e_bf6b048f	every day, always = present simple.
@@ -1741,6 +1835,7 @@ e_b442dbd3	gift.
 e_4220774b	go
 e_09784e5b	goes
 e_0b4ec68d	going
+e_ec66d793	gold
 e_38351db3	guh
 e_f1b77675	guh, guh
 e_c94cf063	guh, guh, Gift
@@ -1751,8 +1846,10 @@ e_ebbf0cbd	ham
 e_c4ba2f20	hand
 e_bf18130a	hand.
 e_99863551	happy
+e_edbf0fe3	has
 e_3a24bd48	has to
 e_f2bf17c2	hat
+e_f5ce03fb	have
 e_59b0d680	have to
 e_0768518d	he / she / it add -s: she plays.
 e_eb1f2e4c	he / she / it doesn't, Does.
@@ -1778,6 +1875,7 @@ e_41387a9e	in
 e_64fb3e71	in + month, season, year.
 e_9bf64102	injection
 e_4e388f15	is
+e_1e268320	is able to
 e_63153435	is drinking
 e_cc7ecb2b	is going
 e_2f933df0	is going to
@@ -1814,25 +1912,31 @@ e_6abadd2d	lll, lll, Leaf
 e_14f565a7	lll, lll, Lion
 e_3f515151	log
 e_89ceec8a	lollipop
+e_2451943b	luggage
 e_e80c2f78	m
 e_e9a2ff6f	man
 e_dfa2efb1	map
 e_e7774569	mask
 e_a7c20ec5	mask.
+e_7c38b8cf	mechanic
 e_a1e5de1d	medicine
 e_c9ad5a6b	men
+e_ba85df6a	metro
 e_5a69615f	mice
 e_888e7aa2	milk
 e_844aea64	milk.
+e_689219d9	miss
 e_462e4c5f	mmm, mmm
 e_d3d6ce74	mmm, mmm, Milk
 e_a7eb16c2	mmm, mmm, Moon
+e_ec956f1e	monorail
 e_f184ae40	moon
 e_d39e5f9f	mop
 e_a45b05cc	motorcycle
 e_49cbe0a2	mountain
 e_592318c4	mouse
 e_093fe815	mouses
+e_b4816015	museum
 e_9f9c4fd4	music
 e_c508c328	must
 e_9b09a79f	must = you have to.
@@ -1840,6 +1944,8 @@ e_5cb7f3a1	mustn't
 e_f2e687fb	mustn't / Don't = no!
 e_4c2dfe93	my
 e_eb0c3431	n
+e_992a04a8	neither
+e_e71b868e	neither … nor = not this and not that.
 e_25999158	net
 e_0ac95089	never
 e_fee13031	next to
@@ -1876,11 +1982,16 @@ e_249fdfc3	on + day.
 e_2ba4b5cb	one hundred
 e_5d342984	or
 e_f50c43ef	p
+e_b9f6a871	paintbrush
 e_3e936f65	painting
+e_f4ece2a0	palette
 e_4f55eeec	pan
 e_de2337e1	pants
+e_56503bf9	papyrus
+e_4be99cc7	paramedic
 e_63780eb9	park
 e_5e3dad97	party
+e_604808e3	passport
 e_784ba21b	peg
 e_6f4b93f0	pen
 e_78627a04	pencil
@@ -1940,6 +2051,7 @@ e_2bc6687d	salt.
 e_d71c946a	saw
 e_3f32c75d	scared
 e_9f519cc9	school
+e_e3b0a834	sculpture
 e_b926f28c	sea
 e_b526ec40	see
 e_5f45d449	sees
@@ -1980,6 +2092,7 @@ e_f90981eb	sixty-two
 e_3a0ffee1	skate
 e_362e1fdd	skate.
 e_222af732	skating
+e_5488dd89	sketch
 e_7cad5f3b	sled
 e_59ecae0f	sled.
 e_978522a1	sleeps
@@ -2010,8 +2123,11 @@ e_2006a216	sss...
 e_75493323	stand
 e_d13b2f71	star
 e_bf2b928d	star.
+e_c81958fa	stone
 e_bfe7af96	storm
 e_7665043e	street
+e_1241baac	street cleaner
+e_b3e86c36	studies
 e_ee4a05ee	study
 e_dd4e3aa8	sum
 e_fce32734	summer
@@ -2025,13 +2141,16 @@ e_5584392f	sweet
 e_fb264bd4	sweets
 e_81f4ae28	swimming
 e_f10c3da3	t
+e_82d32a22	tailor
 e_112cdf96	tall
 e_b2085c21	taller
 e_0e5e77a9	taxi
 e_03274595	teacher
 e_c944ea21	teeth
+e_090f523c	temple
 e_bd01f454	ten
 e_1c11f8a2	tennis
+e_aa134e60	tent
 e_b40eb21c	the
 e_21c164ef	the beach
 e_44f6d969	the biggest
@@ -2072,11 +2191,13 @@ e_1b29a590	three watches
 e_d7f82e17	three.
 e_f3ac9ae3	thumb
 e_65b7b0b7	thumb.
+e_6517b3e5	ticket
 e_720c3fd5	tired
 e_42454824	to
 e_0a0a25b5	tooth
 e_93f976b2	tooths
 e_741c818a	tornado
+e_17393a00	traffic officer
 e_78556c69	train
 e_f542bdc8	truck
 e_9b28ce3e	tuh
@@ -2116,6 +2237,8 @@ e_f00c3c10	u
 e_f7a99176	u...
 e_ab7fd931	uncountable
 e_89193acd	under
+e_eb292d59	used to
+e_ab96d85e	used to = something in the past that is not true now.
 e_0391d612	usually
 e_f30c40c9	v
 e_9625faa2	van
@@ -2134,10 +2257,21 @@ e_5fb7b228	watch
 e_aceae80c	watches
 e_092dc541	watchs
 e_49c69a10	water
+e_4c1f5035	water engineer
 e_61a4cf9a	water.
 e_5c47afa9	we
 e_d8b9cf23	went
+e_08d2ece2	which
+e_56378e54	which = a thing.
+e_2af42a8f	who
+e_6e84a596	who = a person.
+e_d599e703	whose
+e_585e43b5	whose = belongs to.
 e_d798f3e9	wildfire
+e_10106d8d	will
+e_dc00840b	will drink
+e_6edd9403	will miss
+e_929c4da0	will study
 e_1af8295a	windy
 e_c4bb620c	winter
 e_be269f5c	write

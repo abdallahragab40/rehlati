@@ -22,6 +22,8 @@ import 'generators/grade4_arabic_generators.dart';
 import 'generators/grade4_math_generators.dart';
 import 'generators/grade5_arabic_generators.dart';
 import 'generators/grade5_math_generators.dart';
+import 'generators/grade6_arabic_generators.dart';
+import 'generators/grade6_math_generators.dart';
 import 'generators/school_english_generators.dart';
 import 'generators/school_math_generators.dart';
 import 'generators/term2_arabic_generators.dart';
@@ -508,6 +510,43 @@ final _en5 = _grp('english', 'en5', 'Grammar from school • Grade 5', 0xFF1B3F7
   ('en_hobbies', '🎨', 'Hobbies', 2, enHobbiesGame),
 ], after: 'en_present', lang: 'en');
 
+/// عربي سادسة ابتدائي — بعد «الاسم المجرور»، حتى للتقدّم القديم.
+final _ar6 = _grp('arabic', 'ar6', 'قواعد سادسة ابتدائي', 0xFF5A2470, [
+  ('ar_nakira', '🔖', 'النكرة والمعرفة', 3, arNakira),
+  ('ar_hamzaMid', '🪜', 'الهمزة في وسط الكلمة', 3, arHamzaMid),
+  ('ar_asmaa5', '👨‍👦', 'الأسماء الخمسة', 3, arAsmaa5),
+  ('ar_khabarType', '🧱', 'أنواع الخبر', 4, arKhabarType),
+  ('ar_kana', '🔁', 'كان وإن وأخواتهما', 4, arKana),
+  ('ar_naat', '🎨', 'النعت والحال', 4, arNaat),
+  ('ar_mudari', '⏩', 'الفعل المضارع', 4, arMudari),
+], after: 'ar_majrur');
+
+/// حساب سادسة ابتدائي — بعد «الكسور العشرية لحد جزء من ألف»، حتى للتقدّم القديم.
+final _math6 = _grp('math', 'math6', 'حساب سادسة ابتدائي', 0xFF1F4488, [
+  ('divisibility', '🔍', 'قابلية القسمة والعوامل الأولية', 3, divisibility),
+  ('integers', '➖', 'الأعداد الصحيحة', 3, integers),
+  ('algebra6', '🔣', 'المقادير الجبرية والأسس', 4, algebra6),
+  ('statistics', '📈', 'المتوسط والوسيط والمنوال', 3, statistics),
+  ('ratios', '⚖️', 'النسبة والمعدل والنسبة المئوية', 4, ratios),
+  ('fractionDiv6', '➗', 'قسمة الكسور', 4, fractionDiv6),
+  ('quadrants', '🧭', 'المستوى الإحداثي بأرباعه', 3, quadrants),
+  ('area6', '🔷', 'مساحات المضلعات ومساحة السطح', 4, area6),
+], after: 'decimals5');
+
+/// إنجليزي سادسة (Connect 6) — بعد «always, sometimes, never»، حتى للتقدّم القديم.
+final _en6 = _grp('english', 'en6', 'Grammar from school • Grade 6', 0xFF173462, [
+  ('en_ableTo', '💪', 'able to', 3, enAbleTo),
+  ('en_bothEither', '🔀', 'both, either, neither', 4, enBothEither),
+  ('en_whoWhich', '👤', 'who, which, whose', 4, enWhoWhich),
+  ('en_presentPerfect', '✅', 'I have visited', 4, enPresentPerfect),
+  ('en_usedTo', '🕰️', 'used to', 4, enUsedTo),
+  ('en_conditional', '🌧️', 'If it rains, …', 4, enConditional),
+  ('en_jobs6', '🔧', 'Community builders', 3, enCommunityJobsGame),
+  ('en_travel', '🧳', 'Travel and transport', 3, enTravelGame),
+  ('en_art', '🖌️', 'Art', 3, enArtGame),
+  ('en_heritage', '🏺', 'Made in Egypt', 3, enHeritageGame),
+], after: 'en_frequency', lang: 'en');
+
 /// Phonics بعد ما الطفل يعرف الحروف: الصوت مش الاسم، وبعدين تجميع كلمات CVC.
 final _phonics = _grp('english', 'phonics', 'Phonics • Letter sounds', 0xFF2E9BD6, [
   ('en_phonics', '🔊', 'Letter sounds', 1, enPhonics),
@@ -759,11 +798,11 @@ final _enPrimary = [
 final Map<String, List<Stage>> worldStages = {
   // المراحل اللي اتنشرت قبل كده (الحساب والعربي والمدود و English الأصليين) فاضلة بنفس ترتيبها
   // بين بعض — المجموعات الجديدة بتدخل بينها في مكانها في المنهج (stage_ids_test.dart)
-  'math': _numbered([..._math, ..._mathBasics, ..._math1, ..._math100, ..._math2, ..._mul, ..._math3, ..._life, ..._upperPrimary, ..._math4, ..._math5]),
+  'math': _numbered([..._math, ..._mathBasics, ..._math1, ..._math100, ..._math2, ..._mul, ..._math3, ..._life, ..._upperPrimary, ..._math4, ..._math5, ..._math6]),
   'arabic': _numbered([
-    ..._arabic, ..._concepts, ..._harakat, ..._forms, ..._madd, ..._shortRead, ..._sukun, ..._al, ..._fade, ..._ar2, ..._grammar, ..._ar4, ..._ar5,
+    ..._arabic, ..._concepts, ..._harakat, ..._forms, ..._madd, ..._shortRead, ..._sukun, ..._al, ..._fade, ..._ar2, ..._grammar, ..._ar4, ..._ar5, ..._ar6,
   ]),
-  'english': _numbered([..._english, if (voiceEnabled) ..._phonics, ..._enWords, ..._enSchool, ..._en3, ..._enPrimary, ..._en4, ..._en5]),
+  'english': _numbered([..._english, if (voiceEnabled) ..._phonics, ..._enWords, ..._enSchool, ..._en3, ..._enPrimary, ..._en4, ..._en5, ..._en6]),
   'deen': _numbered(_deen),
   'discover': _numbered(_discover),
   'write': _numbered(_write),

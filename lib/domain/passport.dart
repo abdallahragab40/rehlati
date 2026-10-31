@@ -11,14 +11,20 @@ const stampAt = [1, 50, 80];
 const stampNames = ['زرتها', 'نص الطريق', 'أتقنتها'];
 
 class PassportPage {
-  const PassportPage(this.world, this.pct);
+  const PassportPage(this.world, this.pct, {this.visited = false});
   final WorldMeta world;
   final int pct;
 
-  int get stamps => stampAt.where((t) => pct >= t).length;
+  /// لعب أي مرحلة في العالم — أول ختم مايستناش ١٪ (العوالم الكبيرة مرحلة واحدة فيها أقل من ١٪).
+  final bool visited;
+
+  int get stamps => [visited || pct >= stampAt[0], pct >= stampAt[1], pct >= stampAt[2]].where((x) => x).length;
 }
 
-List<PassportPage> passport(ProgressData p) => [for (final w in worlds) PassportPage(w, p.worldPct(w.id))];
+List<PassportPage> passport(ProgressData p) => [
+      for (final w in worlds)
+        PassportPage(w, p.worldPct(w.id), visited: (worldStages[w.id] ?? const []).any((s) => (p.best[s.id] ?? 0) > 0)),
+    ];
 
 int stampCount(ProgressData p) => passport(p).fold(0, (s, page) => s + page.stamps);
 

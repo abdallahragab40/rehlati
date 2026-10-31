@@ -632,3 +632,115 @@ const enHobbies = [
   Word('gardening', '🪴'), Word('board games', '🎲'), Word('skating', '⛸️'),
 ];
 final enHobbiesGame = vocabGame('en_hobbies', enHobbies, 'en_hobby', ask: 'What is the hobby?', hint: (w) => 'The hobby is $w.');
+
+// ================================================================ Connect 6 (سادسة)
+
+const ableToSentences = [
+  ('I ___ swim very fast.', 'am able to'), ('She ___ speak three languages.', 'is able to'),
+  ('They ___ fix the car.', 'are able to'), ('The paramedic ___ help people quickly.', 'is able to'),
+  ('We ___ build a robot.', 'are able to'),
+];
+
+Question enAbleTo(int lv, Rng r, {String? focus}) {
+  final (sentence, answer) = r.sample(ableToSentences);
+  return _enBlank('en_ableTo', 'en_ableTo:${answer.split(' ').first}', null, sentence, answer,
+      ['am able to', 'is able to', 'are able to'], r, hint: 'I am able to. He / she is able to. We / they are able to.');
+}
+
+/// either…or، both…and، neither…nor.
+const pairSentences = [
+  ('You can have ___ tea or juice.', 'either', ['either', 'both', 'neither']),
+  ('___ Ali and Omar like painting.', 'Both', ['Both', 'Either', 'Neither']),
+  ('___ my mom nor my dad likes coffee.', 'Neither', ['Neither', 'Both', 'Either']),
+  ('We will go ___ to the museum or to the zoo.', 'either', ['either', 'both', 'neither']),
+  ('She is ___ talented and kind.', 'both', ['both', 'either', 'neither']),
+  ('He ___ sings nor dances.', 'neither', ['neither', 'both', 'either']),
+];
+
+Question enBothEither(int lv, Rng r, {String? focus}) {
+  final (sentence, answer, choices) = r.sample(pairSentences);
+  return _enBlank('en_bothEither', 'en_pairs:${answer.toLowerCase()}', null, sentence, answer, choices, r,
+      hint: 'both … and = the two. either … or = one of the two. neither … nor = not this and not that.');
+}
+
+const whoWhichSentences = [
+  ('The man ___ invented the clock was clever.', 'who'), ('This is the gadget ___ tells the time.', 'which'),
+  ('She is the artist ___ painting won.', 'whose'), ('I met a girl ___ loves sculpture.', 'who'),
+  ('The museum ___ we visited was huge.', 'which'), ('He is the boy ___ bike is red.', 'whose'),
+];
+
+Question enWhoWhich(int lv, Rng r, {String? focus}) {
+  final (sentence, answer) = r.sample(whoWhichSentences);
+  return _enBlank('en_whoWhich', 'en_relPron:$answer', null, sentence, answer, ['who', 'which', 'whose'], r,
+      hint: 'who = a person. which = a thing. whose = belongs to.');
+}
+
+const presentPerfectSentences = [
+  ('I ___ visited Luxor three times.', 'have', ['have', 'has']),
+  ('She ___ finished her homework.', 'has', ['have', 'has']),
+  ('They ___ discovered a new tomb.', 'have', ['have', 'has']),
+  ('___ you ever seen a mummy?', 'Have', ['Have', 'Has']),
+  ('He ___ never been to Aswan.', 'has', ['have', 'has']),
+  ('We ___ just eaten lunch.', 'have', ['have', 'has']),
+];
+
+Question enPresentPerfect(int lv, Rng r, {String? focus}) {
+  final (sentence, answer, choices) = r.sample(presentPerfectSentences);
+  return _enBlank('en_presentPerfect', 'en_pp:${answer.toLowerCase()}', null, sentence, answer, choices, r,
+      hint: 'I / you / we / they have + done. He / she / it has + done.');
+}
+
+const usedToSentences = [
+  ('My grandpa ___ travel by train, but now he drives.', 'used to', ['used to', "didn't use to"]),
+  ('People ___ have phones long ago.', "didn't use to", ['used to', "didn't use to"]),
+  ('Egypt ___ make cloth by hand.', 'used to', ['used to', "didn't use to"]),
+  ('___ you use to play outside?', 'Did', ['Did', 'Do']),
+  ('We ___ have electric buses, but now we do.', "didn't use to", ['used to', "didn't use to"]),
+];
+
+Question enUsedTo(int lv, Rng r, {String? focus}) {
+  final (sentence, answer, choices) = r.sample(usedToSentences);
+  return _enBlank('en_usedTo', 'en_usedTo:$answer', null, sentence, answer, choices, r,
+      hint: 'used to = something in the past that is not true now.');
+}
+
+const conditionalSentences = [
+  ('If it rains, we ___ stay at home.', 'will', ['will', 'are']),
+  ('If you take the metro, you ___ arrive early.', 'will', ['will', 'did']),
+  ('If she ___ hard, she will pass.', 'studies', ['studies', 'will study']),
+  ('If we ___ the bus, we will be late.', 'miss', ['miss', 'will miss']),
+  ('You will feel better if you ___ water.', 'drink', ['drink', 'will drink']),
+];
+
+Question enConditional(int lv, Rng r, {String? focus}) {
+  final (sentence, answer, choices) = r.sample(conditionalSentences);
+  return _enBlank('en_conditional', 'en_if:${answer == 'will' ? 'result' : 'if'}', null, sentence, answer, choices, r,
+      hint: 'If + present simple, … will + verb.');
+}
+
+const enCommunityJobs = [
+  Word('paramedic', '🚑'), Word('architect', '📐'), Word('mechanic', '🔧'), Word('tailor', '🧵'),
+  Word('delivery worker', '🛵'), Word('street cleaner', '🧹'), Word('traffic officer', '🚦'), Word('water engineer', '🚰'),
+];
+final enCommunityJobsGame = vocabGame('en_jobs6', enCommunityJobs, 'en_job6', ask: 'Community builders. Who uses this?',
+    hint: (w) => 'This is for a $w.');
+
+const enTravel = [
+  Word('passport', '🛂'), Word('luggage', '🧳'), Word('ticket', '🎫'), Word('map', '🗺️'), Word('tent', '⛺'),
+  Word('cable car', '🚡'), Word('elevator', '🛗'), Word('monorail', '🚝'), Word('metro', '🚇'),
+];
+final enTravelGame = vocabGame('en_travel', enTravel, 'en_travel', ask: 'Travel and transport. What is this?',
+    hint: (w) => 'The word is "$w".');
+
+const enArt = [
+  Word('canvas', '🖼️'), Word('paintbrush', '🖌️'), Word('palette', '🎨'), Word('sculpture', '🗿'),
+  Word('sketch', '✏️'), Word('museum', '🏛️'),
+];
+final enArtGame = vocabGame('en_art', enArt, 'en_art', ask: 'Art and artists. What is this?', hint: (w) => 'The word is "$w".');
+
+const enHeritage = [
+  Word('papyrus', '📜'), Word('bricks', '🧱'), Word('gold', '🪙'), Word('clay', '🏺'), Word('stone', '🪨'),
+  Word('temple', '🛕'), Word('amulet', '🧿'),
+];
+final enHeritageGame = vocabGame('en_heritage', enHeritage, 'en_heritage', ask: 'Made in Egypt. What is this?',
+    hint: (w) => 'The word is "$w".');

@@ -246,10 +246,11 @@ class _CoordPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    const n = 6, pad = 26.0;
+    final lo = v.lo, hi = v.hi, n = hi - lo;
+    const pad = 26.0;
     // مكان فوق ويمين للحروف اللي جنب النقط على الطرف
     final u = (size.width - pad - 22) / n;
-    Offset at(num x, num y) => Offset(pad + x * u, size.height - pad - y * u);
+    Offset at(num x, num y) => Offset(pad + (x - lo) * u, size.height - pad - (y - lo) * u);
     final grid = Paint()
       ..color = AppColors.line
       ..strokeWidth = 1.2;
@@ -257,26 +258,75 @@ class _CoordPainter extends CustomPainter {
       ..color = AppColors.ink
       ..strokeWidth = 3;
     void label(String t, Offset c, {Color color = AppColors.inkSoft, double size = 13}) {
-      final tp = TextPainter(text: TextSpan(text: t, style: kidText(size, color: color)), textDirection: TextDirection.rtl)..layout();
+      // السالب بيتكتب من الشمال زي الرياضيات (−٣)
+      final tp = TextPainter(text: TextSpan(text: t, style: kidText(size, color: color)), textDirection: TextDirection.ltr)..layout();
       tp.paint(canvas, c - Offset(tp.width / 2, tp.height / 2));
     }
 
-    for (var i = 0; i <= n; i++) {
-      canvas.drawLine(at(i, 0), at(i, n), grid);
-      canvas.drawLine(at(0, i), at(n, i), grid);
-      label(ar(i), at(i, 0) + const Offset(0, 14));
-      if (i > 0) label(ar(i), at(0, i) - const Offset(14, 0));
+    // LRM قبل السالب: الأرقام العربي بتقلب ترتيب العلامة لو من غيره
+    String numText(int i) => i < 0 ? '\u200E−${ar(-i)}' : ar(i);
+    for (var i = lo; i <= hi; i++) {
+      canvas.drawLine(at(i, lo), at(i, hi), grid);
+      canvas.drawLine(at(lo, i), at(hi, i), grid);
+      label(numText(i), at(i, lo) + const Offset(0, 14));
+      if (i != lo) label(numText(i), at(lo, i) - const Offset(15, 0));
     }
-    canvas.drawLine(at(0, 0), at(n, 0), axis);
-    canvas.drawLine(at(0, 0), at(0, n), axis);
+    // المحاور عند الصفر
+    canvas.drawLine(at(lo, 0), at(hi, 0), axis);
+    canvas.drawLine(at(0, lo), at(0, hi), axis);
     for (final (name, x, y) in v.points) {
       canvas.drawCircle(at(x, y), 7, Paint()..color = AppColors.grape);
-      label(name, at(x, y) + Offset(x >= n - 1 ? -14 : 14, y >= n - 1 ? 14 : -14), color: AppColors.ink, size: 17);
+      label(name, at(x, y) + Offset(x >= hi - 1 ? -14 : 14, y >= hi - 1 ? 14 : -14), color: AppColors.ink, size: 17);
     }
   }
 
   @override
   bool shouldRepaint(_CoordPainter old) => old.v != v;
+}
+
+// ---------------------------------------------------------------- ➖ خط الأعداد
+
+class NumberLineView extends StatelessWidget {
+  const NumberLineView(this.v, {super.key});
+  final NumberLineVisual v;
+
+  @override
+  Widget build(BuildContext context) {
+    final w = context.clampVw(300, 76, 340);
+    return Center(
+      child: Semantics(label: 'خط أعداد', child: CustomPaint(size: Size(w, 80), painter: _NumberLinePainter(v))),
+    );
+  }
+}
+
+class _NumberLinePainter extends CustomPainter {
+  _NumberLinePainter(this.v);
+  final NumberLineVisual v;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final n = v.hi - v.lo;
+    final u = (size.width - 24) / n, y = size.height * .55;
+    double x(int i) => 12 + (i - v.lo) * u;
+    final line = Paint()
+      ..color = AppColors.ink
+      ..strokeWidth = 3;
+    canvas.drawLine(Offset(4, y), Offset(size.width - 4, y), line);
+    for (var i = v.lo; i <= v.hi; i++) {
+      canvas.drawLine(Offset(x(i), y - 7), Offset(x(i), y + 7), line);
+      final tp = TextPainter(
+        text: TextSpan(text: i < 0 ? '\u200E−${ar(-i)}' : ar(i), style: kidText(13, color: i == 0 ? AppColors.ink : AppColors.inkSoft)),
+        textDirection: TextDirection.ltr,
+      )..layout();
+      tp.paint(canvas, Offset(x(i) - tp.width / 2, y + 10));
+    }
+    canvas.drawCircle(Offset(x(v.mark), y), 8, Paint()..color = AppColors.grape);
+    final tp = TextPainter(text: TextSpan(text: 'أ', style: kidText(18, color: AppColors.grape)), textDirection: TextDirection.rtl)..layout();
+    tp.paint(canvas, Offset(x(v.mark) - tp.width / 2, y - 34));
+  }
+
+  @override
+  bool shouldRepaint(_NumberLinePainter old) => old.v != v;
 }
 
 // ---------------------------------------------------------------- 📦 الحجم

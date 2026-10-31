@@ -73,6 +73,7 @@ class VisualView extends StatelessWidget {
         GridAreaVisual v => GridAreaView(v),
         AngleVisual v => AngleView(v),
         CoordVisual v => CoordView(v),
+        NumberLineVisual v => NumberLineView(v),
         BoxVisual v => BoxView(v),
         PieVisual v => PieView(v),
         LinesVisual v => LinesView(v),

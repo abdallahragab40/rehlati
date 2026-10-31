@@ -300,8 +300,17 @@ class CoinsVisual extends Visual {
 /// رسم بياني بالصور: عمود لكل صورة بعددها.
 /// مستوى إحداثي من ٠ لـ ٦، وعليه نقط (الاسم، س، ص).
 class CoordVisual extends Visual {
-  const CoordVisual(this.points);
+  const CoordVisual(this.points, {this.lo = 0, this.hi = 6});
   final List<(String, int, int)> points;
+
+  /// مدى المحورين: من ٠ لـ ٦، أو من −٤ لـ ٤ للأرباع الأربعة.
+  final int lo, hi;
+}
+
+/// خط أعداد من [lo] لـ [hi]، والنقطة «أ» عند [mark].
+class NumberLineVisual extends Visual {
+  const NumberLineVisual(this.lo, this.hi, this.mark);
+  final int lo, hi, mark;
 }
 
 /// صندوق من مكعبات (طول × عرض × ارتفاع)، و[labels] الأبعاد مكتوبة جنبه.

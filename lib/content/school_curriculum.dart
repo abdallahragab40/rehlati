@@ -638,4 +638,90 @@ final schoolBooks = <SchoolBook>[
     SchoolUnit('Our Solar System', [SchoolLesson('Space', [_i('en_space')]), SchoolLesson('bigger, the biggest', [_i('en_compare')])]),
     SchoolUnit('Offline but Happy', [SchoolLesson('Reading: Offline but Happy', [_i('en_reading', 'Offline but Happy')])]),
   ]),
+  // ---------------------------------------------------------------- سادسة ابتدائي
+  SchoolBook('p6', 1, 'arabic', [
+    SchoolUnit('أطور ذاتي', [
+      SchoolLesson('الاسم النكرة والاسم المعرفة', [_i('ar_nakira', 'nakira')]),
+      SchoolLesson('الهمزة المتوسطة على الألف', [_i('ar_hamzaMid', 'alif')]),
+      SchoolLesson('أنواع المعارف', [_i('ar_nakira', 'types')]),
+    ]),
+    SchoolUnit('أنا مسئول', [
+      SchoolLesson('الأسماء الخمسة وعلاماتها الإعرابية', [_i('ar_asmaa5')]),
+      SchoolLesson('الهمزة المتوسطة على الياء (النبرة)', [_i('ar_hamzaMid', 'yaa')]),
+      SchoolLesson('أنواع الخبر', [_i('ar_khabarType')]),
+    ]),
+    SchoolUnit('العلم والخيال والمستقبل', [
+      SchoolLesson('كان وأخواتها', [_i('ar_kana', 'kana')]),
+      SchoolLesson('الهمزة المتوسطة على الواو', [_i('ar_hamzaMid', 'waw')]),
+      SchoolLesson('إن وأخواتها', [_i('ar_kana', 'inna')]),
+    ]),
+  ]),
+  SchoolBook('p6', 2, 'arabic', [
+    SchoolUnit('أنا ومصر.. قصة حضارة وهوية', [
+      SchoolLesson('النعت المفرد', [_i('ar_naat', 'naat')]),
+      SchoolLesson('الهمزة المتوسطة على السطر', [_i('ar_hamzaMid', 'line')]),
+      SchoolLesson('الحال المفردة', [_i('ar_naat', 'hal')]),
+    ]),
+    SchoolUnit('قيم تبني الإنسان', [
+      SchoolLesson('الفعل الصحيح الآخر والمعتل الآخر', [_i('ar_mudari', 'illa')]),
+      SchoolLesson('تطبيقات على الهمزة المتطرفة', [_i('ar_hamzaEnd')]),
+      SchoolLesson('جزم الفعل المضارع', [_i('ar_mudari', 'jazm')]),
+    ]),
+    SchoolUnit('العلم يصنع المستقبل', [
+      SchoolLesson('رفع الفعل المضارع', [_i('ar_mudari', 'raf')]),
+      SchoolLesson('الأفعال الخمسة', [_i('ar_mudari', 'five')]),
+    ]),
+  ]),
+  SchoolBook('p6', 1, 'math', [
+    SchoolUnit('قابلية القسمة والعوامل والمضاعفات', [
+      SchoolLesson('قابلية القسمة والعوامل الأولية', [_i('divisibility')]),
+      SchoolLesson('العامل المشترك الأكبر والمضاعف المشترك الأصغر', [_i('factors')]),
+    ]),
+    SchoolUnit('الأعداد النسبية', [
+      SchoolLesson('خط الأعداد ومقارنة الأعداد', [_i('integers')]),
+      SchoolLesson('القيمة المطلقة', [_i('integers')]),
+    ]),
+    SchoolUnit('المقادير الجبرية', [
+      SchoolLesson('التعبيرات والمقادير الجبرية', [_i('algebra6'), _i('equations')]),
+      SchoolLesson('ترتيب العمليات والأسس', [_i('algebra6'), _i('orderOps')]),
+    ]),
+    SchoolUnit('المعادلات والمتباينات', [SchoolLesson('حل المعادلات والمتباينات', [_i('algebra6'), _i('equations')])]),
+    SchoolUnit('المتغيرات التابعة والمستقلة', [SchoolLesson('العلاقة بين متغيرين', [_i('equations'), _i('sequence')])]),
+    SchoolUnit('توزيع البيانات', [SchoolLesson('تمثيل البيانات', [_i('dotPlot'), _i('barGraph')])]),
+    SchoolUnit('مقاييس النزعة المركزية والانتشار', [
+      SchoolLesson('الوسط الحسابي والوسيط والمنوال', [_i('statistics', 'center')]),
+      SchoolLesson('المدى', [_i('statistics', 'spread')]),
+    ]),
+  ]),
+  SchoolBook('p6', 2, 'math', [
+    SchoolUnit('عمليات على الكسور', [SchoolLesson('ضرب وقسمة الكسور', [_i('fractionDiv6'), _i('fractions5', 'mul')])]),
+    SchoolUnit('النسبة وتطبيقاتها', [
+      SchoolLesson('النسبة والنسب المتكافئة', [_i('ratios', 'ratio')]),
+    ]),
+    SchoolUnit('معدل الوحدة والنسبة المئوية', [
+      SchoolLesson('معدل الوحدة', [_i('ratios', 'rate')]),
+      SchoolLesson('تحويل وحدات القياس', [_i('unitConvert')]),
+      SchoolLesson('النسبة المئوية', [_i('ratios', 'percent')]),
+    ]),
+    SchoolUnit('المستوى الإحداثي', [SchoolLesson('المستوى الإحداثي والمسافة', [_i('quadrants'), _i('coordinates')])]),
+    SchoolUnit('مساحة بعض المضلعات', [SchoolLesson('متوازي الأضلاع والمثلث وشبه المنحرف', [_i('area6', 'area')])]),
+    SchoolUnit('مساحة السطح والحجم', [
+      SchoolLesson('مساحة السطح', [_i('area6', 'surface')]),
+      SchoolLesson('الحجم', [_i('volume')]),
+    ]),
+  ]),
+  SchoolBook('p6', 1, 'english', [
+    SchoolUnit('Amazing Places in Egypt', [SchoolLesson('Present simple', [_i('en_present')])]),
+    SchoolUnit('Our Nature', [SchoolLesson('Present continuous', [_i('en_continuous')]), SchoolLesson('Nature', [_i('en_nature')])]),
+    SchoolUnit('Community Builders', [SchoolLesson('Jobs', [_i('en_jobs6')]), SchoolLesson("can, can't, able to", [_i('en_ableTo'), _i('en_could')])]),
+    SchoolUnit('Resources Around Us', [SchoolLesson('Materials', [_i('en_heritage')]), SchoolLesson('should, must', [_i('en_should'), _i('en_safety')])]),
+    SchoolUnit('Made in Egypt', [SchoolLesson('Travel', [_i('en_travel')]), SchoolLesson('Past simple', [_i('en_past'), _i('en_did')])]),
+  ]),
+  SchoolBook('p6', 2, 'english', [
+    SchoolUnit('Celebrating Creativity', [SchoolLesson('Art', [_i('en_art')]), SchoolLesson('both, either, neither', [_i('en_bothEither')])]),
+    SchoolUnit('Wonderful Inventions', [SchoolLesson('who, which, whose', [_i('en_whoWhich')])]),
+    SchoolUnit('Hidden Gems of Egypt', [SchoolLesson('Present perfect', [_i('en_presentPerfect')])]),
+    SchoolUnit('Egypt on the Move', [SchoolLesson('used to', [_i('en_usedTo')])]),
+    SchoolUnit('Safe and Smart Transportation', [SchoolLesson('If …, will …', [_i('en_conditional')]), SchoolLesson('Transport', [_i('en_travel')])]),
+  ]),
 ];
