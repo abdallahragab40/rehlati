@@ -78,7 +78,30 @@ const unitPairs = [
   ('ساعة', 'دقيقة', 60), ('يوم', 'ساعة', 24), ('دقيقة', 'ثانية', 60), ('سنتيمتر', 'ملليمتر', 10),
 ];
 
+/// الساعة مكتوبة «٣:٤٥».
+String clockText(int minutes) => '${ar(minutes ~/ 60)}:${ar((minutes % 60).toString().padLeft(2, '0'))}';
+
+/// الوقت المنقضي: من ساعة لساعة، مع عبور الساعة. المدة كام دقيقة؟ أو خلص الساعة كام؟
+Question _elapsed(int lv, Rng r) {
+  // ساعة ١٢ زي ساعة الحيطة (من ١ لـ ١٠ والنهاية مابتعديش ١٢:٥٩)
+  final start = r.rnd(1, 10) * 60 + r.rnd(0, 11) * 5;
+  final dur = lv <= 2 ? r.rnd(2, 11) * 5 + 20 : r.rnd(5, 20) * 5;
+  final end = start + dur;
+  if (r.chance(.5)) {
+    return _q('unitConvert', 'unit:elapsed', 'بدأ الفيلم الساعة ${clockText(start)} وخلص الساعة ${clockText(end)}. مدته كام دقيقة؟',
+        const [], _three(dur, [dur + 60, (dur - 60).abs(), dur + 5]), ar(dur), r, big: false, speak: 'اقرا المسألة وحلها',
+        hint: 'عدّ من ${clockText(start)} لحد الساعة اللي بعدها، وبعدين كمّل للنهاية ☝️', speakHint: 'عد لحد الساعة اللي بعدها وبعدين كمل');
+  }
+  final wrong = [end + 60, end - 60, start + dur % 60 + (dur ~/ 60) * 100];
+  return _q('unitConvert', 'unit:elapsed', 'خرجت سارة الساعة ${clockText(start)} ورجعت بعد ${ar(dur)} دقيقة. رجعت الساعة كام؟',
+      const [], [clockText(end), ...{for (final w in wrong) if (w != end && w > 0 && w % 60 < 60) clockText(w)}.take(2)], clockText(end), r,
+      big: false, speak: 'اقرا المسألة وحلها',
+      hint: 'الساعة فيها ٦٠ دقيقة: زوّد الدقايق، ولو عدّت ٦٠ زوّد ساعة ☝️', speakHint: 'الساعة فيها ستين دقيقة');
+}
+
+/// focus: elapsed (الوقت المنقضي بس).
 Question unitConvert(int lv, Rng r, {String? focus}) {
+  if (focus == 'elapsed' || (focus == null && lv >= 3 && r.chance(.3))) return _elapsed(lv, r);
   final (big, small, k) = r.sample(lv <= 1 ? unitPairs.where((p) => p.$3 <= 100).toList() : unitPairs);
   final n = r.rnd(2, 9);
   final toSmall = lv <= 2 || r.chance(.6);
@@ -124,13 +147,14 @@ bool _prime(int n) => n > 1 && [for (var d = 2; d * d <= n; d++) d].every((d) =>
 
 int _gcd(int a, int b) => b == 0 ? a : _gcd(b, a % b);
 
-/// focus: factors / multiples.
+/// focus: factors / multiples / gcf / common.
 Question factors(int lv, Rng r, {String? focus}) {
-  final kind = focus == 'multiples'
-      ? r.sample(['multiple', if (lv >= 2) 'common'])
-      : focus == 'factors'
-          ? r.sample(['factor', 'prime', if (lv >= 2) 'gcf'])
-          : r.sample(['factor', 'prime', 'multiple', if (lv >= 2) 'gcf', if (lv >= 2) 'common']);
+  final kind = switch (focus) {
+    'gcf' || 'common' => focus!,
+    'multiples' => r.sample(['multiple', if (lv >= 2) 'common']),
+    'factors' => r.sample(['factor', 'prime', if (lv >= 2) 'gcf']),
+    _ => r.sample(['factor', 'prime', 'multiple', if (lv >= 2) 'gcf', if (lv >= 2) 'common']),
+  };
   switch (kind) {
     case 'factor':
       final n = r.sample([12, 18, 20, 24, 30, 36]);

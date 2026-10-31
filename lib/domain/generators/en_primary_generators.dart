@@ -21,7 +21,16 @@ const cvcWords = [
 
 /// ١ — Read the word: الصورة والطفل يختار كلمتها من كلمات بتفرق في صوت واحد.
 Question enCvc(int lv, Rng r, {String? focus}) {
-  final (word, emoji, near) = _focused(cvcWords, r, focus, (w) => w.$1);
+  // A lesson may target short vowels; exact-word focus still works.
+  final vowels = switch (focus) {
+    'vowels:ae' => 'ae',
+    'vowels:io' => 'io',
+    'vowels:u' => 'u',
+    'vowels:aei' => 'aei',
+    _ => null,
+  };
+  final pool = vowels == null ? cvcWords : cvcWords.where((w) => vowels.contains(w.$1[1])).toList();
+  final (word, emoji, near) = _focused(pool, r, focus, (w) => w.$1);
   return Question(
     type: 'en_cvc', mode: QMode.choice, lang: 'en', ltr: true, wide: true, numeric: false, skill: 'en_cvc:$word',
     ask: 'Which word is it?', speak: 'Look at the picture. Which word is it?',

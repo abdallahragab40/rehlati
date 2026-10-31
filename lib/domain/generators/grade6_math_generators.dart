@@ -44,7 +44,7 @@ List<int> primeFactors(int n) {
 }
 
 Question divisibility(int lv, Rng r, {String? focus}) {
-  if (r.chance(.5)) {
+  if (focus != 'prime' && r.chance(.5)) {
     final d = r.sample([2, 3, 5, 9, 10]);
     final right = d * r.rnd(11, 60);
     final wrong = <int>{};
@@ -77,7 +77,11 @@ Question divisibility(int lv, Rng r, {String? focus}) {
 // ---------------------------------------------------------------- الأعداد الصحيحة
 
 Question integers(int lv, Rng r, {String? focus}) {
-  final kind = r.sample(['read', 'compare', 'abs', if (lv >= 2) 'opposite']);
+  final kind = focus == 'abs'
+      ? 'abs'
+      : focus == 'numberLine'
+          ? r.sample(['read', 'compare'])
+          : r.sample(['read', 'compare', 'abs', if (lv >= 2) 'opposite']);
   switch (kind) {
     case 'read':
       final n = r.rnd(-5, 5);
@@ -95,10 +99,11 @@ Question integers(int lv, Rng r, {String? focus}) {
           intWord(bigger ? math.max(a, b) : math.min(a, b)), r, big: false,
           hint: 'على خط الأعداد اللي على اليمين أكبر: سالب ٢ أكبر من سالب ٥ ☝️', speakHint: 'على خط الأعداد اللي على اليمين أكبر');
     case 'abs':
-      final n = -r.rnd(1, 20);
-      return _q('integers', 'int:abs', 'القيمة المطلقة للعدد ${intWord(n)} كام؟', const [], [ar(-n), intWord(n), ar(-n + 1)], ar(-n), r,
+      final n = r.rnd(-20, 20);
+      final answer = n.abs();
+      return _q('integers', 'int:abs', 'القيمة المطلقة للعدد ${intWord(n)} كام؟', const [], [ar(answer), answer == 0 ? ar(1) : intWord(-answer), ar(answer + 2)], ar(answer), r,
           big: false, speak: 'احسب القيمة المطلقة',
-          hint: 'القيمة المطلقة = بعد العدد عن الصفر، ودايمًا موجبة ☝️', speakHint: 'القيمة المطلقة بعد العدد عن الصفر');
+          hint: 'القيمة المطلقة = بعد العدد عن الصفر، ومش سالبة (ممكن صفر) ☝️', speakHint: 'القيمة المطلقة بعد العدد عن الصفر');
     default:
       final n = r.rnd(1, 15) * (r.chance(.5) ? 1 : -1);
       return _q('integers', 'int:opposite', 'معكوس العدد ${intWord(n)} إيه؟', const [], [intWord(-n), intWord(n), ar(0)], intWord(-n), r,
@@ -110,8 +115,31 @@ Question integers(int lv, Rng r, {String? focus}) {
 // ---------------------------------------------------------------- المقادير الجبرية
 
 Question algebra6(int lv, Rng r, {String? focus}) {
-  final kind = r.sample(['power', 'equiv', 'inequality', 'twoStep']);
+  final kind = switch (focus) {
+    'power' => 'power',
+    'expression' => 'equiv',
+    'solve' => r.sample(['inequality', 'twoStep']),
+    'variables' => r.sample(['independent', 'dependent', 'value']),
+    _ => r.sample(['power', 'equiv', 'inequality', 'twoStep']),
+  };
   switch (kind) {
+    case 'independent':
+    case 'dependent':
+    case 'value':
+      final price = r.rnd(2, 12), count = r.rnd(3, 9);
+      final context = CaptionVisual('سعر الكراسة ${ar(price)} جنيه. بنختار عدد الكراسات، والتكلفة بتتغير حسب العدد.');
+      if (kind == 'value') {
+        return _q('algebra6', 'alg:value', 'تكلفة ${ar(count)} كراسات كام جنيه؟', [context],
+            _three(price * count, [price + count, price * (count + 1), price]), ar(price * count), r,
+            speak: _readProblem,
+            hint: 'التكلفة = سعر الكراسة × عدد الكراسات ☝️', speakHint: _readProblem);
+      }
+      final independent = kind == 'independent';
+      final answer = independent ? 'عدد الكراسات' : 'التكلفة الكلية';
+      return _q('algebra6', 'alg:$kind', independent ? 'أنهي متغير مستقل؟' : 'أنهي متغير تابع؟', [context],
+          ['عدد الكراسات', 'التكلفة الكلية', 'سعر الكراسة الثابت'], answer, r, big: false, speak: _readProblem,
+          hint: 'عدد الكراسات مستقل بنختاره، والتكلفة تابعة ليه. سعر الكراسة ثابت ☝️',
+          speakHint: _readProblem);
     case 'power':
       final b = r.rnd(2, 5), e = r.rnd(2, b <= 3 ? 4 : 3);
       final v = math.pow(b, e).toInt();
@@ -143,7 +171,7 @@ Question algebra6(int lv, Rng r, {String? focus}) {
 
 /// المتوسط والوسيط والمنوال والمدى لبيانات صغيرة. focus: center / spread.
 Question statistics(int lv, Rng r, {String? focus}) {
-  final kind = focus == 'spread' ? 'range' : r.sample(['mean', 'median', 'mode', 'range']);
+  final kind = focus == 'spread' ? 'range' : r.sample(['mean', 'median', 'mode', if (focus != 'center') 'range']);
   // ٥ قيم مختلفة إلا في المنوال، والمجموع بيقبل القسمة على ٥
   var data = r.shuffle([for (final v in {for (var i = 0; i < 20; i++) r.rnd(1, 20)}.take(5)) v]);
   while (data.length < 5) {
@@ -182,9 +210,9 @@ int _gcd(int a, int b) => b == 0 ? a : _gcd(b, a % b);
 
 String ratioText(int a, int b) => '${ar(a)} : ${ar(b)}';
 
-/// focus: ratio / rate / percent.
+/// focus: ratio / equiv / rate / percent.
 Question ratios(int lv, Rng r, {String? focus}) {
-  final kind = ['ratio', 'rate', 'percent'].contains(focus) ? focus! : r.sample(['ratio', 'equiv', 'rate', 'percent']);
+  final kind = ['ratio', 'equiv', 'rate', 'percent'].contains(focus) ? focus! : r.sample(['ratio', 'equiv', 'rate', 'percent']);
   switch (kind) {
     case 'rate':
       final n = r.rnd(2, 9), price = r.rnd(2, 15);

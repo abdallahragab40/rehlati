@@ -141,7 +141,38 @@ Question _frac(String skill, String ask, List<Visual> visuals, String answer, Li
 }
 
 /// focus: addsub / mul / div.
+/// عدد كسري مكتوب: «٢ و ٣/٤»، أو كسر بس، أو صحيح بس.
+String mixedText(int whole, int n, int d) =>
+    n == 0 ? ar(whole) : (whole == 0 ? '${ar(n)}/${ar(d)}' : '${ar(whole)} و ${ar(n)}/${ar(d)}');
+
+/// جمع وطرح الأعداد الكسرية، والطرح فيه «استلاف» واحد صحيح. من المستوى التالت بمقامات مختلفة.
+Question _mixedAddSub(int lv, Rng r) {
+  const pairs = [(2, 4), (3, 6), (4, 8), (2, 3), (3, 4)];
+  final (d1, d2) = lv >= 3 ? r.sample(pairs) : (() { final d = r.sample([4, 5, 6, 8, 10]); return (d, d); })();
+  final l = d1 * d2 ~/ _gcd(d1, d2);
+  final w1 = r.rnd(2, 6), w2 = r.rnd(1, w1 - 1), n1 = r.rnd(1, d1 - 1), n2 = r.rnd(1, d2 - 1);
+  final a = w1 * l + n1 * l ~/ d1, b = w2 * l + n2 * l ~/ d2;
+  final add = r.chance(.5);
+  final total = add ? a + b : a - b;
+  final ans = mixedText(total ~/ l, total % l, l);
+  // الغلط: نسيان الواحد اللي اتنقل، أو جمع البسط مع المقامات
+  final wrong = [
+    mixedText(total ~/ l + (add ? -1 : 1), total % l, l),
+    mixedText(total ~/ l + 1, total % l, l),
+    if (total % l != 0) mixedText(total ~/ l, (total % l + 1) % l, l),
+  ];
+  return _q('fractions5', 'frac5:mixed${add ? 'Add' : 'Sub'}', add ? 'اجمع العددين الكسريين' : 'اطرح العددين الكسريين',
+      [BigLetterVisual('${mixedText(w1, n1, d1)} ${add ? '+' : '−'} ${mixedText(w2, n2, d2)}')],
+      [ans, ...{for (final w in wrong) if (w != ans) w}.take(2)], ans, r, big: false,
+      hint: add
+          ? 'اجمع الصحيح مع الصحيح والكسر مع الكسر، ولو الكسر بقى أكبر من واحد زوّد الصحيح ☝️'
+          : 'اطرح الصحيح من الصحيح والكسر من الكسر، ولو الكسر الأول أصغر استلف واحد صحيح ☝️',
+      speakHint: 'الصحيح مع الصحيح، والكسر مع الكسر');
+}
+
+/// focus: addsub / mul / div / mixed.
 Question fractions5(int lv, Rng r, {String? focus}) {
+  if (focus == 'mixed') return _mixedAddSub(lv, r);
   final kind = ['addsub', 'mul', 'div'].contains(focus) ? focus! : r.sample(['addsub', if (lv >= 2) 'mul', if (lv >= 2) 'div']);
   switch (kind) {
     case 'mul':

@@ -60,7 +60,7 @@ void main() {
   test('every ready lesson and exam makes a full round at every age', () {
     for (final id in allSchoolRoundIds()) {
       final round = schoolRound(id)!;
-      for (final age in [6, 7, 8]) {
+      for (final age in [6, 7, 8, 9, 10, 11, 12]) {
         final qs = schoolQuestions(round, ProgressData(age: age), Rng.seeded(id.hashCode + age));
         expect(qs, hasLength(round.count), reason: '$id age $age');
       }

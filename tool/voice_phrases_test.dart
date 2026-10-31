@@ -152,6 +152,16 @@ void main() {
     for (final id in allSchoolRoundIds()) {
       final s = schoolStage(id)!;
       if (!s.isEnglish) add(sayStageIntro(s.name));
+      // أسئلة الدرس بتركيزه (عدد كسري، وقت منقضي…) — فيه جمل مابتطلعش من غير التركيز
+      if (s.isEnglish) continue;
+      final round = schoolRound(id)!;
+      for (final age in [6, 9, 12]) {
+        for (var seed = 0; seed < 8; seed++) {
+          for (final q in schoolQuestions(round, ProgressData(age: age), Rng.seeded(seed * 31 + age))) {
+            if (!q.isEnglish) addQuestion(q);
+          }
+        }
+      }
     }
     for (final (t, _) in praiseSay) {
       add(t);

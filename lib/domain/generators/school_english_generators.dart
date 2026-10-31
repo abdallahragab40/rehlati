@@ -175,8 +175,8 @@ Question enCount100(int lv, Rng r, {String? focus}) {
     visuals: [BigLetterVisual('$n')],
     choices: r.shuffle([enNumberWord(n), ...r.shuffle(wrong.toList()).take(2).map(enNumberWord)]),
     answer: enNumberWord(n),
-    hint: n < 20 ? 'Teen numbers end in -teen.' : 'Say the tens first, then the ones.',
-    speakHint: n < 20 ? 'Teen numbers end in teen' : 'Say the tens first, then the ones',
+    hint: n < 20 ? '11 = eleven, 12 = twelve; 13–19 end in -teen.' : 'Say the tens first, then the ones.',
+    speakHint: n < 20 ? 'Say them in order' : 'Say the tens first, then the ones',
     sayRight: enNumberWord(n),
   );
 }
@@ -229,14 +229,19 @@ const _soundHints = {
 };
 
 /// الصوت الناقص في الكلمة. focus: blendS / blendL / digraph / final / long (درس المدرسة).
+/// focus كمان ممكن يحدد الأصوات نفسها: «digraph:sh,th» أو «long:a,i» (درس بعينه في الكتاب).
 Question enSounds(int lv, Rng r, {String? focus}) {
-  final kinds = _soundHints.containsKey(focus)
-      ? [focus!]
+  final parts = focus?.split(':');
+  final only = parts != null && parts.length == 2 ? parts[1].split(',').toSet() : null;
+  final group = parts?.first;
+  final kinds = _soundHints.containsKey(group)
+      ? [group!]
       : lv <= 1
           ? ['blendS', 'blendL', 'digraph']
           : _soundHints.keys.toList();
   final kind = r.sample(kinds);
-  final (word, pic, sound, _) = r.sample(soundWords.where((w) => w.$4 == kind).toList());
+  final pool = soundWords.where((w) => w.$4 == kind && (only == null || only.contains(w.$3))).toList();
+  final (word, pic, sound, _) = r.sample(pool.isEmpty ? soundWords.where((w) => w.$4 == kind).toList() : pool);
   final at = switch (kind) { 'final' => word.length - sound.length, 'long' => word.indexOf(sound), _ => 0 };
   final shown = '${word.substring(0, at)}${'_' * sound.length}${word.substring(at + sound.length)}';
   final options = {for (final w in soundWords) if (w.$4 == kind) w.$3}.toList();
@@ -602,7 +607,9 @@ const continuousSentences = [
 ];
 
 Question enContinuous(int lv, Rng r, {String? focus}) {
-  final (sentence, answer, choices) = r.sample(continuousSentences);
+  final pool = continuousSentences.where((s) =>
+      focus == 'continuous' ? s.$2.contains(' ') : focus == 'simple' ? !s.$2.contains(' ') : true).toList();
+  final (sentence, answer, choices) = r.sample(pool);
   return _enBlank('en_continuous', 'en_cont:${answer.contains(' ') ? 'cont' : 'simple'}', null, sentence, answer, choices, r,
       hint: 'every day, always = present simple. now, look, listen = am / is / are + -ing.');
 }

@@ -475,7 +475,7 @@ Question calendar(int lv, Rng r, {String? focus}) {
 Question wordProblem(int lv, Rng r, {String? focus}) {
   final (kid, girl) = r.sample(problemKids);
   final (one, many, pic) = r.sample(problemThings);
-  final add = lv <= 1 || r.chance(.6);
+  final add = focus == 'add' || (focus != 'sub' && (lv <= 1 || r.chance(.6)));
   final a = add ? r.rnd(3, lv <= 1 ? 5 : 7) : r.rnd(4, lv <= 2 ? 7 : 9);
   final b = add ? r.rnd(1, lv <= 1 ? 2 : 3) : r.rnd(1, a - 1);
   final ans = add ? a + b : a - b;

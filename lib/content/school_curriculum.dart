@@ -1,4 +1,4 @@
-/// دروس كتب الوزارة لأولى وتانية ابتدائي (٢٠٢٥/٢٠٢٦) — أسماء الوحدات والدروس بس، من فهرس كل كتاب
+/// دروس العربي والحساب والإنجليزي من أولى لسادسة ابتدائي (٢٠٢٥/٢٠٢٦) — أسماء الوحدات والدروس بس، من فهرس كل كتاب
 /// (tool/SCHOOL_CURRICULUM_INDEX.md). الأسئلة نفسها من مراحل التطبيق: كل درس بيقول أنهي مراحل
 /// بتدرّب عليه، ولو حرف أو عدد معيّن يبقى [LessonItem.focus].
 ///
@@ -40,7 +40,7 @@ class SchoolUnit {
 class SchoolBook {
   const SchoolBook(this.grade, this.term, this.subject, this.units);
 
-  /// 'p1' أو 'p2' (زي schoolGrades).
+  /// من 'p1' إلى 'p6' (زي schoolGrades).
   final String grade;
   final int term;
 
@@ -160,11 +160,11 @@ final schoolBooks = <SchoolBook>[
     ]),
     SchoolUnit('الجمع', [
       SchoolLesson('الجمع', [_i('addition')]),
-      SchoolLesson('قصص الجمع', [_i('wordProblem')]),
+      SchoolLesson('قصص الجمع', [_i('wordProblem', 'add')]),
     ]),
     SchoolUnit('الطرح', [
       SchoolLesson('الطرح', [_i('subtraction')]),
-      SchoolLesson('قصص الطرح', [_i('wordProblem')]),
+      SchoolLesson('قصص الطرح', [_i('wordProblem', 'sub')]),
     ]),
     SchoolUnit('مقارنة الأطوال', [SchoolLesson('أيهما أطول؟', [_i('measure')])]),
     SchoolUnit('تمثيل البيانات', [SchoolLesson('تمثيل البيانات بالصور', [_i('picGraph')])]),
@@ -226,7 +226,7 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('الجمع بإعادة التجميع', [_i('add100')]),
       SchoolLesson('التقدير والتقريب', [_i('rounding')]),
     ]),
-    SchoolUnit('الطرح', [SchoolLesson('الطرح ومسائله', [_i('sub100'), _i('wordProblem')])]),
+    SchoolUnit('الطرح', [SchoolLesson('الطرح ومسائله', [_i('sub100'), _i('wordProblem', 'sub')])]),
     SchoolUnit('الكسور', [SchoolLesson('الكسور', [_i('fractionOfNumber')])]),
     SchoolUnit('البيانات', [SchoolLesson('قراءة البيانات', [_i('picGraph')])]),
   ]),
@@ -267,18 +267,18 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('I, he, she, it, they', [_i('en_pronouns')]),
       SchoolLesson('Blends sk, sn, st, sw', [_i('en_sounds', 'blendS')]),
     ]),
-    SchoolUnit('Seasons', [SchoolLesson('Months, seasons and weather', [_i('en_months'), _i('en_seasons'), _i('en_weather')]), SchoolLesson('Short vowels a, e', [_i('en_cvc')])]),
-    SchoolUnit('My House', [SchoolLesson('Rooms at home', [_i('en_rooms')]), SchoolLesson('Short vowels i, o', [_i('en_cvc')])]),
+    SchoolUnit('Seasons', [SchoolLesson('Months, seasons and weather', [_i('en_months'), _i('en_seasons'), _i('en_weather')]), SchoolLesson('Short vowels a, e', [_i('en_cvc', 'vowels:ae')])]),
+    SchoolUnit('My House', [SchoolLesson('Rooms at home', [_i('en_rooms')]), SchoolLesson('Short vowels i, o', [_i('en_cvc', 'vowels:io')])]),
     SchoolUnit('Neighborhood', [
       SchoolLesson('Places and transport', [_i('en_places'), _i('en_transport')]),
-      SchoolLesson('Short vowel u', [_i('en_cvc')]),
+      SchoolLesson('Short vowel u', [_i('en_cvc', 'vowels:u')]),
       SchoolLesson('Blends cl, bl, fl, sl', [_i('en_sounds', 'blendL')]),
     ]),
   ]),
   SchoolBook('p2', 1, 'english', [
     SchoolUnit("Let's Get Started!", [
       SchoolLesson('Classroom things', [_i('en_daily')]),
-      SchoolLesson('Short vowels a, e, i', [_i('en_cvc')]),
+      SchoolLesson('Short vowels a, e, i', [_i('en_cvc', 'vowels:aei')]),
     ]),
     SchoolUnit('Colors, Shapes, and Numbers', [
       SchoolLesson('Colors, shapes and numbers', [_i('en_colors'), _i('en_shapes'), _i('en_numbers')]),
@@ -290,14 +290,14 @@ final schoolBooks = <SchoolBook>[
     ]),
     SchoolUnit('Everyday Life', [
       SchoolLesson('My family', [_i('en_family')]),
-      SchoolLesson('Long vowels o, u and th', [_i('en_sounds', 'long'), _i('en_sounds', 'digraph')]),
+      SchoolLesson('Long vowels o, u and th', [_i('en_sounds', 'long:o,u'), _i('en_sounds', 'digraph:th')]),
     ]),
-    SchoolUnit('My Home', [SchoolLesson('My home', [_i('en_rooms'), _i('en_prep')]), SchoolLesson('sh and th', [_i('en_sounds', 'digraph')])]),
-    SchoolUnit('Rooms at Home', [SchoolLesson('Rooms at home', [_i('en_rooms')]), SchoolLesson('ch', [_i('en_sounds', 'digraph')])]),
+    SchoolUnit('My Home', [SchoolLesson('My home', [_i('en_rooms'), _i('en_prep')]), SchoolLesson('sh and th', [_i('en_sounds', 'digraph:sh,th')])]),
+    SchoolUnit('Rooms at Home', [SchoolLesson('Rooms at home', [_i('en_rooms')]), SchoolLesson('ch', [_i('en_sounds', 'digraph:ch')])]),
   ]),
   SchoolBook('p2', 2, 'english', [
-    SchoolUnit('Our Environment', [SchoolLesson('There is / There are', [_i('en_isare')]), SchoolLesson('Long vowels a, i', [_i('en_sounds', 'long')])]),
-    SchoolUnit('At the Store', [SchoolLesson('Clothes', [_i('en_clothes')]), SchoolLesson('Long vowels u, o', [_i('en_sounds', 'long')])]),
+    SchoolUnit('Our Environment', [SchoolLesson('There is / There are', [_i('en_isare')]), SchoolLesson('Long vowels a, i', [_i('en_sounds', 'long:a,i')])]),
+    SchoolUnit('At the Store', [SchoolLesson('Clothes', [_i('en_clothes')]), SchoolLesson('Long vowels u, o', [_i('en_sounds', 'long:u,o')])]),
     SchoolUnit('Sports', [SchoolLesson('Plural with s', [_i('en_plural')]), SchoolLesson('Counting to 50', [_i('en_count100', 'to50')]), SchoolLesson('Sports', [_i('en_sports')]),
       SchoolLesson('Final blends', [_i('en_sounds', 'final')])]),
     SchoolUnit('Transportation', [SchoolLesson('Transportation', [_i('en_transport'), _i('en_places')])]),
@@ -394,7 +394,7 @@ final schoolBooks = <SchoolBook>[
     ]),
     SchoolUnit('الكسور والوقت والبيانات', [
       SchoolLesson('تكوين أنصاف', [_i('fractionOfNumber')]),
-      SchoolLesson('الوقت المنقضي', [_i('clockQuarter')]),
+      SchoolLesson('الوقت المنقضي', [_i('unitConvert', 'elapsed'), _i('clockQuarter')]),
       SchoolLesson('التمثيلات البيانية', [_i('barGraph')]),
     ]),
   ]),
@@ -466,7 +466,7 @@ final schoolBooks = <SchoolBook>[
     ]),
     SchoolUnit('مفاهيم القياس', [
       SchoolLesson('الطول والكتلة والسعة', [_i('unitConvert')]),
-      SchoolLesson('قياس الوقت والوقت المنقضي', [_i('unitConvert'), _i('clockQuarter')]),
+      SchoolLesson('قياس الوقت والوقت المنقضي', [_i('unitConvert', 'elapsed'), _i('clockQuarter')]),
     ]),
     SchoolUnit('المساحة والمحيط', [
       SchoolLesson('المحيط', [_i('areaPerimeter', 'perimeter')]),
@@ -590,8 +590,8 @@ final schoolBooks = <SchoolBook>[
     ]),
     SchoolUnit('العلاقات بين الأعداد', [
       SchoolLesson('التعبيرات والمعادلات والمتغيرات', [_i('equations')]),
-      SchoolLesson('العوامل الأولية والعامل المشترك الأكبر', [_i('factors', 'factors')]),
-      SchoolLesson('المضاعفات والمضاعف المشترك الأصغر', [_i('factors', 'multiples')]),
+      SchoolLesson('العوامل الأولية والعامل المشترك الأكبر', [_i('divisibility', 'prime'), _i('factors', 'gcf')]),
+      SchoolLesson('المضاعفات والمضاعف المشترك الأصغر', [_i('factors', 'multiples'), _i('factors', 'common')]),
     ]),
     SchoolUnit('ضرب الأعداد الصحيحة', [
       SchoolLesson('الضرب في عدد من رقمين', [_i('longMulDiv', 'mul'), _i('mulStrategies', 'props')]),
@@ -609,7 +609,7 @@ final schoolBooks = <SchoolBook>[
   ]),
   SchoolBook('p5', 2, 'math', [
     SchoolUnit('جمع الكسور وطرحها', [SchoolLesson('الكسور غير متحدة المقام', [_i('fractions5', 'addsub')])]),
-    SchoolUnit('الأعداد الكسرية', [SchoolLesson('جمع وطرح الأعداد الكسرية', [_i('fractionOps', 'mixed'), _i('fractions5', 'addsub')])]),
+    SchoolUnit('الأعداد الكسرية', [SchoolLesson('جمع وطرح الأعداد الكسرية', [_i('fractions5', 'mixed'), _i('fractionOps', 'mixed')])]),
     SchoolUnit('ضرب الكسور وقسمتها', [
       SchoolLesson('ضرب الكسور', [_i('fractions5', 'mul'), _i('fractionOps', 'times')]),
       SchoolLesson('قسمة كسور الوحدة', [_i('fractions5', 'div')]),
@@ -675,18 +675,18 @@ final schoolBooks = <SchoolBook>[
   SchoolBook('p6', 1, 'math', [
     SchoolUnit('قابلية القسمة والعوامل والمضاعفات', [
       SchoolLesson('قابلية القسمة والعوامل الأولية', [_i('divisibility')]),
-      SchoolLesson('العامل المشترك الأكبر والمضاعف المشترك الأصغر', [_i('factors')]),
+      SchoolLesson('العامل المشترك الأكبر والمضاعف المشترك الأصغر', [_i('factors', 'gcf'), _i('factors', 'common')]),
     ]),
     SchoolUnit('الأعداد النسبية', [
-      SchoolLesson('خط الأعداد ومقارنة الأعداد', [_i('integers')]),
-      SchoolLesson('القيمة المطلقة', [_i('integers')]),
+      SchoolLesson('خط الأعداد ومقارنة الأعداد', [_i('integers', 'numberLine')]),
+      SchoolLesson('القيمة المطلقة', [_i('integers', 'abs')]),
     ]),
     SchoolUnit('المقادير الجبرية', [
-      SchoolLesson('التعبيرات والمقادير الجبرية', [_i('algebra6'), _i('equations')]),
-      SchoolLesson('ترتيب العمليات والأسس', [_i('algebra6'), _i('orderOps')]),
+      SchoolLesson('التعبيرات والمقادير الجبرية', [_i('algebra6', 'expression')]),
+      SchoolLesson('ترتيب العمليات والأسس', [_i('algebra6', 'power'), _i('orderOps')]),
     ]),
-    SchoolUnit('المعادلات والمتباينات', [SchoolLesson('حل المعادلات والمتباينات', [_i('algebra6'), _i('equations')])]),
-    SchoolUnit('المتغيرات التابعة والمستقلة', [SchoolLesson('العلاقة بين متغيرين', [_i('equations'), _i('sequence')])]),
+    SchoolUnit('المعادلات والمتباينات', [SchoolLesson('حل المعادلات والمتباينات', [_i('algebra6', 'solve'), _i('equations')])]),
+    SchoolUnit('المتغيرات التابعة والمستقلة', [SchoolLesson('العلاقة بين متغيرين', [_i('algebra6', 'variables')])]),
     SchoolUnit('توزيع البيانات', [SchoolLesson('تمثيل البيانات', [_i('dotPlot'), _i('barGraph')])]),
     SchoolUnit('مقاييس النزعة المركزية والانتشار', [
       SchoolLesson('الوسط الحسابي والوسيط والمنوال', [_i('statistics', 'center')]),
@@ -696,7 +696,7 @@ final schoolBooks = <SchoolBook>[
   SchoolBook('p6', 2, 'math', [
     SchoolUnit('عمليات على الكسور', [SchoolLesson('ضرب وقسمة الكسور', [_i('fractionDiv6'), _i('fractions5', 'mul')])]),
     SchoolUnit('النسبة وتطبيقاتها', [
-      SchoolLesson('النسبة والنسب المتكافئة', [_i('ratios', 'ratio')]),
+      SchoolLesson('النسبة والنسب المتكافئة', [_i('ratios', 'ratio'), _i('ratios', 'equiv')]),
     ]),
     SchoolUnit('معدل الوحدة والنسبة المئوية', [
       SchoolLesson('معدل الوحدة', [_i('ratios', 'rate')]),
@@ -712,7 +712,7 @@ final schoolBooks = <SchoolBook>[
   ]),
   SchoolBook('p6', 1, 'english', [
     SchoolUnit('Amazing Places in Egypt', [SchoolLesson('Present simple', [_i('en_present')])]),
-    SchoolUnit('Our Nature', [SchoolLesson('Present continuous', [_i('en_continuous')]), SchoolLesson('Nature', [_i('en_nature')])]),
+    SchoolUnit('Our Nature', [SchoolLesson('Present continuous', [_i('en_continuous', 'continuous')]), SchoolLesson('Nature', [_i('en_nature')])]),
     SchoolUnit('Community Builders', [SchoolLesson('Jobs', [_i('en_jobs6')]), SchoolLesson("can, can't, able to", [_i('en_ableTo'), _i('en_could')])]),
     SchoolUnit('Resources Around Us', [SchoolLesson('Materials', [_i('en_heritage')]), SchoolLesson('should, must', [_i('en_should'), _i('en_safety')])]),
     SchoolUnit('Made in Egypt', [SchoolLesson('Travel', [_i('en_travel')]), SchoolLesson('Past simple', [_i('en_past'), _i('en_did')])]),
