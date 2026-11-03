@@ -75,10 +75,73 @@ void main() {
           _ => null,
         };
         if (wrongs != null) expect(wrongs.toSet().containsAll(t.hints.keys), isTrue, reason: '$why: ${t.hints.keys}');
-        // التلميح مايقولش الإجابة
-        if (t.kind == TaskKind.choice) expect(t.hint, isNot(contains('هي ${t.answer}')), reason: why);
+        if (t.kind == TaskKind.choice) {
+          // كل اختيار غلط ليه تلميح على قدّه، مش «فكّر تاني» عام
+          expect(t.hints.keys.toSet(), wrongs!.toSet(), reason: '$why: a hint for every wrong choice');
+          // التلميح العام مايقولش الإجابة (الكلمة أو الجملة نفسها)
+          if (t.answer.length > 2) expect(t.hint, isNot(contains(t.answer)), reason: '$why: the hint gives «${t.answer}» away');
+        }
       }
     }
+  });
+
+  test('every check offers a simpler example after two mistakes', () {
+    for (final l in lessons) {
+      final checks = [for (final b in l.blocks.whereType<TryBlock>().where((b) => b.check)) ...b.tasks];
+      expect(checks.where((t) => t.help != null), isNotEmpty, reason: '${l.id} ${l.title}');
+    }
+  });
+
+  test('maths hands-on tasks are varied, not one kind', () {
+    for (final book in {for (final l in lessons) bookOfLesson(l.id)!}.where((b) => b.subject == 'math')) {
+      final kinds = [
+        for (final l in lessons.where((l) => bookOfLesson(l.id) == book))
+          for (final b in l.blocks.whereType<TryBlock>().where((b) => !b.check)) ...b.tasks.map((t) => t.kind),
+      ];
+      final top = kinds.toSet().map((k) => kinds.where((x) => x == k).length).reduce((a, b) => a > b ? a : b);
+      expect(top / kinds.length, lessThanOrEqualTo(.6), reason: '${book.id}: ${kinds.length} tasks, $top of one kind');
+    }
+  });
+
+  test('number-line jumps, «ناتجها» picks and smallest-to-largest orders add up', () {
+    int calc(String e) {
+      final t = e.replaceAll('−', '-').split(' ');
+      var v = int.parse(t[0]);
+      for (var i = 1; i + 1 < t.length; i += 2) {
+        v = t[i] == '+' ? v + int.parse(t[i + 1]) : v - int.parse(t[i + 1]);
+      }
+      return v;
+    }
+
+    final expr = RegExp(r'^\d+( [+−] \d+)+$');
+    var checked = 0;
+    for (final l in lessons) {
+      for (final t in l.tasks) {
+        final why = '${l.id}: ${t.ask}';
+        if (t.kind == TaskKind.line) {
+          final m = RegExp(r'ابدأ من (\d+) و(اقفز|ارجع) (\d+)').firstMatch(t.ask);
+          if (m == null) continue;
+          final want = int.parse(m[1]!) + (m[2] == 'اقفز' ? 1 : -1) * int.parse(m[3]!);
+          final more = RegExp(r'وبعدين (\d+)').firstMatch(t.ask);
+          expect(int.parse(t.answer), want + (more == null ? 0 : int.parse(more[1]!)), reason: why);
+          checked++;
+        }
+        if (t.kind == TaskKind.pick && t.items.every(expr.hasMatch)) {
+          final m = RegExp(r'ناتج[هـا]+ (أكبر من )?(\d+)').firstMatch(t.ask);
+          if (m == null) continue;
+          final n = int.parse(m[2]!);
+          bool ok(String e) => m[1] != null ? calc(e) > n : calc(e) == n;
+          expect(t.answers.toSet(), {for (final i in t.items) if (ok(i)) i}, reason: why);
+          checked++;
+        }
+        if (t.kind == TaskKind.order && t.ask.contains('الأصغر للأكبر') && t.items.every((i) => int.tryParse(i) != null)) {
+          final nums = t.items.map(int.parse).toList();
+          expect(nums, [...nums]..sort(), reason: why);
+          checked++;
+        }
+      }
+    }
+    expect(checked, greaterThan(15));
   });
 
   test('a missing number in a number bond is the one that completes it', () {

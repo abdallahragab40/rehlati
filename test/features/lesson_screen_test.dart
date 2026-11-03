@@ -16,18 +16,27 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../domain/engine_test.dart' show FakeSfx, FakeSpeech;
 import '../domain/lesson_content_test.dart' show allLessonFiles;
 
+class _LessonSpeech extends FakeSpeech {
+  final english = <Object>[];
+  @override
+  void speakEn(Object text) {
+    english.add(text);
+    super.speakEn(text);
+  }
+}
+
 void main() {
   final lessons = {for (final l in allLessonFiles()) l.id: l};
 
   /// الشرح على موبايل صغير (٣٦٠ نقطة) وخط النظام ١.٣، وبعده «تدرّب لوحدك» بيروح للجولة.
-  Future<(ProviderContainer, FakeSpeech, FakeSfx)> open(WidgetTester tester, String id, {Map<String, Object>? prefs}) async {
+  Future<(ProviderContainer, _LessonSpeech, FakeSfx)> open(WidgetTester tester, String id, {Map<String, Object>? prefs}) async {
     tester.view
       ..physicalSize = const Size(360 * 3, 780 * 3)
       ..devicePixelRatio = 3;
     addTearDown(tester.view.reset);
     if (prefs != null) SharedPreferences.setMockInitialValues(prefs);
     final sp = await SharedPreferences.getInstance();
-    final speech = FakeSpeech(), sfx = FakeSfx();
+    final speech = _LessonSpeech(), sfx = FakeSfx();
     final router = GoRouter(initialLocation: '/lesson/$id', routes: [
       GoRoute(path: '/lesson/:id', builder: (_, s) => LessonScreen(id: s.pathParameters['id']!)),
       GoRoute(path: '/play/:stage', builder: (_, s) => Text('play ${s.pathParameters['stage']}')),
@@ -159,6 +168,21 @@ void main() {
       if (schoolRound(l.id) != null) expect(find.text('play ${l.id}'), findsOneWidget);
     });
   }
+
+  testWidgets('English reading waits for the child, then uses English speech and left-to-right text', (tester) async {
+    final l = lessons['school:p2-t1-english:u1:l2']!;
+    final page = l.blocks.indexWhere((b) => b is ReadBlock);
+    final text = (l.blocks[page] as ReadBlock).items.first.en!;
+    final (_, speech, _) = await open(tester, l.id);
+    await walk(tester, l, until: page);
+    expect(find.text(text), findsOneWidget);
+    expect(tester.widget<Text>(find.text(text)).textDirection, TextDirection.ltr);
+    final before = speech.english.length;
+    await tap(tester, find.text('🔊 اسمعها واتأكد'));
+    expect(speech.english.length, before + 1);
+    expect(speech.english.last, text);
+    expect(goButton(tester)?.onTap, isNotNull);
+  });
 
   testWidgets('«رتّب» starts mixed up, and a wrong letter does not count', (tester) async {
     final l = lessons['school:p1-t1-arabic:u1:l2']!;

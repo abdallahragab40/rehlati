@@ -386,9 +386,19 @@ Visual visualFromJson(Map<String, dynamic> j) {
     'money' => MoneyVisual(ints('money')),
     'groups' => GroupsVisual(j['groups'] as String, n('g'), n('each')),
     'graph' => PicGraphVisual([for (final r in j['graph'] as List) ('${(r as List)[0]}', (r[1] as num).toInt())]),
+    'barGraph' => _barGraph(j),
     'prep' => PrepVisual(j['thing'] as String, j['place'] as String, j['prep'] as String),
     final k => throw FormatException('visual $k'),
   };
+}
+
+BarGraphVisual _barGraph(Map<String, dynamic> j) {
+  final rows = [for (final r in j['barGraph'] as List) ('${(r as List)[0]}', (r[1] as num).toInt())];
+  final scale = (j['scale'] as num).toInt();
+  if (rows.isEmpty || scale <= 0 || rows.any((r) => r.$2 < 0)) {
+    throw const FormatException('barGraph needs nonnegative rows and a positive scale');
+  }
+  return BarGraphVisual(rows, scale);
 }
 
 /// رقم ← بلاطة، null ← خانة «؟»، علامة ← +/−/=، و`["🍎", 3]` ← صور فوق رقمها.

@@ -8,7 +8,9 @@ e_0b430e62	A bus
 e_5039030a	A camel
 e_e7115fcd	A car is coming.
 e_80a44c68	A cat
+e_d23af819	A cat and a hen.
 e_18b6ab69	A cheetah is faster than a turtle.
+e_b62d4f97	A dog by a lake.
 e_032d587f	A farmer
 e_d902b38e	A fish can swim.
 e_70e1ca88	A fish can't fly.
@@ -22,6 +24,7 @@ e_9ad5cb70	A monkey can climb.
 e_7e683d6e	A penguin can't fly.
 e_3fb5dc76	A rainbow
 e_4ce0282c	A rocket
+e_b284d65c	A rose and a cube.
 e_fa7b7b22	A turtle can't run fast.
 e_c005ad62	A turtle is slower than a rabbit.
 e_a1442fdd	Add -ed: play played.
@@ -289,6 +292,7 @@ e_8e9ba7fe	Goat
 e_4f092c70	Goat.
 e_4a5b08c3	Good morning!
 e_c3bc799d	Good night!
+e_77800af0	Goodbye
 e_ef910703	Goodbye!
 e_219917e3	Grandma
 e_2d90dc02	Grandpa
@@ -372,11 +376,15 @@ e_22692a83	I am hungry.
 e_47d7616b	I am seven.
 e_d337b408	I am ten years old.
 e_8200b505	I and i are the same letter
+e_08f511fa	I clean my room.
+e_0693c28f	I draw a picture.
 e_548d43c4	I drink milk every morning.
+e_aa1db214	I eat in the dining room.
 e_b57490dd	I have a cat.
 e_be787376	I have one brother.
 e_66cba655	I have some cookies.
 e_18411f1e	I have to brush my teeth every day.
+e_6f00fe95	I have twelve pencils.
 e_2fc638c4	I have visited Luxor three times.
 e_3e54a697	I hear with my ears.
 e_f3a31afe	I hear.
@@ -388,9 +396,14 @@ e_6fffc4e6	I like cats, but I don't like dogs.
 e_65cdbc0d	I love my mom.
 e_d6bce8eb	I met a girl who loves sculpture.
 e_3e04e5dc	I my, he his, she her.
+e_d830d12e	I play after school.
+e_76c1c926	I read a book.
+e_f009dd47	I read my book.
 e_07d11789	I see with my eyes.
 e_cf4071cb	I see.
+e_2990576e	I sit on my chair.
 e_a635e2b8	I sleep at night.
+e_2865704d	I sleep in the bedroom.
 e_cd9ae24e	I smell with my nose.
 e_dd1603e3	I smell.
 e_93511357	I taste.
@@ -607,7 +620,9 @@ e_a52bb804	My grandpa used to travel by train, but now he drives.
 e_4b677c4a	My mother is a doctor.
 e_35f3a100	My name is Ali.
 e_eb2f60d5	My name is Omar.
+e_7147c006	My name is Salma.
 e_039ea1a7	My sister plays every day.
+e_7ea50e6e	My sister plays with me.
 e_cb0c01d1	N
 e_b4bb8337	N .
 e_39808b41	N and n are the same letter
@@ -702,6 +717,7 @@ e_c212b600	September
 e_db3f1e9e	Seven
 e_4bb89181	She
 e_a0ae1259	She can play the piano very well.
+e_9de25b79	She eats breakfast.
 e_4d8d4a92	She has finished her homework.
 e_7f212b51	She has to wear a uniform at school.
 e_9c97540f	She is able to speak three languages.
@@ -714,6 +730,7 @@ e_6161e4e1	She is tired.
 e_3843da59	She learned at four.
 e_418ceec7	She loves her cat.
 e_75754c2c	She plays football every day.
+e_98e6f98e	She sleeps early.
 e_4090be25	She usually walks to school.
 e_f644bc97	She was ill
 e_6d934b68	She was late
@@ -722,6 +739,7 @@ e_b0020094	Sheep
 e_70bb9e41	Sister
 e_f32efa7d	Sit down
 e_25f410a9	Sit down.
+e_d65bff90	Sit on a chair.
 e_2cbc324b	Six
 e_2fa62ca8	Sleep
 e_a454ac4f	Snake.
@@ -751,7 +769,10 @@ e_a8136946	T-shirt
 e_329d9b7a	Tap a big letter, then tap its small letter
 e_168c7dc9	Tea
 e_1f8c8bf4	Ten
+e_69ddf2ed	Ten, twenty, thirty.
 e_fd18b61b	Thank you!
+e_86ca92a4	That is a chair.
+e_a4e0d5eb	That is a ship.
 e_837851a8	The Wi-Fi stopped working
 e_e5681fac	The apple is in the basket.
 e_014a3abb	The apple is in the bed.
@@ -961,6 +982,7 @@ e_f9325e0f	The house is next to the car.
 e_d9413639	The house is next to the cat.
 e_7568b367	The house is next to the dog.
 e_7400a7fb	The house is next to the tree.
+e_fbff42de	The lamp is on the table.
 e_d483a37a	The lion lives in the jungle.
 e_d2c312de	The man who invented the clock was clever.
 e_9013038b	The monkeys were funny
@@ -1113,7 +1135,12 @@ e_173ace0f	The word is Yacht
 e_8524d264	The word is Zebra
 e_a2e33cb5	Their teacher
 e_2341ef50	Their uncle
+e_3300f2b9	There are two chairs.
 e_31ddafd6	There aren't any eggs.
+e_97461e8b	There is a bed.
+e_7748429c	There is a kitchen in my home.
+e_bd394cda	There is a lamp on the table.
+e_42a36b7e	There is a table.
 e_63077bb1	There is some milk in the fridge.
 e_584f211f	They
 e_6576e5de	They are T-shirt.
@@ -1141,6 +1168,7 @@ e_762413f6	They have to be quiet in the library.
 e_3bcfc3a9	They sometimes play chess.
 e_ff6c48d0	Think about what fits
 e_55dc277f	Think: a thing, a place, a person, a time, or a reason?
+e_2d8f8805	This is a book.
 e_6bfde492	This is a carpenter.
 e_5a8a52a2	This is a cook.
 e_8972c27b	This is a doctor.
@@ -1150,6 +1178,7 @@ e_1e4809ad	This is a firefighter.
 e_9d10e63f	This is a photographer.
 e_8ada51e4	This is a pilot.
 e_0c9e9956	This is a police officer.
+e_119ea89d	This is a red triangle.
 e_c2a6a254	This is a teacher.
 e_7fe00262	This is for a architect.
 e_e69d6685	This is for a delivery worker.
@@ -1159,8 +1188,13 @@ e_c48ca58a	This is for a street cleaner.
 e_68902c90	This is for a tailor.
 e_511c855e	This is for a traffic officer.
 e_5c35fbfd	This is for a water engineer.
+e_fb92e0e1	This is my bag.
+e_75d35e41	This is my family.
 e_20433cf3	This is my father.
+e_230de57b	This is my grandfather.
+e_222a08dc	This is my home.
 e_d5275710	This is my mother.
+e_dfd78081	This is my sister.
 e_12db9bcf	This is the gadget which tells the time.
 e_d400831d	This stage is locked.
 e_2e430863	Three
@@ -1688,6 +1722,7 @@ e_ff794225	cat, dog, rabbit, fish
 e_4d847d6f	cates
 e_9d2d8a9c	cats
 e_5cb49d8a	chair
+e_250f5552	chair, chin, lunch
 e_9454292c	chair.
 e_e954aefb	chairs
 e_a20c85a8	cheese
@@ -1699,6 +1734,7 @@ e_9b48540f	chess
 e_e5a0205d	child
 e_67a9c9d2	children
 e_a912a86a	childs
+e_8c384f51	chin
 e_28217089	circle
 e_0dc48142	city
 e_4324fd83	clap
@@ -1730,6 +1766,7 @@ e_d3277542	cycling
 e_e10c2473	d
 e_ccad7c6d	delivery worker
 e_2cb41ebc	desert
+e_8b030cb8	desk
 e_d762953e	did
 e_63ea0393	didn't
 e_f3a1d109	didn't use to
@@ -1789,6 +1826,7 @@ e_a8f7fa72	fan
 e_808e8652	farmer
 e_029402af	fast
 e_279cb564	faster
+e_b0fee263	father
 e_bb357f55	feet
 e_809e3f91	fever
 e_e2f7de62	fff o ks
@@ -1807,6 +1845,7 @@ e_e21b1581	fifty-seven
 e_4681b284	fifty-six
 e_f9a473bc	fifty-three
 e_3b0b395e	fifty-two
+e_c8e4a51a	fin
 e_2f4cf9ce	firefighter
 e_25570d85	fireworks
 e_09add7e2	five apples
@@ -1880,6 +1919,7 @@ e_4220774b	go
 e_09784e5b	goes
 e_0b4ec68d	going
 e_ec66d793	gold
+e_77688e8b	grandfather
 e_38351db3	guh
 e_f1b77675	guh, guh
 e_c94cf063	guh, guh, Gift
@@ -1947,6 +1987,7 @@ e_7298fa0d	kuh, kuh, Cake
 e_f8f6ac13	kuh, kuh, Cat
 e_aac672bb	kuh...
 e_e90c310b	l
+e_62f55e3e	lake
 e_6bf0ef3b	lamp
 e_01485e0f	lamp.
 e_e812f405	lightning
@@ -1959,6 +2000,7 @@ e_14f565a7	lll, lll, Lion
 e_3f515151	log
 e_89ceec8a	lollipop
 e_2451943b	luggage
+e_cf1ef61f	lunch
 e_e80c2f78	m
 e_e9a2ff6f	man
 e_dfa2efb1	map
@@ -1979,6 +2021,7 @@ e_a7eb16c2	mmm, mmm, Moon
 e_ec956f1e	monorail
 e_f184ae40	moon
 e_d39e5f9f	mop
+e_23e3d71a	mother
 e_1b43c22c	mother, father
 e_a45b05cc	motorcycle
 e_49cbe0a2	mountain
@@ -2027,6 +2070,7 @@ e_3196115c	o...
 e_7d3d112e	oasis
 e_61342fd0	on
 e_249fdfc3	on + day.
+e_a2c061f4	one bed
 e_2ba4b5cb	one hundred
 e_3c31aded	one, two, three, four, five
 e_5d342984	or
@@ -2091,6 +2135,7 @@ e_c00c06f8	rose.
 e_8ae14409	rrr, rrr
 e_2fda6c9d	rrr, rrr, Rabbit
 e_9951623b	rrr, rrr, Rain
+e_9dcfbd73	ruler
 e_2acd4eca	run
 e_147eb74c	running
 e_1a32ed3b	runs
@@ -2127,6 +2172,7 @@ e_ee7b2910	should = a good idea.
 e_0b70261f	shouldn't
 e_52e1c1e3	shouldn't = a bad idea.
 e_15d2601e	sing
+e_fe691321	sister
 e_e5a2fa75	sister, brother
 e_c630015f	sit
 e_d56e13fe	six, seven, eight, nine, ten
@@ -2147,6 +2193,7 @@ e_222af732	skating
 e_5488dd89	sketch
 e_7cad5f3b	sled
 e_59ecae0f	sled.
+e_89eabb08	sleep
 e_978522a1	sleeps
 e_6789b051	slice
 e_6d9542b8	slow
@@ -2194,6 +2241,7 @@ e_5584392f	sweet
 e_fb264bd4	sweets
 e_81f4ae28	swimming
 e_f10c3da3	t
+e_4a9c9bdf	table
 e_82d32a22	tailor
 e_112cdf96	tall
 e_b2085c21	taller
@@ -2204,6 +2252,7 @@ e_090f523c	temple
 e_bd01f454	ten
 e_1c11f8a2	tennis
 e_aa134e60	tent
+e_cb18332c	that
 e_b40eb21c	the
 e_21c164ef	the beach
 e_44f6d969	the biggest
@@ -2212,6 +2261,7 @@ e_ecf0b8a9	the sky
 e_1b01e6fb	the slowest
 e_deb0cd95	the tallest
 e_381ba427	thermometer
+e_c52bb172	thin
 e_63374a36	thirteen
 e_1a956a35	thirty
 e_e5adc4ab	thirty-eight
@@ -2223,6 +2273,7 @@ e_b788bc0d	thirty-seven
 e_2494bba0	thirty-six
 e_ff7bcd90	thirty-three
 e_a83fb162	thirty-two
+e_da2bd281	this
 e_888603c3	three
 e_df5a5e68	three apples
 e_11f0cc61	three babies
@@ -2254,6 +2305,7 @@ e_17393a00	traffic officer
 e_78556c69	train
 e_05025085	triangle
 e_f542bdc8	truck
+e_6824827f	tube
 e_9b28ce3e	tuh
 e_34d33c87	tuh, tuh
 e_a4ea2602	tuh, tuh, Tiger
@@ -2278,6 +2330,7 @@ e_329b91d8	two boxes
 e_b1b0287b	two buses
 e_2c1a1b4a	two butterflies
 e_6bb1d2ea	two cats
+e_e2fe0ff5	two chairs
 e_771b96d2	two cherries
 e_41e8bd94	two children
 e_50297350	two dogs

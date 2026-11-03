@@ -105,8 +105,8 @@ Stage? stageById(String id) => packs[id] ?? schoolStage(id);
 
 /// أسئلة الجولة: الامتحان بيلف على الدروس بالدور، والدرس بيلف على مراحله.
 List<Question> schoolQuestions(SchoolRound round, ProgressData p, Rng r, {int? count, bool Function(Question)? keep}) {
-  final lessons = r.shuffle(round.lessons);
-  final items = [for (final l in lessons) r.shuffle(l.items)];
+  final lessons = r.shuffle([...round.lessons]);
+  final items = [for (final l in lessons) r.shuffle([...l.items])];
   final n = count ?? round.count;
   final out = <Question>[], seen = <String>{};
   for (var i = 0; out.length < n && i < n * 12; i++) {

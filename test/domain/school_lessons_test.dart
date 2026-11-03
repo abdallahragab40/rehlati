@@ -15,6 +15,25 @@ import 'package:rehlati/features/school/school_screen.dart';
 import 'engine_test.dart' show correctIndex, makeContainer;
 
 void main() {
+  test('question generation shuffles copies of the curriculum, including const items', () {
+    final round = schoolRound('school:p2-t1-math:u4:l1')!;
+    final lessons = List<SchoolLesson>.unmodifiable(round.lessons);
+    final items = [...lessons.single.items];
+    final immutable = SchoolRound(
+      id: round.id,
+      book: round.book,
+      unit: round.unit,
+      lessons: lessons,
+      exam: false,
+    );
+    for (var seed = 0; seed < 4; seed++) {
+      final questions = schoolQuestions(immutable, ProgressData(grade: 'p2'), Rng.seeded(seed));
+      expect(questions, hasLength(lessonQuestions));
+      expect(questions.map((q) => q.skill), everyElement(anyOf('add100:carry', 'sub100:borrow')));
+      expect(lessons.single.items, items);
+    }
+  });
+
   test('every lesson points at real stages that make questions', () {
     for (final b in schoolBooks) {
       for (final u in b.units) {

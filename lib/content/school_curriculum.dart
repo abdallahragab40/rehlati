@@ -2,6 +2,8 @@
 /// (tool/SCHOOL_CURRICULUM_INDEX.md). الأسئلة نفسها من مراحل التطبيق: كل درس بيقول أنهي مراحل
 /// بتدرّب عليه، ولو حرف أو عدد معيّن يبقى [LessonItem.focus].
 ///
+/// مطابقة أولى وتانية ترم أول مع طبعة ٢٠٢٦/٢٠٢٧ في tool/curriculum/p1-t1.json وp2-t1.json.
+///
 /// الدرس اللي [SchoolLesson.items] فاضية لسه مالوش مراحل — بيظهر «قريبًا».
 /// مفتاح الدرس بيتحسب من مكانه (الكتاب، الوحدة، الدرس) وبيتخزّن في نتايج الطفل،
 /// فدرس جديد يتضاف في آخر وحدته مش في النص.
@@ -141,16 +143,44 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('المفرد والمثنى', [_i('ar_number')]),
       SchoolLesson('تحليل الكلمات إلى مقاطع', [_i('ar_analyze'), _i('ar_syllable')]),
       SchoolLesson('أسماء الإشارة', [_i('ar_this')]),
+
+      const SchoolLesson.explain('اقرأ: قلم لصديقي'),
+      const SchoolLesson.explain('اقرأ: مكان للجميع'),
+      const SchoolLesson.explain('استماع: الهدية الصغيرة'),
+      const SchoolLesson.explain('نشيد: أقول شكرًا'),
+      const SchoolLesson.explain('تحدث: كلمة لطيفة'),
+      const SchoolLesson.explain('تحدث: أرحب بصديق'),
+      const SchoolLesson.explain('كتابة: مشهد في الحديقة'),
+      const SchoolLesson.explain('كتابة: مشهد في الفصل'),
+      const SchoolLesson.explain('مراجعة: أستعد لتانية'),
     ]),
     SchoolUnit('عادات صحية', [
       SchoolLesson('ذلك – تلك', [_i('ar_far')]),
       SchoolLesson('اللام الشمسية واللام القمرية', [_i('ar_al')]),
       SchoolLesson('ظرف الزمان وظرف المكان', [_i('ar_adverb')]),
+
+      const SchoolLesson.explain('اقرأ: ابتسامة نظيفة'),
+      const SchoolLesson.explain('اقرأ: صندوق الغداء'),
+      const SchoolLesson.explain('استماع: صباح بلا عجلة'),
+      const SchoolLesson.explain('نشيد: جسمي نشيط'),
+      const SchoolLesson.explain('تحدث: أحكي عن فرشاتي'),
+      const SchoolLesson.explain('تحدث: وجبتي المتنوعة'),
+      const SchoolLesson.explain('كتابة: بطاقتي'),
+      const SchoolLesson.explain('كتابة: بطاقة لصديق خيالي'),
     ]),
     SchoolUnit('الرياضة والتكنولوجيا', [
       SchoolLesson('الأمر والنهي', [_i('ar_command')]),
       SchoolLesson('الحروف المتشابهة في النطق', [_i('ar_similar')]),
       SchoolLesson('الأسماء الموصولة', [_i('ar_relative')]),
+
+      const SchoolLesson.explain('اقرأ: وقت للشاشة'),
+      const SchoolLesson.explain('اقرأ: نتعاون في الملعب'),
+      const SchoolLesson.explain('استماع: لعبة تناسبنا'),
+      const SchoolLesson.explain('نشيد: نلعب معًا'),
+      const SchoolLesson.explain('تحدث: أستخدم الحاسوب'),
+      const SchoolLesson.explain('تحدث: نشاط أحبه'),
+      const SchoolLesson.explain('كتابة: مشهد اللعب'),
+      const SchoolLesson.explain('كتابة: بطاقة بطل خيالي'),
     ]),
   ]),
   SchoolBook('p2', 2, 'arabic', [
@@ -224,23 +254,71 @@ final schoolBooks = <SchoolBook>[
     SchoolUnit('البيانات', [
       SchoolLesson('التمثيل البياني بالصور', [_i('picGraph')]),
       SchoolLesson('التمثيل البياني بالأعمدة', [_i('barGraph')]),
+
+      const SchoolLesson.explain('مقارنة رسمين بيانيين'),
     ]),
     SchoolUnit('الجمع والطرح', [
       SchoolLesson('الجمع والطرح', [_i('add100'), _i('sub100')]),
       SchoolLesson('مسائل كلامية', [_i('wordProblem')]),
+
+      const SchoolLesson.explain('جمع عدد من رقمين وعدد من رقم واحد'),
+      const SchoolLesson.explain('الجمع عندما تكتمل عشرة'),
+      const SchoolLesson.explain('تبديل ترتيب العددين في الجمع'),
+      const SchoolLesson.explain('الطرح الرأسي بدون إعادة تجميع'),
+      const SchoolLesson.explain('طرح عدد من رقم واحد'),
+      const SchoolLesson.explain('الطرح بفك عشرة'),
+      const SchoolLesson.explain('طرح رقم واحد بفك عشرة'),
+      const SchoolLesson.explain('العلاقة بين الجمع والطرح'),
     ]),
-    SchoolUnit('الأعداد المكوّنة من ٣ أرقام', [SchoolLesson('الأعداد من ٣ أرقام', [_i('hundreds')])]),
+    SchoolUnit('الأعداد المكوّنة من ٣ أرقام', [
+      SchoolLesson('الأعداد من ٣ أرقام', [_i('hundreds')]),
+      const SchoolLesson.explain('الصفر في العدد'),
+      const SchoolLesson.explain('القيمة المكانية للأعداد'),
+      const SchoolLesson.explain('العشرات داخل المئات'),
+      const SchoolLesson.explain('قراءة خط أعداد كبير'),
+      const SchoolLesson.explain('العدد ألف'),
+      const SchoolLesson.explain('جمع وطرح العشرات والمئات'),
+      const SchoolLesson.explain('المئات مع العشرات والآحاد'),
+      const SchoolLesson.explain('مقارنة الأعداد الكبيرة'),
+      const SchoolLesson.explain('مقارنة عدد بناتج عملية'),
+    ]),
     SchoolUnit('الجمع والطرح بإعادة التجميع', [
-      SchoolLesson('الجمع والطرح بإعادة التجميع', [_i('add100'), _i('sub100')]),
+      const SchoolLesson('الجمع والطرح بإعادة التجميع', [
+        LessonItem('add100', minLevel: 4),
+        LessonItem('sub100', minLevel: 4),
+      ]),
       SchoolLesson('تقدير نواتج الجمع والطرح', [_i('rounding')]),
+
+      const SchoolLesson.explain('جمع ينتج مئات'),
+      const SchoolLesson.explain('جمع بإعادة تجميع مرتين'),
+      const SchoolLesson.explain('طرح بفك مئة'),
+      const SchoolLesson.explain('طرح بفك مئة وعشرة'),
+      const SchoolLesson.explain('الطرح عبر صفر'),
+      const SchoolLesson.explain('الجمع والطرح من ثلاثة أرقام'),
     ]),
     SchoolUnit('الأشكال والقياس', [
       SchoolLesson('الأشكال الهندسية', [_i('geometry')]),
       SchoolLesson('قياس الأطوال', [_i('measure')]),
+
+      const SchoolLesson.explain('الملليمتر'),
+      const SchoolLesson.explain('الخط المستقيم وتحويل الأطوال'),
+      const SchoolLesson.explain('رسم خط مستقيم بالمسطرة'),
+      const SchoolLesson.explain('حساب الأطوال'),
     ]),
     SchoolUnit('الكتلة والوقت', [
       SchoolLesson('الكتلة', [_i('measure')]),
       SchoolLesson('الوقت', [_i('clockQuarter')]),
+
+      const SchoolLesson.explain('صباحًا ومساءً'),
+    ]),
+    const SchoolUnit('وحدات السعة', [
+      SchoolLesson.explain('الديسيلتر والسعة'),
+      SchoolLesson.explain('اللتر والسعة'),
+      SchoolLesson.explain('الملليلتر والسعة'),
+    ]),
+    const SchoolUnit('طرق الحساب الذهني', [
+      SchoolLesson.explain('الحساب الذهني بتغيير الترتيب'),
+      SchoolLesson.explain('الحساب الذهني بتفكيك عدد'),
     ]),
   ]),
   SchoolBook('p2', 2, 'math', [
@@ -307,10 +385,15 @@ final schoolBooks = <SchoolBook>[
     SchoolUnit("Let's Get Started!", [
       SchoolLesson('Classroom things', [_i('en_daily')]),
       SchoolLesson('Short vowels a, e, i', [_i('en_cvc', 'vowels:aei')]),
+
+      const SchoolLesson.explain('Greetings and introductions'),
     ]),
     SchoolUnit('Colors, Shapes, and Numbers', [
       SchoolLesson('Colors, shapes and numbers', [_i('en_colors'), _i('en_shapes'), _i('en_numbers')]),
       SchoolLesson('Numbers 11–20', [_i('en_count100', 'to20')]),
+
+      const SchoolLesson.explain('Short o, short u and long a'),
+      const SchoolLesson.explain('Counting by tens'),
     ]),
     SchoolUnit('Classroom Actions & Routines', [
       SchoolLesson('Classroom actions', [_i('en_actions')]),
@@ -319,9 +402,19 @@ final schoolBooks = <SchoolBook>[
     SchoolUnit('Everyday Life', [
       SchoolLesson('My family', [_i('en_family')]),
       SchoolLesson('Long vowels o, u and th', [_i('en_sounds', 'long:o,u'), _i('en_sounds', 'digraph:th')]),
+
+      const SchoolLesson.explain('Daily routines'),
     ]),
-    SchoolUnit('My Home', [SchoolLesson('My home', [_i('en_rooms'), _i('en_prep')]), SchoolLesson('sh and th', [_i('en_sounds', 'digraph:sh,th')])]),
-    SchoolUnit('Rooms at Home', [SchoolLesson('Rooms at home', [_i('en_rooms')]), SchoolLesson('ch', [_i('en_sounds', 'digraph:ch')])]),
+    SchoolUnit('My Home', [
+      SchoolLesson('My home', [_i('en_rooms'), _i('en_prep')]),
+      SchoolLesson('sh and th', [_i('en_sounds', 'digraph:sh,th')]),
+      const SchoolLesson.explain('Helping at home'),
+    ]),
+    SchoolUnit('Rooms at Home', [
+      SchoolLesson('Rooms at home', [_i('en_rooms')]),
+      SchoolLesson('ch', [_i('en_sounds', 'digraph:ch')]),
+      const SchoolLesson.explain('There is and There are'),
+    ]),
   ]),
   SchoolBook('p2', 2, 'english', [
     SchoolUnit('Our Environment', [SchoolLesson('There is / There are', [_i('en_isare')]), SchoolLesson('Long vowels a, i', [_i('en_sounds', 'long:a,i')])]),

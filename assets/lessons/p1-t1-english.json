@@ -7,7 +7,7 @@
    "key": "u1:l1",
    "title": "Greetings & classroom",
    "goal": "أسلّم على الناس بالإنجليزي، وأعرّف نفسي، وأفهم كلام المدرّسة في الفصل",
-   "version": 2,
+   "version": 3,
    "review": "draft",
    "blocks": [
     {
@@ -151,7 +151,11 @@
         "Goodbye": "Goodbye بنقولها وإحنا ماشيين",
         "Sit down": "Sit down يعني اقعد"
        },
-       "why": "Good morning يعني صباح الخير"
+       "why": "Good morning يعني صباح الخير",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Hello! What's your name?"
+       }
       },
       {
        "kind": "choice",
@@ -168,7 +172,11 @@
         "Hello": "Hello بنقولها لما نقابل حد",
         "Stand up": "Stand up يعني قوم"
        },
-       "why": "Goodbye يعني مع السلامة"
+       "why": "Goodbye يعني مع السلامة",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Hello! What's your name?"
+       }
       },
       {
        "kind": "choice",
@@ -188,7 +196,11 @@
         "قوم": "قوم يعني Stand up",
         "افتح كتابك": "افتح كتابك يعني Open your book"
        },
-       "why": "Sit down يعني اقعد"
+       "why": "Sit down يعني اقعد",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Hello! What's your name?"
+       }
       }
      ]
     },
@@ -208,7 +220,7 @@
    "key": "u1:l2",
    "title": "Letters T, I",
    "goal": "أعرف الحرفين T و I: شكلهم الكبير والصغير وكلمات بتبدأ بيهم",
-   "version": 2,
+   "version": 3,
    "review": "draft",
    "blocks": [
     {
@@ -351,7 +363,11 @@
         "I": "I صوته زي أول Igloo",
         "S": "S صوته سسس"
        },
-       "why": "Tiger أولها T"
+       "why": "Tiger أولها T",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Tiger"
+       }
       },
       {
        "kind": "choice",
@@ -372,7 +388,11 @@
         "A": "A صوته زي أول Apple",
         "T": "T صوته زي أول Tiger"
        },
-       "why": "Igloo أولها I"
+       "why": "Igloo أولها I",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Tiger"
+       }
       },
       {
        "kind": "choice",
@@ -392,7 +412,11 @@
         "I": "I الصغير هو i بنقطة",
         "L": "L الصغير هو l خط واقف"
        },
-       "why": "الصغير t والكبير T"
+       "why": "الصغير t والكبير T",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Tiger"
+       }
       }
      ]
     },
@@ -410,7 +434,7 @@
    "key": "u2:l1",
    "title": "Colors and shapes",
    "goal": "أعرف أسماء الألوان والأشكال بالإنجليزي",
-   "version": 2,
+   "version": 3,
    "review": "draft",
    "blocks": [
     {
@@ -562,7 +586,11 @@
         "red": "red يعني أحمر",
         "blue": "blue يعني أزرق"
        },
-       "why": "ده أخضر، وبالإنجليزي green"
+       "why": "ده أخضر، وبالإنجليزي green",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "a circle"
+       }
       },
       {
        "kind": "choice",
@@ -582,7 +610,11 @@
         "circle": "circle مدوّرة من غير أركان",
         "square": "square ليه ٤ أضلاع"
        },
-       "why": "ليه تلات أضلاع، يبقى triangle"
+       "why": "ليه تلات أضلاع، يبقى triangle",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "a circle"
+       }
       },
       {
        "kind": "choice",
@@ -602,7 +634,11 @@
         "blue": "blue يعني أزرق",
         "red": "red يعني أحمر"
        },
-       "why": "الموزة صفرا، وبالإنجليزي yellow"
+       "why": "الموزة صفرا، وبالإنجليزي yellow",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "a circle"
+       }
       }
      ]
     },
@@ -620,7 +656,7 @@
    "key": "u2:l2",
    "title": "Letters S, A",
    "goal": "أعرف الحرفين S و A: شكلهم وصوتهم وكلمات بتبدأ بيهم",
-   "version": 2,
+   "version": 3,
    "review": "draft",
    "blocks": [
     {
@@ -770,7 +806,11 @@
         "A": "A صوته زي أول Apple",
         "T": "T صوته زي أول Tiger"
        },
-       "why": "Sun أولها S"
+       "why": "Sun أولها S",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Sun"
+       }
       },
       {
        "kind": "choice",
@@ -791,7 +831,11 @@
         "I": "I صوته زي أول Igloo",
         "S": "S صوته سسس"
        },
-       "why": "Apple أولها A"
+       "why": "Apple أولها A",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Sun"
+       }
       },
       {
        "kind": "choice",
@@ -811,7 +855,11 @@
         "S": "S الصغير هو s",
         "T": "T الصغير هو t"
        },
-       "why": "الصغير a والكبير A"
+       "why": "الصغير a والكبير A",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Sun"
+       }
       }
      ]
     },
@@ -829,7 +877,7 @@
    "key": "u3:l1",
    "title": "My family and numbers 1–5",
    "goal": "أعرّف أفراد عيلتي بالإنجليزي، وأعدّ من 1 لـ 5",
-   "version": 1,
+   "version": 2,
    "review": "draft",
    "blocks": [
     {
@@ -968,7 +1016,11 @@
         "sister": "sister يعني أخت",
         "mother": "mother يعني ماما"
        },
-       "why": "ده بابا = father"
+       "why": "ده بابا = father",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "This is my mother."
+       }
       },
       {
        "kind": "choice",
@@ -989,7 +1041,11 @@
         "four": "four يعني 4",
         "two": "two يعني 2"
        },
-       "why": "تلاتة = three"
+       "why": "تلاتة = three",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "This is my mother."
+       }
       }
      ]
     },
@@ -1007,7 +1063,7 @@
    "key": "u3:l2",
    "title": "Letters N, P, H, D",
    "goal": "أعرف الحروف N و P و H و D: شكلهم الكبير والصغير وكلمات بتبدأ بيهم",
-   "version": 1,
+   "version": 2,
    "review": "draft",
    "blocks": [
     {
@@ -1164,7 +1220,11 @@
         "P": "P صوته زي أول Pen",
         "H": "H صوته زي أول Hat"
        },
-       "why": "Nose أولها N"
+       "why": "Nose أولها N",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Nose"
+       }
       },
       {
        "kind": "choice",
@@ -1185,7 +1245,11 @@
         "N": "N صوته زي أول Nose",
         "H": "H صوته زي أول Hat"
        },
-       "why": "Pen أولها P"
+       "why": "Pen أولها P",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Nose"
+       }
       }
      ]
     },
@@ -1205,7 +1269,7 @@
    "key": "u4:l1",
    "title": "My body",
    "goal": "أعرف أجزاء جسمي وحواسي الخمسة بالإنجليزي",
-   "version": 1,
+   "version": 2,
    "review": "draft",
    "blocks": [
     {
@@ -1349,7 +1413,11 @@
         "eyes": "eyes بنشوف بيها",
         "hands": "hands الإيدين"
        },
-       "why": "دي الودن = ears"
+       "why": "دي الودن = ears",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I see with my eyes."
+       }
       },
       {
        "kind": "choice",
@@ -1369,7 +1437,11 @@
         "mouth": "mouth بناكل بيه",
         "feet": "feet بنمشي بيها"
        },
-       "why": "بنشم بالمناخير = nose"
+       "why": "بنشم بالمناخير = nose",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I see with my eyes."
+       }
       }
      ]
     },
@@ -1387,7 +1459,7 @@
    "key": "u4:l2",
    "title": "Letters R, E, C, K",
    "goal": "أعرف الحروف R و E و C و K: شكلهم الكبير والصغير وكلمات بتبدأ بيهم",
-   "version": 1,
+   "version": 2,
    "review": "draft",
    "blocks": [
     {
@@ -1544,7 +1616,11 @@
         "E": "E صوته زي أول Egg",
         "C": "C صوته زي أول Cat"
        },
-       "why": "Rabbit أولها R"
+       "why": "Rabbit أولها R",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Rabbit"
+       }
       },
       {
        "kind": "choice",
@@ -1565,7 +1641,11 @@
         "R": "R صوته زي أول Rabbit",
         "C": "C صوته زي أول Cat"
        },
-       "why": "Egg أولها E"
+       "why": "Egg أولها E",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Rabbit"
+       }
       }
      ]
     },
@@ -1585,7 +1665,7 @@
    "key": "u5:l1",
    "title": "Farm animals and numbers 6–10",
    "goal": "أعرف حيوانات المزرعة وبتدّينا إيه، وأعدّ من 6 لـ 10",
-   "version": 1,
+   "version": 2,
    "review": "draft",
    "blocks": [
     {
@@ -1720,7 +1800,11 @@
         "milk": "milk من البقرة",
         "wool": "wool من الخروف"
        },
-       "why": "الفرخة بتدّينا بيض"
+       "why": "الفرخة بتدّينا بيض",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "The cow gives us milk."
+       }
       },
       {
        "kind": "choice",
@@ -1741,7 +1825,11 @@
         "six": "six يعني 6",
         "eight": "eight يعني 8"
        },
-       "why": "سبعة = seven"
+       "why": "سبعة = seven",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "The cow gives us milk."
+       }
       }
      ]
     },
@@ -1759,7 +1847,7 @@
    "key": "u5:l2",
    "title": "Letters M, G, O, F",
    "goal": "أعرف الحروف M و G و O و F: شكلهم الكبير والصغير وكلمات بتبدأ بيهم",
-   "version": 1,
+   "version": 2,
    "review": "draft",
    "blocks": [
     {
@@ -1916,7 +2004,11 @@
         "G": "G صوته زي أول Goat",
         "O": "O صوته زي أول Orange"
        },
-       "why": "Moon أولها M"
+       "why": "Moon أولها M",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Moon"
+       }
       },
       {
        "kind": "choice",
@@ -1937,7 +2029,11 @@
         "M": "M صوته زي أول Moon",
         "O": "O صوته زي أول Orange"
        },
-       "why": "Goat أولها G"
+       "why": "Goat أولها G",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Moon"
+       }
       }
      ]
     },
@@ -1957,7 +2053,7 @@
    "key": "u6:l1",
    "title": "Animals",
    "goal": "أعرف حيوانات الغابة والحيوانات الأليفة وبيعيشوا فين",
-   "version": 1,
+   "version": 2,
    "review": "draft",
    "blocks": [
     {
@@ -2089,7 +2185,11 @@
         "lion": "lion أسد",
         "cat": "cat قطة"
        },
-       "why": "دي زرافة = giraffe"
+       "why": "دي زرافة = giraffe",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "The lion lives in the jungle."
+       }
       },
       {
        "kind": "choice",
@@ -2107,7 +2207,11 @@
        "hints": {
         "the jungle": "الكلب حيوان أليف"
        },
-       "why": "الكلب حيوان أليف بيعيش في البيت"
+       "why": "الكلب حيوان أليف بيعيش في البيت",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "The lion lives in the jungle."
+       }
       }
      ]
     },
@@ -2125,7 +2229,7 @@
    "key": "u6:l2",
    "title": "in, on, under",
    "goal": "أقول مكان الحاجة بالإنجليزي: in و on و under",
-   "version": 1,
+   "version": 2,
    "review": "draft",
    "blocks": [
     {
@@ -2259,7 +2363,11 @@
         "in": "in يعني جوه",
         "under": "under يعني تحت"
        },
-       "why": "الكتاب فوق الشنطة = on"
+       "why": "الكتاب فوق الشنطة = on",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Where is the ball?"
+       }
       },
       {
        "kind": "choice",
@@ -2281,7 +2389,11 @@
         "on": "on يعني فوق",
         "under": "under يعني تحت"
        },
-       "why": "السمكة جوه الحوض = in"
+       "why": "السمكة جوه الحوض = in",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Where is the ball?"
+       }
       }
      ]
     },
@@ -2300,7 +2412,7 @@
    "key": "u6:l3",
    "title": "Letters B, L, U, J",
    "goal": "أعرف الحروف B و L و U و J: شكلهم الكبير والصغير وكلمات بتبدأ بيهم",
-   "version": 1,
+   "version": 2,
    "review": "draft",
    "blocks": [
     {
@@ -2457,7 +2569,11 @@
         "L": "L صوته زي أول Lion",
         "U": "U صوته زي أول Umbrella"
        },
-       "why": "Ball أولها B"
+       "why": "Ball أولها B",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Ball"
+       }
       },
       {
        "kind": "choice",
@@ -2478,7 +2594,11 @@
         "B": "B صوته زي أول Ball",
         "U": "U صوته زي أول Umbrella"
        },
-       "why": "Lion أولها L"
+       "why": "Lion أولها L",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Ball"
+       }
       }
      ]
     },

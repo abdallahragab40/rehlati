@@ -379,12 +379,20 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
         ReadBlock(:final title, :final items) => Column(children: [
             _title(title),
             if (items[_step].visual != null) VisualView(items[_step].visual!),
-            Text(ar(items[_step].text),
-                textAlign: TextAlign.center, style: kidText(context.clampVw(40, 11, 60), height: 1.6)),
+            Text(ar(items[_step].en ?? items[_step].text),
+                textDirection: items[_step].en == null ? TextDirection.rtl : TextDirection.ltr,
+                textAlign: TextAlign.center,
+                style: kidText(items[_step].en != null && items[_step].en!.length > 35
+                    ? context.clampVw(24, 6.5, 32)
+                    : context.clampVw(40, 11, 60), height: 1.6)),
             const SizedBox(height: 10),
             if (voiceEnabled) ...[
               KidButton(_heard ? '🔊 اسمع تاني' : '🔊 اسمعها واتأكد', kind: BtnKind.ghost, onTap: () {
-                _say(items[_step].spoken);
+                if (items[_step].en case final text?) {
+                  _sayEn(text);
+                } else {
+                  _say(items[_step].spoken);
+                }
                 setState(() => _heard = true);
               }),
               if (!_heard)
