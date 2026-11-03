@@ -1,0 +1,509 @@
+{
+ "book": "p1-t1-english",
+ "edition": "2026_2027",
+ "lessons": [
+  {
+   "key": "u1:l1",
+   "title": "Greetings & classroom",
+   "goal": "أسلّم على الناس بالإنجليزي، وأعرّف نفسي، وأفهم كلام المدرّسة في الفصل",
+   "blocks": [
+    {
+     "type": "explain",
+     "title": "بنسلّم إزاي؟",
+     "text": "لما نقابل حد بنقول أهلًا",
+     "en": "Hello! Hi!",
+     "visual": {
+      "emoji": "👋"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "الصبح بنقول صباح الخير",
+     "en": "Good morning!",
+     "visual": {
+      "emoji": "☀️"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "ولما نمشي بنقول مع السلامة",
+     "en": "Goodbye!",
+     "visual": {
+      "emoji": "🚶"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "ولما حد يسألنا عن اسمنا بنرد ونقول اسمنا",
+     "en": "My name is Ali.",
+     "visual": {
+      "emoji": "🙋"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "كلام الفصل",
+     "text": "وفي الفصل المدرّسة بتقول: قوم، اقعد، افتح كتابك",
+     "en": "Stand up. Sit down. Open your book.",
+     "visual": {
+      "emoji": "🏫"
+     }
+    },
+    {
+     "type": "example",
+     "title": "حوار صغير",
+     "steps": [
+      {
+       "text": "المدرّسة بتسلّم وتسأل عن الاسم",
+       "en": "Hello! What's your name?",
+       "visual": {
+        "emoji": "👩‍🏫"
+       }
+      },
+      {
+       "text": "والتلميذ بيرد",
+       "en": "Hi! My name is Omar.",
+       "visual": {
+        "emoji": "🧒"
+       }
+      },
+      {
+       "text": "والمدرّسة بتقول: اتشرفنا",
+       "en": "Nice to meet you, Omar!",
+       "visual": {
+        "emoji": "😊"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "questions": [
+      {
+       "ask": "الصبح بنقول إيه؟",
+       "choices": [
+        "Good morning",
+        "Goodbye",
+        "Sit down"
+       ],
+       "answer": "Good morning",
+       "why": "Good morning يعني صباح الخير",
+       "en": true
+      },
+      {
+       "ask": "وإحنا ماشيين بنقول إيه؟",
+       "choices": [
+        "Hello",
+        "Goodbye",
+        "Stand up"
+       ],
+       "answer": "Goodbye",
+       "why": "Goodbye يعني مع السلامة",
+       "en": true
+      },
+      {
+       "ask": "اسمع واختار المعنى",
+       "visual": {
+        "listen": "Sit down",
+        "en": true
+       },
+       "choices": [
+        "اقعد",
+        "قوم",
+        "افتح كتابك"
+       ],
+       "answer": "اقعد",
+       "why": "Sit down يعني اقعد"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "قولوا لبعض Good morning كل يوم الصبح. والعبوا: ولي الأمر يقول Stand up أو Sit down والطفل يعمل الحركة بسرعة."
+    },
+    {
+     "type": "summary",
+     "points": [
+      "Hello و Hi يعني أهلًا",
+      "Good morning يعني صباح الخير",
+      "Goodbye يعني مع السلامة",
+      "My name is يعني اسمي"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "u1:l2",
+   "title": "Letters T, I",
+   "goal": "أعرف الحرفين T و I: شكلهم الكبير والصغير وكلمات بتبدأ بيهم",
+   "blocks": [
+    {
+     "type": "explain",
+     "title": "حرف T",
+     "text": "ده حرف T. الكبير T والصغير t",
+     "en": "T is for Tiger.",
+     "visual": {
+      "letter": "T t"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "صوت T بنسمعه في أول كلمة Tree وكلمة Tiger",
+     "en": "Tree. Tiger.",
+     "visual": {
+      "emoji": "🌳🐯"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "حرف I",
+     "text": "ده حرف I. الكبير I والصغير i",
+     "en": "I is for Igloo.",
+     "visual": {
+      "letter": "I i"
+     }
+    },
+    {
+     "type": "example",
+     "title": "كلمات بتبدأ بـ T و I",
+     "steps": [
+      {
+       "text": "نمر",
+       "en": "Tiger",
+       "visual": {
+        "emoji": "🐯"
+       }
+      },
+      {
+       "text": "طماطم",
+       "en": "Tomato",
+       "visual": {
+        "emoji": "🍅"
+       }
+      },
+      {
+       "text": "بيت التلج",
+       "en": "Igloo",
+       "visual": {
+        "emoji": "🛖"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "questions": [
+      {
+       "ask": "اسمع: Tiger بتبدأ بأنهي حرف؟",
+       "visual": {
+        "listen": "Tiger",
+        "en": true
+       },
+       "choices": [
+        "T",
+        "I",
+        "S"
+       ],
+       "answer": "T",
+       "why": "Tiger أولها T",
+       "en": true
+      },
+      {
+       "ask": "اسمع: Igloo بتبدأ بأنهي حرف؟",
+       "visual": {
+        "listen": "Igloo",
+        "en": true
+       },
+       "choices": [
+        "A",
+        "I",
+        "T"
+       ],
+       "answer": "I",
+       "why": "Igloo أولها I",
+       "en": true
+      },
+      {
+       "ask": "ده الصغير بتاع أنهي حرف كبير؟",
+       "visual": {
+        "letter": "t"
+       },
+       "choices": [
+        "I",
+        "T",
+        "L"
+       ],
+       "answer": "T",
+       "why": "الصغير t والكبير T",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اكتبوا T و I كبار على ورقة، والطفل يدوّر في البيت على حاجات بتبدأ بيهم بالإنجليزي، زي Table و TV."
+    },
+    {
+     "type": "summary",
+     "points": [
+      "T الكبير و t الصغير: Tiger و Tree",
+      "I الكبير و i الصغير: Igloo"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "u2:l1",
+   "title": "Colors and shapes",
+   "goal": "أعرف أسماء الألوان والأشكال بالإنجليزي",
+   "blocks": [
+    {
+     "type": "explain",
+     "title": "الألوان",
+     "text": "دي الألوان بالإنجليزي: أحمر، أزرق، أصفر، أخضر",
+     "en": "red, blue, yellow, green",
+     "visual": {
+      "emoji": "🔴🔵🟡🟢"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "الأشكال",
+     "text": "ده شكل الدايرة",
+     "en": "circle",
+     "visual": {
+      "shape": "circle"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "ده شكل المربع",
+     "en": "square",
+     "visual": {
+      "shape": "square"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "ده شكل المثلث",
+     "en": "triangle",
+     "visual": {
+      "shape": "triangle"
+     }
+    },
+    {
+     "type": "example",
+     "title": "شكل ولون مع بعض",
+     "steps": [
+      {
+       "text": "الشمس شكلها دايرة",
+       "en": "a circle",
+       "visual": {
+        "emoji": "☀️"
+       }
+      },
+      {
+       "text": "ولونها أصفر",
+       "en": "yellow",
+       "visual": {
+        "emoji": "🟡"
+       }
+      },
+      {
+       "text": "يبقى نقول",
+       "en": "a yellow circle",
+       "visual": {
+        "emoji": "🌞"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "questions": [
+      {
+       "ask": "ده لونه إيه؟",
+       "visual": {
+        "emoji": "🟢"
+       },
+       "choices": [
+        "green",
+        "red",
+        "blue"
+       ],
+       "answer": "green",
+       "why": "ده أخضر، وبالإنجليزي green",
+       "en": true
+      },
+      {
+       "ask": "ده شكل إيه؟",
+       "visual": {
+        "shape": "triangle"
+       },
+       "choices": [
+        "circle",
+        "square",
+        "triangle"
+       ],
+       "answer": "triangle",
+       "why": "ليه تلات أضلاع، يبقى triangle",
+       "en": true
+      },
+      {
+       "ask": "الموزة لونها إيه؟",
+       "visual": {
+        "emoji": "🍌"
+       },
+       "choices": [
+        "blue",
+        "yellow",
+        "red"
+       ],
+       "answer": "yellow",
+       "why": "الموزة صفرا، وبالإنجليزي yellow",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "العبوا «I spy»: ولي الأمر يقول لون بالإنجليزي زي red، والطفل يدوّر على حاجة بنفس اللون في الأوضة."
+    },
+    {
+     "type": "summary",
+     "points": [
+      "red أحمر، blue أزرق، yellow أصفر، green أخضر",
+      "circle دايرة، square مربع، triangle مثلث"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "u2:l2",
+   "title": "Letters S, A",
+   "goal": "أعرف الحرفين S و A: شكلهم وصوتهم وكلمات بتبدأ بيهم",
+   "blocks": [
+    {
+     "type": "explain",
+     "title": "حرف S",
+     "text": "ده حرف S. الكبير S والصغير s",
+     "en": "S is for Sun.",
+     "visual": {
+      "letter": "S s"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "صوت S زي صوت التعبان: سسس. بنسمعه في Sun و Sock",
+     "en": "Sun. Sock. Snake.",
+     "visual": {
+      "emoji": "🐍"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "حرف A",
+     "text": "ده حرف A. الكبير A والصغير a",
+     "en": "A is for Apple.",
+     "visual": {
+      "letter": "A a"
+     }
+    },
+    {
+     "type": "example",
+     "title": "كلمات بتبدأ بـ S و A",
+     "steps": [
+      {
+       "text": "شمس",
+       "en": "Sun",
+       "visual": {
+        "emoji": "☀️"
+       }
+      },
+      {
+       "text": "شراب",
+       "en": "Sock",
+       "visual": {
+        "emoji": "🧦"
+       }
+      },
+      {
+       "text": "تفاحة",
+       "en": "Apple",
+       "visual": {
+        "emoji": "🍎"
+       }
+      },
+      {
+       "text": "نملة",
+       "en": "Ant",
+       "visual": {
+        "emoji": "🐜"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "questions": [
+      {
+       "ask": "اسمع: Sun بتبدأ بأنهي حرف؟",
+       "visual": {
+        "listen": "Sun",
+        "en": true
+       },
+       "choices": [
+        "A",
+        "S",
+        "T"
+       ],
+       "answer": "S",
+       "why": "Sun أولها S",
+       "en": true
+      },
+      {
+       "ask": "اسمع: Apple بتبدأ بأنهي حرف؟",
+       "visual": {
+        "listen": "Apple",
+        "en": true
+       },
+       "choices": [
+        "A",
+        "I",
+        "S"
+       ],
+       "answer": "A",
+       "why": "Apple أولها A",
+       "en": true
+      },
+      {
+       "ask": "ده الصغير بتاع أنهي حرف كبير؟",
+       "visual": {
+        "letter": "a"
+       },
+       "choices": [
+        "A",
+        "S",
+        "T"
+       ],
+       "answer": "A",
+       "why": "الصغير a والكبير A",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "قولوا كلمات وخلّوا الطفل يصفّق لو الكلمة بتبدأ بصوت S، زي Sun و Sofa و Seven."
+    },
+    {
+     "type": "summary",
+     "points": [
+      "S الكبير و s الصغير: Sun و Sock",
+      "A الكبير و a الصغير: Apple و Ant"
+     ]
+    }
+   ]
+  }
+ ]
+}

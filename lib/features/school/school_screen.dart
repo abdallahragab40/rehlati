@@ -14,6 +14,7 @@ import '../../core/utils/rng.dart';
 import '../../core/widgets/kid_widgets.dart';
 import '../../core/widgets/top_bar.dart';
 import '../../core/widgets/toast.dart';
+import '../../domain/lesson_content.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
 import '../../domain/school.dart';
@@ -54,6 +55,7 @@ class _SchoolScreenState extends ConsumerState<SchoolScreen> {
   @override
   Widget build(BuildContext context) {
     final p = ref.watch(progressProvider);
+    final lessons = ref.watch(lessonsProvider).value ?? const {};
     final book = schoolBook(_grade, _term, _subject);
     Widget chips<T>(List<(T, String)> options, T value, void Function(T) pick) => Wrap(
           alignment: WrapAlignment.center,
@@ -89,7 +91,7 @@ class _SchoolScreenState extends ConsumerState<SchoolScreen> {
           const NoteBox(Text('الكتاب ده لسه مش موجود'))
         else
           for (var u = 0; u < book.units.length; u++) ...[
-            _UnitCard(book: book, unit: u, results: p.school),
+            _UnitCard(book: book, unit: u, results: p.school, lessons: lessons, explained: p.explained),
             const SizedBox(height: 12),
           ],
       ]),
@@ -98,10 +100,12 @@ class _SchoolScreenState extends ConsumerState<SchoolScreen> {
 }
 
 class _UnitCard extends StatelessWidget {
-  const _UnitCard({required this.book, required this.unit, required this.results});
+  const _UnitCard({required this.book, required this.unit, required this.results, required this.lessons, required this.explained});
   final SchoolBook book;
   final int unit;
   final Map<String, int> results;
+  final Map<String, LessonContent> lessons;
+  final Set<String> explained;
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +120,16 @@ class _UnitCard extends StatelessWidget {
         const SizedBox(height: 10),
         TileWrap(minTileWidth: 150, maxColumns: 3, children: [
           for (var l = 0; l < u.lessons.length; l++)
-            _LessonTile(lesson: u.lessons[l], id: lessonId(book, unit, l), pct: results[lessonId(book, unit, l)], dir: dir),
+            () {
+              final id = lessonId(book, unit, l);
+              return _LessonTile(
+                lesson: u.lessons[l],
+                id: id,
+                pct: results[id],
+                dir: dir,
+                toExplain: lessons[id]?.open == true && !explained.contains(id),
+              );
+            }(),
         ]),
         if (hasExam) ...[
           const SizedBox(height: 10),
@@ -132,16 +145,23 @@ class _UnitCard extends StatelessWidget {
 }
 
 class _LessonTile extends StatelessWidget {
-  const _LessonTile({required this.lesson, required this.id, required this.pct, required this.dir});
+  const _LessonTile({required this.lesson, required this.id, required this.pct, required this.dir, required this.toExplain});
   final SchoolLesson lesson;
   final String id;
   final int? pct;
   final TextDirection dir;
 
+  /// ليه شرح لسه الطفل ماخلّصهوش.
+  final bool toExplain;
+
   @override
   Widget build(BuildContext context) {
     final ready = lesson.ready;
-    final status = !ready ? 'قريبًا' : (pct == null ? 'ذاكر الدرس' : '${pct! >= 80 ? '✅' : '🔁'} ${ar(pct!)}٪');
+    final status = !ready
+        ? 'قريبًا'
+        : pct == null
+            ? (toExplain ? '📖 اشرح لي' : 'ذاكر الدرس')
+            : '${pct! >= 80 ? '✅' : '🔁'} ${ar(pct!)}٪';
     return Opacity(
       opacity: ready ? 1 : .55,
       child: Pressable3D(
@@ -174,6 +194,7 @@ Future<void> _open(BuildContext context, String id) => showDialog<void>(
       builder: (c) => Consumer(
         builder: (c, ref, _) {
           final round = schoolRound(id)!;
+          final explain = ref.watch(lessonsProvider).value?[id];
           return Dialog(
             backgroundColor: AppColors.paper,
             insetPadding: const EdgeInsets.all(20),
@@ -195,6 +216,13 @@ Future<void> _open(BuildContext context, String id) => showDialog<void>(
                   style: kidText(14, weight: FontWeight.w700, color: AppColors.inkSoft),
                 ),
                 const SizedBox(height: 16),
+                if (explain != null && explain.open) ...[
+                  KidButton('📖 اشرح لي الدرس', onTap: () {
+                    Navigator.of(c).pop();
+                    context.push('/lesson/$id');
+                  }),
+                  const SizedBox(height: 8),
+                ],
                 KidButton(round.exam ? '▶️ ابدأ الامتحان' : '▶️ ذاكر الدرس', kind: BtnKind.go, onTap: () {
                   Navigator.of(c).pop();
                   final p = ref.read(progressProvider);

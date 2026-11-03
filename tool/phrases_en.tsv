@@ -17,6 +17,7 @@ e_a1a9a918	A giraffe is taller than a dog.
 e_9907e181	A horse
 e_e1a502d8	A house
 e_fa85a2f3	A is for Apple
+e_3d5f61e7	A is for Apple.
 e_9ad5cb70	A monkey can climb.
 e_7e683d6e	A penguin can't fly.
 e_3fb5dc76	A rainbow
@@ -335,6 +336,7 @@ e_280b0fe5	Her grandmother
 e_229c2833	Her mom
 e_c1b33260	Her shoes were old
 e_4c404192	Her teacher
+e_325d0001	Hi!
 e_35da0e70	His ball
 e_4586b5f0	His crayons
 e_80ec63db	His lunch
@@ -372,6 +374,7 @@ e_66cba655	I have some cookies.
 e_18411f1e	I have to brush my teeth every day.
 e_2fc638c4	I have visited Luxor three times.
 e_317e8df2	I is for Ice cream
+e_43af6265	I is for Igloo.
 e_2dd9e281	I learned to swim last year.
 e_251801f3	I like apples and bananas.
 e_6fffc4e6	I like cats, but I don't like dogs.
@@ -391,6 +394,7 @@ e_b06ad7d9	If it rains, we will stay at home.
 e_6221a891	If she studies hard, she will pass.
 e_24aa538c	If we miss the bus, we will be late.
 e_4f32b88d	If you take the metro, you will arrive early.
+e_8bd4939d	Igloo
 e_66208c4e	In Cairo
 e_4d4cfe78	In London
 e_d77a32b7	In a canoe
@@ -586,6 +590,7 @@ e_9e79e2fd	My father drives a car.
 e_035dca8c	My friends are happy.
 e_a52bb804	My grandpa used to travel by train, but now he drives.
 e_4b677c4a	My mother is a doctor.
+e_35f3a100	My name is Ali.
 e_eb2f60d5	My name is Omar.
 e_039ea1a7	My sister plays every day.
 e_cb0c01d1	N
@@ -597,6 +602,7 @@ e_d7a988cb	Neither my mom nor my dad likes coffee.
 e_defd20ab	Nest
 e_8d7a315f	Nest.
 e_746b79e4	Next week they are going to travel to Luxor.
+e_2454871b	Nice to meet you, Omar!
 e_9652bb75	Nine
 e_76e80df9	No days is never.
 e_1433f56a	Nose
@@ -619,6 +625,7 @@ e_69d2a47c	On is on top.
 e_a0f712b4	On the beach
 e_1cb1b18f	One
 e_044af777	One is, many are, I am
+e_d70d3239	Open your book.
 e_727b390b	Orange
 e_1e3a9c15	Orange starts with O
 e_5cfaf53f	Orange.
@@ -665,6 +672,7 @@ e_d60c1322	S
 e_e0069098	S .
 e_e1a76df5	S and s are the same letter
 e_afd90827	S is for Sun
+e_dba7a62b	S is for Sun.
 e_0e68b936	Saturday
 e_5926e4c8	Say each sound slowly
 e_4edd4b69	Say it slowly.
@@ -696,8 +704,11 @@ e_6d934b68	She was late
 e_5e781008	She was sad
 e_b0020094	Sheep
 e_70bb9e41	Sister
+e_f32efa7d	Sit down
+e_25f410a9	Sit down.
 e_2cbc324b	Six
 e_2fa62ca8	Sleep
+e_a454ac4f	Snake.
 e_8d7e86f5	Sock
 e_992e4ac1	Sock.
 e_6b7c12d8	Soda
@@ -706,6 +717,7 @@ e_86e2f5d1	Someone asks your name.
 e_1f6e9925	Someone is playing the piano.
 e_62558b51	Sorry!
 e_fac98c66	Square
+e_de31c7f6	Stand up.
 e_51677b91	Star
 e_4b7f7705	Stop
 e_fda88dac	Stop!
@@ -717,6 +729,7 @@ e_7e406f48	Swimming
 e_d10c0b43	T
 e_622408d5	T .
 e_15996681	T and t are the same letter
+e_a179c599	T is for Tiger.
 e_6f083616	T is for Tree
 e_a8136946	T-shirt
 e_329d9b7a	Tap a big letter, then tap its small letter
@@ -1135,6 +1148,7 @@ e_2fb950c2	Tiger.
 e_63a12134	To the Pyramids
 e_0b11a010	To the beach
 e_b1d73153	To the zoo
+e_626b3de3	Tomato
 e_627cf37b	Tomorrow I am going to visit my grandma.
 e_afc72a55	Tooth
 e_78c8f974	Trace the letter A
@@ -1313,6 +1327,7 @@ e_be7aea07	What sound does it start with?
 e_d0e1ee36	What sport is this?
 e_1a4c4969	What word is it?
 e_0a0734c6	What's the weather like?
+e_bb8f95b4	What's your name?
 e_021e3a39	When
 e_ac69c712	When I was a baby, I couldn't walk.
 e_1638b2b4	When did Omar go to the zoo?
@@ -1516,6 +1531,7 @@ e_e4147dba	a car
 e_9e8c78cf	a carton of milk
 e_99b73979	a carton of milk, a bottle of water, a slice of bread, a bar of chocolate.
 e_de147448	a cat
+e_c3e1ecf8	a circle
 e_f6ede5ae	a dog
 e_bcb733d5	a jar of honey
 e_52ec2767	a kite
@@ -1523,6 +1539,7 @@ e_6feb13ef	a pen
 e_bfdbdb95	a piece of cake
 e_713c8249	a slice of bread
 e_b1386254	a tree
+e_698b45c0	a yellow circle
 e_8789ba93	a, a
 e_a83929d0	a, a, Ant
 e_eff6bc0d	a, a, Apple
@@ -1657,6 +1674,7 @@ e_9b48540f	chess
 e_e5a0205d	child
 e_67a9c9d2	children
 e_a912a86a	childs
+e_28217089	circle
 e_0dc48142	city
 e_4324fd83	clap
 e_9aaf36a0	clapped
@@ -2030,6 +2048,7 @@ e_4aff1df6	ran
 e_cedfa3c5	read
 e_dde3f6ee	recycle
 e_40f480dc	red
+e_2cb5dcbf	red, blue, yellow, green
 e_42b4cb29	ribbon
 e_0552c2b0	rice
 e_ff485eba	rice.
@@ -2112,6 +2131,7 @@ e_0f46512d	some in positive sentences.
 e_5d689621	sometimes
 e_f624f702	soup
 e_63f1336c	spring
+e_b4b61246	square
 e_c33f0730	sss
 e_a28fdbc1	sss u nnn
 e_6a27277b	sss, sss
@@ -2198,6 +2218,7 @@ e_93f976b2	tooths
 e_741c818a	tornado
 e_17393a00	traffic officer
 e_78556c69	train
+e_05025085	triangle
 e_f542bdc8	truck
 e_9b28ce3e	tuh
 e_34d33c87	tuh, tuh
@@ -2276,6 +2297,7 @@ e_c4bb620c	winter
 e_be269f5c	write
 e_fd0c5087	x
 e_fc0c4ef4	y
+e_05bf6449	yellow
 e_fe00799a	yesterday, last week = past: Did …?
 e_50b8d09c	you
 e_ff0c53ad	z

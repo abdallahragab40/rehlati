@@ -5,3 +5,7 @@ library;
 /// صاحب التطبيق عنده ترخيص للصوت (١٥ أكتوبر ٢٠٢٦). المقاطع اتسجّلت بـ edge-tts — لو الترخيص لـ Azure
 /// لازم تتسجّل تاني من خلاله قبل الإصدار (docs/RELEASE.md). تلاوة القرآن مش تبع ده.
 const voiceEnabled = true;
+
+/// شرح دروس المدرسة المدفوع (lib/domain/lesson_content.dart) مفتوح للكل لحد ما حسابات أولياء الأمور
+/// والاشتراك يتعملوا. ساعتها السيرفر هو اللي يقرر، مش المفتاح ده (docs/EXPANSION_AND_MONETIZATION.md).
+const paidLessonsOpen = true;

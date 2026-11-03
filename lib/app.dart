@@ -21,6 +21,7 @@ import 'domain/school_lessons.dart';
 import 'domain/stages.dart';
 import 'features/achievements/achievements_screen.dart';
 import 'features/achievements/passport_screen.dart';
+import 'features/school/lesson_screen.dart';
 import 'features/school/school_screen.dart';
 import 'features/daily/time_up_screen.dart';
 import 'features/game/game_screen.dart';
@@ -87,6 +88,13 @@ final _router = GoRouter(initialLocation: kDebugMode ? _start : '/', routes: [
   GoRoute(path: '/achievements', builder: (_, _) => const AchievementsScreen()),
   GoRoute(path: '/passport', builder: (_, _) => const PassportScreen()),
   GoRoute(path: '/school', builder: (_, _) => const LearningScope(track: false, child: SchoolScreen())),
+  GoRoute(
+    path: '/lesson/:id',
+    builder: (_, s) => LearningScope(
+      world: stageById(s.pathParameters['id']!)?.world,
+      child: LessonScreen(id: s.pathParameters['id']!),
+    ),
+  ),
   GoRoute(path: '/quran', builder: (_, _) => const LearningScope(track: false, child: QuranHomeScreen())),
   GoRoute(path: '/quran-check', builder: (_, _) => const QuranCheckScreen()),
   GoRoute(

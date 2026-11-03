@@ -19,6 +19,7 @@ import 'package:rehlati/core/audio/voice_lines.dart';
 import 'package:rehlati/core/utils/arabic.dart';
 import 'package:rehlati/core/utils/rng.dart';
 import 'package:rehlati/domain/generators/madd_generators.dart';
+import 'package:rehlati/domain/lesson_content.dart';
 import 'package:rehlati/domain/progress/badges.dart';
 import 'package:rehlati/domain/progress/progress_data.dart';
 import 'package:rehlati/domain/progress/ranks.dart';
@@ -164,6 +165,38 @@ void main() {
         }
       }
     }
+    // شرح دروس المدرسة (assets/lessons/): كل بطاقة، وسؤال «جرّب معايا» وسببه، ونشاط البيت
+    void addSpoken(Object t) => t is List ? t.forEach(add) : add(t);
+    void addVisual(Visual? v) {
+      if (v is ListenVisual) v.en ? addEn(v.say) : add(v.say);
+    }
+
+    for (final f in Directory(lessonsDir).listSync().whereType<File>().where((f) => f.path.endsWith('.json'))) {
+      for (final l in parseLessonBook(f.readAsStringSync())) {
+        for (final b in l.blocks) {
+          final cards = switch (b) {
+            ExplainBlock(:final card) => [card],
+            ExampleBlock(:final steps) => steps,
+            _ => const <LessonCard>[],
+          };
+          for (final c in cards) {
+            addSpoken(c.spoken);
+            addEn(c.en);
+            addVisual(c.visual);
+          }
+          if (b is TryBlock) {
+            for (final q in b.questions) {
+              addSpoken(q.say ?? q.ask);
+              add(q.why);
+              addVisual(q.visual);
+            }
+          }
+          if (b is ActivityBlock) add(b.text);
+        }
+      }
+    }
+    add(sayLessonDone);
+
     for (final (t, _) in praiseSay) {
       add(t);
     }

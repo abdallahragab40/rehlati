@@ -17,6 +17,9 @@ const sayGoalDone = 'برافو! خلصت هدف النهاردة';
 const sayTimeUp = 'خلاص يا بطل، بكرة نكمل';
 const sayVoiceTest = ['أهلاً يا بطل، أنا الأسد صاحبك', 'واحد، اتنين، تلاتة'];
 
+/// آخر بطاقة في شرح درس المدرسة (الملخص).
+const sayLessonDone = 'برافو! خلّصت شرح الدرس. يلا نتدرّب';
+
 String sayStageIntro(String stageName) => '$stageName. يلا بينا!';
 String sayUnlocked(String stageName) => 'وفتحت مرحلة جديدة: $stageName';
 String sayToast(String name, {required bool rank}) => rank ? 'مبروك! وصلت $name' : 'إنجاز جديد! $name';
