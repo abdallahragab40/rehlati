@@ -20,6 +20,9 @@ const sayVoiceTest = ['أهلاً يا بطل، أنا الأسد صاحبك', '
 /// آخر بطاقة في شرح درس المدرسة (الملخص).
 const sayLessonDone = 'برافو! خلّصت شرح الدرس. يلا نتدرّب';
 
+/// «اقرا وبعدين اسمع» في شرح الدرس: الكلمة نفسها ماتتقالش لحد ما الطفل يقراها.
+const sayReadFirst = 'اقرا الكلمة لوحدك، وبعدين دوس اسمع واتأكد';
+
 String sayStageIntro(String stageName) => '$stageName. يلا بينا!';
 String sayUnlocked(String stageName) => 'وفتحت مرحلة جديدة: $stageName';
 String sayToast(String name, {required bool rank}) => rank ? 'مبروك! وصلت $name' : 'إنجاز جديد! $name';

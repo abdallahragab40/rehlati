@@ -1,7 +1,10 @@
-/// أنشطة «جرّب بنفسك» و«تأكد من فهمك» في شرح الدرس: اختار، المس كل الصح، رتّب، وصّل، صنّف.
-/// كلها باللمس (من غير سحب) عشان تنفع لإيد صغيرة. النشاط بيبلّغ الشاشة بكل غلطة والعنصر الغلط
-/// (عشان التلميح يبقى على قدّها) ولما يتحل — الصوت والتلميح والمساعدة عند الشاشة.
+/// أنشطة «جرّب بنفسك» و«تأكد من فهمك» في شرح الدرس: اختار، المس كل الصح، رتّب، وصّل، صنّف،
+/// ارسم بصباعك، واختار على خط الأعداد. كلها بتشتغل باللمس عشان تنفع لإيد صغيرة، و«رتّب» و«صنّف»
+/// كمان بالسحب. النشاط بيبلّغ الشاشة بكل غلطة والعنصر الغلط (عشان التلميح يبقى على قدّها) ولما
+/// يتحل — الصوت والتلميح والمساعدة عند الشاشة.
 library;
+
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
@@ -10,6 +13,7 @@ import '../../core/utils/arabic.dart';
 import '../../core/utils/rng.dart';
 import '../../core/widgets/kid_widgets.dart';
 import '../../domain/lesson_content.dart';
+import '../game/play_modes.dart' show TraceBoard;
 
 class TaskView extends StatefulWidget {
   const TaskView(this.task, {super.key, required this.seed, required this.onWrong, required this.onSolved});
@@ -48,6 +52,9 @@ class _TaskViewState extends State<TaskView> {
   late final List<String> _queue = _shuffled([for (final g in t.groups) ...g.$2]);
   final _sorted = <String, List<String>>{};
 
+  // ارسم: بيتمسح لما الرسمة تطلع برّه الشكل أو الطفل يدوس امسح
+  int _clear = 0;
+
   bool _done = false;
 
   /// نسخة متلخبطة فعلًا — مش نفس الترتيب الصح بالصدفة. (Rng.shuffle بيلخبط القايمة نفسها.)
@@ -73,93 +80,110 @@ class _TaskViewState extends State<TaskView> {
 
   @override
   Widget build(BuildContext context) => Directionality(
-        textDirection: t.en ? TextDirection.ltr : TextDirection.rtl,
-        child: switch (t.kind) {
-          TaskKind.choice => _choice(),
-          TaskKind.pick => _pick(),
-          TaskKind.order => _order(),
-          TaskKind.match => _match(),
-          TaskKind.sort => _sort(),
-        },
-      );
+    textDirection: t.en ? TextDirection.ltr : TextDirection.rtl,
+    child: switch (t.kind) {
+      TaskKind.choice => _choice(),
+      TaskKind.pick => _pick(),
+      TaskKind.order => _order(),
+      TaskKind.match => _match(),
+      TaskKind.sort => _sort(),
+      TaskKind.trace => _trace(),
+      TaskKind.line => _line(),
+    },
+  );
 
-  Widget _chip(String label, _Look look, VoidCallback? onTap, {bool big = false}) => _Chip(
-        label: t.en ? label : ar(label),
-        semantic: label,
-        look: look,
-        onTap: onTap,
-        big: big,
-      );
+  Widget _chip(String label, _Look look, VoidCallback? onTap, {bool big = false}) =>
+      _Chip(label: t.en ? label : ar(label), semantic: label, look: look, onTap: onTap, big: big);
 
-  Widget _wrap(List<Widget> children) =>
-      Wrap(alignment: WrapAlignment.center, spacing: 10, runSpacing: 10, children: children);
+  Widget _wrap(List<Widget> children) => Wrap(alignment: WrapAlignment.center, spacing: 10, runSpacing: 10, children: children);
 
   // ---------------------------------------------------------------- اختار
 
   Widget _choice() => _wrap([
-        for (final c in t.choices)
-          _chip(
-            c,
-            _done && c == t.answer ? _Look.ok : (_wrong.contains(c) ? _Look.dim : _Look.idle),
-            _done || _wrong.contains(c)
-                ? null
-                : () {
-                    if (c == t.answer) return _solve();
-                    _wrong.add(c);
-                    _miss(c);
-                  },
-            big: true,
-          ),
-      ]);
+    for (final c in t.choices)
+      _chip(
+        c,
+        _done && c == t.answer ? _Look.ok : (_wrong.contains(c) ? _Look.dim : _Look.idle),
+        _done || _wrong.contains(c)
+            ? null
+            : () {
+                if (c == t.answer) return _solve();
+                _wrong.add(c);
+                _miss(c);
+              },
+        big: true,
+      ),
+  ]);
 
   // ---------------------------------------------------------------- المس كل الصح
 
   Widget _pick() => _wrap([
-        for (final it in t.items)
-          _chip(
-            _found.contains(it) ? '✓ $it' : it,
-            _found.contains(it) ? _Look.ok : (_wrong.contains(it) ? _Look.dim : _Look.idle),
-            _done || _found.contains(it) || _wrong.contains(it)
-                ? null
-                : () {
-                    if (!t.answers.contains(it)) {
-                      _wrong.add(it);
-                      return _miss(it);
-                    }
-                    setState(() => _found.add(it));
-                    if (_found.length == t.answers.length) _solve();
-                  },
-          ),
-      ]);
+    for (final it in t.items)
+      _chip(
+        _found.contains(it) ? '✓ $it' : it,
+        _found.contains(it) ? _Look.ok : (_wrong.contains(it) ? _Look.dim : _Look.idle),
+        _done || _found.contains(it) || _wrong.contains(it)
+            ? null
+            : () {
+                if (!t.answers.contains(it)) {
+                  _wrong.add(it);
+                  return _miss(it);
+                }
+                setState(() => _found.add(it));
+                if (_found.length == t.answers.length) _solve();
+              },
+      ),
+  ]);
 
   // ---------------------------------------------------------------- رتّب
 
-  Widget _order() => Column(children: [
-        // صف الإجابة: اللي اترتّب، وبعده خانات فاضية
-        _wrap([
+  Widget _order() => Column(
+    children: [
+      // صف الإجابة: اللي اترتّب، وبعده خانات فاضية
+      DragTarget<int>(
+        onAcceptWithDetails: (d) => _place(d.data),
+        builder: (context, hover, _) => _wrap([
           for (final i in _placed) _chip(_pool[i], _done ? _Look.ok : _Look.selected, null, big: true),
-          for (var k = _placed.length; k < t.items.length; k++) const _Slot(),
+          for (var k = _placed.length; k < t.items.length; k++) _Slot(glow: hover.isNotEmpty && k == _placed.length),
         ]),
-        const SizedBox(height: 14),
-        _wrap([
-          for (var i = 0; i < _pool.length; i++)
-            if (!_placed.contains(i))
-              _chip(_pool[i], _Look.idle, _done
-                  ? null
-                  : () {
-                      // الطفل بيختار بالنص: أي «ب» من الاتنين تنفع
-                      if (_pool[i] != t.items[_placed.length]) return _miss(_pool[i]);
-                      setState(() => _placed.add(i));
-                      if (_placed.length == t.items.length) _solve();
-                    }, big: true),
-        ]),
-      ]);
+      ),
+      const SizedBox(height: 14),
+      _wrap([
+        for (var i = 0; i < _pool.length; i++)
+          if (!_placed.contains(i)) _drag(i, _chip(_pool[i], _Look.idle, _done ? null : () => _place(i), big: true)),
+      ]),
+    ],
+  );
+
+  void _place(int i) {
+    if (_done || _placed.contains(i)) return;
+    // الطفل بيختار بالنص: أي «ب» من الاتنين تنفع
+    if (_pool[i] != t.items[_placed.length]) return _miss(_pool[i]);
+    setState(() => _placed.add(i));
+    if (_placed.length == t.items.length) _solve();
+  }
+
+  /// العنصر بيتسحب كمان — والدوسة العادية فاضلة شغالة.
+  Widget _drag<T extends Object>(T data, Widget chip) => _done
+      ? chip
+      : Draggable<T>(
+          data: data,
+          feedback: Material(
+            type: MaterialType.transparency,
+            child: Directionality(textDirection: Directionality.of(context), child: chip),
+          ),
+          childWhenDragging: Opacity(opacity: .3, child: chip),
+          child: chip,
+        );
 
   // ---------------------------------------------------------------- وصّل
 
-  Widget _match() => Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Expanded(
-          child: Column(children: [
+  Widget _match() => Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Expanded(
+        child: Column(
+          children: [
             for (var i = 0; i < t.pairs.length; i++)
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
@@ -169,75 +193,190 @@ class _TaskViewState extends State<TaskView> {
                   _done || _matched.contains(i) ? null : () => setState(() => _left = i),
                 ),
               ),
-          ]),
+          ],
         ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(children: [
+      ),
+      const SizedBox(width: 12),
+      Expanded(
+        child: Column(
+          children: [
             for (final r in _rights)
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: () {
                   final taken = _matched.any((i) => t.pairs[i].$2 == r);
-                  return _chip(r, taken ? _Look.ok : _Look.other, _done || taken || _left == null
-                      ? null
-                      : () {
-                          final i = _left!;
-                          if (t.pairs[i].$2 != r) return _miss(r);
-                          setState(() {
-                            _matched.add(i);
-                            _left = null;
-                          });
-                          if (_matched.length == t.pairs.length) _solve();
-                        });
+                  return _chip(
+                    r,
+                    taken ? _Look.ok : _Look.other,
+                    _done || taken || _left == null
+                        ? null
+                        : () {
+                            final i = _left!;
+                            if (t.pairs[i].$2 != r) return _miss(r);
+                            setState(() {
+                              _matched.add(i);
+                              _left = null;
+                            });
+                            if (_matched.length == t.pairs.length) _solve();
+                          },
+                  );
                 }(),
               ),
-          ]),
+          ],
         ),
-      ]);
+      ),
+    ],
+  );
 
   // ---------------------------------------------------------------- صنّف
 
   Widget _sort() {
     final n = _sorted.values.fold(0, (a, l) => a + l.length);
     final current = n < _queue.length ? _queue[n] : null;
-    return Column(children: [
-      if (current != null) _chip(current, _Look.selected, null, big: true),
-      const SizedBox(height: 14),
-      Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        for (final (i, (name, items)) in t.groups.indexed) ...[
-          if (i > 0) const SizedBox(width: 10),
-          Expanded(
-            child: Column(children: [
-              Pressable3D(
-                onTap: current == null
-                    ? null
-                    : () {
-                        if (!items.contains(current)) return _miss(current);
-                        setState(() => _sorted.putIfAbsent(name, () => []).add(current));
-                        if (n + 1 == _queue.length) _solve();
-                      },
-                color: AppColors.grape,
-                radius: 18,
-                depth: 5,
-                shadowColor: const Color(0x40000000),
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                semanticLabel: name,
-                child: Center(
-                  child: Text(t.en ? name : ar(name),
-                      textAlign: TextAlign.center, style: kidText(context.clampVw(17, 4.6, 22), color: Colors.white)),
+    void drop(String name, List<String> items) {
+      if (current == null) return;
+      if (!items.contains(current)) return _miss(current);
+      setState(() => _sorted.putIfAbsent(name, () => []).add(current));
+      if (n + 1 == _queue.length) _solve();
+    }
+
+    return Column(
+      children: [
+        if (current != null) _drag(current, _chip(current, _Look.selected, null, big: true)),
+        const SizedBox(height: 14),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            for (final (i, (name, items)) in t.groups.indexed) ...[
+              if (i > 0) const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  children: [
+                    DragTarget<String>(
+                      onAcceptWithDetails: (_) => drop(name, items),
+                      builder: (context, hover, _) => Pressable3D(
+                        onTap: current == null ? null : () => drop(name, items),
+                        color: hover.isEmpty ? AppColors.grape : AppColors.grassDark,
+                        radius: 18,
+                        depth: 5,
+                        shadowColor: const Color(0x40000000),
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                        semanticLabel: name,
+                        child: Center(
+                          child: Text(
+                            t.en ? name : ar(name),
+                            textAlign: TextAlign.center,
+                            style: kidText(context.clampVw(17, 4.6, 22), color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 6,
+                      runSpacing: 6,
+                      children: [
+                        for (final it in _sorted[name] ?? const <String>[])
+                          Text(t.en ? it : ar(it), style: kidText(context.clampVw(16, 4.4, 20), color: AppColors.okInk)),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 8),
-              Wrap(alignment: WrapAlignment.center, spacing: 6, runSpacing: 6, children: [
-                for (final it in _sorted[name] ?? const <String>[])
-                  Text(t.en ? it : ar(it), style: kidText(context.clampVw(16, 4.4, 20), color: AppColors.okInk)),
-              ]),
-            ]),
-          ),
-        ],
-      ]),
-    ]);
+            ],
+          ],
+        ),
+      ],
+    );
+  }
+
+  // ---------------------------------------------------------------- ارسم بصباعك
+
+  Widget _trace() => Column(
+    children: [
+      TraceBoard(
+        glyph: t.glyph,
+        ltr: t.en,
+        color: AppColors.grape,
+        locked: _done,
+        clearTick: _clear,
+        label: 'لوحة الرسم: ارسم ${t.glyph}',
+        onDone: _solve,
+        onOff: () {
+          _clear++;
+          _miss('trace');
+        },
+      ),
+      const SizedBox(height: 10),
+      if (!_done) KidButton('🧽 امسح', kind: BtnKind.ghost, onTap: () => setState(() => _clear++)),
+    ],
+  );
+
+  // ---------------------------------------------------------------- خط الأعداد
+
+  /// الأعداد من الشمال لليمين زي خط الأعداد في الأسئلة، وكل علامة بتتداس.
+  Widget _line() {
+    final answer = int.parse(t.answer);
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: LayoutBuilder(builder: (context, box) {
+        final n = t.hi - t.lo + 1;
+        final w = box.maxWidth / n;
+        // الارتفاع على قد المحتوى (الخط الكبير في الإعدادات بيكبّر الأرقام)
+        return Stack(children: [
+          Positioned(left: w / 2, right: w / 2, top: 15, child: Container(height: 4, color: AppColors.ink)),
+          Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            for (var i = t.lo; i <= t.hi; i++)
+              SizedBox(
+                width: w,
+                child: () {
+                  final label = '$i';
+                  final look = _done && i == answer ? _Look.ok : (_wrong.contains(label) ? _Look.dim : _Look.idle);
+                  final d = look == _Look.ok ? 30.0 : 22.0;
+                  return Semantics(
+                    button: true,
+                    label: label,
+                    child: GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: _done || _wrong.contains(label)
+                          ? null
+                          : () {
+                              if (i == answer) return _solve();
+                              _wrong.add(label);
+                              _miss(label);
+                            },
+                      child: Column(children: [
+                        SizedBox(
+                          height: 34,
+                          child: Center(
+                            child: Container(
+                              width: d,
+                              height: d,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: switch (look) {
+                                  _Look.ok => AppColors.okInk,
+                                  _Look.dim => AppColors.line,
+                                  _ => AppColors.paper,
+                                },
+                                border: Border.all(color: AppColors.ink, width: 3),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        FittedBox(child: Text(ar(i), style: kidText(math.min(20, w * .55), color: AppColors.ink))),
+                        const SizedBox(height: 6),
+                      ]),
+                    ),
+                  );
+                }(),
+              ),
+          ]),
+        ]);
+      }),
+    );
   }
 }
 
@@ -280,19 +419,22 @@ class _Chip extends StatelessWidget {
   }
 }
 
-/// خانة فاضية في صف «رتّب».
+/// خانة فاضية في صف «رتّب» — بتنوّر لما عنصر بيتسحب فوقها.
 class _Slot extends StatelessWidget {
-  const _Slot();
+  const _Slot({this.glow = false});
+  final bool glow;
 
   @override
   Widget build(BuildContext context) => Container(
-        width: context.clampVw(48, 13, 60),
-        height: context.clampVw(56, 15, 68),
-        decoration: BoxDecoration(
-          color: AppColors.paper,
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: AppColors.line, width: 3),
-        ),
-        child: Center(child: Text('؟', style: kidText(24, color: AppColors.inkSoft))),
-      );
+    width: context.clampVw(48, 13, 60),
+    height: context.clampVw(56, 15, 68),
+    decoration: BoxDecoration(
+      color: AppColors.paper,
+      borderRadius: BorderRadius.circular(18),
+      border: Border.all(color: glow ? AppColors.grape : AppColors.line, width: 3),
+    ),
+    child: Center(
+      child: Text('؟', style: kidText(24, color: AppColors.inkSoft)),
+    ),
+  );
 }

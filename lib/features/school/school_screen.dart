@@ -159,19 +159,22 @@ class _LessonTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ready = lesson.ready;
+    // درس شرح بس بيتفتح لو شرحه موجود
+    final ready = lesson.ready || explain != null;
     final status = switch (explain) {
       _ when !ready => 'قريبًا',
       LessonStatus.none => '📖 اشرح لي',
       LessonStatus.started => '📖 كمّل الشرح',
       LessonStatus.helped => '🔁 راجع الشرح',
+      // درس شرح بس مالوش نسبة
+      _ when !lesson.ready => '✅ خلّصته',
       _ when pct == null => 'ذاكر الدرس',
       _ => '${pct! >= 80 ? '✅' : '🔁'} ${ar(pct!)}٪',
     };
     return Opacity(
       opacity: ready ? 1 : .55,
       child: Pressable3D(
-        onTap: ready ? () => _open(context, id) : () {},
+        onTap: !ready ? () {} : (lesson.ready ? () => _open(context, id) : () => context.push('/lesson/$id')),
         color: ready ? AppColors.paper : AppColors.paper2,
         radius: 18,
         depth: ready ? 5 : 2,

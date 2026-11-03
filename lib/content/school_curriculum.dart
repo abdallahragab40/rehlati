@@ -24,10 +24,18 @@ class LessonItem {
 }
 
 class SchoolLesson {
-  const SchoolLesson(this.title, this.items);
+  const SchoolLesson(this.title, this.items) : explainOnly = false;
+
+  /// درس شرح بس (استماع، نشيد، قراءة — assets/lessons/): مالوش جولة أسئلة ولا بيدخل في امتحان الوحدة.
+  const SchoolLesson.explain(this.title)
+      : items = const [],
+        explainOnly = true;
+
   final String title;
   final List<LessonItem> items;
+  final bool explainOnly;
 
+  /// ليه جولة أسئلة.
   bool get ready => items.isNotEmpty;
 }
 
@@ -82,10 +90,30 @@ SchoolLesson _soon(String title) => SchoolLesson(title, const []);
 final schoolBooks = <SchoolBook>[
   // ---------------------------------------------------------------- عربي
   SchoolBook('p1', 1, 'arabic', [
-    SchoolUnit('أسرتي', [for (final l in ['أ', 'ب', 'م', 'ح', 'ج', 'د', 'خ', 'ت']) _arLetter(l)]),
-    SchoolUnit('حيواناتي', [for (final l in ['ل', 'س', 'ن', 'ر', 'ف', 'ك', 'ق']) _arLetter(l)]),
-    SchoolUnit('أجزاء جسمي', [for (final l in ['ي', 'ع', 'ش', 'و', 'ه', 'ذ', 'ظ']) _arLetter(l)]),
-    SchoolUnit('مدرستي', [for (final l in ['ز', 'ط', 'ص', 'ض', 'ث', 'غ']) _arLetter(l)]),
+    SchoolUnit('أسرتي', [
+      for (final l in ['أ', 'ب', 'م', 'ح', 'ج', 'د', 'خ', 'ت']) _arLetter(l),
+      const SchoolLesson.explain('استماع: يوم الجمعة'),
+      const SchoolLesson.explain('نشيد: ما أجمل أسرتي'),
+      const SchoolLesson.explain('اقرا: تاج ماما'),
+    ]),
+    SchoolUnit('حيواناتي', [
+      for (final l in ['ل', 'س', 'ن', 'ر', 'ف', 'ك', 'ق']) _arLetter(l),
+      const SchoolLesson.explain('استماع: في حديقة الحيوان'),
+      const SchoolLesson.explain('نشيد: حيواناتي'),
+      const SchoolLesson.explain('اقرا: سمك ونمل'),
+    ]),
+    SchoolUnit('أجزاء جسمي', [
+      for (final l in ['ي', 'ع', 'ش', 'و', 'ه', 'ذ', 'ظ']) _arLetter(l),
+      const SchoolLesson.explain('استماع: يوسف النضيف'),
+      const SchoolLesson.explain('نشيد: جسمي'),
+      const SchoolLesson.explain('اقرا: وجه نظيف'),
+    ]),
+    SchoolUnit('مدرستي', [
+      for (final l in ['ز', 'ط', 'ص', 'ض', 'ث', 'غ']) _arLetter(l),
+      const SchoolLesson.explain('استماع: أول يوم في المدرسة'),
+      const SchoolLesson.explain('نشيد: مدرستي'),
+      const SchoolLesson.explain('اقرا: قلم وكتاب'),
+    ]),
   ]),
   SchoolBook('p1', 2, 'arabic', [
     SchoolUnit('ماذا أرى؟', [

@@ -109,8 +109,8 @@ class TryBlock extends LessonBlock {
   final bool check;
 }
 
-/// اختار إجابة، المس كل الصح، رتّب، وصّل، صنّف.
-enum TaskKind { choice, pick, order, match, sort }
+/// اختار إجابة، المس كل الصح، رتّب، وصّل، صنّف، ارسم بصباعك، اختار على خط الأعداد.
+enum TaskKind { choice, pick, order, match, sort, trace, line }
 
 class LessonTask {
   const LessonTask({
@@ -127,6 +127,9 @@ class LessonTask {
     this.answers = const [],
     this.pairs = const [],
     this.groups = const [],
+    this.glyph = '',
+    this.lo = 0,
+    this.hi = 10,
     this.hints = const {},
     this.help,
   });
@@ -153,6 +156,12 @@ class LessonTask {
   /// صنّف: اسم كل مجموعة وعناصرها.
   final List<(String, List<String>)> groups;
 
+  /// ارسم: الحرف أو الرقم اللي الطفل يمشي عليه بصباعه.
+  final String glyph;
+
+  /// خط الأعداد: من [lo] لـ [hi]، والإجابة في [answer].
+  final int lo, hi;
+
   /// التلميح لما الطفل يغلط — بيقول فين اللخبطة، مش الإجابة.
   final String hint;
 
@@ -166,6 +175,27 @@ class LessonTask {
   final String why;
 
   String hintFor(String? wrong) => hints[wrong] ?? hint;
+}
+
+/// 📖 قصة استماع — صفحات بتتقلب واحدة واحدة، كل صفحة جملة بصورة وبتتقال.
+class StoryBlock extends LessonBlock {
+  const StoryBlock(this.title, this.pages);
+  final String title;
+  final List<LessonCard> pages;
+}
+
+/// 🎵 نشيد — سطور بتتقال كلها مرة، وكل سطر يتسمع لوحده عشان الطفل يردد.
+class PoemBlock extends LessonBlock {
+  const PoemBlock(this.title, this.lines);
+  final String title;
+  final List<String> lines;
+}
+
+/// 👀 اقرا وبعدين اسمع — الطفل يقرا الكلمة أو الجملة لوحده، وبعدين يدوس 🔊 يتأكد.
+class ReadBlock extends LessonBlock {
+  const ReadBlock(this.title, this.items);
+  final String title;
+  final List<LessonCard> items;
 }
 
 /// 🏠 طبّق خارج الشاشة — لولي الأمر.
@@ -257,6 +287,9 @@ LessonBlock _block(String key, Map<String, dynamic> j) => switch (j['type']) {
           [for (final q in j['tasks'] as List) _task(key, (q as Map).cast())],
           check: j['type'] == 'check',
         ),
+      'story' => StoryBlock(j['title'] as String, [for (final s in j['pages'] as List) _card((s as Map).cast())]),
+      'poem' => PoemBlock(j['title'] as String, _strs(j['lines'])),
+      'read' => ReadBlock(j['title'] as String, [for (final s in j['items'] as List) _card((s as Map).cast())]),
       'activity' => ActivityBlock(j['text'] as String),
       'summary' => SummaryBlock([for (final p in j['points'] as List) p as String]),
       final t => throw FormatException('$key: block type $t'),
@@ -289,6 +322,9 @@ LessonTask _task(String key, Map<String, dynamic> j) {
     groups: List.unmodifiable([
       for (final g in (j['groups'] as List?) ?? const []) ('${(g as Map)['name']}', _strs(g['items'])),
     ]),
+    glyph: j['glyph'] as String? ?? '',
+    lo: (j['lo'] as num?)?.toInt() ?? 0,
+    hi: (j['hi'] as num?)?.toInt() ?? 10,
     hint: j['hint'] as String,
     hints: {for (final e in ((j['hints'] as Map?) ?? const {}).entries) '${e.key}': '${e.value}'},
     help: j['help'] == null ? null : _card((j['help'] as Map).cast()),
@@ -307,6 +343,9 @@ LessonTask _task(String key, Map<String, dynamic> j) {
     TaskKind.sort => t.groups.length >= 2 &&
         t.groups.every((g) => g.$2.isNotEmpty) &&
         unique([for (final g in t.groups) ...g.$2]),
+    TaskKind.trace => t.glyph.isNotEmpty,
+    TaskKind.line => t.lo < t.hi && t.hi - t.lo <= 20 && (int.tryParse(t.answer) ?? t.lo - 1) >= t.lo &&
+        int.parse(t.answer) <= t.hi,
   };
   if (!ok) throw FormatException('$key: ${kind.name} task "${t.ask}" cannot be solved as written');
   return t;
@@ -346,6 +385,8 @@ Visual visualFromJson(Map<String, dynamic> j) {
     'passage' => PassageVisual(j['title'] as String, j['passage'] as String, ltr: j['ltr'] as bool? ?? false),
     'money' => MoneyVisual(ints('money')),
     'groups' => GroupsVisual(j['groups'] as String, n('g'), n('each')),
+    'graph' => PicGraphVisual([for (final r in j['graph'] as List) ('${(r as List)[0]}', (r[1] as num).toInt())]),
+    'prep' => PrepVisual(j['thing'] as String, j['place'] as String, j['prep'] as String),
     final k => throw FormatException('visual $k'),
   };
 }

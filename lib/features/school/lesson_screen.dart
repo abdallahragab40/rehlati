@@ -42,6 +42,9 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
   /// خطوات المثال اللي اتكشفت لحد دلوقتي (من صفر).
   int _step = 0;
 
+  /// «اقرا وبعدين اسمع»: الطفل سمع الكلمة دي واتأكد.
+  bool _heard = false;
+
   /// النشاط الحالي في «جرّب بنفسك»، وغلطاته، والتلميح، وهل اتحل.
   int _q = 0;
   int _tries = 0;
@@ -56,7 +59,10 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
   /// آخر بطاقة اتقالت — عشان كل بطاقة تتنطق مرة واحدة لما تظهر.
   String? _spoken;
 
-  bool get _en => schoolRound(widget.id)?.book.subject == 'english';
+  bool get _en => bookOfLesson(widget.id)?.subject == 'english';
+
+  /// درس شرح بس (استماع، نشيد، قراءة) مالوش جولة أسئلة.
+  bool get _hasPractice => schoolRound(widget.id) != null;
 
   void _say(Object t) => ref.read(speechProvider).speak(t);
   void _sayEn(String t) => ref.read(speechProvider).speakEn(t);
@@ -70,6 +76,10 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
         ExplainBlock(:final card) => card.spoken,
         ExampleBlock(:final steps) => steps[_step].spoken,
         TryBlock(:final tasks) => tasks[_q].say ?? tasks[_q].ask,
+        StoryBlock(:final pages) => pages[_step].spoken,
+        PoemBlock(:final lines) => lines,
+        // الكلمة نفسها ماتتقالش — الطفل يقراها لوحده الأول
+        ReadBlock() => _step == 0 ? sayReadFirst : '',
         ActivityBlock(:final text) => text,
         SummaryBlock() => sayLessonDone,
       };
@@ -82,6 +92,7 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
     if (_spoken == key) return;
     _spoken = key;
     final t = _cardSpeech(b);
+    if (t == '') return;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) _say(t);
     });
@@ -115,6 +126,7 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
     setState(() {
       _page = page;
       _step = 0;
+      _heard = false;
       _q = 0;
       _resumed = false;
       _resetTask();
@@ -159,6 +171,7 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
   }
 
   void _practice() {
+    if (!_hasPractice) return context.back();
     final p = ref.read(progressProvider);
     context.pushReplacement(p.limitReached ? '/timeup' : '/play/${widget.id}');
   }
@@ -201,6 +214,21 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
           '👣 الخطوة الجاية',
           () => setState(() => _step++),
         ),
+      StoryBlock(:final pages) when _step < pages.length - 1 => (
+          '📖 الصفحة الجاية',
+          () => setState(() => _step++),
+        ),
+      // «اقرا وبعدين اسمع»: الجاي بيفتح بعد ما الطفل يسمع ويتأكد
+      ReadBlock(:final items) when _step < items.length - 1 => (
+          'الجاية ⬅️',
+          _heard || !voiceEnabled
+              ? () => setState(() {
+                    _step++;
+                    _heard = false;
+                  })
+              : null,
+        ),
+      ReadBlock() => ('التالي ⬅️', _heard || !voiceEnabled ? () => _go(_page + 1, c) : null),
       TryBlock(:final tasks) when _q < tasks.length - 1 => (
           'النشاط الجاي ⬅️',
           _solved
@@ -239,7 +267,7 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
         ),
         const SizedBox(height: 16),
         if (b is SummaryBlock) ...[
-          KidButton('▶️ تدرّب لوحدك', kind: BtnKind.go, onTap: _practice),
+          KidButton(_hasPractice ? '▶️ تدرّب لوحدك' : '✅ خلّصت — ارجع للدروس', kind: BtnKind.go, onTap: _practice),
           const SizedBox(height: 10),
           KidButton('🔁 اشرح من الأول', kind: BtnKind.ghost, onTap: () => _restart(c)),
         ] else
@@ -264,6 +292,9 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
         ExampleBlock() => '👣 شاهد التطبيق',
         TryBlock(:final tasks, :final check) =>
           '${check ? '✅ تأكد من فهمك' : '✋ جرّب بنفسك'} — ${ar(_q + 1)} / ${ar(tasks.length)}',
+        StoryBlock(:final pages) => '📖 قصة — صفحة ${ar(_step + 1)} / ${ar(pages.length)}',
+        PoemBlock() => '🎵 نشيد',
+        ReadBlock(:final items) => '👀 اقرا وبعدين اسمع — ${ar(_step + 1)} / ${ar(items.length)}',
         ActivityBlock() => '🏠 طبّق خارج الشاشة (مع ولي الأمر)',
         SummaryBlock() => '⭐ ملخص الدرس',
       };
@@ -281,7 +312,14 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
       );
 
   Widget _card(LessonCard card) => Column(children: [
-        if (card.visual != null) VisualView(card.visual!, ltr: _en && card.visual is! ExprVisual),
+        if (card.visual case EmojiVisual(:final emoji, caption: null) when emoji.characters.length > 3)
+          // مشهد من كذا صورة: أصغر شوية عشان يفضل في سطر واحد
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: Text(emoji, textAlign: TextAlign.center, style: TextStyle(fontSize: context.clampVw(46, 12, 64), height: 1.2)),
+          )
+        else if (card.visual != null)
+          VisualView(card.visual!, ltr: _en && card.visual is! ExprVisual),
         _text(card.text),
         if (card.en != null) _EnLine(card.en!, onTap: () => _sayEn(card.en!)),
       ]);
@@ -310,6 +348,52 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
             if (voiceEnabled) _replay(steps[_step].spoken),
           ]),
         TryBlock() => _taskBody(b, c),
+        StoryBlock(:final title, :final pages) => Column(children: [
+            _title(title),
+            _card(pages[_step]),
+            if (voiceEnabled) _replay(pages[_step].spoken),
+          ]),
+        PoemBlock(:final title, :final lines) => Column(children: [
+            _title(title),
+            for (final line in lines)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Pressable3D(
+                  onTap: voiceEnabled ? () => _say(line) : null,
+                  color: AppColors.paper2,
+                  radius: 18,
+                  depth: 4,
+                  shadowColor: AppColors.shadow,
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                  semanticLabel: line,
+                  child: Text('${voiceEnabled ? '🔊 ' : ''}${ar(line)}',
+                      textAlign: TextAlign.center, style: kidText(context.clampVw(19, 5.2, 26), height: 1.5)),
+                ),
+              ),
+            if (voiceEnabled) ...[
+              const SizedBox(height: 8),
+              Text('دوس على أي سطر وردّده بعده 🎤', style: kidText(15, weight: FontWeight.w700, color: AppColors.inkSoft)),
+              _replay(lines),
+            ],
+          ]),
+        ReadBlock(:final title, :final items) => Column(children: [
+            _title(title),
+            if (items[_step].visual != null) VisualView(items[_step].visual!),
+            Text(ar(items[_step].text),
+                textAlign: TextAlign.center, style: kidText(context.clampVw(40, 11, 60), height: 1.6)),
+            const SizedBox(height: 10),
+            if (voiceEnabled) ...[
+              KidButton(_heard ? '🔊 اسمع تاني' : '🔊 اسمعها واتأكد', kind: BtnKind.ghost, onTap: () {
+                _say(items[_step].spoken);
+                setState(() => _heard = true);
+              }),
+              if (!_heard)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Text('اقرا لوحدك الأول 👀', style: kidText(15, weight: FontWeight.w700, color: AppColors.inkSoft)),
+                ),
+            ],
+          ]),
         ActivityBlock(:final text) => Column(children: [
             const Text('👨‍👩‍👦', style: TextStyle(fontSize: 54)),
             const SizedBox(height: 6),

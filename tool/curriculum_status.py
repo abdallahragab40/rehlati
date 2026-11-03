@@ -24,7 +24,9 @@ def main():
             for unit in book['units']:
                 for e in unit['lessons']:
                     found = [content.get((book['book'], k)) for k in e['app']]
-                    if not found:
+                    if e.get('exam'):
+                        status = 'exam_in_app'
+                    elif not found:
                         status = 'not_in_app'
                     elif all(found):
                         status = 'reviewed' if all(l['review'] == 'reviewed' for l in found) else 'explained'

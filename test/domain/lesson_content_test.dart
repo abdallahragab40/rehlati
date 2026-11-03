@@ -17,7 +17,7 @@ void main() {
   final lessons = allLessonFiles();
 
   test('the grade 1 term 1 pilot is there', () {
-    final books = {for (final l in lessons) schoolRound(l.id)!.book.id};
+    final books = {for (final l in lessons) bookOfLesson(l.id)!.id};
     expect(books, containsAll(['p1-t1-math', 'p1-t1-arabic', 'p1-t1-english']));
     expect(lessons.length, greaterThanOrEqualTo(23));
   });
@@ -28,11 +28,12 @@ void main() {
       expect(ids.add(l.id), isTrue, reason: 'duplicate ${l.id}');
       expect(uids.add(l.uid), isTrue, reason: 'duplicate uid ${l.uid}');
       expect(l.uid, matches(RegExp(r'^p\d-t\d-[a-z]+/[a-z0-9-]+$')), reason: l.uid);
-      final round = schoolRound(l.id);
-      expect(round, isNotNull, reason: l.id);
-      expect(round!.exam, isFalse, reason: l.id);
+      final lesson = schoolLessonAt(l.id);
+      expect(lesson, isNotNull, reason: l.id);
+      // درس بجولة أسئلة، أو درس شرح بس (استماع، نشيد، قراءة)
+      expect(lesson!.ready || lesson.explainOnly, isTrue, reason: l.id);
       // لو الكتاب اتغيّر ترتيبه، الشرح مايروحش لدرس تاني من غير ما نعرف
-      expect(round.lessons.single.title, l.title, reason: l.id);
+      expect(lesson.title, l.title, reason: l.id);
       expect(l.version, greaterThanOrEqualTo(1), reason: l.id);
     }
   });
@@ -44,7 +45,9 @@ void main() {
       expect(l.blocks.first, isA<HookBlock>(), reason: '$why starts with a hook');
       expect(l.blocks.whereType<ExplainBlock>(), isNotEmpty, reason: '$why explains');
       expect(l.blocks.last, isA<SummaryBlock>(), reason: '$why ends with the summary');
-      expect(l.blocks.whereType<ExampleBlock>(), isNotEmpty, reason: '$why has a worked example');
+      // مثال محلول، أو قصة أو نشيد أو قراءة في دروس الاستماع والقراءة
+      expect(l.blocks.where((b) => b is ExampleBlock || b is StoryBlock || b is PoemBlock || b is ReadBlock), isNotEmpty,
+          reason: '$why has an example, a story, a song or reading');
       expect(l.blocks.whereType<ActivityBlock>(), isNotEmpty, reason: '$why has an activity away from the screen');
       final tries = l.blocks.whereType<TryBlock>();
       // «جرّب بنفسك» فيه نشاط مش «اختار» بس، و«تأكد من فهمك» بيقيس بعده
@@ -95,7 +98,7 @@ void main() {
   });
 
   test('building a word uses its letters in order', () {
-    for (final l in lessons.where((l) => l.id.contains('-arabic:'))) {
+    for (final l in lessons.where((l) => l.id.contains('-arabic:') && l.title.startsWith('حرف'))) {
       for (final t in l.tasks.where((t) => t.kind == TaskKind.order)) {
         final word = (t.visual! as EmojiVisual).caption!;
         expect(t.items.join(), word, reason: '${l.id}: ${t.items} → $word');

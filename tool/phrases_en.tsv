@@ -203,6 +203,8 @@ e_d564a4a5	E and e are the same letter
 e_5e48c484	E is for Elephant
 e_cb731c53	Ear
 e_f7ee9777	Earth
+e_be821266	Egg
+e_2ec2c758	Egg.
 e_8b8a5ad0	Egypt used to make cloth by hand.
 e_a6f50710	Eight
 e_8b582b34	Either
@@ -296,6 +298,7 @@ e_adea4941	H .
 e_4e1938f9	H and h are the same letter
 e_2ef52cde	H is for House
 e_44e67b40	Hand
+e_e4d44e2a	Hand.
 e_41bda2f1	Happy
 e_5049a783	Has
 e_5549af62	Hat
@@ -370,9 +373,13 @@ e_47d7616b	I am seven.
 e_d337b408	I am ten years old.
 e_8200b505	I and i are the same letter
 e_548d43c4	I drink milk every morning.
+e_b57490dd	I have a cat.
+e_be787376	I have one brother.
 e_66cba655	I have some cookies.
 e_18411f1e	I have to brush my teeth every day.
 e_2fc638c4	I have visited Luxor three times.
+e_3e54a697	I hear with my ears.
+e_f3a31afe	I hear.
 e_317e8df2	I is for Ice cream
 e_43af6265	I is for Igloo.
 e_2dd9e281	I learned to swim last year.
@@ -382,8 +389,13 @@ e_65cdbc0d	I love my mom.
 e_d6bce8eb	I met a girl who loves sculpture.
 e_3e04e5dc	I my, he his, she her.
 e_07d11789	I see with my eyes.
+e_cf4071cb	I see.
 e_a635e2b8	I sleep at night.
 e_cd9ae24e	I smell with my nose.
+e_dd1603e3	I smell.
+e_93511357	I taste.
+e_66e53ec3	I touch with my hands.
+e_5162d967	I touch.
 e_ea5ab36c	I wash my hands with soap.
 e_a82074cf	I write with a pencil.
 e_90852ebe	Ice cream
@@ -528,6 +540,7 @@ e_cf0c081d	J
 e_e856a88b	J .
 e_bd947529	J and j are the same letter
 e_530ef020	J is for Juice
+e_444897cf	Jacket.
 e_9d2cfb7d	January
 e_c02c5b9f	Juice
 e_95dde93a	Juice starts with J
@@ -538,6 +551,7 @@ e_ce0c068a	K
 e_996fdc10	K .
 e_59600795	K and k are the same letter
 e_5b2e6764	K is for Kite
+e_19c4cb08	King.
 e_42db7936	Kite
 e_1f38753c	Kite starts with K
 e_577fa0c8	Kite.
@@ -573,6 +587,7 @@ e_ef6fa4c2	Milk
 e_d8c09f84	Milk.
 e_3a56e759	Monday
 e_57718c28	Monkey
+e_adbf6d72	Monkey.
 e_58644560	Moon
 e_3740d3f0	Moon starts with M
 e_73d919ca	Moon.
@@ -616,6 +631,7 @@ e_e5361c7c	O .
 e_2991c6f5	O and o are the same letter
 e_350167a1	O is for Orange
 e_ecf21807	October
+e_618bbb80	Octopus.
 e_8c1879c7	On Friday
 e_f9eae130	On Monday
 e_2b91224c	On Sunday
@@ -867,9 +883,11 @@ e_0c6ab789	The cat is under the basket.
 e_91b6a334	The cat is under the bed.
 e_7f9f493e	The cat is under the box.
 e_83045246	The cat is under the chair.
+e_fa6f61a5	The cat lives in a house.
 e_dbf0212a	The cats are black.
 e_b549cb5b	The cheetah is the fastest animal on land.
 e_53181cfb	The children are playing.
+e_cd573950	The cow gives us milk.
 e_039922bc	The dog is between the ball and the car.
 e_638aaf52	The dog is between the ball and the cat.
 e_8ec1c7e2	The dog is between the ball and the house.
@@ -909,6 +927,7 @@ e_c764ec74	The dog is under the box.
 e_dd721c0c	The dog is under the chair.
 e_75a5b050	The giraffe is the tallest animal in the zoo.
 e_fbd694c8	The giraffe was tall
+e_0018de6b	The hen gives us eggs.
 e_67871ee7	The hobby is board games.
 e_4248a69a	The hobby is chess.
 e_8ead19b5	The hobby is cycling.
@@ -942,6 +961,7 @@ e_f9325e0f	The house is next to the car.
 e_d9413639	The house is next to the cat.
 e_7568b367	The house is next to the dog.
 e_7400a7fb	The house is next to the tree.
+e_d483a37a	The lion lives in the jungle.
 e_d2c312de	The man who invented the clock was clever.
 e_9013038b	The monkeys were funny
 e_d51aa4d7	The museum which we visited was huge.
@@ -1139,6 +1159,8 @@ e_c48ca58a	This is for a street cleaner.
 e_68902c90	This is for a tailor.
 e_511c855e	This is for a traffic officer.
 e_5c35fbfd	This is for a water engineer.
+e_20433cf3	This is my father.
+e_d5275710	This is my mother.
 e_12db9bcf	This is the gadget which tells the time.
 e_d400831d	This stage is locked.
 e_2e430863	Three
@@ -1223,6 +1245,7 @@ e_ef623a05	Umbrella
 e_21053039	Umbrella starts with U
 e_02a191b1	Umbrella.
 e_df85d0d8	Under is below.
+e_d315c82a	Up.
 e_88e43ca7	Use an before a vowel sound
 e_d30c0e69	V
 e_1b526a1f	V .
@@ -1604,6 +1627,7 @@ e_a4ee076f	between
 e_65652aa8	between is in the middle, next to is beside
 e_d7b8f81a	bicycle
 e_53cacdb9	big
+e_db3c0da4	big, small
 e_82eef0ad	bigger
 e_c4602668	bike
 e_695c4032	bike.
@@ -1660,6 +1684,7 @@ e_047458e1	car
 e_e272d977	carpenter
 e_88ad264a	carton
 e_06745c07	cat
+e_ff794225	cat, dog, rabbit, fish
 e_4d847d6f	cates
 e_9d2d8a9c	cats
 e_5cb49d8a	chair
@@ -1696,6 +1721,7 @@ e_2db6483e	could
 e_8605c5be	could / couldn't = in the past.
 e_06987493	couldn't
 e_54a13f8c	countable
+e_e37e1aea	cow, hen, sheep
 e_6b91d120	cube
 e_648c190a	cube.
 e_fa56340f	cup
@@ -1756,6 +1782,7 @@ e_8ff53680	eleven
 e_9c3dd718	engineer
 e_bf6b048f	every day, always = present simple.
 e_43edbc4b	eyes
+e_833d1330	eyes, ears, nose, mouth
 e_e30c2799	f
 e_f85a0760	fall
 e_a8f7fa72	fan
@@ -1862,6 +1889,7 @@ e_ed0c3757	h
 e_ebbf0cbd	ham
 e_c4ba2f20	hand
 e_bf18130a	hand.
+e_c78642dd	hands, feet
 e_99863551	happy
 e_edbf0fe3	has
 e_3a24bd48	has to
@@ -1922,6 +1950,7 @@ e_e90c310b	l
 e_6bf0ef3b	lamp
 e_01485e0f	lamp.
 e_e812f405	lightning
+e_b6ea2371	lion, monkey, elephant, giraffe
 e_3b3b76a6	listen
 e_03b1d87b	living room
 e_37b563c9	lll, lll
@@ -1941,6 +1970,7 @@ e_c9ad5a6b	men
 e_ba85df6a	metro
 e_5a69615f	mice
 e_888e7aa2	milk
+e_8286d295	milk, eggs, wool
 e_844aea64	milk.
 e_689219d9	miss
 e_462e4c5f	mmm, mmm
@@ -1949,6 +1979,7 @@ e_a7eb16c2	mmm, mmm, Moon
 e_ec956f1e	monorail
 e_f184ae40	moon
 e_d39e5f9f	mop
+e_1b43c22c	mother, father
 e_a45b05cc	motorcycle
 e_49cbe0a2	mountain
 e_592318c4	mouse
@@ -1997,6 +2028,7 @@ e_7d3d112e	oasis
 e_61342fd0	on
 e_249fdfc3	on + day.
 e_2ba4b5cb	one hundred
+e_3c31aded	one, two, three, four, five
 e_5d342984	or
 e_f50c43ef	p
 e_b9f6a871	paintbrush
@@ -2095,7 +2127,9 @@ e_ee7b2910	should = a good idea.
 e_0b70261f	shouldn't
 e_52e1c1e3	shouldn't = a bad idea.
 e_15d2601e	sing
+e_e5a2fa75	sister, brother
 e_c630015f	sit
+e_d56e13fe	six, seven, eight, nine, ten
 e_c5d13fab	sixteen
 e_6232229c	sixty
 e_dc65ec4e	sixty-eight

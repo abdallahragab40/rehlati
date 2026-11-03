@@ -41,14 +41,14 @@ void main() {
         for (final key in (e['app'] as List).cast<String>()) {
           final m = RegExp(r'^u(\d+):l(\d+)$').firstMatch(key)!;
           final lessonKey = lessonId(sb, int.parse(m[1]!) - 1, int.parse(m[2]!) - 1);
-          expect(schoolRound(lessonKey), isNotNull, reason: '${e['title']} → $key');
+          expect(schoolLessonAt(lessonKey), isNotNull, reason: '${e['title']} → $key');
           covered.add(lessonKey);
         }
       }
       final ready = {
         for (var u = 0; u < sb.units.length; u++)
           for (var l = 0; l < sb.units[u].lessons.length; l++)
-            if (sb.units[u].lessons[l].ready) lessonId(sb, u, l),
+            if (sb.units[u].lessons[l].ready || sb.units[u].lessons[l].explainOnly) lessonId(sb, u, l),
       };
       expect(ready.difference(covered), isEmpty, reason: 'app lessons missing from the map');
     });
@@ -63,6 +63,12 @@ void main() {
             }(),
         ];
         final found = [for (final k in keys) explained[k]];
+        if (e['exam'] case final String u) {
+          final exam = 'school:$id:$u';
+          expect(schoolRound(exam)?.exam, isTrue, reason: '${e['title']} → $exam');
+          expect(e['status'], 'exam_in_app', reason: e['title'] as String);
+          continue;
+        }
         final want = keys.isEmpty
             ? 'not_in_app'
             : found.every((c) => c != null)

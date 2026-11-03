@@ -8,7 +8,8 @@
   "indexed": "في التطبيق كجولة أسئلة بس (موجود في الفهرس)",
   "partly_explained": "بعض دروس التطبيق اللي بتغطيه ليها شرح",
   "explained": "ليه شرح، لسه مسودة",
-  "reviewed": "ليه شرح والمدرّس راجعه — جاهز للنشر"
+  "reviewed": "ليه شرح والمدرّس راجعه — جاهز للنشر",
+  "exam_in_app": "تقييم الوحدة: امتحان الوحدة في التطبيق بيغطيه"
  },
  "books": [
   {
@@ -56,9 +57,11 @@
         "الاستماع",
         "فهم المسموع"
        ],
-       "app": [],
-       "status": "not_in_app",
-       "note": "مش في التطبيق: محتاج قصة مسموعة من تأليفنا وأسئلة فهم"
+       "app": [
+        "u1:l9"
+       ],
+       "status": "explained",
+       "note": "قصة من تأليفنا (يوم الجمعة) بنفس المهارات: فهم المسموع وترتيب الأحداث"
       },
       {
        "title": "نشيد (أسرتي)",
@@ -68,9 +71,11 @@
         "الاستماع",
         "الحفظ والإلقاء"
        ],
-       "app": [],
-       "status": "not_in_app",
-       "note": "مش في التطبيق: محتاج نشيد من تأليفنا (حقوق النشيد للوزارة)"
+       "app": [
+        "u1:l10"
+       ],
+       "status": "explained",
+       "note": "نشيد من تأليفنا (ما أجمل أسرتي) — حقوق نشيد الكتاب للوزارة"
       },
       {
        "title": "حرف الألف",
@@ -248,17 +253,19 @@
         "قراءة جمل قصيرة",
         "فهم المقروء"
        ],
-       "app": [],
-       "status": "not_in_app",
-       "note": "مش في التطبيق: قراءة بحروف الوحدة"
+       "app": [
+        "u1:l11"
+       ],
+       "status": "explained",
+       "note": "قراءة كلمات من حروف الوحدة (اقرا: تاج ماما) — بنصوص من تأليفنا"
       },
       {
        "title": "تقييم الوحدة الأولى",
        "kind": "assessment",
        "pages": "43",
        "app": [],
-       "status": "not_in_app",
-       "note": "امتحان الوحدة في التطبيق بيغطيه (school:…:u1)"
+       "status": "exam_in_app",
+       "exam": "u1"
       }
      ]
     },
@@ -273,9 +280,11 @@
         "الاستماع",
         "فهم المسموع"
        ],
-       "app": [],
-       "status": "not_in_app",
-       "note": "مش في التطبيق: محتاج قصة مسموعة من تأليفنا وأسئلة فهم"
+       "app": [
+        "u2:l8"
+       ],
+       "status": "explained",
+       "note": "قصة من تأليفنا بنفس المهارات: فهم المسموع وترتيب الأحداث"
       },
       {
        "title": "نشيد (لوحتي الجديدة)",
@@ -285,9 +294,11 @@
         "الاستماع",
         "الحفظ والإلقاء"
        ],
-       "app": [],
-       "status": "not_in_app",
-       "note": "مش في التطبيق: محتاج نشيد من تأليفنا (حقوق النشيد للوزارة)"
+       "app": [
+        "u2:l9"
+       ],
+       "status": "explained",
+       "note": "نشيد من تأليفنا — حقوق نشيد الكتاب للوزارة"
       },
       {
        "title": "حرف اللام",
@@ -308,7 +319,7 @@
        "app": [
         "u2:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "حرف السين",
@@ -329,7 +340,7 @@
        "app": [
         "u2:l2"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "حرف النون",
@@ -350,7 +361,7 @@
        "app": [
         "u2:l3"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "حرف الراء",
@@ -371,7 +382,7 @@
        "app": [
         "u2:l4"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "حرف الفاء",
@@ -392,7 +403,7 @@
        "app": [
         "u2:l5"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "حرف الكاف",
@@ -413,7 +424,7 @@
        "app": [
         "u2:l6"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "حرف القاف",
@@ -434,7 +445,7 @@
        "app": [
         "u2:l7"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "قصة القارئ الصغير (ماذا تأكل؟)",
@@ -444,17 +455,19 @@
         "قراءة جمل قصيرة",
         "فهم المقروء"
        ],
-       "app": [],
-       "status": "not_in_app",
-       "note": "مش في التطبيق: قراءة بحروف الوحدة"
+       "app": [
+        "u2:l10"
+       ],
+       "status": "explained",
+       "note": "قراءة كلمات من الحروف اللي اتعلّمت، بنصوص من تأليفنا"
       },
       {
        "title": "تقييم الوحدة الثانية",
        "kind": "assessment",
        "pages": "78",
        "app": [],
-       "status": "not_in_app",
-       "note": "امتحان الوحدة في التطبيق بيغطيه (school:…:u2)"
+       "status": "exam_in_app",
+       "exam": "u2"
       },
       {
        "title": "قصة القراءة مع الأسرة (التعاون سر النجاح)",
@@ -479,9 +492,11 @@
         "الاستماع",
         "فهم المسموع"
        ],
-       "app": [],
-       "status": "not_in_app",
-       "note": "مش في التطبيق: محتاج قصة مسموعة من تأليفنا وأسئلة فهم"
+       "app": [
+        "u3:l8"
+       ],
+       "status": "explained",
+       "note": "قصة من تأليفنا بنفس المهارات: فهم المسموع وترتيب الأحداث"
       },
       {
        "title": "نشيد (أحب جسمي)",
@@ -491,9 +506,11 @@
         "الاستماع",
         "الحفظ والإلقاء"
        ],
-       "app": [],
-       "status": "not_in_app",
-       "note": "مش في التطبيق: محتاج نشيد من تأليفنا (حقوق النشيد للوزارة)"
+       "app": [
+        "u3:l9"
+       ],
+       "status": "explained",
+       "note": "نشيد من تأليفنا — حقوق نشيد الكتاب للوزارة"
       },
       {
        "title": "حرف الياء",
@@ -514,7 +531,7 @@
        "app": [
         "u3:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "حرف العين",
@@ -535,7 +552,7 @@
        "app": [
         "u3:l2"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "حرف الشين",
@@ -556,7 +573,7 @@
        "app": [
         "u3:l3"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "حرف الواو",
@@ -577,7 +594,7 @@
        "app": [
         "u3:l4"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "حرف الهاء",
@@ -598,7 +615,7 @@
        "app": [
         "u3:l5"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "حرف الذال",
@@ -619,7 +636,7 @@
        "app": [
         "u3:l6"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "حرف الظاء",
@@ -640,7 +657,7 @@
        "app": [
         "u3:l7"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "قصة القارئ الصغير (هذا جسمي)",
@@ -650,17 +667,19 @@
         "قراءة جمل قصيرة",
         "فهم المقروء"
        ],
-       "app": [],
-       "status": "not_in_app",
-       "note": "مش في التطبيق: قراءة بحروف الوحدة"
+       "app": [
+        "u3:l10"
+       ],
+       "status": "explained",
+       "note": "قراءة كلمات من الحروف اللي اتعلّمت، بنصوص من تأليفنا"
       },
       {
        "title": "تقييم الوحدة الثالثة",
        "kind": "assessment",
        "pages": "115",
        "app": [],
-       "status": "not_in_app",
-       "note": "امتحان الوحدة في التطبيق بيغطيه (school:…:u3)"
+       "status": "exam_in_app",
+       "exam": "u3"
       }
      ]
     },
@@ -675,9 +694,11 @@
         "الاستماع",
         "فهم المسموع"
        ],
-       "app": [],
-       "status": "not_in_app",
-       "note": "مش في التطبيق: محتاج قصة مسموعة من تأليفنا وأسئلة فهم"
+       "app": [
+        "u4:l7"
+       ],
+       "status": "explained",
+       "note": "قصة من تأليفنا بنفس المهارات: فهم المسموع وترتيب الأحداث"
       },
       {
        "title": "نشيد (أحب مدرستي)",
@@ -687,9 +708,11 @@
         "الاستماع",
         "الحفظ والإلقاء"
        ],
-       "app": [],
-       "status": "not_in_app",
-       "note": "مش في التطبيق: محتاج نشيد من تأليفنا (حقوق النشيد للوزارة)"
+       "app": [
+        "u4:l8"
+       ],
+       "status": "explained",
+       "note": "نشيد من تأليفنا — حقوق نشيد الكتاب للوزارة"
       },
       {
        "title": "حرف الزاي",
@@ -710,7 +733,7 @@
        "app": [
         "u4:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "حرف الطاء",
@@ -731,7 +754,7 @@
        "app": [
         "u4:l2"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "حرف الصاد",
@@ -752,7 +775,7 @@
        "app": [
         "u4:l3"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "حرف الضاد",
@@ -773,7 +796,7 @@
        "app": [
         "u4:l4"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "حرف الثاء",
@@ -794,7 +817,7 @@
        "app": [
         "u4:l5"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "حرف الغين",
@@ -815,7 +838,7 @@
        "app": [
         "u4:l6"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "قصة القارئ الصغير (هذه مدرستي)",
@@ -825,17 +848,19 @@
         "قراءة جمل قصيرة",
         "فهم المقروء"
        ],
-       "app": [],
-       "status": "not_in_app",
-       "note": "مش في التطبيق: قراءة بحروف الوحدة"
+       "app": [
+        "u4:l9"
+       ],
+       "status": "explained",
+       "note": "قراءة كلمات من الحروف اللي اتعلّمت، بنصوص من تأليفنا"
       },
       {
        "title": "تقييم الوحدة الرابعة",
        "kind": "assessment",
        "pages": "140",
        "app": [],
-       "status": "not_in_app",
-       "note": "امتحان الوحدة في التطبيق بيغطيه (school:…:u4)"
+       "status": "exam_in_app",
+       "exam": "u4"
       },
       {
        "title": "قصة القراءة مع الأسرة (السلحفاة الحكيمة)",
@@ -868,8 +893,7 @@
   {
    "book": "p1-t1-math",
    "url": "https://elearnningcontent.blob.core.windows.net/elearnningcontent/2026_2027/Primary/Primary1/Term1/StudentBook/Math_Ar_prim1_t1.pdf",
-   "pages_from": "المحتويات في الكتاب (ص ٥) — صفحات الفصول بس",
-   "lessons_from": "أسماء الدروس من فهرس ٢٠٢٥/٢٠٢٦ (tool/SCHOOL_CURRICULUM_INDEX.md). الفصول اتطابقت مع ٢٠٢٦/٢٠٢٧، الدروس لسه.",
+   "pages_from": "أرقام صفحات الكتاب: بداية كل درس من قراية الصفحات نفسها (الكتاب صور، اتقرا بالتعرّف الآلي على النص يوم ٣ نوفمبر ٢٠٢٦)",
    "units": [
     {
      "title": "الفصل ١: الأعداد حتى ١٠",
@@ -878,6 +902,7 @@
       {
        "title": "كم العدد؟",
        "kind": "lesson",
+       "pages": "6–7",
        "app": [
         "u1:l1"
        ],
@@ -886,22 +911,25 @@
       {
        "title": "الأعداد من ١ إلى ٥",
        "kind": "lesson",
+       "pages": "8–9",
        "app": [
         "u1:l2"
        ],
        "status": "explained"
       },
       {
-       "title": "هيا نعد (١–٥)",
+       "title": "هيا نعد! (من ١ إلى ٥)",
        "kind": "lesson",
+       "pages": "10–11",
        "app": [
         "u1:l2"
        ],
        "status": "explained"
       },
       {
-       "title": "مكونات العدد ٥",
+       "title": "ما مكونات العدد ٥؟",
        "kind": "lesson",
+       "pages": "12–13",
        "app": [
         "u1:l3"
        ],
@@ -910,27 +938,62 @@
       {
        "title": "الأعداد من ٦ إلى ١٠",
        "kind": "lesson",
+       "pages": "14–15",
        "app": [
         "u1:l4"
        ],
        "status": "explained"
       },
       {
-       "title": "هيا نعد (٦–١٠)",
+       "title": "هيا نعد! (من ٦ إلى ١٠)",
        "kind": "lesson",
+       "pages": "16–17",
        "app": [
         "u1:l4"
        ],
        "status": "explained"
       },
       {
-       "title": "مكونات الأعداد ٦، ٧، ٨، ٩، ١٠",
+       "title": "ما مكونات العدد ٦؟",
        "kind": "lesson",
+       "pages": "18–19",
        "app": [
-        "u1:l5",
-        "u1:l6",
-        "u1:l7",
-        "u1:l8",
+        "u1:l5"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "ما مكونات العدد ٧؟",
+       "kind": "lesson",
+       "pages": "20–21",
+       "app": [
+        "u1:l6"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "ما مكونات العدد ٨؟",
+       "kind": "lesson",
+       "pages": "22–23",
+       "app": [
+        "u1:l7"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "ما مكونات العدد ٩؟",
+       "kind": "lesson",
+       "pages": "24–25",
+       "app": [
+        "u1:l8"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "ما مكونات العدد ١٠؟",
+       "kind": "lesson",
+       "pages": "26–27",
+       "app": [
         "u1:l9"
        ],
        "status": "explained"
@@ -938,6 +1001,7 @@
       {
        "title": "هيا نقارن الأعداد",
        "kind": "lesson",
+       "pages": "28–29",
        "app": [
         "u1:l10"
        ],
@@ -946,6 +1010,7 @@
       {
        "title": "العدد صفر",
        "kind": "lesson",
+       "pages": "30–31",
        "app": [
         "u1:l11"
        ],
@@ -960,18 +1025,20 @@
       {
        "title": "حدد الموقع",
        "kind": "lesson",
+       "pages": "32–33",
        "app": [
         "u2:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "أين هو؟",
        "kind": "lesson",
+       "pages": "34–35",
        "app": [
         "u2:l2"
        ],
-       "status": "indexed"
+       "status": "explained"
       }
      ]
     },
@@ -980,28 +1047,40 @@
      "pages": "36–43",
      "lessons": [
       {
-       "title": "الجمع (جزء ١ و٢)",
+       "title": "الجمع (الجزء الأول)",
        "kind": "lesson",
+       "pages": "36–37",
        "app": [
         "u3:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
-       "title": "الجمع مع الصفر",
+       "title": "الجمع (الجزء الثاني)",
        "kind": "lesson",
+       "pages": "38–39",
        "app": [
         "u3:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
+      },
+      {
+       "title": "الجمع مع العدد صفر",
+       "kind": "lesson",
+       "pages": "40–41",
+       "app": [
+        "u3:l1"
+       ],
+       "status": "explained"
       },
       {
        "title": "قصص الجمع",
        "kind": "lesson",
+       "pages": "42–43",
        "app": [
         "u3:l2"
        ],
-       "status": "indexed"
+       "status": "explained"
       }
      ]
     },
@@ -1010,36 +1089,49 @@
      "pages": "44–53",
      "lessons": [
       {
-       "title": "الطرح (جزء ١ و٢)",
+       "title": "الطرح (الجزء الأول)",
        "kind": "lesson",
+       "pages": "44–45",
        "app": [
         "u4:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
-       "title": "الطرح مع الصفر",
+       "title": "الطرح (الجزء الثاني)",
        "kind": "lesson",
+       "pages": "46–47",
        "app": [
         "u4:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
+      },
+      {
+       "title": "الطرح مع العدد صفر",
+       "kind": "lesson",
+       "pages": "48–49",
+       "app": [
+        "u4:l1"
+       ],
+       "status": "explained"
       },
       {
        "title": "ما الفرق؟",
        "kind": "lesson",
+       "pages": "50–51",
        "app": [
         "u4:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "قصص الطرح",
        "kind": "lesson",
+       "pages": "52–53",
        "app": [
         "u4:l2"
        ],
-       "status": "indexed"
+       "status": "explained"
       }
      ]
     },
@@ -1050,26 +1142,29 @@
       {
        "title": "أيهما أطول؟",
        "kind": "lesson",
+       "pages": "54–55",
        "app": [
         "u5:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "كيف يمكننا القياس؟",
        "kind": "lesson",
+       "pages": "56–57",
        "app": [
         "u5:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "هيا نقارن الأطوال",
        "kind": "lesson",
+       "pages": "58–59",
        "app": [
         "u5:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       }
      ]
     },
@@ -1080,26 +1175,29 @@
       {
        "title": "تمثيل البيانات بالصور",
        "kind": "lesson",
+       "pages": "60–63",
        "app": [
         "u6:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "ما نتعلمه من النتائج",
        "kind": "lesson",
+       "pages": "64–67",
        "app": [
         "u6:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "هيا نقارن النتائج",
        "kind": "lesson",
+       "pages": "68–71",
        "app": [
         "u6:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       }
      ]
     },
@@ -1110,42 +1208,56 @@
       {
        "title": "الأعداد حتى ٢٠",
        "kind": "lesson",
+       "pages": "72–73",
        "app": [
         "u7:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "عشرة وعدد ما",
        "kind": "lesson",
+       "pages": "74–75",
        "app": [
         "u7:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "خط الأعداد",
        "kind": "lesson",
+       "pages": "76–79",
        "app": [
         "u7:l2"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
-       "title": "جمع وطرح الأعداد (جزء ١ و٢)",
+       "title": "جمع وطرح الأعداد (الجزء الأول)",
        "kind": "lesson",
+       "pages": "80–81",
        "app": [
         "u7:l3"
        ],
-       "status": "indexed"
+       "status": "explained"
+      },
+      {
+       "title": "جمع وطرح الأعداد (الجزء الثاني)",
+       "kind": "lesson",
+       "pages": "82–83",
+       "app": [
+        "u7:l3"
+       ],
+       "status": "explained"
       },
       {
        "title": "الأعداد الأكبر من ٢٠",
        "kind": "lesson",
+       "pages": "84–85",
        "app": [
         "u7:l1"
        ],
-       "status": "indexed",
+       "status": "explained",
        "note": "جزئيًا: الآحاد والعشرات بس"
       }
      ]
@@ -1157,11 +1269,11 @@
       {
        "title": "قراءة الوقت على الساعة",
        "kind": "lesson",
+       "pages": "86–87",
        "app": [
         "u8:l1"
        ],
-       "status": "indexed",
-       "note": "جزئيًا: المرحلة معمولة لساعات وأرباع (سن ٨–٩)"
+       "status": "explained"
       }
      ]
     },
@@ -1172,35 +1284,39 @@
       {
        "title": "جمع ثلاثة أعداد",
        "kind": "lesson",
+       "pages": "88–89",
        "app": [
         "u9:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "طرح ثلاثة أعداد",
        "kind": "lesson",
+       "pages": "90–91",
        "app": [
         "u9:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
-       "title": "الحساب بثلاثة أعداد",
+       "title": "الحساب باستخدام ثلاثة أعداد",
        "kind": "lesson",
+       "pages": "92–96",
        "app": [
         "u9:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       }
      ]
     }
-   ]
+   ],
+   "lessons_from": "أسماء الدروس من كتاب ٢٠٢٦/٢٠٢٧ نفسه — مطابقة لفهرس ٢٠٢٥/٢٠٢٦، و«مكونات الأعداد» دروس منفصلة لكل عدد"
   },
   {
    "book": "p1-t1-english",
    "url": "https://elearnningcontent.blob.core.windows.net/elearnningcontent/2026_2027/Primary/Primary1/Term1/StudentBook/English_language_prim1_t1.pdf",
-   "pages_from": "صفحات ملف الـ PDF (مش أرقام الطباعة) من نص الكتاب. الوحدة ٤ صور، فأسماء دروسها مش متقرية.",
+   "pages_from": "صفحات ملف الـ PDF (مش أرقام الطباعة). الوحدة ٤ صور، واتقرت بالتعرّف الآلي على النص.",
    "units": [
     {
      "title": "Unit 1: Welcome to My School",
@@ -1330,7 +1446,7 @@
        "app": [
         "u3:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "Lesson 2: Phonics",
@@ -1339,7 +1455,7 @@
        "app": [
         "u3:l2"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "Lesson 3: Numbers from 1 to 5",
@@ -1348,7 +1464,7 @@
        "app": [
         "u3:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "Lesson 4: Phonics",
@@ -1357,7 +1473,7 @@
        "app": [
         "u3:l2"
        ],
-       "status": "indexed"
+       "status": "explained"
       }
      ]
     },
@@ -1371,23 +1487,56 @@
      ],
      "lessons": [
       {
-       "title": "Body parts and senses (lesson titles are images)",
+       "title": "Lesson 1: Head to Toe",
        "kind": "vocabulary",
-       "pages": "65–83",
+       "pages": "66–69",
+       "skills": [
+        "vocabulary",
+        "counting body parts"
+       ],
        "app": [
         "u4:l1"
        ],
-       "status": "indexed",
-       "note": "الحواس الخمسة مش في التطبيق"
+       "status": "explained"
       },
       {
-       "title": "Phonics: Rr, Ee, Cc, Kk",
+       "title": "Lesson 2: Phonics (Rr, Ee)",
        "kind": "phonics",
-       "pages": "65–83",
+       "pages": "70–74",
+       "skills": [
+        "phonics",
+        "writing"
+       ],
        "app": [
         "u4:l2"
        ],
-       "status": "indexed"
+       "status": "explained"
+      },
+      {
+       "title": "Lesson 3: My 5 senses",
+       "kind": "vocabulary",
+       "pages": "75–78",
+       "skills": [
+        "vocabulary",
+        "senses"
+       ],
+       "app": [
+        "u4:l1"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "Lesson 4: Phonics (Cc, Kk)",
+       "kind": "phonics",
+       "pages": "79–83",
+       "skills": [
+        "phonics",
+        "writing"
+       ],
+       "app": [
+        "u4:l2"
+       ],
+       "status": "explained"
       }
      ]
     },
@@ -1408,7 +1557,7 @@
        "app": [
         "u5:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "Lesson 3: Numbers From 6 to 10",
@@ -1417,7 +1566,7 @@
        "app": [
         "u5:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "Phonics: Mm, Gg, Oo, Ff",
@@ -1426,7 +1575,7 @@
        "app": [
         "u5:l2"
        ],
-       "status": "indexed"
+       "status": "explained"
       }
      ]
     },
@@ -1446,7 +1595,7 @@
        "app": [
         "u6:l1"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "Lesson 3: My Pets",
@@ -1456,7 +1605,7 @@
         "u6:l1",
         "u6:l2"
        ],
-       "status": "indexed"
+       "status": "explained"
       },
       {
        "title": "Lesson 4: Phonics",
@@ -1465,7 +1614,7 @@
        "app": [
         "u6:l3"
        ],
-       "status": "indexed"
+       "status": "explained"
       }
      ]
     }

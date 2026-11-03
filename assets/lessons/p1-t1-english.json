@@ -823,6 +823,1675 @@
      ]
     }
    ]
+  },
+  {
+   "uid": "p1-t1-english/family-numbers",
+   "key": "u3:l1",
+   "title": "My family and numbers 1–5",
+   "goal": "أعرّف أفراد عيلتي بالإنجليزي، وأعدّ من 1 لـ 5",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "دي عيلة سلمى! تعرف تقول «ماما» بالإنجليزي؟",
+     "visual": {
+      "emoji": "👨‍👩‍👧‍👦"
+     },
+     "ask": "مين في عيلتك؟"
+    },
+    {
+     "type": "explain",
+     "title": "My family",
+     "text": "ماما وبابا بالإنجليزي",
+     "en": "mother, father",
+     "visual": {
+      "emoji": "👩👨"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "الأخت والأخ",
+     "en": "sister, brother",
+     "visual": {
+      "emoji": "👧👦"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "Numbers",
+     "text": "ونعدّ من واحد لخمسة",
+     "en": "one, two, three, four, five",
+     "visual": {
+      "expr": [
+       1,
+       2,
+       3,
+       4,
+       5
+      ]
+     }
+    },
+    {
+     "type": "example",
+     "title": "نعرّف العيلة",
+     "steps": [
+      {
+       "text": "دي ماما",
+       "en": "This is my mother.",
+       "visual": {
+        "emoji": "👩"
+       }
+      },
+      {
+       "text": "ده بابا",
+       "en": "This is my father.",
+       "visual": {
+        "emoji": "👨"
+       }
+      },
+      {
+       "text": "عندي أخ واحد",
+       "en": "I have one brother.",
+       "visual": {
+        "emoji": "👦"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل كل كلمة بصورتها",
+       "en": true,
+       "pairs": [
+        [
+         "mother",
+         "👩"
+        ],
+        [
+         "father",
+         "👨"
+        ],
+        [
+         "sister",
+         "👧"
+        ],
+        [
+         "brother",
+         "👦"
+        ]
+       ],
+       "hint": "افتكر البطاقات اللي فاتت",
+       "why": "mother ماما، father بابا، sister أخت، brother أخ"
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب الأرقام",
+       "en": true,
+       "items": [
+        "one",
+        "two",
+        "three",
+        "four",
+        "five"
+       ],
+       "hint": "ابدأ بـ one",
+       "why": "one, two, three, four, five"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اعرضوا صورة للعيلة، والطفل يشاور ويقول: This is my mother… ويعدّ أفراد العيلة بالإنجليزي."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "ده مين؟",
+       "visual": {
+        "emoji": "👨"
+       },
+       "en": true,
+       "choices": [
+        "father",
+        "sister",
+        "mother"
+       ],
+       "answer": "father",
+       "hint": "بابا بالإنجليزي",
+       "hints": {
+        "sister": "sister يعني أخت",
+        "mother": "mother يعني ماما"
+       },
+       "why": "ده بابا = father"
+      },
+      {
+       "kind": "choice",
+       "ask": "كام نجمة؟",
+       "visual": {
+        "pics": "⭐",
+        "n": 3
+       },
+       "en": true,
+       "choices": [
+        "three",
+        "four",
+        "two"
+       ],
+       "answer": "three",
+       "hint": "عدّ وبعدين افتكر الكلمة",
+       "hints": {
+        "four": "four يعني 4",
+        "two": "two يعني 2"
+       },
+       "why": "تلاتة = three"
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "mother, father, sister, brother",
+      "one, two, three, four, five"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p1-t1-english/letters-n-p-h-d",
+   "key": "u3:l2",
+   "title": "Letters N, P, H, D",
+   "goal": "أعرف الحروف N و P و H و D: شكلهم الكبير والصغير وكلمات بتبدأ بيهم",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "كل حرف ليه صوت، وبنسمعه في أول الكلمة",
+     "visual": {
+      "emoji": "👃🪺"
+     },
+     "ask": "تعرف كلمة بتبدأ بـ N؟"
+    },
+    {
+     "type": "explain",
+     "title": "حرف N",
+     "text": "ده حرف N. الكبير N والصغير n",
+     "en": "Nose. Nest.",
+     "visual": {
+      "letter": "N n"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "حرف P",
+     "text": "ده حرف P. الكبير P والصغير p",
+     "en": "Pen. Pig.",
+     "visual": {
+      "letter": "P p"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "حرف H",
+     "text": "ده حرف H. الكبير H والصغير h",
+     "en": "Hat. Hand.",
+     "visual": {
+      "letter": "H h"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "حرف D",
+     "text": "ده حرف D. الكبير D والصغير d",
+     "en": "Dog. Duck.",
+     "visual": {
+      "letter": "D d"
+     }
+    },
+    {
+     "type": "example",
+     "title": "كلمات الحروف",
+     "steps": [
+      {
+       "text": "Nose: أولها N",
+       "en": "Nose",
+       "visual": {
+        "emoji": "👃"
+       }
+      },
+      {
+       "text": "Pen: أولها P",
+       "en": "Pen",
+       "visual": {
+        "emoji": "🖊️"
+       }
+      },
+      {
+       "text": "Hat: أولها H",
+       "en": "Hat",
+       "visual": {
+        "emoji": "🎩"
+       }
+      },
+      {
+       "text": "Dog: أولها D",
+       "en": "Dog",
+       "visual": {
+        "emoji": "🐕"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "كل كلمة أولها أنهي حرف؟",
+       "en": true,
+       "groups": [
+        {
+         "name": "N",
+         "items": [
+          "👃 Nose",
+          "🪺 Nest"
+         ]
+        },
+        {
+         "name": "P",
+         "items": [
+          "🖊️ Pen",
+          "🐷 Pig"
+         ]
+        },
+        {
+         "name": "H",
+         "items": [
+          "🎩 Hat",
+          "✋ Hand"
+         ]
+        },
+        {
+         "name": "D",
+         "items": [
+          "🐕 Dog",
+          "🦆 Duck"
+         ]
+        }
+       ],
+       "hint": "قول الكلمة واسمع أول صوت",
+       "why": "كل كلمة راحت عند أول حرف فيها"
+      },
+      {
+       "kind": "trace",
+       "ask": "ارسم حرف P بصباعك",
+       "en": true,
+       "glyph": "P",
+       "hint": "امشي بصباعك فوق الحرف الرمادي",
+       "why": "رسمت P!"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اكتبوا الحروف N و P و H و D كبار على ورق، والطفل يمشي عليهم بالقلم، ويدوّر في البيت على حاجة بتبدأ بكل حرف."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "اسمع: Nose بتبدأ بأنهي حرف؟",
+       "visual": {
+        "listen": "Nose",
+        "en": true
+       },
+       "en": true,
+       "choices": [
+        "N",
+        "P",
+        "H"
+       ],
+       "answer": "N",
+       "hint": "اسمع أول صوت في الكلمة",
+       "hints": {
+        "P": "P صوته زي أول Pen",
+        "H": "H صوته زي أول Hat"
+       },
+       "why": "Nose أولها N"
+      },
+      {
+       "kind": "choice",
+       "ask": "اسمع: Pen بتبدأ بأنهي حرف؟",
+       "visual": {
+        "listen": "Pen",
+        "en": true
+       },
+       "en": true,
+       "choices": [
+        "N",
+        "P",
+        "H"
+       ],
+       "answer": "P",
+       "hint": "اسمع أول صوت في الكلمة",
+       "hints": {
+        "N": "N صوته زي أول Nose",
+        "H": "H صوته زي أول Hat"
+       },
+       "why": "Pen أولها P"
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "N n: Nose، Nest",
+      "P p: Pen، Pig",
+      "H h: Hat، Hand",
+      "D d: Dog، Duck"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p1-t1-english/my-body",
+   "key": "u4:l1",
+   "title": "My body",
+   "goal": "أعرف أجزاء جسمي وحواسي الخمسة بالإنجليزي",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "بنشوف ونسمع ونشم ونتذوق ونلمس",
+     "visual": {
+      "emoji": "👀👂👃👅✋"
+     },
+     "ask": "بتشوف بإيه؟"
+    },
+    {
+     "type": "explain",
+     "title": "My body",
+     "text": "أجزاء الوش",
+     "en": "eyes, ears, nose, mouth",
+     "visual": {
+      "emoji": "👀👂👃👄"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "والإيدين والرجلين",
+     "en": "hands, feet",
+     "visual": {
+      "emoji": "🙌🦶"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "My senses",
+     "text": "الحواس الخمسة: بنشوف بالعين، ونسمع بالودن، ونشم بالمناخير، ونتذوق باللسان، ونلمس بالإيد",
+     "en": "I see. I hear. I smell. I taste. I touch.",
+     "visual": {
+      "emoji": "👀👂👃👅✋"
+     }
+    },
+    {
+     "type": "example",
+     "title": "أنا بستعمل جسمي",
+     "steps": [
+      {
+       "text": "بشوف بعيني",
+       "en": "I see with my eyes.",
+       "visual": {
+        "emoji": "👀"
+       }
+      },
+      {
+       "text": "بسمع بودني",
+       "en": "I hear with my ears.",
+       "visual": {
+        "emoji": "👂"
+       }
+      },
+      {
+       "text": "بلمس بإيدي",
+       "en": "I touch with my hands.",
+       "visual": {
+        "emoji": "✋"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل كل كلمة بصورتها",
+       "en": true,
+       "pairs": [
+        [
+         "eyes",
+         "👀"
+        ],
+        [
+         "ears",
+         "👂"
+        ],
+        [
+         "nose",
+         "👃"
+        ],
+        [
+         "mouth",
+         "👄"
+        ]
+       ],
+       "hint": "افتكر البطاقة الأولى",
+       "why": "eyes عين، ears ودن، nose مناخير، mouth بق"
+      },
+      {
+       "kind": "match",
+       "ask": "بنعمل إيه بكل جزء؟",
+       "en": true,
+       "pairs": [
+        [
+         "see",
+         "👀"
+        ],
+        [
+         "hear",
+         "👂"
+        ],
+        [
+         "smell",
+         "👃"
+        ],
+        [
+         "taste",
+         "👅"
+        ]
+       ],
+       "hint": "فكّر: بتعمل إيه بالعين؟",
+       "why": "بنشوف بالعين، نسمع بالودن، نشم بالمناخير، نتذوق باللسان"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "العبوا «Simon says»: ولي الأمر يقول Touch your nose! والطفل يلمس الجزء بسرعة."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "ده إيه؟",
+       "visual": {
+        "emoji": "👂"
+       },
+       "en": true,
+       "choices": [
+        "ears",
+        "eyes",
+        "hands"
+       ],
+       "answer": "ears",
+       "hint": "بنسمع بيها",
+       "hints": {
+        "eyes": "eyes بنشوف بيها",
+        "hands": "hands الإيدين"
+       },
+       "why": "دي الودن = ears"
+      },
+      {
+       "kind": "choice",
+       "ask": "I smell with my…",
+       "visual": {
+        "emoji": "🌹"
+       },
+       "en": true,
+       "choices": [
+        "nose",
+        "mouth",
+        "feet"
+       ],
+       "answer": "nose",
+       "hint": "بنشم الوردة بإيه؟",
+       "hints": {
+        "mouth": "mouth بناكل بيه",
+        "feet": "feet بنمشي بيها"
+       },
+       "why": "بنشم بالمناخير = nose"
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "eyes, ears, nose, mouth, hands, feet",
+      "see, hear, smell, taste, touch"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p1-t1-english/letters-r-e-c-k",
+   "key": "u4:l2",
+   "title": "Letters R, E, C, K",
+   "goal": "أعرف الحروف R و E و C و K: شكلهم الكبير والصغير وكلمات بتبدأ بيهم",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "كل حرف ليه صوت، وبنسمعه في أول الكلمة",
+     "visual": {
+      "emoji": "🐇🌧️"
+     },
+     "ask": "تعرف كلمة بتبدأ بـ R؟"
+    },
+    {
+     "type": "explain",
+     "title": "حرف R",
+     "text": "ده حرف R. الكبير R والصغير r",
+     "en": "Rabbit. Rain.",
+     "visual": {
+      "letter": "R r"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "حرف E",
+     "text": "ده حرف E. الكبير E والصغير e",
+     "en": "Egg. Elephant.",
+     "visual": {
+      "letter": "E e"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "حرف C",
+     "text": "ده حرف C. الكبير C والصغير c",
+     "en": "Cat. Cake.",
+     "visual": {
+      "letter": "C c"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "حرف K",
+     "text": "ده حرف K. الكبير K والصغير k",
+     "en": "Kite. King.",
+     "visual": {
+      "letter": "K k"
+     }
+    },
+    {
+     "type": "example",
+     "title": "كلمات الحروف",
+     "steps": [
+      {
+       "text": "Rabbit: أولها R",
+       "en": "Rabbit",
+       "visual": {
+        "emoji": "🐇"
+       }
+      },
+      {
+       "text": "Egg: أولها E",
+       "en": "Egg",
+       "visual": {
+        "emoji": "🥚"
+       }
+      },
+      {
+       "text": "Cat: أولها C",
+       "en": "Cat",
+       "visual": {
+        "emoji": "🐱"
+       }
+      },
+      {
+       "text": "Kite: أولها K",
+       "en": "Kite",
+       "visual": {
+        "emoji": "🪁"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "كل كلمة أولها أنهي حرف؟",
+       "en": true,
+       "groups": [
+        {
+         "name": "R",
+         "items": [
+          "🐇 Rabbit",
+          "🌧️ Rain"
+         ]
+        },
+        {
+         "name": "E",
+         "items": [
+          "🥚 Egg",
+          "🐘 Elephant"
+         ]
+        },
+        {
+         "name": "C",
+         "items": [
+          "🐱 Cat",
+          "🎂 Cake"
+         ]
+        },
+        {
+         "name": "K",
+         "items": [
+          "🪁 Kite",
+          "🤴 King"
+         ]
+        }
+       ],
+       "hint": "قول الكلمة واسمع أول صوت",
+       "why": "كل كلمة راحت عند أول حرف فيها"
+      },
+      {
+       "kind": "trace",
+       "ask": "ارسم حرف E بصباعك",
+       "en": true,
+       "glyph": "E",
+       "hint": "امشي بصباعك فوق الحرف الرمادي",
+       "why": "رسمت E!"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اكتبوا الحروف R و E و C و K كبار على ورق، والطفل يمشي عليهم بالقلم، ويدوّر في البيت على حاجة بتبدأ بكل حرف."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "اسمع: Rabbit بتبدأ بأنهي حرف؟",
+       "visual": {
+        "listen": "Rabbit",
+        "en": true
+       },
+       "en": true,
+       "choices": [
+        "R",
+        "E",
+        "C"
+       ],
+       "answer": "R",
+       "hint": "اسمع أول صوت في الكلمة",
+       "hints": {
+        "E": "E صوته زي أول Egg",
+        "C": "C صوته زي أول Cat"
+       },
+       "why": "Rabbit أولها R"
+      },
+      {
+       "kind": "choice",
+       "ask": "اسمع: Egg بتبدأ بأنهي حرف؟",
+       "visual": {
+        "listen": "Egg",
+        "en": true
+       },
+       "en": true,
+       "choices": [
+        "R",
+        "E",
+        "C"
+       ],
+       "answer": "E",
+       "hint": "اسمع أول صوت في الكلمة",
+       "hints": {
+        "R": "R صوته زي أول Rabbit",
+        "C": "C صوته زي أول Cat"
+       },
+       "why": "Egg أولها E"
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "R r: Rabbit، Rain",
+      "E e: Egg، Elephant",
+      "C c: Cat، Cake",
+      "K k: Kite، King"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p1-t1-english/farm-numbers",
+   "key": "u5:l1",
+   "title": "Farm animals and numbers 6–10",
+   "goal": "أعرف حيوانات المزرعة وبتدّينا إيه، وأعدّ من 6 لـ 10",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "أهلًا في المزرعة!",
+     "visual": {
+      "emoji": "🐄🐔🐑🐴"
+     },
+     "ask": "البقرة بتدّينا إيه؟"
+    },
+    {
+     "type": "explain",
+     "title": "On the farm",
+     "text": "حيوانات المزرعة",
+     "en": "cow, hen, sheep",
+     "visual": {
+      "emoji": "🐄🐔🐑"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "البقرة بتدّينا لبن، والفرخة بيض، والخروف صوف",
+     "en": "milk, eggs, wool",
+     "visual": {
+      "emoji": "🥛🥚🧶"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "Numbers",
+     "text": "ونكمّل العدّ",
+     "en": "six, seven, eight, nine, ten",
+     "visual": {
+      "expr": [
+       6,
+       7,
+       8,
+       9,
+       10
+      ]
+     }
+    },
+    {
+     "type": "example",
+     "title": "المزرعة",
+     "steps": [
+      {
+       "text": "البقرة بتدّينا لبن",
+       "en": "The cow gives us milk.",
+       "visual": {
+        "emoji": "🐄🥛"
+       }
+      },
+      {
+       "text": "الفرخة بتدّينا بيض",
+       "en": "The hen gives us eggs.",
+       "visual": {
+        "emoji": "🐔🥚"
+       }
+      },
+      {
+       "text": "الحصان كبير والكتكوت صغير",
+       "en": "big, small",
+       "visual": {
+        "emoji": "🐴🐥"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "كل حيوان بيدّينا إيه؟",
+       "en": true,
+       "pairs": [
+        [
+         "cow",
+         "🥛 milk"
+        ],
+        [
+         "hen",
+         "🥚 eggs"
+        ],
+        [
+         "sheep",
+         "🧶 wool"
+        ]
+       ],
+       "hint": "فكّر: اللبن بييجي منين؟",
+       "why": "cow → milk، hen → eggs، sheep → wool"
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب الأرقام",
+       "en": true,
+       "items": [
+        "six",
+        "seven",
+        "eight",
+        "nine",
+        "ten"
+       ],
+       "hint": "ابدأ بـ six",
+       "why": "six, seven, eight, nine, ten"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "وانتوا بتشتروا لبن أو بيض، اسألوا الطفل: Which animal gives us milk? وعدّوا البيض بالإنجليزي."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "The hen gives us…",
+       "visual": {
+        "emoji": "🐔"
+       },
+       "en": true,
+       "choices": [
+        "eggs",
+        "milk",
+        "wool"
+       ],
+       "answer": "eggs",
+       "hint": "بص على الفرخة",
+       "hints": {
+        "milk": "milk من البقرة",
+        "wool": "wool من الخروف"
+       },
+       "why": "الفرخة بتدّينا بيض"
+      },
+      {
+       "kind": "choice",
+       "ask": "كام بقرة؟",
+       "visual": {
+        "pics": "🐄",
+        "n": 7
+       },
+       "en": true,
+       "choices": [
+        "seven",
+        "six",
+        "eight"
+       ],
+       "answer": "seven",
+       "hint": "عدّ وافتكر الكلمة",
+       "hints": {
+        "six": "six يعني 6",
+        "eight": "eight يعني 8"
+       },
+       "why": "سبعة = seven"
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "cow → milk, hen → eggs, sheep → wool",
+      "six, seven, eight, nine, ten"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p1-t1-english/letters-m-g-o-f",
+   "key": "u5:l2",
+   "title": "Letters M, G, O, F",
+   "goal": "أعرف الحروف M و G و O و F: شكلهم الكبير والصغير وكلمات بتبدأ بيهم",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "كل حرف ليه صوت، وبنسمعه في أول الكلمة",
+     "visual": {
+      "emoji": "🌙🐒"
+     },
+     "ask": "تعرف كلمة بتبدأ بـ M؟"
+    },
+    {
+     "type": "explain",
+     "title": "حرف M",
+     "text": "ده حرف M. الكبير M والصغير m",
+     "en": "Moon. Monkey.",
+     "visual": {
+      "letter": "M m"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "حرف G",
+     "text": "ده حرف G. الكبير G والصغير g",
+     "en": "Goat. Gift.",
+     "visual": {
+      "letter": "G g"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "حرف O",
+     "text": "ده حرف O. الكبير O والصغير o",
+     "en": "Orange. Octopus.",
+     "visual": {
+      "letter": "O o"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "حرف F",
+     "text": "ده حرف F. الكبير F والصغير f",
+     "en": "Fish. Frog.",
+     "visual": {
+      "letter": "F f"
+     }
+    },
+    {
+     "type": "example",
+     "title": "كلمات الحروف",
+     "steps": [
+      {
+       "text": "Moon: أولها M",
+       "en": "Moon",
+       "visual": {
+        "emoji": "🌙"
+       }
+      },
+      {
+       "text": "Goat: أولها G",
+       "en": "Goat",
+       "visual": {
+        "emoji": "🐐"
+       }
+      },
+      {
+       "text": "Orange: أولها O",
+       "en": "Orange",
+       "visual": {
+        "emoji": "🍊"
+       }
+      },
+      {
+       "text": "Fish: أولها F",
+       "en": "Fish",
+       "visual": {
+        "emoji": "🐟"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "كل كلمة أولها أنهي حرف؟",
+       "en": true,
+       "groups": [
+        {
+         "name": "M",
+         "items": [
+          "🌙 Moon",
+          "🐒 Monkey"
+         ]
+        },
+        {
+         "name": "G",
+         "items": [
+          "🐐 Goat",
+          "🎁 Gift"
+         ]
+        },
+        {
+         "name": "O",
+         "items": [
+          "🍊 Orange",
+          "🐙 Octopus"
+         ]
+        },
+        {
+         "name": "F",
+         "items": [
+          "🐟 Fish",
+          "🐸 Frog"
+         ]
+        }
+       ],
+       "hint": "قول الكلمة واسمع أول صوت",
+       "why": "كل كلمة راحت عند أول حرف فيها"
+      },
+      {
+       "kind": "trace",
+       "ask": "ارسم حرف M بصباعك",
+       "en": true,
+       "glyph": "M",
+       "hint": "امشي بصباعك فوق الحرف الرمادي",
+       "why": "رسمت M!"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اكتبوا الحروف M و G و O و F كبار على ورق، والطفل يمشي عليهم بالقلم، ويدوّر في البيت على حاجة بتبدأ بكل حرف."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "اسمع: Moon بتبدأ بأنهي حرف؟",
+       "visual": {
+        "listen": "Moon",
+        "en": true
+       },
+       "en": true,
+       "choices": [
+        "M",
+        "G",
+        "O"
+       ],
+       "answer": "M",
+       "hint": "اسمع أول صوت في الكلمة",
+       "hints": {
+        "G": "G صوته زي أول Goat",
+        "O": "O صوته زي أول Orange"
+       },
+       "why": "Moon أولها M"
+      },
+      {
+       "kind": "choice",
+       "ask": "اسمع: Goat بتبدأ بأنهي حرف؟",
+       "visual": {
+        "listen": "Goat",
+        "en": true
+       },
+       "en": true,
+       "choices": [
+        "M",
+        "G",
+        "O"
+       ],
+       "answer": "G",
+       "hint": "اسمع أول صوت في الكلمة",
+       "hints": {
+        "M": "M صوته زي أول Moon",
+        "O": "O صوته زي أول Orange"
+       },
+       "why": "Goat أولها G"
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "M m: Moon، Monkey",
+      "G g: Goat، Gift",
+      "O o: Orange، Octopus",
+      "F f: Fish، Frog"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p1-t1-english/animals",
+   "key": "u6:l1",
+   "title": "Animals",
+   "goal": "أعرف حيوانات الغابة والحيوانات الأليفة وبيعيشوا فين",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "فيه حيوانات بتعيش في الغابة، وحيوانات بتعيش معانا في البيت",
+     "visual": {
+      "emoji": "🦁🌳🐱🏠"
+     },
+     "ask": "تعرف حيوان بيعيش في البيت؟"
+    },
+    {
+     "type": "explain",
+     "title": "Jungle animals",
+     "text": "حيوانات الغابة",
+     "en": "lion, monkey, elephant, giraffe",
+     "visual": {
+      "emoji": "🦁🐒🐘🦒"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "Pets",
+     "text": "الحيوانات الأليفة",
+     "en": "cat, dog, rabbit, fish",
+     "visual": {
+      "emoji": "🐱🐕🐇🐟"
+     }
+    },
+    {
+     "type": "example",
+     "title": "بيعيش فين؟",
+     "steps": [
+      {
+       "text": "الأسد بيعيش في الغابة",
+       "en": "The lion lives in the jungle.",
+       "visual": {
+        "emoji": "🦁🌳"
+       }
+      },
+      {
+       "text": "القطة بتعيش في البيت",
+       "en": "The cat lives in a house.",
+       "visual": {
+        "emoji": "🐱🏠"
+       }
+      },
+      {
+       "text": "عندي قطة",
+       "en": "I have a cat.",
+       "visual": {
+        "emoji": "🐱"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "الحيوان ده بيعيش فين؟",
+       "en": true,
+       "groups": [
+        {
+         "name": "jungle 🌳",
+         "items": [
+          "🦁 lion",
+          "🐒 monkey",
+          "🦒 giraffe"
+         ]
+        },
+        {
+         "name": "home 🏠",
+         "items": [
+          "🐱 cat",
+          "🐕 dog",
+          "🐇 rabbit"
+         ]
+        }
+       ],
+       "hint": "ينفع يعيش معانا في البيت؟",
+       "why": "الأسد والقرد والزرافة في الغابة، والقطة والكلب والأرنب في البيت"
+      },
+      {
+       "kind": "match",
+       "ask": "وصّل كل حيوان باسمه",
+       "en": true,
+       "pairs": [
+        [
+         "🐘",
+         "elephant"
+        ],
+        [
+         "🐒",
+         "monkey"
+        ],
+        [
+         "🐕",
+         "dog"
+        ]
+       ],
+       "hint": "قول اسم الحيوان بالعربي الأول، وافتكر الإنجليزي",
+       "why": "كل صورة قدّامها اسمها"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "العبوا تخمين: ولي الأمر يقلّد صوت حيوان، والطفل يقول اسمه بالإنجليزي وبيعيش فين."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "ده إيه؟",
+       "visual": {
+        "emoji": "🦒"
+       },
+       "en": true,
+       "choices": [
+        "giraffe",
+        "lion",
+        "cat"
+       ],
+       "answer": "giraffe",
+       "hint": "رقبتها طويلة",
+       "hints": {
+        "lion": "lion أسد",
+        "cat": "cat قطة"
+       },
+       "why": "دي زرافة = giraffe"
+      },
+      {
+       "kind": "choice",
+       "ask": "The dog lives in…",
+       "visual": {
+        "emoji": "🐕"
+       },
+       "en": true,
+       "choices": [
+        "a house",
+        "the jungle"
+       ],
+       "answer": "a house",
+       "hint": "الكلب أليف ولا بري؟",
+       "hints": {
+        "the jungle": "الكلب حيوان أليف"
+       },
+       "why": "الكلب حيوان أليف بيعيش في البيت"
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "lion, monkey, elephant, giraffe: jungle",
+      "cat, dog, rabbit, fish: pets"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p1-t1-english/in-on-under",
+   "key": "u6:l2",
+   "title": "in, on, under",
+   "goal": "أقول مكان الحاجة بالإنجليزي: in و on و under",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "القطة بتلعب استغماية مع العلبة!",
+     "visual": {
+      "prep": "in",
+      "thing": "🐱",
+      "place": "📦"
+     },
+     "ask": "هي فين؟"
+    },
+    {
+     "type": "explain",
+     "title": "Where is the cat?",
+     "text": "جوه = in",
+     "en": "The cat is in the box.",
+     "visual": {
+      "prep": "in",
+      "thing": "🐱",
+      "place": "📦"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "فوق = on",
+     "en": "The cat is on the box.",
+     "visual": {
+      "prep": "on",
+      "thing": "🐱",
+      "place": "📦"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "تحت = under",
+     "en": "The cat is under the chair.",
+     "visual": {
+      "prep": "under",
+      "thing": "🐱",
+      "place": "🪑"
+     }
+    },
+    {
+     "type": "example",
+     "title": "فين الكورة؟",
+     "steps": [
+      {
+       "text": "الكورة تحت السرير",
+       "en": "Where is the ball?",
+       "visual": {
+        "prep": "under",
+        "thing": "⚽",
+        "place": "🛏️"
+       }
+      },
+      {
+       "text": "يبقى نقول",
+       "en": "The ball is under the bed.",
+       "visual": {
+        "prep": "under",
+        "thing": "⚽",
+        "place": "🛏️"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب الجملة",
+       "en": true,
+       "items": [
+        "The cat",
+        "is",
+        "under",
+        "the chair."
+       ],
+       "hint": "الجملة بتبدأ بـ The cat",
+       "why": "The cat is under the chair."
+      },
+      {
+       "kind": "match",
+       "ask": "وصّل كل كلمة بمعناها",
+       "en": true,
+       "pairs": [
+        [
+         "in",
+         "جوه"
+        ],
+        [
+         "on",
+         "فوق"
+        ],
+        [
+         "under",
+         "تحت"
+        ]
+       ],
+       "hint": "افتكر القطة والعلبة",
+       "why": "in جوه، on فوق، under تحت"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "خبّوا لعبة والطفل يسأل: Where is the car? وانتوا تجاوبوا: It is under the table. وبعدين بدّلوا."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Where is the book?",
+       "visual": {
+        "prep": "on",
+        "thing": "📕",
+        "place": "🎒"
+       },
+       "en": true,
+       "choices": [
+        "on",
+        "in",
+        "under"
+       ],
+       "answer": "on",
+       "hint": "الكتاب فوقها ولا جوّاها؟",
+       "hints": {
+        "in": "in يعني جوه",
+        "under": "under يعني تحت"
+       },
+       "why": "الكتاب فوق الشنطة = on"
+      },
+      {
+       "kind": "choice",
+       "ask": "Where is the fish?",
+       "visual": {
+        "prep": "in",
+        "thing": "🐟",
+        "place": "🫙"
+       },
+       "en": true,
+       "choices": [
+        "in",
+        "on",
+        "under"
+       ],
+       "answer": "in",
+       "hint": "السمكة بتعوم جوه الميه",
+       "hints": {
+        "on": "on يعني فوق",
+        "under": "under يعني تحت"
+       },
+       "why": "السمكة جوه الحوض = in"
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "in = جوه",
+      "on = فوق",
+      "under = تحت"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p1-t1-english/letters-b-l-u-j",
+   "key": "u6:l3",
+   "title": "Letters B, L, U, J",
+   "goal": "أعرف الحروف B و L و U و J: شكلهم الكبير والصغير وكلمات بتبدأ بيهم",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "كل حرف ليه صوت، وبنسمعه في أول الكلمة",
+     "visual": {
+      "emoji": "⚽🚌"
+     },
+     "ask": "تعرف كلمة بتبدأ بـ B؟"
+    },
+    {
+     "type": "explain",
+     "title": "حرف B",
+     "text": "ده حرف B. الكبير B والصغير b",
+     "en": "Ball. Bus.",
+     "visual": {
+      "letter": "B b"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "حرف L",
+     "text": "ده حرف L. الكبير L والصغير l",
+     "en": "Lion. Leaf.",
+     "visual": {
+      "letter": "L l"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "حرف U",
+     "text": "ده حرف U. الكبير U والصغير u",
+     "en": "Umbrella. Up.",
+     "visual": {
+      "letter": "U u"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "حرف J",
+     "text": "ده حرف J. الكبير J والصغير j",
+     "en": "Juice. Jacket.",
+     "visual": {
+      "letter": "J j"
+     }
+    },
+    {
+     "type": "example",
+     "title": "كلمات الحروف",
+     "steps": [
+      {
+       "text": "Ball: أولها B",
+       "en": "Ball",
+       "visual": {
+        "emoji": "⚽"
+       }
+      },
+      {
+       "text": "Lion: أولها L",
+       "en": "Lion",
+       "visual": {
+        "emoji": "🦁"
+       }
+      },
+      {
+       "text": "Umbrella: أولها U",
+       "en": "Umbrella",
+       "visual": {
+        "emoji": "☂️"
+       }
+      },
+      {
+       "text": "Juice: أولها J",
+       "en": "Juice",
+       "visual": {
+        "emoji": "🧃"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "كل كلمة أولها أنهي حرف؟",
+       "en": true,
+       "groups": [
+        {
+         "name": "B",
+         "items": [
+          "⚽ Ball",
+          "🚌 Bus"
+         ]
+        },
+        {
+         "name": "L",
+         "items": [
+          "🦁 Lion",
+          "🍃 Leaf"
+         ]
+        },
+        {
+         "name": "U",
+         "items": [
+          "☂️ Umbrella",
+          "⬆️ Up"
+         ]
+        },
+        {
+         "name": "J",
+         "items": [
+          "🧃 Juice",
+          "🧥 Jacket"
+         ]
+        }
+       ],
+       "hint": "قول الكلمة واسمع أول صوت",
+       "why": "كل كلمة راحت عند أول حرف فيها"
+      },
+      {
+       "kind": "trace",
+       "ask": "ارسم حرف B بصباعك",
+       "en": true,
+       "glyph": "B",
+       "hint": "امشي بصباعك فوق الحرف الرمادي",
+       "why": "رسمت B!"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اكتبوا الحروف B و L و U و J كبار على ورق، والطفل يمشي عليهم بالقلم، ويدوّر في البيت على حاجة بتبدأ بكل حرف."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "اسمع: Ball بتبدأ بأنهي حرف؟",
+       "visual": {
+        "listen": "Ball",
+        "en": true
+       },
+       "en": true,
+       "choices": [
+        "B",
+        "L",
+        "U"
+       ],
+       "answer": "B",
+       "hint": "اسمع أول صوت في الكلمة",
+       "hints": {
+        "L": "L صوته زي أول Lion",
+        "U": "U صوته زي أول Umbrella"
+       },
+       "why": "Ball أولها B"
+      },
+      {
+       "kind": "choice",
+       "ask": "اسمع: Lion بتبدأ بأنهي حرف؟",
+       "visual": {
+        "listen": "Lion",
+        "en": true
+       },
+       "en": true,
+       "choices": [
+        "B",
+        "L",
+        "U"
+       ],
+       "answer": "L",
+       "hint": "اسمع أول صوت في الكلمة",
+       "hints": {
+        "B": "B صوته زي أول Ball",
+        "U": "U صوته زي أول Umbrella"
+       },
+       "why": "Lion أولها L"
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "B b: Ball، Bus",
+      "L l: Lion، Leaf",
+      "U u: Umbrella، Up",
+      "J j: Juice، Jacket"
+     ]
+    }
+   ]
   }
  ]
 }

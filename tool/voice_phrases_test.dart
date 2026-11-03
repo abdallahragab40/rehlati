@@ -193,6 +193,12 @@ void main() {
                 if (t.help case final h?) addCard(h);
                 if (t.visual case final ListenVisual v) v.en ? addEn(v.say) : add(v.say);
               }
+            case StoryBlock(:final pages):
+              pages.forEach(addCard);
+            case PoemBlock(:final lines):
+              lines.forEach(add);
+            case ReadBlock(:final items):
+              items.forEach(addCard);
             case ActivityBlock(:final text):
               add(text);
             case SummaryBlock():
@@ -201,6 +207,7 @@ void main() {
       }
     }
     add(sayLessonDone);
+    add(sayReadFirst);
 
     for (final (t, _) in praiseSay) {
       add(t);

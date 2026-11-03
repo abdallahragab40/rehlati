@@ -7,7 +7,9 @@ import 'package:rehlati/core/audio/audio_providers.dart';
 import 'package:rehlati/core/audio/sfx_service.dart';
 import 'package:rehlati/core/widgets/kid_widgets.dart';
 import 'package:rehlati/domain/lesson_content.dart';
+import 'package:rehlati/domain/school_lessons.dart';
 import 'package:rehlati/domain/progress/progress_controller.dart';
+import 'package:rehlati/features/game/play_modes.dart' show TraceBoard;
 import 'package:rehlati/features/school/lesson_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,6 +31,8 @@ void main() {
     final router = GoRouter(initialLocation: '/lesson/$id', routes: [
       GoRoute(path: '/lesson/:id', builder: (_, s) => LessonScreen(id: s.pathParameters['id']!)),
       GoRoute(path: '/play/:stage', builder: (_, s) => Text('play ${s.pathParameters['stage']}')),
+      GoRoute(path: '/', builder: (_, _) => const Text('home')),
+      GoRoute(path: '/school', builder: (_, _) => const Text('school')),
     ]);
     await tester.pumpWidget(ProviderScope(
       overrides: [
@@ -99,17 +103,41 @@ void main() {
               .firstWhere((l) => all.contains(l))!;
           await tap(tester, chip(t.groups.firstWhere((g) => g.$2.contains(shown)).$1));
         }
+      case TaskKind.trace:
+        // القناع بيتحسب من صورة — محتاج وقت حقيقي، وبعدين شخبطة فوق اللوحة كلها
+        await tester.ensureVisible(find.byType(TraceBoard));
+        await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 300)));
+        await tester.pump();
+        final board = tester.getRect(find.byType(TraceBoard));
+        final g = await tester.startGesture(board.topLeft + Offset(board.width * .2, board.height * .1));
+        for (var y = .1; y <= .9; y += .03) {
+          for (var x = .2; x <= .8; x += .05) {
+            await g.moveTo(board.topLeft + Offset(board.width * x, board.height * y));
+          }
+        }
+        await g.up();
+        await settle(tester);
+      case TaskKind.line:
+        final mark = find.byWidgetPredicate((w) => w is Semantics && w.properties.label == t.answer).first;
+        await tap(tester, mark);
     }
   }
 
   /// يمشي الدرس لحد البطاقة [until] (أو لآخره)، ويحل كل نشاط صح من أول مرة.
   Future<void> walk(WidgetTester tester, LessonContent l, {int? until}) async {
-    bool more() => until != null ? where(tester).$1 < until : find.text('▶️ تدرّب لوحدك').evaluate().isEmpty;
+    bool more() => until != null
+        ? where(tester).$1 < until
+        : find.text('▶️ تدرّب لوحدك').evaluate().isEmpty && find.text('✅ خلّصت — ارجع للدروس').evaluate().isEmpty;
     for (var guard = 0; more(); guard++) {
       expect(guard, lessThan(80), reason: 'stuck on a card');
       if (goButton(tester)?.onTap == null) {
         final (page, q) = where(tester);
-        await solve(tester, (l.blocks[page] as TryBlock).tasks[q]);
+        if (l.blocks[page] is ReadBlock) {
+          // اقرا وبعدين اسمع: الجاي بيفتح بعد السمع
+          await tap(tester, find.text('🔊 اسمعها واتأكد'));
+        } else {
+          await solve(tester, (l.blocks[page] as TryBlock).tasks[q]);
+        }
         expect(goButton(tester)?.onTap, isNotNull, reason: '${l.id} card $page task $q was not solved');
       }
       await tap(tester, find.byWidget(goButton(tester)!));
@@ -126,8 +154,9 @@ void main() {
       expect(lessonStatus(container.read(progressProvider), l), LessonStatus.mastered);
       expect(speech.said, isNotEmpty);
       expect(sfx.played, isNot(contains(SfxKind.bad)));
-      await tap(tester, find.text('▶️ تدرّب لوحدك'));
-      expect(find.text('play ${l.id}'), findsOneWidget);
+      await tap(tester, find.text(schoolRound(l.id) != null ? '▶️ تدرّب لوحدك' : '✅ خلّصت — ارجع للدروس'));
+      // درس شرح بس (استماع، نشيد، قراءة) بيرجع لدروس المدرسة
+      if (schoolRound(l.id) != null) expect(find.text('play ${l.id}'), findsOneWidget);
     });
   }
 
@@ -151,6 +180,49 @@ void main() {
     await tap(tester, chip(t.items.firstWhere((i) => i != t.items.first)));
     expect(sfx.played.last, SfxKind.bad);
     expect(goButton(tester)!.onTap, isNull);
+  });
+
+  testWidgets('«رتّب» and «صنّف» also work by dragging', (tester) async {
+    Future<void> dragTo(Finder from, Finder to) async {
+      await tester.ensureVisible(from);
+      await tester.pump();
+      final g = await tester.startGesture(tester.getCenter(from));
+      await tester.pump(const Duration(milliseconds: 50));
+      for (var i = 1; i <= 10; i++) {
+        await g.moveTo(Offset.lerp(tester.getCenter(from), tester.getCenter(to), i / 10)!);
+        await tester.pump(const Duration(milliseconds: 16));
+      }
+      await g.up();
+      await settle(tester);
+    }
+
+    // رتّب «باب»: نسحب كل حرف لخانة الإجابة
+    var l = lessons['school:p1-t1-arabic:u1:l2']!;
+    var page = l.blocks.indexWhere((b) => b is TryBlock && b.tasks.any((t) => t.kind == TaskKind.order));
+    await open(tester, l.id);
+    await walk(tester, l, until: page);
+    await solve(tester, (l.blocks[page] as TryBlock).tasks.first);
+    await tap(tester, find.byWidget(goButton(tester)!));
+    final word = (l.blocks[page] as TryBlock).tasks[1];
+    for (final it in word.items) {
+      await dragTo(chip(it), find.text('؟').first);
+    }
+    expect(goButton(tester)!.onTap, isNotNull, reason: 'the word was built by dragging');
+
+    // صنّف «أكبر من ٥ / أصغر من ٥»: نسحب الرقم للمجموعة
+    await tester.pumpWidget(const SizedBox());
+    l = lessons['school:p1-t1-math:u1:l10']!;
+    page = l.blocks.indexWhere((b) => b is TryBlock && b.tasks.any((t) => t.kind == TaskKind.sort));
+    await open(tester, l.id);
+    await walk(tester, l, until: page);
+    final t = (l.blocks[page] as TryBlock).tasks.single;
+    final all = [for (final g in t.groups) ...g.$2];
+    for (var i = 0; i < all.length; i++) {
+      final shown = tester.widgetList<Pressable3D>(find.byType(Pressable3D)).map((w) => w.semanticLabel).firstWhere(all.contains)!;
+      final group = t.groups.firstWhere((g) => g.$2.contains(shown)).$1;
+      await dragTo(find.byWidgetPredicate((w) => w is Pressable3D && w.semanticLabel == shown).first, chip(group));
+    }
+    expect(goButton(tester)!.onTap, isNotNull, reason: 'sorted by dragging');
   });
 
   testWidgets('a mistake gets its own hint, a second one a simpler example, and the parent sees it needs review',
@@ -231,7 +303,7 @@ void main() {
   });
 
   testWidgets('a lesson with no explanation offers practice', (tester) async {
-    await open(tester, 'school:p1-t1-math:u2:l1');
+    await open(tester, 'school:p1-t2-math:u1:l1');
     expect(find.text('الدرس ده لسه مالوش شرح'), findsOneWidget);
     expect(find.text('▶️ ذاكر الدرس'), findsOneWidget);
   });
