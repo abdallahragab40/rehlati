@@ -1,7 +1,8 @@
 # مراجعة شرح الدروس (مسودة للمدرّس)
 
 **الحالة:** كل الدروس `"review": "draft"`. اتكتبت ٣ نوفمبر ٢٠٢٦، ومحتاجة مدرّس يراجعها قبل ما تتعلّم `reviewed`.
-**الخطة:** [docs/CURRICULUM_LESSONS_PLAN.md](../docs/CURRICULUM_LESSONS_PLAN.md).
+**الخطة:** [docs/CURRICULUM_LESSONS_PLAN.md](../docs/CURRICULUM_LESSONS_PLAN.md). موجودة على جهاز صاحب التطبيق بس، لأن `docs/` مش في git. أول جزء فيها «ابدأ من هنا».
+**الشغل التالي:** أولى ترم أول خلصت (٧٧ درس). اللي بعدها تانية ترم أول بنفس الخطوات: الكتب من `curriculum/books-2026-2027.json`، وخريطة `curriculum/p2-t1.json`، وملفات `assets/lessons/p2-t1-*.json`.
 **خريطة المنهج:** [curriculum/p1-t1.json](curriculum/p1-t1.json): صفحات الكتاب والأهداف لكل درس.
 
 ## الدروس اللي اتكتبت (أولى ابتدائي، الترم الأول، طبعة ٢٠٢٦-٢٠٢٧)

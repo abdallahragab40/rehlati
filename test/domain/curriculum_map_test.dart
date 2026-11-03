@@ -8,12 +8,15 @@ import 'package:rehlati/domain/school_lessons.dart';
 
 import 'lesson_content_test.dart' show allLessonFiles;
 
-/// سجل كتب الوزارة (tool/curriculum/books-2026-2027.json) وخريطة دروس أولى ترم أول
-/// (tool/curriculum/p1-t1.json): الخريطة لازم تفضل مطابقة للتطبيق وللشرح الموجود.
+/// سجل كتب الوزارة (tool/curriculum/books-2026-2027.json) وخرايط الدروس (tool/curriculum/p1-t1.json وأي
+/// `p*-t*.json` يتضاف بعدين): كل خريطة لازم تفضل مطابقة للتطبيق وللشرح الموجود.
 void main() {
   Map<String, dynamic> read(String path) => jsonDecode(File(path).readAsStringSync()) as Map<String, dynamic>;
   final registry = read('tool/curriculum/books-2026-2027.json');
-  final map = read('tool/curriculum/p1-t1.json');
+  final maps = [
+    for (final f in Directory('tool/curriculum').listSync().whereType<File>())
+      if (RegExp(r'p\d-t\d\.json$').hasMatch(f.path)) read(f.path),
+  ];
   final explained = {for (final l in allLessonFiles()) l.id: l};
 
   test('every registry book has a source link and its app book exists', () {
@@ -26,7 +29,9 @@ void main() {
     }
   });
 
-  for (final book in (map['books'] as List).cast<Map<String, dynamic>>()) {
+  test('grade 1 term 1 has a map', () => expect(maps.map((m) => '${m['grade']}-t${m['term']}'), contains('p1-t1')));
+
+  for (final book in [for (final m in maps) ...(m['books'] as List).cast<Map<String, dynamic>>()]) {
     final id = book['book'] as String;
     final sb = schoolBooks.firstWhere((b) => b.id == id);
     final entries = [
