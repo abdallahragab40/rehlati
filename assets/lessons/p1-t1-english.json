@@ -3,10 +3,21 @@
  "edition": "2026_2027",
  "lessons": [
   {
+   "uid": "p1-t1-english/greetings",
    "key": "u1:l1",
    "title": "Greetings & classroom",
    "goal": "أسلّم على الناس بالإنجليزي، وأعرّف نفسي، وأفهم كلام المدرّسة في الفصل",
+   "version": 2,
+   "review": "draft",
    "blocks": [
+    {
+     "type": "hook",
+     "text": "أول يوم في المدرسة! المدرّسة دخلت الفصل وابتسمت",
+     "visual": {
+      "emoji": "🏫👩‍🏫"
+     },
+     "ask": "تقول لها إيه بالإنجليزي؟"
+    },
     {
      "type": "explain",
      "title": "بنسلّم إزاي؟",
@@ -78,30 +89,89 @@
     },
     {
      "type": "try",
-     "questions": [
+     "tasks": [
       {
+       "kind": "match",
+       "ask": "وصّل كل جملة بمعناها",
+       "en": true,
+       "pairs": [
+        [
+         "Hello",
+         "أهلًا"
+        ],
+        [
+         "Good morning",
+         "صباح الخير"
+        ],
+        [
+         "Goodbye",
+         "مع السلامة"
+        ],
+        [
+         "Sit down",
+         "اقعد"
+        ]
+       ],
+       "hint": "اختار جملة من الشمال، وفكّر إمتى بنقولها",
+       "why": "كل جملة إنجليزي قدّامها معناها بالعربي"
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب الحوار",
+       "en": true,
+       "items": [
+        "Hello!",
+        "What's your name?",
+        "My name is Omar."
+       ],
+       "hint": "الحوار بيبدأ بالسلام",
+       "why": "الأول بنسلّم، وبعدين نسأل عن الاسم، وبعدين نرد"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "قولوا لبعض Good morning كل يوم الصبح. والعبوا: ولي الأمر يقول Stand up أو Sit down والطفل يعمل الحركة بسرعة."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
        "ask": "الصبح بنقول إيه؟",
+       "en": true,
        "choices": [
         "Good morning",
         "Goodbye",
         "Sit down"
        ],
        "answer": "Good morning",
-       "why": "Good morning يعني صباح الخير",
-       "en": true
+       "hint": "فكّر: إحنا بنسلّم ولا بنمشي؟",
+       "hints": {
+        "Goodbye": "Goodbye بنقولها وإحنا ماشيين",
+        "Sit down": "Sit down يعني اقعد"
+       },
+       "why": "Good morning يعني صباح الخير"
       },
       {
+       "kind": "choice",
        "ask": "وإحنا ماشيين بنقول إيه؟",
+       "en": true,
        "choices": [
         "Hello",
         "Goodbye",
         "Stand up"
        ],
        "answer": "Goodbye",
-       "why": "Goodbye يعني مع السلامة",
-       "en": true
+       "hint": "دي كلمة الوداع",
+       "hints": {
+        "Hello": "Hello بنقولها لما نقابل حد",
+        "Stand up": "Stand up يعني قوم"
+       },
+       "why": "Goodbye يعني مع السلامة"
       },
       {
+       "kind": "choice",
        "ask": "اسمع واختار المعنى",
        "visual": {
         "listen": "Sit down",
@@ -113,13 +183,14 @@
         "افتح كتابك"
        ],
        "answer": "اقعد",
+       "hint": "اسمع تاني: Sit… down — تحت",
+       "hints": {
+        "قوم": "قوم يعني Stand up",
+        "افتح كتابك": "افتح كتابك يعني Open your book"
+       },
        "why": "Sit down يعني اقعد"
       }
      ]
-    },
-    {
-     "type": "activity",
-     "text": "قولوا لبعض Good morning كل يوم الصبح. والعبوا: ولي الأمر يقول Stand up أو Sit down والطفل يعمل الحركة بسرعة."
     },
     {
      "type": "summary",
@@ -133,10 +204,21 @@
    ]
   },
   {
+   "uid": "p1-t1-english/letters-t-i",
    "key": "u1:l2",
    "title": "Letters T, I",
    "goal": "أعرف الحرفين T و I: شكلهم الكبير والصغير وكلمات بتبدأ بيهم",
+   "version": 2,
+   "review": "draft",
    "blocks": [
+    {
+     "type": "hook",
+     "text": "النمر بيلعب جنب الشجرة",
+     "visual": {
+      "emoji": "🐯🌳"
+     },
+     "ask": "Tiger و Tree بيبدأوا بنفس الصوت؟"
+    },
     {
      "type": "explain",
      "title": "حرف T",
@@ -192,56 +274,127 @@
     },
     {
      "type": "try",
-     "questions": [
+     "tasks": [
       {
+       "kind": "sort",
+       "ask": "كل كلمة أولها T ولا I؟",
+       "en": true,
+       "groups": [
+        {
+         "name": "T",
+         "items": [
+          "🐯 Tiger",
+          "🌳 Tree",
+          "🍅 Tomato"
+         ]
+        },
+        {
+         "name": "I",
+         "items": [
+          "🛖 Igloo",
+          "🐛 Insect",
+          "🦎 Iguana"
+         ]
+        }
+       ],
+       "hint": "قول الكلمة واسمع أول صوت",
+       "why": "Tiger و Tree و Tomato أولهم T، و Igloo و Insect و Iguana أولهم I"
+      },
+      {
+       "kind": "pick",
+       "ask": "المس كل أشكال حرف T (الكبير والصغير)",
+       "en": true,
+       "items": [
+        "T",
+        "i",
+        "t",
+        "f",
+        "I"
+       ],
+       "answers": [
+        "T",
+        "t"
+       ],
+       "hint": "T الكبير زي الشمسية، و t الصغير زي علامة +",
+       "hints": {
+        "i": "ده i الصغير — فوقه نقطة",
+        "I": "ده I الكبير — خط واقف",
+        "f": "ده حرف f، مش t"
+       },
+       "why": "T الكبير و t الصغير"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اكتبوا T و I كبار على ورقة، والطفل يمشي عليهم بالقلم، وبعدين يدوّر في البيت على حاجات بتبدأ بيهم، زي Table و TV."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
        "ask": "اسمع: Tiger بتبدأ بأنهي حرف؟",
        "visual": {
         "listen": "Tiger",
         "en": true
        },
+       "en": true,
        "choices": [
         "T",
         "I",
         "S"
        ],
        "answer": "T",
-       "why": "Tiger أولها T",
-       "en": true
+       "hint": "اسمع أول صوت: t…",
+       "hints": {
+        "I": "I صوته زي أول Igloo",
+        "S": "S صوته سسس"
+       },
+       "why": "Tiger أولها T"
       },
       {
+       "kind": "choice",
        "ask": "اسمع: Igloo بتبدأ بأنهي حرف؟",
        "visual": {
         "listen": "Igloo",
         "en": true
        },
+       "en": true,
        "choices": [
         "A",
         "I",
         "T"
        ],
        "answer": "I",
-       "why": "Igloo أولها I",
-       "en": true
+       "hint": "اسمع أول صوت: i…",
+       "hints": {
+        "A": "A صوته زي أول Apple",
+        "T": "T صوته زي أول Tiger"
+       },
+       "why": "Igloo أولها I"
       },
       {
+       "kind": "choice",
        "ask": "ده الصغير بتاع أنهي حرف كبير؟",
        "visual": {
         "letter": "t"
        },
+       "en": true,
        "choices": [
         "I",
         "T",
         "L"
        ],
        "answer": "T",
-       "why": "الصغير t والكبير T",
-       "en": true
+       "hint": "الصغير ده شكله زي علامة +",
+       "hints": {
+        "I": "I الصغير هو i بنقطة",
+        "L": "L الصغير هو l خط واقف"
+       },
+       "why": "الصغير t والكبير T"
       }
      ]
-    },
-    {
-     "type": "activity",
-     "text": "اكتبوا T و I كبار على ورقة، والطفل يدوّر في البيت على حاجات بتبدأ بيهم بالإنجليزي، زي Table و TV."
     },
     {
      "type": "summary",
@@ -253,10 +406,21 @@
    ]
   },
   {
+   "uid": "p1-t1-english/colors-shapes",
    "key": "u2:l1",
    "title": "Colors and shapes",
    "goal": "أعرف أسماء الألوان والأشكال بالإنجليزي",
+   "version": 2,
+   "review": "draft",
    "blocks": [
+    {
+     "type": "hook",
+     "text": "الدنيا مليانة ألوان وأشكال!",
+     "visual": {
+      "emoji": "🌈⚽🍕"
+     },
+     "ask": "تعرف اسم لون بالإنجليزي؟"
+    },
     {
      "type": "explain",
      "title": "الألوان",
@@ -320,54 +484,127 @@
     },
     {
      "type": "try",
-     "questions": [
+     "tasks": [
       {
-       "ask": "ده لونه إيه؟",
-       "visual": {
-        "emoji": "🟢"
-       },
-       "choices": [
-        "green",
-        "red",
-        "blue"
+       "kind": "match",
+       "ask": "وصّل كل لون باسمه",
+       "en": true,
+       "pairs": [
+        [
+         "🔴",
+         "red"
+        ],
+        [
+         "🔵",
+         "blue"
+        ],
+        [
+         "🟡",
+         "yellow"
+        ],
+        [
+         "🟢",
+         "green"
+        ]
        ],
-       "answer": "green",
-       "why": "ده أخضر، وبالإنجليزي green",
-       "en": true
+       "hint": "اختار لون، وافتكر اسمه من البطاقة",
+       "why": "red أحمر، blue أزرق، yellow أصفر، green أخضر"
       },
       {
-       "ask": "ده شكل إيه؟",
-       "visual": {
-        "shape": "triangle"
-       },
-       "choices": [
-        "circle",
-        "square",
-        "triangle"
+       "kind": "sort",
+       "ask": "دايرة ولا مثلث؟",
+       "en": true,
+       "groups": [
+        {
+         "name": "circle",
+         "items": [
+          "⚽",
+          "🍪",
+          "🕒"
+         ]
+        },
+        {
+         "name": "triangle",
+         "items": [
+          "🔺",
+          "🍕",
+          "⛺"
+         ]
+        }
        ],
-       "answer": "triangle",
-       "why": "ليه تلات أضلاع، يبقى triangle",
-       "en": true
-      },
-      {
-       "ask": "الموزة لونها إيه؟",
-       "visual": {
-        "emoji": "🍌"
-       },
-       "choices": [
-        "blue",
-        "yellow",
-        "red"
-       ],
-       "answer": "yellow",
-       "why": "الموزة صفرا، وبالإنجليزي yellow",
-       "en": true
+       "hint": "الدايرة مدوّرة من غير أركان، والمثلث ليه ٣ أركان",
+       "why": "الكورة والبسكوتة والساعة دواير، والباقي مثلثات"
       }
      ]
     },
     {
      "type": "activity",
      "text": "العبوا «I spy»: ولي الأمر يقول لون بالإنجليزي زي red، والطفل يدوّر على حاجة بنفس اللون في الأوضة."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "ده لونه إيه؟",
+       "visual": {
+        "emoji": "🟢"
+       },
+       "en": true,
+       "choices": [
+        "green",
+        "red",
+        "blue"
+       ],
+       "answer": "green",
+       "hint": "لون الشجر بالإنجليزي",
+       "hints": {
+        "red": "red يعني أحمر",
+        "blue": "blue يعني أزرق"
+       },
+       "why": "ده أخضر، وبالإنجليزي green"
+      },
+      {
+       "kind": "choice",
+       "ask": "ده شكل إيه؟",
+       "visual": {
+        "shape": "triangle"
+       },
+       "en": true,
+       "choices": [
+        "circle",
+        "square",
+        "triangle"
+       ],
+       "answer": "triangle",
+       "hint": "عدّ الأركان",
+       "hints": {
+        "circle": "circle مدوّرة من غير أركان",
+        "square": "square ليه ٤ أضلاع"
+       },
+       "why": "ليه تلات أضلاع، يبقى triangle"
+      },
+      {
+       "kind": "choice",
+       "ask": "الموزة لونها إيه؟",
+       "visual": {
+        "emoji": "🍌"
+       },
+       "en": true,
+       "choices": [
+        "blue",
+        "yellow",
+        "red"
+       ],
+       "answer": "yellow",
+       "hint": "لون الشمس",
+       "hints": {
+        "blue": "blue يعني أزرق",
+        "red": "red يعني أحمر"
+       },
+       "why": "الموزة صفرا، وبالإنجليزي yellow"
+      }
+     ]
     },
     {
      "type": "summary",
@@ -379,10 +616,21 @@
    ]
   },
   {
+   "uid": "p1-t1-english/letters-s-a",
    "key": "u2:l2",
    "title": "Letters S, A",
    "goal": "أعرف الحرفين S و A: شكلهم وصوتهم وكلمات بتبدأ بيهم",
+   "version": 2,
+   "review": "draft",
    "blocks": [
+    {
+     "type": "hook",
+     "text": "التعبان بيقول سسسس تحت الشمس",
+     "visual": {
+      "emoji": "🐍☀️"
+     },
+     "ask": "Snake و Sun أولهم نفس الصوت؟"
+    },
     {
      "type": "explain",
      "title": "حرف S",
@@ -445,56 +693,127 @@
     },
     {
      "type": "try",
-     "questions": [
+     "tasks": [
       {
-       "ask": "اسمع: Sun بتبدأ بأنهي حرف؟",
-       "visual": {
-        "listen": "Sun",
-        "en": true
-       },
-       "choices": [
-        "A",
-        "S",
-        "T"
+       "kind": "sort",
+       "ask": "كل كلمة أولها S ولا A؟",
+       "en": true,
+       "groups": [
+        {
+         "name": "S",
+         "items": [
+          "☀️ Sun",
+          "🧦 Sock",
+          "🐍 Snake"
+         ]
+        },
+        {
+         "name": "A",
+         "items": [
+          "🍎 Apple",
+          "🐜 Ant",
+          "🐊 Alligator"
+         ]
+        }
        ],
-       "answer": "S",
-       "why": "Sun أولها S",
-       "en": true
+       "hint": "قول الكلمة واسمع: سسس ولا أَ؟",
+       "why": "Sun و Sock و Snake أولهم S، و Apple و Ant و Alligator أولهم A"
       },
       {
-       "ask": "اسمع: Apple بتبدأ بأنهي حرف؟",
-       "visual": {
-        "listen": "Apple",
-        "en": true
-       },
-       "choices": [
+       "kind": "pick",
+       "ask": "المس كل أشكال حرف A (الكبير والصغير)",
+       "en": true,
+       "items": [
         "A",
-        "I",
-        "S"
-       ],
-       "answer": "A",
-       "why": "Apple أولها A",
-       "en": true
-      },
-      {
-       "ask": "ده الصغير بتاع أنهي حرف كبير؟",
-       "visual": {
-        "letter": "a"
-       },
-       "choices": [
-        "A",
+        "s",
+        "a",
         "S",
-        "T"
+        "e"
        ],
-       "answer": "A",
-       "why": "الصغير a والكبير A",
-       "en": true
+       "answers": [
+        "A",
+        "a"
+       ],
+       "hint": "A الكبير زي خيمة صغيرة ⛺",
+       "hints": {
+        "s": "ده s الصغير — زي التعبان",
+        "S": "ده S الكبير — زي التعبان",
+        "e": "ده حرف e، مش a"
+       },
+       "why": "A الكبير و a الصغير"
       }
      ]
     },
     {
      "type": "activity",
      "text": "قولوا كلمات وخلّوا الطفل يصفّق لو الكلمة بتبدأ بصوت S، زي Sun و Sofa و Seven."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "اسمع: Sun بتبدأ بأنهي حرف؟",
+       "visual": {
+        "listen": "Sun",
+        "en": true
+       },
+       "en": true,
+       "choices": [
+        "A",
+        "S",
+        "T"
+       ],
+       "answer": "S",
+       "hint": "اسمع أول صوت: سسس",
+       "hints": {
+        "A": "A صوته زي أول Apple",
+        "T": "T صوته زي أول Tiger"
+       },
+       "why": "Sun أولها S"
+      },
+      {
+       "kind": "choice",
+       "ask": "اسمع: Apple بتبدأ بأنهي حرف؟",
+       "visual": {
+        "listen": "Apple",
+        "en": true
+       },
+       "en": true,
+       "choices": [
+        "A",
+        "I",
+        "S"
+       ],
+       "answer": "A",
+       "hint": "اسمع أول صوت: أَ",
+       "hints": {
+        "I": "I صوته زي أول Igloo",
+        "S": "S صوته سسس"
+       },
+       "why": "Apple أولها A"
+      },
+      {
+       "kind": "choice",
+       "ask": "ده الصغير بتاع أنهي حرف كبير؟",
+       "visual": {
+        "letter": "a"
+       },
+       "en": true,
+       "choices": [
+        "A",
+        "S",
+        "T"
+       ],
+       "answer": "A",
+       "hint": "الصغير ده شكله مدوّر وليه ديل",
+       "hints": {
+        "S": "S الصغير هو s",
+        "T": "T الصغير هو t"
+       },
+       "why": "الصغير a والكبير A"
+      }
+     ]
     },
     {
      "type": "summary",

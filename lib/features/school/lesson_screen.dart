@@ -1,5 +1,8 @@
-/// شرح درس من دروس المدرسة: بطاقة بطاقة (شرح، مثال بخطوات، جرّب معايا، نشاط في البيت، ملخص)،
-/// وفي الآخر «تدرّب لوحدك» بيفتح جولة أسئلة الدرس العادية — lib/domain/lesson_content.dart.
+/// شرح درس من دروس المدرسة بطاقة بطاقة: تمهيد، اكتشف المعلومة، شاهد التطبيق، جرّب بنفسك،
+/// طبّق خارج الشاشة، تأكد من فهمك، وملخص — وفي الآخر «تدرّب لوحدك» بيفتح جولة أسئلة الدرس العادية.
+///
+/// الغلطة بتجيب تلميح على قدّها، والغلطة التانية في نفس النشاط بتجيب مثال أبسط. الطفل بيكمّل من
+/// آخر بطاقة وقف عندها، وسجلّه ([LessonLog]) بيقول لولي الأمر شاف الشرح ولا احتاج مساعدة ولا أتقن.
 library;
 
 import 'package:flutter/material.dart';
@@ -15,11 +18,13 @@ import '../../core/utils/arabic.dart';
 import '../../core/widgets/kid_widgets.dart';
 import '../../core/widgets/top_bar.dart';
 import '../../domain/lesson_content.dart';
+import '../../domain/progress/extras.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/question.dart';
 import '../../domain/school_lessons.dart';
 import '../game/visuals.dart';
 import '../madd/madd_style.dart';
+import 'lesson_tasks.dart';
 
 class LessonScreen extends ConsumerStatefulWidget {
   const LessonScreen({super.key, required this.id});
@@ -37,11 +42,16 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
   /// خطوات المثال اللي اتكشفت لحد دلوقتي (من صفر).
   int _step = 0;
 
-  /// سؤال «جرّب معايا» الحالي، والاختيارات الغلط اللي جرّبها، وهل حلّه.
+  /// النشاط الحالي في «جرّب بنفسك»، وغلطاته، والتلميح، وهل اتحل.
   int _q = 0;
-  final _wrong = <String>{};
+  int _tries = 0;
+  String? _hint;
   bool _solved = false;
   int _shake = 0;
+
+  /// أول مرة الدرس بيتفتح: بنكمّل من آخر بطاقة — و[_resumed] بيقول للطفل كده.
+  bool _started = false;
+  bool _resumed = false;
 
   /// آخر بطاقة اتقالت — عشان كل بطاقة تتنطق مرة واحدة لما تظهر.
   String? _spoken;
@@ -51,14 +61,20 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
   void _say(Object t) => ref.read(speechProvider).speak(t);
   void _sayEn(String t) => ref.read(speechProvider).speakEn(t);
 
+  void _log(LessonContent c, void Function(LessonLog l) change) =>
+      ref.read(progressProvider.notifier).update((p) => change(p.lessonLog(c.uid)));
+
   /// الجملة اللي بتتقال لما البطاقة دي تظهر.
   Object _cardSpeech(LessonBlock b) => switch (b) {
+        HookBlock(:final card, :final ask) => [..._parts(card.spoken), ?ask],
         ExplainBlock(:final card) => card.spoken,
         ExampleBlock(:final steps) => steps[_step].spoken,
-        TryBlock(:final questions) => questions[_q].say ?? questions[_q].ask,
+        TryBlock(:final tasks) => tasks[_q].say ?? tasks[_q].ask,
         ActivityBlock(:final text) => text,
         SummaryBlock() => sayLessonDone,
       };
+
+  static List<String> _parts(Object spoken) => spoken is List<String> ? spoken : ['$spoken'];
 
   void _speakOnce(LessonBlock b) {
     if (!voiceEnabled) return;
@@ -71,34 +87,75 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
     });
   }
 
+  /// أول ما المحتوى يوصل: من آخر بطاقة لو الشرح ماخلصش، أو من الأول لو خلص قبل كده.
+  void _start(LessonContent c) {
+    _started = true;
+    final log = ref.read(progressProvider).lessonLogs[c.uid];
+    if (log != null && !log.done && log.page > 0 && log.page < c.blocks.length) {
+      _page = log.page;
+      _resumed = true;
+    } else {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _restart(c, page: false);
+      });
+    }
+  }
+
+  /// مرة جديدة من الأول: غلطات المرة دي بتتعد من جديد. نتيجة آخر مرة خلّصها والإتقان بيفضلوا
+  /// لحد ما يخلّص تاني — عشان «محتاج مراجعة» مايختفيش بمجرد ما يفتح الدرس.
+  void _restart(LessonContent c, {bool page = true}) {
+    _log(c, (l) => l
+      ..page = 0
+      ..current = 0
+      ..checkMiss = false);
+    if (page) _go(0, c);
+  }
+
   void _go(int page, LessonContent c) {
     setState(() {
       _page = page;
       _step = 0;
       _q = 0;
-      _wrong.clear();
-      _solved = false;
+      _resumed = false;
+      _resetTask();
     });
-    if (c.blocks[page] is SummaryBlock) {
-      ref.read(progressProvider.notifier).update((p) => p.explained.add(c.id));
-    }
+    final hasCheck = c.blocks.any((b) => b is TryBlock && b.check);
+    _log(c, (l) {
+      l.page = page;
+      if (c.blocks[page] is! SummaryBlock) return;
+      // وصل للملخص: «تأكد من فهمك» اتحل في المرة دي (مفيش تخطّي للأنشطة)
+      l.done = true;
+      l.mistakes = l.current;
+      // أتقن لوحده: «تأكد من فهمك» كله صح من أول مرة (ولو الدرس مافيهوش، مفيش ولا غلطة)
+      l.independent = l.independent || (hasCheck ? !l.checkMiss : l.current == 0);
+    });
   }
 
-  void _pick(TryQuestion q, String choice) {
-    if (_solved || _wrong.contains(choice)) return;
-    final sfx = ref.read(sfxProvider);
-    if (choice == q.answer) {
-      sfx.good();
-      setState(() => _solved = true);
-      if (voiceEnabled) _say(q.why);
-    } else {
-      sfx.bad();
-      setState(() {
-        _wrong.add(choice);
-        _shake++;
-      });
-      if (voiceEnabled) _say(sayNotThis);
-    }
+  void _resetTask() {
+    _tries = 0;
+    _hint = null;
+    _solved = false;
+  }
+
+  void _wrong(LessonContent c, TryBlock b, String item) {
+    ref.read(sfxProvider).bad();
+    final hint = b.tasks[_q].hintFor(item);
+    setState(() {
+      _tries++;
+      _hint = hint;
+      _shake++;
+    });
+    _log(c, (l) {
+      l.current++;
+      if (b.check) l.checkMiss = true;
+    });
+    if (voiceEnabled) _say(hint);
+  }
+
+  void _right(TryBlock b) {
+    ref.read(sfxProvider).good();
+    setState(() => _solved = true);
+    if (voiceEnabled) _say(b.tasks[_q].why);
   }
 
   void _practice() {
@@ -134,6 +191,7 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
         ]),
       );
     }
+    if (!_started) _start(c);
 
     final b = c.blocks[_page];
     _speakOnce(b);
@@ -143,13 +201,12 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
           '👣 الخطوة الجاية',
           () => setState(() => _step++),
         ),
-      TryBlock(:final questions) when _q < questions.length - 1 => (
-          'السؤال الجاي ⬅️',
+      TryBlock(:final tasks) when _q < tasks.length - 1 => (
+          'النشاط الجاي ⬅️',
           _solved
               ? () => setState(() {
                     _q++;
-                    _wrong.clear();
-                    _solved = false;
+                    _resetTask();
                   })
               : null,
         ),
@@ -167,6 +224,10 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
           NoteBox(Text('🎯 هدف الدرس: ${ar(c.goal)}', textAlign: TextAlign.center)),
           const SizedBox(height: 10),
         ],
+        if (_resumed) ...[
+          const NoteBox(Text('👋 كمّلنا من آخر مكان وقفت فيه', textAlign: TextAlign.center)),
+          const SizedBox(height: 10),
+        ],
         QCard(
           key: ValueKey('$_page:$_q'),
           shakeTick: _shake,
@@ -180,14 +241,14 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
         if (b is SummaryBlock) ...[
           KidButton('▶️ تدرّب لوحدك', kind: BtnKind.go, onTap: _practice),
           const SizedBox(height: 10),
-          KidButton('🔁 اشرح من الأول', kind: BtnKind.ghost, onTap: () => _go(0, c)),
+          KidButton('🔁 اشرح من الأول', kind: BtnKind.ghost, onTap: () => _restart(c)),
         ] else
           Row(children: [
             if (_page > 0) ...[
               Expanded(child: KidButton('➡️ السابق', kind: BtnKind.ghost, onTap: () => _go(_page - 1, c))),
               const SizedBox(width: 10),
             ],
-            // مقفول لحد الإجابة الصح — باهت عشان الطفل مايضغطش ويستنى
+            // مقفول لحد الحل — باهت عشان الطفل مايضغطش ويستنى
             Expanded(
               flex: 2,
               child: Opacity(opacity: next == null ? .4 : 1, child: KidButton(nextLabel, kind: BtnKind.go, onTap: next)),
@@ -198,10 +259,12 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
   }
 
   String _label(LessonBlock b) => switch (b) {
-        ExplainBlock() => '💡 اشرح لي',
-        ExampleBlock() => '👣 شوف المثال',
-        TryBlock(:final questions) => '✋ جرّب معايا — ${ar(_q + 1)} / ${ar(questions.length)}',
-        ActivityBlock() => '🏠 نشاط في البيت (لولي الأمر)',
+        HookBlock() => '🤔 تمهيد',
+        ExplainBlock() => '💡 اكتشف المعلومة',
+        ExampleBlock() => '👣 شاهد التطبيق',
+        TryBlock(:final tasks, :final check) =>
+          '${check ? '✅ تأكد من فهمك' : '✋ جرّب بنفسك'} — ${ar(_q + 1)} / ${ar(tasks.length)}',
+        ActivityBlock() => '🏠 طبّق خارج الشاشة (مع ولي الأمر)',
         SummaryBlock() => '⭐ ملخص الدرس',
       };
 
@@ -224,6 +287,15 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
       ]);
 
   Widget _body(LessonBlock b, LessonContent c) => switch (b) {
+        HookBlock(:final card, :final ask) => Column(children: [
+            _card(card),
+            if (ask != null) ...[
+              const SizedBox(height: 10),
+              Text('🤔 ${ar(ask)}',
+                  textAlign: TextAlign.center, style: kidText(context.clampVw(21, 5.8, 29), color: AppColors.grape, height: 1.5)),
+            ],
+            if (voiceEnabled) _replay(_cardSpeech(b)),
+          ]),
         ExplainBlock(:final title, :final card) => Column(children: [
             if (title != null) _title(title),
             _card(card),
@@ -237,11 +309,16 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
             ],
             if (voiceEnabled) _replay(steps[_step].spoken),
           ]),
-        TryBlock(:final questions) => _tryBody(questions[_q]),
+        TryBlock() => _taskBody(b, c),
         ActivityBlock(:final text) => Column(children: [
             const Text('👨‍👩‍👦', style: TextStyle(fontSize: 54)),
             const SizedBox(height: 6),
             _text(text),
+            const SizedBox(height: 12),
+            if (ref.watch(progressProvider).lessonLogs[c.uid]?.activity == true)
+              const SpeechBubble('✅ عملتوا النشاط — برافو!', kind: BubbleKind.ok)
+            else
+              KidButton('✅ عملنا النشاط', kind: BtnKind.ghost, onTap: () => _log(c, (l) => l.activity = true)),
           ]),
         SummaryBlock(:final points) => Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             for (final p in points)
@@ -249,39 +326,36 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 child: Text('✅ ${ar(p)}', style: kidText(context.clampVw(18, 5, 24), height: 1.5)),
               ),
+            if (lessonStatus(ref.watch(progressProvider), c) == LessonStatus.helped)
+              const NoteBox(Text('🔁 هنرجع للدرس ده تاني في المراجعة، وولي الأمر هيلاقيه في «محتاج مراجعة».')),
           ]),
       };
 
-  Widget _tryBody(TryQuestion q) {
-    final dir = q.en ? TextDirection.ltr : TextDirection.rtl;
+  Widget _taskBody(TryBlock b, LessonContent c) {
+    final t = b.tasks[_q];
     return Column(children: [
-      _text(q.ask),
+      _text(t.ask),
       const SizedBox(height: 8),
-      if (q.visual != null) VisualView(q.visual!, ltr: q.en),
-      Wrap(alignment: WrapAlignment.center, spacing: 12, runSpacing: 12, children: [
-        for (final ch in q.choices)
-          Opacity(
-            opacity: _wrong.contains(ch) ? .4 : 1,
-            child: Pressable3D(
-              onTap: () => _pick(q, ch),
-              color: _solved && ch == q.answer ? AppColors.okBg : AppColors.paper2,
-              radius: 22,
-              depth: 5,
-              shadowColor: AppColors.shadow,
-              border: Border.all(color: _solved && ch == q.answer ? AppColors.okInk : AppColors.line, width: 3),
-              padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 6),
-              semanticLabel: ch,
-              child: Directionality(
-                textDirection: dir,
-                child: Text(q.en ? ch : ar(ch), style: kidText(context.clampVw(26, 7, 36), height: 1.5)),
-              ),
-            ),
-          ),
-      ]),
+      if (t.visual != null) VisualView(t.visual!, ltr: t.en),
+      TaskView(
+        t,
+        key: ValueKey('task:$_page:$_q'),
+        seed: _page * 31 + _q,
+        onWrong: (item) => _wrong(c, b, item),
+        onSolved: () => _right(b),
+      ),
       if (_solved)
-        SpeechBubble('👏 ${ar(q.why)}', kind: BubbleKind.ok)
-      else if (_wrong.isNotEmpty)
-        const SpeechBubble('مش ده — فكّر تاني 🤔', kind: BubbleKind.no),
+        SpeechBubble('👏 ${ar(t.why)}', kind: BubbleKind.ok)
+      else if (_hint != null)
+        SpeechBubble('🤔 ${ar(_hint!)}', kind: BubbleKind.no),
+      // غلط مرتين: مثال أبسط
+      if (!_solved && _tries >= 2 && t.help != null)
+        NoteBox(Column(children: [
+          const Text('💡 خلّينا نشوف مثال أسهل'),
+          const SizedBox(height: 6),
+          _card(t.help!),
+          if (voiceEnabled) _replay(t.help!.spoken),
+        ])),
     ]);
   }
 }

@@ -18,12 +18,12 @@ void main() {
   final lessons = {for (final l in allLessonFiles()) l.id: l};
 
   /// الشرح على موبايل صغير (٣٦٠ نقطة) وخط النظام ١.٣، وبعده «تدرّب لوحدك» بيروح للجولة.
-  Future<(ProviderContainer, FakeSpeech, FakeSfx)> open(WidgetTester tester, String id) async {
+  Future<(ProviderContainer, FakeSpeech, FakeSfx)> open(WidgetTester tester, String id, {Map<String, Object>? prefs}) async {
     tester.view
       ..physicalSize = const Size(360 * 3, 780 * 3)
       ..devicePixelRatio = 3;
     addTearDown(tester.view.reset);
-    SharedPreferences.setMockInitialValues({});
+    if (prefs != null) SharedPreferences.setMockInitialValues(prefs);
     final sp = await SharedPreferences.getInstance();
     final speech = FakeSpeech(), sfx = FakeSfx();
     final router = GoRouter(initialLocation: '/lesson/$id', routes: [
@@ -53,57 +53,181 @@ void main() {
     return (container, speech, sfx);
   }
 
+  setUp(() => SharedPreferences.setMockInitialValues({}));
+
   KidButton? goButton(WidgetTester tester) => tester
       .widgetList<KidButton>(find.byType(KidButton))
       .where((b) => b.kind == BtnKind.go)
       .firstOrNull;
 
-  for (final l in lessons.values) {
-    testWidgets('${l.id} ${l.title}: every card shows, and the end leads to practice', (tester) async {
-      final (container, speech, sfx) = await open(tester, l.id);
-      final answers = {for (final b in l.blocks.whereType<TryBlock>()) for (final q in b.questions) q.answer};
+  /// البطاقة والنشاط اللي ظاهرين — من مفتاح الكارت (`صفحة:نشاط`).
+  (int, int) where(WidgetTester tester) {
+    final key = tester.widget<QCard>(find.byType(QCard)).key! as ValueKey<String>;
+    final [page, q] = key.value.split(':').map(int.parse).toList();
+    return (page, q);
+  }
 
-      for (var guard = 0; find.text('▶️ تدرّب لوحدك').evaluate().isEmpty; guard++) {
-        expect(guard, lessThan(60), reason: 'stuck on a card');
-        if (goButton(tester)?.onTap == null) {
-          // «جرّب معايا»: الزرار مقفول لحد الإجابة الصح
-          final shown = [
-            for (final w in tester.widgetList<Pressable3D>(find.byType(Pressable3D)))
-              if (answers.contains(w.semanticLabel)) w.semanticLabel!,
-          ];
-          for (final label in shown) {
-            await tap(tester, find.byWidgetPredicate((w) => w is Pressable3D && w.semanticLabel == label).first);
-            if (goButton(tester)?.onTap != null) break;
-          }
-          expect(goButton(tester)?.onTap, isNotNull, reason: 'no choice solved the question');
+  /// زرار شغّال بالنص ده — [last] للعمود التاني في «وصّل».
+  Finder chip(String label, {bool last = false}) {
+    final f = find.byWidgetPredicate((w) => w is Pressable3D && w.semanticLabel == label && w.onTap != null);
+    return last ? f.last : f.first;
+  }
+
+  Future<void> solve(WidgetTester tester, LessonTask t) async {
+    switch (t.kind) {
+      case TaskKind.choice:
+        await tap(tester, chip(t.answer));
+      case TaskKind.pick:
+        for (final a in t.answers) {
+          await tap(tester, chip(a));
         }
-        await tap(tester, find.byWidget(goButton(tester)!));
-      }
+      case TaskKind.order:
+        for (final it in t.items) {
+          await tap(tester, chip(it));
+        }
+      case TaskKind.match:
+        for (final (a, b) in t.pairs) {
+          await tap(tester, chip(a));
+          await tap(tester, chip(b, last: true));
+        }
+      case TaskKind.sort:
+        final all = [for (final g in t.groups) ...g.$2];
+        for (var i = 0; i < all.length; i++) {
+          final shown = tester
+              .widgetList<Pressable3D>(find.byType(Pressable3D))
+              .map((w) => w.semanticLabel)
+              .firstWhere((l) => all.contains(l))!;
+          await tap(tester, chip(t.groups.firstWhere((g) => g.$2.contains(shown)).$1));
+        }
+    }
+  }
 
-      expect(container.read(progressProvider).explained, contains(l.id));
+  /// يمشي الدرس لحد البطاقة [until] (أو لآخره)، ويحل كل نشاط صح من أول مرة.
+  Future<void> walk(WidgetTester tester, LessonContent l, {int? until}) async {
+    bool more() => until != null ? where(tester).$1 < until : find.text('▶️ تدرّب لوحدك').evaluate().isEmpty;
+    for (var guard = 0; more(); guard++) {
+      expect(guard, lessThan(80), reason: 'stuck on a card');
+      if (goButton(tester)?.onTap == null) {
+        final (page, q) = where(tester);
+        await solve(tester, (l.blocks[page] as TryBlock).tasks[q]);
+        expect(goButton(tester)?.onTap, isNotNull, reason: '${l.id} card $page task $q was not solved');
+      }
+      await tap(tester, find.byWidget(goButton(tester)!));
+    }
+  }
+
+  for (final l in lessons.values) {
+    testWidgets('${l.id} ${l.title}: every card and task works, and the end leads to practice', (tester) async {
+      final (container, speech, sfx) = await open(tester, l.id);
+      await walk(tester, l);
+
+      final log = container.read(progressProvider).lessonLogs[l.uid]!;
+      expect((log.done, log.mistakes), (true, 0));
+      expect(lessonStatus(container.read(progressProvider), l), LessonStatus.mastered);
       expect(speech.said, isNotEmpty);
-      expect(sfx.played, contains(SfxKind.good));
+      expect(sfx.played, isNot(contains(SfxKind.bad)));
       await tap(tester, find.text('▶️ تدرّب لوحدك'));
       expect(find.text('play ${l.id}'), findsOneWidget);
     });
   }
 
-  testWidgets('a wrong choice says try again and keeps the question', (tester) async {
-    final l = lessons['school:p1-t1-math:u1:l1']!;
-    final (_, speech, sfx) = await open(tester, l.id);
-    for (var guard = 0; find.textContaining('جرّب معايا').evaluate().isEmpty; guard++) {
-      expect(guard, lessThan(20));
-      await tap(tester, find.byWidget(goButton(tester)!));
-    }
-    final q = l.blocks.whereType<TryBlock>().first.questions.first;
-    final wrong = q.choices.firstWhere((c) => c != q.answer);
-    await tap(tester, find.byWidgetPredicate((w) => w is Pressable3D && w.semanticLabel == wrong));
-    expect(sfx.played, [SfxKind.bad]);
-    expect(find.text('مش ده — فكّر تاني 🤔'), findsOneWidget);
+  testWidgets('«رتّب» starts mixed up, and a wrong letter does not count', (tester) async {
+    final l = lessons['school:p1-t1-arabic:u1:l2']!;
+    final page = l.blocks.indexWhere((b) => b is TryBlock && b.tasks.any((t) => t.kind == TaskKind.order));
+    final (_, _, sfx) = await open(tester, l.id);
+    await walk(tester, l, until: page);
+    final tasks = (l.blocks[page] as TryBlock).tasks;
+    await solve(tester, tasks.first);
+    await tap(tester, find.byWidget(goButton(tester)!));
+    final t = tasks[1];
+    expect(t.kind, TaskKind.order);
+    final shown = [
+      for (final w in tester.widgetList<Pressable3D>(find.byType(Pressable3D)))
+        if (t.items.contains(w.semanticLabel) && w.onTap != null) w.semanticLabel!,
+    ];
+    expect(shown, unorderedEquals(t.items));
+    expect(shown, isNot(t.items), reason: 'the letters must not start in the right order');
+    // أول حرف غلط: «ا» مكانها مش الأول
+    await tap(tester, chip(t.items.firstWhere((i) => i != t.items.first)));
+    expect(sfx.played.last, SfxKind.bad);
     expect(goButton(tester)!.onTap, isNull);
-    await tap(tester, find.byWidgetPredicate((w) => w is Pressable3D && w.semanticLabel == q.answer));
-    expect(speech.said.last, q.why);
+  });
+
+  testWidgets('a mistake gets its own hint, a second one a simpler example, and the parent sees it needs review',
+      (tester) async {
+    final l = lessons['school:p1-t1-math:u1:l1']!;
+    final (container, speech, sfx) = await open(tester, l.id);
+    final checkPage = l.blocks.indexWhere((b) => b is TryBlock && b.check);
+    await walk(tester, l, until: checkPage);
+    final t = (l.blocks[checkPage] as TryBlock).tasks.first;
+    final [w1, w2] = t.choices.where((c) => c != t.answer).toList();
+
+    await tap(tester, chip(w1));
+    expect(sfx.played.last, SfxKind.bad);
+    expect(find.text('🤔 ${t.hintFor(w1)}'), findsOneWidget);
+    expect(speech.said.last, t.hintFor(w1));
+    expect(find.text('💡 خلّينا نشوف مثال أسهل'), findsNothing);
+    expect(goButton(tester)!.onTap, isNull);
+
+    await tap(tester, chip(w2));
+    expect(find.text('🤔 ${t.hintFor(w2)}'), findsOneWidget);
+    expect(find.text('💡 خلّينا نشوف مثال أسهل'), findsOneWidget);
+
+    await tap(tester, chip(t.answer));
+    expect(speech.said.last, t.why);
     expect(goButton(tester)!.onTap, isNotNull);
+
+    await walk(tester, l);
+    final p = container.read(progressProvider);
+    expect(p.lessonLogs[l.uid]!.mistakes, 2);
+    expect(lessonStatus(p, l), LessonStatus.helped);
+    expect(find.textContaining('هنرجع للدرس ده تاني'), findsOneWidget);
+  });
+
+  testWidgets('reopening a lesson that needs review keeps it there until the child finishes it again', (tester) async {
+    final l = lessons['school:p1-t1-math:u1:l10']!;
+    var (container, _, _) = await open(tester, l.id);
+    final checkPage = l.blocks.indexWhere((b) => b is TryBlock && b.check);
+    await walk(tester, l, until: checkPage);
+    final t = (l.blocks[checkPage] as TryBlock).tasks.first;
+    await tap(tester, chip(t.choices.firstWhere((c) => c != t.answer)));
+    await walk(tester, l);
+    expect(lessonStatus(container.read(progressProvider), l), LessonStatus.helped);
+
+    final saved = container.read(sharedPrefsProvider);
+    final prefs = {for (final k in saved.getKeys()) k: saved.get(k)!};
+    await tester.pumpWidget(const SizedBox());
+    (container, _, _) = await open(tester, l.id, prefs: prefs);
+    expect(where(tester).$1, 0);
+    expect(lessonStatus(container.read(progressProvider), l), LessonStatus.helped);
+
+    await walk(tester, l);
+    expect(container.read(progressProvider).lessonLogs[l.uid]!.mistakes, 0);
+    expect(lessonStatus(container.read(progressProvider), l), LessonStatus.mastered);
+  });
+
+  testWidgets('the lesson goes on from the card where the child stopped', (tester) async {
+    final l = lessons['school:p1-t1-arabic:u1:l2']!;
+    final (container, _, _) = await open(tester, l.id);
+    await walk(tester, l, until: 2);
+    expect(container.read(progressProvider).lessonLogs[l.uid]!.page, 2);
+    expect(lessonStatus(container.read(progressProvider), l), LessonStatus.started);
+
+    final saved = container.read(sharedPrefsProvider);
+    final prefs = {for (final k in saved.getKeys()) k: saved.get(k)!};
+    await tester.pumpWidget(const SizedBox());
+    await open(tester, l.id, prefs: prefs);
+    expect(where(tester).$1, 2);
+    expect(find.text('👋 كمّلنا من آخر مكان وقفت فيه'), findsOneWidget);
+  });
+
+  testWidgets('the parent marks the home activity as done', (tester) async {
+    final l = lessons['school:p1-t1-english:u1:l1']!;
+    final (container, _, _) = await open(tester, l.id);
+    await walk(tester, l, until: l.blocks.indexWhere((b) => b is ActivityBlock));
+    await tap(tester, find.text('✅ عملنا النشاط'));
+    expect(container.read(progressProvider).lessonLogs[l.uid]!.activity, isTrue);
+    expect(find.text('✅ عملتوا النشاط — برافو!'), findsOneWidget);
   });
 
   testWidgets('a lesson with no explanation offers practice', (tester) async {

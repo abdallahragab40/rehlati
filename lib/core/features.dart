@@ -9,3 +9,7 @@ const voiceEnabled = true;
 /// شرح دروس المدرسة المدفوع (lib/domain/lesson_content.dart) مفتوح للكل لحد ما حسابات أولياء الأمور
 /// والاشتراك يتعملوا. ساعتها السيرفر هو اللي يقرر، مش المفتاح ده (docs/EXPANSION_AND_MONETIZATION.md).
 const paidLessonsOpen = true;
+
+/// الشرح اللي لسه المدرّس ماراجعهوش (`"review": "draft"`) ظاهر لحد ما المراجعة تخلص. قبل النشر:
+/// يا إما المدرّس يراجع ويتعلّم `reviewed`، يا إما ده يبقى false فالمسودات تستخبى (tool/LESSON_CONTENT_REVIEW.md).
+const draftLessonsVisible = true;

@@ -170,10 +170,10 @@ class ProgressData {
     Map<String, SkillRecord>? mastery,
     Map<String, Set<String>>? pathDone,
     Map<String, int>? school,
-    Set<String>? explained,
+    Map<String, LessonLog>? lessonLogs,
   })  : mastery = mastery ?? {},
         school = school ?? {},
-        explained = explained ?? {},
+        lessonLogs = lessonLogs ?? {},
         pathDone = pathDone ?? {},
         unlocked = unlocked ?? [...initiallyUnlocked],
         skipped = skipped ?? [],
@@ -228,8 +228,10 @@ class ProgressData {
     school[id] = math.max(school[id] ?? 0, pct);
   }
 
-  /// دروس المدرسة اللي الطفل خلّص شرحها لآخر بطاقة (lib/domain/lesson_content.dart).
-  final Set<String> explained;
+  /// شرح دروس المدرسة ← بالمعرّف الثابت للدرس (`p1-t1-arabic/ba`) — lib/domain/lesson_content.dart.
+  final Map<String, LessonLog> lessonLogs;
+
+  LessonLog lessonLog(String uid) => lessonLogs.putIfAbsent(uid, LessonLog.new);
 
   /// النجوم مقيّدة على كل عالم عشان مجموع العوالم يساوي الإجمالي.
   final Map<String, int> starsBy;
@@ -308,7 +310,9 @@ class ProgressData {
           ? {for (final e in (j['mastery'] as Map).entries) '${e.key}': SkillRecord.fromJson(e.value)}
           : {},
       school: ints(j['school']),
-      explained: strs(j['explained']).toSet(),
+      lessonLogs: j['schoolLessons'] is Map
+          ? {for (final e in (j['schoolLessons'] as Map).entries) '${e.key}': LessonLog.fromJson(e.value)}
+          : {},
       pathDone: j['paths'] is Map
           ? {for (final e in (j['paths'] as Map).entries) '${e.key}': strs(e.value).toSet()}
           : {},
@@ -348,7 +352,7 @@ class ProgressData {
         'journey': journey?.toJson(),
         'mastery': {for (final e in mastery.entries) e.key: e.value.toJson()},
         if (school.isNotEmpty) 'school': school,
-        if (explained.isNotEmpty) 'explained': explained.toList(),
+        if (lessonLogs.isNotEmpty) 'schoolLessons': {for (final e in lessonLogs.entries) e.key: e.value.toJson()},
         if (pathDone.isNotEmpty) 'paths': {for (final e in pathDone.entries) e.key: e.value.toList()},
         'parentGuide': {
           'focus': {for (final e in pgFocus.entries) e.key: e.value.toJson()},

@@ -1,0 +1,1475 @@
+{
+ "grade": "p1",
+ "term": 1,
+ "year": "2026/2027",
+ "checked": "2026-11-03",
+ "statuses": {
+  "not_in_app": "في الكتاب ومش في التطبيق",
+  "indexed": "في التطبيق كجولة أسئلة بس (موجود في الفهرس)",
+  "partly_explained": "بعض دروس التطبيق اللي بتغطيه ليها شرح",
+  "explained": "ليه شرح، لسه مسودة",
+  "reviewed": "ليه شرح والمدرّس راجعه — جاهز للنشر"
+ },
+ "books": [
+  {
+   "book": "p1-t1-arabic",
+   "url": "https://elearnningcontent.blob.core.windows.net/elearnningcontent/2026_2027/Primary/Primary1/Term1/StudentBook/Arabic_language_prim1_t1.pdf",
+   "pages_from": "الفهرس في الكتاب (ص ٤)",
+   "units": [
+    {
+     "title": "قبل الحروف",
+     "lessons": [
+      {
+       "title": "آداب الفصل",
+       "kind": "manners",
+       "pages": "5",
+       "skills": [
+        "سلوك الفصل"
+       ],
+       "app": [],
+       "status": "not_in_app",
+       "note": "مش في التطبيق"
+      },
+      {
+       "title": "التهيئة",
+       "kind": "readiness",
+       "pages": "6–14",
+       "skills": [
+        "وعي بصري",
+        "وعي صوتي",
+        "تمهيد للكتابة"
+       ],
+       "app": [],
+       "status": "not_in_app",
+       "note": "جزئيًا في التطبيق: ألعاب الوعي الصوتي والتتبّع"
+      }
+     ]
+    },
+    {
+     "title": "أسرتي",
+     "lessons": [
+      {
+       "title": "تدريبات قصة الاستماع (أميرة وأسرتها السعيدة)",
+       "kind": "listening",
+       "pages": "15",
+       "skills": [
+        "الاستماع",
+        "فهم المسموع"
+       ],
+       "app": [],
+       "status": "not_in_app",
+       "note": "مش في التطبيق: محتاج قصة مسموعة من تأليفنا وأسئلة فهم"
+      },
+      {
+       "title": "نشيد (أسرتي)",
+       "kind": "song",
+       "pages": "16",
+       "skills": [
+        "الاستماع",
+        "الحفظ والإلقاء"
+       ],
+       "app": [],
+       "status": "not_in_app",
+       "note": "مش في التطبيق: محتاج نشيد من تأليفنا (حقوق النشيد للوزارة)"
+      },
+      {
+       "title": "حرف الألف",
+       "kind": "letter",
+       "pages": "17–19",
+       "objectives": [
+        "يميّز صوت حرف الألف في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الألف بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الألف ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u1:l1"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "حرف الباء",
+       "kind": "letter",
+       "pages": "20–22",
+       "objectives": [
+        "يميّز صوت حرف الباء في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الباء بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الباء ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u1:l2"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "حرف الميم",
+       "kind": "letter",
+       "pages": "23–25",
+       "objectives": [
+        "يميّز صوت حرف الميم في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الميم بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الميم ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u1:l3"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "حرف الحاء",
+       "kind": "letter",
+       "pages": "26–28",
+       "objectives": [
+        "يميّز صوت حرف الحاء في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الحاء بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الحاء ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u1:l4"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "حرف الجيم",
+       "kind": "letter",
+       "pages": "29–31",
+       "objectives": [
+        "يميّز صوت حرف الجيم في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الجيم بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الجيم ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u1:l5"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "حرف الدال",
+       "kind": "letter",
+       "pages": "32–34",
+       "objectives": [
+        "يميّز صوت حرف الدال في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الدال بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الدال ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u1:l6"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "حرف الخاء",
+       "kind": "letter",
+       "pages": "35–37",
+       "objectives": [
+        "يميّز صوت حرف الخاء في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الخاء بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الخاء ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u1:l7"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "حرف التاء",
+       "kind": "letter",
+       "pages": "38–41",
+       "objectives": [
+        "يميّز صوت حرف التاء في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف التاء بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف التاء ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u1:l8"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "قصة القارئ الصغير (أحب أسرتي)",
+       "kind": "reading",
+       "pages": "42",
+       "skills": [
+        "قراءة جمل قصيرة",
+        "فهم المقروء"
+       ],
+       "app": [],
+       "status": "not_in_app",
+       "note": "مش في التطبيق: قراءة بحروف الوحدة"
+      },
+      {
+       "title": "تقييم الوحدة الأولى",
+       "kind": "assessment",
+       "pages": "43",
+       "app": [],
+       "status": "not_in_app",
+       "note": "امتحان الوحدة في التطبيق بيغطيه (school:…:u1)"
+      }
+     ]
+    },
+    {
+     "title": "حيواناتي",
+     "lessons": [
+      {
+       "title": "تدريبات قصة الاستماع (عالم الحيوان)",
+       "kind": "listening",
+       "pages": "46",
+       "skills": [
+        "الاستماع",
+        "فهم المسموع"
+       ],
+       "app": [],
+       "status": "not_in_app",
+       "note": "مش في التطبيق: محتاج قصة مسموعة من تأليفنا وأسئلة فهم"
+      },
+      {
+       "title": "نشيد (لوحتي الجديدة)",
+       "kind": "song",
+       "pages": "47",
+       "skills": [
+        "الاستماع",
+        "الحفظ والإلقاء"
+       ],
+       "app": [],
+       "status": "not_in_app",
+       "note": "مش في التطبيق: محتاج نشيد من تأليفنا (حقوق النشيد للوزارة)"
+      },
+      {
+       "title": "حرف اللام",
+       "kind": "letter",
+       "pages": "48–51",
+       "objectives": [
+        "يميّز صوت حرف اللام في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف اللام بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف اللام ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u2:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "حرف السين",
+       "kind": "letter",
+       "pages": "52–55",
+       "objectives": [
+        "يميّز صوت حرف السين في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف السين بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف السين ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u2:l2"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "حرف النون",
+       "kind": "letter",
+       "pages": "56–59",
+       "objectives": [
+        "يميّز صوت حرف النون في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف النون بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف النون ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u2:l3"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "حرف الراء",
+       "kind": "letter",
+       "pages": "60–63",
+       "objectives": [
+        "يميّز صوت حرف الراء في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الراء بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الراء ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u2:l4"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "حرف الفاء",
+       "kind": "letter",
+       "pages": "64–67",
+       "objectives": [
+        "يميّز صوت حرف الفاء في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الفاء بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الفاء ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u2:l5"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "حرف الكاف",
+       "kind": "letter",
+       "pages": "68–71",
+       "objectives": [
+        "يميّز صوت حرف الكاف في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الكاف بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الكاف ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u2:l6"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "حرف القاف",
+       "kind": "letter",
+       "pages": "72–76",
+       "objectives": [
+        "يميّز صوت حرف القاف في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف القاف بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف القاف ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u2:l7"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "قصة القارئ الصغير (ماذا تأكل؟)",
+       "kind": "reading",
+       "pages": "77",
+       "skills": [
+        "قراءة جمل قصيرة",
+        "فهم المقروء"
+       ],
+       "app": [],
+       "status": "not_in_app",
+       "note": "مش في التطبيق: قراءة بحروف الوحدة"
+      },
+      {
+       "title": "تقييم الوحدة الثانية",
+       "kind": "assessment",
+       "pages": "78",
+       "app": [],
+       "status": "not_in_app",
+       "note": "امتحان الوحدة في التطبيق بيغطيه (school:…:u2)"
+      },
+      {
+       "title": "قصة القراءة مع الأسرة (التعاون سر النجاح)",
+       "kind": "family_reading",
+       "pages": "80",
+       "skills": [
+        "قراءة مع الأسرة"
+       ],
+       "app": [],
+       "status": "not_in_app"
+      }
+     ]
+    },
+    {
+     "title": "أجزاء جسمي",
+     "lessons": [
+      {
+       "title": "تدريبات قصة الاستماع (صندوق جدتي)",
+       "kind": "listening",
+       "pages": "83",
+       "skills": [
+        "الاستماع",
+        "فهم المسموع"
+       ],
+       "app": [],
+       "status": "not_in_app",
+       "note": "مش في التطبيق: محتاج قصة مسموعة من تأليفنا وأسئلة فهم"
+      },
+      {
+       "title": "نشيد (أحب جسمي)",
+       "kind": "song",
+       "pages": "84",
+       "skills": [
+        "الاستماع",
+        "الحفظ والإلقاء"
+       ],
+       "app": [],
+       "status": "not_in_app",
+       "note": "مش في التطبيق: محتاج نشيد من تأليفنا (حقوق النشيد للوزارة)"
+      },
+      {
+       "title": "حرف الياء",
+       "kind": "letter",
+       "pages": "85–88",
+       "objectives": [
+        "يميّز صوت حرف الياء في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الياء بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الياء ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u3:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "حرف العين",
+       "kind": "letter",
+       "pages": "89–92",
+       "objectives": [
+        "يميّز صوت حرف العين في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف العين بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف العين ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u3:l2"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "حرف الشين",
+       "kind": "letter",
+       "pages": "93–96",
+       "objectives": [
+        "يميّز صوت حرف الشين في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الشين بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الشين ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u3:l3"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "حرف الواو",
+       "kind": "letter",
+       "pages": "97–100",
+       "objectives": [
+        "يميّز صوت حرف الواو في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الواو بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الواو ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u3:l4"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "حرف الهاء",
+       "kind": "letter",
+       "pages": "101–104",
+       "objectives": [
+        "يميّز صوت حرف الهاء في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الهاء بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الهاء ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u3:l5"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "حرف الذال",
+       "kind": "letter",
+       "pages": "105–108",
+       "objectives": [
+        "يميّز صوت حرف الذال في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الذال بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الذال ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u3:l6"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "حرف الظاء",
+       "kind": "letter",
+       "pages": "109–113",
+       "objectives": [
+        "يميّز صوت حرف الظاء في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الظاء بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الظاء ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u3:l7"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "قصة القارئ الصغير (هذا جسمي)",
+       "kind": "reading",
+       "pages": "114",
+       "skills": [
+        "قراءة جمل قصيرة",
+        "فهم المقروء"
+       ],
+       "app": [],
+       "status": "not_in_app",
+       "note": "مش في التطبيق: قراءة بحروف الوحدة"
+      },
+      {
+       "title": "تقييم الوحدة الثالثة",
+       "kind": "assessment",
+       "pages": "115",
+       "app": [],
+       "status": "not_in_app",
+       "note": "امتحان الوحدة في التطبيق بيغطيه (school:…:u3)"
+      }
+     ]
+    },
+    {
+     "title": "مدرستي",
+     "lessons": [
+      {
+       "title": "تدريبات قصة الاستماع (يوم في المدرسة)",
+       "kind": "listening",
+       "pages": "118",
+       "skills": [
+        "الاستماع",
+        "فهم المسموع"
+       ],
+       "app": [],
+       "status": "not_in_app",
+       "note": "مش في التطبيق: محتاج قصة مسموعة من تأليفنا وأسئلة فهم"
+      },
+      {
+       "title": "نشيد (أحب مدرستي)",
+       "kind": "song",
+       "pages": "119",
+       "skills": [
+        "الاستماع",
+        "الحفظ والإلقاء"
+       ],
+       "app": [],
+       "status": "not_in_app",
+       "note": "مش في التطبيق: محتاج نشيد من تأليفنا (حقوق النشيد للوزارة)"
+      },
+      {
+       "title": "حرف الزاي",
+       "kind": "letter",
+       "pages": "120–122",
+       "objectives": [
+        "يميّز صوت حرف الزاي في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الزاي بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الزاي ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u4:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "حرف الطاء",
+       "kind": "letter",
+       "pages": "123–125",
+       "objectives": [
+        "يميّز صوت حرف الطاء في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الطاء بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الطاء ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u4:l2"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "حرف الصاد",
+       "kind": "letter",
+       "pages": "126–128",
+       "objectives": [
+        "يميّز صوت حرف الصاد في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الصاد بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الصاد ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u4:l3"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "حرف الضاد",
+       "kind": "letter",
+       "pages": "129–131",
+       "objectives": [
+        "يميّز صوت حرف الضاد في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الضاد بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الضاد ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u4:l4"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "حرف الثاء",
+       "kind": "letter",
+       "pages": "132–134",
+       "objectives": [
+        "يميّز صوت حرف الثاء في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الثاء بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الثاء ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u4:l5"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "حرف الغين",
+       "kind": "letter",
+       "pages": "135–138",
+       "objectives": [
+        "يميّز صوت حرف الغين في أول الكلمة ووسطها وآخرها",
+        "يقرأ حرف الغين بالفتحة والضمة والكسرة",
+        "يتعرّف أشكال حرف الغين ويكتبها"
+       ],
+       "objectives_from": "ours",
+       "skills": [
+        "تمييز صوت الحرف",
+        "اسم الحرف وصوته بالحركات",
+        "أشكال الحرف في الكلمة",
+        "كتابة الحرف"
+       ],
+       "app": [
+        "u4:l6"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "قصة القارئ الصغير (هذه مدرستي)",
+       "kind": "reading",
+       "pages": "139",
+       "skills": [
+        "قراءة جمل قصيرة",
+        "فهم المقروء"
+       ],
+       "app": [],
+       "status": "not_in_app",
+       "note": "مش في التطبيق: قراءة بحروف الوحدة"
+      },
+      {
+       "title": "تقييم الوحدة الرابعة",
+       "kind": "assessment",
+       "pages": "140",
+       "app": [],
+       "status": "not_in_app",
+       "note": "امتحان الوحدة في التطبيق بيغطيه (school:…:u4)"
+      },
+      {
+       "title": "قصة القراءة مع الأسرة (السلحفاة الحكيمة)",
+       "kind": "family_reading",
+       "pages": "142",
+       "skills": [
+        "قراءة مع الأسرة"
+       ],
+       "app": [],
+       "status": "not_in_app"
+      },
+      {
+       "title": "قصص الاستماع",
+       "kind": "listening",
+       "pages": "144",
+       "app": [],
+       "status": "not_in_app"
+      },
+      {
+       "title": "قصص الحروف",
+       "kind": "reading",
+       "pages": "148",
+       "app": [],
+       "status": "not_in_app"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "book": "p1-t1-math",
+   "url": "https://elearnningcontent.blob.core.windows.net/elearnningcontent/2026_2027/Primary/Primary1/Term1/StudentBook/Math_Ar_prim1_t1.pdf",
+   "pages_from": "المحتويات في الكتاب (ص ٥) — صفحات الفصول بس",
+   "lessons_from": "أسماء الدروس من فهرس ٢٠٢٥/٢٠٢٦ (tool/SCHOOL_CURRICULUM_INDEX.md). الفصول اتطابقت مع ٢٠٢٦/٢٠٢٧، الدروس لسه.",
+   "units": [
+    {
+     "title": "الفصل ١: الأعداد حتى ١٠",
+     "pages": "6–31",
+     "lessons": [
+      {
+       "title": "كم العدد؟",
+       "kind": "lesson",
+       "app": [
+        "u1:l1"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "الأعداد من ١ إلى ٥",
+       "kind": "lesson",
+       "app": [
+        "u1:l2"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "هيا نعد (١–٥)",
+       "kind": "lesson",
+       "app": [
+        "u1:l2"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "مكونات العدد ٥",
+       "kind": "lesson",
+       "app": [
+        "u1:l3"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "الأعداد من ٦ إلى ١٠",
+       "kind": "lesson",
+       "app": [
+        "u1:l4"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "هيا نعد (٦–١٠)",
+       "kind": "lesson",
+       "app": [
+        "u1:l4"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "مكونات الأعداد ٦، ٧، ٨، ٩، ١٠",
+       "kind": "lesson",
+       "app": [
+        "u1:l5",
+        "u1:l6",
+        "u1:l7",
+        "u1:l8",
+        "u1:l9"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "هيا نقارن الأعداد",
+       "kind": "lesson",
+       "app": [
+        "u1:l10"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "العدد صفر",
+       "kind": "lesson",
+       "app": [
+        "u1:l11"
+       ],
+       "status": "explained"
+      }
+     ]
+    },
+    {
+     "title": "الفصل ٢: ما هو الموقع؟",
+     "pages": "32–35",
+     "lessons": [
+      {
+       "title": "حدد الموقع",
+       "kind": "lesson",
+       "app": [
+        "u2:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "أين هو؟",
+       "kind": "lesson",
+       "app": [
+        "u2:l2"
+       ],
+       "status": "indexed"
+      }
+     ]
+    },
+    {
+     "title": "الفصل ٣: الجمع",
+     "pages": "36–43",
+     "lessons": [
+      {
+       "title": "الجمع (جزء ١ و٢)",
+       "kind": "lesson",
+       "app": [
+        "u3:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "الجمع مع الصفر",
+       "kind": "lesson",
+       "app": [
+        "u3:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "قصص الجمع",
+       "kind": "lesson",
+       "app": [
+        "u3:l2"
+       ],
+       "status": "indexed"
+      }
+     ]
+    },
+    {
+     "title": "الفصل ٤: الطرح",
+     "pages": "44–53",
+     "lessons": [
+      {
+       "title": "الطرح (جزء ١ و٢)",
+       "kind": "lesson",
+       "app": [
+        "u4:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "الطرح مع الصفر",
+       "kind": "lesson",
+       "app": [
+        "u4:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "ما الفرق؟",
+       "kind": "lesson",
+       "app": [
+        "u4:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "قصص الطرح",
+       "kind": "lesson",
+       "app": [
+        "u4:l2"
+       ],
+       "status": "indexed"
+      }
+     ]
+    },
+    {
+     "title": "الفصل ٥: مقارنة الأطوال",
+     "pages": "54–59",
+     "lessons": [
+      {
+       "title": "أيهما أطول؟",
+       "kind": "lesson",
+       "app": [
+        "u5:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "كيف يمكننا القياس؟",
+       "kind": "lesson",
+       "app": [
+        "u5:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "هيا نقارن الأطوال",
+       "kind": "lesson",
+       "app": [
+        "u5:l1"
+       ],
+       "status": "indexed"
+      }
+     ]
+    },
+    {
+     "title": "الفصل ٦: تمثيل البيانات",
+     "pages": "60–71",
+     "lessons": [
+      {
+       "title": "تمثيل البيانات بالصور",
+       "kind": "lesson",
+       "app": [
+        "u6:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "ما نتعلمه من النتائج",
+       "kind": "lesson",
+       "app": [
+        "u6:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "هيا نقارن النتائج",
+       "kind": "lesson",
+       "app": [
+        "u6:l1"
+       ],
+       "status": "indexed"
+      }
+     ]
+    },
+    {
+     "title": "الفصل ٧: الأعداد الأكبر من ١٠",
+     "pages": "72–85",
+     "lessons": [
+      {
+       "title": "الأعداد حتى ٢٠",
+       "kind": "lesson",
+       "app": [
+        "u7:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "عشرة وعدد ما",
+       "kind": "lesson",
+       "app": [
+        "u7:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "خط الأعداد",
+       "kind": "lesson",
+       "app": [
+        "u7:l2"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "جمع وطرح الأعداد (جزء ١ و٢)",
+       "kind": "lesson",
+       "app": [
+        "u7:l3"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "الأعداد الأكبر من ٢٠",
+       "kind": "lesson",
+       "app": [
+        "u7:l1"
+       ],
+       "status": "indexed",
+       "note": "جزئيًا: الآحاد والعشرات بس"
+      }
+     ]
+    },
+    {
+     "title": "الفصل ٨: قراءة الساعة",
+     "pages": "86–87",
+     "lessons": [
+      {
+       "title": "قراءة الوقت على الساعة",
+       "kind": "lesson",
+       "app": [
+        "u8:l1"
+       ],
+       "status": "indexed",
+       "note": "جزئيًا: المرحلة معمولة لساعات وأرباع (سن ٨–٩)"
+      }
+     ]
+    },
+    {
+     "title": "الفصل ٩: العمليات التي تتضمن ٣ أعداد",
+     "pages": "88–96",
+     "lessons": [
+      {
+       "title": "جمع ثلاثة أعداد",
+       "kind": "lesson",
+       "app": [
+        "u9:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "طرح ثلاثة أعداد",
+       "kind": "lesson",
+       "app": [
+        "u9:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "الحساب بثلاثة أعداد",
+       "kind": "lesson",
+       "app": [
+        "u9:l1"
+       ],
+       "status": "indexed"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "book": "p1-t1-english",
+   "url": "https://elearnningcontent.blob.core.windows.net/elearnningcontent/2026_2027/Primary/Primary1/Term1/StudentBook/English_language_prim1_t1.pdf",
+   "pages_from": "صفحات ملف الـ PDF (مش أرقام الطباعة) من نص الكتاب. الوحدة ٤ صور، فأسماء دروسها مش متقرية.",
+   "units": [
+    {
+     "title": "Unit 1: Welcome to My School",
+     "objectives_from": "book",
+     "objectives": [
+      "Recognize and respond to greetings in simple conversations.",
+      "Follow basic classroom instructions.",
+      "Identify the formation, sound, and words that begin with the letters Tt and Ii.",
+      "Introduce oneself using complete sentences."
+     ],
+     "lessons": [
+      {
+       "title": "Lesson 1: Greetings",
+       "kind": "speaking",
+       "pages": "8–14",
+       "skills": [
+        "listening",
+        "speaking"
+       ],
+       "app": [
+        "u1:l1"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "Lesson 2: Phonics",
+       "kind": "phonics",
+       "pages": "15–16",
+       "skills": [
+        "phonics",
+        "writing"
+       ],
+       "app": [
+        "u1:l2"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "Lesson 3: Around My Classroom",
+       "kind": "vocabulary",
+       "pages": "17–20",
+       "skills": [
+        "vocabulary",
+        "instructions"
+       ],
+       "app": [
+        "u1:l1"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "Lesson 4: Phonics",
+       "kind": "phonics",
+       "pages": "21–24",
+       "skills": [
+        "phonics",
+        "writing"
+       ],
+       "app": [
+        "u1:l2"
+       ],
+       "status": "explained"
+      }
+     ]
+    },
+    {
+     "title": "Unit 2: The Garden of Colors and Shapes",
+     "objectives_from": "book",
+     "objectives": [
+      "Respond to simple questions using appropriate vocabulary.",
+      "Identify the formation, sound, and words that begin with the letters Ss and Aa.",
+      "Use short phrases to describe nearby objects.",
+      "Recognize and name colors through familiar objects."
+     ],
+     "lessons": [
+      {
+       "title": "Lesson 1: In the Garden",
+       "kind": "vocabulary",
+       "pages": "26–30",
+       "app": [
+        "u2:l1"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "Lesson 2: Phonics",
+       "kind": "phonics",
+       "pages": "31–33",
+       "app": [
+        "u2:l2"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "Lesson 3: Shapes and Colors",
+       "kind": "vocabulary",
+       "pages": "34–37",
+       "app": [
+        "u2:l1"
+       ],
+       "status": "explained"
+      },
+      {
+       "title": "Lesson 4: Phonics",
+       "kind": "phonics",
+       "pages": "38–41",
+       "app": [
+        "u2:l2"
+       ],
+       "status": "explained"
+      }
+     ]
+    },
+    {
+     "title": "Unit 3: I Love My Family",
+     "objectives_from": "book",
+     "objectives": [
+      "Introduce family members using complete sentences.",
+      "Identify the formation, sound, and words that begin with the letters Nn, Pp, Hh, and Dd.",
+      "Recognize numbers 1 to 5 and match them with their correct values."
+     ],
+     "lessons": [
+      {
+       "title": "Lesson 1: Who's in My Family?",
+       "kind": "vocabulary",
+       "pages": "43–46",
+       "app": [
+        "u3:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "Lesson 2: Phonics",
+       "kind": "phonics",
+       "pages": "47–51",
+       "app": [
+        "u3:l2"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "Lesson 3: Numbers from 1 to 5",
+       "kind": "vocabulary",
+       "pages": "52–55",
+       "app": [
+        "u3:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "Lesson 4: Phonics",
+       "kind": "phonics",
+       "pages": "56–64",
+       "app": [
+        "u3:l2"
+       ],
+       "status": "indexed"
+      }
+     ]
+    },
+    {
+     "title": "Unit 4: My Body and My Senses",
+     "objectives_from": "book",
+     "objectives": [
+      "Identify basic body parts.",
+      "Identify the five senses.",
+      "Identify the formation, sound, and words that begin with the letters Rr, Ee, Cc, and Kk."
+     ],
+     "lessons": [
+      {
+       "title": "Body parts and senses (lesson titles are images)",
+       "kind": "vocabulary",
+       "pages": "65–83",
+       "app": [
+        "u4:l1"
+       ],
+       "status": "indexed",
+       "note": "الحواس الخمسة مش في التطبيق"
+      },
+      {
+       "title": "Phonics: Rr, Ee, Cc, Kk",
+       "kind": "phonics",
+       "pages": "65–83",
+       "app": [
+        "u4:l2"
+       ],
+       "status": "indexed"
+      }
+     ]
+    },
+    {
+     "title": "Unit 5: On the Farm",
+     "objectives_from": "book",
+     "objectives": [
+      "Name farm animals and the food they give using complete sentences.",
+      "Identify the formation, sound and words that begin with the letters Mm, Gg, Oo, and Ff.",
+      "Describe animal sizes using opposite words.",
+      "Recognize the formation of numbers 6 to 10."
+     ],
+     "lessons": [
+      {
+       "title": "Lesson 1: Welcome to the Farm",
+       "kind": "vocabulary",
+       "pages": "85–93",
+       "app": [
+        "u5:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "Lesson 3: Numbers From 6 to 10",
+       "kind": "vocabulary",
+       "pages": "94–102",
+       "app": [
+        "u5:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "Phonics: Mm, Gg, Oo, Ff",
+       "kind": "phonics",
+       "pages": "85–102",
+       "app": [
+        "u5:l2"
+       ],
+       "status": "indexed"
+      }
+     ]
+    },
+    {
+     "title": "Unit 6: Animals Around Me",
+     "objectives_from": "book",
+     "objectives": [
+      "Identify animal names and habitats of pets and jungle animals.",
+      "Identify the formation, sound, and words that begin with the letters Bb, Ll, Uu, and Jj.",
+      "Follow simple instructions using prepositions."
+     ],
+     "lessons": [
+      {
+       "title": "Lesson 1: Welcome to the Jungle",
+       "kind": "vocabulary",
+       "pages": "104–113",
+       "app": [
+        "u6:l1"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "Lesson 3: My Pets",
+       "kind": "vocabulary",
+       "pages": "114–117",
+       "app": [
+        "u6:l1",
+        "u6:l2"
+       ],
+       "status": "indexed"
+      },
+      {
+       "title": "Lesson 4: Phonics",
+       "kind": "phonics",
+       "pages": "118–128",
+       "app": [
+        "u6:l3"
+       ],
+       "status": "indexed"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

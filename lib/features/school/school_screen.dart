@@ -91,7 +91,7 @@ class _SchoolScreenState extends ConsumerState<SchoolScreen> {
           const NoteBox(Text('الكتاب ده لسه مش موجود'))
         else
           for (var u = 0; u < book.units.length; u++) ...[
-            _UnitCard(book: book, unit: u, results: p.school, lessons: lessons, explained: p.explained),
+            _UnitCard(book: book, unit: u, results: p.school, lessons: lessons, progress: p),
             const SizedBox(height: 12),
           ],
       ]),
@@ -100,12 +100,12 @@ class _SchoolScreenState extends ConsumerState<SchoolScreen> {
 }
 
 class _UnitCard extends StatelessWidget {
-  const _UnitCard({required this.book, required this.unit, required this.results, required this.lessons, required this.explained});
+  const _UnitCard({required this.book, required this.unit, required this.results, required this.lessons, required this.progress});
   final SchoolBook book;
   final int unit;
   final Map<String, int> results;
   final Map<String, LessonContent> lessons;
-  final Set<String> explained;
+  final ProgressData progress;
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +127,10 @@ class _UnitCard extends StatelessWidget {
                 id: id,
                 pct: results[id],
                 dir: dir,
-                toExplain: lessons[id]?.open == true && !explained.contains(id),
+                explain: switch (lessons[id]) {
+                  final c? when c.open => lessonStatus(progress, c),
+                  _ => null,
+                },
               );
             }(),
         ]),
@@ -145,23 +148,26 @@ class _UnitCard extends StatelessWidget {
 }
 
 class _LessonTile extends StatelessWidget {
-  const _LessonTile({required this.lesson, required this.id, required this.pct, required this.dir, required this.toExplain});
+  const _LessonTile({required this.lesson, required this.id, required this.pct, required this.dir, required this.explain});
   final SchoolLesson lesson;
   final String id;
   final int? pct;
   final TextDirection dir;
 
-  /// ليه شرح لسه الطفل ماخلّصهوش.
-  final bool toExplain;
+  /// حالة الطفل في شرح الدرس — null لو الدرس مالوش شرح.
+  final LessonStatus? explain;
 
   @override
   Widget build(BuildContext context) {
     final ready = lesson.ready;
-    final status = !ready
-        ? 'قريبًا'
-        : pct == null
-            ? (toExplain ? '📖 اشرح لي' : 'ذاكر الدرس')
-            : '${pct! >= 80 ? '✅' : '🔁'} ${ar(pct!)}٪';
+    final status = switch (explain) {
+      _ when !ready => 'قريبًا',
+      LessonStatus.none => '📖 اشرح لي',
+      LessonStatus.started => '📖 كمّل الشرح',
+      LessonStatus.helped => '🔁 راجع الشرح',
+      _ when pct == null => 'ذاكر الدرس',
+      _ => '${pct! >= 80 ? '✅' : '🔁'} ${ar(pct!)}٪',
+    };
     return Opacity(
       opacity: ready ? 1 : .55,
       child: Pressable3D(

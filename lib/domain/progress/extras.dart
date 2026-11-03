@@ -107,3 +107,46 @@ class PgGoal {
 
   Map<String, dynamic> toJson() => {'start': start, 'days': days, 'paused': paused};
 }
+
+/// شرح درس من دروس المدرسة (lib/domain/lesson_content.dart): وقف فين، خلّصه، عمل نشاط البيت، غلط كام
+/// مرة في آخر مرة خلّصه ([mistakes])، وأتقنه لوحده. [current] و[checkMiss] للمرة اللي شغّال فيها دلوقتي
+/// — بيتحفظوا عشان لو قفل ورجع يكمّل، غلطاته ماتضيعش.
+class LessonLog {
+  LessonLog({
+    this.page = 0,
+    this.done = false,
+    this.activity = false,
+    this.mistakes = 0,
+    this.independent = false,
+    this.current = 0,
+    this.checkMiss = false,
+  });
+  int page;
+  bool done;
+  bool activity;
+  int mistakes;
+  bool independent;
+  int current;
+  bool checkMiss;
+
+  factory LessonLog.fromJson(Object? j) => j is Map
+      ? LessonLog(
+          page: (j['page'] as num?)?.toInt() ?? 0,
+          done: j['done'] as bool? ?? false,
+          activity: j['activity'] as bool? ?? false,
+          mistakes: (j['mistakes'] as num?)?.toInt() ?? 0,
+          independent: j['independent'] as bool? ?? false,
+          current: (j['current'] as num?)?.toInt() ?? 0,
+          checkMiss: j['checkMiss'] as bool? ?? false,
+        )
+      : LessonLog();
+  Map<String, dynamic> toJson() => {
+        'page': page,
+        'done': done,
+        'activity': activity,
+        'mistakes': mistakes,
+        'independent': independent,
+        'current': current,
+        'checkMiss': checkMiss,
+      };
+}

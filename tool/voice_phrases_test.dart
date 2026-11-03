@@ -165,33 +165,38 @@ void main() {
         }
       }
     }
-    // شرح دروس المدرسة (assets/lessons/): كل بطاقة، وسؤال «جرّب معايا» وسببه، ونشاط البيت
+    // شرح دروس المدرسة (assets/lessons/): كل بطاقة، وكل نشاط وتلميحاته وسببه ومثاله الأسهل، ونشاط البيت
     void addSpoken(Object t) => t is List ? t.forEach(add) : add(t);
-    void addVisual(Visual? v) {
-      if (v is ListenVisual) v.en ? addEn(v.say) : add(v.say);
+    void addCard(LessonCard c) {
+      addSpoken(c.spoken);
+      addEn(c.en);
+      if (c.visual case final ListenVisual v) v.en ? addEn(v.say) : add(v.say);
     }
 
     for (final f in Directory(lessonsDir).listSync().whereType<File>().where((f) => f.path.endsWith('.json'))) {
       for (final l in parseLessonBook(f.readAsStringSync())) {
         for (final b in l.blocks) {
-          final cards = switch (b) {
-            ExplainBlock(:final card) => [card],
-            ExampleBlock(:final steps) => steps,
-            _ => const <LessonCard>[],
-          };
-          for (final c in cards) {
-            addSpoken(c.spoken);
-            addEn(c.en);
-            addVisual(c.visual);
+          switch (b) {
+            case HookBlock(:final card, :final ask):
+              addCard(card);
+              add(ask);
+            case ExplainBlock(:final card):
+              addCard(card);
+            case ExampleBlock(:final steps):
+              steps.forEach(addCard);
+            case TryBlock(:final tasks):
+              for (final t in tasks) {
+                addSpoken(t.say ?? t.ask);
+                add(t.why);
+                add(t.hint);
+                t.hints.values.forEach(add);
+                if (t.help case final h?) addCard(h);
+                if (t.visual case final ListenVisual v) v.en ? addEn(v.say) : add(v.say);
+              }
+            case ActivityBlock(:final text):
+              add(text);
+            case SummaryBlock():
           }
-          if (b is TryBlock) {
-            for (final q in b.questions) {
-              addSpoken(q.say ?? q.ask);
-              add(q.why);
-              addVisual(q.visual);
-            }
-          }
-          if (b is ActivityBlock) add(b.text);
         }
       }
     }
