@@ -1,0 +1,2908 @@
+{
+ "book": "p3-t1-english",
+ "edition": "2026_2027",
+ "lessons": [
+  {
+   "uid": "p3-t1-english/greetings",
+   "key": "u1:l1",
+   "title": "Greetings",
+   "goal": "أسلّم وأعرّف نفسي وأسأل عن الحال بالإنجليزي",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "أول يوم في الفصل الجديد!",
+     "visual": {
+      "emoji": "👋🏫"
+     },
+     "ask": "تقول إيه لزميلك الجديد؟"
+    },
+    {
+     "type": "explain",
+     "title": "Greetings",
+     "text": "نسلّم ونسأل عن الحال.",
+     "en": "Good morning! How are you?",
+     "visual": {
+      "emoji": "👋"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "ونرد على السؤال.",
+     "en": "I'm fine, thank you.",
+     "visual": {
+      "emoji": "😊"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "ولما نتعرّف ونمشي.",
+     "en": "Nice to meet you. See you later. Goodbye!",
+     "visual": {
+      "emoji": "🤝🚶"
+     }
+    },
+    {
+     "type": "example",
+     "title": "حوار",
+     "steps": [
+      {
+       "text": "سارة بتسلّم",
+       "en": "Hello! How are you?",
+       "visual": {
+        "emoji": "👧"
+       }
+      },
+      {
+       "text": "علي بيرد",
+       "en": "I'm fine, thank you.",
+       "visual": {
+        "emoji": "👦"
+       }
+      },
+      {
+       "text": "سارة بتتعرّف",
+       "en": "Nice to meet you!",
+       "visual": {
+        "emoji": "😊"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب الحوار",
+       "items": [
+        "Good morning!",
+        "How are you?",
+        "I'm fine, thank you.",
+        "See you later!"
+       ],
+       "en": true,
+       "hint": "الحوار بيبدأ بالسلام",
+       "why": "السلام، السؤال، الرد، الوداع"
+      },
+      {
+       "kind": "match",
+       "ask": "وصّل الجملة بمعناها",
+       "pairs": [
+        [
+         "Nice to meet you",
+         "تشرفنا"
+        ],
+        [
+         "See you later",
+         "أشوفك بعدين"
+        ],
+        [
+         "How are you?",
+         "إزيك؟"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر البطاقات",
+       "why": "كل جملة قدّامها معناها"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اتفقوا مع الطفل يسلّم على أفراد البيت الصبح بالإنجليزي ويسألهم: How are you?"
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Someone says: How are you? You say…",
+       "en": true,
+       "choices": [
+        "Goodbye.",
+        "I'm fine, thank you.",
+        "My name is Ali."
+       ],
+       "answer": "I'm fine, thank you.",
+       "hint": "السؤال عن حالك",
+       "hints": {
+        "Goodbye.": "Goodbye للوداع.",
+        "My name is Ali.": "دي بتقول اسمك، والسؤال عن حالك."
+       },
+       "why": "ده الرد على السؤال عن الحال.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Hello! How are you?"
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "بتقولها وإنت ماشي…",
+       "en": true,
+       "choices": [
+        "Good morning!",
+        "Nice to meet you!",
+        "See you later!"
+       ],
+       "answer": "See you later!",
+       "hint": "إنت ماشي",
+       "hints": {
+        "Good morning!": "دي للسلام الصبح.",
+        "Nice to meet you!": "دي لما نتعرّف."
+       },
+       "why": "دي للوداع.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Hello! How are you?"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "Good morning, How are you?",
+      "I'm fine, thank you",
+      "See you later, Goodbye"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p3-t1-english/be-verb",
+   "key": "u1:l2",
+   "title": "I am, you are, he is",
+   "goal": "أستخدم am وis وare مع الضمائر، وأتكلم عن روتيني",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "أنا تلميذ، هو مدرس، هم أصحاب",
+     "visual": {
+      "emoji": "🧒👨‍🏫👫"
+     },
+     "ask": "إزاي نقولها بالإنجليزي؟"
+    },
+    {
+     "type": "explain",
+     "title": "am / is",
+     "text": "I مع am. He وShe وIt مع is.",
+     "en": "I am a student. He is a teacher.",
+     "visual": {
+      "emoji": "🧒👨"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "are",
+     "text": "You وWe وThey مع are.",
+     "en": "We are friends. They are happy.",
+     "visual": {
+      "emoji": "👫"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "Daily routine",
+     "text": "والروتين: get up, go, study.",
+     "en": "I get up at 7. I go to school.",
+     "visual": {
+      "emoji": "⏰🚌📚"
+     }
+    },
+    {
+     "type": "example",
+     "title": "نختار",
+     "steps": [
+      {
+       "text": "أنا",
+       "en": "I am ten.",
+       "visual": {
+        "emoji": "🧒"
+       }
+      },
+      {
+       "text": "هي",
+       "en": "She is kind.",
+       "visual": {
+        "emoji": "👧"
+       }
+      },
+      {
+       "text": "إحنا",
+       "en": "We are a family.",
+       "visual": {
+        "emoji": "👨‍👩‍👧"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "am ولا is ولا are؟",
+       "groups": [
+        {
+         "name": "am",
+         "items": [
+          "I"
+         ]
+        },
+        {
+         "name": "is",
+         "items": [
+          "He",
+          "She",
+          "It"
+         ]
+        },
+        {
+         "name": "are",
+         "items": [
+          "You",
+          "We",
+          "They"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "افتكر البطاقات",
+       "why": "كل ضمير مع فعله"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "خلّوا الطفل يقول ٣ جمل عن العيلة: My mother is…, My brothers are…, I am…."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "She ... a doctor.",
+       "en": true,
+       "choices": [
+        "is",
+        "am",
+        "are"
+       ],
+       "answer": "is",
+       "hint": "She زي He",
+       "hints": {
+        "am": "am مع I بس.",
+        "are": "are مع You وWe وThey."
+       },
+       "why": "She مع is.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I am ten."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "We ... in grade 3.",
+       "en": true,
+       "choices": [
+        "is",
+        "are",
+        "am"
+       ],
+       "answer": "are",
+       "hint": "We = إحنا، أكتر من واحد",
+       "hints": {
+        "is": "is لواحد.",
+        "am": "am مع I بس."
+       },
+       "why": "We مع are.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I am ten."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "I am",
+      "He, She, It is",
+      "You, We, They are"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p3-t1-english/wh",
+   "key": "u1:l3",
+   "title": "Digraph wh",
+   "goal": "أعرف صوت wh في أول الكلمة: what, whale, white",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "حوت أبيض كبير!",
+     "visual": {
+      "emoji": "🐋⚪"
+     },
+     "ask": "بنقول whale إزاي؟"
+    },
+    {
+     "type": "explain",
+     "title": "wh",
+     "text": "الحرفين w وh مع بعض بيعملوا صوت واحد زي w.",
+     "en": "what, whale, white",
+     "visual": {
+      "letter": "wh"
+     }
+    },
+    {
+     "type": "example",
+     "title": "كلمات wh",
+     "steps": [
+      {
+       "text": "إيه؟",
+       "en": "what",
+       "visual": {
+        "emoji": "❓"
+       }
+      },
+      {
+       "text": "حوت",
+       "en": "whale",
+       "visual": {
+        "emoji": "🐋"
+       }
+      },
+      {
+       "text": "أبيض",
+       "en": "white",
+       "visual": {
+        "emoji": "⚪"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "pick",
+       "ask": "المس الكلمات اللي أولها wh",
+       "items": [
+        "what",
+        "whale",
+        "water",
+        "white",
+        "wet"
+       ],
+       "answers": [
+        "what",
+        "whale",
+        "white"
+       ],
+       "en": true,
+       "hint": "بص على أول حرفين",
+       "hints": {
+        "water": "water أولها w بس.",
+        "wet": "wet أولها w بس."
+       },
+       "why": "دول أولهم wh"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اكتبوا wh على ورقة، والطفل يدوّر على كلمات فيها wh في كتاب إنجليزي."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "أي كلمة أولها wh؟",
+       "en": true,
+       "choices": [
+        "well",
+        "heel",
+        "wheel"
+       ],
+       "answer": "wheel",
+       "hint": "دوّر على الحرفين",
+       "hints": {
+        "well": "well أولها w بس.",
+        "heel": "heel أولها h بس."
+       },
+       "why": "wheel أولها wh.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "what"
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "What color is snow?",
+       "en": true,
+       "choices": [
+        "white",
+        "black",
+        "red"
+       ],
+       "answer": "white",
+       "hint": "لون التلج",
+       "hints": {
+        "black": "التلج مش أسود.",
+        "red": "التلج مش أحمر."
+       },
+       "why": "التلج أبيض: white.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "what"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "wh صوت واحد: what, whale, white"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p3-t1-english/family",
+   "key": "u2:l1",
+   "title": "Family",
+   "goal": "أعرف أسماء أفراد العيلة والمهن بالإنجليزي",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "دي صورة عيلة كبيرة!",
+     "visual": {
+      "emoji": "👨‍👩‍👧‍👦👴👵"
+     },
+     "ask": "مين في الصورة؟"
+    },
+    {
+     "type": "explain",
+     "title": "Family",
+     "text": "العيلة",
+     "en": "father, mother, brother, sister",
+     "visual": {
+      "emoji": "👨‍👩‍👧‍👦"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "العيلة الكبيرة",
+     "en": "grandfather, grandmother, uncle, aunt, cousin",
+     "visual": {
+      "emoji": "👴👵"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "Jobs",
+     "text": "المهن",
+     "en": "teacher, doctor, baker, farmer, pilot",
+     "visual": {
+      "emoji": "👩‍🏫👨‍⚕️👨‍🍳👨‍🌾👩‍✈️"
+     }
+    },
+    {
+     "type": "example",
+     "title": "نتكلم عن العيلة",
+     "steps": [
+      {
+       "text": "بابا",
+       "en": "My father is a doctor.",
+       "visual": {
+        "emoji": "👨‍⚕️"
+       }
+      },
+      {
+       "text": "عمي",
+       "en": "My uncle is a farmer.",
+       "visual": {
+        "emoji": "👨‍🌾"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل المهنة بصورتها",
+       "pairs": [
+        [
+         "teacher",
+         "👩‍🏫"
+        ],
+        [
+         "doctor",
+         "👨‍⚕️"
+        ],
+        [
+         "baker",
+         "👨‍🍳"
+        ],
+        [
+         "pilot",
+         "👩‍✈️"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر البطاقات",
+       "why": "كل مهنة قدّامها صورتها"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اعرضوا صور العيلة، والطفل يقول عن كل واحد: This is my… He is a…."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "ابن عمك بالإنجليزي؟",
+       "en": true,
+       "choices": [
+        "uncle",
+        "cousin",
+        "brother"
+       ],
+       "answer": "cousin",
+       "hint": "مش العم نفسه",
+       "hints": {
+        "uncle": "uncle هو العم نفسه.",
+        "brother": "brother أخوك."
+       },
+       "why": "ابن العم = cousin.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "My father is a doctor."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "اللي بيسوق الطيارة؟",
+       "en": true,
+       "choices": [
+        "farmer",
+        "baker",
+        "pilot"
+       ],
+       "answer": "pilot",
+       "hint": "فكّر في الطيارة",
+       "hints": {
+        "farmer": "farmer بيزرع.",
+        "baker": "baker بيخبز."
+       },
+       "why": "الطيار = pilot.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "My father is a doctor."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "father, mother, brother, sister",
+      "uncle, aunt, cousin",
+      "teacher, doctor, baker, farmer, pilot"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p3-t1-english/possessive",
+   "key": "u2:l2",
+   "title": "my, his, her",
+   "goal": "أستخدم my وhis وher عشان أقول الحاجة بتاعة مين",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "دي شنطتي، ودي شنطته، ودي شنطتها",
+     "visual": {
+      "emoji": "🎒🎒🎒"
+     },
+     "ask": "بنقولها إزاي؟"
+    },
+    {
+     "type": "explain",
+     "title": "my / his / her",
+     "text": "my: بتاعي. his: بتاعه (ولد). her: بتاعتها (بنت).",
+     "en": "my bag, his bag, her bag",
+     "visual": {
+      "emoji": "🧒👦👧"
+     }
+    },
+    {
+     "type": "example",
+     "title": "جمل",
+     "steps": [
+      {
+       "text": "ماما",
+       "en": "My mother is a teacher.",
+       "visual": {
+        "emoji": "👩‍🏫"
+       }
+      },
+      {
+       "text": "أخو علي",
+       "en": "His brother is a student.",
+       "visual": {
+        "emoji": "👦"
+       }
+      },
+      {
+       "text": "تيشيرت سارة",
+       "en": "Her T-shirt is blue.",
+       "visual": {
+        "emoji": "👕"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "his ولا her؟",
+       "groups": [
+        {
+         "name": "his",
+         "items": [
+          "Ali",
+          "Omar",
+          "Karim"
+         ]
+        },
+        {
+         "name": "her",
+         "items": [
+          "Mona",
+          "Sara",
+          "Laila"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "الاسم لولد ولا بنت؟",
+       "why": "his للولد وher للبنت"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "شاوروا على حاجات في البيت والطفل يقول: This is my…, This is his…, This is her…."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "This is Mona. ... bag is red.",
+       "en": true,
+       "choices": [
+        "Her",
+        "His",
+        "My"
+       ],
+       "answer": "Her",
+       "hint": "منى ولد ولا بنت؟",
+       "hints": {
+        "His": "His للولد، ومنى بنت.",
+        "My": "My بتاعي أنا."
+       },
+       "why": "منى بنت، فنقول Her.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "My mother is a teacher."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "This is Omar. ... hair is short.",
+       "en": true,
+       "choices": [
+        "Her",
+        "His",
+        "My"
+       ],
+       "answer": "His",
+       "hint": "عمر ولد ولا بنت؟",
+       "hints": {
+        "Her": "Her للبنت، وعمر ولد.",
+        "My": "My بتاعي أنا."
+       },
+       "why": "عمر ولد، فنقول His.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "My mother is a teacher."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "my = بتاعي",
+      "his = بتاعه",
+      "her = بتاعتها"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p3-t1-english/ph-x",
+   "key": "u2:l3",
+   "title": "ph and x",
+   "goal": "أعرف صوت ph زي f، وصوت x في exam وexit",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "فيل في التليفون!",
+     "visual": {
+      "emoji": "🐘📱"
+     },
+     "ask": "ليه elephant فيها ph؟"
+    },
+    {
+     "type": "explain",
+     "title": "ph",
+     "text": "ph مع بعض صوتهم زي f.",
+     "en": "phone, elephant, graph",
+     "visual": {
+      "letter": "ph"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "x",
+     "text": "x في أول بعض الكلمات صوتها gz.",
+     "en": "exam, exit, example",
+     "visual": {
+      "letter": "x"
+     }
+    },
+    {
+     "type": "example",
+     "title": "كلمات",
+     "steps": [
+      {
+       "text": "تليفون",
+       "en": "phone",
+       "visual": {
+        "emoji": "📱"
+       }
+      },
+      {
+       "text": "فيل",
+       "en": "elephant",
+       "visual": {
+        "emoji": "🐘"
+       }
+      },
+      {
+       "text": "مخرج",
+       "en": "exit",
+       "visual": {
+        "emoji": "🚪"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "ph ولا x؟",
+       "groups": [
+        {
+         "name": "ph",
+         "items": [
+          "phone",
+          "elephant",
+          "graph"
+         ]
+        },
+        {
+         "name": "x",
+         "items": [
+          "exam",
+          "exit",
+          "example"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "بص على الكلمة",
+       "why": "كل كلمة في مكان حرفها"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "دوّروا على كلمة exit في المحلات والمول، والطفل يقراها."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "أي كلمة فيها صوت f بحرفين ph؟",
+       "en": true,
+       "choices": [
+        "fish",
+        "fan",
+        "photo"
+       ],
+       "answer": "photo",
+       "hint": "دوّر على الحرفين",
+       "hints": {
+        "fish": "fish بحرف f.",
+        "fan": "fan بحرف f واحد، مش ph."
+       },
+       "why": "photo بـ ph.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "phone"
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "يوم الامتحان بالإنجليزي؟",
+       "en": true,
+       "choices": [
+        "exam",
+        "exit",
+        "example"
+       ],
+       "answer": "exam",
+       "hint": "افتكر البطاقات",
+       "hints": {
+        "exit": "exit يعني مخرج.",
+        "example": "example يعني مثال."
+       },
+       "why": "الامتحان = exam.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "phone"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "ph صوتها f: phone",
+      "x في exam وexit"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p3-t1-english/places",
+   "key": "u3:l1",
+   "title": "Places",
+   "goal": "أعرف أماكن المدينة بالإنجليزي وأقول رحت فين",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "يوسف عنده يوم مليان!",
+     "visual": {
+      "emoji": "🏛️🛒📚"
+     },
+     "ask": "تفتكر راح فين؟"
+    },
+    {
+     "type": "explain",
+     "title": "Places",
+     "text": "أماكن",
+     "en": "house, museum, supermarket",
+     "visual": {
+      "emoji": "🏠🏛️🛒"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "أماكن تانية",
+     "en": "park, library, train station",
+     "visual": {
+      "emoji": "🌳📚🚉"
+     }
+    },
+    {
+     "type": "example",
+     "title": "يوم يوسف",
+     "steps": [
+      {
+       "text": "الأول",
+       "en": "First, he went to the library.",
+       "visual": {
+        "emoji": "📚"
+       }
+      },
+      {
+       "text": "بعدين",
+       "en": "Then, he went to the supermarket.",
+       "visual": {
+        "emoji": "🛒"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل المكان بصورته",
+       "pairs": [
+        [
+         "museum",
+         "🏛️"
+        ],
+        [
+         "park",
+         "🌳"
+        ],
+        [
+         "library",
+         "📚"
+        ],
+        [
+         "train station",
+         "🚉"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر البطاقات",
+       "why": "كل مكان قدّامه صورته"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "لما تخرجوا، اسألوا الطفل: Where are we? والطفل يجاوب باسم المكان بالإنجليزي."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "بنشتري أكل من…",
+       "en": true,
+       "choices": [
+        "library",
+        "supermarket",
+        "museum"
+       ],
+       "answer": "supermarket",
+       "hint": "فين بنشتري الأكل؟",
+       "hints": {
+        "library": "library للكتب.",
+        "museum": "museum للآثار."
+       },
+       "why": "الأكل من السوبرماركت.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "First, he went to the library."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "بنركب القطر من…",
+       "en": true,
+       "choices": [
+        "park",
+        "house",
+        "train station"
+       ],
+       "answer": "train station",
+       "hint": "فين القطر؟",
+       "hints": {
+        "park": "park الجنينة.",
+        "house": "house البيت."
+       },
+       "why": "القطر من المحطة.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "First, he went to the library."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "house, museum, supermarket",
+      "park, library, train station"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p3-t1-english/prepositions",
+   "key": "u3:l2",
+   "title": "in, on, under",
+   "goal": "أقول مكان الحاجة: in, on, under, next to, between, behind, in front of",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "القطة مستخبية!",
+     "visual": {
+      "emoji": "🐱📦"
+     },
+     "ask": "هي فين؟"
+    },
+    {
+     "type": "explain",
+     "title": "in / on / under",
+     "text": "in جوه، on فوق، under تحت.",
+     "en": "The cat is in the box.",
+     "visual": {
+      "prep": "in",
+      "thing": "🐱",
+      "place": "📦"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "next to جنب، between بين، behind ورا، in front of قدّام.",
+     "en": "The cat is next to the box.",
+     "visual": {
+      "emoji": "↔️"
+     }
+    },
+    {
+     "type": "example",
+     "title": "فين الكورة؟",
+     "steps": [
+      {
+       "text": "تحت السرير",
+       "en": "The ball is under the bed.",
+       "visual": {
+        "prep": "under",
+        "thing": "⚽",
+        "place": "🛏️"
+       }
+      },
+      {
+       "text": "فوق الكرسي",
+       "en": "The ball is on the chair.",
+       "visual": {
+        "prep": "on",
+        "thing": "⚽",
+        "place": "🪑"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بمعناها",
+       "pairs": [
+        [
+         "behind",
+         "ورا"
+        ],
+        [
+         "between",
+         "بين"
+        ],
+        [
+         "in front of",
+         "قدّام"
+        ],
+        [
+         "next to",
+         "جنب"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر البطاقة",
+       "why": "كل كلمة قدّامها معناها"
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب الجملة",
+       "items": [
+        "The book",
+        "is",
+        "on",
+        "the desk."
+       ],
+       "en": true,
+       "hint": "الجملة بتبدأ بـ The book",
+       "why": "The book is on the desk."
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "خبّوا لعبة وقولوا مكانها بالإنجليزي، والطفل يدوّر عليها: It is behind the door."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "The cat is ... the box. (جوه)",
+       "visual": {
+        "prep": "in",
+        "thing": "🐱",
+        "place": "📦"
+       },
+       "en": true,
+       "choices": [
+        "in",
+        "on",
+        "under"
+       ],
+       "answer": "in",
+       "hint": "جوه",
+       "hints": {
+        "on": "on يعني فوق.",
+        "under": "under يعني تحت."
+       },
+       "why": "جوه = in.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "The ball is under the bed."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "The bag is ... the door. (ورا)",
+       "en": true,
+       "choices": [
+        "between",
+        "behind",
+        "next to"
+       ],
+       "answer": "behind",
+       "hint": "ورا",
+       "hints": {
+        "between": "between يعني بين حاجتين.",
+        "next to": "next to يعني جنب."
+       },
+       "why": "ورا = behind.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "The ball is under the bed."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "in, on, under",
+      "next to, between, behind, in front of"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p3-t1-english/past-regular",
+   "key": "u3:l3",
+   "title": "Past tense: walked, played",
+   "goal": "أحكي عن اللي عملته امبارح بالفعل الماضي بزيادة ed",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "امبارح لعبت كورة",
+     "visual": {
+      "emoji": "⚽⏪"
+     },
+     "ask": "نقولها إزاي بالإنجليزي؟"
+    },
+    {
+     "type": "explain",
+     "title": "Past simple",
+     "text": "الماضي: نزوّد ed للفعل. play → played، walk → walked.",
+     "en": "I played football yesterday.",
+     "visual": {
+      "emoji": "⏪"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "وأفعال تانية",
+     "en": "jumped, kicked, pushed, clapped, cleaned, called",
+     "visual": {
+      "emoji": "🧹👏"
+     }
+    },
+    {
+     "type": "example",
+     "title": "امبارح",
+     "steps": [
+      {
+       "text": "مشيت للمدرسة",
+       "en": "I walked to school.",
+       "visual": {
+        "emoji": "🚶"
+       }
+      },
+      {
+       "text": "نضّفت أوضتي",
+       "en": "I cleaned my room.",
+       "visual": {
+        "emoji": "🧹"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الفعل بماضيه",
+       "pairs": [
+        [
+         "play",
+         "played"
+        ],
+        [
+         "jump",
+         "jumped"
+        ],
+        [
+         "clean",
+         "cleaned"
+        ],
+        [
+         "call",
+         "called"
+        ]
+       ],
+       "en": true,
+       "hint": "زوّد ed",
+       "why": "زوّدنا ed"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "بالليل، الطفل يحكي ٣ حاجات عملها النهارده بالإنجليزي: I played…, I cleaned…."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Yesterday, I ... with my friend.",
+       "en": true,
+       "choices": [
+        "play",
+        "playing",
+        "played"
+       ],
+       "answer": "played",
+       "hint": "امبارح يعني ماضي",
+       "hints": {
+        "play": "play للحاضر، وامبارح ماضي.",
+        "playing": "playing محتاجة am/is قبلها."
+       },
+       "why": "امبارح = played.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I walked to school."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "أي فعل في الماضي؟",
+       "en": true,
+       "choices": [
+        "walked",
+        "walk",
+        "walks"
+       ],
+       "answer": "walked",
+       "hint": "دوّر على ed",
+       "hints": {
+        "walk": "walk في الحاضر.",
+        "walks": "walks في الحاضر مع he."
+       },
+       "why": "walked فيها ed.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I walked to school."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "الماضي: نزوّد ed",
+      "played, walked, cleaned"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p3-t1-english/double-endings",
+   "key": "u3:l4",
+   "title": "zz, ss, ll and ck",
+   "goal": "أعرف الكلمات اللي آخرها حرفين زي بعض (zz, ss, ll) وck",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "النحلة بتعمل buzz!",
+     "visual": {
+      "emoji": "🐝"
+     },
+     "ask": "ليه فيها zz؟"
+    },
+    {
+     "type": "explain",
+     "title": "Double endings",
+     "text": "بعض الكلمات آخرها حرفين زي بعض: buzz, miss, bell, tell.",
+     "en": "buzz, miss, bell, tell",
+     "visual": {
+      "letter": "zz ss ll"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "ck",
+     "text": "وck صوتها k: duck, neck, truck.",
+     "en": "duck, neck, truck",
+     "visual": {
+      "letter": "ck"
+     }
+    },
+    {
+     "type": "example",
+     "title": "كلمات",
+     "steps": [
+      {
+       "text": "جرس",
+       "en": "bell",
+       "visual": {
+        "emoji": "🔔"
+       }
+      },
+      {
+       "text": "بطة",
+       "en": "duck",
+       "visual": {
+        "emoji": "🦆"
+       }
+      },
+      {
+       "text": "شاحنة",
+       "en": "truck",
+       "visual": {
+        "emoji": "🚚"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "آخرها إيه؟",
+       "groups": [
+        {
+         "name": "ll",
+         "items": [
+          "bell",
+          "tell"
+         ]
+        },
+        {
+         "name": "ss",
+         "items": [
+          "miss",
+          "glass"
+         ]
+        },
+        {
+         "name": "ck",
+         "items": [
+          "duck",
+          "neck"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "بص على آخر حرفين",
+       "why": "كل كلمة حسب آخرها"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اكتبوا bell وduck وbuzz على كروت، والطفل يقراهم ويقول الصوت اللي في آخرهم."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "أي كلمة مكتوبة صح؟",
+       "en": true,
+       "choices": [
+        "duk",
+        "duck",
+        "duc"
+       ],
+       "answer": "duck",
+       "hint": "صوت k في الآخر بعد حرف قصير",
+       "hints": {
+        "duk": "صوت k في آخرها بنكتبه ck.",
+        "duc": "ناقصها k."
+       },
+       "why": "duck بـ ck.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "bell"
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "أي كلمة آخرها ss؟",
+       "en": true,
+       "choices": [
+        "bell",
+        "truck",
+        "dress"
+       ],
+       "answer": "dress",
+       "hint": "بص على آخر حرفين",
+       "hints": {
+        "bell": "bell آخرها ll.",
+        "truck": "truck آخرها ck."
+       },
+       "why": "dress آخرها ss.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "bell"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "buzz, miss, bell: حرفين زي بعض",
+      "ck صوتها k: duck"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p3-t1-english/feelings",
+   "key": "u4:l1",
+   "title": "Feelings",
+   "goal": "أعرف أسماء المشاعر بالإنجليزي وأقول أنا حاسس بإيه",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "ساعات بنفرح وساعات بنزعل",
+     "visual": {
+      "emoji": "😊😢😠"
+     },
+     "ask": "إنت حاسس بإيه دلوقتي؟"
+    },
+    {
+     "type": "explain",
+     "title": "Feelings",
+     "text": "مشاعر",
+     "en": "happy, sad, angry",
+     "visual": {
+      "emoji": "😊😢😠"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "مشاعر تانية",
+     "en": "scared, shy, excited, tired, bored",
+     "visual": {
+      "emoji": "😨😳🤩😴😐"
+     }
+    },
+    {
+     "type": "example",
+     "title": "أنا حاسس…",
+     "steps": [
+      {
+       "text": "فرحان",
+       "en": "I feel happy.",
+       "visual": {
+        "emoji": "😊"
+       }
+      },
+      {
+       "text": "تعبان",
+       "en": "I feel tired.",
+       "visual": {
+        "emoji": "😴"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الإحساس بالوش",
+       "pairs": [
+        [
+         "happy",
+         "😊"
+        ],
+        [
+         "sad",
+         "😢"
+        ],
+        [
+         "scared",
+         "😨"
+        ],
+        [
+         "tired",
+         "😴"
+        ]
+       ],
+       "en": true,
+       "hint": "بص على الوش",
+       "why": "كل إحساس قدّامه وشه"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "كل يوم بالليل، اسألوا الطفل: How do you feel today? ويجاوب بإحساس واحد وسبب."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "😠 = ?",
+       "visual": {
+        "emoji": "😠"
+       },
+       "en": true,
+       "choices": [
+        "angry",
+        "happy",
+        "shy"
+       ],
+       "answer": "angry",
+       "hint": "بص على الوش",
+       "hints": {
+        "happy": "happy فرحان.",
+        "shy": "shy مكسوف."
+       },
+       "why": "ده وش زعلان قوي: angry.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I feel happy."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "عندك حفلة بكرة! حاسس بإيه؟",
+       "en": true,
+       "choices": [
+        "bored",
+        "excited",
+        "sad"
+       ],
+       "answer": "excited",
+       "hint": "الحفلة بتفرّح وبتحمّس",
+       "hints": {
+        "bored": "bored يعني زهقان.",
+        "sad": "sad يعني زعلان."
+       },
+       "why": "متحمس = excited.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I feel happy."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "happy, sad, angry, scared",
+      "shy, excited, tired, bored"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p3-t1-english/past-stories",
+   "key": "u4:l2",
+   "title": "Past simple stories",
+   "goal": "أحكي قصة في الماضي بالأفعال الشاذة: went, saw",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "سارة راحت الجنينة وشافت حاجة غريبة",
+     "visual": {
+      "emoji": "👧🌳"
+     },
+     "ask": "تفتكر شافت إيه؟"
+    },
+    {
+     "type": "explain",
+     "title": "Irregular past",
+     "text": "بعض الأفعال الماضي بتاعها مختلف: go → went، see → saw، eat → ate.",
+     "en": "went, saw, ate, had",
+     "visual": {
+      "emoji": "📖"
+     }
+    },
+    {
+     "type": "read",
+     "title": "قصة سارة",
+     "items": [
+      {
+       "text": "سارة في الجنينة",
+       "en": "Sara went to the park.",
+       "visual": {
+        "emoji": "👧🌳"
+       }
+      },
+      {
+       "text": "شافت قطة",
+       "en": "She saw a little cat.",
+       "visual": {
+        "emoji": "🐱"
+       }
+      },
+      {
+       "text": "القطة كانت جعانة",
+       "en": "She gave it some milk.",
+       "visual": {
+        "emoji": "🥛"
+       }
+      },
+      {
+       "text": "سارة فرحت",
+       "en": "Sara felt happy.",
+       "visual": {
+        "emoji": "😊"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الفعل بماضيه",
+       "pairs": [
+        [
+         "go",
+         "went"
+        ],
+        [
+         "see",
+         "saw"
+        ],
+        [
+         "eat",
+         "ate"
+        ],
+        [
+         "have",
+         "had"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر البطاقة",
+       "why": "دي أفعال ماضيها مختلف"
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب القصة",
+       "items": [
+        "Sara went to the park.",
+        "She saw a little cat.",
+        "She gave it some milk.",
+        "Sara felt happy."
+       ],
+       "en": true,
+       "hint": "القصة بدأت في الجنينة",
+       "why": "ده ترتيب القصة"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اقرؤوا قصة قصيرة بالإنجليزي، والطفل يدوّر على الأفعال الماضي فيها."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Where did Sara go?",
+       "en": true,
+       "choices": [
+        "to school",
+        "to the museum",
+        "to the park"
+       ],
+       "answer": "to the park",
+       "hint": "ارجع لأول جملة",
+       "hints": {
+        "to school": "اقرأ أول جملة.",
+        "to the museum": "سارة ماراحتش المتحف."
+       },
+       "why": "Sara went to the park.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Sara went to the park."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "Yesterday, we ... to the zoo.",
+       "en": true,
+       "choices": [
+        "went",
+        "go",
+        "goes"
+       ],
+       "answer": "went",
+       "hint": "امبارح = ماضي",
+       "hints": {
+        "go": "go للحاضر.",
+        "goes": "goes للحاضر مع he."
+       },
+       "why": "ماضي go = went.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Sara went to the park."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "go → went, see → saw",
+      "نحكي القصة بالترتيب"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p3-t1-english/hard-soft-c",
+   "key": "u4:l3",
+   "title": "Hard and soft c",
+   "goal": "أعرف إن c ساعات صوتها k وساعات s",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "cat وcity أولهم c…",
+     "visual": {
+      "emoji": "🐱🏙️"
+     },
+     "ask": "بنتنطقوا زي بعض؟"
+    },
+    {
+     "type": "explain",
+     "title": "Hard c",
+     "text": "c قبل a وo وu صوتها k: cat, cook, car.",
+     "en": "cat, cook, car",
+     "visual": {
+      "letter": "c"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "Soft c",
+     "text": "c قبل e وi صوتها s: city, face.",
+     "en": "city, face",
+     "visual": {
+      "letter": "c"
+     }
+    },
+    {
+     "type": "example",
+     "title": "نسمع",
+     "steps": [
+      {
+       "text": "قطة",
+       "en": "cat",
+       "visual": {
+        "emoji": "🐱"
+       }
+      },
+      {
+       "text": "مدينة",
+       "en": "city",
+       "visual": {
+        "emoji": "🏙️"
+       }
+      },
+      {
+       "text": "وش",
+       "en": "face",
+       "visual": {
+        "emoji": "🙂"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "صوت k ولا s؟",
+       "groups": [
+        {
+         "name": "k",
+         "items": [
+          "cat",
+          "car",
+          "cook"
+         ]
+        },
+        {
+         "name": "s",
+         "items": [
+          "city",
+          "face",
+          "rice"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "بص على الحرف اللي بعد c",
+       "why": "c قبل e وi صوتها s"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "دوّروا على كلمات فيها c في علبة أكل أو كتاب، والطفل يقول: صوتها k ولا s؟"
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "أي كلمة فيها c صوتها s؟",
+       "en": true,
+       "choices": [
+        "cup",
+        "circle",
+        "cake"
+       ],
+       "answer": "circle",
+       "hint": "بص على الحرف اللي بعد c",
+       "hints": {
+        "cup": "cup صوتها k.",
+        "cake": "cake صوتها k."
+       },
+       "why": "c قبل i صوتها s.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "cat"
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "أي كلمة فيها c صوتها k؟",
+       "en": true,
+       "choices": [
+        "cent",
+        "ice",
+        "coat"
+       ],
+       "answer": "coat",
+       "hint": "بص على الحرف اللي بعد c",
+       "hints": {
+        "cent": "c قبل e صوتها s.",
+        "ice": "c قبل e صوتها s."
+       },
+       "why": "c قبل o صوتها k.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "cat"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "c قبل a, o, u = k",
+      "c قبل e, i = s"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p3-t1-english/actions",
+   "key": "u5:l1",
+   "title": "Actions",
+   "goal": "أستخدم أفعال التعاون: help, plan, share, fix, agree",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "كريم ومنى عندهم مشروع مع بعض",
+     "visual": {
+      "emoji": "👦👧🛠️"
+     },
+     "ask": "هيعملوه إزاي؟"
+    },
+    {
+     "type": "explain",
+     "title": "Working together",
+     "text": "أفعال التعاون",
+     "en": "help, plan, share, fix, agree",
+     "visual": {
+      "emoji": "🤝"
+     }
+    },
+    {
+     "type": "read",
+     "title": "We Share, We Care",
+     "items": [
+      {
+       "text": "المشروع",
+       "en": "Salma and Youssef had a project.",
+       "visual": {
+        "emoji": "📋"
+       }
+      },
+      {
+       "text": "اتفقوا",
+       "en": "They planned together.",
+       "visual": {
+        "emoji": "🤝"
+       }
+      },
+      {
+       "text": "ساعدوا بعض",
+       "en": "They shared the work and helped each other.",
+       "visual": {
+        "emoji": "🛠️"
+       }
+      },
+      {
+       "text": "نجحوا",
+       "en": "They agreed and finished.",
+       "visual": {
+        "emoji": "🏆"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الفعل بمعناه",
+       "pairs": [
+        [
+         "help",
+         "يساعد"
+        ],
+        [
+         "share",
+         "يشارك"
+        ],
+        [
+         "fix",
+         "يصلّح"
+        ],
+        [
+         "agree",
+         "يتفق"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر البطاقة",
+       "why": "كل فعل قدّامه معناه"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اعملوا مشروع صغير مع الطفل (ترتيب رف، لعبة)، واستخدموا الكلمات: Let's plan. Let's share."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "My toy is broken. Let's ... it.",
+       "en": true,
+       "choices": [
+        "fix",
+        "share",
+        "plan"
+       ],
+       "answer": "fix",
+       "hint": "اللعبة مكسورة",
+       "hints": {
+        "share": "share يعني نشارك.",
+        "plan": "plan يعني نخطط."
+       },
+       "why": "نصلّحها = fix.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Salma and Youssef had a project."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "What did Salma and Youssef do?",
+       "en": true,
+       "choices": [
+        "They went to sleep.",
+        "They shared the work.",
+        "They had a fight."
+       ],
+       "answer": "They shared the work.",
+       "hint": "ارجع للقصة",
+       "hints": {
+        "They went to sleep.": "القصة عن الشغل مع بعض.",
+        "They had a fight.": "هم اتفقوا، مااتخانقوش."
+       },
+       "why": "شاركوا الشغل.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Salma and Youssef had a project."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "help, plan, share, fix, agree",
+      "التعاون بيوصّل للنجاح"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p3-t1-english/hard-soft-g",
+   "key": "u5:l2",
+   "title": "Hard and soft g",
+   "goal": "أعرف إن g ساعات صوتها ج قوية وساعات ج ناعمة",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "go وEgypt الاتنين فيهم g…",
+     "visual": {
+      "emoji": "🏃🇪🇬"
+     },
+     "ask": "بنتنطق زي بعض؟"
+    },
+    {
+     "type": "explain",
+     "title": "Hard g",
+     "text": "g صوتها g قوية: gum, go, dog.",
+     "en": "gum, go, dog",
+     "visual": {
+      "letter": "g"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "Soft g",
+     "text": "وساعات قبل e وi وy صوتها ج: giraffe, Egypt, page.",
+     "en": "giraffe, Egypt, page",
+     "visual": {
+      "letter": "g"
+     }
+    },
+    {
+     "type": "example",
+     "title": "نسمع",
+     "steps": [
+      {
+       "text": "كلب",
+       "en": "dog",
+       "visual": {
+        "emoji": "🐕"
+       }
+      },
+      {
+       "text": "زرافة",
+       "en": "giraffe",
+       "visual": {
+        "emoji": "🦒"
+       }
+      },
+      {
+       "text": "مصر",
+       "en": "Egypt",
+       "visual": {
+        "emoji": "🇪🇬"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "g قوية ولا ج؟",
+       "groups": [
+        {
+         "name": "g قوية",
+         "items": [
+          "go",
+          "dog",
+          "gum"
+         ]
+        },
+        {
+         "name": "ج",
+         "items": [
+          "giraffe",
+          "page",
+          "Egypt"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "اسمع الكلمة",
+       "why": "كل كلمة حسب صوت g"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اقروا مع الطفل كلمات فيها g (garden, giant, game, age) ويقول صوتها."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "أي كلمة g فيها صوتها ج؟",
+       "en": true,
+       "choices": [
+        "game",
+        "green",
+        "giant"
+       ],
+       "answer": "giant",
+       "hint": "اسمع أول صوت",
+       "hints": {
+        "game": "game صوتها g قوية.",
+        "green": "green صوتها g قوية."
+       },
+       "why": "giant بصوت ج.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "dog"
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "أي كلمة g فيها قوية؟",
+       "en": true,
+       "choices": [
+        "goat",
+        "gym",
+        "gem"
+       ],
+       "answer": "goat",
+       "hint": "اسمع أول صوت",
+       "hints": {
+        "gym": "g قبل y صوتها ج.",
+        "gem": "g قبل e هنا صوتها ج."
+       },
+       "why": "goat بصوت g قوية.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "dog"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "g قوية: go, dog",
+      "g ناعمة زي ج: giraffe, Egypt"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p3-t1-english/chores",
+   "key": "u5:l3",
+   "title": "Chores",
+   "goal": "أعرف كلمات المساعدة في البيت والتطوع",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "ماما طلبت مساعدة في البيت",
+     "visual": {
+      "emoji": "🏠🧹"
+     },
+     "ask": "ممكن تساعد في إيه؟"
+    },
+    {
+     "type": "explain",
+     "title": "Chores",
+     "text": "شغل البيت",
+     "en": "tidy up, clean, care",
+     "visual": {
+      "emoji": "🧹🧺"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "ونساعد الناس",
+     "en": "plant, donate, cheer, win",
+     "visual": {
+      "emoji": "🌱🎁📣"
+     }
+    },
+    {
+     "type": "example",
+     "title": "بنساعد",
+     "steps": [
+      {
+       "text": "بنرتب",
+       "en": "We tidy up the room.",
+       "visual": {
+        "emoji": "🧸"
+       }
+      },
+      {
+       "text": "بنتبرع",
+       "en": "We donate clothes.",
+       "visual": {
+        "emoji": "👕🎁"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بمعناها",
+       "pairs": [
+        [
+         "tidy up",
+         "يرتب"
+        ],
+        [
+         "donate",
+         "يتبرع"
+        ],
+        [
+         "plant",
+         "يزرع"
+        ],
+        [
+         "cheer",
+         "يشجع"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر البطاقة",
+       "why": "كل كلمة قدّامها معناها"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اتفقوا مع الطفل على chore يعملها كل يوم في الأسبوع ده، ويقولها بالإنجليزي."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "بنحط اللعب في مكانها = we … the room",
+       "en": true,
+       "choices": [
+        "donate",
+        "tidy up",
+        "cheer"
+       ],
+       "answer": "tidy up",
+       "hint": "ترتيب",
+       "hints": {
+        "donate": "donate يعني نتبرع.",
+        "cheer": "cheer يعني نشجع."
+       },
+       "why": "نرتب = tidy up.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "We tidy up the room."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "بنزرع شجرة = we … a tree",
+       "en": true,
+       "choices": [
+        "win",
+        "care",
+        "plant"
+       ],
+       "answer": "plant",
+       "hint": "زراعة",
+       "hints": {
+        "win": "win يعني نكسب.",
+        "care": "care يعني نهتم."
+       },
+       "why": "نزرع = plant.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "We tidy up the room."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "tidy up, clean, care",
+      "plant, donate, cheer, win"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p3-t1-english/present-continuous",
+   "key": "u6:l1",
+   "title": "Present continuous",
+   "goal": "أقول اللي بيحصل دلوقتي: am/is/are + ing",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "منى بتتمرن دلوقتي عشان تكسب السباق",
+     "visual": {
+      "emoji": "🏃‍♀️"
+     },
+     "ask": "نقول «بتتمرن» إزاي؟"
+    },
+    {
+     "type": "explain",
+     "title": "Now",
+     "text": "اللي بيحصل دلوقتي: am/is/are + الفعل + ing.",
+     "en": "Mona is practicing now.",
+     "visual": {
+      "emoji": "⏱️"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "مع I: am. مع He/She: is. مع We/They: are.",
+     "en": "I am reading. They are playing.",
+     "visual": {
+      "emoji": "🧒👧👫"
+     }
+    },
+    {
+     "type": "example",
+     "title": "دلوقتي",
+     "steps": [
+      {
+       "text": "أنا بكتب",
+       "en": "I am writing.",
+       "visual": {
+        "emoji": "✍️"
+       }
+      },
+      {
+       "text": "هم بيلعبوا",
+       "en": "They are playing.",
+       "visual": {
+        "emoji": "⚽"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب الجملة",
+       "items": [
+        "She",
+        "is",
+        "reading",
+        "a book."
+       ],
+       "en": true,
+       "hint": "الجملة بتبدأ بـ She",
+       "why": "She is reading a book."
+      },
+      {
+       "kind": "sort",
+       "ask": "am ولا is ولا are؟",
+       "groups": [
+        {
+         "name": "am",
+         "items": [
+          "I ... running."
+         ]
+        },
+        {
+         "name": "is",
+         "items": [
+          "He ... running.",
+          "Mona ... running."
+         ]
+        },
+        {
+         "name": "are",
+         "items": [
+          "We ... running.",
+          "They ... running."
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "افتكر am, is, are",
+       "why": "كل ضمير مع فعله"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "العبوا «بعمل إيه؟»: واحد يمثّل حركة، والتاني يقول: You are jumping!"
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "They ... playing football.",
+       "en": true,
+       "choices": [
+        "are",
+        "is",
+        "am"
+       ],
+       "answer": "are",
+       "hint": "They = هم",
+       "hints": {
+        "is": "is لواحد.",
+        "am": "am مع I."
+       },
+       "why": "They مع are.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I am writing."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "أي جملة عن دلوقتي؟",
+       "en": true,
+       "choices": [
+        "I drew.",
+        "I am drawing.",
+        "I draw every day."
+       ],
+       "answer": "I am drawing.",
+       "hint": "دوّر على ing",
+       "hints": {
+        "I drew.": "drew ماضي.",
+        "I draw every day.": "دي عادة، مش دلوقتي."
+       },
+       "why": "am + ing = دلوقتي.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I am writing."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "am/is/are + ing",
+      "اللي بيحصل دلوقتي"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p3-t1-english/clusters",
+   "key": "u6:l2",
+   "title": "spr, spl, scr",
+   "goal": "أقرأ الكلمات اللي أولها ٣ حروف ساكنة: spring, splash, screen",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "الربيع جه والميه بتطرطش!",
+     "visual": {
+      "emoji": "🌸💦"
+     },
+     "ask": "spring وsplash بيبدأوا بإيه؟"
+    },
+    {
+     "type": "explain",
+     "title": "Clusters",
+     "text": "٣ حروف مع بعض في الأول: spr, spl, scr. نقولهم بسرعة ورا بعض.",
+     "en": "spring, splash, screen",
+     "visual": {
+      "letter": "spr spl scr"
+     }
+    },
+    {
+     "type": "example",
+     "title": "كلمات",
+     "steps": [
+      {
+       "text": "ربيع",
+       "en": "spring",
+       "visual": {
+        "emoji": "🌸"
+       }
+      },
+      {
+       "text": "طرطشة",
+       "en": "splash",
+       "visual": {
+        "emoji": "💦"
+       }
+      },
+      {
+       "text": "شاشة",
+       "en": "screen",
+       "visual": {
+        "emoji": "🖥️"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "spr ولا spl ولا scr؟",
+       "groups": [
+        {
+         "name": "spr",
+         "items": [
+          "spring",
+          "spray"
+         ]
+        },
+        {
+         "name": "spl",
+         "items": [
+          "splash",
+          "split"
+         ]
+        },
+        {
+         "name": "scr",
+         "items": [
+          "screen",
+          "scream"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "بص على أول ٣ حروف",
+       "why": "كل كلمة حسب أول ٣ حروف"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اكتبوا spr وspl وscr على ورق، والطفل يقرا كلمة لكل واحدة ويرسمها."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "أي كلمة أولها scr؟",
+       "en": true,
+       "choices": [
+        "string",
+        "splash",
+        "scratch"
+       ],
+       "answer": "scratch",
+       "hint": "بص على أول ٣ حروف",
+       "hints": {
+        "string": "string أولها str.",
+        "splash": "splash أولها spl."
+       },
+       "why": "scratch أولها scr.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "spring"
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "The baby is ... in the water.",
+       "en": true,
+       "choices": [
+        "splashing",
+        "screaming",
+        "spraying"
+       ],
+       "answer": "splashing",
+       "hint": "الطفل في الميه",
+       "hints": {
+        "screaming": "screaming يعني بيصرخ.",
+        "spraying": "spraying يعني بيرش."
+       },
+       "why": "بيطرطش = splashing.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "spring"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "spr: spring",
+      "spl: splash",
+      "scr: screen"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p3-t1-english/goals",
+   "key": "u6:l3",
+   "title": "Goals and success",
+   "goal": "أتكلم عن هدفي وإزاي أوصله: goal, try, practice, success",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "تامر نفسه ينجح في السباحة",
+     "visual": {
+      "emoji": "🏊🏆"
+     },
+     "ask": "يعمل إيه؟"
+    },
+    {
+     "type": "explain",
+     "title": "Dare to Dream",
+     "text": "كلمات الأحلام",
+     "en": "goal, try, plan, practice, step, success, celebrate, achieve",
+     "visual": {
+      "emoji": "🎯"
+     }
+    },
+    {
+     "type": "read",
+     "title": "Tamer",
+     "items": [
+      {
+       "text": "الهدف",
+       "en": "Tamer had a goal.",
+       "visual": {
+        "emoji": "🎯"
+       }
+      },
+      {
+       "text": "بيتمرن",
+       "en": "He practiced every day.",
+       "visual": {
+        "emoji": "🏊"
+       }
+      },
+      {
+       "text": "نجح",
+       "en": "He passed the test.",
+       "visual": {
+        "emoji": "🏆"
+       }
+      },
+      {
+       "text": "احتفل",
+       "en": "He celebrated with his family.",
+       "visual": {
+        "emoji": "🎉"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب خطوات الحلم",
+       "items": [
+        "Have a goal.",
+        "Make a plan.",
+        "Practice every day.",
+        "Celebrate success!"
+       ],
+       "en": true,
+       "hint": "الأول بيبقى عندنا هدف",
+       "why": "هدف، خطة، تمرين، احتفال"
+      },
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بمعناها",
+       "pairs": [
+        [
+         "goal",
+         "هدف"
+        ],
+        [
+         "practice",
+         "يتمرن"
+        ],
+        [
+         "celebrate",
+         "يحتفل"
+        ],
+        [
+         "success",
+         "نجاح"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر البطاقة",
+       "why": "كل كلمة قدّامها معناها"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "خلّوا الطفل يكتب هدف صغير للأسبوع ده، ويرسم ٣ خطوات يوصل بيها."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "What did Tamer do every day?",
+       "en": true,
+       "choices": [
+        "He slept.",
+        "He practiced.",
+        "He watched TV."
+       ],
+       "answer": "He practiced.",
+       "hint": "ارجع للجملة التانية",
+       "hints": {
+        "He slept.": "القصة بتقول عمل حاجة بتوصّله لهدفه.",
+        "He watched TV.": "ده مش في القصة."
+       },
+       "why": "He practiced every day.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Tamer had a goal."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "Who did Tamer celebrate with?",
+       "en": true,
+       "choices": [
+        "his teacher",
+        "his cat",
+        "his family"
+       ],
+       "answer": "his family",
+       "hint": "ارجع لآخر جملة",
+       "hints": {
+        "his teacher": "اقرأ آخر جملة.",
+        "his cat": "مفيش قطة في القصة."
+       },
+       "why": "He celebrated with his family.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Tamer had a goal."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "goal, plan, practice, success",
+      "نحلم ونخطط ونتمرن ونحتفل"
+     ]
+    }
+   ]
+  }
+ ]
+}

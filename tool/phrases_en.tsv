@@ -208,6 +208,7 @@ e_cb731c53	Ear
 e_f7ee9777	Earth
 e_be821266	Egg
 e_2ec2c758	Egg.
+e_d7e1af08	Egypt
 e_8b8a5ad0	Egypt used to make cloth by hand.
 e_a6f50710	Eight
 e_8b582b34	Either
@@ -266,6 +267,7 @@ e_c7fe3920	Find the word: to
 e_c2006e45	Find the word: we
 e_6fccfeb0	Find the word: you
 e_0925a59f	Finish the one before it first.
+e_9c204f35	First, he went to the library.
 e_2fd9d583	Fish
 e_63d8efb2	Fish starts with F
 e_00eb5f57	Fish.
@@ -314,12 +316,14 @@ e_174b0dea	He / she / it has + done.
 e_d782e27c	He / she is able to.
 e_da71d1d4	He / she is going to.
 e_eb972755	He brushes his teeth every night.
+e_f5427c6d	He celebrated with his family.
 e_79de974d	He didn't go to school yesterday.
 e_7ca37edd	He does not like them
 e_9e24892b	He doesn't like fish.
 e_c500c335	He has never been to Aswan.
 e_b0d230ec	He has to see a doctor.
 e_51663390	He is a boy, she is a girl, it is an animal or a thing, they are more than one
+e_d37e9a9b	He is a teacher.
 e_c45c3d70	He is going to play football this evening.
 e_58ab8e4e	He is happy.
 e_94a998a4	He is my brother.
@@ -330,6 +334,8 @@ e_f644c559	He is washing his hands.
 e_5bbe56dd	He loves his dog.
 e_04303f40	He neither sings nor dances.
 e_cdb02902	He never drinks soda.
+e_d6a6bd47	He passed the test.
+e_3f24581a	He practiced every day.
 e_efff2e2b	He was born in 2015.
 e_4947f453	He was sick
 e_d945e0c7	He was sick.
@@ -337,6 +343,7 @@ e_99e64171	He was too young.
 e_b6e00083	Heart
 e_f55c314b	Hello
 e_aa21c9de	Hello!
+e_f4c8f6c1	Her T-shirt is blue.
 e_6c31faf5	Her dad
 e_e020e2dc	Her friend
 e_280b0fe5	Her grandmother
@@ -345,6 +352,7 @@ e_c1b33260	Her shoes were old
 e_4c404192	Her teacher
 e_325d0001	Hi!
 e_35da0e70	His ball
+e_9eb0b043	His brother is a student.
 e_4586b5f0	His crayons
 e_80ec63db	His lunch
 e_52f50eae	Home
@@ -354,6 +362,7 @@ e_b532b2fb	House
 e_a54e3820	House starts with H
 e_13cf854f	House.
 e_644e442d	How
+e_73b95561	How are you?
 e_a91e831c	How did Mariam travel?
 e_f65e03ea	How did Youssef feel at the end?
 e_808bef35	How do they feel?
@@ -373,13 +382,21 @@ e_f09ca153	I am able to.
 e_47575019	I am doing my homework.
 e_0f112b05	I am going to.
 e_22692a83	I am hungry.
+e_a6e1fea0	I am reading.
 e_47d7616b	I am seven.
 e_d337b408	I am ten years old.
+e_1f113fd5	I am ten.
+e_3d1c46e0	I am writing.
 e_8200b505	I and i are the same letter
 e_08f511fa	I clean my room.
+e_ca44596d	I cleaned my room.
 e_0693c28f	I draw a picture.
 e_548d43c4	I drink milk every morning.
 e_aa1db214	I eat in the dining room.
+e_12150110	I feel happy.
+e_762b2598	I feel tired.
+e_ef238faf	I get up at 7.
+e_75e5c171	I go to school.
 e_b57490dd	I have a cat.
 e_be787376	I have one brother.
 e_66cba655	I have some cookies.
@@ -397,6 +414,7 @@ e_65cdbc0d	I love my mom.
 e_d6bce8eb	I met a girl who loves sculpture.
 e_3e04e5dc	I my, he his, she her.
 e_d830d12e	I play after school.
+e_62f1812e	I played football yesterday.
 e_76c1c926	I read a book.
 e_f009dd47	I read my book.
 e_07d11789	I see with my eyes.
@@ -409,8 +427,10 @@ e_dd1603e3	I smell.
 e_93511357	I taste.
 e_66e53ec3	I touch with my hands.
 e_5162d967	I touch.
+e_e79f6b9f	I walked to school.
 e_ea5ab36c	I wash my hands with soap.
 e_a82074cf	I write with a pencil.
+e_d6d20bf7	I'm fine, thank you.
 e_90852ebe	Ice cream
 e_c6b6765a	Ice cream starts with I
 e_11a84cb0	Ice cream.
@@ -598,6 +618,7 @@ e_6acfc014	Match each big letter with its small letter
 e_3ba7e226	May
 e_ef6fa4c2	Milk
 e_d8c09f84	Milk.
+e_44e155c8	Mona is practicing now.
 e_3a56e759	Monday
 e_57718c28	Monkey
 e_adbf6d72	Monkey.
@@ -615,14 +636,17 @@ e_cd0877c8	My dad and my mom are at home.
 e_602bbb69	My dad drinks coffee in the morning.
 e_d8a6a833	My dad goes to work every day.
 e_9e79e2fd	My father drives a car.
+e_0f80bc25	My father is a doctor.
 e_035dca8c	My friends are happy.
 e_a52bb804	My grandpa used to travel by train, but now he drives.
 e_4b677c4a	My mother is a doctor.
+e_bd43da93	My mother is a teacher.
 e_35f3a100	My name is Ali.
 e_eb2f60d5	My name is Omar.
 e_7147c006	My name is Salma.
 e_039ea1a7	My sister plays every day.
 e_7ea50e6e	My sister plays with me.
+e_f4da646c	My uncle is a farmer.
 e_cb0c01d1	N
 e_b4bb8337	N .
 e_39808b41	N and n are the same letter
@@ -632,7 +656,9 @@ e_d7a988cb	Neither my mom nor my dad likes coffee.
 e_defd20ab	Nest
 e_8d7a315f	Nest.
 e_746b79e4	Next week they are going to travel to Luxor.
+e_98d70fb6	Nice to meet you!
 e_2454871b	Nice to meet you, Omar!
+e_a3d72107	Nice to meet you.
 e_9652bb75	Nine
 e_76e80df9	No days is never.
 e_1433f56a	Nose
@@ -704,6 +730,9 @@ e_e0069098	S .
 e_e1a76df5	S and s are the same letter
 e_afd90827	S is for Sun
 e_dba7a62b	S is for Sun.
+e_fa894491	Salma and Youssef had a project.
+e_2324296b	Sara felt happy.
+e_464843aa	Sara went to the park.
 e_0e68b936	Saturday
 e_5926e4c8	Say each sound slowly
 e_4edd4b69	Say it slowly.
@@ -713,23 +742,27 @@ e_7554ef78	Say the tens first, then the ones
 e_15001d4d	Say them in order
 e_e7df7fe9	School
 e_2db675eb	School starts at 8 o'clock.
+e_0dd54251	See you later.
 e_c212b600	September
 e_db3f1e9e	Seven
 e_4bb89181	She
 e_a0ae1259	She can play the piano very well.
 e_9de25b79	She eats breakfast.
+e_75fbef12	She gave it some milk.
 e_4d8d4a92	She has finished her homework.
 e_7f212b51	She has to wear a uniform at school.
 e_9c97540f	She is able to speak three languages.
 e_a1158628	She is both talented and kind.
 e_2dfd7bec	She is brushing her hair.
 e_e4ca857d	She is going to pack her suitcase.
+e_7ffb1957	She is kind.
 e_a410f038	She is my grandmother.
 e_766b3a49	She is the artist whose painting won.
 e_6161e4e1	She is tired.
 e_3843da59	She learned at four.
 e_418ceec7	She loves her cat.
 e_75754c2c	She plays football every day.
+e_57a0ff19	She saw a little cat.
 e_98e6f98e	She sleeps early.
 e_4090be25	She usually walks to school.
 e_f644bc97	She was ill
@@ -766,6 +799,7 @@ e_15996681	T and t are the same letter
 e_a179c599	T is for Tiger.
 e_6f083616	T is for Tree
 e_a8136946	T-shirt
+e_e319bf93	Tamer had a goal.
 e_329d9b7a	Tap a big letter, then tap its small letter
 e_168c7dc9	Tea
 e_1f8c8bf4	Ten
@@ -892,6 +926,7 @@ e_03a1996f	The cat is in the bed.
 e_a12fe6b1	The cat is in the box.
 e_a5d8780d	The cat is in the chair.
 e_b48c2fc0	The cat is next to the ball.
+e_96bafa56	The cat is next to the box.
 e_dfcfbeff	The cat is next to the car.
 e_dc54fcb7	The cat is next to the dog.
 e_ddcdc2e1	The cat is next to the house.
@@ -1135,6 +1170,7 @@ e_173ace0f	The word is Yacht
 e_8524d264	The word is Zebra
 e_a2e33cb5	Their teacher
 e_2341ef50	Their uncle
+e_8be91a00	Then, he went to the supermarket.
 e_3300f2b9	There are two chairs.
 e_31ddafd6	There aren't any eggs.
 e_97461e8b	There is a bed.
@@ -1143,6 +1179,7 @@ e_bd394cda	There is a lamp on the table.
 e_42a36b7e	There is a table.
 e_63077bb1	There is some milk in the fridge.
 e_584f211f	They
+e_93edd620	They agreed and finished.
 e_6576e5de	They are T-shirt.
 e_5bd734f0	They are able to fix the car.
 e_f120ba9c	They are at school.
@@ -1150,9 +1187,11 @@ e_c6539b97	They are bad for his teeth
 e_287c04f4	They are dress.
 e_e4997f40	They are expensive
 e_58a9f6ba	They are friends.
+e_103eb9e3	They are happy.
 e_ccadd3ad	They are jacket.
 e_b89d8be3	They are my family.
 e_33f1692b	They are pants.
+e_a2bab807	They are playing.
 e_0f6f4269	They are shoes.
 e_1d046dd6	They are socks.
 e_40368cf0	They don't play in the street.
@@ -1165,6 +1204,8 @@ e_0d0eea23	They feel tired.
 e_b297e7ff	They go to school by bus.
 e_7d37cade	They have discovered a new tomb.
 e_762413f6	They have to be quiet in the library.
+e_a3729a31	They planned together.
+e_59aae006	They shared the work and helped each other.
 e_3bcfc3a9	They sometimes play chess.
 e_ff6c48d0	Think about what fits
 e_55dc277f	Think: a thing, a place, a person, a time, or a reason?
@@ -1299,7 +1340,9 @@ e_a6809412	Watch.
 e_d63556b0	Water
 e_0e2ac7e5	We / they are able to.
 e_f17808a7	We / they are going to.
+e_d3a73602	We are a family.
 e_2d0963f9	We are able to build a robot.
+e_69365938	We are friends.
 e_3785616a	We are going to camp at the beach.
 e_8ec0fde4	We are in the garden.
 e_16a09a29	We can count apples.
@@ -1307,6 +1350,7 @@ e_326c8000	We can not count water.
 e_c28e07eb	We clean in class.
 e_b7403cbc	We didn't use to have electric buses, but now we do.
 e_a8875bf8	We didn't watch TV last night.
+e_9cf13c6a	We donate clothes.
 e_daaad4ba	We draw in class.
 e_f1f72d78	We have English on Monday.
 e_a623fe7e	We have just eaten lunch.
@@ -1320,6 +1364,7 @@ e_24038cae	We sit in class.
 e_021c0405	We sleep at night.
 e_372b0cb7	We sometimes eat pizza.
 e_b5b2b4de	We stand in class.
+e_a8479cec	We tidy up the room.
 e_bf799f09	We visit our grandma on Fridays.
 e_5b8bfa23	We will go either to the museum or to the zoo.
 e_e49eff5d	We write in class.
@@ -1656,6 +1701,7 @@ e_82138fe3	bathroom
 e_f4b2c848	beach
 e_50ae46ec	bed
 e_16fb7f77	bedroom
+e_826e1638	bell
 e_60ae601c	bet
 e_a4ee076f	between
 e_65652aa8	between is in the middle, next to is beside
@@ -1699,6 +1745,7 @@ e_60d56f8c	but
 e_221bdc30	butterflies
 e_03d5b964	butterfly
 e_20725f35	butterflys
+e_1298ceee	buzz, miss, bell, tell
 e_e60c2c52	c
 e_7bcf1d1c	cable car
 e_8aea8859	cake
@@ -1718,6 +1765,7 @@ e_047458e1	car
 e_e272d977	carpenter
 e_88ad264a	carton
 e_06745c07	cat
+e_c3be9453	cat, cook, car
 e_ff794225	cat, dog, rabbit, fish
 e_4d847d6f	cates
 e_9d2d8a9c	cats
@@ -1737,6 +1785,7 @@ e_a912a86a	childs
 e_8c384f51	chin
 e_28217089	circle
 e_0dc48142	city
+e_d6311927	city, face
 e_4324fd83	clap
 e_9aaf36a0	clapped
 e_a33bc0d0	claps
@@ -1787,6 +1836,8 @@ e_15743f91	drink
 e_30a5b70f	drinking
 e_a80090c6	drinks
 e_d6697678	drought
+e_bb323378	duck
+e_24180da6	duck, neck, truck
 e_eb3117ee	duh
 e_119c6bdb	duh o guh
 e_27b99d67	duh, duh
@@ -1814,19 +1865,24 @@ e_f9db5d72	eighty-three
 e_cf88e810	eighty-two
 e_9b80f214	either
 e_85626868	either … or = one of the two.
+e_e5f12404	elephant
 e_1608c7b7	elevator
 e_8ff53680	eleven
 e_9c3dd718	engineer
 e_bf6b048f	every day, always = present simple.
+e_37afdd84	exam, exit, example
+e_cded1a85	exit
 e_43edbc4b	eyes
 e_833d1330	eyes, ears, nose, mouth
 e_e30c2799	f
+e_116b77dc	face
 e_f85a0760	fall
 e_a8f7fa72	fan
 e_808e8652	farmer
 e_029402af	fast
 e_279cb564	faster
 e_b0fee263	father
+e_38d5f312	father, mother, brother, sister
 e_bb357f55	feet
 e_809e3f91	fever
 e_e2f7de62	fff o ks
@@ -1915,22 +1971,28 @@ e_775718f4	garden
 e_ad1ba964	gardening
 e_8a7324ef	gift
 e_b442dbd3	gift.
+e_ec22362f	giraffe
+e_2caf6cc9	giraffe, Egypt, page
 e_4220774b	go
+e_288a0eea	goal, try, plan, practice, step, success, celebrate, achieve
 e_09784e5b	goes
 e_0b4ec68d	going
 e_ec66d793	gold
 e_77688e8b	grandfather
+e_383b7d0a	grandfather, grandmother, uncle, aunt, cousin
 e_38351db3	guh
 e_f1b77675	guh, guh
 e_c94cf063	guh, guh, Gift
 e_a6e4a712	guh, guh, Goat
 e_189d9e27	guh.
+e_4aa04700	gum, go, dog
 e_ed0c3757	h
 e_ebbf0cbd	ham
 e_c4ba2f20	hand
 e_bf18130a	hand.
 e_c78642dd	hands, feet
 e_99863551	happy
+e_81ba6cdc	happy, sad, angry
 e_edbf0fe3	has
 e_3a24bd48	has to
 e_f2bf17c2	hat
@@ -1940,6 +2002,7 @@ e_0768518d	he / she / it add -s: she plays.
 e_eb1f2e4c	he / she / it doesn't, Does.
 e_61a53bc8	he / she / it has to.
 e_e40ddc70	headache
+e_5a336f31	help, plan, share, fix, agree
 e_08b4ad08	hen
 e_f4b48d8c	her
 e_80e8d09d	hhh a tuh
@@ -1952,6 +2015,7 @@ e_02d2b8aa	hit
 e_316a8164	honey
 e_4f9cd7b3	hospital
 e_fec3a7d4	hot
+e_db1ef992	house, museum, supermarket
 e_10f5d87c	hungry
 e_629fe8a4	hunt
 e_ec0c35c4	i
@@ -1971,6 +2035,7 @@ e_ef0c3a7d	j
 e_100e165b	jacket
 e_cdedae92	jar
 e_ebb76fff	juice
+e_b251b886	jumped, kicked, pushed, clapped, cleaned, called
 e_ee0c38ea	k
 e_c61c131f	kick
 e_41c0b1de	kicked
@@ -2034,6 +2099,7 @@ e_9b09a79f	must = you have to.
 e_5cb7f3a1	mustn't
 e_f2e687fb	mustn't / Don't = no!
 e_4c2dfe93	my
+e_7c6c9642	my bag, his bag, her bag
 e_eb0c3431	n
 e_992a04a8	neither
 e_e71b868e	neither … nor = not this and not that.
@@ -2083,6 +2149,7 @@ e_de2337e1	pants
 e_56503bf9	papyrus
 e_4be99cc7	paramedic
 e_63780eb9	park
+e_54331c96	park, library, train station
 e_5e3dad97	party
 e_604808e3	passport
 e_784ba21b	peg
@@ -2092,6 +2159,8 @@ e_fa06c955	pencils
 e_5c7f35b4	penes
 e_b6f93739	pens
 e_694b8a7e	pet
+e_773611af	phone
+e_bdf32a62	phone, elephant, graph
 e_490aa90a	photographer
 e_1672ee98	photography
 e_45e7afde	piano
@@ -2101,6 +2170,7 @@ e_10066ae1	pilot
 e_6f410694	pin
 e_cccb0055	plane
 e_849133f3	planet
+e_970ded74	plant, donate, cheer, win
 e_c2cbd863	play
 e_4299e5a2	played
 e_71ef5835	playing
@@ -2145,7 +2215,9 @@ e_c20e7781	salt
 e_2bc6687d	salt.
 e_d71c946a	saw
 e_3f32c75d	scared
+e_0cbf8225	scared, shy, excited, tired, bored
 e_9f519cc9	school
+e_55c54c11	screen
 e_e3b0a834	sculpture
 e_b926f28c	sea
 e_b526ec40	see
@@ -2211,7 +2283,9 @@ e_f3611c71	some
 e_0f46512d	some in positive sentences.
 e_5d689621	sometimes
 e_f624f702	soup
+e_96e31366	splash
 e_63f1336c	spring
+e_a432a947	spring, splash, screen
 e_b4b61246	square
 e_c33f0730	sss
 e_a28fdbc1	sss u nnn
@@ -2247,6 +2321,7 @@ e_112cdf96	tall
 e_b2085c21	taller
 e_0e5e77a9	taxi
 e_03274595	teacher
+e_8a5685be	teacher, doctor, baker, farmer, pilot
 e_c944ea21	teeth
 e_090f523c	temple
 e_bd01f454	ten
@@ -2296,6 +2371,7 @@ e_d7f82e17	three.
 e_f3ac9ae3	thumb
 e_65b7b0b7	thumb.
 e_6517b3e5	ticket
+e_09e8ff0e	tidy up, clean, care
 e_720c3fd5	tired
 e_42454824	to
 e_0a0a25b5	tooth
@@ -2368,8 +2444,13 @@ e_4c1f5035	water engineer
 e_61a4cf9a	water.
 e_5c47afa9	we
 e_d8b9cf23	went
+e_fd7419f5	went, saw, ate, had
+e_670001f6	whale
+e_856e942f	what
+e_128a5b85	what, whale, white
 e_08d2ece2	which
 e_56378e54	which = a thing.
+e_de020766	white
 e_2af42a8f	who
 e_6e84a596	who = a person.
 e_d599e703	whose
