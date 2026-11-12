@@ -254,7 +254,9 @@ void main() {
     final decimal = RegExp(r'(\d+)٫(\d+)');
     String decimals(String t) =>
         t.replaceAllMapped(decimal, (m) => '${m[1]} فاصلة ${m[2]!.startsWith('0') ? m[2]!.split('').join(' ') : m[2]}');
-    String math(String t) => decimals(t.replaceAllMapped(op, (m) => ops[m[1]]!));
+    // العدد السالب: «−3» ← «سالب 3»
+    final negative = RegExp(r'(?<=^|[\s(|و])−(?=\d)');
+    String math(String t) => decimals(t.replaceAllMapped(op, (m) => ops[m[1]]!)).replaceAll(negative, 'سالب ');
     String spoken(String t) {
       final out = <String>[];
       var spelling = false;

@@ -1,0 +1,3805 @@
+{
+ "book": "p6-t1-english",
+ "edition": "2026_2027",
+ "lessons": [
+  {
+   "uid": "p6-t1-english/present-simple",
+   "key": "u1:l1",
+   "title": "Present simple",
+   "goal": "أستخدم المضارع البسيط للعادات والروتين اليومي وأوصف أماكن",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "يومك في المدرسة بيمشي إزاي؟",
+     "visual": {
+      "emoji": "🏫⏰"
+     },
+     "ask": "نقولها بالإنجليزي؟"
+    },
+    {
+     "type": "explain",
+     "title": "Present simple",
+     "text": "المضارع البسيط للعادات: I/You/We/They + فعل، He/She/It + فعل + s.",
+     "en": "I walk to school. She takes the bus.",
+     "visual": {
+      "emoji": "🔁"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "النفي والسؤال بـ do/does.",
+     "en": "Do you play music? He doesn't make furniture.",
+     "visual": {
+      "emoji": "❓"
+     }
+    },
+    {
+     "type": "example",
+     "title": "روتين",
+     "steps": [
+      {
+       "text": "الصبح",
+       "en": "I get up at 6.",
+       "visual": {
+        "emoji": "🌅"
+       }
+      },
+      {
+       "text": "بعد المدرسة",
+       "en": "My brother plays music.",
+       "visual": {
+        "emoji": "🎵"
+       }
+      },
+      {
+       "text": "سؤال",
+       "en": "Does your mom work?",
+       "visual": {
+        "emoji": "🙋"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "فعل بـ s ولا من غير؟",
+       "groups": [
+        {
+         "name": "visit",
+         "items": [
+          "I",
+          "We",
+          "They"
+         ]
+        },
+        {
+         "name": "visits",
+         "items": [
+          "He",
+          "She",
+          "My dad"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "واحد غيري؟",
+       "why": "he/she/it مع s"
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب السؤال",
+       "items": [
+        "Do",
+        "you",
+        "visit",
+        "museums?"
+       ],
+       "en": true,
+       "hint": "السؤال بـ Do",
+       "why": "Do you visit museums?"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "الطفل يكتب ٥ جمل عن روتينه بالإنجليزي ويقراها."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "She ... make furniture.",
+       "en": true,
+       "choices": [
+        "don't",
+        "doesn't",
+        "not"
+       ],
+       "answer": "doesn't",
+       "hint": "She",
+       "hints": {
+        "don't": "مع she: doesn't.",
+        "not": "محتاجة doesn't."
+       },
+       "why": "She doesn't make.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I get up at 6."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "My grandparents ... in Luxor.",
+       "en": true,
+       "choices": [
+        "lives",
+        "living",
+        "live"
+       ],
+       "answer": "live",
+       "hint": "جمع",
+       "hints": {
+        "lives": "they من غير s.",
+        "living": "محتاجة are."
+       },
+       "why": "They live.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I get up at 6."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "he/she/it + s",
+      "do/does للسؤال والنفي"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/places-egypt",
+   "key": "u1:l2",
+   "title": "Amazing places",
+   "goal": "أقرأ عن مكان سياحي في مصر وأعرف كلمات الرحلات",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "رحلة للغردقة!",
+     "visual": {
+      "emoji": "🏖️🤿"
+     },
+     "ask": "هتعمل إيه هناك؟"
+    },
+    {
+     "type": "explain",
+     "title": "Words",
+     "text": "كلمات",
+     "en": "snorkel, coral reefs, marine life, souvenirs, ancient sites",
+     "visual": {
+      "emoji": "🤿🪸"
+     }
+    },
+    {
+     "type": "read",
+     "title": "A Trip to the Red Sea",
+     "items": [
+      {
+       "text": "كل صيف عيلتي بتزور الغردقة",
+       "en": "Every summer, my family visits Hurghada.",
+       "visual": {
+        "emoji": "🏖️"
+       }
+      },
+      {
+       "text": "بنغطس ونشوف الشعاب المرجانية الملونة",
+       "en": "We snorkel and see colorful coral reefs.",
+       "visual": {
+        "emoji": "🤿🐠"
+       }
+      },
+      {
+       "text": "بالليل بنشتري هدايا تذكارية من السوق",
+       "en": "In the evening, we buy souvenirs from the market.",
+       "visual": {
+        "emoji": "🛍️"
+       }
+      },
+      {
+       "text": "الحياة البحرية هناك رائعة، فمابنلمسش المرجان",
+       "en": "The marine life there is amazing, so we never touch the coral.",
+       "visual": {
+        "emoji": "🪸"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بمعناها",
+       "pairs": [
+        [
+         "snorkel",
+         "يغطس بأنبوبة"
+        ],
+        [
+         "coral reefs",
+         "شعاب مرجانية"
+        ],
+        [
+         "souvenirs",
+         "هدايا تذكارية"
+        ],
+        [
+         "marine life",
+         "حياة بحرية"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر النص",
+       "why": "كلمات النص"
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب النص",
+       "items": [
+        "My family visits Hurghada.",
+        "We snorkel.",
+        "We buy souvenirs.",
+        "We never touch the coral."
+       ],
+       "en": true,
+       "hint": "بدأ بالزيارة",
+       "why": "ده ترتيب النص"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اختاروا مع الطفل مكان في مصر ويكتب ٣ أنشطة ممكن تتعمل هناك."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "What do they buy in the evening?",
+       "visual": {
+        "passage": "Every summer, my family visits Hurghada. We snorkel and see colorful coral reefs. In the evening, we buy souvenirs from the market. The marine life there is amazing, so we never touch the coral.",
+        "title": "A Trip to the Red Sea",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "souvenirs",
+        "coral",
+        "fish"
+       ],
+       "answer": "souvenirs",
+       "hint": "الجملة التالتة",
+       "hints": {
+        "coral": "المرجان مابيتلمسش.",
+        "fish": "مش في النص."
+       },
+       "why": "They buy souvenirs.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Every summer, my family visits Hurghada."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "Why do they never touch the coral?",
+       "visual": {
+        "passage": "Every summer, my family visits Hurghada. We snorkel and see colorful coral reefs. In the evening, we buy souvenirs from the market. The marine life there is amazing, so we never touch the coral.",
+        "title": "A Trip to the Red Sea",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "because it is hot",
+        "because marine life is amazing",
+        "because it is far"
+       ],
+       "answer": "because marine life is amazing",
+       "hint": "آخر جملة",
+       "hints": {
+        "because it is hot": "النص قال سبب تاني.",
+        "because it is far": "مش ده."
+       },
+       "why": "The marine life is amazing.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Every summer, my family visits Hurghada."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "snorkel, coral reefs, souvenirs",
+      "نحمي الحياة البحرية"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/ir-er-ur",
+   "key": "u1:l3",
+   "title": "Sounds ir, er, ur",
+   "goal": "أقرأ ir وer وur اللي ليهم نفس الصوت: bird, her, turn",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "bird و her و turn",
+     "visual": {
+      "emoji": "🐦👩↩️"
+     },
+     "ask": "الصوت واحد؟"
+    },
+    {
+     "type": "explain",
+     "title": "Same sound",
+     "text": "ir وer وur بيتنطقوا نفس الصوت تقريبًا.",
+     "en": "bird, her, turn",
+     "visual": {
+      "letter": "ir er ur"
+     }
+    },
+    {
+     "type": "example",
+     "title": "كلمات",
+     "steps": [
+      {
+       "text": "عصفور",
+       "en": "bird",
+       "visual": {
+        "emoji": "🐦"
+       }
+      },
+      {
+       "text": "ممرضة",
+       "en": "nurse",
+       "visual": {
+        "emoji": "👩‍⚕️"
+       }
+      },
+      {
+       "text": "ضابط/خادم",
+       "en": "server",
+       "visual": {
+        "emoji": "🍽️"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "ir ولا er ولا ur؟",
+       "groups": [
+        {
+         "name": "ir",
+         "items": [
+          "bird",
+          "first"
+         ]
+        },
+        {
+         "name": "er",
+         "items": [
+          "her",
+          "river"
+         ]
+        },
+        {
+         "name": "ur",
+         "items": [
+          "turn",
+          "surf"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "دوّر على الحرفين",
+       "why": "كل كلمة بحروفها"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "دوّروا في نص إنجليزي على كلمات فيها ir وer وur."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "أي كلمة فيها ur؟",
+       "en": true,
+       "choices": [
+        "tree",
+        "tiger",
+        "turtle"
+       ],
+       "answer": "turtle",
+       "hint": "دوّر على ur",
+       "hints": {
+        "tree": "مافيهاش ur.",
+        "tiger": "فيها er."
+       },
+       "why": "turtle فيها ur.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "bird"
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "أي كلمة فيها ir؟",
+       "en": true,
+       "choices": [
+        "shirt",
+        "short",
+        "shark"
+       ],
+       "answer": "shirt",
+       "hint": "دوّر على ir",
+       "hints": {
+        "short": "فيها or.",
+        "shark": "فيها ar."
+       },
+       "why": "shirt فيها ir.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "bird"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "ir, er, ur: نفس الصوت"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/email",
+   "key": "u1:l4",
+   "title": "Writing an informal email",
+   "goal": "أكتب إيميل لصديق عن يوم عادي في المدرسة",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "صاحبك في بلد تاني عايز يعرف يومك",
+     "visual": {
+      "emoji": "📧"
+     },
+     "ask": "هتكتب إيه؟"
+    },
+    {
+     "type": "explain",
+     "title": "An informal email",
+     "text": "الإيميل غير الرسمي: Hi + اسم، سؤال عن الحال، موضوعك، سؤال لصاحبك، ختام.",
+     "en": "Hi Sam, How are you?",
+     "visual": {
+      "emoji": "📧"
+     }
+    },
+    {
+     "type": "example",
+     "title": "إيميل",
+     "steps": [
+      {
+       "text": "التحية",
+       "en": "Hi Sam,",
+       "visual": {
+        "emoji": "👋"
+       }
+      },
+      {
+       "text": "الموضوع",
+       "en": "I usually start school at 7:30 and I love science.",
+       "visual": {
+        "emoji": "🏫"
+       }
+      },
+      {
+       "text": "سؤال",
+       "en": "What is your favorite subject?",
+       "visual": {
+        "emoji": "❓"
+       }
+      },
+      {
+       "text": "الختام",
+       "en": "Write soon! Omar",
+       "visual": {
+        "emoji": "✍️"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب الإيميل",
+       "items": [
+        "Hi Sam,",
+        "How are you?",
+        "My school day starts at 7:30.",
+        "What about you?",
+        "Write soon! Omar"
+       ],
+       "en": true,
+       "hint": "Hi الأول",
+       "why": "تحية، سؤال، موضوع، سؤال، ختام"
+      },
+      {
+       "kind": "sort",
+       "ask": "رسمي ولا غير رسمي؟",
+       "groups": [
+        {
+         "name": "informal",
+         "items": [
+          "Hi Sam,",
+          "Write soon!"
+         ]
+        },
+        {
+         "name": "formal",
+         "items": [
+          "Dear Sir,",
+          "Yours faithfully,"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "لمين؟",
+       "why": "لصاحبك غير رسمي"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "الطفل يكتب إيميل حقيقي لقريب أو صاحب بالإنجليزي عن يومه."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "How do we start an email to a friend?",
+       "en": true,
+       "choices": [
+        "Dear Sir,",
+        "Hi Sam,",
+        "The end."
+       ],
+       "answer": "Hi Sam,",
+       "hint": "لصاحب",
+       "hints": {
+        "Dear Sir,": "ده رسمي.",
+        "The end.": "ده مش بداية."
+       },
+       "why": "Hi = غير رسمي.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Hi Sam,"
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "A good ending for a friend?",
+       "en": true,
+       "choices": [
+        "Yours faithfully,",
+        "Hello,",
+        "See you soon!"
+       ],
+       "answer": "See you soon!",
+       "hint": "ختام",
+       "hints": {
+        "Yours faithfully,": "رسمي جدًا.",
+        "Hello,": "دي بداية."
+       },
+       "why": "ختام ودود.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Hi Sam,"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "Hi ← How are you? ← موضوعي ← سؤال ← ختام"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/present-continuous",
+   "key": "u2:l1",
+   "title": "Present continuous",
+   "goal": "أستخدم المضارع المستمر للي بيحصل دلوقتي: am/is/are + ing",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "جدو بيسقي الجنينة دلوقتي",
+     "visual": {
+      "emoji": "🧑‍🌾💧"
+     },
+     "ask": "نقولها إزاي؟"
+    },
+    {
+     "type": "explain",
+     "title": "Now",
+     "text": "am/is/are + الفعل + ing للي بيحصل دلوقتي.",
+     "en": "Grandpa is watering the plants.",
+     "visual": {
+      "emoji": "⏱️"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "النفي والسؤال",
+     "en": "They aren't sleeping. Is she planting basil?",
+     "visual": {
+      "emoji": "❓"
+     }
+    },
+    {
+     "type": "example",
+     "title": "دلوقتي",
+     "steps": [
+      {
+       "text": "أنا",
+       "en": "I am reading about birds.",
+       "visual": {
+        "emoji": "🧒"
+       }
+      },
+      {
+       "text": "هم",
+       "en": "They are pulling out weeds.",
+       "visual": {
+        "emoji": "👫"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "am ولا is ولا are؟",
+       "groups": [
+        {
+         "name": "am",
+         "items": [
+          "I ... growing."
+         ]
+        },
+        {
+         "name": "is",
+         "items": [
+          "She ... growing.",
+          "The plant ... growing."
+         ]
+        },
+        {
+         "name": "are",
+         "items": [
+          "We ... growing.",
+          "They ... growing."
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "مين الفاعل؟",
+       "why": "كل فاعل مع فعله"
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب الجملة",
+       "items": [
+        "The birds",
+        "are",
+        "building",
+        "a nest."
+       ],
+       "en": true,
+       "hint": "بتبدأ بـ The birds",
+       "why": "The birds are building a nest."
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "العبوا «بيعمل إيه؟»: الطفل يوصف اللي بيعمله كل واحد في البيت دلوقتي."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Look! The flowers ... .",
+       "en": true,
+       "choices": [
+        "are growing",
+        "grows",
+        "is growing"
+       ],
+       "answer": "are growing",
+       "hint": "Look",
+       "hints": {
+        "grows": "Look = دلوقتي.",
+        "is growing": "flowers جمع."
+       },
+       "why": "are + ing.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I am reading about birds."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "... he watering the garden?",
+       "en": true,
+       "choices": [
+        "Are",
+        "Is",
+        "Does"
+       ],
+       "answer": "Is",
+       "hint": "he",
+       "hints": {
+        "Are": "he مع is.",
+        "Does": "المستمر مع is."
+       },
+       "why": "Is he watering?",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I am reading about birds."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "am/is/are + ing",
+      "للي بيحصل دلوقتي"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/nature",
+   "key": "u2:l2",
+   "title": "Nature",
+   "goal": "أعرف كلمات الطبيعة والنباتات والبيئة",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "جنينة جدو على النيل",
+     "visual": {
+      "emoji": "🌺🌿"
+     },
+     "ask": "فيها إيه؟"
+    },
+    {
+     "type": "explain",
+     "title": "Words",
+     "text": "كلمات",
+     "en": "hibiscus, basil, weeds, natural fertilizer, habitat, rare, survive",
+     "visual": {
+      "emoji": "🌱"
+     }
+    },
+    {
+     "type": "read",
+     "title": "A Garden by the Nile",
+     "items": [
+      {
+       "text": "جدو بيزرع كركديه وريحان في جنينته",
+       "en": "Grandpa is growing hibiscus and basil in his garden.",
+       "visual": {
+        "emoji": "🌺🌿"
+       }
+      },
+      {
+       "text": "بيستخدم سماد طبيعي مش كيماويات",
+       "en": "He uses natural fertilizer, not chemicals.",
+       "visual": {
+        "emoji": "🌱"
+       }
+      },
+      {
+       "text": "كل صبح بيشيل الحشائش",
+       "en": "Every morning, he pulls out the weeds.",
+       "visual": {
+        "emoji": "🧑‍🌾"
+       }
+      },
+      {
+       "text": "الطيور بتيجي الجنينة عشان بيئة آمنة",
+       "en": "Birds come to the garden because it is a safe habitat.",
+       "visual": {
+        "emoji": "🐦"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بمعناها",
+       "pairs": [
+        [
+         "weeds",
+         "حشائش ضارة"
+        ],
+        [
+         "habitat",
+         "بيئة يعيش فيها"
+        ],
+        [
+         "fertilizer",
+         "سماد"
+        ],
+        [
+         "rare",
+         "نادر"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر النص",
+       "why": "كلمات الطبيعة"
+      },
+      {
+       "kind": "sort",
+       "ask": "مفيد للجنينة ولا ضار؟",
+       "groups": [
+        {
+         "name": "good",
+         "items": [
+          "natural fertilizer",
+          "water"
+         ]
+        },
+        {
+         "name": "bad",
+         "items": [
+          "weeds",
+          "chemicals"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "بيساعد ولا بيضر؟",
+       "why": "إيه اللي بيساعد النبات؟"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "ازرعوا مع الطفل ريحان في أصيص، ويكتب يومية بالإنجليزي عن نموه."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "What does Grandpa use?",
+       "visual": {
+        "passage": "Grandpa is growing hibiscus and basil in his garden. He uses natural fertilizer, not chemicals. Every morning, he pulls out the weeds. Birds come to the garden because it is a safe habitat.",
+        "title": "A Garden by the Nile",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "chemicals",
+        "plastic",
+        "natural fertilizer"
+       ],
+       "answer": "natural fertilizer",
+       "hint": "الجملة التانية",
+       "hints": {
+        "chemicals": "النص قال لأ.",
+        "plastic": "مش في النص."
+       },
+       "why": "He uses natural fertilizer.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Grandpa is growing hibiscus and basil in his garden."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "Why do birds come to the garden?",
+       "visual": {
+        "passage": "Grandpa is growing hibiscus and basil in his garden. He uses natural fertilizer, not chemicals. Every morning, he pulls out the weeds. Birds come to the garden because it is a safe habitat.",
+        "title": "A Garden by the Nile",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "it is a safe habitat",
+        "there is food only",
+        "it is noisy"
+       ],
+       "answer": "it is a safe habitat",
+       "hint": "آخر جملة",
+       "hints": {
+        "there is food only": "النص قال سبب تاني.",
+        "it is noisy": "مش في النص."
+       },
+       "why": "It is a safe habitat.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Grandpa is growing hibiscus and basil in his garden."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "hibiscus, basil, weeds, habitat"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/e-i",
+   "key": "u2:l3",
+   "title": "Sounds e and i",
+   "goal": "أفرّق بين صوت e في bed وصوت i في bid",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "bed و bid",
+     "visual": {
+      "emoji": "🛏️🙋"
+     },
+     "ask": "سامع الفرق؟"
+    },
+    {
+     "type": "explain",
+     "title": "e and i",
+     "text": "e في bed: البق مفتوح أكتر. i في bit: البق مقفول شوية.",
+     "en": "bed, bid, pen, pin",
+     "visual": {
+      "letter": "e  i"
+     }
+    },
+    {
+     "type": "example",
+     "title": "أزواج",
+     "steps": [
+      {
+       "text": "قلم / دبوس",
+       "en": "pen, pin",
+       "visual": {
+        "emoji": "🖊️📍"
+       }
+      },
+      {
+       "text": "مبلول / فاز",
+       "en": "wet, win",
+       "visual": {
+        "emoji": "💧🏆"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "صوت e ولا i؟",
+       "groups": [
+        {
+         "name": "e",
+         "items": [
+          "pen",
+          "wet",
+          "nest"
+         ]
+        },
+        {
+         "name": "i",
+         "items": [
+          "pin",
+          "fish",
+          "sit"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "e ولا i؟",
+       "why": "اسمع الحرف المتحرك"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "العبوا مع الطفل «e ولا i؟»: تقولوا كلمة وهو يرفع إيده اليمين لـ e والشمال لـ i."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "أي كلمة فيها صوت i؟",
+       "en": true,
+       "choices": [
+        "help",
+        "hill",
+        "bell"
+       ],
+       "answer": "hill",
+       "hint": "اسمع",
+       "hints": {
+        "help": "فيها e.",
+        "bell": "فيها e."
+       },
+       "why": "hill فيها i.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "pen, pin"
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "أي كلمة فيها صوت e؟",
+       "en": true,
+       "choices": [
+        "lip",
+        "big",
+        "leg"
+       ],
+       "answer": "leg",
+       "hint": "اسمع",
+       "hints": {
+        "lip": "فيها i.",
+        "big": "فيها i."
+       },
+       "why": "leg فيها e.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "pen, pin"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "e: bed, pen",
+      "i: bid, pin"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/narrative",
+   "key": "u2:l4",
+   "title": "Writing a narrative story",
+   "goal": "أكتب قصة عن الطبيعة: شخصيات، مكان، مشكلة، حل",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "طير صغير وقع من العش…",
+     "visual": {
+      "emoji": "🐦🪺"
+     },
+     "ask": "القصة هتكمل إزاي؟"
+    },
+    {
+     "type": "explain",
+     "title": "A narrative",
+     "text": "القصة: مقدمة (مين وفين)، مشكلة، أحداث، حل ونهاية.",
+     "en": "One morning, … But … So … Finally, …",
+     "visual": {
+      "emoji": "📖"
+     }
+    },
+    {
+     "type": "example",
+     "title": "قصة",
+     "steps": [
+      {
+       "text": "المقدمة",
+       "en": "One morning, Mona was in the garden.",
+       "visual": {
+        "emoji": "🌳"
+       }
+      },
+      {
+       "text": "المشكلة",
+       "en": "She saw a baby bird on the ground.",
+       "visual": {
+        "emoji": "🐦"
+       }
+      },
+      {
+       "text": "الحل",
+       "en": "Her brother helped her put it back in the nest.",
+       "visual": {
+        "emoji": "🪺"
+       }
+      },
+      {
+       "text": "النهاية",
+       "en": "Finally, the mother bird came back.",
+       "visual": {
+        "emoji": "😊"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب القصة",
+       "items": [
+        "One morning, Mona was in the garden.",
+        "She saw a baby bird on the ground.",
+        "Her brother helped her.",
+        "Finally, the mother bird came back."
+       ],
+       "en": true,
+       "hint": "One morning",
+       "why": "مقدمة، مشكلة، حل، نهاية"
+      },
+      {
+       "kind": "match",
+       "ask": "وصّل الجزء بوظيفته",
+       "pairs": [
+        [
+         "One morning…",
+         "beginning"
+        ],
+        [
+         "But…",
+         "problem"
+        ],
+        [
+         "Finally…",
+         "ending"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر النموذج",
+       "why": "أجزاء القصة"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "الطفل يكتب قصة ٥ جمل عن حيوان أو نبات ويرسمها."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Which word often starts the problem?",
+       "en": true,
+       "choices": [
+        "But",
+        "Finally",
+        "One day"
+       ],
+       "answer": "But",
+       "hint": "المشكلة",
+       "hints": {
+        "Finally": "دي للنهاية.",
+        "One day": "دي للبداية."
+       },
+       "why": "But = لكن.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "One morning, Mona was in the garden."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "The setting tells us…",
+       "en": true,
+       "choices": [
+        "who",
+        "where and when",
+        "why"
+       ],
+       "answer": "where and when",
+       "hint": "setting",
+       "hints": {
+        "who": "دي الشخصيات.",
+        "why": "ده السبب."
+       },
+       "why": "المكان والزمان.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "One morning, Mona was in the garden."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "مقدمة ← مشكلة ← حل ← نهاية"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/jobs",
+   "key": "u3:l1",
+   "title": "Jobs",
+   "goal": "أعرف مهن بتبني المجتمع وبتعمل إيه",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "مين بيبني المدينة؟",
+     "visual": {
+      "emoji": "🏗️👷"
+     },
+     "ask": "سمّي مهن"
+    },
+    {
+     "type": "explain",
+     "title": "Jobs",
+     "text": "مهن",
+     "en": "paramedic, architect, water engineer, mechanic, tailor, delivery worker",
+     "visual": {
+      "emoji": "🚑🏗️🔧"
+     }
+    },
+    {
+     "type": "example",
+     "title": "بيعملوا إيه",
+     "steps": [
+      {
+       "text": "المسعف",
+       "en": "A paramedic helps people in an emergency.",
+       "visual": {
+        "emoji": "🚑"
+       }
+      },
+      {
+       "text": "المعماري",
+       "en": "An architect designs buildings.",
+       "visual": {
+        "emoji": "📐"
+       }
+      },
+      {
+       "text": "الخياط",
+       "en": "A tailor makes clothes.",
+       "visual": {
+        "emoji": "🧵"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل المهنة بشغلها",
+       "pairs": [
+        [
+         "paramedic",
+         "helps in emergencies"
+        ],
+        [
+         "architect",
+         "designs buildings"
+        ],
+        [
+         "mechanic",
+         "fixes cars"
+        ],
+        [
+         "tailor",
+         "makes clothes"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر البطاقة",
+       "why": "كل مهنة بشغلها"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اسألوا الطفل عن ٣ مهن في الحي، ويقول كل واحد بيعمل إيه بالإنجليزي."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Who fixes cars?",
+       "en": true,
+       "choices": [
+        "a tailor",
+        "an architect",
+        "a mechanic"
+       ],
+       "answer": "a mechanic",
+       "hint": "العربيات",
+       "hints": {
+        "a tailor": "الخياط للهدوم.",
+        "an architect": "المعماري بيصمم."
+       },
+       "why": "الميكانيكي.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "A paramedic helps people in an emergency."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "Who brings food to your home?",
+       "en": true,
+       "choices": [
+        "a delivery worker",
+        "a paramedic",
+        "a street cleaner"
+       ],
+       "answer": "a delivery worker",
+       "hint": "التوصيل",
+       "hints": {
+        "a paramedic": "المسعف للطوارئ.",
+        "a street cleaner": "بينظف الشارع."
+       },
+       "why": "عامل التوصيل.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "A paramedic helps people in an emergency."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "paramedic, architect, mechanic, tailor"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/can-able",
+   "key": "u3:l2",
+   "title": "can, can't, able to",
+   "goal": "أعبّر عن القدرة: can / can't / be able to",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "المسعف يقدر يساعد بسرعة",
+     "visual": {
+      "emoji": "🚑"
+     },
+     "ask": "نقول «يقدر» إزاي؟"
+    },
+    {
+     "type": "explain",
+     "title": "can",
+     "text": "can + الفعل: القدرة. can't: مش قادر.",
+     "en": "She can drive. I can't swim yet.",
+     "visual": {
+      "emoji": "💪"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "be able to: نفس المعنى، ومعاها كل الأزمنة.",
+     "en": "He will be able to help.",
+     "visual": {
+      "emoji": "⏳"
+     }
+    },
+    {
+     "type": "example",
+     "title": "جمل",
+     "steps": [
+      {
+       "text": "قدرة",
+       "en": "An engineer can build bridges.",
+       "visual": {
+        "emoji": "👷"
+       }
+      },
+      {
+       "text": "مش قادر",
+       "en": "I can't fix a car.",
+       "visual": {
+        "emoji": "🙅"
+       }
+      },
+      {
+       "text": "هيقدر",
+       "en": "One day, I will be able to design houses.",
+       "visual": {
+        "emoji": "🎓"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "can ولا be able to؟",
+       "groups": [
+        {
+         "name": "can",
+         "items": [
+          "I ... swim.",
+          "She ... cook."
+         ]
+        },
+        {
+         "name": "be able to",
+         "items": [
+          "I will ... drive.",
+          "He was ... win."
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "فيه will أو was؟",
+       "why": "can للحاضر، able to للأزمنة"
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب الجملة",
+       "items": [
+        "A paramedic",
+        "can",
+        "save",
+        "lives."
+       ],
+       "en": true,
+       "hint": "بتبدأ بـ A paramedic",
+       "why": "A paramedic can save lives."
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "الطفل يقول ٣ حاجات بيقدر يعملها و٣ نفسه يقدر يعملها: I will be able to…."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "She ... speak three languages.",
+       "en": true,
+       "choices": [
+        "cans",
+        "can",
+        "able"
+       ],
+       "answer": "can",
+       "hint": "القدرة",
+       "hints": {
+        "cans": "can مابتاخدش s.",
+        "able": "محتاجة is able to."
+       },
+       "why": "can + speak.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "An engineer can build bridges."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "Next year, I will ... swim.",
+       "en": true,
+       "choices": [
+        "can",
+        "could",
+        "be able to"
+       ],
+       "answer": "be able to",
+       "hint": "will",
+       "hints": {
+        "can": "بعد will نستخدم be able to.",
+        "could": "دي للماضي."
+       },
+       "why": "will be able to.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "An engineer can build bridges."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "can / can't + فعل",
+      "be able to مع will وwas"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/syllables",
+   "key": "u3:l3",
+   "title": "Two- and three-syllable words",
+   "goal": "أعدّ مقاطع الكلمات: me-chan-ic, tai-lor",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "architect فيها كام مقطع؟",
+     "visual": {
+      "emoji": "👏"
+     },
+     "ask": "صقّف"
+    },
+    {
+     "type": "explain",
+     "title": "Syllables",
+     "text": "نصقّف مع كل مقطع: tai-lor (٢)، me-chan-ic (٣)، ar-chi-tect (٣).",
+     "en": "tai-lor, me-chan-ic",
+     "visual": {
+      "emoji": "👏"
+     }
+    },
+    {
+     "type": "example",
+     "title": "نصقّف",
+     "steps": [
+      {
+       "text": "مقطعين",
+       "en": "doc-tor",
+       "visual": {
+        "emoji": "👏👏"
+       }
+      },
+      {
+       "text": "٣ مقاطع",
+       "en": "en-gi-neer",
+       "visual": {
+        "emoji": "👏👏👏"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "مقطعين ولا ٣؟",
+       "groups": [
+        {
+         "name": "2",
+         "items": [
+          "tailor",
+          "doctor",
+          "pilot"
+         ]
+        },
+        {
+         "name": "3",
+         "items": [
+          "mechanic",
+          "architect",
+          "engineer"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "صقّف مع كل مقطع",
+       "why": "صقّف"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "العبوا «صقّف المهنة»: تقولوا مهنة والطفل يصقّف مقاطعها."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "How many syllables in «paramedic»?",
+       "en": true,
+       "choices": [
+        "four",
+        "three",
+        "two"
+       ],
+       "answer": "four",
+       "hint": "صقّف",
+       "hints": {
+        "three": "pa-ra-med-ic.",
+        "two": "صقّف تاني."
+       },
+       "why": "pa-ra-med-ic.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "doc-tor"
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "Which word has two syllables?",
+       "en": true,
+       "choices": [
+        "engineer",
+        "baker",
+        "mechanic"
+       ],
+       "answer": "baker",
+       "hint": "صقّف",
+       "hints": {
+        "engineer": "en-gi-neer: ٣.",
+        "mechanic": "me-chan-ic: ٣."
+       },
+       "why": "ba-ker.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "doc-tor"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "نصقّف مع كل مقطع"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/biography",
+   "key": "u3:l4",
+   "title": "A famous Egyptian: Ahmed Zewail",
+   "goal": "أقرأ سيرة شخصية مصرية مشهورة وأرتّب أحداث حياته",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "مصري كسب جايزة نوبل!",
+     "visual": {
+      "emoji": "🏅🇪🇬"
+     },
+     "ask": "تعرف مين؟"
+    },
+    {
+     "type": "explain",
+     "title": "A biography",
+     "text": "السيرة الذاتية: حياة شخص حقيقي بالترتيب الزمني: الميلاد، الدراسة، الإنجاز.",
+     "en": "born, studied, won",
+     "visual": {
+      "emoji": "📖"
+     }
+    },
+    {
+     "type": "read",
+     "title": "Ahmed Zewail",
+     "items": [
+      {
+       "text": "أحمد زويل اتولد في دمنهور سنة 1946",
+       "en": "Ahmed Zewail was born in Damanhour, Egypt, in 1946.",
+       "visual": {
+        "emoji": "👶"
+       }
+      },
+      {
+       "text": "درس الكيمياء في جامعة الإسكندرية",
+       "en": "He studied chemistry at Alexandria University.",
+       "visual": {
+        "emoji": "🎓"
+       }
+      },
+      {
+       "text": "درس التفاعلات الكيميائية السريعة جدًا بالليزر",
+       "en": "He studied very fast chemical reactions with lasers.",
+       "visual": {
+        "emoji": "🔬"
+       }
+      },
+      {
+       "text": "سنة 1999 كسب جايزة نوبل في الكيمياء",
+       "en": "In 1999, he won the Nobel Prize in Chemistry.",
+       "visual": {
+        "emoji": "🏅"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب حياة زويل",
+       "items": [
+        "born in Damanhour",
+        "studied at Alexandria University",
+        "studied fast reactions",
+        "won the Nobel Prize"
+       ],
+       "en": true,
+       "hint": "الميلاد الأول",
+       "why": "الترتيب الزمني"
+      },
+      {
+       "kind": "match",
+       "ask": "وصّل السنة بالحدث",
+       "pairs": [
+        [
+         "1946",
+         "born"
+        ],
+        [
+         "1999",
+         "Nobel Prize"
+        ]
+       ],
+       "en": true,
+       "hint": "ارجع للنص",
+       "why": "من النص"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "الطفل يختار شخصية مصرية مشهورة ويكتب ٤ حقائق عنها بالترتيب."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Where was Ahmed Zewail born?",
+       "visual": {
+        "passage": "Ahmed Zewail was born in Damanhour, Egypt, in 1946. He studied chemistry at Alexandria University. He studied very fast chemical reactions with lasers. In 1999, he won the Nobel Prize in Chemistry.",
+        "title": "Ahmed Zewail",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "Cairo",
+        "Alexandria",
+        "Damanhour"
+       ],
+       "answer": "Damanhour",
+       "hint": "أول جملة",
+       "hints": {
+        "Cairo": "اقرأ أول جملة.",
+        "Alexandria": "دي مكان دراسته."
+       },
+       "why": "Born in Damanhour.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Ahmed Zewail was born in Damanhour, Egypt, in 1946."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "What did he win in 1999?",
+       "visual": {
+        "passage": "Ahmed Zewail was born in Damanhour, Egypt, in 1946. He studied chemistry at Alexandria University. He studied very fast chemical reactions with lasers. In 1999, he won the Nobel Prize in Chemistry.",
+        "title": "Ahmed Zewail",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "the Nobel Prize in Chemistry",
+        "a football cup",
+        "a music prize"
+       ],
+       "answer": "the Nobel Prize in Chemistry",
+       "hint": "آخر جملة",
+       "hints": {
+        "a football cup": "مش في النص.",
+        "a music prize": "مش في النص."
+       },
+       "why": "The Nobel Prize in Chemistry.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Ahmed Zewail was born in Damanhour, Egypt, in 1946."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "السيرة بالترتيب الزمني",
+      "born, studied, won"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/write-biography",
+   "key": "u3:l5",
+   "title": "Writing a biography",
+   "goal": "أكتب سيرة قصيرة عن شخص من مجتمعي بالماضي وبالترتيب",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "شخص من حيّك بيساعد الناس",
+     "visual": {
+      "emoji": "🧑‍⚕️"
+     },
+     "ask": "تكتب حياته إزاي؟"
+    },
+    {
+     "type": "explain",
+     "title": "A biography",
+     "text": "السيرة: مين؟ اتولد فين وإمتى؟ اتعلم إيه؟ بيعمل إيه؟ إنجازه؟ ونكتب بالماضي.",
+     "en": "She was born in 1980. She studied medicine.",
+     "visual": {
+      "emoji": "✍️"
+     }
+    },
+    {
+     "type": "example",
+     "title": "نموذج",
+     "steps": [
+      {
+       "text": "مين",
+       "en": "Dr. Amal is a doctor in our town.",
+       "visual": {
+        "emoji": "👩‍⚕️"
+       }
+      },
+      {
+       "text": "الدراسة",
+       "en": "She studied at Cairo University.",
+       "visual": {
+        "emoji": "🎓"
+       }
+      },
+      {
+       "text": "الإنجاز",
+       "en": "She opened a free clinic for children.",
+       "visual": {
+        "emoji": "🏥"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب السيرة",
+       "items": [
+        "Dr. Amal was born in Tanta.",
+        "She studied medicine.",
+        "She became a doctor.",
+        "She opened a free clinic."
+       ],
+       "en": true,
+       "hint": "الميلاد",
+       "why": "الترتيب الزمني"
+      },
+      {
+       "kind": "match",
+       "ask": "وصّل الفعل بالماضي",
+       "pairs": [
+        [
+         "study",
+         "studied"
+        ],
+        [
+         "become",
+         "became"
+        ],
+        [
+         "open",
+         "opened"
+        ],
+        [
+         "win",
+         "won"
+        ]
+       ],
+       "en": true,
+       "hint": "regular ولا irregular؟",
+       "why": "أفعال السيرة"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "الطفل يعمل مقابلة مع حد من العيلة ويكتب سيرته في ٥ جمل."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "A biography is about…",
+       "en": true,
+       "choices": [
+        "an animal story",
+        "a real person",
+        "a place"
+       ],
+       "answer": "a real person",
+       "hint": "حقيقي",
+       "hints": {
+        "an animal story": "ده قصة خيالية.",
+        "a place": "دي مقالة عن مكان."
+       },
+       "why": "شخص حقيقي.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Dr. Amal is a doctor in our town."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "Past of «become»?",
+       "en": true,
+       "choices": [
+        "becamed",
+        "becomed",
+        "became"
+       ],
+       "answer": "became",
+       "hint": "irregular",
+       "hints": {
+        "becamed": "irregular.",
+        "becomed": "irregular."
+       },
+       "why": "become → became.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Dr. Amal is a doctor in our town."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "مين ← الميلاد ← الدراسة ← الإنجاز",
+      "بالماضي"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/materials",
+   "key": "u4:l1",
+   "title": "Materials",
+   "goal": "أعرف المواد ومصادرها واستخداماتها",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "البيت ده معمول من إيه؟",
+     "visual": {
+      "emoji": "🧱🪵"
+     },
+     "ask": "سمّي مواد"
+    },
+    {
+     "type": "explain",
+     "title": "Materials",
+     "text": "مواد",
+     "en": "bricks, gold, granite, clay, linen, papyrus, solar panels",
+     "visual": {
+      "emoji": "🧱🪨"
+     }
+    },
+    {
+     "type": "read",
+     "title": "Materials of Ancient Egypt",
+     "items": [
+      {
+       "text": "المصريين القدماء كتبوا على البردي المعمول من نبات النهر",
+       "en": "Ancient Egyptians wrote on papyrus made from a river plant.",
+       "visual": {
+        "emoji": "📜"
+       }
+      },
+      {
+       "text": "بنوا المعابد من الجرانيت والحجر الجيري",
+       "en": "They built temples from granite and limestone.",
+       "visual": {
+        "emoji": "🏛️"
+       }
+      },
+      {
+       "text": "عملوا أواني من الطين وهدوم من الكتان",
+       "en": "They made pots from clay and clothes from linen.",
+       "visual": {
+        "emoji": "🏺👕"
+       }
+      },
+      {
+       "text": "مواد كتير منها عاشت آلاف السنين",
+       "en": "Many of these materials survived for thousands of years.",
+       "visual": {
+        "emoji": "⏳"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل المادة باستخدامها القديم",
+       "pairs": [
+        [
+         "papyrus",
+         "writing"
+        ],
+        [
+         "granite",
+         "temples"
+        ],
+        [
+         "clay",
+         "pots"
+        ],
+        [
+         "linen",
+         "clothes"
+        ]
+       ],
+       "en": true,
+       "hint": "ارجع للنص",
+       "why": "من النص"
+      },
+      {
+       "kind": "sort",
+       "ask": "طبيعي ولا مصنوع؟",
+       "groups": [
+        {
+         "name": "natural",
+         "items": [
+          "clay",
+          "granite",
+          "cotton"
+         ]
+        },
+        {
+         "name": "made",
+         "items": [
+          "plastic",
+          "glass",
+          "solar panels"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "موجودة في الطبيعة؟",
+       "why": "من الطبيعة ولا من مصنع؟"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "دوّروا في البيت على ٥ حاجات، والطفل يقول معمولة من إيه بالإنجليزي."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "What did ancient Egyptians write on?",
+       "visual": {
+        "passage": "Ancient Egyptians wrote on papyrus made from a river plant. They built temples from granite and limestone. They made pots from clay and clothes from linen. Many of these materials survived for thousands of years.",
+        "title": "Materials of Ancient Egypt",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "papyrus",
+        "granite",
+        "clay"
+       ],
+       "answer": "papyrus",
+       "hint": "أول جملة",
+       "hints": {
+        "granite": "الجرانيت للمعابد.",
+        "clay": "الطين للأواني."
+       },
+       "why": "They wrote on papyrus.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Ancient Egyptians wrote on papyrus made from a river plant."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "What were clothes made from?",
+       "visual": {
+        "passage": "Ancient Egyptians wrote on papyrus made from a river plant. They built temples from granite and limestone. They made pots from clay and clothes from linen. Many of these materials survived for thousands of years.",
+        "title": "Materials of Ancient Egypt",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "gold",
+        "linen",
+        "bricks"
+       ],
+       "answer": "linen",
+       "hint": "الجملة التالتة",
+       "hints": {
+        "gold": "الدهب للزينة.",
+        "bricks": "الطوب للبيوت."
+       },
+       "why": "Clothes from linen.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Ancient Egyptians wrote on papyrus made from a river plant."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "papyrus, granite, clay, linen",
+      "طبيعي ومصنوع"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/should-must",
+   "key": "u4:l2",
+   "title": "should, must",
+   "goal": "أعطي نصيحة بـ should/shouldn't وقاعدة لازمة بـ must/mustn't",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "في المتحف: ممنوع اللمس!",
+     "visual": {
+      "emoji": "🏛️🚫"
+     },
+     "ask": "نقولها إزاي؟"
+    },
+    {
+     "type": "explain",
+     "title": "should",
+     "text": "should: نصيحة. shouldn't: مش أحسن.",
+     "en": "You should save water. You shouldn't waste food.",
+     "visual": {
+      "emoji": "💡"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "must",
+     "text": "must: لازم. mustn't: ممنوع.",
+     "en": "You must wear a helmet. You mustn't touch the statues.",
+     "visual": {
+      "emoji": "⚠️"
+     }
+    },
+    {
+     "type": "example",
+     "title": "مواقف",
+     "steps": [
+      {
+       "text": "نصيحة",
+       "en": "We should recycle plastic.",
+       "visual": {
+        "emoji": "♻️"
+       }
+      },
+      {
+       "text": "ممنوع",
+       "en": "You mustn't throw trash in the river.",
+       "visual": {
+        "emoji": "🚯"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "نصيحة ولا قاعدة؟",
+       "groups": [
+        {
+         "name": "advice",
+         "items": [
+          "You should sleep early.",
+          "You shouldn't eat too much candy."
+         ]
+        },
+        {
+         "name": "rule",
+         "items": [
+          "You must stop at a red light.",
+          "You mustn't smoke here."
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "لازم ولا أحسن؟",
+       "why": "should نصيحة، must لازم"
+      },
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بمعناها",
+       "pairs": [
+        [
+         "must",
+         "لازم"
+        ],
+        [
+         "mustn't",
+         "ممنوع"
+        ],
+        [
+         "should",
+         "أحسن"
+        ],
+        [
+         "shouldn't",
+         "مش أحسن"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر البطاقة",
+       "why": "المعاني"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اكتبوا مع الطفل «قواعد البيت» بـ must ونصايح بـ should."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "In the library, you ... shout.",
+       "en": true,
+       "choices": [
+        "should",
+        "must",
+        "mustn't"
+       ],
+       "answer": "mustn't",
+       "hint": "ممنوع",
+       "hints": {
+        "should": "الصريخ ممنوع.",
+        "must": "العكس."
+       },
+       "why": "ممنوع = mustn't.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "We should recycle plastic."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "You look tired. You ... rest.",
+       "en": true,
+       "choices": [
+        "should",
+        "mustn't",
+        "must"
+       ],
+       "answer": "should",
+       "hint": "نصيحة",
+       "hints": {
+        "mustn't": "دي نصيحة مش منع.",
+        "must": "نصيحة مش إجبار."
+       },
+       "why": "نصيحة.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "We should recycle plastic."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "should: نصيحة",
+      "must: لازم — mustn't: ممنوع"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/oo",
+   "key": "u4:l3",
+   "title": "Short and long oo",
+   "goal": "أفرّق بين oo القصيرة (book) والطويلة (moon)",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "book و moon",
+     "visual": {
+      "emoji": "📖🌙"
+     },
+     "ask": "نفس الصوت؟"
+    },
+    {
+     "type": "explain",
+     "title": "oo",
+     "text": "oo قصيرة: book, look, wood. oo طويلة: moon, food, school.",
+     "en": "book, moon",
+     "visual": {
+      "letter": "oo"
+     }
+    },
+    {
+     "type": "example",
+     "title": "كلمات",
+     "steps": [
+      {
+       "text": "قصيرة",
+       "en": "wood",
+       "visual": {
+        "emoji": "🪵"
+       }
+      },
+      {
+       "text": "طويلة",
+       "en": "school",
+       "visual": {
+        "emoji": "🏫"
+       }
+      },
+      {
+       "text": "طويلة",
+       "en": "food",
+       "visual": {
+        "emoji": "🍲"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "oo قصيرة ولا طويلة؟",
+       "groups": [
+        {
+         "name": "short",
+         "items": [
+          "book",
+          "look",
+          "wood"
+         ]
+        },
+        {
+         "name": "long",
+         "items": [
+          "moon",
+          "food",
+          "pool"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "قصير ولا ممدود؟",
+       "why": "اسمع الصوت"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "دوّروا على كلمات فيها oo في قصة، والطفل يقسمها قصيرة وطويلة."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "أي كلمة فيها oo طويلة؟",
+       "en": true,
+       "choices": [
+        "cook",
+        "spoon",
+        "foot"
+       ],
+       "answer": "spoon",
+       "hint": "اسمع",
+       "hints": {
+        "cook": "قصيرة.",
+        "foot": "قصيرة."
+       },
+       "why": "spoon طويلة.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "wood"
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "أي كلمة فيها oo قصيرة؟",
+       "en": true,
+       "choices": [
+        "room",
+        "boot",
+        "good"
+       ],
+       "answer": "good",
+       "hint": "اسمع",
+       "hints": {
+        "room": "طويلة.",
+        "boot": "طويلة."
+       },
+       "why": "good قصيرة.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "wood"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "oo قصيرة: book",
+      "oo طويلة: moon"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/visit-story",
+   "key": "u4:l4",
+   "title": "Writing a story about a visit",
+   "goal": "أكتب قصة عن زيارة لمكان سياحي بالماضي وبتفاصيل الحواس",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "زرت معبد الكرنك…",
+     "visual": {
+      "emoji": "🏛️✍️"
+     },
+     "ask": "احكي الزيارة"
+    },
+    {
+     "type": "explain",
+     "title": "A visit story",
+     "text": "نكتب بالماضي، بالترتيب، ونضيف تفاصيل: إيه شفت، سمعت، حسيت.",
+     "en": "Last week, I visited Karnak Temple.",
+     "visual": {
+      "emoji": "👀👂"
+     }
+    },
+    {
+     "type": "example",
+     "title": "قصة",
+     "steps": [
+      {
+       "text": "البداية",
+       "en": "Last Friday, we went to Luxor.",
+       "visual": {
+        "emoji": "🚌"
+       }
+      },
+      {
+       "text": "التفاصيل",
+       "en": "I saw huge columns made of stone.",
+       "visual": {
+        "emoji": "🏛️"
+       }
+      },
+      {
+       "text": "الإحساس",
+       "en": "I felt very proud of our history.",
+       "visual": {
+        "emoji": "😮"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب القصة",
+       "items": [
+        "Last Friday, we went to Luxor.",
+        "We visited Karnak Temple.",
+        "I saw huge columns.",
+        "I felt proud."
+       ],
+       "en": true,
+       "hint": "Last Friday",
+       "why": "بالترتيب"
+      },
+      {
+       "kind": "sort",
+       "ask": "ماضي ولا حاضر؟",
+       "groups": [
+        {
+         "name": "past",
+         "items": [
+          "we visited",
+          "I saw",
+          "I felt"
+         ]
+        },
+        {
+         "name": "present",
+         "items": [
+          "we visit",
+          "I see",
+          "I feel"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "ed أو irregular؟",
+       "why": "القصة بالماضي"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "الطفل يكتب قصة ٥ جمل عن آخر مكان زاره، ويضيف صورة."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "«I ... the pyramids last year.»",
+       "en": true,
+       "choices": [
+        "saw",
+        "see",
+        "seeing"
+       ],
+       "answer": "saw",
+       "hint": "last year",
+       "hints": {
+        "see": "last year = ماضي.",
+        "seeing": "محتاجة was."
+       },
+       "why": "see → saw.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Last Friday, we went to Luxor."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "Which sentence adds a feeling?",
+       "en": true,
+       "choices": [
+        "We took a bus.",
+        "I felt amazed.",
+        "It was in Luxor."
+       ],
+       "answer": "I felt amazed.",
+       "hint": "felt",
+       "hints": {
+        "We took a bus.": "ده حدث.",
+        "It was in Luxor.": "ده مكان."
+       },
+       "why": "إحساس.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Last Friday, we went to Luxor."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "بالماضي وبالترتيب",
+      "تفاصيل الحواس والإحساس"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/travel",
+   "key": "u5:l1",
+   "title": "Travel",
+   "goal": "أعرف كلمات السفر والرحلات والمتاحف",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "رحلة للمتحف المصري الكبير!",
+     "visual": {
+      "emoji": "🏛️🧳"
+     },
+     "ask": "محتاج إيه؟"
+    },
+    {
+     "type": "explain",
+     "title": "Travel",
+     "text": "كلمات السفر",
+     "en": "passport, luggage, travel plan, brochure, information desk",
+     "visual": {
+      "emoji": "🧳🛂"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "في المتحف",
+     "en": "exhibition, guided tour, mummy, entrance, active displays",
+     "visual": {
+      "emoji": "🏛️"
+     }
+    },
+    {
+     "type": "example",
+     "title": "جمل",
+     "steps": [
+      {
+       "text": "شنطة",
+       "en": "Pack your luggage the night before.",
+       "visual": {
+        "emoji": "🧳"
+       }
+      },
+      {
+       "text": "جولة",
+       "en": "We joined a guided tour.",
+       "visual": {
+        "emoji": "🗣️"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بمعناها",
+       "pairs": [
+        [
+         "passport",
+         "جواز سفر"
+        ],
+        [
+         "luggage",
+         "شنط السفر"
+        ],
+        [
+         "brochure",
+         "كتيب معلومات"
+        ],
+        [
+         "guided tour",
+         "جولة بمرشد"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر البطاقة",
+       "why": "كلمات السفر"
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب خطوات الرحلة",
+       "items": [
+        "make a travel plan",
+        "pack your luggage",
+        "board the plane",
+        "visit the exhibition"
+       ],
+       "en": true,
+       "hint": "التخطيط الأول",
+       "why": "الترتيب"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اعملوا مع الطفل travel plan لرحلة خيالية بالإنجليزي."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Where do you ask questions at a museum?",
+       "en": true,
+       "choices": [
+        "the exit",
+        "the mummy",
+        "the information desk"
+       ],
+       "answer": "the information desk",
+       "hint": "أسئلة",
+       "hints": {
+        "the exit": "مش للأسئلة.",
+        "the mummy": "المومياء معروضة."
+       },
+       "why": "مكتب الاستعلامات.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Pack your luggage the night before."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "You need a ... to travel to another country.",
+       "en": true,
+       "choices": [
+        "passport",
+        "brochure",
+        "souvenir"
+       ],
+       "answer": "passport",
+       "hint": "السفر",
+       "hints": {
+        "brochure": "الكتيب للمعلومات.",
+        "souvenir": "هدية."
+       },
+       "why": "جواز سفر.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Pack your luggage the night before."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "passport, luggage, brochure",
+      "exhibition, guided tour, mummy"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/past-simple",
+   "key": "u5:l2",
+   "title": "Past simple",
+   "goal": "أحكي عن الماضي بالأفعال المنتظمة والشاذة، وأسأل بـ did",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "امبارح رحت المتحف",
+     "visual": {
+      "emoji": "🏛️⏪"
+     },
+     "ask": "احكي!"
+    },
+    {
+     "type": "explain",
+     "title": "Past simple",
+     "text": "الماضي المنتظم: ed. الشاذ: went, saw, bought. السؤال: Did + فعل أصلي؟",
+     "en": "We visited the museum. Did you see the mummy?",
+     "visual": {
+      "emoji": "⏪"
+     }
+    },
+    {
+     "type": "example",
+     "title": "رحلة",
+     "steps": [
+      {
+       "text": "منتظم",
+       "en": "We visited the Grand Egyptian Museum.",
+       "visual": {
+        "emoji": "🏛️"
+       }
+      },
+      {
+       "text": "شاذ",
+       "en": "I bought a brochure.",
+       "visual": {
+        "emoji": "🛍️"
+       }
+      },
+      {
+       "text": "سؤال",
+       "en": "Did you take photos?",
+       "visual": {
+        "emoji": "❓"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الفعل بالماضي",
+       "pairs": [
+        [
+         "go",
+         "went"
+        ],
+        [
+         "buy",
+         "bought"
+        ],
+        [
+         "visit",
+         "visited"
+        ],
+        [
+         "take",
+         "took"
+        ]
+       ],
+       "en": true,
+       "hint": "ed ولا مختلف؟",
+       "why": "منتظم وشاذ"
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب السؤال",
+       "items": [
+        "Did",
+        "you",
+        "see",
+        "the mummy?"
+       ],
+       "en": true,
+       "hint": "Did الأول",
+       "why": "Did you see the mummy?"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "الطفل يحكي رحلة قديمة بـ ٥ جمل ماضي، وانتو تسألوه بـ Did."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Did you ... a souvenir?",
+       "en": true,
+       "choices": [
+        "bought",
+        "buy",
+        "buying"
+       ],
+       "answer": "buy",
+       "hint": "بعد Did",
+       "hints": {
+        "bought": "بعد did الفعل الأصلي.",
+        "buying": "مش ing."
+       },
+       "why": "Did + buy.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "We visited the Grand Egyptian Museum."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "Yesterday we ... the cable car.",
+       "en": true,
+       "choices": [
+        "ride",
+        "rided",
+        "rode"
+       ],
+       "answer": "rode",
+       "hint": "شاذ",
+       "hints": {
+        "ride": "Yesterday = ماضي.",
+        "rided": "ride شاذ."
+       },
+       "why": "ride → rode.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "We visited the Grand Egyptian Museum."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "منتظم: ed — شاذ: went, saw",
+      "Did + فعل أصلي؟"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/ed-endings",
+   "key": "u5:l3",
+   "title": "Past endings: d, t, id",
+   "goal": "أنطق ed في آخر الفعل الماضي صح: «د» و«ت» و«إد»",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "played و walked و visited",
+     "visual": {
+      "emoji": "🔊"
+     },
+     "ask": "ed بتتنطق زي بعض؟"
+    },
+    {
+     "type": "explain",
+     "title": "ed",
+     "text": "ed بتتنطق «ت» بعد أصوات زي k وp وsh: walked. و«إد» بعد t وd: visited. و«د» في الباقي: played.",
+     "en": "played, walked, visited",
+     "visual": {
+      "letter": "ed"
+     }
+    },
+    {
+     "type": "example",
+     "title": "نسمع",
+     "steps": [
+      {
+       "text": "صوت د",
+       "en": "played",
+       "visual": {
+        "emoji": "🎮"
+       }
+      },
+      {
+       "text": "صوت ت",
+       "en": "walked",
+       "visual": {
+        "emoji": "🚶"
+       }
+      },
+      {
+       "text": "صوت إد",
+       "en": "visited",
+       "visual": {
+        "emoji": "🏛️"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "صوت ed؟",
+       "groups": [
+        {
+         "name": "ت",
+         "items": [
+          "walked",
+          "helped",
+          "washed"
+         ]
+        },
+        {
+         "name": "د",
+         "items": [
+          "played",
+          "cleaned",
+          "opened"
+         ]
+        },
+        {
+         "name": "إد",
+         "items": [
+          "visited",
+          "wanted",
+          "needed"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "آخر صوت قبل ed",
+       "why": "اسمع آخر الفعل"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اقروا مع الطفل قصة ماضي، ويحط كل فعل ed في عمود صوته."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "ed في «decided» بتتنطق…",
+       "choices": [
+        "إد",
+        "ت",
+        "د"
+       ],
+       "answer": "إد",
+       "hint": "آخر حرف قبل ed",
+       "hints": {
+        "ت": "decide آخرها d.",
+        "د": "بعد d بتبقى إد."
+       },
+       "why": "بعد t أو d: إد.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "played"
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "ed في «jumped» بتتنطق…",
+       "choices": [
+        "د",
+        "ت",
+        "إد"
+       ],
+       "answer": "ت",
+       "hint": "آخر صوت",
+       "hints": {
+        "د": "بعد p بتبقى ت.",
+        "إد": "مش بعد t أو d."
+       },
+       "why": "بعد p: ت.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "played"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "ed: «ت» بعد k وp وsh",
+      "«إد» بعد t وd",
+      "«د» في الباقي"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/opinion",
+   "key": "u5:l4",
+   "title": "Writing an opinion paragraph",
+   "goal": "أقرأ عن مشروع جديد في مصر وأكتب فقرة رأي بأسباب",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "أكبر محطة شمس في أسوان",
+     "visual": {
+      "emoji": "☀️🔋"
+     },
+     "ask": "رأيك فيها؟"
+    },
+    {
+     "type": "explain",
+     "title": "Opinion",
+     "text": "فقرة الرأي: In my opinion… because… Also… In conclusion…",
+     "en": "In my opinion, solar energy is great because it is clean.",
+     "visual": {
+      "emoji": "💭"
+     }
+    },
+    {
+     "type": "read",
+     "title": "Sunlight in Aswan",
+     "items": [
+      {
+       "text": "بنبان في أسوان من أكبر محطات الطاقة الشمسية في العالم",
+       "en": "Benban in Aswan is one of the largest solar parks in the world.",
+       "visual": {
+        "emoji": "☀️"
+       }
+      },
+      {
+       "text": "آلاف الألواح بتحوّل الشمس لكهربا",
+       "en": "Thousands of solar panels turn sunlight into electricity.",
+       "visual": {
+        "emoji": "🔋"
+       }
+      },
+      {
+       "text": "الطاقة النضيفة دي مابتلوّثش الهوا",
+       "en": "This clean energy does not pollute the air.",
+       "visual": {
+        "emoji": "🌬️"
+       }
+      },
+      {
+       "text": "ناس كتير شايفاه مشروع عظيم للمستقبل",
+       "en": "Many people think it is a great project for the future.",
+       "visual": {
+        "emoji": "💡"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب فقرة الرأي",
+       "items": [
+        "In my opinion, Benban is a great project.",
+        "It makes clean energy.",
+        "Also, it gives people jobs.",
+        "In conclusion, we need more projects like it."
+       ],
+       "en": true,
+       "hint": "In my opinion",
+       "why": "رأي، سبب، سبب تاني، خلاصة"
+      },
+      {
+       "kind": "sort",
+       "ask": "حقيقة ولا رأي؟",
+       "groups": [
+        {
+         "name": "fact",
+         "items": [
+          "Benban is in Aswan.",
+          "Solar panels make electricity."
+         ]
+        },
+        {
+         "name": "opinion",
+         "items": [
+          "It is a great project.",
+          "Solar energy is the best."
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "نقدر نتأكد؟",
+       "why": "الحقيقة نقدر نثبتها"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "الطفل يكتب فقرة رأي ٤ جمل عن مشروع أو مكان جديد في مصر."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Where is Benban?",
+       "visual": {
+        "passage": "Benban in Aswan is one of the largest solar parks in the world. Thousands of solar panels turn sunlight into electricity. This clean energy does not pollute the air. Many people think it is a great project for the future.",
+        "title": "Sunlight in Aswan",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "in Cairo",
+        "in Alexandria",
+        "in Aswan"
+       ],
+       "answer": "in Aswan",
+       "hint": "أول جملة",
+       "hints": {
+        "in Cairo": "اقرأ أول جملة.",
+        "in Alexandria": "اقرأ أول جملة."
+       },
+       "why": "Benban in Aswan.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Benban in Aswan is one of the largest solar parks in the world."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "Which sentence is an opinion?",
+       "visual": {
+        "passage": "Benban in Aswan is one of the largest solar parks in the world. Thousands of solar panels turn sunlight into electricity. This clean energy does not pollute the air. Many people think it is a great project for the future.",
+        "title": "Sunlight in Aswan",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "Many people think it is a great project.",
+        "It is in Aswan.",
+        "Solar panels make electricity."
+       ],
+       "answer": "Many people think it is a great project.",
+       "hint": "آخر جملة",
+       "hints": {
+        "It is in Aswan.": "دي حقيقة.",
+        "Solar panels make electricity.": "دي حقيقة."
+       },
+       "why": "think = رأي.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Benban in Aswan is one of the largest solar parks in the world."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "In my opinion… because… Also… In conclusion…",
+      "نفرّق بين الحقيقة والرأي"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/water-savers",
+   "key": "u6:l1",
+   "title": "The Water Savers",
+   "goal": "أقرأ قصة قصيرة من تأليفنا عن توفير المية وأحدد الشخصيات والمشكلة والحل",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "تك… تك… تك…",
+     "visual": {
+      "emoji": "💧"
+     },
+     "ask": "صوت إيه ده؟"
+    },
+    {
+     "type": "explain",
+     "title": "The story",
+     "text": "قصة قصيرة من تأليفنا عن نفس فكرة الوحدة: كل نقطة مية مهمة.",
+     "en": "Every drop counts!",
+     "visual": {
+      "emoji": "📖"
+     }
+    },
+    {
+     "type": "read",
+     "title": "The Water Savers",
+     "items": [
+      {
+       "text": "هنا سمعت تك تك تك من الطرقة",
+       "en": "Hana heard a drip, drip, drip from the hallway.",
+       "visual": {
+        "emoji": "💧"
+       }
+      },
+      {
+       "text": "ماسورة كانت بتسرّب، وفيه بركة مية على الأرض",
+       "en": "A pipe was leaking, and a puddle was on the floor.",
+       "visual": {
+        "emoji": "🚰"
+       }
+      },
+      {
+       "text": "قالت لبابا وصلّحوا التسريب مع بعض",
+       "en": "She told her dad, and they fixed the leak together.",
+       "visual": {
+        "emoji": "🔧"
+       }
+      },
+      {
+       "text": "بعدين هنا عملت بوستر: «كل نقطة مهمة!»",
+       "en": "Then Hana made a poster: «Every drop counts!»",
+       "visual": {
+        "emoji": "🪧"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب القصة",
+       "items": [
+        "Hana heard a drip.",
+        "A pipe was leaking.",
+        "They fixed the leak.",
+        "Hana made a poster."
+       ],
+       "en": true,
+       "hint": "بدأت بالصوت",
+       "why": "ده ترتيب القصة"
+      },
+      {
+       "kind": "match",
+       "ask": "وصّل العنصر بالقصة",
+       "pairs": [
+        [
+         "character",
+         "Hana"
+        ],
+        [
+         "setting",
+         "the hallway"
+        ],
+        [
+         "problem",
+         "a leaking pipe"
+        ],
+        [
+         "solution",
+         "fixed the leak"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر القصة",
+       "why": "عناصر القصة"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "دوّروا مع الطفل على أي تسريب مية في البيت، واعملوا بوستر توفير."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "What was the problem?",
+       "visual": {
+        "passage": "Hana heard a drip, drip, drip from the hallway. A pipe was leaking, and a puddle was on the floor. She told her dad, and they fixed the leak together. Then Hana made a poster: «Every drop counts!»",
+        "title": "The Water Savers",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "a broken window",
+        "a leaking pipe",
+        "no water"
+       ],
+       "answer": "a leaking pipe",
+       "hint": "الجملة التانية",
+       "hints": {
+        "a broken window": "مش في القصة.",
+        "no water": "المية كانت بتسرّب."
+       },
+       "why": "A pipe was leaking.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Hana heard a drip, drip, drip from the hallway."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "What is the main idea?",
+       "visual": {
+        "passage": "Hana heard a drip, drip, drip from the hallway. A pipe was leaking, and a puddle was on the floor. She told her dad, and they fixed the leak together. Then Hana made a poster: «Every drop counts!»",
+        "title": "The Water Savers",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "pipes are old",
+        "Hana likes posters",
+        "every drop of water counts"
+       ],
+       "answer": "every drop of water counts",
+       "hint": "البوستر",
+       "hints": {
+        "pipes are old": "تفصيلة.",
+        "Hana likes posters": "مش الفكرة."
+       },
+       "why": "Every drop counts.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Hana heard a drip, drip, drip from the hallway."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "character, setting, problem, solution",
+      "كل نقطة مهمة"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/water-words",
+   "key": "u6:l2",
+   "title": "Water words",
+   "goal": "أعرف كلمات المية والسباكة: drip, leak, puddle, overflow, hose, tap, pipe",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "حنفية بتنقّط…",
+     "visual": {
+      "emoji": "🚰💧"
+     },
+     "ask": "نقولها إزاي؟"
+    },
+    {
+     "type": "explain",
+     "title": "Words",
+     "text": "كلمات",
+     "en": "drip, leak, puddle, overflow, hose, tap, pipe",
+     "visual": {
+      "emoji": "🚰"
+     }
+    },
+    {
+     "type": "example",
+     "title": "جمل",
+     "steps": [
+      {
+       "text": "حنفية",
+       "en": "Turn off the tap.",
+       "visual": {
+        "emoji": "🚰"
+       }
+      },
+      {
+       "text": "خرطوم",
+       "en": "Use a bucket, not a hose.",
+       "visual": {
+        "emoji": "🧑‍🌾"
+       }
+      },
+      {
+       "text": "فاض",
+       "en": "Don't let the bath overflow.",
+       "visual": {
+        "emoji": "🛁"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بمعناها",
+       "pairs": [
+        [
+         "tap",
+         "حنفية"
+        ],
+        [
+         "pipe",
+         "ماسورة"
+        ],
+        [
+         "puddle",
+         "بركة مية صغيرة"
+        ],
+        [
+         "leak",
+         "تسريب"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر البطاقة",
+       "why": "كلمات المية"
+      },
+      {
+       "kind": "sort",
+       "ask": "بيوفر مية ولا بيضيّع؟",
+       "groups": [
+        {
+         "name": "saves",
+         "items": [
+          "turn off the tap",
+          "fix the leak",
+          "use a bucket"
+         ]
+        },
+        {
+         "name": "wastes",
+         "items": [
+          "leave the tap on",
+          "long showers",
+          "let the bath overflow"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "المية بتروح هدر؟",
+       "why": "توفير ولا هدر؟"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اعملوا مع الطفل «دورية المية»: يلف البيت يشوف الحنفيات والتسريب."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Water falling slowly, drop by drop, is a…",
+       "en": true,
+       "choices": [
+        "drip",
+        "flood",
+        "hose"
+       ],
+       "answer": "drip",
+       "hint": "نقطة نقطة",
+       "hints": {
+        "flood": "كتير جدًا.",
+        "hose": "خرطوم."
+       },
+       "why": "drip.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Turn off the tap."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "When water goes over the top, it…",
+       "en": true,
+       "choices": [
+        "leaks",
+        "overflows",
+        "drips"
+       ],
+       "answer": "overflows",
+       "hint": "فوق الحافة",
+       "hints": {
+        "leaks": "التسريب من خرم.",
+        "drips": "نقط."
+       },
+       "why": "overflow.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Turn off the tap."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "drip, leak, puddle, overflow",
+      "tap, pipe, hose"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p6-t1-english/retell-poster",
+   "key": "u6:l3",
+   "title": "Retell and make a poster",
+   "goal": "أعيد حكي قصة بكلماتي بالترتيب، وأعمل بوستر برسالة",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "احكي قصة هنا لأخوك الصغير",
+     "visual": {
+      "emoji": "🗣️🪧"
+     },
+     "ask": "هتبدأ إزاي؟"
+    },
+    {
+     "type": "explain",
+     "title": "Retell and poster",
+     "text": "إعادة الحكي: بكلماتي، بالترتيب: First, Then, After that, Finally. والبوستر: عنوان قوي، صورة، ٣ نصايح.",
+     "en": "First, Hana heard a drip.",
+     "visual": {
+      "emoji": "🪧"
+     }
+    },
+    {
+     "type": "example",
+     "title": "بوستر",
+     "steps": [
+      {
+       "text": "العنوان",
+       "en": "Every Drop Counts!",
+       "visual": {
+        "emoji": "💧"
+       }
+      },
+      {
+       "text": "نصيحة",
+       "en": "Turn off the tap when you brush.",
+       "visual": {
+        "emoji": "🚰"
+       }
+      },
+      {
+       "text": "نصيحة",
+       "en": "Tell an adult about leaks.",
+       "visual": {
+        "emoji": "🔧"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب إعادة الحكي",
+       "items": [
+        "First, Hana heard a drip.",
+        "Then, she found a leak.",
+        "After that, they fixed it.",
+        "Finally, she made a poster."
+       ],
+       "en": true,
+       "hint": "First",
+       "why": "كلمات الترتيب"
+      },
+      {
+       "kind": "pick",
+       "ask": "المس نصايح تنفع البوستر",
+       "items": [
+        "Turn off the tap.",
+        "Fix leaks quickly.",
+        "Leave the hose on.",
+        "Take shorter showers.",
+        "Fill the bath to the top."
+       ],
+       "answers": [
+        "Turn off the tap.",
+        "Fix leaks quickly.",
+        "Take shorter showers."
+       ],
+       "en": true,
+       "hint": "بتوفر مية؟",
+       "hints": {
+        "Leave the hose on.": "ده هدر.",
+        "Fill the bath to the top.": "ده هدر."
+       },
+       "why": "دي بتوفر"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "الطفل يعمل بوستر «Every Drop Counts» ويعلّقه جنب الحوض."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Which word starts the retelling?",
+       "en": true,
+       "choices": [
+        "Finally",
+        "Then",
+        "First"
+       ],
+       "answer": "First",
+       "hint": "البداية",
+       "hints": {
+        "Finally": "للأخير.",
+        "Then": "في النص."
+       },
+       "why": "First للبداية.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Every Drop Counts!"
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "A good poster title?",
+       "en": true,
+       "choices": [
+        "Save Water Today!",
+        "Water.",
+        "I like water and pipes and many things."
+       ],
+       "answer": "Save Water Today!",
+       "hint": "قصير",
+       "hints": {
+        "Water.": "ضعيف.",
+        "I like water and pipes and many things.": "طويل ومش واضح."
+       },
+       "why": "قصير وقوي.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Every Drop Counts!"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "First ← Then ← After that ← Finally",
+      "بوستر: عنوان، صورة، نصايح"
+     ]
+    }
+   ]
+  }
+ ]
+}
