@@ -17,7 +17,6 @@ import '../../core/widgets/toast.dart';
 import '../../domain/lesson_content.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
-import '../../domain/school.dart';
 import '../../domain/school_lessons.dart';
 import '../parent/parent_gate.dart';
 import '../parent/worksheet_card.dart';
@@ -33,9 +32,9 @@ int currentTerm(DateTime now) => now.month >= 2 && now.month <= 7 ? 2 : 1;
 /// الدروس تنفع الطفل ده؟ من أولى لسادسة بس — مفيش كتب للحضانة.
 bool schoolFits(ProgressData p) => schoolScreenGrades.any((g) => g.$1 == p.grade);
 
-/// الصفوف اللي بتظهر للطفل: صفه واللي قبله للمراجعة — مش الصفوف الأعلى.
+/// الصفوف اللي بتظهر للطفل: صفه بس. لو مالوش صف دراسي (أو في KG) بيختار من الكل.
 List<(String, String)> schoolGradesFor(ProgressData p) =>
-    [for (final g in schoolScreenGrades) if (!schoolFits(p) || gradeIndex(g.$1) <= gradeIndex(p.grade)) g];
+    [for (final g in schoolScreenGrades) if (!schoolFits(p) || g.$1 == p.grade) g];
 
 class SchoolScreen extends ConsumerStatefulWidget {
   const SchoolScreen({super.key});
@@ -56,7 +55,9 @@ class _SchoolScreenState extends ConsumerState<SchoolScreen> {
   Widget build(BuildContext context) {
     final p = ref.watch(progressProvider);
     final lessons = ref.watch(lessonsProvider).value ?? const {};
-    final book = schoolBook(_grade, _term, _subject);
+    // صف الطفل ثابت لو ليه صف دراسي؛ الاختيار للي مالوش صف بس
+    final grade = schoolFits(p) ? p.grade! : _grade;
+    final book = schoolBook(grade, _term, _subject);
     Widget chips<T>(List<(T, String)> options, T value, void Function(T) pick) => Wrap(
           alignment: WrapAlignment.center,
           spacing: 8,
@@ -77,7 +78,10 @@ class _SchoolScreenState extends ConsumerState<SchoolScreen> {
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         QCard(
           child: Column(children: [
-            chips([for (final (g, label) in schoolGradesFor(p)) (g, g == p.grade ? '$label ⭐' : label)], _grade, (v) => _grade = v),
+            if (schoolGradesFor(p) case [(_, final label)])
+              Text('$label ابتدائي ⭐', style: kidText(17))
+            else
+              chips([for (final (g, label) in schoolGradesFor(p)) (g, g == p.grade ? '$label ⭐' : label)], _grade, (v) => _grade = v),
             const SizedBox(height: 6),
             chips(const [(1, 'الترم الأول'), (2, 'الترم التاني')], _term, (v) => _term = v),
             const SizedBox(height: 6),

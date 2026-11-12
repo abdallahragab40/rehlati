@@ -15,6 +15,15 @@ import 'package:rehlati/features/school/school_screen.dart';
 import 'engine_test.dart' show correctIndex, makeContainer;
 
 void main() {
+  test('a child with a school grade sees only that grade; without one, every grade to choose from', () {
+    for (final (g, _) in schoolScreenGrades) {
+      expect(schoolGradesFor(ProgressData(grade: g)).map((e) => e.$1), [g], reason: g);
+    }
+    for (final g in [null, 'kg1', 'kg2']) {
+      expect(schoolGradesFor(ProgressData(grade: g)), schoolScreenGrades, reason: '$g');
+    }
+  });
+
   test('question generation shuffles copies of the curriculum, including const items', () {
     final round = schoolRound('school:p2-t1-math:u4:l1')!;
     final lessons = List<SchoolLesson>.unmodifiable(round.lessons);
