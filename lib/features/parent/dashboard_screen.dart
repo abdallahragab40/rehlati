@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../school/lessons_parent_card.dart';
 import '../../core/audio/audio_providers.dart';
 import '../../core/nav.dart';
 import '../../core/reminder.dart';
@@ -174,7 +175,7 @@ class _ProgressTab extends ConsumerWidget {
       _h3('📚 دروس المدرسة'),
       _LinkCard(
         icon: '📚',
-        title: 'دروس كتاب الوزارة — أولى وتانية',
+        title: 'دروس كتاب الوزارة — من أولى لسادسة',
         sub: () {
           final lessons = p.school.keys.where((k) => k.split(':').length == 4).length;
           final exams = p.school.length - lessons;
@@ -187,6 +188,8 @@ class _ProgressTab extends ConsumerWidget {
         }(),
         onTap: () => context.push('/school'),
       ),
+      _h3('📖 شرح الدروس'),
+      const LessonsParentCard(),
       _h3('📅 تقرير الأسبوع'),
       const ShareWeekButton(),
       const WeekCard(),

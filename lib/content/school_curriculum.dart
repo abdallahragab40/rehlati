@@ -2,6 +2,8 @@
 /// (tool/SCHOOL_CURRICULUM_INDEX.md). الأسئلة نفسها من مراحل التطبيق: كل درس بيقول أنهي مراحل
 /// بتدرّب عليه، ولو حرف أو عدد معيّن يبقى [LessonItem.focus].
 ///
+/// مطابقة أولى وتانية ترم أول مع طبعة ٢٠٢٦/٢٠٢٧ في tool/curriculum/p1-t1.json وp2-t1.json.
+///
 /// الدرس اللي [SchoolLesson.items] فاضية لسه مالوش مراحل — بيظهر «قريبًا».
 /// مفتاح الدرس بيتحسب من مكانه (الكتاب، الوحدة، الدرس) وبيتخزّن في نتايج الطفل،
 /// فدرس جديد يتضاف في آخر وحدته مش في النص.
@@ -24,10 +26,18 @@ class LessonItem {
 }
 
 class SchoolLesson {
-  const SchoolLesson(this.title, this.items);
+  const SchoolLesson(this.title, this.items) : explainOnly = false;
+
+  /// درس شرح بس (استماع، نشيد، قراءة — assets/lessons/): مالوش جولة أسئلة ولا بيدخل في امتحان الوحدة.
+  const SchoolLesson.explain(this.title)
+      : items = const [],
+        explainOnly = true;
+
   final String title;
   final List<LessonItem> items;
+  final bool explainOnly;
 
+  /// ليه جولة أسئلة.
   bool get ready => items.isNotEmpty;
 }
 
@@ -82,10 +92,30 @@ SchoolLesson _soon(String title) => SchoolLesson(title, const []);
 final schoolBooks = <SchoolBook>[
   // ---------------------------------------------------------------- عربي
   SchoolBook('p1', 1, 'arabic', [
-    SchoolUnit('أسرتي', [for (final l in ['أ', 'ب', 'م', 'ح', 'ج', 'د', 'خ', 'ت']) _arLetter(l)]),
-    SchoolUnit('حيواناتي', [for (final l in ['ل', 'س', 'ن', 'ر', 'ف', 'ك', 'ق']) _arLetter(l)]),
-    SchoolUnit('أجزاء جسمي', [for (final l in ['ي', 'ع', 'ش', 'و', 'ه', 'ذ', 'ظ']) _arLetter(l)]),
-    SchoolUnit('مدرستي', [for (final l in ['ز', 'ط', 'ص', 'ض', 'ث', 'غ']) _arLetter(l)]),
+    SchoolUnit('أسرتي', [
+      for (final l in ['أ', 'ب', 'م', 'ح', 'ج', 'د', 'خ', 'ت']) _arLetter(l),
+      const SchoolLesson.explain('استماع: يوم الجمعة'),
+      const SchoolLesson.explain('نشيد: ما أجمل أسرتي'),
+      const SchoolLesson.explain('اقرا: تاج ماما'),
+    ]),
+    SchoolUnit('حيواناتي', [
+      for (final l in ['ل', 'س', 'ن', 'ر', 'ف', 'ك', 'ق']) _arLetter(l),
+      const SchoolLesson.explain('استماع: في حديقة الحيوان'),
+      const SchoolLesson.explain('نشيد: حيواناتي'),
+      const SchoolLesson.explain('اقرا: سمك ونمل'),
+    ]),
+    SchoolUnit('أجزاء جسمي', [
+      for (final l in ['ي', 'ع', 'ش', 'و', 'ه', 'ذ', 'ظ']) _arLetter(l),
+      const SchoolLesson.explain('استماع: يوسف النضيف'),
+      const SchoolLesson.explain('نشيد: جسمي'),
+      const SchoolLesson.explain('اقرا: وجه نظيف'),
+    ]),
+    SchoolUnit('مدرستي', [
+      for (final l in ['ز', 'ط', 'ص', 'ض', 'ث', 'غ']) _arLetter(l),
+      const SchoolLesson.explain('استماع: أول يوم في المدرسة'),
+      const SchoolLesson.explain('نشيد: مدرستي'),
+      const SchoolLesson.explain('اقرا: قلم وكتاب'),
+    ]),
   ]),
   SchoolBook('p1', 2, 'arabic', [
     SchoolUnit('ماذا أرى؟', [
@@ -113,16 +143,44 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('المفرد والمثنى', [_i('ar_number')]),
       SchoolLesson('تحليل الكلمات إلى مقاطع', [_i('ar_analyze'), _i('ar_syllable')]),
       SchoolLesson('أسماء الإشارة', [_i('ar_this')]),
+
+      const SchoolLesson.explain('اقرأ: قلم لصديقي'),
+      const SchoolLesson.explain('اقرأ: مكان للجميع'),
+      const SchoolLesson.explain('استماع: الهدية الصغيرة'),
+      const SchoolLesson.explain('نشيد: أقول شكرًا'),
+      const SchoolLesson.explain('تحدث: كلمة لطيفة'),
+      const SchoolLesson.explain('تحدث: أرحب بصديق'),
+      const SchoolLesson.explain('كتابة: مشهد في الحديقة'),
+      const SchoolLesson.explain('كتابة: مشهد في الفصل'),
+      const SchoolLesson.explain('مراجعة: أستعد لتانية'),
     ]),
     SchoolUnit('عادات صحية', [
       SchoolLesson('ذلك – تلك', [_i('ar_far')]),
       SchoolLesson('اللام الشمسية واللام القمرية', [_i('ar_al')]),
       SchoolLesson('ظرف الزمان وظرف المكان', [_i('ar_adverb')]),
+
+      const SchoolLesson.explain('اقرأ: ابتسامة نظيفة'),
+      const SchoolLesson.explain('اقرأ: صندوق الغداء'),
+      const SchoolLesson.explain('استماع: صباح بلا عجلة'),
+      const SchoolLesson.explain('نشيد: جسمي نشيط'),
+      const SchoolLesson.explain('تحدث: أحكي عن فرشاتي'),
+      const SchoolLesson.explain('تحدث: وجبتي المتنوعة'),
+      const SchoolLesson.explain('كتابة: بطاقتي'),
+      const SchoolLesson.explain('كتابة: بطاقة لصديق خيالي'),
     ]),
     SchoolUnit('الرياضة والتكنولوجيا', [
       SchoolLesson('الأمر والنهي', [_i('ar_command')]),
       SchoolLesson('الحروف المتشابهة في النطق', [_i('ar_similar')]),
       SchoolLesson('الأسماء الموصولة', [_i('ar_relative')]),
+
+      const SchoolLesson.explain('اقرأ: وقت للشاشة'),
+      const SchoolLesson.explain('اقرأ: نتعاون في الملعب'),
+      const SchoolLesson.explain('استماع: لعبة تناسبنا'),
+      const SchoolLesson.explain('نشيد: نلعب معًا'),
+      const SchoolLesson.explain('تحدث: أستخدم الحاسوب'),
+      const SchoolLesson.explain('تحدث: نشاط أحبه'),
+      const SchoolLesson.explain('كتابة: مشهد اللعب'),
+      const SchoolLesson.explain('كتابة: بطاقة بطل خيالي'),
     ]),
   ]),
   SchoolBook('p2', 2, 'arabic', [
@@ -196,23 +254,71 @@ final schoolBooks = <SchoolBook>[
     SchoolUnit('البيانات', [
       SchoolLesson('التمثيل البياني بالصور', [_i('picGraph')]),
       SchoolLesson('التمثيل البياني بالأعمدة', [_i('barGraph')]),
+
+      const SchoolLesson.explain('مقارنة رسمين بيانيين'),
     ]),
     SchoolUnit('الجمع والطرح', [
       SchoolLesson('الجمع والطرح', [_i('add100'), _i('sub100')]),
       SchoolLesson('مسائل كلامية', [_i('wordProblem')]),
+
+      const SchoolLesson.explain('جمع عدد من رقمين وعدد من رقم واحد'),
+      const SchoolLesson.explain('الجمع عندما تكتمل عشرة'),
+      const SchoolLesson.explain('تبديل ترتيب العددين في الجمع'),
+      const SchoolLesson.explain('الطرح الرأسي بدون إعادة تجميع'),
+      const SchoolLesson.explain('طرح عدد من رقم واحد'),
+      const SchoolLesson.explain('الطرح بفك عشرة'),
+      const SchoolLesson.explain('طرح رقم واحد بفك عشرة'),
+      const SchoolLesson.explain('العلاقة بين الجمع والطرح'),
     ]),
-    SchoolUnit('الأعداد المكوّنة من ٣ أرقام', [SchoolLesson('الأعداد من ٣ أرقام', [_i('hundreds')])]),
+    SchoolUnit('الأعداد المكوّنة من ٣ أرقام', [
+      SchoolLesson('الأعداد من ٣ أرقام', [_i('hundreds')]),
+      const SchoolLesson.explain('الصفر في العدد'),
+      const SchoolLesson.explain('القيمة المكانية للأعداد'),
+      const SchoolLesson.explain('العشرات داخل المئات'),
+      const SchoolLesson.explain('قراءة خط أعداد كبير'),
+      const SchoolLesson.explain('العدد ألف'),
+      const SchoolLesson.explain('جمع وطرح العشرات والمئات'),
+      const SchoolLesson.explain('المئات مع العشرات والآحاد'),
+      const SchoolLesson.explain('مقارنة الأعداد الكبيرة'),
+      const SchoolLesson.explain('مقارنة عدد بناتج عملية'),
+    ]),
     SchoolUnit('الجمع والطرح بإعادة التجميع', [
-      SchoolLesson('الجمع والطرح بإعادة التجميع', [_i('add100'), _i('sub100')]),
+      const SchoolLesson('الجمع والطرح بإعادة التجميع', [
+        LessonItem('add100', minLevel: 4),
+        LessonItem('sub100', minLevel: 4),
+      ]),
       SchoolLesson('تقدير نواتج الجمع والطرح', [_i('rounding')]),
+
+      const SchoolLesson.explain('جمع ينتج مئات'),
+      const SchoolLesson.explain('جمع بإعادة تجميع مرتين'),
+      const SchoolLesson.explain('طرح بفك مئة'),
+      const SchoolLesson.explain('طرح بفك مئة وعشرة'),
+      const SchoolLesson.explain('الطرح عبر صفر'),
+      const SchoolLesson.explain('الجمع والطرح من ثلاثة أرقام'),
     ]),
     SchoolUnit('الأشكال والقياس', [
       SchoolLesson('الأشكال الهندسية', [_i('geometry')]),
       SchoolLesson('قياس الأطوال', [_i('measure')]),
+
+      const SchoolLesson.explain('الملليمتر'),
+      const SchoolLesson.explain('الخط المستقيم وتحويل الأطوال'),
+      const SchoolLesson.explain('رسم خط مستقيم بالمسطرة'),
+      const SchoolLesson.explain('حساب الأطوال'),
     ]),
     SchoolUnit('الكتلة والوقت', [
       SchoolLesson('الكتلة', [_i('measure')]),
       SchoolLesson('الوقت', [_i('clockQuarter')]),
+
+      const SchoolLesson.explain('صباحًا ومساءً'),
+    ]),
+    const SchoolUnit('وحدات السعة', [
+      SchoolLesson.explain('الديسيلتر والسعة'),
+      SchoolLesson.explain('اللتر والسعة'),
+      SchoolLesson.explain('الملليلتر والسعة'),
+    ]),
+    const SchoolUnit('طرق الحساب الذهني', [
+      SchoolLesson.explain('الحساب الذهني بتغيير الترتيب'),
+      SchoolLesson.explain('الحساب الذهني بتفكيك عدد'),
     ]),
   ]),
   SchoolBook('p2', 2, 'math', [
@@ -279,10 +385,15 @@ final schoolBooks = <SchoolBook>[
     SchoolUnit("Let's Get Started!", [
       SchoolLesson('Classroom things', [_i('en_daily')]),
       SchoolLesson('Short vowels a, e, i', [_i('en_cvc', 'vowels:aei')]),
+
+      const SchoolLesson.explain('Greetings and introductions'),
     ]),
     SchoolUnit('Colors, Shapes, and Numbers', [
       SchoolLesson('Colors, shapes and numbers', [_i('en_colors'), _i('en_shapes'), _i('en_numbers')]),
       SchoolLesson('Numbers 11–20', [_i('en_count100', 'to20')]),
+
+      const SchoolLesson.explain('Short o, short u and long a'),
+      const SchoolLesson.explain('Counting by tens'),
     ]),
     SchoolUnit('Classroom Actions & Routines', [
       SchoolLesson('Classroom actions', [_i('en_actions')]),
@@ -291,9 +402,19 @@ final schoolBooks = <SchoolBook>[
     SchoolUnit('Everyday Life', [
       SchoolLesson('My family', [_i('en_family')]),
       SchoolLesson('Long vowels o, u and th', [_i('en_sounds', 'long:o,u'), _i('en_sounds', 'digraph:th')]),
+
+      const SchoolLesson.explain('Daily routines'),
     ]),
-    SchoolUnit('My Home', [SchoolLesson('My home', [_i('en_rooms'), _i('en_prep')]), SchoolLesson('sh and th', [_i('en_sounds', 'digraph:sh,th')])]),
-    SchoolUnit('Rooms at Home', [SchoolLesson('Rooms at home', [_i('en_rooms')]), SchoolLesson('ch', [_i('en_sounds', 'digraph:ch')])]),
+    SchoolUnit('My Home', [
+      SchoolLesson('My home', [_i('en_rooms'), _i('en_prep')]),
+      SchoolLesson('sh and th', [_i('en_sounds', 'digraph:sh,th')]),
+      const SchoolLesson.explain('Helping at home'),
+    ]),
+    SchoolUnit('Rooms at Home', [
+      SchoolLesson('Rooms at home', [_i('en_rooms')]),
+      SchoolLesson('ch', [_i('en_sounds', 'digraph:ch')]),
+      const SchoolLesson.explain('There is and There are'),
+    ]),
   ]),
   SchoolBook('p2', 2, 'english', [
     SchoolUnit('Our Environment', [SchoolLesson('There is / There are', [_i('en_isare')]), SchoolLesson('Long vowels a, i', [_i('en_sounds', 'long:a,i')])]),
@@ -312,16 +433,40 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('أدوات الاستفهام', [_i('ar_style', 'istifham')]),
       SchoolLesson('المقاطع الصوتية', [_i('ar_analyze'), _i('ar_syllable')]),
       SchoolLesson('هؤلاء – أولئك', [_i('ar_far', 'plural')]),
+      const SchoolLesson.explain('استماع: البذرة الصغيرة'),
+      const SchoolLesson.explain('اقرأ: الطائرة الورقية'),
+      const SchoolLesson.explain('اقرأ: البطل المجهول'),
+      const SchoolLesson.explain('نشيد: أحاول وأنجح'),
+      const SchoolLesson.explain('تحدث: أحكي عن محاولة'),
+      const SchoolLesson.explain('تحدث: أشكر من ساعدني'),
+      const SchoolLesson.explain('كتابة: قصة مصورة'),
+      const SchoolLesson.explain('كتابة: أكمل القصة المصورة'),
     ]),
     SchoolUnit('صفاتي الجميلة', [
       SchoolLesson('المفرد والمثنى والجمع', [_i('ar_number')]),
       SchoolLesson('التنوين', [_i('ar_tanween'), _i('ar_marks')]),
       SchoolLesson('أسلوب النفي (لم – لن)', [_i('ar_negation')]),
+      const SchoolLesson.explain('استماع: النحلة والوردة'),
+      const SchoolLesson.explain('اقرأ: جارتنا الطيبة'),
+      const SchoolLesson.explain('اقرأ: أول من تطوع'),
+      const SchoolLesson.explain('نشيد: أخلاقي'),
+      const SchoolLesson.explain('تحدث: أساعد غيري'),
+      const SchoolLesson.explain('تحدث: أنا مبادر'),
+      const SchoolLesson.explain('كتابة: نهاية جديدة لقصة'),
+      const SchoolLesson.explain('كتابة: نهاية أخرى للقصة'),
     ]),
     SchoolUnit('أحب بلدي', [
       SchoolLesson('حروف الجر (عن – على)', [_i('ar_particles', 'jarr2')]),
       SchoolLesson('التاء المفتوحة والمربوطة', [_i('ar_taa')]),
       SchoolLesson('حروف العطف (ثم – ف)', [_i('ar_particles', 'atf2')]),
+      const SchoolLesson.explain('استماع: الحمامة الشجاعة'),
+      const SchoolLesson.explain('اقرأ: صندوق الأفكار'),
+      const SchoolLesson.explain('اقرأ: يوم في المتحف'),
+      const SchoolLesson.explain('نشيد: مصر بلدي'),
+      const SchoolLesson.explain('تحدث: مكان جميل في بلدي'),
+      const SchoolLesson.explain('تحدث: في المتحف'),
+      const SchoolLesson.explain('كتابة: قصة مصورة عن رحلة'),
+      const SchoolLesson.explain('كتابة: نهاية جديدة لقصة المتحف'),
     ]),
   ]),
   SchoolBook('p3', 2, 'arabic', [
@@ -346,11 +491,18 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('التمثيل البياني بالأعمدة', [_i('barGraph')]),
       SchoolLesson('التمثيل البياني بالنقاط', [_i('dotPlot')]),
       SchoolLesson('قياس الأطوال', [_i('measure')]),
+      const SchoolLesson.explain('المسافة وأقصر مسافة'),
+      const SchoolLesson.explain('علامات العد والجداول'),
+      const SchoolLesson.explain('رسم الأعمدة البيانية'),
+      const SchoolLesson.explain('تنظيم البيانات في جداول'),
     ]),
     SchoolUnit('الآلاف والضرب', [
       SchoolLesson('الآلاف', [_i('thousands')]),
       SchoolLesson('المصفوفات ومفهوم الضرب', [_i('mulGroups')]),
       SchoolLesson('خاصية الإبدال في الضرب', [_i('times2510')]),
+      const SchoolLesson.explain('الضرب في صفر'),
+      const SchoolLesson.explain('الأعداد الكبيرة على خط الأعداد'),
+      const SchoolLesson.explain('الضرب في ١٠ والقسمة على ١٠'),
     ]),
     SchoolUnit('الضرب والقسمة والوقت', [
       SchoolLesson('مضاعفات ٢ و٣ و٤', [_i('times2510'), _i('times34')]),
@@ -358,6 +510,11 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('الوقت', [_i('clockQuarter')]),
       SchoolLesson('مفهوم القسمة', [_i('divisionExact')]),
       SchoolLesson('العلاقة بين الضرب والقسمة', [_i('divisionMissing')]),
+      const SchoolLesson.explain('المدة الزمنية'),
+      const SchoolLesson.explain('الدقيقة والثانية'),
+      const SchoolLesson.explain('التوزيع والقسمة'),
+      const SchoolLesson.explain('حالات استخدام القسمة'),
+      const SchoolLesson.explain('القسمة للمقارنة'),
     ]),
     SchoolUnit('المضلعات والمساحة', [
       SchoolLesson('المضلعات والأشكال الرباعية', [_i('geometry')]),
@@ -372,6 +529,26 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('مقارنة وترتيب الأعداد', [_i('hundreds')]),
       SchoolLesson('الجمع والطرح', [_i('add100'), _i('sub100')]),
       SchoolLesson('السعة', [_i('measure')]),
+      const SchoolLesson.explain('طرح الأعداد الكبيرة'),
+      const SchoolLesson.explain('الطرح عبر الأصفار'),
+      const SchoolLesson.explain('مسائل الجمع والطرح'),
+    ]),
+    const SchoolUnit('الحساب الذهني', [
+      SchoolLesson.explain('الحساب الذهني للجمع'),
+      SchoolLesson.explain('الحساب الذهني للطرح'),
+    ]),
+    const SchoolUnit('القسمة مع الباقي', [
+      SchoolLesson.explain('القسمة مع الباقي'),
+      SchoolLesson.explain('التحقق من الإجابة'),
+      SchoolLesson.explain('استخدام القسمة مع الباقي'),
+      SchoolLesson.explain('مسائل القسمة مع الباقي'),
+    ]),
+    const SchoolUnit('الضرب الرأسي', [
+      SchoolLesson.explain('الضرب في العشرات والمئات'),
+      SchoolLesson.explain('ضرب عدد من رقمين في رقم'),
+      SchoolLesson.explain('ضرب عدد من ٣ أرقام في رقم'),
+      SchoolLesson.explain('قواعد الضرب الرأسي'),
+      SchoolLesson.explain('استخدام الضرب'),
     ]),
   ]),
   SchoolBook('p3', 2, 'math', [
@@ -402,15 +579,34 @@ final schoolBooks = <SchoolBook>[
     SchoolUnit("Let's Learn Together!", [
       SchoolLesson('Greetings', [_i('en_phrases')]),
       SchoolLesson('I am, you are, he is', [_i('en_isare')]),
+      const SchoolLesson.explain('Digraph wh'),
     ]),
-    SchoolUnit('My Family and I', [SchoolLesson('Family', [_i('en_family')]), SchoolLesson('my, his, her', [_i('en_possessive')])]),
+    SchoolUnit('My Family and I', [
+      SchoolLesson('Family', [_i('en_family')]),
+      SchoolLesson('my, his, her', [_i('en_possessive')]),
+      const SchoolLesson.explain('ph and x'),
+    ]),
     SchoolUnit('New Adventures', [
       SchoolLesson('Places', [_i('en_places')]),
       SchoolLesson('in, on, under', [_i('en_prep')]),
       SchoolLesson('Past tense: walked, played', [_i('en_past', 'regular')]),
+      const SchoolLesson.explain('zz, ss, ll and ck'),
     ]),
-    SchoolUnit("Let's Tell Stories!", [SchoolLesson('Feelings', [_i('en_feelings')]), SchoolLesson('Past simple stories', [_i('en_past', 'irregular')])]),
-    SchoolUnit('Together Is Better', [SchoolLesson('Actions', [_i('en_actions')])]),
+    SchoolUnit("Let's Tell Stories!", [
+      SchoolLesson('Feelings', [_i('en_feelings')]),
+      SchoolLesson('Past simple stories', [_i('en_past', 'irregular')]),
+      const SchoolLesson.explain('Hard and soft c'),
+    ]),
+    SchoolUnit('Together Is Better', [
+      SchoolLesson('Actions', [_i('en_actions')]),
+      const SchoolLesson.explain('Hard and soft g'),
+      const SchoolLesson.explain('Chores'),
+    ]),
+    const SchoolUnit('Dare to Dream', [
+      SchoolLesson.explain('Present continuous'),
+      SchoolLesson.explain('spr, spl, scr'),
+      SchoolLesson.explain('Goals and success'),
+    ]),
   ]),
   SchoolBook('p3', 2, 'english', [
     SchoolUnit('Safety', [SchoolLesson("Stop! Don't touch!", [_i('en_safety')]), SchoolLesson('Blends sl, st, gr, tr', [_i('en_sounds', 'blendS')])]),
@@ -425,16 +621,40 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('أنواع الكلمة وعلامات الاسم', [_i('ar_wordType'), _i('ar_nounSigns')]),
       SchoolLesson('دخول فـ بـ كـ لـ على «ال»', [_i('ar_alPrefix')]),
       SchoolLesson('المفرد والمثنى والجمع', [_i('ar_number')]),
+      const SchoolLesson.explain('استماع: حلم مريم'),
+      const SchoolLesson.explain('اقرأ: دفتر الأحلام'),
+      const SchoolLesson.explain('اقرأ: أنا أستطيع'),
+      const SchoolLesson.explain('نشيد: مصر بلادي'),
+      const SchoolLesson.explain('تحدث: أحكي عن حلمي'),
+      const SchoolLesson.explain('تحدث: أواجه تحديًا'),
+      const SchoolLesson.explain('كتابة: رسالة شخصية'),
+      const SchoolLesson.explain('كتابة: رسالة إلى صديق'),
     ]),
     SchoolUnit('أخلاقي حياتي', [
       SchoolLesson('الضمائر', [_i('ar_pronoun')]),
       SchoolLesson('علامات الترقيم', [_i('ar_punct')]),
       SchoolLesson('ركنا الجملة الاسمية', [_i('ar_mubtada', 'single')]),
+      const SchoolLesson.explain('استماع: الكلمة الطيبة'),
+      const SchoolLesson.explain('اقرأ: الهدية التي لا تُشترى'),
+      const SchoolLesson.explain('اقرأ: لحظة تفكير'),
+      const SchoolLesson.explain('نشيد: أخلاقي نور'),
+      const SchoolLesson.explain('تحدث: موقف لطيف رأيته'),
+      const SchoolLesson.explain('تحدث: أهدأ قبل أن أتكلم'),
+      const SchoolLesson.explain('كتابة: مناقشة فكرة'),
+      const SchoolLesson.explain('كتابة: أناقش فكرة أخرى'),
     ]),
     SchoolUnit('رسالة من أطفال مصر', [
       SchoolLesson('المبتدأ والخبر المثنى', [_i('ar_mubtada', 'dual')]),
       SchoolLesson('حروف تُنطق ولا تُكتب', [_i('ar_hiddenAlif')]),
       SchoolLesson('المبتدأ والخبر جمع المذكر السالم', [_i('ar_mubtada', 'plural')]),
+      const SchoolLesson.explain('استماع: النهر يتكلم'),
+      const SchoolLesson.explain('اقرأ: الحديقة التي عادت'),
+      const SchoolLesson.explain('اقرأ: خطوات صغيرة لكوكب كبير'),
+      const SchoolLesson.explain('نشيد: بستاني الأخضر'),
+      const SchoolLesson.explain('تحدث: رسالة إلى الطبيعة'),
+      const SchoolLesson.explain('تحدث: أنا صديق البيئة'),
+      const SchoolLesson.explain('كتابة: رسالة شخصية عن البيئة'),
+      const SchoolLesson.explain('كتابة: أناقش فكرة عن البيئة'),
     ]),
   ]),
   SchoolBook('p4', 2, 'arabic', [
@@ -459,33 +679,66 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('الأعداد الكبيرة والقيمة المكانية', [_i('thousands')]),
       SchoolLesson('مقارنة وترتيب الأعداد', [_i('thousands')]),
       SchoolLesson('قواعد التقريب', [_i('roundLarge')]),
+      const SchoolLesson.explain('تغيير القيم المكانية'),
+      const SchoolLesson.explain('صيغ كتابة الأعداد'),
+      const SchoolLesson.explain('تكوين الأعداد وتحليلها'),
+      const SchoolLesson.explain('مقارنة الأعداد في صيغ مختلفة'),
+      const SchoolLesson.explain('ترتيب الأعداد تصاعديًا وتنازليًا'),
     ]),
     SchoolUnit('استراتيجيات الجمع والطرح', [
       SchoolLesson('الجمع والطرح بإعادة التسمية', [_i('bigAddSub')]),
       SchoolLesson('المسائل متعددة الخطوات', [_i('bigAddSub'), _i('wordProblem')]),
+      const SchoolLesson.explain('خواص عملية الجمع'),
+      const SchoolLesson.explain('النماذج الشريطية والمسائل الكلامية'),
+      const SchoolLesson.explain('الطرح مع إعادة التسمية'),
     ]),
     SchoolUnit('مفاهيم القياس', [
       SchoolLesson('الطول والكتلة والسعة', [_i('unitConvert')]),
       SchoolLesson('قياس الوقت والوقت المنقضي', [_i('unitConvert', 'elapsed'), _i('clockQuarter')]),
+      const SchoolLesson.explain('قياس الكتلة'),
+      const SchoolLesson.explain('وحدات قياس السعة'),
+      const SchoolLesson.explain('الوقت المنقضي'),
+      const SchoolLesson.explain('تطبيقات القياس 1'),
+      const SchoolLesson.explain('تطبيقات القياس 2'),
     ]),
     SchoolUnit('المساحة والمحيط', [
       SchoolLesson('المحيط', [_i('areaPerimeter', 'perimeter')]),
       SchoolLesson('المساحة', [_i('areaPerimeter', 'area')]),
       SchoolLesson('أبعاد مجهولة والأشكال المركبة', [_i('areaPerimeter')]),
+      const SchoolLesson.explain('الأشكال الهندسية المركبة'),
     ]),
     SchoolUnit('الضرب كعلاقة', [
       SchoolLesson('المقارنة باستخدام الضرب', [_i('mulCompare')]),
       SchoolLesson('خواص الضرب وأنماطه', [_i('mulCompare'), _i('mulStrategies', 'props')]),
+      const SchoolLesson.explain('معادلات المقارنة بالضرب'),
+      const SchoolLesson.explain('العنصر المحايد والضرب في صفر'),
+      const SchoolLesson.explain('خاصية الدمج في الضرب'),
+      const SchoolLesson.explain('تطبيق الأنماط في الضرب'),
     ]),
     SchoolUnit('العوامل والمضاعفات', [
       SchoolLesson('العوامل والأعداد الأولية', [_i('factors', 'factors')]),
       SchoolLesson('المضاعفات', [_i('factors', 'multiples')]),
+      const SchoolLesson.explain('العامل المشترك الأكبر'),
+      const SchoolLesson.explain('المضاعفات المشتركة'),
+      const SchoolLesson.explain('العلاقات بين العوامل والمضاعفات'),
     ]),
     SchoolUnit('الضرب والقسمة', [
       SchoolLesson('الضرب في عدد من رقم أو رقمين', [_i('longMulDiv', 'mul'), _i('mulStrategies', 'tens')]),
       SchoolLesson('القسمة على عدد من رقم واحد', [_i('longMulDiv', 'div')]),
+      const SchoolLesson.explain('إستراتيجية نموذج مساحة المستطيل'),
+      const SchoolLesson.explain('خاصية التوزيع'),
+      const SchoolLesson.explain('خوارزمية الضرب بالتجزئة'),
+      const SchoolLesson.explain('استكشاف باقي القسمة'),
+      const SchoolLesson.explain('الأنماط في عملية القسمة'),
+      const SchoolLesson.explain('القسمة باستخدام نموذج مساحة المستطيل'),
+      const SchoolLesson.explain('خوارزمية خارج القسمة بالتجزئة'),
+      const SchoolLesson.explain('خوارزمية القسمة المعيارية'),
+      const SchoolLesson.explain('القسمة والضرب'),
     ]),
-    SchoolUnit('ترتيب العمليات', [SchoolLesson('ترتيب العمليات', [_i('orderOps')])]),
+    SchoolUnit('ترتيب العمليات', [
+      SchoolLesson('ترتيب العمليات', [_i('orderOps')]),
+      const SchoolLesson.explain('ترتيب العمليات والمسائل الكلامية'),
+    ]),
   ]),
   SchoolBook('p4', 2, 'math', [
     SchoolUnit('الكسور الاعتيادية', [
@@ -515,24 +768,41 @@ final schoolBooks = <SchoolBook>[
     SchoolUnit('The Five Senses', [
       SchoolLesson('Present simple', [_i('en_present', 'affirm')]),
       SchoolLesson('My senses', [_i('en_body')]),
+      const SchoolLesson.explain('Short and long vowels'),
+      const SchoolLesson.explain('Healthy habits'),
     ]),
     SchoolUnit('My Community', [
       SchoolLesson("don't, doesn't, Do, Does", [_i('en_present', 'negq')]),
       SchoolLesson('Places', [_i('en_places')]),
+      const SchoolLesson.explain('Sounds f and v'),
+      const SchoolLesson.explain('Helping the community'),
+      const SchoolLesson.explain('Writing a diary entry'),
     ]),
     SchoolUnit('Animals in Our World', [
       SchoolLesson('bigger, taller', [_i('en_compare', 'comp')]),
       SchoolLesson('Animals', [_i('en_animals')]),
+      const SchoolLesson.explain('Blends fr, dr, pl'),
+      const SchoolLesson.explain('Endangered animals'),
     ]),
     SchoolUnit('Egypt – My Homeland', [
       SchoolLesson('next to, between', [_i('en_prep2')]),
       SchoolLesson('in, on, under', [_i('en_prep')]),
+      const SchoolLesson.explain('Places in Egypt'),
+      const SchoolLesson.explain('Sounds p and b'),
+      const SchoolLesson.explain('Writing a blog post'),
     ]),
     SchoolUnit('A Day at Work', [
       SchoolLesson('Jobs', [_i('en_jobs')]),
       SchoolLesson('the biggest, the tallest', [_i('en_compare', 'super')]),
+      const SchoolLesson.explain('Silent e'),
+      const SchoolLesson.explain('Heroes at work'),
     ]),
-    SchoolUnit('The Hundred Dresses', [SchoolLesson('Reading: Kind Words', [_i('en_reading', 'Kind Words')])]),
+    SchoolUnit('The Hundred Dresses', [
+      SchoolLesson('Reading: Kind Words', [_i('en_reading', 'Kind Words')]),
+      const SchoolLesson.explain('Story elements'),
+      const SchoolLesson.explain('Words about kindness'),
+      const SchoolLesson.explain('Writing a reply letter'),
+    ]),
   ]),
   SchoolBook('p4', 2, 'english', [
     SchoolUnit('This is Where I Live', [
@@ -554,16 +824,40 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('المفعول به', [_i('ar_mafool', 'single')]),
       SchoolLesson('همزة القطع وألف الوصل', [_i('ar_hamzaQat')]),
       SchoolLesson('المفعول به: المفرد وجمع التكسير', [_i('ar_mafool', 'single')]),
+      const SchoolLesson.explain('استماع: النيل شريان الحياة'),
+      const SchoolLesson.explain('اقرأ: النهر يشكو'),
+      const SchoolLesson.explain('اقرأ: بطلة حل المشكلات'),
+      const SchoolLesson.explain('نشيد: عطاء النيل'),
+      const SchoolLesson.explain('تحدث: أقدّم عرضًا عن النيل'),
+      const SchoolLesson.explain('تحدث: خطوات حل المشكلات'),
+      const SchoolLesson.explain('كتابة: رسالة رسمية'),
+      const SchoolLesson.explain('كتابة: رسالة رسمية عن مشكلة'),
     ]),
     SchoolUnit('فن التواصل', [
       SchoolLesson('المفعول به: جمع المؤنث السالم', [_i('ar_mafool', 'fem')]),
       SchoolLesson('الهمزة المتطرفة على السطر', [_i('ar_hamzaEnd', 'line')]),
       SchoolLesson('المفعول به: المثنى وجمع المذكر السالم', [_i('ar_mafool', 'dual')]),
+      const SchoolLesson.explain('استماع: جسر من الكلمات'),
+      const SchoolLesson.explain('اقرأ: لغة تحمي الوطن'),
+      const SchoolLesson.explain('اقرأ: رسالة عبر الزمن'),
+      const SchoolLesson.explain('نشيد: أخي الإنسان'),
+      const SchoolLesson.explain('تحدث: سحر اللغات'),
+      const SchoolLesson.explain('تحدث: وسائل التواصل عبر العصور'),
+      const SchoolLesson.explain('كتابة: اكتب يومياتك'),
+      const SchoolLesson.explain('كتابة: يومية عن موقف تواصل'),
     ]),
     SchoolUnit('جمال الاختلاف', [
       SchoolLesson('المفعول لأجله', [_i('ar_mafaeel', 'ajlih')]),
       SchoolLesson('الهمزة المتطرفة على الألف', [_i('ar_hamzaEnd', 'alif')]),
       SchoolLesson('إعراب ظرفي الزمان والمكان', [_i('ar_mafaeel', 'zarf'), _i('ar_adverb')]),
+      const SchoolLesson.explain('استماع: التنوع حياة'),
+      const SchoolLesson.explain('اقرأ: كيف يصبح العالم أجمل؟'),
+      const SchoolLesson.explain('اقرأ: حائرة أمام بائع الزهور'),
+      const SchoolLesson.explain('نشيد: ألوان قوس قزح'),
+      const SchoolLesson.explain('تحدث: مهرجان الأطعمة التقليدية'),
+      const SchoolLesson.explain('تحدث: الاختلاف قوة'),
+      const SchoolLesson.explain('كتابة: رسالة رسمية للمشاركة في مهرجان'),
+      const SchoolLesson.explain('كتابة: يومية عن يوم مختلف'),
     ]),
   ]),
   SchoolBook('p5', 2, 'arabic', [
@@ -587,24 +881,54 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('الكسور العشرية حتى جزء من الألف', [_i('decimals5', 'place')]),
       SchoolLesson('مقارنة وتقريب الكسور العشرية', [_i('decimals5', 'round'), _i('decimals')]),
       SchoolLesson('جمع وطرح الكسور العشرية', [_i('decimals5', 'addsub')]),
+      const SchoolLesson.explain('تغيير القيم المكانية'),
+      const SchoolLesson.explain('تكوين الكسور العشرية وتحليلها'),
+      const SchoolLesson.explain('تقريب الكسور العشرية'),
+      const SchoolLesson.explain('تقدير مجموع الأعداد العشرية'),
+      const SchoolLesson.explain('تقدير الفرق بين عددين عشريين'),
+      const SchoolLesson.explain('طرح الكسور العشرية حتى جزء من الألف'),
+      const SchoolLesson.explain('مسائل كلامية على الكسور العشرية'),
     ]),
     SchoolUnit('العلاقات بين الأعداد', [
       SchoolLesson('التعبيرات والمعادلات والمتغيرات', [_i('equations')]),
       SchoolLesson('العوامل الأولية والعامل المشترك الأكبر', [_i('divisibility', 'prime'), _i('factors', 'gcf')]),
       SchoolLesson('المضاعفات والمضاعف المشترك الأصغر', [_i('factors', 'multiples'), _i('factors', 'common')]),
+      const SchoolLesson.explain('المتغيرات في المعادلات'),
+      const SchoolLesson.explain('القصص والأعداد'),
+      const SchoolLesson.explain('عوامل أم مضاعفات؟'),
     ]),
     SchoolUnit('ضرب الأعداد الصحيحة', [
       SchoolLesson('الضرب في عدد من رقمين', [_i('longMulDiv', 'mul'), _i('mulStrategies', 'props')]),
+      const SchoolLesson.explain('نموذج مساحة المستطيل في الضرب'),
+      const SchoolLesson.explain('خاصية التوزيع في الضرب'),
+      const SchoolLesson.explain('ضرب الأعداد متعددة الأرقام'),
+      const SchoolLesson.explain('مسائل كلامية على الضرب'),
     ]),
-    SchoolUnit('القسمة على أعداد صحيحة', [SchoolLesson('القسمة وتقدير خارج القسمة', [_i('longMulDiv', 'div')])]),
+    SchoolUnit('القسمة على أعداد صحيحة', [
+      SchoolLesson('القسمة وتقدير خارج القسمة', [_i('longMulDiv', 'div')]),
+      const SchoolLesson.explain('القسمة باستخدام نموذج مساحة المستطيل'),
+      const SchoolLesson.explain('خوارزمية القسمة على عدد من رقمين'),
+      const SchoolLesson.explain('علاقة القسمة بالضرب'),
+      const SchoolLesson.explain('مسائل القسمة متعددة الخطوات'),
+    ]),
     SchoolUnit('الضرب والقسمة مع الكسور العشرية', [
       SchoolLesson('الضرب والقسمة على قوى العدد ١٠', [_i('decimals5', 'powers')]),
       SchoolLesson('ضرب الكسور العشرية', [_i('decimals5', 'mul')]),
       SchoolLesson('الكسور العشرية والنظام المتري', [_i('unitConvert')]),
+      const SchoolLesson.explain('ضرب الكسور العشرية في أعداد صحيحة'),
+      const SchoolLesson.explain('ضرب الأجزاء من عشرة في أجزاء من عشرة'),
+      const SchoolLesson.explain('ضرب الكسور العشرية باستخدام نموذج مساحة المستطيل'),
+      const SchoolLesson.explain('ضرب الكسور العشرية حتى جزء من الألف'),
+      const SchoolLesson.explain('القياس والكسور العشرية وقوى العدد 10'),
+      const SchoolLesson.explain('حل مسائل كلامية متعددة الخطوات'),
+      const SchoolLesson.explain('الأنماط والعلاقات في قوى العدد 10'),
+      const SchoolLesson.explain('قسمة كسور عشرية على أعداد صحيحة'),
+      const SchoolLesson.explain('قسمة كسور عشرية على كسور عشرية'),
     ]),
     SchoolUnit('التعبيرات العددية والأنماط', [
       SchoolLesson('ترتيب العمليات والأقواس', [_i('orderOps')]),
       SchoolLesson('الأنماط العددية', [_i('sequence'), _i('skipCount')]),
+      const SchoolLesson.explain('كتابة تعبير عددي لتمثيل موقف'),
     ]),
   ]),
   SchoolBook('p5', 2, 'math', [
@@ -623,12 +947,45 @@ final schoolBooks = <SchoolBook>[
     SchoolUnit('القطاعات الدائرية', [SchoolLesson('القطاعات الدائرية', [_i('pieChart')])]),
   ]),
   SchoolBook('p5', 1, 'english', [
-    SchoolUnit('Food, Nature, and Culture', [SchoolLesson('always, sometimes, never', [_i('en_frequency')]), SchoolLesson('Food', [_i('en_food')])]),
-    SchoolUnit('My Healthy Body', [SchoolLesson('a, an, some, any', [_i('en_someAny'), _i('en_a_an')]), SchoolLesson('My body', [_i('en_body')])]),
-    SchoolUnit('When Nature Changes', [SchoolLesson("Did you…? I didn't", [_i('en_did')]), SchoolLesson('Weather', [_i('en_nature'), _i('en_weather')])]),
-    SchoolUnit('My Community', [SchoolLesson('in, on, at (time)', [_i('en_inOnAt')]), SchoolLesson('Places', [_i('en_places')])]),
-    SchoolUnit('Our World, Our Resources', [SchoolLesson('bigger, taller', [_i('en_compare', 'comp')])]),
-    SchoolUnit('The Talking Earth', [SchoolLesson('Reading: The Talking Earth', [_i('en_reading', 'The Talking Earth')])]),
+    SchoolUnit('Food, Nature, and Culture', [
+      SchoolLesson('always, sometimes, never', [_i('en_frequency')]),
+      SchoolLesson('Food', [_i('en_food')]),
+      const SchoolLesson.explain('Consonant clusters'),
+      const SchoolLesson.explain('Life along the Nile'),
+      const SchoolLesson.explain('Writing a recipe and a flyer'),
+    ]),
+    SchoolUnit('My Healthy Body', [
+      SchoolLesson('a, an, some, any', [_i('en_someAny'), _i('en_a_an')]),
+      SchoolLesson('My body', [_i('en_body')]),
+      const SchoolLesson.explain('One-syllable words'),
+      const SchoolLesson.explain('Your amazing heart'),
+      const SchoolLesson.explain('My health goals'),
+    ]),
+    SchoolUnit('When Nature Changes', [
+      SchoolLesson("Did you…? I didn't", [_i('en_did')]), SchoolLesson('Weather', [_i('en_nature'), _i('en_weather')]),
+      const SchoolLesson.explain('Vowel digraphs'),
+      const SchoolLesson.explain('When the storm came'),
+      const SchoolLesson.explain('Writing a story in the past'),
+    ]),
+    SchoolUnit('My Community', [
+      SchoolLesson('in, on, at (time)', [_i('en_inOnAt')]),
+      SchoolLesson('Places', [_i('en_places')]),
+      const SchoolLesson.explain('Trigraphs'),
+      const SchoolLesson.explain('Old and new cities'),
+      const SchoolLesson.explain('Writing a first-person story'),
+    ]),
+    SchoolUnit('Our World, Our Resources', [
+      SchoolLesson('bigger, taller', [_i('en_compare', 'comp')]),
+      const SchoolLesson.explain('Prefixes'),
+      const SchoolLesson.explain("Egypt's natural resources"),
+      const SchoolLesson.explain('An object tells its story'),
+    ]),
+    SchoolUnit('The Talking Earth', [
+      SchoolLesson('Reading: The Talking Earth', [_i('en_reading', 'The Talking Earth')]),
+      const SchoolLesson.explain('Story elements: nature and feelings'),
+      const SchoolLesson.explain('Words from the wetland'),
+      const SchoolLesson.explain('Writing a reflection'),
+    ]),
   ]),
   SchoolBook('p5', 2, 'english', [
     SchoolUnit('Hobbies Make Us Shine', [SchoolLesson('Hobbies', [_i('en_hobbies')]), SchoolLesson('can, could', [_i('en_could')])]),
@@ -644,16 +1001,40 @@ final schoolBooks = <SchoolBook>[
       SchoolLesson('الاسم النكرة والاسم المعرفة', [_i('ar_nakira', 'nakira')]),
       SchoolLesson('الهمزة المتوسطة على الألف', [_i('ar_hamzaMid', 'alif')]),
       SchoolLesson('أنواع المعارف', [_i('ar_nakira', 'types')]),
+      const SchoolLesson.explain('استماع: ساعة واحدة كل يوم'),
+      const SchoolLesson.explain('اقرأ: الوقت كنز'),
+      const SchoolLesson.explain('اقرأ: قرار ليلى'),
+      const SchoolLesson.explain('نشيد: يا شباب الغد'),
+      const SchoolLesson.explain('تحدث: الوقت من ذهب'),
+      const SchoolLesson.explain('تحدث: أصنع قراري'),
+      const SchoolLesson.explain('كتابة: نص معلوماتي'),
+      const SchoolLesson.explain('كتابة: نص معلوماتي عن مهارة'),
     ]),
     SchoolUnit('أنا مسئول', [
       SchoolLesson('الأسماء الخمسة وعلاماتها الإعرابية', [_i('ar_asmaa5')]),
       SchoolLesson('الهمزة المتوسطة على الياء (النبرة)', [_i('ar_hamzaMid', 'yaa')]),
       SchoolLesson('أنواع الخبر', [_i('ar_khabarType')]),
+      const SchoolLesson.explain('استماع: سر الناجحين'),
+      const SchoolLesson.explain('اقرأ: قوة الكلمة'),
+      const SchoolLesson.explain('اقرأ: سر القوة والنجاح'),
+      const SchoolLesson.explain('نشيد: بناة الغد'),
+      const SchoolLesson.explain('تحدث: أثر الكلمة'),
+      const SchoolLesson.explain('تحدث: كن مسئولًا'),
+      const SchoolLesson.explain('كتابة: التقرير'),
+      const SchoolLesson.explain('كتابة: تقرير عن مسئولية'),
     ]),
     SchoolUnit('العلم والخيال والمستقبل', [
       SchoolLesson('كان وأخواتها', [_i('ar_kana', 'kana')]),
       SchoolLesson('الهمزة المتوسطة على الواو', [_i('ar_hamzaMid', 'waw')]),
       SchoolLesson('إن وأخواتها', [_i('ar_kana', 'inna')]),
+      const SchoolLesson.explain('استماع: من الخيال إلى الواقع'),
+      const SchoolLesson.explain('اقرأ: من وراء الكاميرا؟'),
+      const SchoolLesson.explain('اقرأ: رحلة إلى المستقبل'),
+      const SchoolLesson.explain('نشيد: سعادة الأوطان'),
+      const SchoolLesson.explain('تحدث: التكنولوجيا في حياتي'),
+      const SchoolLesson.explain('تحدث: حلم يصنع المستقبل'),
+      const SchoolLesson.explain('كتابة: نص معلوماتي عن اختراع'),
+      const SchoolLesson.explain('كتابة: تقرير عن معرض علمي'),
     ]),
   ]),
   SchoolBook('p6', 2, 'arabic', [
@@ -676,21 +1057,49 @@ final schoolBooks = <SchoolBook>[
     SchoolUnit('قابلية القسمة والعوامل والمضاعفات', [
       SchoolLesson('قابلية القسمة والعوامل الأولية', [_i('divisibility')]),
       SchoolLesson('العامل المشترك الأكبر والمضاعف المشترك الأصغر', [_i('factors', 'gcf'), _i('factors', 'common')]),
+      const SchoolLesson.explain('تحليل العدد إلى عوامله الأولية'),
+      const SchoolLesson.explain('كتابة تعبيرات عددية باستخدام ع.م.أ'),
     ]),
     SchoolUnit('الأعداد النسبية', [
       SchoolLesson('خط الأعداد ومقارنة الأعداد', [_i('integers', 'numberLine')]),
       SchoolLesson('القيمة المطلقة', [_i('integers', 'abs')]),
+      const SchoolLesson.explain('استخدام خط الأعداد لوصف البيانات'),
+      const SchoolLesson.explain('تحليل الأعداد النسبية باستخدام النماذج'),
+      const SchoolLesson.explain('مقارنة الأعداد النسبية وترتيبها'),
+      const SchoolLesson.explain('مقارنة القيم المطلقة'),
     ]),
     SchoolUnit('المقادير الجبرية', [
       SchoolLesson('التعبيرات والمقادير الجبرية', [_i('algebra6', 'expression')]),
       SchoolLesson('ترتيب العمليات والأسس', [_i('algebra6', 'power'), _i('orderOps')]),
+      const SchoolLesson.explain('تحليل التعبيرات الرياضية'),
+      const SchoolLesson.explain('كتابة مقادير جبرية'),
+      const SchoolLesson.explain('إيجاد قيمة المقدار الجبري'),
+      const SchoolLesson.explain('تطبيقات على المقادير الجبرية'),
+      const SchoolLesson.explain('تحديد المقادير الجبرية المتكافئة'),
     ]),
-    SchoolUnit('المعادلات والمتباينات', [SchoolLesson('حل المعادلات والمتباينات', [_i('algebra6', 'solve'), _i('equations')])]),
-    SchoolUnit('المتغيرات التابعة والمستقلة', [SchoolLesson('العلاقة بين متغيرين', [_i('algebra6', 'variables')])]),
-    SchoolUnit('توزيع البيانات', [SchoolLesson('تمثيل البيانات', [_i('dotPlot'), _i('barGraph')])]),
+    SchoolUnit('المعادلات والمتباينات', [
+      SchoolLesson('حل المعادلات والمتباينات', [_i('algebra6', 'solve'), _i('equations')]),
+      const SchoolLesson.explain('استكشاف المتباينات'),
+      const SchoolLesson.explain('حل المتباينات'),
+    ]),
+    SchoolUnit('المتغيرات التابعة والمستقلة', [
+      SchoolLesson('العلاقة بين متغيرين', [_i('algebra6', 'variables')]),
+      const SchoolLesson.explain('تطبيقات على المتغيرات التابعة والمستقلة'),
+      const SchoolLesson.explain('تحليل العلاقة بين المتغير التابع والمستقل'),
+      const SchoolLesson.explain('التمثيل البياني للمتغيرات التابعة والمستقلة'),
+    ]),
+    SchoolUnit('توزيع البيانات', [
+      SchoolLesson('تمثيل البيانات', [_i('dotPlot'), _i('barGraph')]),
+      const SchoolLesson.explain('البيانات والأسئلة الإحصائية'),
+      const SchoolLesson.explain('استكشاف المدرج التكراري'),
+      const SchoolLesson.explain('استكشاف المخطط الصندوقي'),
+      const SchoolLesson.explain('تطبيقات على التمثيلات البيانية'),
+    ]),
     SchoolUnit('مقاييس النزعة المركزية والانتشار', [
       SchoolLesson('الوسط الحسابي والوسيط والمنوال', [_i('statistics', 'center')]),
       SchoolLesson('المدى', [_i('statistics', 'spread')]),
+      const SchoolLesson.explain('استكشاف توازن مجموعات البيانات'),
+      const SchoolLesson.explain('الوسيط والمنوال والقيم المتطرفة'),
     ]),
   ]),
   SchoolBook('p6', 2, 'math', [
@@ -711,11 +1120,42 @@ final schoolBooks = <SchoolBook>[
     ]),
   ]),
   SchoolBook('p6', 1, 'english', [
-    SchoolUnit('Amazing Places in Egypt', [SchoolLesson('Present simple', [_i('en_present')])]),
-    SchoolUnit('Our Nature', [SchoolLesson('Present continuous', [_i('en_continuous', 'continuous')]), SchoolLesson('Nature', [_i('en_nature')])]),
-    SchoolUnit('Community Builders', [SchoolLesson('Jobs', [_i('en_jobs6')]), SchoolLesson("can, can't, able to", [_i('en_ableTo'), _i('en_could')])]),
-    SchoolUnit('Resources Around Us', [SchoolLesson('Materials', [_i('en_heritage')]), SchoolLesson('should, must', [_i('en_should'), _i('en_safety')])]),
-    SchoolUnit('Made in Egypt', [SchoolLesson('Travel', [_i('en_travel')]), SchoolLesson('Past simple', [_i('en_past'), _i('en_did')])]),
+    SchoolUnit('Amazing Places in Egypt', [
+      SchoolLesson('Present simple', [_i('en_present')]),
+      const SchoolLesson.explain('Amazing places'),
+      const SchoolLesson.explain('Sounds ir, er, ur'),
+      const SchoolLesson.explain('Writing an informal email'),
+    ]),
+    SchoolUnit('Our Nature', [
+      SchoolLesson('Present continuous', [_i('en_continuous', 'continuous')]),
+      SchoolLesson('Nature', [_i('en_nature')]),
+      const SchoolLesson.explain('Sounds e and i'),
+      const SchoolLesson.explain('Writing a narrative story'),
+    ]),
+    SchoolUnit('Community Builders', [
+      SchoolLesson('Jobs', [_i('en_jobs6')]),
+      SchoolLesson("can, can't, able to", [_i('en_ableTo'), _i('en_could')]),
+      const SchoolLesson.explain('Two- and three-syllable words'),
+      const SchoolLesson.explain('A famous Egyptian: Ahmed Zewail'),
+      const SchoolLesson.explain('Writing a biography'),
+    ]),
+    SchoolUnit('Resources Around Us', [
+      SchoolLesson('Materials', [_i('en_heritage')]),
+      SchoolLesson('should, must', [_i('en_should'), _i('en_safety')]),
+      const SchoolLesson.explain('Short and long oo'),
+      const SchoolLesson.explain('Writing a story about a visit'),
+    ]),
+    SchoolUnit('Made in Egypt', [
+      SchoolLesson('Travel', [_i('en_travel')]),
+      SchoolLesson('Past simple', [_i('en_past'), _i('en_did')]),
+      const SchoolLesson.explain('Past endings: d, t, id'),
+      const SchoolLesson.explain('Writing an opinion paragraph'),
+    ]),
+    const SchoolUnit('Water Savers', [
+      SchoolLesson.explain('The Water Savers'),
+      SchoolLesson.explain('Water words'),
+      SchoolLesson.explain('Retell and make a poster'),
+    ]),
   ]),
   SchoolBook('p6', 2, 'english', [
     SchoolUnit('Celebrating Creativity', [SchoolLesson('Art', [_i('en_art')]), SchoolLesson('both, either, neither', [_i('en_bothEither')])]),

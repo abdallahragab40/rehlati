@@ -170,8 +170,10 @@ class ProgressData {
     Map<String, SkillRecord>? mastery,
     Map<String, Set<String>>? pathDone,
     Map<String, int>? school,
+    Map<String, LessonLog>? lessonLogs,
   })  : mastery = mastery ?? {},
         school = school ?? {},
+        lessonLogs = lessonLogs ?? {},
         pathDone = pathDone ?? {},
         unlocked = unlocked ?? [...initiallyUnlocked],
         skipped = skipped ?? [],
@@ -225,6 +227,11 @@ class ProgressData {
     final pct = total == 0 ? 0 : (correct * 100 / total).round();
     school[id] = math.max(school[id] ?? 0, pct);
   }
+
+  /// شرح دروس المدرسة ← بالمعرّف الثابت للدرس (`p1-t1-arabic/ba`) — lib/domain/lesson_content.dart.
+  final Map<String, LessonLog> lessonLogs;
+
+  LessonLog lessonLog(String uid) => lessonLogs.putIfAbsent(uid, LessonLog.new);
 
   /// النجوم مقيّدة على كل عالم عشان مجموع العوالم يساوي الإجمالي.
   final Map<String, int> starsBy;
@@ -303,6 +310,9 @@ class ProgressData {
           ? {for (final e in (j['mastery'] as Map).entries) '${e.key}': SkillRecord.fromJson(e.value)}
           : {},
       school: ints(j['school']),
+      lessonLogs: j['schoolLessons'] is Map
+          ? {for (final e in (j['schoolLessons'] as Map).entries) '${e.key}': LessonLog.fromJson(e.value)}
+          : {},
       pathDone: j['paths'] is Map
           ? {for (final e in (j['paths'] as Map).entries) '${e.key}': strs(e.value).toSet()}
           : {},
@@ -342,6 +352,7 @@ class ProgressData {
         'journey': journey?.toJson(),
         'mastery': {for (final e in mastery.entries) e.key: e.value.toJson()},
         if (school.isNotEmpty) 'school': school,
+        if (lessonLogs.isNotEmpty) 'schoolLessons': {for (final e in lessonLogs.entries) e.key: e.value.toJson()},
         if (pathDone.isNotEmpty) 'paths': {for (final e in pathDone.entries) e.key: e.value.toList()},
         'parentGuide': {
           'focus': {for (final e in pgFocus.entries) e.key: e.value.toJson()},

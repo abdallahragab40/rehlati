@@ -14,9 +14,9 @@ import '../../core/utils/rng.dart';
 import '../../core/widgets/kid_widgets.dart';
 import '../../core/widgets/top_bar.dart';
 import '../../core/widgets/toast.dart';
+import '../../domain/lesson_content.dart';
 import '../../domain/progress/progress_controller.dart';
 import '../../domain/progress/progress_data.dart';
-import '../../domain/school.dart';
 import '../../domain/school_lessons.dart';
 import '../parent/parent_gate.dart';
 import '../parent/worksheet_card.dart';
@@ -32,9 +32,9 @@ int currentTerm(DateTime now) => now.month >= 2 && now.month <= 7 ? 2 : 1;
 /// الدروس تنفع الطفل ده؟ من أولى لسادسة بس — مفيش كتب للحضانة.
 bool schoolFits(ProgressData p) => schoolScreenGrades.any((g) => g.$1 == p.grade);
 
-/// الصفوف اللي بتظهر للطفل: صفه واللي قبله للمراجعة — مش الصفوف الأعلى.
+/// الصفوف اللي بتظهر للطفل: صفه بس. لو مالوش صف دراسي (أو في KG) بيختار من الكل.
 List<(String, String)> schoolGradesFor(ProgressData p) =>
-    [for (final g in schoolScreenGrades) if (!schoolFits(p) || gradeIndex(g.$1) <= gradeIndex(p.grade)) g];
+    [for (final g in schoolScreenGrades) if (!schoolFits(p) || g.$1 == p.grade) g];
 
 class SchoolScreen extends ConsumerStatefulWidget {
   const SchoolScreen({super.key});
@@ -54,7 +54,10 @@ class _SchoolScreenState extends ConsumerState<SchoolScreen> {
   @override
   Widget build(BuildContext context) {
     final p = ref.watch(progressProvider);
-    final book = schoolBook(_grade, _term, _subject);
+    final lessons = ref.watch(lessonsProvider).value ?? const {};
+    // صف الطفل ثابت لو ليه صف دراسي؛ الاختيار للي مالوش صف بس
+    final grade = schoolFits(p) ? p.grade! : _grade;
+    final book = schoolBook(grade, _term, _subject);
     Widget chips<T>(List<(T, String)> options, T value, void Function(T) pick) => Wrap(
           alignment: WrapAlignment.center,
           spacing: 8,
@@ -75,7 +78,10 @@ class _SchoolScreenState extends ConsumerState<SchoolScreen> {
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         QCard(
           child: Column(children: [
-            chips([for (final (g, label) in schoolGradesFor(p)) (g, g == p.grade ? '$label ⭐' : label)], _grade, (v) => _grade = v),
+            if (schoolGradesFor(p) case [(_, final label)])
+              Text('$label ابتدائي ⭐', style: kidText(17))
+            else
+              chips([for (final (g, label) in schoolGradesFor(p)) (g, g == p.grade ? '$label ⭐' : label)], _grade, (v) => _grade = v),
             const SizedBox(height: 6),
             chips(const [(1, 'الترم الأول'), (2, 'الترم التاني')], _term, (v) => _term = v),
             const SizedBox(height: 6),
@@ -89,7 +95,7 @@ class _SchoolScreenState extends ConsumerState<SchoolScreen> {
           const NoteBox(Text('الكتاب ده لسه مش موجود'))
         else
           for (var u = 0; u < book.units.length; u++) ...[
-            _UnitCard(book: book, unit: u, results: p.school),
+            _UnitCard(book: book, unit: u, results: p.school, lessons: lessons, progress: p),
             const SizedBox(height: 12),
           ],
       ]),
@@ -98,10 +104,12 @@ class _SchoolScreenState extends ConsumerState<SchoolScreen> {
 }
 
 class _UnitCard extends StatelessWidget {
-  const _UnitCard({required this.book, required this.unit, required this.results});
+  const _UnitCard({required this.book, required this.unit, required this.results, required this.lessons, required this.progress});
   final SchoolBook book;
   final int unit;
   final Map<String, int> results;
+  final Map<String, LessonContent> lessons;
+  final ProgressData progress;
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +124,19 @@ class _UnitCard extends StatelessWidget {
         const SizedBox(height: 10),
         TileWrap(minTileWidth: 150, maxColumns: 3, children: [
           for (var l = 0; l < u.lessons.length; l++)
-            _LessonTile(lesson: u.lessons[l], id: lessonId(book, unit, l), pct: results[lessonId(book, unit, l)], dir: dir),
+            () {
+              final id = lessonId(book, unit, l);
+              return _LessonTile(
+                lesson: u.lessons[l],
+                id: id,
+                pct: results[id],
+                dir: dir,
+                explain: switch (lessons[id]) {
+                  final c? when c.open => lessonStatus(progress, c),
+                  _ => null,
+                },
+              );
+            }(),
         ]),
         if (hasExam) ...[
           const SizedBox(height: 10),
@@ -132,20 +152,33 @@ class _UnitCard extends StatelessWidget {
 }
 
 class _LessonTile extends StatelessWidget {
-  const _LessonTile({required this.lesson, required this.id, required this.pct, required this.dir});
+  const _LessonTile({required this.lesson, required this.id, required this.pct, required this.dir, required this.explain});
   final SchoolLesson lesson;
   final String id;
   final int? pct;
   final TextDirection dir;
 
+  /// حالة الطفل في شرح الدرس — null لو الدرس مالوش شرح.
+  final LessonStatus? explain;
+
   @override
   Widget build(BuildContext context) {
-    final ready = lesson.ready;
-    final status = !ready ? 'قريبًا' : (pct == null ? 'ذاكر الدرس' : '${pct! >= 80 ? '✅' : '🔁'} ${ar(pct!)}٪');
+    // درس شرح بس بيتفتح لو شرحه موجود
+    final ready = lesson.ready || explain != null;
+    final status = switch (explain) {
+      _ when !ready => 'قريبًا',
+      LessonStatus.none => '📖 اشرح لي',
+      LessonStatus.started => '📖 كمّل الشرح',
+      LessonStatus.helped => '🔁 راجع الشرح',
+      // درس شرح بس مالوش نسبة
+      _ when !lesson.ready => '✅ خلّصته',
+      _ when pct == null => 'ذاكر الدرس',
+      _ => '${pct! >= 80 ? '✅' : '🔁'} ${ar(pct!)}٪',
+    };
     return Opacity(
       opacity: ready ? 1 : .55,
       child: Pressable3D(
-        onTap: ready ? () => _open(context, id) : () {},
+        onTap: !ready ? () {} : (lesson.ready ? () => _open(context, id) : () => context.push('/lesson/$id')),
         color: ready ? AppColors.paper : AppColors.paper2,
         radius: 18,
         depth: ready ? 5 : 2,
@@ -174,6 +207,7 @@ Future<void> _open(BuildContext context, String id) => showDialog<void>(
       builder: (c) => Consumer(
         builder: (c, ref, _) {
           final round = schoolRound(id)!;
+          final explain = ref.watch(lessonsProvider).value?[id];
           return Dialog(
             backgroundColor: AppColors.paper,
             insetPadding: const EdgeInsets.all(20),
@@ -195,6 +229,13 @@ Future<void> _open(BuildContext context, String id) => showDialog<void>(
                   style: kidText(14, weight: FontWeight.w700, color: AppColors.inkSoft),
                 ),
                 const SizedBox(height: 16),
+                if (explain != null && explain.open) ...[
+                  KidButton('📖 اشرح لي الدرس', onTap: () {
+                    Navigator.of(c).pop();
+                    context.push('/lesson/$id');
+                  }),
+                  const SizedBox(height: 8),
+                ],
                 KidButton(round.exam ? '▶️ ابدأ الامتحان' : '▶️ ذاكر الدرس', kind: BtnKind.go, onTap: () {
                   Navigator.of(c).pop();
                   final p = ref.read(progressProvider);

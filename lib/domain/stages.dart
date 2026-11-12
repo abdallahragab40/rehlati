@@ -90,6 +90,32 @@ const worlds = [
 
 WorldMeta worldMeta(String id) => worlds.firstWhere((w) => w.id == id);
 
+/// وصف كارت العالم على قد الصف اللي مراحله بتظهر الأول ([mapGradeFor]) — مايقولش «الحروف» لطفل في خامسة.
+String worldDescFor(WorldMeta w, String? grade) => _gradeDesc[w.id]?[mapGradeFor(w.id, grade)] ?? w.desc;
+
+const _gradeDesc = {
+  'arabic': {
+    'p2': 'التنوين والشدة والضمائر وأساليب الكلام',
+    'p4': 'أنواع الكلمة والمبتدأ والخبر والفعل والفاعل',
+    'p5': 'المفعول به والظروف والهمزة',
+    'p6': 'المعارف وكان وإن وأخواتهما والهمزة',
+  },
+  'math': {
+    'p2': 'الأعداد لحد ١٠٠٠ والجمع والطرح والفلوس والساعة',
+    'p3': 'جدول الضرب والآلاف والمساحة والمحيط',
+    'p4': 'القسمة والكسور والعمليات على الأعداد الكبيرة',
+    'p5': 'الكسور العشرية والمعادلات والحجم',
+    'p6': 'الأعداد الصحيحة والجبر والنسبة والإحصاء',
+  },
+  'english': {
+    'p1': 'Words for school, home and the weather',
+    'p3': 'my, his, her, the past and food',
+    'p4': 'Present simple, comparing and jobs',
+    'p5': 'How often, the past and the future',
+    'p6': 'used to, if, and I have visited',
+  },
+};
+
 class Stage {
   const Stage({
     required this.id,
@@ -325,7 +351,7 @@ bool fitsAge(Stage s, int? age) {
 }
 
 /// مجموعات مالهاش [Stage.fromGrade] (بتتفتح بالترتيب بس) بس ليها مرحلة — عشان الخريطة تعرضها على قدها.
-const _groupShownFrom = {'basics': 'kg2', 'math1': 'p1', 'math2': 'p2', 'fade': 'p1', 'ar2': 'p2', 'enSchool': 'p1'};
+const _groupShownFrom = {'basics': 'kg2', 'math1': 'p1', 'math2': 'p2', 'fade': 'p1'};
 
 /// أول مرحلة دراسية المرحلة دي بتظهر لها على الخريطة — null = من KG1.
 String? stageShownFrom(Stage s) => stageGrade(s) ?? _groupShownFrom[s.group];
@@ -336,6 +362,30 @@ bool fitsGrade(Stage s, String? grade) {
   if (grade == null) return true;
   if (openWorlds.contains(s.world)) return fitsAge(s, gradeAge(grade));
   return gradeIndex(stageShownFrom(s)) <= gradeIndex(grade);
+}
+
+/// مكان المرحلة على خريطة الطفل: صفه الأول، واللي فات للمراجعة ورا زرار، والأعلى ورا زرار تاني.
+enum MapBand { now, review, higher }
+
+/// الصف اللي مراحله بتتعرض الأول في عالم [world] لطفل في صف [grade]: صفه، ولو العالم مالوش
+/// مراحل لصفه (زي عربي تالتة) أقرب صف قبله ليه مراحل. null = من غير تقسيم (مفيش صف، أو KG وأولى
+/// اللي لسه بيتعلموا الحروف والأساسيات فبيشوفوا كل اللي قبلهم).
+String? mapGradeFor(String world, String? grade) {
+  if (grade == null || openWorlds.contains(world) || gradeIndex(grade) <= gradeIndex('p1')) return null;
+  final shown = {for (final s in worldStages[world] ?? const <Stage>[]) gradeIndex(stageShownFrom(s) ?? 'kg1')};
+  for (var g = gradeIndex(grade); g >= 0; g--) {
+    if (shown.contains(g)) return schoolGrades[g];
+  }
+  return null;
+}
+
+/// المرحلة دي فين على خريطة طفل في صف [grade]: الأعلى من صفه ورا زرار، ومن الصف ده لـ [mapGradeFor] الأول،
+/// والأقدم منه مراجعة. الألعاب والعوالم المفتوحة بالسن زي [fitsGrade].
+MapBand mapBand(Stage s, String? grade) {
+  if (!fitsGrade(s, grade)) return MapBand.higher;
+  final target = mapGradeFor(s.world, grade);
+  if (target == null) return MapBand.now;
+  return gradeIndex(stageShownFrom(s) ?? 'kg1') >= gradeIndex(target) ? MapBand.now : MapBand.review;
 }
 
 const playGroups = {
@@ -405,7 +455,7 @@ final _ar2 = _grp('arabic', 'ar2', 'قواعد أولى لتالتة ابتدا�
   ('ar_punct', '❓', 'علامات الترقيم', 2, arPunct),
   ('ar_hamza', '💧', 'الهمزة بعد المد', 2, arHamza),
   ('ar_sentenceKind', '🧱', 'الجملة الاسمية والفعلية', 3, arSentenceKind),
-], after: 'ar_al');
+], after: 'ar_al', fromGrade: 'p2');
 
 /// قراءة جمل قصيرة بصورة وسؤال، بعد قراءة كلمات المدود.
 final _shortRead = _grp('arabic', 'shortRead', 'أقرأ جمل قصيرة', 0xFFC96A1F, [
@@ -595,7 +645,7 @@ final _enSchool = _grp('english', 'enSchool', 'Words from school • Grades 1–
   ('en_pronouns', '🙋', 'I, he, she, it, they', 1, enPronouns),
   ('en_count100', '💯', 'Numbers to 100', 1, enCount100),
   ('en_sounds', '🔤', 'Blends and long vowels', 2, enSounds),
-], after: 'en_family', lang: 'en');
+], after: 'en_family', fromGrade: 'p1', lang: 'en');
 
 /// Connect 3 (تالتة): قواعد وكلمات — بعد «I, he, she, it, they»، وأولها مفتوح من الأول لطفل في تالتة أو أعلى.
 final _en3 = _grp('english', 'en3', 'Grammar from school • Grade 3', 0xFF2563A8, [

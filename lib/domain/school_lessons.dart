@@ -20,6 +20,21 @@ bool isSchool(String id) => id.startsWith(schoolPrefix);
 /// أسئلة درس، وأسئلة امتحان الوحدة.
 const lessonQuestions = 10, examQuestions = 12;
 
+/// الكتاب من مفتاح درس (`school:p1-t1-math:u1:l2`) — حتى لو الدرس مالوش جولة (درس شرح بس).
+SchoolBook? bookOfLesson(String id) => !isSchool(id)
+    ? null
+    : schoolBooks.where((b) => b.id == id.substring(schoolPrefix.length).split(':').first).firstOrNull;
+
+/// الدرس من مفتاحه (`…:u1:l2`) — حتى لو مالوش جولة.
+SchoolLesson? schoolLessonAt(String id) {
+  final book = bookOfLesson(id);
+  final m = RegExp(r':u(\d+):l(\d+)$').firstMatch(id);
+  if (book == null || m == null) return null;
+  final u = int.parse(m[1]!), l = int.parse(m[2]!);
+  if (u < 1 || u > book.units.length || l < 1 || l > book.units[u - 1].lessons.length) return null;
+  return book.units[u - 1].lessons[l - 1];
+}
+
 /// الكتاب بتاع الصف والترم والمادة، لو موجود.
 SchoolBook? schoolBook(String grade, int term, String subject) =>
     schoolBooks.where((b) => b.grade == grade && b.term == term && b.subject == subject).firstOrNull;
@@ -90,8 +105,8 @@ Stage? stageById(String id) => packs[id] ?? schoolStage(id);
 
 /// أسئلة الجولة: الامتحان بيلف على الدروس بالدور، والدرس بيلف على مراحله.
 List<Question> schoolQuestions(SchoolRound round, ProgressData p, Rng r, {int? count, bool Function(Question)? keep}) {
-  final lessons = r.shuffle(round.lessons);
-  final items = [for (final l in lessons) r.shuffle(l.items)];
+  final lessons = r.shuffle([...round.lessons]);
+  final items = [for (final l in lessons) r.shuffle([...l.items])];
   final n = count ?? round.count;
   final out = <Question>[], seen = <String>{};
   for (var i = 0; out.length < n && i < n * 12; i++) {

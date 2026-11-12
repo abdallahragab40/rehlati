@@ -532,20 +532,70 @@ class LightsGame extends StatelessWidget {
 
 // ---------------------------------------------------------------- ✍️ ارسم بصباعك
 
-/// الشكل بيترسم رمادي والطفل يمشي عليه بصباعه. بنرسم الشكل على شبكة صغيرة (٤٠×٤٠)
-/// عشان نعرف خاناته: الرسمة تنجح لما تغطّي معظم الخانات من غير ما تطلع برّه كتير.
-/// ترتيب الخطوط واتجاهها مش متحسوبين — الهدف إن الإيد تتعوّد على الشكل.
-class TraceGame extends StatefulWidget {
+/// لعبة «ارسم بصباعك»: لوحة الرسم ([TraceBoard]) وزرار امسح والتلميح، ومربوطة بالمحرّك.
+class TraceGame extends StatelessWidget {
   const TraceGame({super.key, required this.s, required this.engine, required this.keyFor});
   final GameSession s;
   final GameEngine engine;
   final KeyFor keyFor;
 
   @override
-  State<TraceGame> createState() => _TraceGameState();
+  Widget build(BuildContext context) => Column(children: [
+        TraceBoard(
+          glyph: s.q.trace!,
+          ltr: s.q.ltr,
+          color: s.stage.color,
+          locked: s.locked,
+          clearTick: s.traceTick,
+          boardKey: keyFor('trace'),
+          label: s.q.isEnglish ? 'Drawing board: trace ${s.q.trace}' : 'لوحة الرسم: ارسم ${s.q.trace}',
+          onDone: engine.traceDone,
+          onOff: engine.traceOff,
+        ),
+        const SizedBox(height: 10),
+        KidButton(s.q.isEnglish ? '🧽 Clear' : '🧽 امسح', kind: BtnKind.ghost, onTap: s.locked ? null : engine.traceClear),
+        Padding(
+          padding: const EdgeInsets.only(top: 6),
+          child: Text(s.q.hint,
+              textAlign: TextAlign.center,
+              style: kidText(context.clampVw(14, 3.6, 17), weight: FontWeight.w700, color: AppColors.inkSoft)),
+        ),
+      ]);
 }
 
-class _TraceGameState extends State<TraceGame> {
+/// الشكل بيترسم رمادي والطفل يمشي عليه بصباعه. بنرسم الشكل على شبكة صغيرة (٤٠×٤٠)
+/// عشان نعرف خاناته: الرسمة تنجح لما تغطّي معظم الخانات من غير ما تطلع برّه كتير.
+/// ترتيب الخطوط واتجاهها مش متحسوبين — الهدف إن الإيد تتعوّد على الشكل.
+///
+/// اللوحة بتتمسح لما [clearTick] يتغيّر. [onOff]: الطفل رسم كتير برّه الشكل.
+class TraceBoard extends StatefulWidget {
+  const TraceBoard({
+    super.key,
+    required this.glyph,
+    required this.color,
+    required this.onDone,
+    required this.onOff,
+    this.ltr = false,
+    this.locked = false,
+    this.clearTick = 0,
+    this.boardKey,
+    this.label,
+  });
+  final String glyph;
+  final bool ltr;
+  final Color color;
+  final bool locked;
+  final int clearTick;
+  final Key? boardKey;
+  final String? label;
+  final VoidCallback onDone;
+  final VoidCallback onOff;
+
+  @override
+  State<TraceBoard> createState() => _TraceBoardState();
+}
+
+class _TraceBoardState extends State<TraceBoard> {
   static const grid = 40;
 
   /// نسبة الشكل اللي لازم تتغطّى، وأقل نسبة من الرسمة لازم تكون فوق الشكل.
@@ -556,23 +606,23 @@ class _TraceGameState extends State<TraceGame> {
   final _covered = <int>{};
   int _points = 0, _on = 0, _targets = 0;
   double _side = 0;
-  int _tick = 0;
+  late int _tick = widget.clearTick;
 
-  String get glyph => widget.s.q.trace!;
+  String get glyph => widget.glyph;
 
   TextPainter _painter(double side) => TextPainter(
         text: TextSpan(text: glyph, style: kidText(side * (glyph.runes.length > 1 ? .5 : .72), height: 1.2)),
-        textDirection: widget.s.q.ltr ? TextDirection.ltr : TextDirection.rtl,
+        textDirection: widget.ltr ? TextDirection.ltr : TextDirection.rtl,
       )..layout();
 
   @override
-  void didUpdateWidget(TraceGame old) {
+  void didUpdateWidget(TraceBoard old) {
     super.didUpdateWidget(old);
-    if (widget.s.traceTick != _tick) _clear();
+    if (widget.clearTick != _tick) _clear();
   }
 
   void _clear() {
-    _tick = widget.s.traceTick;
+    _tick = widget.clearTick;
     _strokes.clear();
     _covered.clear();
     _points = 0;
@@ -631,21 +681,17 @@ class _TraceGameState extends State<TraceGame> {
   }
 
   void _end() {
-    if (_targets == 0 || widget.s.locked) return;
+    if (_targets == 0 || widget.locked) return;
     final cover = _covered.length / _targets, on = _points == 0 ? 1 : _on / _points;
     if (cover >= needCover && on >= needOn) {
-      widget.engine.traceDone();
+      widget.onDone();
     } else if (_points > 30 && on < needOn - .15) {
-      widget.engine.traceOff();
+      widget.onOff();
     }
   }
 
   @override
-  Widget build(BuildContext context) {
-    final s = widget.s;
-    final color = s.stage.color;
-    return Column(children: [
-      LayoutBuilder(builder: (context, box) {
+  Widget build(BuildContext context) => LayoutBuilder(builder: (context, box) {
         final side = math.min(box.maxWidth, 320.0);
         if (side != _side) {
           _side = side;
@@ -653,11 +699,11 @@ class _TraceGameState extends State<TraceGame> {
           _clear();
           _buildMask(side);
         }
-        final done = s.locked;
+        final done = widget.locked;
         return Semantics(
-          label: s.q.isEnglish ? 'Drawing board: trace $glyph' : 'لوحة الرسم: ارسم $glyph',
+          label: widget.label,
           child: GestureDetector(
-            key: widget.keyFor('trace'),
+            key: widget.boardKey,
             onPanStart: done
                 ? null
                 : (d) => setState(() {
@@ -684,23 +730,13 @@ class _TraceGameState extends State<TraceGame> {
                 borderRadius: BorderRadius.circular(20),
                 child: CustomPaint(
                   size: Size.square(side),
-                  painter: _TracePainter(_painter(side), [for (final st in _strokes) [...st]], color, done: done),
+                  painter: _TracePainter(_painter(side), [for (final st in _strokes) [...st]], widget.color, done: done),
                 ),
               ),
             ),
           ),
         );
-      }),
-      const SizedBox(height: 10),
-      KidButton(s.q.isEnglish ? '🧽 Clear' : '🧽 امسح', kind: BtnKind.ghost, onTap: s.locked ? null : widget.engine.traceClear),
-      Padding(
-        padding: const EdgeInsets.only(top: 6),
-        child: Text(s.q.hint,
-            textAlign: TextAlign.center,
-            style: kidText(context.clampVw(14, 3.6, 17), weight: FontWeight.w700, color: AppColors.inkSoft)),
-      ),
-    ]);
-  }
+      });
 }
 
 class _TracePainter extends CustomPainter {

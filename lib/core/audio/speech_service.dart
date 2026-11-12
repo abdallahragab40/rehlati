@@ -103,12 +103,13 @@ class SpeechService implements Speech {
     _enVoice = en.where((v) => loc(v, r'us')).firstOrNull ?? en.where((v) => loc(v, r'gb')).firstOrNull ?? en.firstOrNull;
   }
 
+  // علامة الطرح (U+2212) مش رمز يتشال: «1000 − 375» لازم تتقال «ناقص».
   static final _emoji = RegExp(
-    r'[\u{1F000}-\u{1FAFF}\u{2190}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{2600}-\u{26FF}]',
+    r'[\u{1F000}-\u{1FAFF}\u{2190}-\u{2211}\u{2213}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{2600}-\u{26FF}]',
     unicode: true,
   );
 
-  /// إزالة الإيموجي والرموز قبل النطق.
+  /// إزالة الإيموجي والرموز قبل النطق (علامة الطرح بتفضل).
   static String clean(String t) => t.replaceAll(_emoji, ' ').replaceAll(RegExp(r'\s+'), ' ').trim();
 
   /// مفتاح مقطع الجملة: p_ + FNV-1a (٣٢ بت) لنصها بعد [clean].

@@ -19,6 +19,7 @@ import 'package:rehlati/core/audio/voice_lines.dart';
 import 'package:rehlati/core/utils/arabic.dart';
 import 'package:rehlati/core/utils/rng.dart';
 import 'package:rehlati/domain/generators/madd_generators.dart';
+import 'package:rehlati/domain/lesson_content.dart';
 import 'package:rehlati/domain/progress/badges.dart';
 import 'package:rehlati/domain/progress/progress_data.dart';
 import 'package:rehlati/domain/progress/ranks.dart';
@@ -164,6 +165,50 @@ void main() {
         }
       }
     }
+    // شرح دروس المدرسة (assets/lessons/): كل بطاقة، وكل نشاط وتلميحاته وسببه ومثاله الأسهل، ونشاط البيت
+    void addSpoken(Object t) => t is List ? t.forEach(add) : add(t);
+    void addCard(LessonCard c) {
+      addSpoken(c.spoken);
+      addEn(c.en);
+      if (c.visual case final ListenVisual v) v.en ? addEn(v.say) : add(v.say);
+    }
+
+    for (final f in Directory(lessonsDir).listSync().whereType<File>().where((f) => f.path.endsWith('.json'))) {
+      for (final l in parseLessonBook(f.readAsStringSync())) {
+        for (final b in l.blocks) {
+          switch (b) {
+            case HookBlock(:final card, :final ask):
+              addCard(card);
+              add(ask);
+            case ExplainBlock(:final card):
+              addCard(card);
+            case ExampleBlock(:final steps):
+              steps.forEach(addCard);
+            case TryBlock(:final tasks):
+              for (final t in tasks) {
+                addSpoken(t.say ?? t.ask);
+                add(t.why);
+                add(t.hint);
+                t.hints.values.forEach(add);
+                if (t.help case final h?) addCard(h);
+                if (t.visual case final ListenVisual v) v.en ? addEn(v.say) : add(v.say);
+              }
+            case StoryBlock(:final pages):
+              pages.forEach(addCard);
+            case PoemBlock(:final lines):
+              lines.forEach(add);
+            case ReadBlock(:final items):
+              items.forEach(addCard);
+            case ActivityBlock(:final text):
+              add(text);
+            case SummaryBlock():
+          }
+        }
+      }
+    }
+    add(sayLessonDone);
+    add(sayReadFirst);
+
     for (final (t, _) in praiseSay) {
       add(t);
     }
@@ -202,6 +247,16 @@ void main() {
     // المقطع لوحده الصوت بيقوله في عُشر ثانية فمايتسمعش: المد بنكرّر حرفه عشان يتمدّ
     // فعلاً (بَا ← بَاااا)، والحركة القصيرة بنقفلها بهاء ساكنة (بَ ← بَهْ).
     final syl = RegExp(r'^([ء-ي])([َُِ])([اوي])?$');
+    // العمليات بتتقال بالكلام: «24 × 6 = 144» ← «24 في 6 يساوي 144». العرض والمفتاح زي ما هم.
+    const ops = {'×': 'في', '÷': 'على', '=': 'يساوي', '+': 'زائد', '−': 'ناقص', '<': 'أصغر من', '>': 'أكبر من'};
+    final op = RegExp(r'(?<=^|\S )([×÷=+−<>])(?= \S|$)');
+    // الكسر العشري: «3٫45» ← «3 فاصلة 45»، و«0٫05» ← «0 فاصلة 0 5» عشان الصفر اللي في الأول يتسمع.
+    final decimal = RegExp(r'(\d+)٫(\d+)');
+    String decimals(String t) =>
+        t.replaceAllMapped(decimal, (m) => '${m[1]} فاصلة ${m[2]!.startsWith('0') ? m[2]!.split('').join(' ') : m[2]}');
+    // العدد السالب: «−3» ← «سالب 3»
+    final negative = RegExp(r'(?<=^|[\s(|و])−(?=\d)');
+    String math(String t) => decimals(t.replaceAllMapped(op, (m) => ops[m[1]]!)).replaceAll(negative, 'سالب ');
     String spoken(String t) {
       final out = <String>[];
       var spelling = false;
@@ -228,7 +283,7 @@ void main() {
         }
         spelling = n != null;
       }
-      return out.join(' ').replaceAll(' ، ', '، ');
+      return math(out.join(' ').replaceAll(' ، ', '، '));
     }
 
     // جملة كلها مقاطع (اسمع المقطع) بتتقال أبطأ

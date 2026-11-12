@@ -44,7 +44,8 @@ void main() {
       expect(planJourney(ProgressData(grade: 'p4'), day: day).steps.first.target, 'stage:divisionExact');
       final seven = planJourney(ProgressData(grade: 'p2'), day: day);
       expect(seven.steps.first.target, 'stage:tensOnes');
-      expect(seven.steps.last.target, 'stage:ar_tanween');
+      // عربي تانية: التنوين أو قواعد تانية (ذلك وتلك) — الاتنين مفتوحين من الأول لطفل في تانية
+      expect(['stage:ar_tanween', 'stage:ar_far'], contains(seven.steps.last.target));
       expect(planJourney(ProgressData(grade: 'kg2'), day: day).steps.first.target, 'stage:counting');
       expect(planJourney(ProgressData(grade: 'kg1'), day: day).steps.first.target, 'stage:counting');
     });

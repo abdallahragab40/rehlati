@@ -22,7 +22,7 @@ void main() {
       for (final book in schoolBooks) {
         for (final unit in book.units) {
           for (final lesson in unit.lessons) {
-            expect(lesson.ready, isTrue, reason: '${book.id}: ${lesson.title}');
+            expect(lesson.ready || lesson.explainOnly, isTrue, reason: '${book.id}: ${lesson.title}');
             for (final item in lesson.items) {
               final gen = packs[item.stage]!.gen;
               if (gen == null) continue; // Madd has its own question factory.

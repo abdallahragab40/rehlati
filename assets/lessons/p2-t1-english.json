@@ -1,0 +1,2955 @@
+{
+ "book": "p2-t1-english",
+ "edition": "2026_2027",
+ "lessons": [
+  {
+   "uid": "p2-t1-english/classroom-things",
+   "key": "u1:l1",
+   "title": "Classroom things",
+   "goal": "أسمّي أدوات الفصل وأستخدم This وThat",
+   "version": 2,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "بص على الكلمات. هنستخدمها في كلام عن حياتنا."
+    },
+    {
+     "type": "explain",
+     "text": "This is لحاجة واحدة قريبة، وThat is لحاجة واحدة بعيدة. بنبدأ الجملة بحرف كبير ونختم بنقطة."
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "📖"
+     },
+     "en": "book"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "📏"
+     },
+     "en": "ruler"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🎒"
+     },
+     "en": "bag"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🪑"
+     },
+     "en": "chair"
+    },
+    {
+     "type": "example",
+     "title": "شاهد خطوة خطوة",
+     "steps": [
+      {
+       "text": "اسمع الجملة ولاحظ ترتيب الكلمات.",
+       "en": "This is a book."
+      },
+      {
+       "text": "اقرأها تاني، وبعدها قول مثالًا من عندك.",
+       "en": "This is a book."
+      }
+     ]
+    },
+    {
+     "type": "read",
+     "title": "اقرأ وبعدين اسمع",
+     "items": [
+      {
+       "text": "اقرأ النص الأول.",
+       "en": "This is my bag. This is a book. That is a chair."
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بالصورة",
+       "pairs": [
+        [
+         "book",
+         "📖"
+        ],
+        [
+         "ruler",
+         "📏"
+        ],
+        [
+         "bag",
+         "🎒"
+        ],
+        [
+         "chair",
+         "🪑"
+        ]
+       ],
+       "hint": "اقرأ الكلمة واسمعها قبل ما توصل.",
+       "why": "كل كلمة وصلت بالصورة اللي بتدل عليها.",
+       "en": true
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب كلمات الجملة",
+       "items": [
+        "This",
+        "is",
+        "a",
+        "book."
+       ],
+       "hint": "ابدأ بمن أو ما نتكلم عنه، وكمل المعنى.",
+       "why": "الترتيب بيكوّن: This is a book.",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "مع ولي الأمر: أقول جملة جديدة بنفس النموذج، وأكتبها على ورقة وأرسم معناها. نراجع الحرف الكبير والمسافات والنقطة."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "ask": "اختار معنى ruler",
+       "choices": [
+        "مسطرة",
+        "حقيبة",
+        "كرسي"
+       ],
+       "answer": "مسطرة",
+       "hint": "افتكر الأداة اللي بنقيس بيها.",
+       "why": "ruler معناها مسطرة.",
+       "hints": {
+        "حقيبة": "حقيبة = bag",
+        "كرسي": "كرسي = chair"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "This is a book."
+       }
+      },
+      {
+       "ask": "أكمل للإشارة لكرسي قريب: This is a ...",
+       "choices": [
+        "chair",
+        "book",
+        "bag"
+       ],
+       "answer": "chair",
+       "hint": "اسأل نفسك اسم الكرسي إيه بالإنجليزي.",
+       "why": "This is a chair.",
+       "en": true,
+       "hints": {
+        "book": "book كتاب",
+        "bag": "bag شنطة"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "This is a book."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "أسمّي أدوات الفصل وأستخدم This وThat",
+      "أسمع ثم أقرأ ثم أستخدم الكلمات في جملة."
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p2-t1-english/short-a-e-i",
+   "key": "u1:l2",
+   "title": "Short vowels a, e, i",
+   "goal": "أسمع وأميّز الأصوات وأقرأ كلماتها",
+   "version": 2,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "اسمع الكلمات ببطء. أنهي جزء صوته بيتكرر؟"
+    },
+    {
+     "type": "explain",
+     "text": "اسم حرف العلة غير صوته داخل الكلمة. هنسمع a في cat، وe في pen، وi في pin."
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "cat"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "hat"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "pen"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "hen"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "pin"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "fin"
+    },
+    {
+     "type": "example",
+     "title": "شاهد خطوة خطوة",
+     "steps": [
+      {
+       "text": "اسمع النموذج.",
+       "en": "A cat and a hen."
+      },
+      {
+       "text": "أعيد الكلمة كاملة، وبعدين أقارن صوتها بكلمة تانية.",
+       "en": "fin"
+      }
+     ]
+    },
+    {
+     "type": "read",
+     "title": "اقرأ الكلمات",
+     "items": [
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "cat"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "hat"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "pen"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "hen"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "pin"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "fin"
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "صنّف الكلمات حسب الصوت",
+       "groups": [
+        {
+         "name": "a",
+         "items": [
+          "cat",
+          "hat"
+         ]
+        },
+        {
+         "name": "e",
+         "items": [
+          "pen",
+          "hen"
+         ]
+        },
+        {
+         "name": "i",
+         "items": [
+          "pin",
+          "fin"
+         ]
+        }
+       ],
+       "hint": "اسمع صوت الحرف أو الحرفين داخل الكلمة.",
+       "why": "كل مجموعة فيها الصوت المطلوب.",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "أقرأ الكلمات لولي الأمر وأكتب كلمتين. نسمع النموذج مرة تانية لو احتجنا. التكرار هنا بدون تسجيل ميكروفون."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "ask": "أي كلمة فيها نفس صوت a في cat؟",
+       "choices": [
+        "hat",
+        "pen",
+        "pin"
+       ],
+       "answer": "hat",
+       "hint": "اسمع الصوت اللي في وسط الكلمة.",
+       "why": "cat وhat فيهما نفس صوت a القصير.",
+       "en": true,
+       "hints": {
+        "pen": "pen صوتها e",
+        "pin": "pin صوتها i"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "A cat and a hen."
+       }
+      },
+      {
+       "ask": "أي كلمة فيها نفس صوت i في pin؟",
+       "choices": [
+        "fin",
+        "hen",
+        "cat"
+       ],
+       "answer": "fin",
+       "hint": "قارن صوت منتصف الكلمة.",
+       "why": "pin وfin فيهما i قصيرة.",
+       "en": true,
+       "hints": {
+        "hen": "hen صوتها e",
+        "cat": "cat صوتها a"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "A cat and a hen."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "أسمع الصوت داخل الكلمة.",
+      "أقرأ الكلمة كاملة وأراجع نطقي مع النموذج."
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p2-t1-english/greetings",
+   "key": "u1:l3",
+   "title": "Greetings and introductions",
+   "goal": "أحيّي وأعرّف نفسي وأسأل عن الاسم",
+   "version": 2,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "بص على الكلمات. هنستخدمها في كلام عن حياتنا."
+    },
+    {
+     "type": "explain",
+     "text": "نحيّي بـ Hello، ونودع بـ Goodbye. نسأل What is your name? ونرد My name is ثم الاسم."
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "👋"
+     },
+     "en": "Hello"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🚶"
+     },
+     "en": "Goodbye"
+    },
+    {
+     "type": "example",
+     "title": "شاهد خطوة خطوة",
+     "steps": [
+      {
+       "text": "اسمع الجملة ولاحظ ترتيب الكلمات.",
+       "en": "My name is Salma."
+      },
+      {
+       "text": "اقرأها تاني، وبعدها قول مثالًا من عندك.",
+       "en": "My name is Salma."
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بالصورة",
+       "pairs": [
+        [
+         "Hello",
+         "👋"
+        ],
+        [
+         "Goodbye",
+         "🚶"
+        ]
+       ],
+       "hint": "اقرأ الكلمة واسمعها قبل ما توصل.",
+       "why": "كل كلمة وصلت بالصورة اللي بتدل عليها.",
+       "en": true
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب كلمات الجملة",
+       "items": [
+        "My",
+        "name",
+        "is",
+        "Salma."
+       ],
+       "hint": "ابدأ بمن أو ما نتكلم عنه، وكمل المعنى.",
+       "why": "الترتيب بيكوّن: My name is Salma.",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "مع ولي الأمر: أقول جملة جديدة بنفس النموذج، وأكتبها على ورقة وأرسم معناها. نراجع الحرف الكبير والمسافات والنقطة."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "ask": "ما الرد المناسب على What is your name?",
+       "choices": [
+        "My name is Omar.",
+        "Goodbye.",
+        "It is a pen."
+       ],
+       "answer": "My name is Omar.",
+       "hint": "السؤال عن الاسم.",
+       "why": "نجيب عن الاسم بجملة My name is.",
+       "en": true,
+       "hints": {
+        "Goodbye.": "Goodbye للوداع.",
+        "It is a pen.": "دي عن حاجة، مش عن اسمك."
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "My name is Salma."
+       }
+      },
+      {
+       "ask": "أي كلمة أقولها عند اللقاء؟",
+       "choices": [
+        "Hello",
+        "Goodbye",
+        "Chair"
+       ],
+       "answer": "Hello",
+       "hint": "فكر في بداية التحية.",
+       "why": "Hello للتحية عند اللقاء.",
+       "en": true,
+       "hints": {
+        "Goodbye": "Goodbye بنقولها وإحنا ماشيين.",
+        "Chair": "Chair يعني كرسي."
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "My name is Salma."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "أحيّي وأعرّف نفسي وأسأل عن الاسم",
+      "أسمع ثم أقرأ ثم أستخدم الكلمات في جملة."
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p2-t1-english/colors-shapes",
+   "key": "u2:l1",
+   "title": "Colors, shapes and numbers",
+   "goal": "أصف لون الشكل وأعدّ أشياء",
+   "version": 2,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "بص على الكلمات. هنستخدمها في كلام عن حياتنا."
+    },
+    {
+     "type": "explain",
+     "text": "في الوصف بالإنجليزي اللون قبل اسم الشكل: a red triangle. مع المفرد نقول one book، ومع أكتر من واحد نقول two books."
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🔴"
+     },
+     "en": "red"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🔵"
+     },
+     "en": "blue"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "⬜"
+     },
+     "en": "square"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🔺"
+     },
+     "en": "triangle"
+    },
+    {
+     "type": "example",
+     "title": "شاهد خطوة خطوة",
+     "steps": [
+      {
+       "text": "اسمع الجملة ولاحظ ترتيب الكلمات.",
+       "en": "This is a red triangle."
+      },
+      {
+       "text": "اقرأها تاني، وبعدها قول مثالًا من عندك.",
+       "en": "This is a red triangle."
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بالصورة",
+       "pairs": [
+        [
+         "red",
+         "🔴"
+        ],
+        [
+         "blue",
+         "🔵"
+        ],
+        [
+         "square",
+         "⬜"
+        ],
+        [
+         "triangle",
+         "🔺"
+        ]
+       ],
+       "hint": "اقرأ الكلمة واسمعها قبل ما توصل.",
+       "why": "كل كلمة وصلت بالصورة اللي بتدل عليها.",
+       "en": true
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب كلمات الجملة",
+       "items": [
+        "This",
+        "is",
+        "a",
+        "red",
+        "triangle."
+       ],
+       "hint": "ابدأ بمن أو ما نتكلم عنه، وكمل المعنى.",
+       "why": "الترتيب بيكوّن: This is a red triangle.",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "مع ولي الأمر: أقول جملة جديدة بنفس النموذج، وأكتبها على ورقة وأرسم معناها. نراجع الحرف الكبير والمسافات والنقطة."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "ask": "أكمل: This is a ... square. والمعنى مربع أزرق.",
+       "choices": [
+        "blue",
+        "red",
+        "green"
+       ],
+       "answer": "blue",
+       "hint": "كلمة اللون بتيجي قبل اسم الشكل.",
+       "why": "blue square معناها مربع أزرق.",
+       "en": true,
+       "hints": {
+        "red": "red أحمر",
+        "green": "green أخضر"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "This is a red triangle."
+       }
+      },
+      {
+       "ask": "اسم شكل له ثلاثة أضلاع؟",
+       "choices": [
+        "triangle",
+        "circle",
+        "square"
+       ],
+       "answer": "triangle",
+       "hint": "عد أضلاع المثلث.",
+       "why": "triangle هو المثلث.",
+       "en": true,
+       "hints": {
+        "circle": "circle مدوّرة، مالهاش أضلاع.",
+        "square": "square ليه 4 أضلاع."
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "This is a red triangle."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "أصف لون الشكل وأعدّ أشياء",
+      "أسمع ثم أقرأ ثم أستخدم الكلمات في جملة."
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p2-t1-english/numbers-eleven-twenty",
+   "key": "u2:l2",
+   "title": "Numbers 11–20",
+   "goal": "أقرأ الأعداد من 11 إلى 20",
+   "version": 2,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "بص على الكلمات. هنستخدمها في كلام عن حياتنا."
+    },
+    {
+     "type": "explain",
+     "text": "eleven هي 11 وtwelve هي 12. من thirteen إلى nineteen معظم الكلمات آخرها teen، ثم twenty هي 20."
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "1️⃣1️⃣"
+     },
+     "en": "eleven"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "1️⃣2️⃣"
+     },
+     "en": "twelve"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "2️⃣0️⃣"
+     },
+     "en": "twenty"
+    },
+    {
+     "type": "example",
+     "title": "شاهد خطوة خطوة",
+     "steps": [
+      {
+       "text": "اسمع الجملة ولاحظ ترتيب الكلمات.",
+       "en": "I have twelve pencils."
+      },
+      {
+       "text": "اقرأها تاني، وبعدها قول مثالًا من عندك.",
+       "en": "I have twelve pencils."
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بالصورة",
+       "pairs": [
+        [
+         "eleven",
+         "1️⃣1️⃣"
+        ],
+        [
+         "twelve",
+         "1️⃣2️⃣"
+        ],
+        [
+         "twenty",
+         "2️⃣0️⃣"
+        ]
+       ],
+       "hint": "اقرأ الكلمة واسمعها قبل ما توصل.",
+       "why": "كل كلمة وصلت بالصورة اللي بتدل عليها.",
+       "en": true
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب كلمات الجملة",
+       "items": [
+        "I",
+        "have",
+        "twelve",
+        "pencils."
+       ],
+       "hint": "ابدأ بمن أو ما نتكلم عنه، وكمل المعنى.",
+       "why": "الترتيب بيكوّن: I have twelve pencils.",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "مع ولي الأمر: أقول جملة جديدة بنفس النموذج، وأكتبها على ورقة وأرسم معناها. نراجع الحرف الكبير والمسافات والنقطة."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "ask": "اختار كلمة العدد 14",
+       "choices": [
+        "fourteen",
+        "forty",
+        "four"
+       ],
+       "answer": "fourteen",
+       "hint": "14 = عشرة وأربعة، والكلمة بتخلص بـ teen.",
+       "why": "fourteen تعني 14.",
+       "en": true,
+       "hints": {
+        "forty": "forty = 40",
+        "four": "four = 4"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I have twelve pencils."
+       }
+      },
+      {
+       "ask": "أي عدد يأتي بعد nineteen؟",
+       "choices": [
+        "twenty",
+        "twelve",
+        "eighteen"
+       ],
+       "answer": "twenty",
+       "hint": "كمل العد بعد 19.",
+       "why": "بعد nineteen يأتي twenty.",
+       "en": true,
+       "hints": {
+        "twelve": "twelve = 12",
+        "eighteen": "eighteen = 18، قبل nineteen."
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I have twelve pencils."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "أقرأ الأعداد من 11 إلى 20",
+      "أسمع ثم أقرأ ثم أستخدم الكلمات في جملة."
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p2-t1-english/short-o-u-long-a",
+   "key": "u2:l3",
+   "title": "Short o, short u and long a",
+   "goal": "أسمع وأميّز الأصوات وأقرأ كلماتها",
+   "version": 2,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "اسمع الكلمات ببطء. أنهي جزء صوته بيتكرر؟"
+    },
+    {
+     "type": "explain",
+     "text": "نسمع o القصيرة في dog وu القصيرة في sun. في cake وlake نسمع a الطويلة، وحرف e في الآخر ساكت."
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "dog"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "fox"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "sun"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "cup"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "cake"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "lake"
+    },
+    {
+     "type": "example",
+     "title": "شاهد خطوة خطوة",
+     "steps": [
+      {
+       "text": "اسمع النموذج.",
+       "en": "A dog by a lake."
+      },
+      {
+       "text": "أعيد الكلمة كاملة، وبعدين أقارن صوتها بكلمة تانية.",
+       "en": "lake"
+      }
+     ]
+    },
+    {
+     "type": "read",
+     "title": "اقرأ الكلمات",
+     "items": [
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "dog"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "fox"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "sun"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "cup"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "cake"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "lake"
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "صنّف الكلمات حسب الصوت",
+       "groups": [
+        {
+         "name": "short o",
+         "items": [
+          "dog",
+          "fox"
+         ]
+        },
+        {
+         "name": "short u",
+         "items": [
+          "sun",
+          "cup"
+         ]
+        },
+        {
+         "name": "long a",
+         "items": [
+          "cake",
+          "lake"
+         ]
+        }
+       ],
+       "hint": "اسمع صوت الحرف أو الحرفين داخل الكلمة.",
+       "why": "كل مجموعة فيها الصوت المطلوب.",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "أقرأ الكلمات لولي الأمر وأكتب كلمتين. نسمع النموذج مرة تانية لو احتجنا. التكرار هنا بدون تسجيل ميكروفون."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "ask": "أي كلمة فيها long a مثل cake؟",
+       "choices": [
+        "lake",
+        "cup",
+        "dog"
+       ],
+       "answer": "lake",
+       "hint": "اسمع الصوت الطويل في النموذج.",
+       "why": "lake وcake فيهما long a.",
+       "en": true,
+       "hints": {
+        "cup": "cup صوتها u",
+        "dog": "dog صوتها o"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "A dog by a lake."
+       }
+      },
+      {
+       "ask": "أي كلمة فيها نفس صوت u في sun؟",
+       "choices": [
+        "cup",
+        "fox",
+        "cake"
+       ],
+       "answer": "cup",
+       "hint": "قارن صوت منتصف الكلمة.",
+       "why": "sun وcup فيهما u قصيرة.",
+       "en": true,
+       "hints": {
+        "fox": "fox صوتها o",
+        "cake": "cake صوتها long a"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "A dog by a lake."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "أسمع الصوت داخل الكلمة.",
+      "أقرأ الكلمة كاملة وأراجع نطقي مع النموذج."
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p2-t1-english/counting-tens",
+   "key": "u2:l4",
+   "title": "Counting by tens",
+   "goal": "أعد بالعشرات حتى 100",
+   "version": 2,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "بص على الكلمات. هنستخدمها في كلام عن حياتنا."
+    },
+    {
+     "type": "explain",
+     "text": "نعد: ten, twenty, thirty, forty, fifty, sixty, seventy, eighty, ninety, one hundred. كل مرة العدد بيزيد عشرة."
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🔟"
+     },
+     "en": "ten"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "5️⃣0️⃣"
+     },
+     "en": "fifty"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "💯"
+     },
+     "en": "one hundred"
+    },
+    {
+     "type": "example",
+     "title": "شاهد خطوة خطوة",
+     "steps": [
+      {
+       "text": "اسمع الجملة ولاحظ ترتيب الكلمات.",
+       "en": "Ten, twenty, thirty."
+      },
+      {
+       "text": "اقرأها تاني، وبعدها قول مثالًا من عندك.",
+       "en": "Ten, twenty, thirty."
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بالصورة",
+       "pairs": [
+        [
+         "ten",
+         "🔟"
+        ],
+        [
+         "fifty",
+         "5️⃣0️⃣"
+        ],
+        [
+         "one hundred",
+         "💯"
+        ]
+       ],
+       "hint": "اقرأ الكلمة واسمعها قبل ما توصل.",
+       "why": "كل كلمة وصلت بالصورة اللي بتدل عليها.",
+       "en": true
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب كلمات الجملة",
+       "items": [
+        "Ten,",
+        "twenty,",
+        "thirty."
+       ],
+       "hint": "ابدأ بمن أو ما نتكلم عنه، وكمل المعنى.",
+       "why": "الترتيب بيكوّن: Ten, twenty, thirty.",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "مع ولي الأمر: أقول جملة جديدة بنفس النموذج، وأكتبها على ورقة وأرسم معناها. نراجع الحرف الكبير والمسافات والنقطة."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "ask": "ما العدد بعد forty عند العد بالعشرات؟",
+       "choices": [
+        "fifty",
+        "fourteen",
+        "fifteen"
+       ],
+       "answer": "fifty",
+       "hint": "بنضيف عشرة كل مرة.",
+       "why": "بعد forty يأتي fifty.",
+       "en": true,
+       "hints": {
+        "fourteen": "fourteen = 14",
+        "fifteen": "fifteen = 15"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Ten, twenty, thirty."
+       }
+      },
+      {
+       "ask": "أي كلمة تعني 80؟",
+       "choices": [
+        "eighty",
+        "eighteen",
+        "eight"
+       ],
+       "answer": "eighty",
+       "hint": "فرق بين 8 و18 و80.",
+       "why": "eighty تعني 80.",
+       "en": true,
+       "hints": {
+        "eighteen": "eighteen = 18",
+        "eight": "eight = 8"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Ten, twenty, thirty."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "أعد بالعشرات حتى 100",
+      "أسمع ثم أقرأ ثم أستخدم الكلمات في جملة."
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p2-t1-english/classroom-actions",
+   "key": "u3:l1",
+   "title": "Classroom actions",
+   "goal": "أستخدم أفعال الفصل في جمل وتعليمات",
+   "version": 2,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "بص على الكلمات. هنستخدمها في كلام عن حياتنا."
+    },
+    {
+     "type": "explain",
+     "text": "نقول I read وI write لما نحكي بنعمل إيه. للتعليمات: Stand up، Sit down، Open your book."
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "📖"
+     },
+     "en": "read"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "✍️"
+     },
+     "en": "write"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🖍️"
+     },
+     "en": "draw"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🎤"
+     },
+     "en": "sing"
+    },
+    {
+     "type": "example",
+     "title": "شاهد خطوة خطوة",
+     "steps": [
+      {
+       "text": "اسمع الجملة ولاحظ ترتيب الكلمات.",
+       "en": "I read a book."
+      },
+      {
+       "text": "اقرأها تاني، وبعدها قول مثالًا من عندك.",
+       "en": "I read a book."
+      }
+     ]
+    },
+    {
+     "type": "read",
+     "title": "اقرأ وبعدين اسمع",
+     "items": [
+      {
+       "text": "اقرأ النص الأول.",
+       "en": "I sit on my chair. I read my book. I draw a picture."
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بالصورة",
+       "pairs": [
+        [
+         "read",
+         "📖"
+        ],
+        [
+         "write",
+         "✍️"
+        ],
+        [
+         "draw",
+         "🖍️"
+        ],
+        [
+         "sing",
+         "🎤"
+        ]
+       ],
+       "hint": "اقرأ الكلمة واسمعها قبل ما توصل.",
+       "why": "كل كلمة وصلت بالصورة اللي بتدل عليها.",
+       "en": true
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب كلمات الجملة",
+       "items": [
+        "I",
+        "read",
+        "a",
+        "book."
+       ],
+       "hint": "ابدأ بمن أو ما نتكلم عنه، وكمل المعنى.",
+       "why": "الترتيب بيكوّن: I read a book.",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "مع ولي الأمر: أقول جملة جديدة بنفس النموذج، وأكتبها على ورقة وأرسم معناها. نراجع الحرف الكبير والمسافات والنقطة."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "ask": "أي جملة معناها أنا أرسم صورة؟",
+       "choices": [
+        "I draw a picture.",
+        "I read a book.",
+        "I write my name."
+       ],
+       "answer": "I draw a picture.",
+       "hint": "دور على فعل الرسم.",
+       "why": "draw معناها يرسم.",
+       "en": true,
+       "hints": {
+        "I read a book.": "read يعني أقرا.",
+        "I write my name.": "write يعني أكتب."
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I read a book."
+       }
+      },
+      {
+       "ask": "ما معنى Open your book؟",
+       "choices": [
+        "افتح كتابك",
+        "اقفل الباب",
+        "ارفع يدك"
+       ],
+       "answer": "افتح كتابك",
+       "hint": "افتكر معنى open.",
+       "why": "Open your book تعليمات بفتح الكتاب.",
+       "hints": {
+        "اقفل الباب": "اقفل الباب = Close the door.",
+        "ارفع يدك": "ارفع يدك = Raise your hand."
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I read a book."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "أستخدم أفعال الفصل في جمل وتعليمات",
+      "أسمع ثم أقرأ ثم أستخدم الكلمات في جملة."
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p2-t1-english/initial-sounds",
+   "key": "u3:l2",
+   "title": "First sounds",
+   "goal": "أسمع وأميّز الأصوات وأقرأ كلماتها",
+   "version": 2,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "اسمع الكلمات ببطء. أنهي جزء صوته بيتكرر؟"
+    },
+    {
+     "type": "explain",
+     "text": "هنسمع أول صوت في الكلمة. sit تبدأ s، وclap تبدأ بصوت c، وdraw تبدأ d. بنقارن الصوت مش طول الكلمة."
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "sit"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "sun"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "cat"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "cup"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "dog"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "desk"
+    },
+    {
+     "type": "example",
+     "title": "شاهد خطوة خطوة",
+     "steps": [
+      {
+       "text": "اسمع النموذج.",
+       "en": "Sit on a chair."
+      },
+      {
+       "text": "أعيد الكلمة كاملة، وبعدين أقارن صوتها بكلمة تانية.",
+       "en": "desk"
+      }
+     ]
+    },
+    {
+     "type": "read",
+     "title": "اقرأ الكلمات",
+     "items": [
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "sit"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "sun"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "cat"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "cup"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "dog"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "desk"
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "صنّف الكلمات حسب الصوت",
+       "groups": [
+        {
+         "name": "s",
+         "items": [
+          "sit",
+          "sun"
+         ]
+        },
+        {
+         "name": "c",
+         "items": [
+          "cat",
+          "cup"
+         ]
+        },
+        {
+         "name": "d",
+         "items": [
+          "dog",
+          "desk"
+         ]
+        }
+       ],
+       "hint": "اسمع صوت الحرف أو الحرفين داخل الكلمة.",
+       "why": "كل مجموعة فيها الصوت المطلوب.",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "أقرأ الكلمات لولي الأمر وأكتب كلمتين. نسمع النموذج مرة تانية لو احتجنا. التكرار هنا بدون تسجيل ميكروفون."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "ask": "أي كلمة تبدأ بنفس صوت sit؟",
+       "choices": [
+        "sun",
+        "cat",
+        "dog"
+       ],
+       "answer": "sun",
+       "hint": "ركز على أول صوت بس.",
+       "why": "sit وsun يبدأان بصوت s.",
+       "en": true,
+       "hints": {
+        "cat": "cat أولها c",
+        "dog": "dog أولها d"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Sit on a chair."
+       }
+      },
+      {
+       "ask": "أي كلمة تبدأ بنفس صوت draw؟",
+       "choices": [
+        "dog",
+        "sun",
+        "cat"
+       ],
+       "answer": "dog",
+       "hint": "اسمع أول صوت في draw.",
+       "why": "draw وdog يبدأان بصوت d.",
+       "en": true,
+       "hints": {
+        "sun": "sun أولها s",
+        "cat": "cat أولها c"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Sit on a chair."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "أسمع الصوت داخل الكلمة.",
+      "أقرأ الكلمة كاملة وأراجع نطقي مع النموذج."
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p2-t1-english/my-family",
+   "key": "u4:l1",
+   "title": "My family",
+   "goal": "أسمّي أفراد الأسرة وأستخدم my وyour",
+   "version": 2,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "بص على الكلمات. هنستخدمها في كلام عن حياتنا."
+    },
+    {
+     "type": "explain",
+     "text": "my معناها الخاص بي وyour الخاص بك: my mother، your father. نسأل Who is this? عن الشخص."
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "👩"
+     },
+     "en": "mother"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "👨"
+     },
+     "en": "father"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "👧"
+     },
+     "en": "sister"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "👴"
+     },
+     "en": "grandfather"
+    },
+    {
+     "type": "example",
+     "title": "شاهد خطوة خطوة",
+     "steps": [
+      {
+       "text": "اسمع الجملة ولاحظ ترتيب الكلمات.",
+       "en": "This is my sister."
+      },
+      {
+       "text": "اقرأها تاني، وبعدها قول مثالًا من عندك.",
+       "en": "This is my sister."
+      }
+     ]
+    },
+    {
+     "type": "read",
+     "title": "اقرأ وبعدين اسمع",
+     "items": [
+      {
+       "text": "اقرأ النص الأول.",
+       "en": "This is my family. This is my mother. This is my grandfather."
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بالصورة",
+       "pairs": [
+        [
+         "mother",
+         "👩"
+        ],
+        [
+         "father",
+         "👨"
+        ],
+        [
+         "sister",
+         "👧"
+        ],
+        [
+         "grandfather",
+         "👴"
+        ]
+       ],
+       "hint": "اقرأ الكلمة واسمعها قبل ما توصل.",
+       "why": "كل كلمة وصلت بالصورة اللي بتدل عليها.",
+       "en": true
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب كلمات الجملة",
+       "items": [
+        "This",
+        "is",
+        "my",
+        "sister."
+       ],
+       "hint": "ابدأ بمن أو ما نتكلم عنه، وكمل المعنى.",
+       "why": "الترتيب بيكوّن: This is my sister.",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "مع ولي الأمر: أقول جملة جديدة بنفس النموذج، وأكتبها على ورقة وأرسم معناها. نراجع الحرف الكبير والمسافات والنقطة."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "ask": "أي كلمة تعني جد؟",
+       "choices": [
+        "grandfather",
+        "sister",
+        "mother"
+       ],
+       "answer": "grandfather",
+       "hint": "فكر في فرد الأسرة الأكبر في النموذج.",
+       "why": "grandfather هو الجد.",
+       "en": true,
+       "hints": {
+        "sister": "sister أخت",
+        "mother": "mother أم"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "This is my sister."
+       }
+      },
+      {
+       "ask": "أشير لأخيك أنت. أكمل: This is ... brother.",
+       "choices": [
+        "your",
+        "my",
+        "I"
+       ],
+       "answer": "your",
+       "hint": "الأخ ده بتاع الشخص اللي بكلمه، مش بتاعي.",
+       "why": "your brother معناها أخوك.",
+       "en": true,
+       "hints": {
+        "my": "my يعني بتاعي، والأخ ده بتاع اللي بكلمه.",
+        "I": "I يعني أنا، مش بتاع حد."
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "This is my sister."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "أسمّي أفراد الأسرة وأستخدم my وyour",
+      "أسمع ثم أقرأ ثم أستخدم الكلمات في جملة."
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p2-t1-english/long-o-u-th",
+   "key": "u4:l2",
+   "title": "Long vowels o, u and th",
+   "goal": "أسمع وأميّز الأصوات وأقرأ كلماتها",
+   "version": 2,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "اسمع الكلمات ببطء. أنهي جزء صوته بيتكرر؟"
+    },
+    {
+     "type": "explain",
+     "text": "في nose وrose صوت o طويل، وفي cube وtube صوت u طويل. الحرفان th مع بعض في thin ليهم صوت واحد مختلف عن t لوحدها."
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "nose"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "rose"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "cube"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "tube"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "thin"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "thumb"
+    },
+    {
+     "type": "example",
+     "title": "شاهد خطوة خطوة",
+     "steps": [
+      {
+       "text": "اسمع النموذج.",
+       "en": "A rose and a cube."
+      },
+      {
+       "text": "أعيد الكلمة كاملة، وبعدين أقارن صوتها بكلمة تانية.",
+       "en": "thumb"
+      }
+     ]
+    },
+    {
+     "type": "read",
+     "title": "اقرأ الكلمات",
+     "items": [
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "nose"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "rose"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "cube"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "tube"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "thin"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "thumb"
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "صنّف الكلمات حسب الصوت",
+       "groups": [
+        {
+         "name": "long o",
+         "items": [
+          "nose",
+          "rose"
+         ]
+        },
+        {
+         "name": "long u",
+         "items": [
+          "cube",
+          "tube"
+         ]
+        },
+        {
+         "name": "th",
+         "items": [
+          "thin",
+          "thumb"
+         ]
+        }
+       ],
+       "hint": "اسمع صوت الحرف أو الحرفين داخل الكلمة.",
+       "why": "كل مجموعة فيها الصوت المطلوب.",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "أقرأ الكلمات لولي الأمر وأكتب كلمتين. نسمع النموذج مرة تانية لو احتجنا. التكرار هنا بدون تسجيل ميكروفون."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "ask": "أي كلمة فيها long o مثل nose؟",
+       "choices": [
+        "rose",
+        "thin",
+        "cube"
+       ],
+       "answer": "rose",
+       "hint": "اسمع صوت o في النموذج.",
+       "why": "nose وrose فيهما long o.",
+       "en": true,
+       "hints": {
+        "thin": "thin صوتها short i",
+        "cube": "cube صوتها long u"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "A rose and a cube."
+       }
+      },
+      {
+       "ask": "أي كلمة تبدأ بالحرفين th وصوتهما مثل thin؟",
+       "choices": [
+        "thumb",
+        "nose",
+        "rose"
+       ],
+       "answer": "thumb",
+       "hint": "اسمع أول الكلمة مع الحرفين.",
+       "why": "thin وthumb يبدأان بنفس صوت th.",
+       "en": true,
+       "hints": {
+        "nose": "nose أولها n",
+        "rose": "rose أولها r"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "A rose and a cube."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "أسمع الصوت داخل الكلمة.",
+      "أقرأ الكلمة كاملة وأراجع نطقي مع النموذج."
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p2-t1-english/daily-routines",
+   "key": "u4:l3",
+   "title": "Daily routines",
+   "goal": "أحكي عن عادة يومية مع I وHe وShe",
+   "version": 2,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "بص على الكلمات. هنستخدمها في كلام عن حياتنا."
+    },
+    {
+     "type": "explain",
+     "text": "للعادات نقول I eat. مع He وShe نضيف s في أفعالنا هنا: He eats، She plays."
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🍽️"
+     },
+     "en": "eat"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "😴"
+     },
+     "en": "sleep"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "⚽"
+     },
+     "en": "play"
+    },
+    {
+     "type": "example",
+     "title": "شاهد خطوة خطوة",
+     "steps": [
+      {
+       "text": "اسمع الجملة ولاحظ ترتيب الكلمات.",
+       "en": "She eats breakfast."
+      },
+      {
+       "text": "اقرأها تاني، وبعدها قول مثالًا من عندك.",
+       "en": "She eats breakfast."
+      }
+     ]
+    },
+    {
+     "type": "read",
+     "title": "اقرأ وبعدين اسمع",
+     "items": [
+      {
+       "text": "اقرأ النص الأول.",
+       "en": "I play after school. My sister plays with me. She sleeps early."
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بالصورة",
+       "pairs": [
+        [
+         "eat",
+         "🍽️"
+        ],
+        [
+         "sleep",
+         "😴"
+        ],
+        [
+         "play",
+         "⚽"
+        ]
+       ],
+       "hint": "اقرأ الكلمة واسمعها قبل ما توصل.",
+       "why": "كل كلمة وصلت بالصورة اللي بتدل عليها.",
+       "en": true
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب كلمات الجملة",
+       "items": [
+        "She",
+        "eats",
+        "breakfast."
+       ],
+       "hint": "ابدأ بمن أو ما نتكلم عنه، وكمل المعنى.",
+       "why": "الترتيب بيكوّن: She eats breakfast.",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "مع ولي الأمر: أقول جملة جديدة بنفس النموذج، وأكتبها على ورقة وأرسم معناها. نراجع الحرف الكبير والمسافات والنقطة."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "ask": "أكمل: He ... after school.",
+       "choices": [
+        "plays",
+        "play",
+        "playing"
+       ],
+       "answer": "plays",
+       "hint": "مع He في العادة اليومية نضيف s هنا.",
+       "why": "He plays after school.",
+       "en": true,
+       "hints": {
+        "play": "مع He الفعل بيزيد s.",
+        "playing": "playing محتاجة is قبلها."
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "She eats breakfast."
+       }
+      },
+      {
+       "ask": "أكمل: I ... early.",
+       "choices": [
+        "sleep",
+        "sleeps",
+        "sleeping"
+       ],
+       "answer": "sleep",
+       "hint": "مع I نستخدم الفعل من غير s.",
+       "why": "I sleep early.",
+       "en": true,
+       "hints": {
+        "sleeps": "مع I مفيش s.",
+        "sleeping": "sleeping محتاجة am قبلها."
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "She eats breakfast."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "أحكي عن عادة يومية مع I وHe وShe",
+      "أسمع ثم أقرأ ثم أستخدم الكلمات في جملة."
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p2-t1-english/my-home",
+   "key": "u5:l1",
+   "title": "My home",
+   "goal": "أصف أثاث البيت ومكانه",
+   "version": 2,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "بص على الكلمات. هنستخدمها في كلام عن حياتنا."
+    },
+    {
+     "type": "explain",
+     "text": "نقول in لجوه، on لفوق حاجة مع ملامستها، وunder لتحت. The lamp is on the table."
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🛏️"
+     },
+     "en": "bed"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🪑"
+     },
+     "en": "chair"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "💡"
+     },
+     "en": "lamp"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🍽️"
+     },
+     "en": "table"
+    },
+    {
+     "type": "example",
+     "title": "شاهد خطوة خطوة",
+     "steps": [
+      {
+       "text": "اسمع الجملة ولاحظ ترتيب الكلمات.",
+       "en": "The lamp is on the table."
+      },
+      {
+       "text": "اقرأها تاني، وبعدها قول مثالًا من عندك.",
+       "en": "The lamp is on the table."
+      }
+     ]
+    },
+    {
+     "type": "read",
+     "title": "اقرأ وبعدين اسمع",
+     "items": [
+      {
+       "text": "اقرأ النص الأول.",
+       "en": "This is my home. The lamp is on the table. The ball is under the chair."
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بالصورة",
+       "pairs": [
+        [
+         "bed",
+         "🛏️"
+        ],
+        [
+         "chair",
+         "🪑"
+        ],
+        [
+         "lamp",
+         "💡"
+        ],
+        [
+         "table",
+         "🍽️"
+        ]
+       ],
+       "hint": "اقرأ الكلمة واسمعها قبل ما توصل.",
+       "why": "كل كلمة وصلت بالصورة اللي بتدل عليها.",
+       "en": true
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب كلمات الجملة",
+       "items": [
+        "The",
+        "lamp",
+        "is",
+        "on",
+        "the",
+        "table."
+       ],
+       "hint": "ابدأ بمن أو ما نتكلم عنه، وكمل المعنى.",
+       "why": "الترتيب بيكوّن: The lamp is on the table.",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "مع ولي الأمر: أقول جملة جديدة بنفس النموذج، وأكتبها على ورقة وأرسم معناها. نراجع الحرف الكبير والمسافات والنقطة."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "ask": "الكرة تحت الكرسي. أكمل: The ball is ... the chair.",
+       "choices": [
+        "under",
+        "on",
+        "in"
+       ],
+       "answer": "under",
+       "hint": "دوّر على الكلمة اللي معناها تحت.",
+       "why": "The ball is under the chair.",
+       "en": true,
+       "hints": {
+        "on": "on يعني فوق.",
+        "in": "in يعني جوه."
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "The lamp is on the table."
+       }
+      },
+      {
+       "ask": "أي كلمة تعني سرير؟",
+       "choices": [
+        "bed",
+        "lamp",
+        "chair"
+       ],
+       "answer": "bed",
+       "hint": "افتكر مكان النوم.",
+       "why": "bed هو السرير.",
+       "en": true,
+       "hints": {
+        "lamp": "lamp لمبة",
+        "chair": "chair كرسي"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "The lamp is on the table."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "أصف أثاث البيت ومكانه",
+      "أسمع ثم أقرأ ثم أستخدم الكلمات في جملة."
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p2-t1-english/sh-th",
+   "key": "u5:l2",
+   "title": "sh and th",
+   "goal": "أسمع وأميّز الأصوات وأقرأ كلماتها",
+   "version": 2,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "اسمع الكلمات ببطء. أنهي جزء صوته بيتكرر؟"
+    },
+    {
+     "type": "explain",
+     "text": "sh في ship صوت واحد. th في this وthat صوت واحد أيضًا، لكنه مختلف عن th في thin. اسمع النموذج وقارن."
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "ship"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "shop"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "this"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة وبص على حروفها.",
+     "en": "that"
+    },
+    {
+     "type": "example",
+     "title": "شاهد خطوة خطوة",
+     "steps": [
+      {
+       "text": "اسمع النموذج.",
+       "en": "That is a ship."
+      },
+      {
+       "text": "أعيد الكلمة كاملة، وبعدين أقارن صوتها بكلمة تانية.",
+       "en": "that"
+      }
+     ]
+    },
+    {
+     "type": "read",
+     "title": "اقرأ الكلمات",
+     "items": [
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "ship"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "shop"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "this"
+      },
+      {
+       "text": "اقرأ ثم اسمع.",
+       "en": "that"
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "صنّف الكلمات حسب الصوت",
+       "groups": [
+        {
+         "name": "sh",
+         "items": [
+          "ship",
+          "shop"
+         ]
+        },
+        {
+         "name": "th",
+         "items": [
+          "this",
+          "that"
+         ]
+        }
+       ],
+       "hint": "اسمع صوت الحرف أو الحرفين داخل الكلمة.",
+       "why": "كل مجموعة فيها الصوت المطلوب.",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "أقرأ الكلمات لولي الأمر وأكتب كلمتين. نسمع النموذج مرة تانية لو احتجنا. التكرار هنا بدون تسجيل ميكروفون."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "ask": "أي كلمة تبدأ بنفس صوت ship؟",
+       "choices": [
+        "shop",
+        "that",
+        "this"
+       ],
+       "answer": "shop",
+       "hint": "اسمع الحرفين مع بعض.",
+       "why": "ship وshop يبدأان بصوت sh.",
+       "en": true,
+       "hints": {
+        "that": "that أولها th",
+        "this": "this أولها th"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "That is a ship."
+       }
+      },
+      {
+       "ask": "أي كلمة تبدأ بنفس صوت th في that؟",
+       "choices": [
+        "this",
+        "ship",
+        "shop"
+       ],
+       "answer": "this",
+       "hint": "th هنا صوتها زي أول that.",
+       "why": "this وthat لهما صوت th نفسه هنا.",
+       "en": true,
+       "hints": {
+        "ship": "ship أولها sh",
+        "shop": "shop أولها sh"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "That is a ship."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "أسمع الصوت داخل الكلمة.",
+      "أقرأ الكلمة كاملة وأراجع نطقي مع النموذج."
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p2-t1-english/helping-home",
+   "key": "u5:l3",
+   "title": "Helping at home",
+   "goal": "أصف مساعدة بسيطة في البيت",
+   "version": 2,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "بص على الكلمات. هنستخدمها في كلام عن حياتنا."
+    },
+    {
+     "type": "explain",
+     "text": "نستخدم أفعالًا زي clean وhelp لوصف المساعدة. I help my family. الطفل يساعد في مهام بسيطة مع شخص كبير."
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🧹"
+     },
+     "en": "clean"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "📖"
+     },
+     "en": "read"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🍽️"
+     },
+     "en": "eat"
+    },
+    {
+     "type": "example",
+     "title": "شاهد خطوة خطوة",
+     "steps": [
+      {
+       "text": "اسمع الجملة ولاحظ ترتيب الكلمات.",
+       "en": "I clean my room."
+      },
+      {
+       "text": "اقرأها تاني، وبعدها قول مثالًا من عندك.",
+       "en": "I clean my room."
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بالصورة",
+       "pairs": [
+        [
+         "clean",
+         "🧹"
+        ],
+        [
+         "read",
+         "📖"
+        ],
+        [
+         "eat",
+         "🍽️"
+        ]
+       ],
+       "hint": "اقرأ الكلمة واسمعها قبل ما توصل.",
+       "why": "كل كلمة وصلت بالصورة اللي بتدل عليها.",
+       "en": true
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب كلمات الجملة",
+       "items": [
+        "I",
+        "clean",
+        "my",
+        "room."
+       ],
+       "hint": "ابدأ بمن أو ما نتكلم عنه، وكمل المعنى.",
+       "why": "الترتيب بيكوّن: I clean my room.",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "مع ولي الأمر: أقول جملة جديدة بنفس النموذج، وأكتبها على ورقة وأرسم معناها. نراجع الحرف الكبير والمسافات والنقطة."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "ask": "أي جملة عن المساعدة في البيت؟",
+       "choices": [
+        "I clean my room.",
+        "I sleep early.",
+        "I see a rose."
+       ],
+       "answer": "I clean my room.",
+       "hint": "ابحث عن فعل التنظيف.",
+       "why": "تنظيف الغرفة مساعدة في البيت.",
+       "en": true,
+       "hints": {
+        "I sleep early.": "دي عن النوم، مش مساعدة.",
+        "I see a rose.": "دي عن الوردة، مش مساعدة."
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I clean my room."
+       }
+      },
+      {
+       "ask": "أكمل عن العادة: My family ... dinner.",
+       "choices": [
+        "cooks",
+        "cook",
+        "cooking"
+       ],
+       "answer": "cooks",
+       "hint": "My family مفرد جماعي في النموذج.",
+       "why": "My family cooks dinner.",
+       "en": true,
+       "hints": {
+        "cook": "My family زي he، فالفعل بيزيد s.",
+        "cooking": "cooking محتاجة is قبلها."
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I clean my room."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "أصف مساعدة بسيطة في البيت",
+      "أسمع ثم أقرأ ثم أستخدم الكلمات في جملة."
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p2-t1-english/rooms-home",
+   "key": "u6:l1",
+   "title": "Rooms at home",
+   "goal": "أسمّي غرف البيت وأربطها بنشاط",
+   "version": 2,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "بص على الكلمات. هنستخدمها في كلام عن حياتنا."
+    },
+    {
+     "type": "explain",
+     "text": "bedroom للنوم، bathroom للغسل، kitchen لتجهيز الطعام. وفي البيت living room وdining room، وقد يكون فيه garden أوbalcony."
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🛏️"
+     },
+     "en": "bedroom"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🛁"
+     },
+     "en": "bathroom"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🍳"
+     },
+     "en": "kitchen"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🌳"
+     },
+     "en": "garden"
+    },
+    {
+     "type": "example",
+     "title": "شاهد خطوة خطوة",
+     "steps": [
+      {
+       "text": "اسمع الجملة ولاحظ ترتيب الكلمات.",
+       "en": "I sleep in the bedroom."
+      },
+      {
+       "text": "اقرأها تاني، وبعدها قول مثالًا من عندك.",
+       "en": "I sleep in the bedroom."
+      }
+     ]
+    },
+    {
+     "type": "read",
+     "title": "اقرأ وبعدين اسمع",
+     "items": [
+      {
+       "text": "اقرأ النص الأول.",
+       "en": "There is a kitchen in my home. I eat in the dining room. I sleep in the bedroom."
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بالصورة",
+       "pairs": [
+        [
+         "bedroom",
+         "🛏️"
+        ],
+        [
+         "bathroom",
+         "🛁"
+        ],
+        [
+         "kitchen",
+         "🍳"
+        ],
+        [
+         "garden",
+         "🌳"
+        ]
+       ],
+       "hint": "اقرأ الكلمة واسمعها قبل ما توصل.",
+       "why": "كل كلمة وصلت بالصورة اللي بتدل عليها.",
+       "en": true
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب كلمات الجملة",
+       "items": [
+        "I",
+        "sleep",
+        "in",
+        "the",
+        "bedroom."
+       ],
+       "hint": "ابدأ بمن أو ما نتكلم عنه، وكمل المعنى.",
+       "why": "الترتيب بيكوّن: I sleep in the bedroom.",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "مع ولي الأمر: أقول جملة جديدة بنفس النموذج، وأكتبها على ورقة وأرسم معناها. نراجع الحرف الكبير والمسافات والنقطة."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "ask": "أين أغسل وجهي؟",
+       "choices": [
+        "bathroom",
+        "bedroom",
+        "garden"
+       ],
+       "answer": "bathroom",
+       "hint": "فكر في الغرفة اللي فيها الحوض.",
+       "why": "نغسل الوجه في bathroom.",
+       "en": true,
+       "hints": {
+        "bedroom": "bedroom أوضة النوم",
+        "garden": "garden الجنينة"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I sleep in the bedroom."
+       }
+      },
+      {
+       "ask": "أكمل: I cook in the ...",
+       "choices": [
+        "kitchen",
+        "bedroom",
+        "garden"
+       ],
+       "answer": "kitchen",
+       "hint": "فكر في مكان تجهيز الطعام.",
+       "why": "الطبخ في kitchen.",
+       "en": true,
+       "hints": {
+        "bedroom": "bedroom أوضة النوم",
+        "garden": "garden الجنينة"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I sleep in the bedroom."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "أسمّي غرف البيت وأربطها بنشاط",
+      "أسمع ثم أقرأ ثم أستخدم الكلمات في جملة."
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p2-t1-english/ch-sound",
+   "key": "u6:l2",
+   "title": "ch",
+   "goal": "أقرأ كلمات فيها الصوت ch",
+   "version": 2,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "اسمع chair وchin. إيه الصوت المشترك؟"
+    },
+    {
+     "type": "explain",
+     "text": "الحرفان ch مع بعض بيدلوا على صوت واحد في الكلمات دي.",
+     "en": "chair, chin, lunch"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع الكلمة كاملة.",
+     "en": "cheese"
+    },
+    {
+     "type": "example",
+     "title": "شاهد خطوة خطوة",
+     "steps": [
+      {
+       "text": "الحرفان ch في بداية الكلمة.",
+       "en": "chin"
+      },
+      {
+       "text": "وفي آخر الكلمة أيضًا.",
+       "en": "lunch"
+      }
+     ]
+    },
+    {
+     "type": "read",
+     "title": "اقرأ وبعدين اسمع",
+     "items": [
+      {
+       "text": "اقرأ الكلمة.",
+       "en": "chair"
+      },
+      {
+       "text": "اقرأ الكلمة.",
+       "en": "chin"
+      },
+      {
+       "text": "اقرأ الكلمة.",
+       "en": "lunch"
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب حروف chin",
+       "items": [
+        "c",
+        "h",
+        "i",
+        "n"
+       ],
+       "hint": "الحرفان اللي بيعملوا الصوت المشترك في الأول.",
+       "why": "c h i n تكوّن chin.",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "أقول chair وchin وlunch لولي الأمر وأكتب الكلمات وأضع خطًا تحت ch."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "ask": "أي كلمة تبدأ بصوت ch؟",
+       "choices": [
+        "chair",
+        "ship",
+        "thin"
+       ],
+       "answer": "chair",
+       "hint": "قارن أول صوت مع chin.",
+       "why": "chair تبدأ بنفس صوت ch.",
+       "en": true,
+       "hints": {
+        "ship": "ship أولها sh",
+        "thin": "thin أولها th"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "chin"
+       }
+      },
+      {
+       "ask": "أي كلمة فيها ch في النهاية؟",
+       "choices": [
+        "lunch",
+        "chin",
+        "chair"
+       ],
+       "answer": "lunch",
+       "hint": "لاحظ آخر حرفين.",
+       "why": "lunch تنتهي بالحرفين ch.",
+       "en": true,
+       "hints": {
+        "chin": "chin الـ ch في أولها",
+        "chair": "chair الـ ch في أولها"
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "chin"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "ch حرفان وصوت واحد هنا."
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p2-t1-english/there-is-are",
+   "key": "u6:l3",
+   "title": "There is and There are",
+   "goal": "أصف وجود شيء واحد أو أكثر في الغرفة",
+   "version": 2,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "بص على الكلمات. هنستخدمها في كلام عن حياتنا."
+    },
+    {
+     "type": "explain",
+     "text": "There is مع المفرد، وThere are مع الجمع: There is a bed. There are two chairs."
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🛏️"
+     },
+     "en": "one bed"
+    },
+    {
+     "type": "explain",
+     "text": "اسمع واقرأ الكلمة.",
+     "visual": {
+      "emoji": "🪑🪑"
+     },
+     "en": "two chairs"
+    },
+    {
+     "type": "example",
+     "title": "شاهد خطوة خطوة",
+     "steps": [
+      {
+       "text": "اسمع الجملة ولاحظ ترتيب الكلمات.",
+       "en": "There is a bed."
+      },
+      {
+       "text": "اقرأها تاني، وبعدها قول مثالًا من عندك.",
+       "en": "There is a bed."
+      }
+     ]
+    },
+    {
+     "type": "read",
+     "title": "اقرأ وبعدين اسمع",
+     "items": [
+      {
+       "text": "اقرأ النص الأول.",
+       "en": "There is a table. There are two chairs. There is a lamp on the table."
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بالصورة",
+       "pairs": [
+        [
+         "one bed",
+         "🛏️"
+        ],
+        [
+         "two chairs",
+         "🪑🪑"
+        ]
+       ],
+       "hint": "اقرأ الكلمة واسمعها قبل ما توصل.",
+       "why": "كل كلمة وصلت بالصورة اللي بتدل عليها.",
+       "en": true
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب كلمات الجملة",
+       "items": [
+        "There",
+        "is",
+        "a",
+        "bed."
+       ],
+       "hint": "ابدأ بمن أو ما نتكلم عنه، وكمل المعنى.",
+       "why": "الترتيب بيكوّن: There is a bed.",
+       "en": true
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "مع ولي الأمر: أقول جملة جديدة بنفس النموذج، وأكتبها على ورقة وأرسم معناها. نراجع الحرف الكبير والمسافات والنقطة."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "ask": "أكمل: There ... two chairs.",
+       "choices": [
+        "are",
+        "is",
+        "am"
+       ],
+       "answer": "are",
+       "hint": "بص للعدد: اتنين مش واحد.",
+       "why": "There are مع الجمع.",
+       "en": true,
+       "hints": {
+        "is": "is لحاجة واحدة، وهنا اتنين.",
+        "am": "am مع I بس."
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "There is a bed."
+       }
+      },
+      {
+       "ask": "أكمل: There ... a lamp.",
+       "choices": [
+        "is",
+        "are",
+        "am"
+       ],
+       "answer": "is",
+       "hint": "a lamp شيء واحد.",
+       "why": "There is مع المفرد.",
+       "en": true,
+       "hints": {
+        "are": "are لأكتر من حاجة، وهنا لمبة واحدة.",
+        "am": "am مع I بس."
+       },
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "There is a bed."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "أصف وجود شيء واحد أو أكثر في الغرفة",
+      "أسمع ثم أقرأ ثم أستخدم الكلمات في جملة."
+     ]
+    }
+   ]
+  }
+ ]
+}

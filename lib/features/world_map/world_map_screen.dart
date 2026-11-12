@@ -32,6 +32,9 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
   /// المراحل اللي مش على قد مرحلة الطفل الدراسية مستخبية ورا زرار.
   bool _showAll = false;
 
+  /// مراحل الصفوف اللي فاتت (مراجعة) مستخبية ورا زرار.
+  bool _showReview = false;
+
   void _open(Stage s) {
     final p = ref.read(progressProvider);
     if (p.limitReached) {
@@ -74,10 +77,18 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
     final open = openWorlds.contains(widget.world);
     final en = widget.world == 'english';
     bool reached(Stage s) => !open && (p.unlocked.contains(s.id) || p.best.containsKey(s.id) || p.skipped.contains(s.id));
-    bool shown(Stage s) => p.settings.dev || fitsGrade(s, p.grade) || reached(s);
-    final fit = [for (final s in all) if (shown(s)) s];
-    final rest = [for (final s in all) if (!shown(s)) s];
+    // طفل في تانية أو أعلى: مراحل صفه الأول، والصفوف اللي فاتت مراجعة ورا زرار — مايبدأش بالحروف وهو في خامسة.
+    MapBand band(Stage s) => switch (mapBand(s, p.grade)) {
+          _ when p.settings.dev => MapBand.now,
+          MapBand.higher when reached(s) => MapBand.now,
+          final b => b,
+        };
+    final now = [for (final s in all) if (band(s) == MapBand.now) s];
+    final review = [for (final s in all) if (band(s) == MapBand.review) s];
+    final rest = [for (final s in all) if (band(s) == MapBand.higher) s];
+    final fit = [...now, if (_showReview) ...review];
     final stages = [...fit, if (_showAll) ...rest];
+    final target = mapGradeFor(widget.world, p.grade);
     final (more, hide, restTitle) = open
         ? ('🎮 ألعاب تانية', '🔼 خبّي الألعاب التانية', '🎮 ألعاب لمراحل تانية')
         : en
@@ -103,14 +114,19 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
               padding: const EdgeInsets.only(top: 26),
               child: Column(children: [
                 if (open && p.grade != null && rest.isNotEmpty) _GroupHeader('🎯 على قد ${gradeName(p.grade!)}'),
+                if (!open && review.isNotEmpty && target != null) _GroupHeader(en ? '🎯 Your grade' : '🎯 على قد ${gradeName(target)}'),
                 for (var i = 0; i < stages.length; i++) ...[
+                  if (review.isNotEmpty && _showReview && i == now.length) ...[
+                    _MoreStages(label: en ? '🔼 Hide review' : '🔼 خبّي المراجعة', onTap: () => setState(() => _showReview = false)),
+                    _GroupHeader(en ? '📖 Review: earlier grades' : '📖 مراجعة الصفوف اللي فاتت'),
+                  ],
                   if (rest.isNotEmpty && i == fit.length) ...[
                     _MoreStages(label: hide, onTap: () => setState(() => _showAll = false)),
                     _GroupHeader(restTitle),
                   ],
                   // عنوان مجموعة (زي المدود) بيظهر مرة قبل أول مرحلة فيها
                   if (stages[i].group != null &&
-                      (i == 0 || i == fit.length || stages[i - 1].group != stages[i].group))
+                      (i == 0 || i == fit.length || i == now.length || stages[i - 1].group != stages[i].group))
                     _GroupHeader(stages[i].groupName ?? ''),
                   // المراحل بتتعرّج يمين وشمال — عرض الكارت min(300, 86%)
                   LayoutBuilder(
@@ -134,6 +150,11 @@ class _WorldMapScreenState extends ConsumerState<WorldMapScreen> {
                     ),
                   ),
                 ],
+                if (review.isNotEmpty && !_showReview)
+                  _MoreStages(
+                    label: en ? '📖 Review earlier grades (${review.length})' : '📖 مراجعة الصفوف اللي فاتت (${ar(review.length)})',
+                    onTap: () => setState(() => _showReview = true),
+                  ),
                 if (rest.isNotEmpty && !_showAll)
                   _MoreStages(label: '$more (${ar(rest.length)})', onTap: () => setState(() => _showAll = true)),
               ]),
