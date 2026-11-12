@@ -20,6 +20,7 @@ import '../../core/utils/arabic.dart';
 import '../../core/utils/rng.dart';
 import '../progress/learning_time.dart';
 import '../progress/progress_controller.dart';
+import '../fresh_round.dart';
 import '../paths.dart';
 import '../placement.dart';
 import '../progress/progress_data.dart';
@@ -79,11 +80,21 @@ class FxFill extends GameFx {
 }
 
 class GameSession {
-  GameSession(this.stage, this.level, this.practice, this.list) : dots = List.filled(list.length, DotState.pending);
+  GameSession(this.stage, this.level, this.practice, this.list, {this.review = false})
+      : dots = List.filled(list.length, DotState.pending);
 
   final Stage stage;
   final int level;
   final bool practice;
+
+  /// مراجعة مقصودة: ممكن تعيد أسئلة اتحلّت قبل كده، وبتتكتب «مراجعة» قدام الطفل.
+  final bool review;
+
+  /// الطفل حل كل الأسئلة الجديدة في المرحلة دي — مفيش جولة، والشاشة بتعرض المراجعة.
+  bool get allSeen => list.isEmpty;
+
+  /// تدريب على الأخطاء أو مراجعة — الاتنين بيعيدوا أسئلة عن قصد.
+  bool get revisiting => practice || review;
   final List<Question> list;
   final List<DotState> dots;
 
@@ -286,7 +297,8 @@ class GameEngine extends Notifier<GameSession?> {
 
   // ------------------------------------------------------------------ الجولة
 
-  void start(String stageId, {bool practice = false, List<String>? types}) {
+  /// [review]: مراجعة مقصودة (من رحلة النهاردة أو من شاشة «خلّصت الجديد»).
+  void start(String stageId, {bool practice = false, List<String>? types, bool review = false}) {
     _cancelTimers();
     _speech.stop();
     final stage = stageById(stageId)!;
@@ -297,15 +309,24 @@ class GameEngine extends Notifier<GameSession?> {
     final list = <Question>[];
     final school = practice ? null : schoolRound(stage.id);
     if (school != null) {
-      // درس من كتاب المدرسة أو امتحان وحدته: الأسئلة من مراحل الدرس
-      list.addAll(schoolQuestions(school, p, _rng));
+      // درس من كتاب المدرسة أو امتحان وحدته: الأسئلة من مراحل الدرس، والجديد بس لو مش مراجعة
+      list.addAll(schoolQuestions(school, p, _rng, fresh: !review));
     } else if (!practice && isPlacement(stage.id)) {
       // اختبار المستوى: سؤالين من كل درجة بالترتيب، من غير تعلّم متكيّف
       list.addAll(placementRound(stage.world, _rng));
     } else if (practice && types != null && types.isNotEmpty) {
-      for (var i = 0; i < count; i++) {
-        list.add(makeQuestion(_rng.sample(types), level, _rng, progress: p));
-      }
+      // تدريب على الأخطاء = مراجعة: نفس المهارات، والجديد أولًا لو فيه، ومن غير تكرار جوه الجولة
+      list.addAll(drawRound(
+        count: count, level: level, review: true, seen: p.hasSeen,
+        make: (lv) => makeQuestion(_rng.sample(types), lv, _rng, progress: p),
+      ));
+    } else if (tracksRepeats(stage)) {
+      final focus = p.focus(stage.id);
+      list.addAll(drawRound(
+        count: count, level: level, review: review, seen: p.hasSeen,
+        // تعلّم متكيّف: لو فيه مهارة الطفل بيغلط فيها، نرجّعها له
+        make: (lv) => makeQuestion(stage.id, lv, _rng, focus: (focus != null && _rng.chance(.45)) ? focus : null, progress: p),
+      ));
     } else {
       final focus = p.focus(stage.id);
       for (var i = 0; i < count; i++) {
@@ -316,23 +337,33 @@ class GameEngine extends Notifier<GameSession?> {
         list.add(makeQuestion(stage.id, lv, _rng, focus: f, progress: p));
       }
     }
-    state = GameSession(stage, level, practice, list);
+    state = GameSession(stage, level, practice, list, review: review);
     // "تاني" أو "درّب على أخطائك" بعد ما الوقت خلص
     if (_time.checkpoint()) {
       _s.timeUp = true;
       _emit();
       return;
     }
+    if (_s.allSeen) {
+      _speech.speak(sayAllSeen);
+      _emit();
+      return;
+    }
     _render();
   }
 
-  void replay() => start(_s.stage.id);
+  void replay() => start(_s.stage.id, review: _s.review);
+
+  /// مراجعة المرحلة بعد ما الجديد خلص.
+  void reviewStage() => start(_s.stage.id, review: true);
 
   void trainMistakes() => start(_s.stage.id, practice: true, types: [..._s.mistakes]);
 
   void _render() {
     final s = _s..resetQuestion();
-    s.bubble = '${s.stage.icon} سؤال ${ar(s.idx + 1)} من ${ar(s.total)}';
+    s.bubble = s.revisiting
+        ? '🔁 مراجعة · سؤال ${ar(s.idx + 1)} من ${ar(s.total)}'
+        : '${s.stage.icon} سؤال ${ar(s.idx + 1)} من ${ar(s.total)}';
     s.bubbleKind = BubbleKind.plain;
     // الإيقاع: الطبول مقفولة لحد ما الطفل يسمع السلسلة الأول
     s.rhythmLock = s.q.mode == QMode.rhythm;
@@ -1118,6 +1149,9 @@ class GameEngine extends Notifier<GameSession?> {
   // ------------------------------------------------------------------ التالي والنهاية
 
   void _next() {
+    // السؤال خلص: بيتسجّل إنه اتشاف عشان مايرجعش في الجديد
+    final done = _s.q;
+    if (tracksRepeats(_s.stage) || isSchool(_s.stage.id)) _progress.update((p) => p.markSeen(done));
     _s.idx++;
     if (_s.idx >= _s.total) {
       _time.flush();

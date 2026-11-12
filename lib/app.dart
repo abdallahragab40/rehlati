@@ -62,7 +62,7 @@ final _router = GoRouter(initialLocation: kDebugMode ? _start : '/', routes: [
       key: ValueKey(s.pathParameters['stage']),
       stopsItself: true,
       world: stageById(s.pathParameters['stage']!)?.world,
-      child: GameScreen(stageId: s.pathParameters['stage']!),
+      child: GameScreen(stageId: s.pathParameters['stage']!, review: s.uri.queryParameters['review'] == '1'),
     ),
   ),
   GoRoute(

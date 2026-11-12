@@ -6,6 +6,8 @@ library;
 import 'dart:math' as math;
 
 import '../../content/quran_config.dart';
+import '../question.dart';
+import '../question_key.dart';
 import '../school.dart';
 import '../stages.dart';
 import '../journey.dart';
@@ -171,7 +173,9 @@ class ProgressData {
     Map<String, Set<String>>? pathDone,
     Map<String, int>? school,
     Map<String, LessonLog>? lessonLogs,
+    Map<String, Set<int>>? seen,
   })  : mastery = mastery ?? {},
+        seen = seen ?? {},
         school = school ?? {},
         lessonLogs = lessonLogs ?? {},
         pathDone = pathDone ?? {},
@@ -268,6 +272,22 @@ class ProgressData {
   /// مسار التعلّم -> الأنشطة اللي خلصت في دروسه ("درس:مرحلة") — lib/domain/paths.dart.
   final Map<String, Set<String>> pathDone;
 
+  /// الأسئلة اللي الطفل حلّها: نوع السؤال ← بصماتها بترتيب الحل (lib/domain/question_key.dart).
+  /// بالنوع مش بالمرحلة، فالسؤال اللي اتحل في درس المدرسة مايرجعش جديد في العالم. بيشتغل للضيف
+  /// زي ما هو لأنه جوه ملف التقدّم على الجهاز.
+  final Map<String, Set<int>> seen;
+
+  /// أقصى بصمات لكل نوع (حوالي ١٢ كيلوبايت) — الأقدم بيتشال الأول.
+  static const seenCap = 3000;
+
+  bool hasSeen(Question q) => !isActivity(q) && (seen[q.type]?.contains(questionKey(q)) ?? false);
+
+  void markSeen(Question q) {
+    if (isActivity(q)) return;
+    final s = seen.putIfAbsent(q.type, () => <int>{});
+    if (s.add(questionKey(q)) && s.length > seenCap) s.remove(s.first);
+  }
+
   // ---------------------------------------------------------------- JSON
 
   factory ProgressData.fromJson(Map<String, dynamic> j) {
@@ -313,6 +333,12 @@ class ProgressData {
       lessonLogs: j['schoolLessons'] is Map
           ? {for (final e in (j['schoolLessons'] as Map).entries) '${e.key}': LessonLog.fromJson(e.value)}
           : {},
+      seen: j['seen'] is Map
+          ? {
+              for (final e in (j['seen'] as Map).entries)
+                if (e.value is List) '${e.key}': {for (final v in e.value as List) if (v is num) v.toInt()},
+            }
+          : {},
       pathDone: j['paths'] is Map
           ? {for (final e in (j['paths'] as Map).entries) '${e.key}': strs(e.value).toSet()}
           : {},
@@ -353,6 +379,7 @@ class ProgressData {
         'mastery': {for (final e in mastery.entries) e.key: e.value.toJson()},
         if (school.isNotEmpty) 'school': school,
         if (lessonLogs.isNotEmpty) 'schoolLessons': {for (final e in lessonLogs.entries) e.key: e.value.toJson()},
+        if (seen.isNotEmpty) 'seen': {for (final e in seen.entries) e.key: e.value.toList()},
         if (pathDone.isNotEmpty) 'paths': {for (final e in pathDone.entries) e.key: e.value.toList()},
         'parentGuide': {
           'focus': {for (final e in pgFocus.entries) e.key: e.value.toJson()},

@@ -48,7 +48,9 @@ Future<void> ensureTodayJourney(WidgetRef ref) async {
 String stepRoute(JourneyStep s, {bool journey = true}) {
   final stage = s.stage;
   final path = stage != null ? stageRoute(stage) : '/quran/${s.surah}/review';
-  return journey ? '$path?from=journey' : path;
+  // خطوة المراجعة بتفتح الجولة كمراجعة: ممكن تعيد أسئلة اتحلّت قبل كده، ومكتوب عليها «مراجعة»
+  final query = [if (journey) 'from=journey', if (s.kind == StepKind.review && stage != null && !stage.isMadd) 'review=1'];
+  return query.isEmpty ? path : '$path?${query.join('&')}';
 }
 
 /// اسم الخطوة للطفل.

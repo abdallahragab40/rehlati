@@ -9,7 +9,9 @@ import 'dart:math' as math;
 import '../content/school_curriculum.dart';
 import '../core/utils/rng.dart';
 import 'progress/progress_data.dart';
+import 'fresh_round.dart' show maxLevel;
 import 'question.dart';
+import 'question_key.dart';
 import 'stages.dart';
 import 'worksheet.dart';
 
@@ -104,17 +106,29 @@ Stage? schoolStage(String id) {
 Stage? stageById(String id) => packs[id] ?? schoolStage(id);
 
 /// أسئلة الجولة: الامتحان بيلف على الدروس بالدور، والدرس بيلف على مراحله.
-List<Question> schoolQuestions(SchoolRound round, ProgressData p, Rng r, {int? count, bool Function(Question)? keep}) {
+///
+/// [fresh]: من غير تكرار جوه الجولة ومن غير أسئلة الطفل حلّها قبل كده (lib/domain/fresh_round.dart).
+/// لما الجديد يخلص في مستوى الدرس بنطلع مستوى، ولو خلص خالص الجولة بتقصر أو بتبقى فاضية.
+List<Question> schoolQuestions(SchoolRound round, ProgressData p, Rng r,
+    {int? count, bool Function(Question)? keep, bool fresh = false}) {
   final lessons = r.shuffle([...round.lessons]);
   final items = [for (final l in lessons) r.shuffle([...l.items])];
   final n = count ?? round.count;
-  final out = <Question>[], seen = <String>{};
-  for (var i = 0; out.length < n && i < n * 12; i++) {
+  final out = <Question>[], seen = <String>{}, keys = <int>{};
+  for (var i = 0; out.length < n && i < n * (fresh ? 16 : 12); i++) {
     final li = items[i % items.length];
     final it = li[(i ~/ items.length) % li.length];
     final stage = packs[it.stage]!;
-    final q = makeQuestion(it.stage, math.max(roundLevel(p, stage), it.minLevel), r, focus: it.focus, progress: p);
+    // الجديد خلص في المستوى ده؟ نطلع مستوى كل شوية محاولات
+    final bump = fresh ? math.min(maxLevel, i ~/ (n * 4)) : 0;
+    final lv = math.min(maxLevel, math.max(roundLevel(p, stage), it.minLevel) + bump);
+    final q = makeQuestion(it.stage, lv, r, focus: it.focus, progress: p);
     if (keep != null && !keep(q)) continue;
+    if (fresh) {
+      if (!isActivity(q) && (p.hasSeen(q) || !keys.add(questionKey(q)))) continue;
+      out.add(q);
+      continue;
+    }
     // نفس السؤال مرتين ورا بعض بيضايق — بنسمح بيه بس لو الدرس ضيق (حرف واحد مثلًا) وخلصت المحاولات
     if (!seen.add('${q.type}|${q.ask}|${q.answer}|${q.choices.join(',')}') && i < n * 6) continue;
     out.add(q);

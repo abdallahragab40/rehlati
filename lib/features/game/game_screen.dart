@@ -13,14 +13,18 @@ import '../../core/widgets/fx_layer.dart';
 import '../../core/widgets/kid_widgets.dart';
 import '../../core/widgets/top_bar.dart';
 import '../../domain/engine/game_engine.dart';
+import 'all_seen_view.dart';
 import 'games_modes.dart';
 import 'modes.dart';
 import 'result_view.dart';
 
 /// شاشة اللعب — بتبدأ جولة للمرحلة وبتعرض النتيجة في الآخر.
 class GameScreen extends ConsumerStatefulWidget {
-  const GameScreen({super.key, required this.stageId});
+  const GameScreen({super.key, required this.stageId, this.review = false});
   final String stageId;
+
+  /// مراجعة مقصودة (خطوة «مراجعة» في رحلة النهاردة).
+  final bool review;
 
   @override
   ConsumerState<GameScreen> createState() => _GameScreenState();
@@ -39,7 +43,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
     final engine = ref.read(gameProvider.notifier);
     _sub = engine.fx.listen(_onFx);
     // الجولة بتبدأ بعد أول frame عشان الـ provider يكون جاهز
-    WidgetsBinding.instance.addPostFrameCallback((_) => engine.start(widget.stageId));
+    WidgetsBinding.instance.addPostFrameCallback((_) => engine.start(widget.stageId, review: widget.review));
   }
 
   @override
@@ -91,6 +95,10 @@ class _GameScreenState extends ConsumerState<GameScreen> {
     });
     if (s == null || s.timeUp) return ScreenFrame(onBack: () => context.back(), child: const SizedBox());
 
+    if (s.allSeen) {
+      return ScreenFrame(onBack: () => context.back(), title: s.stage.name, child: AllSeenView(session: s, engine: engine));
+    }
+
     final result = s.result;
     if (result != null) {
       return ScreenFrame(
@@ -102,7 +110,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
 
     return ScreenFrame(
       onBack: () => context.back(),
-      title: 'المستوى ${ar(s.level)}',
+      title: s.revisiting ? '🔁 مراجعة' : 'المستوى ${ar(s.level)}',
       child: Column(
         children: [
           _Dots(s),

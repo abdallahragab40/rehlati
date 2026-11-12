@@ -207,6 +207,7 @@ void main() {
       }
     }
     add(sayLessonDone);
+    add(sayAllSeen);
     add(sayReadFirst);
 
     for (final (t, _) in praiseSay) {
