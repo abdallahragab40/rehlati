@@ -45,6 +45,22 @@ void main() {
   void recorded(Object text, [List<String?>? clips]) =>
       expect(SpeechService.clipsFor(text, clips), isNotNull, reason: 'no recording for: $text');
 
+  test('a lone sound inside a line plays from the vowelled teaching clips, with no added هْ', () {
+    expect(splitTeaching('اسمع: بطة… أول صوت فيها بَ'), ['اسمع: بطة… أول صوت فيها', 'بَ']);
+    expect(splitTeaching('بَ قصير، مفيهوش مد.'), ['بَ', 'قصير، مفيهوش مد.']);
+    // شدة لوحدها مش جملة مشكولة
+    expect(splitTeaching('دوّروا على حاجة أولها صوت مَ.'), ['دوّروا على حاجة أولها صوت', 'مَ']);
+    // جملة فصحى مشكولة: «وَ» حرف عطف، مش صوت بنعلّمه
+    expect(splitTeaching('أَبِي وَ أُمِّي يُحِبَّانِنِي.'), ['أَبِي وَ أُمِّي يُحِبَّانِنِي.']);
+    // تركيب المقاطع بعلامات بيفضل جملة واحدة
+    expect(splitTeaching('باب: بَ + ا + ب'), ['باب: بَ + ا + ب']);
+    expect(splitTeaching('بَ'), ['بَ']);
+    if (voiceEnabled) {
+      final keys = SpeechService.clipsFor('اسمع: بطة… أول صوت فيها بَ', null)!;
+      expect(keys.last, 'l_ba_fatha');
+    }
+  });
+
   test('phrase keys are stable', () {
     expect(SpeechService.phraseKey(SpeechService.clean(sayRetry)), SpeechService.phraseKey('حاول مرة تانية'));
     expect(SpeechService.phraseKey('أ'), isNot(SpeechService.phraseKey('ا')));

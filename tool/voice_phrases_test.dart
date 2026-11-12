@@ -35,8 +35,11 @@ void main() {
         add(arNum(t));
       } else if (t is String) {
         final c = SpeechService.clean(signWord[t] ?? t);
-        // الحروف والمقاطع والكلمات اللي ليها مقطع تعليم مشكول مش محتاجة مقطع جملة
-        if (c.isNotEmpty && teachKey(c) == null) out.add(c);
+        // الحروف والمقاطع والكلمات اللي ليها مقطع تعليم مشكول مش محتاجة مقطع جملة،
+        // والمقطع لوحده جوه الجملة بيتقسم زي ما SpeechService.clipsFor بيعمل
+        for (final p in c.isEmpty ? const <String>[] : splitTeaching(c)) {
+          if (teachKey(p) == null) out.add(p);
+        }
       }
     }
 
@@ -257,8 +260,31 @@ void main() {
         t.replaceAllMapped(decimal, (m) => '${m[1]} فاصلة ${m[2]!.startsWith('0') ? m[2]!.split('').join(' ') : m[2]}');
     // العدد السالب: «−3» ← «سالب 3»
     final negative = RegExp(r'(?<=^|[\s(|و])−(?=\d)');
-    String math(String t) => decimals(t.replaceAllMapped(op, (m) => ops[m[1]]!)).replaceAll(negative, 'سالب ');
+    // «=» بين كلمتين مش بين أعداد: «الأُس = عدد الأصفار» ← «يعني» مش «يساوي».
+    // الحرف لوحده (ص = س + 5) متغيّر في معادلة، فبيفضل «يساوي».
+    final wordEq = RegExp(r'(?<=[\u0621-\u064A][\u0621-\u0652]+) = (?=[\u0621-\u064A][\u0621-\u0652]+)');
+    String math(String t) =>
+        decimals(t.replaceAll(wordEq, ' يعني ').replaceAllMapped(op, (m) => ops[m[1]]!)).replaceAll(negative, 'سالب ');
+    // وحدات القياس والاختصارات بالاسم الكامل قبل ما الحرف لوحده يتقال باسمه
+    // («2٫4 م» كانت بتتقال «ميم»، و«1 ل» «لام»).
+    const unitNames = {
+      'كجم': 'كيلوجرام', 'جم': 'جرام', 'كم': 'كيلومتر', 'سم': 'سنتيمتر', 'مم': 'ملليمتر',
+      'مل': 'ملليلتر', 'دل': 'ديسيلتر', 'م': 'متر', 'ل': 'لتر',
+    };
+    final unit = RegExp(r'(?<=[\d؟] )(كجم|جم|كم|سم|مم|مل|دل|م|ل)([²³])?(?=$|[\s.،؛:؟)…])');
+    const abbr = {'ع.م.أ': 'العامل المشترك الأكبر', 'م.م.أ': 'المضاعف المشترك الأصغر'};
+    // أشكال الحرف بين قوسين «(مـ ـمـ ـم)» مالهاش نطق — بتتشال من الصوت بس
+    final shapes = RegExp(r'\s*\((?:\s*(?:ـ[\u0621-\u064A]ـ?|[\u0621-\u064A]ـ|[\u0621-\u064A](?=\s*ـ)))+\s*\)');
+    String units(String t) {
+      for (final e in abbr.entries) {
+        t = t.replaceAll('و${e.key}', 'و${e.value}').replaceAll(e.key, e.value);
+      }
+      return t.replaceAll(shapes, '').replaceAllMapped(
+          unit, (m) => '${unitNames[m[1]]!}${switch (m[2]) { '²' => ' مربع', '³' => ' مكعب', _ => '' }}');
+    }
+
     String spoken(String t) {
+      t = units(t);
       final out = <String>[];
       var spelling = false;
       final words = t.split(' ').where((w) => w != 'ـ').toList();

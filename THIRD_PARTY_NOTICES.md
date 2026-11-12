@@ -39,7 +39,7 @@ Both licence texts ship inside the app and are registered on its licence page (`
 
 ## Question voice (bundled clips)
 
-Arabic prompts are recorded with the `ar-SA-ZariyahNeural` voice (Microsoft Azure AI Speech) under the app owner's licence. The clips are in `assets/audio/clips/`.
+Arabic prompts use the `ar-EG-ShakirNeural` voice and English prompts the `en-US-AnaNeural` voice (Microsoft neural voices), under the app owner's licence. The clips are in `assets/audio/clips/`. They are currently rendered through `edge-tts`, which is for evaluation only; before release they must be re-rendered through the licensed Azure AI Speech resource (`tool/render_voice.py --engine azure`). فصحى lines can take their own voice through `FUSHA_VOICE`; until one is chosen they use the same voice.
 
 ## Music and sound effects (bundled)
 

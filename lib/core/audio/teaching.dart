@@ -69,6 +69,40 @@ String? teachKey(String part) {
 
 final _pictureWords = {for (final l in arLetters) l.word: 'l_${_slug[l.letter]}_word'};
 
+/// مفتاح صوت (مقطع بحركة أو تنوين) مش اسم حرف ولا كلمة.
+final _soundKey = RegExp(r'^l_[a-z]+_(fatha|damma|kasra|tanween_[a-z]+)$');
+
+/// الجملة اللي جواها مقطع لوحده («أول صوت فيها بَ») بتتقسم: المقطع بيتنطق من مقاطع التعليم
+/// المشكولة، والباقي جملة. من غير كده المحرك كان بيبلع المقطع، والحل القديم (بَهْ) كان بيزوّد صوت.
+///
+/// مابيتقسمش: جملة فصحى مشكولة («أَبِي وَ أُمِّي» — «وَ» هنا حرف عطف مش صوت بنعلّمه)،
+/// ولا تركيب مقاطع بعلامات («أَ + حْ + مَ + د»، «بَ + ا = بَا»).
+List<String> splitTeaching(String part) {
+  final words = part.split(' ');
+  if (words.length < 2 || part.contains(RegExp(r'[+=−/]| - '))) return [part];
+  final vowelledWord = words.any((w) {
+    final letters = w.replaceAll(RegExp('[^\u0621-\u064A]'), '');
+    // الشدة لوحدها (دوّروا، كمّل) مش تشكيل كامل، فمابتخليش الجملة «مشكولة»
+    return letters.length >= 2 && RegExp('[\u064B-\u0650\u0652]').hasMatch(w);
+  });
+  if (vowelledWord) return [part];
+  final out = <String>[];
+  var buf = <String>[];
+  for (final w in words) {
+    final bare = w.replaceAll(RegExp(r'[؟?.:،!…]+$'), '');
+    final k = teachKey(bare);
+    if (k != null && _soundKey.hasMatch(k)) {
+      if (buf.isNotEmpty) out.add(buf.join(' '));
+      buf = [];
+      out.add(bare);
+    } else {
+      buf.add(w);
+    }
+  }
+  if (buf.isNotEmpty) out.add(buf.join(' '));
+  return out;
+}
+
 /// لوحة الحروف: الاسم وبعدين الكلمة — "باء … بطة". الحركات ليها مراحلها لوحدها.
 List<String> letterLesson(Letter l) {
   final s = _slug[l.letter]!;

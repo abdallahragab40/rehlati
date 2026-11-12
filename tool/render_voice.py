@@ -18,6 +18,7 @@
 الصوت:
   VOICE=ar-EG-ShakirNeural (الافتراضي، راجل مصري) — نفس الصوت لكل المقاطع العربي
   TEACH_VOICE=VOICE — صوت قسم الحروف (teaching.tsv) لوحده: الفصحى بصوت مش مصري لو العميل اختار كده
+  FUSHA_VOICE=VOICE — صوت جمل الفصحى (نصوص القراءة والأناشيد وأمثلة القواعد) — is_fusha()
   EN_VOICE=en-US-AnaNeural (صوت طفلة) على EN_RATE=-15% = سرعة "عادي" في الإعدادات
   RATE=-5%  — أبطأ سنة عشان الأطفال؛ المقاطع لوحدها بتاخد سرعتها من phrases.tsv.
   من غير تغيير طبقة الصوت: الـ pitch بيخلّي الصوت العصبي يبان آلي
@@ -53,6 +54,7 @@ MANIFEST = ROOT / 'lib/core/audio/clip_manifest.g.dart'
 
 VOICE = os.environ.get('VOICE', 'ar-EG-ShakirNeural')
 TEACH_VOICE = os.environ.get('TEACH_VOICE') or VOICE
+FUSHA_VOICE = os.environ.get('FUSHA_VOICE') or VOICE
 EN_VOICE = os.environ.get('EN_VOICE', 'en-US-AnaNeural')
 EN_RATE = os.environ.get('EN_RATE', '-15%')
 RATE = os.environ.get('RATE', '-5%')
@@ -89,6 +91,31 @@ _WORD = re.compile('[\u0621-\u0652\u0640]+')
 def voiced(text, lexicon):
     """بيبدّل الكلمات اللي مالهاش تشكيل بنطقها من القاموس — الكلمة المشكولة بتفضل زي ما هي."""
     return _WORD.sub(lambda m: lexicon.get(m.group(), m.group()), text)
+
+
+# كلمات بتقول إن الجملة عامية مصرية، وكلمات بتقول إنها فصحى
+_EGY = set('ده دي دول اللي إيه ايه مش كام عشان علشان بتاع يلا إزاي ازاي فين زي بقى كده دلوقتي عايز عايزة '
+           'مفيش ليه بص خلي خلّي إحنا احنا برضه أوي خالص تاني يبقى لسه بس مين امتى إمتى اتنين تلاتة '
+           'معاها معاه معاك أخد أخدت بقوا بقت عندي عنده كمان يعني طب'.split())
+# من غير الكلمات اللي العامية بتستخدمها كمان (كان، لأن، عن، قد، إن)
+_FUSHA = set('ثم إذن الذي التي الذين ماذا لماذا كيف هذا هذه هؤلاء ذلك تلك أين متى نحن لكن أن '
+             'لم لن ليس ليست عندما أيضًا أيضا إلى'.split())
+_EGY_VERB = re.compile('^(?:و?)(?:بي|بت|بن|هي|هت|هن|ها)[\u0621-\u064A]{2,}$')
+_CASE = re.compile('[\u0621-\u064A][\u064B-\u0650]$')
+# «فـ» لازقة في فعل للمتكلم (فأجد، فأعرف) أسلوب فصحى
+_FA_VERB = re.compile('^فأ[\u0621-\u064A]{2,}$')
+
+
+def is_fusha(text):
+    """جملة فصحى: قاموس النطق المصري مايتطبقش عليها، وبتاخد FUSHA_VOICE.
+
+    فيها كلمات فصحى (أو كلمتين بعلامة إعراب في آخرهم) ومفيهاش ولا كلمة عامية."""
+    words = [re.sub('[^\u0621-\u0652]', '', w) for w in text.split()]
+    bare = [re.sub('[\u064B-\u0652]', '', w) for w in words]
+    if any(w in _EGY or _EGY_VERB.match(w) for w in bare):
+        return False
+    return (any(w in _FUSHA or _FA_VERB.match(w) for w in bare)
+            or sum(1 for w in words if _CASE.search(w)) >= 2)
 
 
 def ssml(text, rate, voice=None):
@@ -221,7 +248,9 @@ async def main():
         phrases_path = ROOT / 'tool/phrases.tsv'
         if not phrases_path.exists():
             sys.exit('tool/phrases.tsv missing — run: flutter test tool/voice_phrases_test.dart')
-        phrases = [[k, t, voiced(s, lexicon), r] for k, t, s, r in read_tsv(phrases_path, 4)]
+        # الفصحى مابتعدّيش على قاموس النطق المصري (الموز ← المُوز كان بيبوّظ «والموزَ»)
+        phrases = [[k, t, s if is_fusha(t) else voiced(s, lexicon), r] for k, t, s, r in read_tsv(phrases_path, 4)]
+        fusha_keys = {k for k, t, *_ in phrases if is_fusha(t)}
         teaching = read_tsv(ROOT / 'tool/teaching.tsv', 4)
         en_path = ROOT / 'tool/phrases_en.tsv'
         english = [[k, t, s, EN_RATE] for k, t, s, _ in read_tsv(en_path, 4)] if en_path.exists() else []
@@ -241,9 +270,12 @@ async def main():
     force = os.environ.get('FORCE') == '1'
     wanted = {}
     en_keys = {k for k, *_ in english}
+    if preview:
+        fusha_keys = set()
     teach_keys = set() if preview else {k for k, *_ in teaching}
     for key, _text, spoken, rate in clips + phrases + ([] if preview else teaching) + english:
-        voice = EN_VOICE if key in en_keys else TEACH_VOICE if key in teach_keys else VOICE
+        voice = (EN_VOICE if key in en_keys else TEACH_VOICE if key in teach_keys
+                 else FUSHA_VOICE if key in fusha_keys else VOICE)
         rate = rate or RATE
         h = hashlib.sha1(f'{PIPELINE}|{ENGINE}|{voice}|{rate}|{PITCH}|{spoken}'.encode()).hexdigest()
         human = None if preview else recording_hash(key)

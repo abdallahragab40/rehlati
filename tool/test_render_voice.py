@@ -23,6 +23,17 @@ class RenderVoiceTests(unittest.TestCase):
         self.assertEqual(voice.voiced('خد وقتك واختار الحرف الصح!', lex), 'خُد وقتك واختار الحرف الصَّحّ!')
         self.assertEqual(voice.voiced('حَرْف، حرف؟ حرفين', lex), 'حَرْف، حَرْف؟ حرفين')
 
+    def test_fusha_lines_are_told_apart_from_egyptian_ones(self):
+        fusha = ['أعد التفاح فأجد 4، والموز 2، والبرتقال 3.',
+                 'سقى الولدُ الشجرةَ: سقى ماذا؟ الشجرةَ.',
+                 'المبتدأ والخبر مرفوعين، وعلامة الرفع في المفرد الضمة: الأمانةُ كنزٌ.']
+        egyptian = ['اسمع: بطة… أول صوت فيها', 'مع آدم 7 أقلام، ادّى صاحبه 2. فضل كام؟',
+                    'الكلمة دي بتبدأ بإيه؟', 'إذن الحرف ده اسمه باء']
+        for t in fusha:
+            self.assertTrue(voice.is_fusha(t), t)
+        for t in egyptian:
+            self.assertFalse(voice.is_fusha(t), t)
+
     def test_pronunciation_list_is_clean(self):
         import re
         rows = voice.read_tsv(voice.ROOT / 'tool/pronounce.tsv', 2)

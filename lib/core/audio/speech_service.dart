@@ -150,11 +150,12 @@ class SpeechService implements Speech {
             k
           // جزء مالوش صوت (إيموجي اختاره الطفل) بيتشال بدل ما الجملة كلها تروح للـ TTS
           else if (clean(k.substring(sayPrefix.length)) case final t when t.isNotEmpty)
-            _keyFor(t),
+            for (final p in splitTeaching(t)) _keyFor(p),
       ];
       if (keys.every((k) => clipKeys.contains(k) || phraseKeys.contains(k))) return keys;
     }
-    final parts = _parts(text);
+    // المقطع لوحده جوه الجملة بيتنطق من مقاطع التعليم ([splitTeaching])
+    final parts = [for (final p in _parts(text)) ...splitTeaching(p)];
     final keys = [for (final p in parts) _keyFor(p)];
     if (parts.isEmpty || !keys.every((k) => clipKeys.contains(k) || phraseKeys.contains(k))) {
       if (kDebugMode) debugPrint('[voice] no recording, using TTS: $parts');
