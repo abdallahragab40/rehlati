@@ -1,0 +1,4469 @@
+{
+ "book": "p5-t1-english",
+ "edition": "2026_2027",
+ "lessons": [
+  {
+   "uid": "p5-t1-english/frequency",
+   "key": "u1:l1",
+   "title": "always, sometimes, never",
+   "goal": "أستخدم ظروف التكرار: always, usually, sometimes, never",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "بتاكل فول كل يوم؟",
+     "visual": {
+      "emoji": "🍲"
+     },
+     "ask": "دايمًا ولا أحيانًا؟"
+    },
+    {
+     "type": "explain",
+     "title": "How often?",
+     "text": "ظروف التكرار بتقول بنعمل الحاجة قد إيه.",
+     "en": "always, usually, sometimes, never",
+     "visual": {
+      "emoji": "📊"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "بتيجي قبل الفعل، وبعد am/is/are.",
+     "en": "I always eat breakfast. She is never late.",
+     "visual": {
+      "emoji": "📍"
+     }
+    },
+    {
+     "type": "example",
+     "title": "جمل",
+     "steps": [
+      {
+       "text": "دايمًا",
+       "en": "I always drink water.",
+       "visual": {
+        "emoji": "💯"
+       }
+      },
+      {
+       "text": "أحيانًا",
+       "en": "We sometimes eat fish.",
+       "visual": {
+        "emoji": "🤷"
+       }
+      },
+      {
+       "text": "أبدًا",
+       "en": "He never eats too much candy.",
+       "visual": {
+        "emoji": "🚫"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب من الأكتر للأقل",
+       "items": [
+        "always",
+        "usually",
+        "sometimes",
+        "never"
+       ],
+       "en": true,
+       "hint": "always الأكتر",
+       "why": "من 100% لـ 0%"
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب الجملة",
+       "items": [
+        "I",
+        "usually",
+        "eat",
+        "fruit."
+       ],
+       "en": true,
+       "hint": "الظرف قبل الفعل",
+       "why": "I usually eat fruit."
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "خلّوا الطفل يقول ٤ جمل عن أكله بالأربع ظروف: I always… I never…."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "She is ... late. (0%)",
+       "en": true,
+       "choices": [
+        "always",
+        "never",
+        "sometimes"
+       ],
+       "answer": "never",
+       "hint": "0%",
+       "hints": {
+        "always": "always = 100%.",
+        "sometimes": "sometimes = أحيانًا."
+       },
+       "why": "أبدًا = never.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I always drink water."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "Where does the adverb go? I ___ eat ___ breakfast.",
+       "en": true,
+       "choices": [
+        "after breakfast",
+        "at the end",
+        "before eat"
+       ],
+       "answer": "before eat",
+       "hint": "قبل الفعل",
+       "hints": {
+        "after breakfast": "الظرف قبل الفعل.",
+        "at the end": "مش في الآخر."
+       },
+       "why": "I always eat breakfast.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I always drink water."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "always, usually, sometimes, never",
+      "قبل الفعل، وبعد am/is/are"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/food",
+   "key": "u1:l2",
+   "title": "Food",
+   "goal": "أعرف كلمات الأكل والوصفات والأكلات المصرية بالإنجليزي",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "أكلة مصرية بتحبها؟",
+     "visual": {
+      "emoji": "🇪🇬🍽️"
+     },
+     "ask": "تعرف تقول اسمها بالإنجليزي؟"
+    },
+    {
+     "type": "explain",
+     "title": "Food",
+     "text": "أكل",
+     "en": "bread, cheese, salad, rice, beans, lentil soup",
+     "visual": {
+      "emoji": "🍞🧀🥗"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "الوصفة",
+     "en": "A recipe tells you how to cook. Mix, cut, boil, bake.",
+     "visual": {
+      "emoji": "📋"
+     }
+    },
+    {
+     "type": "example",
+     "title": "أكلات مصرية",
+     "steps": [
+      {
+       "text": "كشري",
+       "en": "Koshari has rice, pasta, and lentils.",
+       "visual": {
+        "emoji": "🍝"
+       }
+      },
+      {
+       "text": "فول",
+       "en": "We eat beans for breakfast.",
+       "visual": {
+        "emoji": "🫘"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بالصورة",
+       "pairs": [
+        [
+         "bread",
+         "🍞"
+        ],
+        [
+         "cheese",
+         "🧀"
+        ],
+        [
+         "rice",
+         "🍚"
+        ],
+        [
+         "soup",
+         "🍲"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر البطاقة",
+       "why": "كل كلمة بصورتها"
+      },
+      {
+       "kind": "match",
+       "ask": "وصّل فعل الطبخ بمعناه",
+       "pairs": [
+        [
+         "mix",
+         "يقلّب"
+        ],
+        [
+         "cut",
+         "يقطّع"
+        ],
+        [
+         "boil",
+         "يغلي"
+        ],
+        [
+         "bake",
+         "يخبز"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر البطاقة",
+       "why": "أفعال الوصفة"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اطبخوا مع الطفل أكلة سهلة، وهو يقول كل خطوة بالإنجليزي: First, cut…"
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "A list of steps to cook food is a…",
+       "en": true,
+       "choices": [
+        "recipe",
+        "flyer",
+        "menu"
+       ],
+       "answer": "recipe",
+       "hint": "خطوات الطبخ",
+       "hints": {
+        "flyer": "flyer ورقة إعلان.",
+        "menu": "menu قايمة الأكل في المطعم."
+       },
+       "why": "الوصفة = recipe.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Koshari has rice, pasta, and lentils."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "Koshari has rice, pasta, and…",
+       "en": true,
+       "choices": [
+        "chicken",
+        "lentils",
+        "cheese"
+       ],
+       "answer": "lentils",
+       "hint": "العدس",
+       "hints": {
+        "chicken": "الكشري مافيهوش فراخ.",
+        "cheese": "مش في الكشري."
+       },
+       "why": "Koshari has lentils.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Koshari has rice, pasta, and lentils."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "bread, cheese, rice, beans",
+      "recipe: mix, cut, boil, bake"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/clusters",
+   "key": "u1:l3",
+   "title": "Consonant clusters",
+   "goal": "أقرأ الكلمات اللي فيها حرفين أو ٣ ساكنين مع بعض: st, cr, tr, str",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "crocodile و street",
+     "visual": {
+      "emoji": "🐊🛣️"
+     },
+     "ask": "أولهم إيه؟"
+    },
+    {
+     "type": "explain",
+     "title": "Clusters",
+     "text": "الحروف الساكنة مع بعض بنقولها بسرعة ورا بعض.",
+     "en": "stop, crocodile, tree, street",
+     "visual": {
+      "letter": "st cr tr str"
+     }
+    },
+    {
+     "type": "example",
+     "title": "كلمات",
+     "steps": [
+      {
+       "text": "تمساح",
+       "en": "crocodile",
+       "visual": {
+        "emoji": "🐊"
+       }
+      },
+      {
+       "text": "شجرة",
+       "en": "tree",
+       "visual": {
+        "emoji": "🌳"
+       }
+      },
+      {
+       "text": "شارع",
+       "en": "street",
+       "visual": {
+        "emoji": "🛣️"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "أول الكلمة إيه؟",
+       "groups": [
+        {
+         "name": "cr",
+         "items": [
+          "crocodile",
+          "crown"
+         ]
+        },
+        {
+         "name": "tr",
+         "items": [
+          "tree",
+          "trunk"
+         ]
+        },
+        {
+         "name": "st",
+         "items": [
+          "stop",
+          "stone"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "أول حرفين",
+       "why": "كل كلمة حسب أولها"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "دوّروا في كتاب على كلمات أولها st وcr وtr، والطفل يقراها بصوت."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "أي كلمة أولها str؟",
+       "en": true,
+       "choices": [
+        "storm",
+        "trunk",
+        "strong"
+       ],
+       "answer": "strong",
+       "hint": "أول ٣ حروف",
+       "hints": {
+        "storm": "storm أولها st.",
+        "trunk": "trunk أولها tr."
+       },
+       "why": "strong أولها str.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "crocodile"
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "A tree has a ... and branches.",
+       "en": true,
+       "choices": [
+        "trunk",
+        "crown",
+        "stone"
+       ],
+       "answer": "trunk",
+       "hint": "الجزء التخين",
+       "hints": {
+        "crown": "crown تاج الملك أو قمة الشجرة.",
+        "stone": "stone حجر."
+       },
+       "why": "جذع الشجرة = trunk.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "crocodile"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "st, cr, tr, str",
+      "نقول الحروف بسرعة ورا بعض"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/nile-life",
+   "key": "u1:l4",
+   "title": "Life along the Nile",
+   "goal": "أقرأ نص عن الحياة حول النيل والصحرا، وأستخرج معلومات",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "مين عايش في النيل؟",
+     "visual": {
+      "emoji": "🏞️🐊"
+     },
+     "ask": "سمّي ٣ كائنات"
+    },
+    {
+     "type": "explain",
+     "title": "Words",
+     "text": "كلمات من الوحدة",
+     "en": "crocodile, hunt, water weeds, insects, shade",
+     "visual": {
+      "emoji": "🐊🌿"
+     }
+    },
+    {
+     "type": "read",
+     "title": "Life Along the Nile",
+     "items": [
+      {
+       "text": "التماسيح بتصطاد السمك في النيل",
+       "en": "Crocodiles hunt fish in the Nile.",
+       "visual": {
+        "emoji": "🐊"
+       }
+      },
+      {
+       "text": "الحشائش المائية بيت آمن للسمك الصغير",
+       "en": "Water weeds give small fish a safe home.",
+       "visual": {
+        "emoji": "🌿🐟"
+       }
+      },
+      {
+       "text": "الفلاحين بيزرعوا القمح جنب النهر عشان الأرض خصبة",
+       "en": "Farmers grow wheat near the river because the soil is rich.",
+       "visual": {
+        "emoji": "🌾"
+       }
+      },
+      {
+       "text": "في الصحرا الجمل يعيش أيام من غير مية",
+       "en": "In the desert, camels can live for days without water.",
+       "visual": {
+        "emoji": "🐪"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكائن بمكانه",
+       "pairs": [
+        [
+         "crocodile",
+         "the Nile"
+        ],
+        [
+         "camel",
+         "the desert"
+        ],
+        [
+         "wheat",
+         "farms near the river"
+        ]
+       ],
+       "en": true,
+       "hint": "ارجع للنص",
+       "why": "كل واحد ومكانه"
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب النص",
+       "items": [
+        "Crocodiles hunt fish.",
+        "Water weeds give fish a home.",
+        "Farmers grow wheat.",
+        "Camels live in the desert."
+       ],
+       "en": true,
+       "hint": "بدأ بالتماسيح",
+       "why": "ده ترتيب النص"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "ارسموا مع الطفل النيل والصحرا، ويكتب اسم حيوان أو نبات في كل مكان بالإنجليزي."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Why do farmers grow wheat near the river?",
+       "visual": {
+        "passage": "Crocodiles hunt fish in the Nile. Water weeds give small fish a safe home. Farmers grow wheat near the river because the soil is rich. In the desert, camels can live for days without water.",
+        "title": "Life Along the Nile",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "it is cold",
+        "the soil is rich",
+        "there are crocodiles"
+       ],
+       "answer": "the soil is rich",
+       "hint": "الجملة التالتة",
+       "hints": {
+        "it is cold": "النص قال سبب تاني.",
+        "there are crocodiles": "مش ده السبب."
+       },
+       "why": "Because the soil is rich.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Crocodiles hunt fish in the Nile."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "What can live without water for days?",
+       "visual": {
+        "passage": "Crocodiles hunt fish in the Nile. Water weeds give small fish a safe home. Farmers grow wheat near the river because the soil is rich. In the desert, camels can live for days without water.",
+        "title": "Life Along the Nile",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "fish",
+        "crocodiles",
+        "camels"
+       ],
+       "answer": "camels",
+       "hint": "آخر جملة",
+       "hints": {
+        "fish": "السمك محتاج مية.",
+        "crocodiles": "التماسيح في النيل."
+       },
+       "why": "Camels can live without water.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Crocodiles hunt fish in the Nile."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "crocodile, water weeds, camel, wheat",
+      "نستخرج معلومات من النص"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/recipe-flyer",
+   "key": "u1:l5",
+   "title": "Writing a recipe and a flyer",
+   "goal": "أكتب وصفة بكلمات الترتيب، وإعلان مطعم بجمل وصفية",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "عندك مطعم صغير!",
+     "visual": {
+      "emoji": "🍽️📄"
+     },
+     "ask": "هتكتب إيه في الإعلان؟"
+    },
+    {
+     "type": "explain",
+     "title": "A recipe",
+     "text": "الوصفة: المكونات، وبعدين الخطوات بـ First, Next, Then, Finally.",
+     "en": "First, cut the tomatoes.",
+     "visual": {
+      "emoji": "📋"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "A flyer",
+     "text": "الإعلان (flyer): اسم المطعم، أكلة مميزة، وصف حلو، والعنوان.",
+     "en": "Try our delicious koshari!",
+     "visual": {
+      "emoji": "📄"
+     }
+    },
+    {
+     "type": "example",
+     "title": "وصفة سلطة",
+     "steps": [
+      {
+       "text": "الأول",
+       "en": "First, cut the vegetables.",
+       "visual": {
+        "emoji": "🔪"
+       }
+      },
+      {
+       "text": "بعدين",
+       "en": "Next, put them in a bowl.",
+       "visual": {
+        "emoji": "🥣"
+       }
+      },
+      {
+       "text": "في الآخر",
+       "en": "Finally, add salt and lemon.",
+       "visual": {
+        "emoji": "🧂"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب الوصفة",
+       "items": [
+        "First, cut the vegetables.",
+        "Next, put them in a bowl.",
+        "Then, mix them.",
+        "Finally, add salt."
+       ],
+       "en": true,
+       "hint": "First الأول",
+       "why": "first, next, then, finally"
+      },
+      {
+       "kind": "pick",
+       "ask": "المس جمل تنفع في إعلان مطعم",
+       "items": [
+        "Try our fresh bread!",
+        "I wake up early.",
+        "Open every day.",
+        "Delicious and cheap!",
+        "My cat is black."
+       ],
+       "answers": [
+        "Try our fresh bread!",
+        "Open every day.",
+        "Delicious and cheap!"
+       ],
+       "en": true,
+       "hint": "بتعلن عن المطعم؟",
+       "hints": {
+        "I wake up early.": "مالهاش علاقة بالمطعم.",
+        "My cat is black.": "مالهاش علاقة بالمطعم."
+       },
+       "why": "دي بتشجّع الناس تيجي"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "خلّوا الطفل يعمل إعلان لمطعم خيالي بأكلة مصرية، ويكتب وصفتها في ٤ خطوات."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Which word starts the last step?",
+       "en": true,
+       "choices": [
+        "Finally",
+        "First",
+        "Next"
+       ],
+       "answer": "Finally",
+       "hint": "آخر خطوة",
+       "hints": {
+        "First": "First للأول.",
+        "Next": "Next في النص."
+       },
+       "why": "Finally للأخير.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "First, cut the vegetables."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "Which sentence is good for a flyer?",
+       "en": true,
+       "choices": [
+        "I like falafel.",
+        "Come and taste our tasty falafel!",
+        "Falafel is food."
+       ],
+       "answer": "Come and taste our tasty falafel!",
+       "hint": "بتدعو الناس",
+       "hints": {
+        "I like falafel.": "دي رأيك مش إعلان.",
+        "Falafel is food.": "مش بتشجّع."
+       },
+       "why": "بتشجّع الناس.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "First, cut the vegetables."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "recipe: ingredients + steps",
+      "flyer: name, special dish, description"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/some-any",
+   "key": "u2:l1",
+   "title": "a, an, some, any",
+   "goal": "أستخدم a وan مع المفرد، وsome وany مع الكتير",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "عايز تفاحة… وشوية مية",
+     "visual": {
+      "emoji": "🍎💧"
+     },
+     "ask": "a ولا some؟"
+    },
+    {
+     "type": "explain",
+     "title": "a / an",
+     "text": "a قبل الكلمة اللي أولها صوت ساكن، وan قبل الصوت المتحرك.",
+     "en": "a banana, an apple, an egg",
+     "visual": {
+      "emoji": "🍎"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "some / any",
+     "text": "some في الجمل العادية، وany في النفي والسؤال.",
+     "en": "I have some milk. Do you have any juice?",
+     "visual": {
+      "emoji": "🥛"
+     }
+    },
+    {
+     "type": "example",
+     "title": "جمل",
+     "steps": [
+      {
+       "text": "a",
+       "en": "I eat a banana.",
+       "visual": {
+        "emoji": "🍌"
+       }
+      },
+      {
+       "text": "some",
+       "en": "She has some carrots.",
+       "visual": {
+        "emoji": "🥕"
+       }
+      },
+      {
+       "text": "any",
+       "en": "We don't have any candy.",
+       "visual": {
+        "emoji": "🍬"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "a ولا an؟",
+       "groups": [
+        {
+         "name": "a",
+         "items": [
+          "banana",
+          "carrot",
+          "lemon"
+         ]
+        },
+        {
+         "name": "an",
+         "items": [
+          "apple",
+          "egg",
+          "orange"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "أول صوت",
+       "why": "an قبل الصوت المتحرك"
+      },
+      {
+       "kind": "sort",
+       "ask": "some ولا any؟",
+       "groups": [
+        {
+         "name": "some",
+         "items": [
+          "I want ... water.",
+          "She has ... friends."
+         ]
+        },
+        {
+         "name": "any",
+         "items": [
+          "I don't have ... milk.",
+          "Do you have ... bread?"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "الجملة نفي أو سؤال؟",
+       "why": "any في النفي والسؤال"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اعملوا مع الطفل قايمة مشتريات بالإنجليزي: some eggs, a melon, an onion…"
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "I need ... onion.",
+       "en": true,
+       "choices": [
+        "a",
+        "some",
+        "an"
+       ],
+       "answer": "an",
+       "hint": "أول صوت",
+       "hints": {
+        "a": "onion أولها صوت متحرك.",
+        "some": "onion واحد."
+       },
+       "why": "an onion.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I eat a banana."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "Are there ... oranges?",
+       "en": true,
+       "choices": [
+        "any",
+        "some",
+        "a"
+       ],
+       "answer": "any",
+       "hint": "سؤال",
+       "hints": {
+        "some": "في السؤال غالبًا any.",
+        "a": "oranges جمع."
+       },
+       "why": "سؤال: any.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I eat a banana."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "a / an + مفرد",
+      "some: جمل عادية — any: نفي وسؤال"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/my-body",
+   "key": "u2:l2",
+   "title": "My body",
+   "goal": "أعرف أعضاء الجسم والصحة بالإنجليزي: lungs, muscles, heart",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "جوه جسمك فيه شغل كتير!",
+     "visual": {
+      "emoji": "🫁❤️💪"
+     },
+     "ask": "تعرف أسماء الأعضاء؟"
+    },
+    {
+     "type": "explain",
+     "title": "Organs",
+     "text": "أعضاء",
+     "en": "heart, lungs, brain, muscles, bones",
+     "visual": {
+      "emoji": "🫁❤️🧠"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "الصحة",
+     "en": "fit, healthy, stressed, mental health",
+     "visual": {
+      "emoji": "🧘"
+     }
+    },
+    {
+     "type": "example",
+     "title": "وظايف",
+     "steps": [
+      {
+       "text": "الرئتين",
+       "en": "We breathe with our lungs.",
+       "visual": {
+        "emoji": "🫁"
+       }
+      },
+      {
+       "text": "العضلات",
+       "en": "Muscles help us move.",
+       "visual": {
+        "emoji": "💪"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل العضو بوظيفته",
+       "pairs": [
+        [
+         "lungs",
+         "breathe"
+        ],
+        [
+         "heart",
+         "pumps blood"
+        ],
+        [
+         "muscles",
+         "move"
+        ],
+        [
+         "brain",
+         "think"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر البطاقة",
+       "why": "كل عضو ووظيفته"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "خلّوا الطفل يشاور على مكان كل عضو في جسمه ويقول اسمه بالإنجليزي."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "We breathe with our…",
+       "en": true,
+       "choices": [
+        "muscles",
+        "lungs",
+        "bones"
+       ],
+       "answer": "lungs",
+       "hint": "التنفس",
+       "hints": {
+        "muscles": "العضلات للحركة.",
+        "bones": "العضم للدعم."
+       },
+       "why": "نتنفس بالرئتين.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "We breathe with our lungs."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "Feeling worried and tired from too much work is…",
+       "en": true,
+       "choices": [
+        "fit",
+        "healthy",
+        "stressed"
+       ],
+       "answer": "stressed",
+       "hint": "إحساس مش مريح",
+       "hints": {
+        "fit": "fit يعني لياقة كويسة.",
+        "healthy": "healthy سليم."
+       },
+       "why": "متوتر = stressed.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "We breathe with our lungs."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "heart, lungs, brain, muscles",
+      "fit, healthy, stressed"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/one-syllable",
+   "key": "u2:l3",
+   "title": "One-syllable words",
+   "goal": "أقرأ وأعدّ الكلمات اللي مقطع واحد: fit, blood, lungs",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "fit فيها كام مقطع؟",
+     "visual": {
+      "emoji": "👏"
+     },
+     "ask": "صقّف مع كل مقطع"
+    },
+    {
+     "type": "explain",
+     "title": "Syllables",
+     "text": "المقطع = نبضة صوت. كلمات مقطع واحد: fit, heart, blood. كلمتين: mus-cle.",
+     "en": "fit, heart, mus-cle",
+     "visual": {
+      "emoji": "👏"
+     }
+    },
+    {
+     "type": "example",
+     "title": "نصقّف",
+     "steps": [
+      {
+       "text": "مقطع",
+       "en": "lungs",
+       "visual": {
+        "emoji": "👏"
+       }
+      },
+      {
+       "text": "مقطعين",
+       "en": "bo-dy",
+       "visual": {
+        "emoji": "👏👏"
+       }
+      },
+      {
+       "text": "٣ مقاطع",
+       "en": "ex-er-cise",
+       "visual": {
+        "emoji": "👏👏👏"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "مقطع ولا أكتر؟",
+       "groups": [
+        {
+         "name": "one syllable",
+         "items": [
+          "fit",
+          "heart",
+          "blood",
+          "fist"
+         ]
+        },
+        {
+         "name": "more",
+         "items": [
+          "muscle",
+          "oxygen",
+          "healthy"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "صقّف",
+       "why": "صقّف مع كل نبضة"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "العبوا «صقّف الكلمة»: تقولوا كلمة، والطفل يصقّف عدد مقاطعها."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Which word has one syllable?",
+       "en": true,
+       "choices": [
+        "run",
+        "running",
+        "exercise"
+       ],
+       "answer": "run",
+       "hint": "صقّف",
+       "hints": {
+        "running": "run-ning: مقطعين.",
+        "exercise": "ex-er-cise: ٣."
+       },
+       "why": "run: مقطع واحد.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "lungs"
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "How many syllables in «oxygen»?",
+       "en": true,
+       "choices": [
+        "one",
+        "three",
+        "two"
+       ],
+       "answer": "three",
+       "hint": "صقّف",
+       "hints": {
+        "one": "صقّف تاني: ox-y-gen.",
+        "two": "صقّف تاني: ox-y-gen."
+       },
+       "why": "ox-y-gen.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "lungs"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "المقطع نبضة صوت",
+      "fit, heart, blood: مقطع واحد"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/heart",
+   "key": "u2:l4",
+   "title": "Your amazing heart",
+   "goal": "أقرأ نص معلوماتي عن القلب والدم وأستخرج الحقائق",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "حط إيدك على صدرك…",
+     "visual": {
+      "emoji": "❤️"
+     },
+     "ask": "حاسس بإيه؟"
+    },
+    {
+     "type": "explain",
+     "title": "Words",
+     "text": "كلمات",
+     "en": "organ, blood vessels, oxygen, nutrients, fist",
+     "visual": {
+      "emoji": "❤️🩸"
+     }
+    },
+    {
+     "type": "read",
+     "title": "Your Amazing Heart",
+     "items": [
+      {
+       "text": "قلبك عضلة قوية قد قبضة إيدك",
+       "en": "Your heart is a strong muscle as big as your fist.",
+       "visual": {
+        "emoji": "❤️✊"
+       }
+      },
+      {
+       "text": "بيضخ الدم في أنابيب اسمها الأوعية الدموية",
+       "en": "It pumps blood through tubes called blood vessels.",
+       "visual": {
+        "emoji": "🩸"
+       }
+      },
+      {
+       "text": "الدم بيوصّل الأكسجين من الرئتين للجسم",
+       "en": "Blood carries oxygen from your lungs to your body.",
+       "visual": {
+        "emoji": "🫁"
+       }
+      },
+      {
+       "text": "الرياضة بتخلّي قلبك قوي وسليم",
+       "en": "Exercise keeps your heart fit and healthy.",
+       "visual": {
+        "emoji": "🏃"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب رحلة الأكسجين",
+       "items": [
+        "Lungs take in oxygen.",
+        "Blood carries oxygen.",
+        "The heart pumps blood.",
+        "Oxygen reaches the body."
+       ],
+       "en": true,
+       "hint": "بتبدأ بالرئتين",
+       "why": "من الرئة للجسم"
+      },
+      {
+       "kind": "sort",
+       "ask": "حقيقة من النص ولا لأ؟",
+       "groups": [
+        {
+         "name": "in the text",
+         "items": [
+          "The heart is a muscle.",
+          "Exercise keeps the heart fit."
+         ]
+        },
+        {
+         "name": "not in the text",
+         "items": [
+          "The heart is blue.",
+          "Blood is made of water only."
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "النص قال كده؟",
+       "why": "ارجع للنص"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "قيسوا نبض الطفل قبل وبعد ما يجري دقيقة، وقارنوا."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "How big is your heart?",
+       "visual": {
+        "passage": "Your heart is a strong muscle as big as your fist. It pumps blood through tubes called blood vessels. Blood carries oxygen from your lungs to your body. Exercise keeps your heart fit and healthy.",
+        "title": "Your Amazing Heart",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "as big as a ball",
+        "as small as a pea",
+        "as big as your fist"
+       ],
+       "answer": "as big as your fist",
+       "hint": "أول جملة",
+       "hints": {
+        "as big as a ball": "اقرأ أول جملة.",
+        "as small as a pea": "اقرأ أول جملة."
+       },
+       "why": "As big as your fist.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Your heart is a strong muscle as big as your fist."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "What carries oxygen to the body?",
+       "visual": {
+        "passage": "Your heart is a strong muscle as big as your fist. It pumps blood through tubes called blood vessels. Blood carries oxygen from your lungs to your body. Exercise keeps your heart fit and healthy.",
+        "title": "Your Amazing Heart",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "blood",
+        "bones",
+        "muscles"
+       ],
+       "answer": "blood",
+       "hint": "الجملة التالتة",
+       "hints": {
+        "bones": "العضم مش بيوصّل.",
+        "muscles": "العضلات بتتحرك."
+       },
+       "why": "Blood carries oxygen.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Your heart is a strong muscle as big as your fist."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "heart, blood vessels, oxygen",
+      "الرياضة بتقوّي القلب"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/health-goals",
+   "key": "u2:l5",
+   "title": "My health goals",
+   "goal": "أكتب عن هدف صحي ليا: إيه هو، ليه، وهعمل إيه",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "عايز تبقى أقوى وأنشط",
+     "visual": {
+      "emoji": "🎯🏃"
+     },
+     "ask": "هدفك إيه؟"
+    },
+    {
+     "type": "explain",
+     "title": "A health goal",
+     "text": "نكتب: My goal is… because… I will…",
+     "en": "My goal is to sleep early because I feel tired.",
+     "visual": {
+      "emoji": "🎯"
+     }
+    },
+    {
+     "type": "example",
+     "title": "نموذج",
+     "steps": [
+      {
+       "text": "الهدف",
+       "en": "My goal is to drink more water.",
+       "visual": {
+        "emoji": "🎯"
+       }
+      },
+      {
+       "text": "ليه",
+       "en": "because water keeps my body healthy.",
+       "visual": {
+        "emoji": "💡"
+       }
+      },
+      {
+       "text": "هعمل إيه",
+       "en": "I will drink six glasses every day.",
+       "visual": {
+        "emoji": "✅"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب الفقرة",
+       "items": [
+        "My goal is to drink more water",
+        "because it keeps me healthy.",
+        "I will drink six glasses a day."
+       ],
+       "en": true,
+       "hint": "نبدأ بالهدف",
+       "why": "هدف، سبب، خطة"
+      },
+      {
+       "kind": "pick",
+       "ask": "المس الأهداف الصحية",
+       "items": [
+        "sleep early",
+        "eat more vegetables",
+        "play video games all night",
+        "walk every day",
+        "eat candy for lunch"
+       ],
+       "answers": [
+        "sleep early",
+        "eat more vegetables",
+        "walk every day"
+       ],
+       "en": true,
+       "hint": "ده صحي؟",
+       "hints": {
+        "play video games all night": "السهر مش صحي.",
+        "eat candy for lunch": "الحلويات مش غدا صحي."
+       },
+       "why": "دي بتفيد الجسم"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "الطفل يكتب هدف صحي، ويعلّقه، ويحط علامة كل يوم ينفّذه."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Which word gives the reason?",
+       "en": true,
+       "choices": [
+        "will",
+        "because",
+        "goal"
+       ],
+       "answer": "because",
+       "hint": "عشان",
+       "hints": {
+        "will": "will للخطة.",
+        "goal": "goal الهدف."
+       },
+       "why": "because = عشان.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "My goal is to drink more water."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "Which sentence is a plan?",
+       "en": true,
+       "choices": [
+        "My goal is to be fit.",
+        "because I feel tired.",
+        "I will walk for 20 minutes."
+       ],
+       "answer": "I will walk for 20 minutes.",
+       "hint": "دوّر على will",
+       "hints": {
+        "My goal is to be fit.": "ده الهدف.",
+        "because I feel tired.": "ده السبب."
+       },
+       "why": "I will = خطة.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "My goal is to drink more water."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "My goal is… because… I will…"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/past-did",
+   "key": "u3:l1",
+   "title": "Did you…? I didn't",
+   "goal": "أسأل وأنفي في الماضي: Did you…? I didn't…، وأسأل بـ Wh-",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "امبارح كان فيه عاصفة",
+     "visual": {
+      "emoji": "⛈️"
+     },
+     "ask": "عملت إيه؟"
+    },
+    {
+     "type": "explain",
+     "title": "Questions",
+     "text": "السؤال: Did + الفاعل + الفعل الأصلي؟",
+     "en": "Did you go out? Did it rain?",
+     "visual": {
+      "emoji": "❓"
+     }
+    },
+    {
+     "type": "explain",
+     "title": "Negative",
+     "text": "النفي: didn't + الفعل الأصلي.",
+     "en": "I didn't go out.",
+     "visual": {
+      "emoji": "❌"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "Wh- في الماضي: What did you do? Where did you go?",
+     "en": "What did you see?",
+     "visual": {
+      "emoji": "🔍"
+     }
+    },
+    {
+     "type": "example",
+     "title": "حوار",
+     "steps": [
+      {
+       "text": "سؤال",
+       "en": "Did you see the storm?",
+       "visual": {
+        "emoji": "🙋"
+       }
+      },
+      {
+       "text": "إجابة",
+       "en": "Yes, I did.",
+       "visual": {
+        "emoji": "✅"
+       }
+      },
+      {
+       "text": "نفي",
+       "en": "I didn't leave the house.",
+       "visual": {
+        "emoji": "🏠"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب السؤال",
+       "items": [
+        "Where",
+        "did",
+        "you",
+        "go?"
+       ],
+       "en": true,
+       "hint": "Wh- الأول",
+       "why": "Where did you go?"
+      },
+      {
+       "kind": "sort",
+       "ask": "صح ولا غلط؟",
+       "groups": [
+        {
+         "name": "correct",
+         "items": [
+          "Did you play?",
+          "I didn't play."
+         ]
+        },
+        {
+         "name": "wrong",
+         "items": [
+          "Did you played?",
+          "I didn't played."
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "الفعل بعد did",
+       "why": "بعد did الفعل الأصلي"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اسألوا الطفل ٥ أسئلة عن امبارح بـ Did وWhat وWhere، ويجاوب."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "I didn't ... the movie.",
+       "en": true,
+       "choices": [
+        "watch",
+        "watched",
+        "watching"
+       ],
+       "answer": "watch",
+       "hint": "الفعل الأصلي",
+       "hints": {
+        "watched": "بعد didn't الفعل الأصلي.",
+        "watching": "مش ing."
+       },
+       "why": "didn't + watch.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Did you see the storm?"
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "... did you do yesterday?",
+       "en": true,
+       "choices": [
+        "Did",
+        "What",
+        "Do"
+       ],
+       "answer": "What",
+       "hint": "سؤال عن حاجة",
+       "hints": {
+        "Did": "محتاجين كلمة سؤال Wh-.",
+        "Do": "ده مضارع."
+       },
+       "why": "What did you do?",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Did you see the storm?"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "Did + فاعل + فعل أصلي؟",
+      "didn't + فعل أصلي",
+      "What/Where did…?"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/weather",
+   "key": "u3:l2",
+   "title": "Weather",
+   "goal": "أعرف كلمات الطقس والظواهر الطبيعية: storm, flood, drought, heatwave",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "الجو اتقلب فجأة!",
+     "visual": {
+      "emoji": "🌤️➡️⛈️"
+     },
+     "ask": "بنسمّيها إيه؟"
+    },
+    {
+     "type": "explain",
+     "title": "Weather",
+     "text": "طقس عادي",
+     "en": "sunny, rainy, windy, cloudy",
+     "visual": {
+      "emoji": "☀️🌧️💨"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "ظواهر قوية",
+     "en": "storm, flood, drought, wildfire, heatwave",
+     "visual": {
+      "emoji": "⛈️🌊🔥"
+     }
+    },
+    {
+     "type": "example",
+     "title": "نوصف",
+     "steps": [
+      {
+       "text": "عاصفة",
+       "en": "A storm has strong wind and rain.",
+       "visual": {
+        "emoji": "⛈️"
+       }
+      },
+      {
+       "text": "جفاف",
+       "en": "A drought means no rain for a long time.",
+       "visual": {
+        "emoji": "🏜️"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الظاهرة بمعناها",
+       "pairs": [
+        [
+         "flood",
+         "too much water"
+        ],
+        [
+         "drought",
+         "no rain for a long time"
+        ],
+        [
+         "heatwave",
+         "very hot days"
+        ],
+        [
+         "wildfire",
+         "fire in a forest"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر البطاقة",
+       "why": "كل ظاهرة بمعناها"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اتفرجوا مع الطفل على النشرة الجوية، ويقول الطقس بالإنجليزي."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Many very hot days in a row is a…",
+       "en": true,
+       "choices": [
+        "flood",
+        "storm",
+        "heatwave"
+       ],
+       "answer": "heatwave",
+       "hint": "حر",
+       "hints": {
+        "flood": "flood مية كتير.",
+        "storm": "storm ريح ومطر."
+       },
+       "why": "موجة حر.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "A storm has strong wind and rain."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "No rain for months causes a…",
+       "en": true,
+       "choices": [
+        "drought",
+        "flood",
+        "wildfire"
+       ],
+       "answer": "drought",
+       "hint": "مفيش مطر",
+       "hints": {
+        "flood": "العكس.",
+        "wildfire": "wildfire حريق."
+       },
+       "why": "جفاف.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "A storm has strong wind and rain."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "sunny, rainy, windy",
+      "storm, flood, drought, wildfire, heatwave"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/vowel-digraphs",
+   "key": "u3:l3",
+   "title": "Vowel digraphs",
+   "goal": "أقرأ الحرفين المتحركين اللي بيعملوا صوت واحد: ai, ee, oa, ea",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "rain و sea و boat",
+     "visual": {
+      "emoji": "🌧️🌊⛵"
+     },
+     "ask": "الحرفين بيتنطقوا صوت واحد؟"
+    },
+    {
+     "type": "explain",
+     "title": "Vowel teams",
+     "text": "حرفين متحركين بصوت واحد طويل: ai (rain)، ee (tree)، oa (boat)، ea (sea).",
+     "en": "rain, tree, boat, sea",
+     "visual": {
+      "letter": "ai ee oa ea"
+     }
+    },
+    {
+     "type": "example",
+     "title": "كلمات",
+     "steps": [
+      {
+       "text": "مطر",
+       "en": "rain",
+       "visual": {
+        "emoji": "🌧️"
+       }
+      },
+      {
+       "text": "بحر",
+       "en": "sea",
+       "visual": {
+        "emoji": "🌊"
+       }
+      },
+      {
+       "text": "مركب",
+       "en": "boat",
+       "visual": {
+        "emoji": "⛵"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "أي حرفين؟",
+       "groups": [
+        {
+         "name": "ai",
+         "items": [
+          "rain",
+          "train"
+         ]
+        },
+        {
+         "name": "ee",
+         "items": [
+          "tree",
+          "sleep"
+         ]
+        },
+        {
+         "name": "oa",
+         "items": [
+          "boat",
+          "road"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "دوّر على الحرفين",
+       "why": "كل كلمة حسب الحرفين"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "دوّروا مع الطفل على كلمات فيها ai وee وoa في قصة إنجليزي."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "أي كلمة فيها oa؟",
+       "en": true,
+       "choices": [
+        "cat",
+        "coat",
+        "cool"
+       ],
+       "answer": "coat",
+       "hint": "دوّر على o و a",
+       "hints": {
+        "cat": "مفيش حرفين متحركين.",
+        "cool": "دي oo."
+       },
+       "why": "coat فيها oa.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "rain"
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "أي كلمة فيها ea؟",
+       "en": true,
+       "choices": [
+        "hot",
+        "hit",
+        "heat"
+       ],
+       "answer": "heat",
+       "hint": "دوّر على e و a",
+       "hints": {
+        "hot": "مفيش ea.",
+        "hit": "مفيش ea."
+       },
+       "why": "heat فيها ea.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "rain"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "ai, ee, oa, ea: صوت واحد طويل"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/storm-story",
+   "key": "u3:l4",
+   "title": "When the storm came",
+   "goal": "أقرأ قصة في الماضي عن عاصفة، وأعرف السلامة وقت الظواهر الطبيعية",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "لو جت عاصفة… تعمل إيه؟",
+     "visual": {
+      "emoji": "⛈️🏠"
+     },
+     "ask": "إزاي تحافظ على نفسك؟"
+    },
+    {
+     "type": "explain",
+     "title": "Safety",
+     "text": "كلمات",
+     "en": "safely, stay inside, keep away, help",
+     "visual": {
+      "emoji": "⚠️"
+     }
+    },
+    {
+     "type": "read",
+     "title": "When the Storm Came",
+     "items": [
+      {
+       "text": "الشتا اللي فات عاصفة كبيرة ضربت قريتنا",
+       "en": "Last winter, a big storm hit our village.",
+       "visual": {
+        "emoji": "⛈️"
+       }
+      },
+      {
+       "text": "المطر الشديد عمل فيضان في الشوارع",
+       "en": "Heavy rain caused a flood in the streets.",
+       "visual": {
+        "emoji": "🌊"
+       }
+      },
+      {
+       "text": "قعدنا جوه وبعدنا عن المية",
+       "en": "We stayed inside and kept away from the water.",
+       "visual": {
+        "emoji": "🏠"
+       }
+      },
+      {
+       "text": "تاني يوم الجيران ساعدوا بعض ينضفوا",
+       "en": "The next day, neighbors helped each other clean up.",
+       "visual": {
+        "emoji": "🧹🤝"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب القصة",
+       "items": [
+        "A big storm hit the village.",
+        "Rain caused a flood.",
+        "We stayed inside.",
+        "Neighbors helped clean up."
+       ],
+       "en": true,
+       "hint": "بدأت بالعاصفة",
+       "why": "ده ترتيب القصة"
+      },
+      {
+       "kind": "sort",
+       "ask": "آمن ولا خطر؟",
+       "groups": [
+        {
+         "name": "safe",
+         "items": [
+          "stay inside",
+          "keep away from water"
+         ]
+        },
+        {
+         "name": "dangerous",
+         "items": [
+          "play in the flood",
+          "stand under a tree in a storm"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "ده هيحميك؟",
+       "why": "السلامة الأول"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اعملوا مع الطفل «خطة أمان» للبيت: نعمل إيه لو مطر جامد أو الكهربا قطعت."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "What did the heavy rain cause?",
+       "visual": {
+        "passage": "Last winter, a big storm hit our village. Heavy rain caused a flood in the streets. We stayed inside and kept away from the water. The next day, neighbors helped each other clean up.",
+        "title": "When the Storm Came",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "a flood",
+        "a drought",
+        "a heatwave"
+       ],
+       "answer": "a flood",
+       "hint": "الجملة التانية",
+       "hints": {
+        "a drought": "العكس.",
+        "a heatwave": "ده حر."
+       },
+       "why": "Heavy rain caused a flood.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Last winter, a big storm hit our village."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "What did the neighbors do?",
+       "visual": {
+        "passage": "Last winter, a big storm hit our village. Heavy rain caused a flood in the streets. We stayed inside and kept away from the water. The next day, neighbors helped each other clean up.",
+        "title": "When the Storm Came",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "went on holiday",
+        "helped each other",
+        "played games"
+       ],
+       "answer": "helped each other",
+       "hint": "آخر جملة",
+       "hints": {
+        "went on holiday": "اقرأ آخر جملة.",
+        "played games": "اقرأ آخر جملة."
+       },
+       "why": "Neighbors helped each other.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Last winter, a big storm hit our village."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "القصة في الماضي",
+      "نتصرف بأمان وقت الظواهر"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/fiction-story",
+   "key": "u3:l5",
+   "title": "Writing a story in the past",
+   "goal": "أكتب قصة قصيرة في الماضي: بداية، مشكلة، حل، نهاية",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "اكتب قصة عن يوم الجو اتقلب",
+     "visual": {
+      "emoji": "✍️⛈️"
+     },
+     "ask": "هتبدأ إزاي؟"
+    },
+    {
+     "type": "explain",
+     "title": "A story",
+     "text": "القصة: بداية (مين وفين)، مشكلة، حل، نهاية. والأفعال في الماضي.",
+     "en": "One day, … Suddenly, … Then, … In the end, …",
+     "visual": {
+      "emoji": "📖"
+     }
+    },
+    {
+     "type": "example",
+     "title": "قصة",
+     "steps": [
+      {
+       "text": "البداية",
+       "en": "One day, Mona walked to the park.",
+       "visual": {
+        "emoji": "👧🌳"
+       }
+      },
+      {
+       "text": "المشكلة",
+       "en": "Suddenly, a storm started.",
+       "visual": {
+        "emoji": "⛈️"
+       }
+      },
+      {
+       "text": "الحل",
+       "en": "She ran into a shop and waited.",
+       "visual": {
+        "emoji": "🏪"
+       }
+      },
+      {
+       "text": "النهاية",
+       "en": "In the end, she saw a rainbow.",
+       "visual": {
+        "emoji": "🌈"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب القصة",
+       "items": [
+        "One day, Mona walked to the park.",
+        "Suddenly, a storm started.",
+        "She waited in a shop.",
+        "In the end, she saw a rainbow."
+       ],
+       "en": true,
+       "hint": "One day الأول",
+       "why": "بداية، مشكلة، حل، نهاية"
+      },
+      {
+       "kind": "match",
+       "ask": "وصّل الفعل بالماضي",
+       "pairs": [
+        [
+         "walk",
+         "walked"
+        ],
+        [
+         "run",
+         "ran"
+        ],
+        [
+         "see",
+         "saw"
+        ],
+        [
+         "start",
+         "started"
+        ]
+       ],
+       "en": true,
+       "hint": "regular ولا irregular؟",
+       "why": "أفعال القصة"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "خلّوا الطفل يكتب قصة ٤ جمل في الماضي عن يوم الجو اتغيّر، ويرسم صورة."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Which word shows the problem starts?",
+       "en": true,
+       "choices": [
+        "In the end",
+        "One day",
+        "Suddenly"
+       ],
+       "answer": "Suddenly",
+       "hint": "فجأة",
+       "hints": {
+        "In the end": "دي النهاية.",
+        "One day": "دي البداية."
+       },
+       "why": "Suddenly = فجأة.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "One day, Mona walked to the park."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "Past of «see»?",
+       "en": true,
+       "choices": [
+        "saw",
+        "seed",
+        "seen"
+       ],
+       "answer": "saw",
+       "hint": "irregular",
+       "hints": {
+        "seed": "مش ماضي see.",
+        "seen": "seen محتاجة have."
+       },
+       "why": "see → saw.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "One day, Mona walked to the park."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "One day ← Suddenly ← Then ← In the end",
+      "الأفعال في الماضي"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/time-preps",
+   "key": "u4:l1",
+   "title": "in, on, at (time)",
+   "goal": "أستخدم in وon وat مع الوقت: at 5 o'clock, on Friday, in May",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "ميعادنا يوم الجمعة الساعة 5 في مايو",
+     "visual": {
+      "emoji": "📅"
+     },
+     "ask": "نقولها إزاي؟"
+    },
+    {
+     "type": "explain",
+     "title": "Time",
+     "text": "at مع الساعة، on مع الأيام والتواريخ، in مع الشهور والسنين والفصول.",
+     "en": "at 5 o'clock, on Friday, in May",
+     "visual": {
+      "emoji": "🕔📅"
+     }
+    },
+    {
+     "type": "example",
+     "title": "جمل",
+     "steps": [
+      {
+       "text": "at",
+       "en": "The club opens at 9.",
+       "visual": {
+        "emoji": "🕔"
+       }
+      },
+      {
+       "text": "on",
+       "en": "We play football on Fridays.",
+       "visual": {
+        "emoji": "📅"
+       }
+      },
+      {
+       "text": "in",
+       "en": "We travel in summer.",
+       "visual": {
+        "emoji": "☀️"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "at ولا on ولا in؟",
+       "groups": [
+        {
+         "name": "at",
+         "items": [
+          "7 o'clock",
+          "noon"
+         ]
+        },
+        {
+         "name": "on",
+         "items": [
+          "Monday",
+          "5 May"
+         ]
+        },
+        {
+         "name": "in",
+         "items": [
+          "July",
+          "winter",
+          "2026"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "ساعة؟ يوم؟ شهر؟",
+       "why": "كل كلمة بحرفها"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اعملوا مع الطفل جدول الأسبوع بالإنجليزي: On Monday at 4, I…"
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "My birthday is ... March.",
+       "en": true,
+       "choices": [
+        "on",
+        "in",
+        "at"
+       ],
+       "answer": "in",
+       "hint": "شهر",
+       "hints": {
+        "on": "on مع الأيام.",
+        "at": "at مع الساعة."
+       },
+       "why": "in + شهر.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "The club opens at 9."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "The bakery opens ... 6 o'clock.",
+       "en": true,
+       "choices": [
+        "in",
+        "on",
+        "at"
+       ],
+       "answer": "at",
+       "hint": "ساعة",
+       "hints": {
+        "in": "in للشهور.",
+        "on": "on للأيام."
+       },
+       "why": "at + ساعة.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "The club opens at 9."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "at + ساعة",
+      "on + يوم/تاريخ",
+      "in + شهر/سنة/فصل"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/places",
+   "key": "u4:l2",
+   "title": "Places",
+   "goal": "أعرف أماكن الحي والمدينة والريف بالإنجليزي",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "في حيّك فيه إيه؟",
+     "visual": {
+      "emoji": "🏘️"
+     },
+     "ask": "سمّي ٥ أماكن!"
+    },
+    {
+     "type": "explain",
+     "title": "Places",
+     "text": "في المدينة",
+     "en": "restaurant, coffee shop, bakery, supermarket, club, theme park",
+     "visual": {
+      "emoji": "🏙️"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "في الريف",
+     "en": "field, cottage, barn, main square, community center",
+     "visual": {
+      "emoji": "🌾"
+     }
+    },
+    {
+     "type": "example",
+     "title": "جمل",
+     "steps": [
+      {
+       "text": "فرن",
+       "en": "We buy bread at the bakery.",
+       "visual": {
+        "emoji": "🥖"
+       }
+      },
+      {
+       "text": "حظيرة",
+       "en": "Cows sleep in the barn.",
+       "visual": {
+        "emoji": "🐄"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "مدينة ولا ريف؟",
+       "groups": [
+        {
+         "name": "city",
+         "items": [
+          "theme park",
+          "coffee shop",
+          "supermarket"
+         ]
+        },
+        {
+         "name": "village",
+         "items": [
+          "barn",
+          "field",
+          "cottage"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "فين بيكون غالبًا؟",
+       "why": "كل مكان وفين"
+      },
+      {
+       "kind": "match",
+       "ask": "وصّل المكان بالنشاط",
+       "pairs": [
+        [
+         "bakery",
+         "buy bread"
+        ],
+        [
+         "club",
+         "play sports"
+        ],
+        [
+         "community center",
+         "meet neighbors"
+        ]
+       ],
+       "en": true,
+       "hint": "بنعمل إيه هناك؟",
+       "why": "كل مكان ونشاطه"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اعملوا مع الطفل خريطة للحي بالإنجليزي فيها ٦ أماكن."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Farm animals sleep in a…",
+       "en": true,
+       "choices": [
+        "barn",
+        "cottage",
+        "field"
+       ],
+       "answer": "barn",
+       "hint": "بيت الحيوانات",
+       "hints": {
+        "cottage": "cottage بيت صغير للناس.",
+        "field": "field أرض زراعية."
+       },
+       "why": "barn = حظيرة.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "We buy bread at the bakery."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "A place for rides and fun is a…",
+       "en": true,
+       "choices": [
+        "bakery",
+        "theme park",
+        "barn"
+       ],
+       "answer": "theme park",
+       "hint": "ألعاب",
+       "hints": {
+        "bakery": "bakery للعيش.",
+        "barn": "barn للحيوانات."
+       },
+       "why": "theme park = ملاهي.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "We buy bread at the bakery."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "restaurant, bakery, supermarket, club",
+      "field, barn, cottage, main square"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/trigraphs",
+   "key": "u4:l3",
+   "title": "Trigraphs",
+   "goal": "أقرأ ٣ حروف بصوت واحد: tch, igh, dge",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "kitchen و night و bridge",
+     "visual": {
+      "emoji": "🍳🌙🌉"
+     },
+     "ask": "كام صوت؟"
+    },
+    {
+     "type": "explain",
+     "title": "Trigraphs",
+     "text": "٣ حروف بصوت واحد: tch (match)، igh (light)، dge (bridge).",
+     "en": "match, light, bridge",
+     "visual": {
+      "letter": "tch igh dge"
+     }
+    },
+    {
+     "type": "example",
+     "title": "كلمات",
+     "steps": [
+      {
+       "text": "مطبخ",
+       "en": "kitchen",
+       "visual": {
+        "emoji": "🍳"
+       }
+      },
+      {
+       "text": "ليل",
+       "en": "night",
+       "visual": {
+        "emoji": "🌙"
+       }
+      },
+      {
+       "text": "كوبري",
+       "en": "bridge",
+       "visual": {
+        "emoji": "🌉"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "tch ولا igh ولا dge؟",
+       "groups": [
+        {
+         "name": "tch",
+         "items": [
+          "kitchen",
+          "watch"
+         ]
+        },
+        {
+         "name": "igh",
+         "items": [
+          "night",
+          "light"
+         ]
+        },
+        {
+         "name": "dge",
+         "items": [
+          "bridge",
+          "badge"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "دوّر على ٣ حروف",
+       "why": "كل كلمة حسب الحروف التلاتة"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اكتبوا tch وigh وdge على كروت، والطفل يلاقي كلمة لكل واحد في البيت."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "أي كلمة فيها igh؟",
+       "en": true,
+       "choices": [
+        "bring",
+        "badge",
+        "bright"
+       ],
+       "answer": "bright",
+       "hint": "دوّر على igh",
+       "hints": {
+        "bring": "bring مافيهاش igh.",
+        "badge": "badge فيها dge."
+       },
+       "why": "bright فيها igh.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "kitchen"
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "أي كلمة فيها dge؟",
+       "en": true,
+       "choices": [
+        "edge",
+        "eight",
+        "catch"
+       ],
+       "answer": "edge",
+       "hint": "دوّر على dge",
+       "hints": {
+        "eight": "eight فيها igh.",
+        "catch": "catch فيها tch."
+       },
+       "why": "edge فيها dge.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "kitchen"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "tch, igh, dge: ٣ حروف وصوت واحد"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/old-new-cities",
+   "key": "u4:l4",
+   "title": "Old and new cities",
+   "goal": "أقرأ نص يقارن بين القاهرة القديمة والمدن الجديدة",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "القاهرة القديمة والجديدة",
+     "visual": {
+      "emoji": "🕌🏙️"
+     },
+     "ask": "إيه الفرق؟"
+    },
+    {
+     "type": "explain",
+     "title": "Compare",
+     "text": "نقارن: narrow / wide، old / new، small / big.",
+     "en": "narrow streets, wide roads",
+     "visual": {
+      "emoji": "⚖️"
+     }
+    },
+    {
+     "type": "read",
+     "title": "Old and New Cairo",
+     "items": [
+      {
+       "text": "القاهرة القديمة فيها شوارع ضيقة وجوامع وكنايس قديمة",
+       "en": "Old Cairo has narrow streets and old mosques and churches.",
+       "visual": {
+        "emoji": "🕌⛪"
+       }
+      },
+      {
+       "text": "المدن الجديدة فيها طرق واسعة ومولات وملاهي",
+       "en": "New cities have wide roads, malls, and theme parks.",
+       "visual": {
+        "emoji": "🏙️🎡"
+       }
+      },
+      {
+       "text": "في المدينة القديمة الناس بتشتري العيش من فرن صغير",
+       "en": "In the old city, people buy bread from a small bakery.",
+       "visual": {
+        "emoji": "🥖"
+       }
+      },
+      {
+       "text": "المكانين جزء من تاريخنا ومستقبلنا",
+       "en": "Both places are part of our history and our future.",
+       "visual": {
+        "emoji": "🇪🇬"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "القديمة ولا الجديدة؟",
+       "groups": [
+        {
+         "name": "old city",
+         "items": [
+          "narrow streets",
+          "small bakery"
+         ]
+        },
+        {
+         "name": "new city",
+         "items": [
+          "wide roads",
+          "theme parks"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "النص قال إيه؟",
+       "why": "ارجع للنص"
+      },
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بعكسها",
+       "pairs": [
+        [
+         "narrow",
+         "wide"
+        ],
+        [
+         "old",
+         "new"
+        ],
+        [
+         "small",
+         "big"
+        ]
+       ],
+       "en": true,
+       "hint": "العكس",
+       "why": "أضداد"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اتمشوا مع الطفل في حتة قديمة وحتة جديدة، ويقارن بـ ٣ جمل إنجليزي."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "What does Old Cairo have?",
+       "visual": {
+        "passage": "Old Cairo has narrow streets and old mosques and churches. New cities have wide roads, malls, and theme parks. In the old city, people buy bread from a small bakery. Both places are part of our history and our future.",
+        "title": "Old and New Cairo",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "wide roads",
+        "narrow streets",
+        "theme parks"
+       ],
+       "answer": "narrow streets",
+       "hint": "أول جملة",
+       "hints": {
+        "wide roads": "دي في المدن الجديدة.",
+        "theme parks": "دي في المدن الجديدة."
+       },
+       "why": "Old Cairo has narrow streets.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Old Cairo has narrow streets and old mosques and churches."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "What does the text say about both places?",
+       "visual": {
+        "passage": "Old Cairo has narrow streets and old mosques and churches. New cities have wide roads, malls, and theme parks. In the old city, people buy bread from a small bakery. Both places are part of our history and our future.",
+        "title": "Old and New Cairo",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "they are the same",
+        "they are boring",
+        "part of our history and future"
+       ],
+       "answer": "part of our history and future",
+       "hint": "آخر جملة",
+       "hints": {
+        "they are the same": "النص قال إنهم مختلفين.",
+        "they are boring": "مش في النص."
+       },
+       "why": "Both places are part of our history and future.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Old Cairo has narrow streets and old mosques and churches."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "narrow ↔ wide",
+      "القديم والجديد جزء مننا"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/first-person",
+   "key": "u4:l5",
+   "title": "Writing a first-person story",
+   "goal": "أكتب حكاية بضمير المتكلم (I) عن مكان في حيي",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "أنا رحت السوق امبارح…",
+     "visual": {
+      "emoji": "✍️🛒"
+     },
+     "ask": "احكيها بـ I"
+    },
+    {
+     "type": "explain",
+     "title": "First person",
+     "text": "ضمير المتكلم: I، my، me. نحكي اللي حصل لنا بالترتيب وبالتفاصيل.",
+     "en": "I went to the market with my mom.",
+     "visual": {
+      "emoji": "🙋"
+     }
+    },
+    {
+     "type": "example",
+     "title": "حكاية",
+     "steps": [
+      {
+       "text": "البداية",
+       "en": "On Saturday morning, I went to the main square.",
+       "visual": {
+        "emoji": "🌅"
+       }
+      },
+      {
+       "text": "التفاصيل",
+       "en": "I saw a man selling balloons.",
+       "visual": {
+        "emoji": "🎈"
+       }
+      },
+      {
+       "text": "النهاية",
+       "en": "I felt happy because my town is lively.",
+       "visual": {
+        "emoji": "😊"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب الحكاية",
+       "items": [
+        "On Saturday, I went to the square.",
+        "I saw a man selling balloons.",
+        "I bought a red one.",
+        "I felt happy."
+       ],
+       "en": true,
+       "hint": "نبدأ بإمتى",
+       "why": "بالترتيب"
+      },
+      {
+       "kind": "sort",
+       "ask": "بضمير المتكلم ولا لأ؟",
+       "groups": [
+        {
+         "name": "first person",
+         "items": [
+          "I visited the bakery.",
+          "My friend came with me."
+         ]
+        },
+        {
+         "name": "not first person",
+         "items": [
+          "He visited the bakery.",
+          "They went home."
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "دوّر على I",
+       "why": "I, my, me"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "الطفل يكتب حكاية ٥ جمل بـ I عن مكان بيحبه في الحي."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Which sentence is first person?",
+       "en": true,
+       "choices": [
+        "I walked to the club.",
+        "She walked to the club.",
+        "They walked to the club."
+       ],
+       "answer": "I walked to the club.",
+       "hint": "دوّر على I",
+       "hints": {
+        "She walked to the club.": "She مش أنا.",
+        "They walked to the club.": "They مش أنا."
+       },
+       "why": "I = أنا.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "On Saturday morning, I went to the main square."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "«On Saturday» tells us…",
+       "en": true,
+       "choices": [
+        "where",
+        "when",
+        "who"
+       ],
+       "answer": "when",
+       "hint": "يوم",
+       "hints": {
+        "where": "where = مكان.",
+        "who": "who = شخص."
+       },
+       "why": "On Saturday = إمتى.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "On Saturday morning, I went to the main square."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "I, my, me",
+      "إمتى ← اللي حصل ← إحساسي"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/comparatives",
+   "key": "u5:l1",
+   "title": "bigger, taller",
+   "goal": "أقارن بالصفات: er/ier وmore … than",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "القطن ولا البلاستيك… مين أحسن للأرض؟",
+     "visual": {
+      "emoji": "🧶🛍️"
+     },
+     "ask": "نقارن إزاي؟"
+    },
+    {
+     "type": "explain",
+     "title": "Comparatives",
+     "text": "صفة قصيرة: + er + than. آخرها y: ier.",
+     "en": "bigger than, heavier than",
+     "visual": {
+      "emoji": "⚖️"
+     }
+    },
+    {
+     "type": "explain",
+     "text": "صفة طويلة: more + صفة + than.",
+     "en": "more useful than, more expensive than",
+     "visual": {
+      "emoji": "📏"
+     }
+    },
+    {
+     "type": "example",
+     "title": "نقارن",
+     "steps": [
+      {
+       "text": "أنضف",
+       "en": "Wind energy is cleaner than fossil fuel.",
+       "visual": {
+        "emoji": "🌬️"
+       }
+      },
+      {
+       "text": "أفيد",
+       "en": "Sunlight is more useful than we think.",
+       "visual": {
+        "emoji": "☀️"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "sort",
+       "ask": "er ولا more؟",
+       "groups": [
+        {
+         "name": "-er",
+         "items": [
+          "clean",
+          "cheap",
+          "thick"
+         ]
+        },
+        {
+         "name": "more",
+         "items": [
+          "useful",
+          "expensive",
+          "beautiful"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "الصفة طويلة؟",
+       "why": "الصفة الطويلة مع more"
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب الجملة",
+       "items": [
+        "Cotton",
+        "is",
+        "softer",
+        "than",
+        "plastic."
+       ],
+       "en": true,
+       "hint": "بتبدأ بـ Cotton",
+       "why": "Cotton is softer than plastic."
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "قارنوا مع الطفل بين حاجتين في البيت بـ ٣ جمل: … is heavier than …"
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "A truck is ... than a car.",
+       "en": true,
+       "choices": [
+        "heavyer",
+        "more heavy",
+        "heavier"
+       ],
+       "answer": "heavier",
+       "hint": "آخرها y",
+       "hints": {
+        "heavyer": "y بتبقى i.",
+        "more heavy": "heavy قصيرة: ier."
+       },
+       "why": "heavier.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Wind energy is cleaner than fossil fuel."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "Solar energy is ... than oil.",
+       "en": true,
+       "choices": [
+        "cleaner",
+        "more clean",
+        "cleanest"
+       ],
+       "answer": "cleaner",
+       "hint": "صفة قصيرة",
+       "hints": {
+        "more clean": "clean قصيرة: er.",
+        "cleanest": "ده لأكتر من اتنين."
+       },
+       "why": "cleaner.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Wind energy is cleaner than fossil fuel."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "قصيرة: er/ier than",
+      "طويلة: more … than"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/prefixes",
+   "key": "u5:l2",
+   "title": "Prefixes",
+   "goal": "أفهم إن البادئة بتغيّر معنى الكلمة: un-, re-, dis-",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "happy و unhappy",
+     "visual": {
+      "emoji": "😊😞"
+     },
+     "ask": "un عملت إيه؟"
+    },
+    {
+     "type": "explain",
+     "title": "Prefixes",
+     "text": "un- و dis- بيعكسوا المعنى: unhappy, dislike. re- يعني تاني: reuse.",
+     "en": "unhappy, reuse, dislike",
+     "visual": {
+      "letter": "un- re- dis-"
+     }
+    },
+    {
+     "type": "example",
+     "title": "كلمات",
+     "steps": [
+      {
+       "text": "مش سعيد",
+       "en": "happy → unhappy",
+       "visual": {
+        "emoji": "😞"
+       }
+      },
+      {
+       "text": "نستخدم تاني",
+       "en": "use → reuse",
+       "visual": {
+        "emoji": "♻️"
+       }
+      },
+      {
+       "text": "مش بحب",
+       "en": "like → dislike",
+       "visual": {
+        "emoji": "👎"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بمعناها",
+       "pairs": [
+        [
+         "reuse",
+         "نستخدم تاني"
+        ],
+        [
+         "unsafe",
+         "مش آمن"
+        ],
+        [
+         "dislike",
+         "مش بحب"
+        ],
+        [
+         "recycle",
+         "نعيد تصنيع"
+        ]
+       ],
+       "en": true,
+       "hint": "re = تاني، un/dis = عكس",
+       "why": "البادئة غيّرت المعنى"
+      },
+      {
+       "kind": "sort",
+       "ask": "un, re, ولا dis؟",
+       "groups": [
+        {
+         "name": "un-",
+         "items": [
+          "unhappy",
+          "unkind"
+         ]
+        },
+        {
+         "name": "re-",
+         "items": [
+          "refill",
+          "rebuild"
+         ]
+        },
+        {
+         "name": "dis-",
+         "items": [
+          "disagree",
+          "disappear"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "أول حروف",
+       "why": "كل كلمة ببادئتها"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "دوّروا في البيت على حاجات ممكن reuse، والطفل يقول جملة لكل واحدة."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "«refill» means…",
+       "en": true,
+       "choices": [
+        "not fill",
+        "fill again",
+        "fill a lot"
+       ],
+       "answer": "fill again",
+       "hint": "re",
+       "hints": {
+        "not fill": "re مش للنفي.",
+        "fill a lot": "re يعني تاني."
+       },
+       "why": "re = again.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "happy → unhappy"
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "The opposite of «agree»?",
+       "en": true,
+       "choices": [
+        "reagree",
+        "unagree",
+        "disagree"
+       ],
+       "answer": "disagree",
+       "hint": "dis",
+       "hints": {
+        "reagree": "re للتكرار.",
+        "unagree": "الكلمة الصح disagree."
+       },
+       "why": "dis + agree.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "happy → unhappy"
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "un-, dis-: عكس المعنى",
+      "re-: تاني"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/resources",
+   "key": "u5:l3",
+   "title": "Egypt's natural resources",
+   "goal": "أقرأ نص معلوماتي عن موارد مصر الطبيعية واستخداماتها",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "مصر عندها كنوز طبيعية",
+     "visual": {
+      "emoji": "☀️🌾🧶"
+     },
+     "ask": "تعرف منها إيه؟"
+    },
+    {
+     "type": "explain",
+     "title": "Resources",
+     "text": "كلمات",
+     "en": "sunlight, soil, cotton, minerals, fossil fuel, wind, fertile",
+     "visual": {
+      "emoji": "⛏️"
+     }
+    },
+    {
+     "type": "read",
+     "title": "Egypt's Natural Resources",
+     "items": [
+      {
+       "text": "مصر فيها شمس تقريبًا كل يوم في السنة",
+       "en": "Egypt has sunlight almost every day of the year.",
+       "visual": {
+        "emoji": "☀️"
+       }
+      },
+      {
+       "text": "النيل بيدّي المية للمزارع والأرض خصبة",
+       "en": "The Nile gives water to farms, and the soil is fertile.",
+       "visual": {
+        "emoji": "🌾"
+       }
+      },
+      {
+       "text": "القطن المصري مشهور في العالم كله",
+       "en": "Egyptian cotton is famous around the world.",
+       "visual": {
+        "emoji": "🧶"
+       }
+      },
+      {
+       "text": "الرياح والشمس ممكن يعملوا كهربا نضيفة",
+       "en": "Wind and sun can make clean electricity.",
+       "visual": {
+        "emoji": "🌬️⚡"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل المورد باستخدامه",
+       "pairs": [
+        [
+         "sunlight",
+         "clean electricity"
+        ],
+        [
+         "cotton",
+         "clothes"
+        ],
+        [
+         "fertile soil",
+         "farms"
+        ]
+       ],
+       "en": true,
+       "hint": "ارجع للنص",
+       "why": "كل مورد واستخدامه"
+      },
+      {
+       "kind": "pick",
+       "ask": "المس الموارد المتجددة (مابتخلصش)",
+       "items": [
+        "sunlight",
+        "wind",
+        "fossil fuel",
+        "water",
+        "minerals"
+       ],
+       "answers": [
+        "sunlight",
+        "wind",
+        "water"
+       ],
+       "en": true,
+       "hint": "هتخلص ولا لأ؟",
+       "hints": {
+        "fossil fuel": "الوقود الأحفوري بيخلص.",
+        "minerals": "المعادن بتخلص."
+       },
+       "why": "دي بتتجدد"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اعملوا مع الطفل بوستر عن مورد طبيعي في مصر وإزاي نحافظ عليه."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "What is famous around the world?",
+       "visual": {
+        "passage": "Egypt has sunlight almost every day of the year. The Nile gives water to farms, and the soil is fertile. Egyptian cotton is famous around the world. Wind and sun can make clean electricity.",
+        "title": "Egypt's Natural Resources",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "Egyptian cotton",
+        "Egyptian wind",
+        "Egyptian sand"
+       ],
+       "answer": "Egyptian cotton",
+       "hint": "الجملة التالتة",
+       "hints": {
+        "Egyptian wind": "اقرأ الجملة التالتة.",
+        "Egyptian sand": "مش في النص."
+       },
+       "why": "Egyptian cotton is famous.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Egypt has sunlight almost every day of the year."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "What can make clean electricity?",
+       "visual": {
+        "passage": "Egypt has sunlight almost every day of the year. The Nile gives water to farms, and the soil is fertile. Egyptian cotton is famous around the world. Wind and sun can make clean electricity.",
+        "title": "Egypt's Natural Resources",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "oil",
+        "wind and sun",
+        "cotton"
+       ],
+       "answer": "wind and sun",
+       "hint": "آخر جملة",
+       "hints": {
+        "oil": "مش نضيفة.",
+        "cotton": "القطن للهدوم."
+       },
+       "why": "Wind and sun can make clean electricity.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "Egypt has sunlight almost every day of the year."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "sunlight, soil, cotton, wind",
+      "متجددة ومش متجددة"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/object-story",
+   "key": "u5:l4",
+   "title": "An object tells its story",
+   "goal": "أكتب حكاية على لسان حاجة (زجاجة، شجرة) بضمير المتكلم",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "لو زجاجة مية تتكلم…",
+     "visual": {
+      "emoji": "🍶💬"
+     },
+     "ask": "هتحكي إيه؟"
+    },
+    {
+     "type": "explain",
+     "title": "Object perspective",
+     "text": "نتخيّل إننا الحاجة ونحكي بـ I: منين جيت؟ حصل لي إيه؟ عايز إيه من الناس؟",
+     "en": "I am a plastic bottle.",
+     "visual": {
+      "emoji": "🎭"
+     }
+    },
+    {
+     "type": "example",
+     "title": "زجاجة",
+     "steps": [
+      {
+       "text": "مين أنا",
+       "en": "I am a plastic bottle.",
+       "visual": {
+        "emoji": "🍶"
+       }
+      },
+      {
+       "text": "حصل إيه",
+       "en": "Someone threw me in the river.",
+       "visual": {
+        "emoji": "🌊"
+       }
+      },
+      {
+       "text": "عايزة إيه",
+       "en": "Please recycle me!",
+       "visual": {
+        "emoji": "♻️"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب حكاية الشجرة",
+       "items": [
+        "I am an old tree.",
+        "I give shade and fruit.",
+        "People cut my branches.",
+        "Please plant more trees!"
+       ],
+       "en": true,
+       "hint": "نبدأ بمين",
+       "why": "مين، بيدّي إيه، المشكلة، الطلب"
+      },
+      {
+       "kind": "pick",
+       "ask": "المس الجمل اللي على لسان الحاجة",
+       "items": [
+        "I am a cotton shirt.",
+        "The shirt is white.",
+        "I came from a farm.",
+        "It is soft.",
+        "Please wear me!"
+       ],
+       "answers": [
+        "I am a cotton shirt.",
+        "I came from a farm.",
+        "Please wear me!"
+       ],
+       "en": true,
+       "hint": "دوّر على I أو me",
+       "hints": {
+        "The shirt is white.": "ده كلام عنها مش منها.",
+        "It is soft.": "It = بنتكلم عنها."
+       },
+       "why": "الحاجة بتتكلم بـ I"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "الطفل يختار حاجة في البيت ويكتب حكايتها ٤ جمل بـ I ويرسمها."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Who is «I» in «I am a river»?",
+       "en": true,
+       "choices": [
+        "the writer",
+        "a fish",
+        "the river"
+       ],
+       "answer": "the river",
+       "hint": "مين بيتكلم؟",
+       "hints": {
+        "the writer": "في الحكاية دي الحاجة هي اللي بتتكلم.",
+        "a fish": "مش في الجملة."
+       },
+       "why": "النهر بيتكلم.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I am a plastic bottle."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "A good ending for the bottle story?",
+       "en": true,
+       "choices": [
+        "Please recycle me!",
+        "I am plastic.",
+        "The bottle is blue."
+       ],
+       "answer": "Please recycle me!",
+       "hint": "الطلب",
+       "hints": {
+        "I am plastic.": "دي بداية.",
+        "The bottle is blue.": "مش على لسانها."
+       },
+       "why": "طلب في الآخر.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "I am a plastic bottle."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "نتكلم على لسان الحاجة بـ I",
+      "مين أنا ← حصل لي إيه ← طلبي"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/talking-earth",
+   "key": "u6:l1",
+   "title": "Reading: The Talking Earth",
+   "goal": "أقرأ نص من تأليفنا عن الأراضي الرطبة وأفهم فكرة «الأرض بتكلمنا»",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "لو الأرض بتتكلم… بتقول إيه؟",
+     "visual": {
+      "emoji": "🌍💬"
+     },
+     "ask": "فكّر"
+    },
+    {
+     "type": "explain",
+     "title": "About the unit",
+     "text": "الوحدة مبنية على رواية؛ هنا بنقرا نص قصير من تأليفنا عن نفس الفكرة: الطبيعة بتكلمنا لما نسمعها.",
+     "en": "Nature speaks when we listen.",
+     "visual": {
+      "emoji": "📖"
+     }
+    },
+    {
+     "type": "read",
+     "title": "A Day in the Wetland",
+     "items": [
+      {
+       "text": "الأرض الرطبة أرض عليها مية قليلة زي المستنقع",
+       "en": "A wetland is land covered with shallow water, like a swamp.",
+       "visual": {
+        "emoji": "🌾💧"
+       }
+      },
+      {
+       "text": "الطيور والضفادع والسلاحف عايشين فيها مع بعض",
+       "en": "Birds, frogs, and turtles live there together.",
+       "visual": {
+        "emoji": "🐦🐸🐢"
+       }
+      },
+      {
+       "text": "العلماء بيدرسوها لأنها بتنضّف المية",
+       "en": "Scientists study wetlands because they clean the water.",
+       "visual": {
+        "emoji": "🔬"
+       }
+      },
+      {
+       "text": "لما نحمي الأراضي الرطبة بنحمي الأرض",
+       "en": "When we protect wetlands, we protect the Earth.",
+       "visual": {
+        "emoji": "🌍"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب النص",
+       "items": [
+        "A wetland is land with shallow water.",
+        "Birds, frogs, and turtles live there.",
+        "Scientists study wetlands.",
+        "We protect the Earth."
+       ],
+       "en": true,
+       "hint": "بدأ بتعريف",
+       "why": "ده ترتيب النص"
+      },
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بمعناها",
+       "pairs": [
+        [
+         "wetland",
+         "أرض رطبة"
+        ],
+        [
+         "swamp",
+         "مستنقع"
+        ],
+        [
+         "scientist",
+         "عالِم"
+        ],
+        [
+         "protect",
+         "يحمي"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر النص",
+       "why": "كلمات النص"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اخرجوا مع الطفل لمكان أخضر، ويسكت دقيقة ويقول ٣ أصوات سمعها بالإنجليزي."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Why do scientists study wetlands?",
+       "visual": {
+        "passage": "A wetland is land covered with shallow water, like a swamp. Birds, frogs, and turtles live there together. Scientists study wetlands because they clean the water. When we protect wetlands, we protect the Earth.",
+        "title": "A Day in the Wetland",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "they are dry",
+        "they clean the water",
+        "they are cities"
+       ],
+       "answer": "they clean the water",
+       "hint": "الجملة التالتة",
+       "hints": {
+        "they are dry": "النص قال عليها مية.",
+        "they are cities": "مش مدن."
+       },
+       "why": "Because they clean the water.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "A wetland is land covered with shallow water, like a swamp."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "What lives in the wetland?",
+       "visual": {
+        "passage": "A wetland is land covered with shallow water, like a swamp. Birds, frogs, and turtles live there together. Scientists study wetlands because they clean the water. When we protect wetlands, we protect the Earth.",
+        "title": "A Day in the Wetland",
+        "ltr": true
+       },
+       "en": true,
+       "choices": [
+        "lions",
+        "camels",
+        "birds, frogs, and turtles"
+       ],
+       "answer": "birds, frogs, and turtles",
+       "hint": "الجملة التانية",
+       "hints": {
+        "lions": "مش في النص.",
+        "camels": "الجمل في الصحرا."
+       },
+       "why": "Birds, frogs, and turtles.",
+       "help": {
+        "text": "ارجع للبداية:",
+        "en": "A wetland is land covered with shallow water, like a swamp."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "wetland, swamp, scientist",
+      "نحمي الأرض لما نسمعها"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/nature-story",
+   "key": "u6:l2",
+   "title": "Story elements: nature and feelings",
+   "goal": "أعرف عناصر القصة وأفهم مشاعر الشخصية تجاه الطبيعة",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "بنت قعدت لوحدها في الطبيعة يوم كامل",
+     "visual": {
+      "emoji": "👧🌿"
+     },
+     "ask": "هتحس بإيه؟"
+    },
+    {
+     "type": "explain",
+     "title": "Story elements",
+     "text": "عناصر القصة: setting (فين وإمتى)، character (مين)، problem، feelings، lesson.",
+     "en": "setting, character, problem, feelings, lesson",
+     "visual": {
+      "emoji": "🧩"
+     }
+    },
+    {
+     "type": "example",
+     "title": "قصة من تأليفنا",
+     "steps": [
+      {
+       "text": "المكان",
+       "en": "Setting: a quiet lake in the morning.",
+       "visual": {
+        "emoji": "🏞️"
+       }
+      },
+      {
+       "text": "الإحساس",
+       "en": "At first Salma felt scared, then calm.",
+       "visual": {
+        "emoji": "😨➡️😌"
+       }
+      },
+      {
+       "text": "الدرس",
+       "en": "Lesson: nature can be a friend.",
+       "visual": {
+        "emoji": "💚"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل العنصر بمعناه",
+       "pairs": [
+        [
+         "setting",
+         "فين وإمتى"
+        ],
+        [
+         "character",
+         "مين"
+        ],
+        [
+         "feelings",
+         "حاسس بإيه"
+        ],
+        [
+         "lesson",
+         "الدرس"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر البطاقة",
+       "why": "عناصر القصة"
+      },
+      {
+       "kind": "order",
+       "ask": "رتّب مشاعر سلمى",
+       "items": [
+        "scared",
+        "curious",
+        "calm",
+        "happy"
+       ],
+       "en": true,
+       "hint": "في الأول كانت خايفة",
+       "why": "المشاعر بتتغير"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "بعد قصة قبل النوم، الطفل يقول: setting، character، وإحساس الشخصية في الأول والآخر."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "«A quiet lake in the morning» is the…",
+       "en": true,
+       "choices": [
+        "setting",
+        "lesson",
+        "character"
+       ],
+       "answer": "setting",
+       "hint": "فين وإمتى؟",
+       "hints": {
+        "lesson": "ده مش درس.",
+        "character": "ده مش شخص."
+       },
+       "why": "فين وإمتى.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Setting: a quiet lake in the morning."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "Salma felt scared, then calm. Her feelings…",
+       "en": true,
+       "choices": [
+        "stayed the same",
+        "changed",
+        "were angry"
+       ],
+       "answer": "changed",
+       "hint": "زي ما هي ولا اتغيرت؟",
+       "hints": {
+        "stayed the same": "اتغيرت من خوف لهدوء.",
+        "were angry": "مش في القصة."
+       },
+       "why": "من خوف لهدوء.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Setting: a quiet lake in the morning."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "setting, character, problem, feelings, lesson",
+      "المشاعر بتتغير"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/swamp-words",
+   "key": "u6:l3",
+   "title": "Words from the wetland",
+   "goal": "أعرف كلمات الوحدة: canoe, swamp, alligator, owl, shell, splash",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "رحلة بالقارب في مستنقع!",
+     "visual": {
+      "emoji": "🛶🐊"
+     },
+     "ask": "هتشوف إيه؟"
+    },
+    {
+     "type": "explain",
+     "title": "New words",
+     "text": "كلمات",
+     "en": "canoe, swamp, alligator, owl, shell, splash, National Park",
+     "visual": {
+      "emoji": "🛶🐊🦉"
+     }
+    },
+    {
+     "type": "example",
+     "title": "جمل",
+     "steps": [
+      {
+       "text": "قارب",
+       "en": "We rowed a canoe on the lake.",
+       "visual": {
+        "emoji": "🛶"
+       }
+      },
+      {
+       "text": "بومة",
+       "en": "An owl hooted at night.",
+       "visual": {
+        "emoji": "🦉"
+       }
+      },
+      {
+       "text": "طرطشة",
+       "en": "A fish jumped with a splash.",
+       "visual": {
+        "emoji": "💦"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "match",
+       "ask": "وصّل الكلمة بالصورة",
+       "pairs": [
+        [
+         "canoe",
+         "🛶"
+        ],
+        [
+         "alligator",
+         "🐊"
+        ],
+        [
+         "owl",
+         "🦉"
+        ],
+        [
+         "shell",
+         "🐚"
+        ]
+       ],
+       "en": true,
+       "hint": "افتكر البطاقة",
+       "why": "كل كلمة بصورتها"
+      },
+      {
+       "kind": "sort",
+       "ask": "حيوان ولا مكان؟",
+       "groups": [
+        {
+         "name": "animal",
+         "items": [
+          "alligator",
+          "owl",
+          "turtle"
+         ]
+        },
+        {
+         "name": "place",
+         "items": [
+          "swamp",
+          "National Park",
+          "lake"
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "بيتحرك؟",
+       "why": "كائن حي ولا مكان؟"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "اعملوا لعبة «أنا شايف»: الطفل يوصف صورة طبيعة بكلمات الوحدة."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "A small boat you paddle is a…",
+       "en": true,
+       "choices": [
+        "shell",
+        "swamp",
+        "canoe"
+       ],
+       "answer": "canoe",
+       "hint": "قارب صغير",
+       "hints": {
+        "shell": "shell قوقعة.",
+        "swamp": "swamp مكان."
+       },
+       "why": "canoe.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "We rowed a canoe on the lake."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "A bird that is awake at night is an…",
+       "en": true,
+       "choices": [
+        "owl",
+        "alligator",
+        "eagle"
+       ],
+       "answer": "owl",
+       "hint": "بالليل",
+       "hints": {
+        "alligator": "alligator زاحف.",
+        "eagle": "النسر بيصحى بالنهار."
+       },
+       "why": "owl.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "We rowed a canoe on the lake."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "canoe, swamp, alligator, owl, shell, splash"
+     ]
+    }
+   ]
+  },
+  {
+   "uid": "p5-t1-english/reflection",
+   "key": "u6:l4",
+   "title": "Writing a reflection",
+   "goal": "أكتب تأمل عن تجربة في الطبيعة: كان (الماضي) وبقيت (الحاضر)",
+   "version": 1,
+   "review": "draft",
+   "blocks": [
+    {
+     "type": "hook",
+     "text": "زمان كنت بخاف من الضلمة… دلوقتي؟",
+     "visual": {
+      "emoji": "🌙"
+     },
+     "ask": "إيه اللي اتغيّر؟"
+    },
+    {
+     "type": "explain",
+     "title": "A reflection",
+     "text": "التأمل: بنقارن قبل وبعد: Before, I was… Now, I am… لأن…",
+     "en": "Before, I was scared of the dark. Now, I am brave.",
+     "visual": {
+      "emoji": "🪞"
+     }
+    },
+    {
+     "type": "example",
+     "title": "تأمل",
+     "steps": [
+      {
+       "text": "قبل",
+       "en": "Before, I did not like insects.",
+       "visual": {
+        "emoji": "😨"
+       }
+      },
+      {
+       "text": "حصل إيه",
+       "en": "Then, I watched bees in the garden.",
+       "visual": {
+        "emoji": "🔍"
+       }
+      },
+      {
+       "text": "دلوقتي",
+       "en": "Now, I think bees are amazing.",
+       "visual": {
+        "emoji": "🐝😊"
+       }
+      }
+     ]
+    },
+    {
+     "type": "try",
+     "tasks": [
+      {
+       "kind": "order",
+       "ask": "رتّب التأمل",
+       "items": [
+        "Before, I did not like insects.",
+        "Then, I watched bees.",
+        "Now, I think bees are amazing."
+       ],
+       "en": true,
+       "hint": "Before الأول",
+       "why": "قبل، حصل إيه، دلوقتي"
+      },
+      {
+       "kind": "sort",
+       "ask": "ماضي ولا حاضر؟",
+       "groups": [
+        {
+         "name": "past",
+         "items": [
+          "I was scared.",
+          "I did not like it."
+         ]
+        },
+        {
+         "name": "present",
+         "items": [
+          "I am brave.",
+          "I love nature."
+         ]
+        }
+       ],
+       "en": true,
+       "hint": "الفعل ماضي؟",
+       "why": "was/did ماضي، am/love حاضر"
+      }
+     ]
+    },
+    {
+     "type": "activity",
+     "text": "الطفل يكتب تأمل ٣ جمل عن حاجة غيّر رأيه فيها (أكلة، حيوان، مكان)."
+    },
+    {
+     "type": "check",
+     "tasks": [
+      {
+       "kind": "choice",
+       "ask": "Which sentence is about now?",
+       "en": true,
+       "choices": [
+        "Before, I hated rain.",
+        "Now, I enjoy the rain.",
+        "Then, I went out."
+       ],
+       "answer": "Now, I enjoy the rain.",
+       "hint": "دوّر على Now",
+       "hints": {
+        "Before, I hated rain.": "ده الماضي.",
+        "Then, I went out.": "ده اللي حصل."
+       },
+       "why": "Now = دلوقتي.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Before, I did not like insects."
+       }
+      },
+      {
+       "kind": "choice",
+       "ask": "«Before, I ... afraid.»",
+       "en": true,
+       "choices": [
+        "am",
+        "is",
+        "was"
+       ],
+       "answer": "was",
+       "hint": "ماضي",
+       "hints": {
+        "am": "Before = ماضي.",
+        "is": "مع I مش is."
+       },
+       "why": "Before + was.",
+       "help": {
+        "text": "زي المثال ده:",
+        "en": "Before, I did not like insects."
+       }
+      }
+     ]
+    },
+    {
+     "type": "summary",
+     "points": [
+      "Before (الماضي) ← Then ← Now (الحاضر)"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -250,7 +250,11 @@ void main() {
     // العمليات بتتقال بالكلام: «24 × 6 = 144» ← «24 في 6 يساوي 144». العرض والمفتاح زي ما هم.
     const ops = {'×': 'في', '÷': 'على', '=': 'يساوي', '+': 'زائد', '−': 'ناقص', '<': 'أصغر من', '>': 'أكبر من'};
     final op = RegExp(r'(?<=^|\S )([×÷=+−<>])(?= \S|$)');
-    String math(String t) => t.replaceAllMapped(op, (m) => ops[m[1]]!);
+    // الكسر العشري: «3٫45» ← «3 فاصلة 45»، و«0٫05» ← «0 فاصلة 0 5» عشان الصفر اللي في الأول يتسمع.
+    final decimal = RegExp(r'(\d+)٫(\d+)');
+    String decimals(String t) =>
+        t.replaceAllMapped(decimal, (m) => '${m[1]} فاصلة ${m[2]!.startsWith('0') ? m[2]!.split('').join(' ') : m[2]}');
+    String math(String t) => decimals(t.replaceAllMapped(op, (m) => ops[m[1]]!));
     String spoken(String t) {
       final out = <String>[];
       var spelling = false;
