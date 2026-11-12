@@ -50,6 +50,10 @@ void main() {
     expect(SpeechService.phraseKey('أ'), isNot(SpeechService.phraseKey('ا')));
   });
 
+  test('the minus sign stays in the spoken text, emoji go', () {
+    expect(SpeechService.clean('🍎 1000 − 375 = 625 ✅'), '1000 − 375 = 625');
+  });
+
   test('fixed lines are recorded', () {
     for (final t in [sayRetry, sayNotThis, sayGoalDone, sayTimeUp]) {
       recorded(t);

@@ -1,0 +1,2913 @@
+{
+ "grade": "p4",
+ "term": 1,
+ "year": "2026/2027",
+ "checked": "2026-11-11",
+ "statuses": {
+  "not_in_app": "في الكتاب ومش في التطبيق",
+  "indexed": "في التطبيق كجولة أسئلة بس (موجود في الفهرس)",
+  "partly_explained": "بعض دروس التطبيق اللي بتغطيه ليها شرح",
+  "explained": "ليه شرح، لسه مسودة",
+  "reviewed": "ليه شرح والمدرّس راجعه — جاهز للنشر",
+  "exam_in_app": "تقييم الوحدة: امتحان الوحدة في التطبيق بيغطيه"
+ },
+ "books": [
+  {
+   "book": "p4-t1-arabic",
+   "url": "https://elearnningcontent.blob.core.windows.net/elearnningcontent/2026_2027/Primary/Primary4/Term1/StudentBook/Arabic_language_prim4_t1.pdf",
+   "pages_from": "أرقام صفحات PDF، ابتداءً من الغلاف = 1؛ العربي المطبوع = PDF − 1، والحساب المطبوع = PDF − 8، والإنجليزي المطبوع = PDF",
+   "sha256": "3de9364ebb8d97b0c9e5b6edda398d02bd1dc61a6986de65d982efe3aecbf91d",
+   "units": [
+    {
+     "title": "أنا وحلمي",
+     "lessons": [
+      {
+       "title": "استماع: كل منا له حلم",
+       "kind": "listening",
+       "pages": "8",
+       "skills": [
+        "فهم المسموع",
+        "ترتيب الأحداث",
+        "الاستنتاج"
+       ],
+       "objectives": [
+        "فهم المسموع",
+        "ترتيب الأحداث",
+        "الاستنتاج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l4"
+       ],
+       "status": "explained",
+       "note": "قصة أصلية، ليست قصة الكتاب.",
+       "pdf_pages": "8",
+       "in_current_book": true
+      },
+      {
+       "title": "قراءة: صندوق الأحلام",
+       "kind": "reading",
+       "pages": "10",
+       "skills": [
+        "أقرأ نصًا وأستخرج المعلومات والفكرة الرئيسية"
+       ],
+       "objectives": [
+        "أقرأ نصًا وأستخرج المعلومات والفكرة الرئيسية"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l5"
+       ],
+       "status": "explained",
+       "note": "نص أصلي من تأليفنا لنفس المهارة، وليس نص الكتاب.",
+       "pdf_pages": "10",
+       "in_current_book": true
+      },
+      {
+       "title": "أنواع الكلمة – علامات الاسم",
+       "kind": "grammar",
+       "pages": "16",
+       "skills": [
+        "القاعدة بأمثلة أصلية"
+       ],
+       "objectives": [
+        "القاعدة بأمثلة أصلية"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l1"
+       ],
+       "status": "explained",
+       "pdf_pages": "16",
+       "in_current_book": true
+      },
+      {
+       "title": "دخول حروف (فـ – بـ – كـ – لـ) على الكلمة المعرفة بـ (ال)",
+       "kind": "spelling",
+       "pages": "20",
+       "skills": [
+        "القاعدة الإملائية بأمثلة أصلية"
+       ],
+       "objectives": [
+        "القاعدة الإملائية بأمثلة أصلية"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l2"
+       ],
+       "status": "explained",
+       "pdf_pages": "20",
+       "in_current_book": true
+      },
+      {
+       "title": "تحدث: شارك حلمك",
+       "kind": "speaking",
+       "pages": "21",
+       "skills": [
+        "تعبير شفهي",
+        "ترتيب الأفكار"
+       ],
+       "objectives": [
+        "تعبير شفهي",
+        "ترتيب الأفكار"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l8"
+       ],
+       "status": "explained",
+       "note": "التحدث الفعلي يراجعه ولي الأمر في النشاط، ولا يقاس بالاختيار.",
+       "pdf_pages": "21",
+       "in_current_book": true
+      },
+      {
+       "title": "كتابة: رسالة شخصية",
+       "kind": "writing",
+       "pages": "22",
+       "skills": [
+        "تخطيط الكتابة",
+        "كتابة فقرة أو رسالة",
+        "مراجعة الكتابة"
+       ],
+       "objectives": [
+        "تخطيط الكتابة",
+        "كتابة فقرة أو رسالة",
+        "مراجعة الكتابة"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l10"
+       ],
+       "status": "explained",
+       "note": "المهارة الكتابية يمارسها الطفل على الورق ويراجعها ولي الأمر، لا تقييم آلي للخط.",
+       "pdf_pages": "22",
+       "in_current_book": true
+      },
+      {
+       "title": "تقييم درس: صندوق الأحلام",
+       "kind": "assessment",
+       "pages": "26",
+       "skills": [
+        "التقييم"
+       ],
+       "objectives": [
+        "التقييم"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "أنشطة الكتاب ليست منسوخة؛ متروك للكتاب والمدرسة.",
+       "pdf_pages": "26",
+       "in_current_book": true
+      },
+      {
+       "title": "قراءة: من أنا؟",
+       "kind": "reading",
+       "pages": "27",
+       "skills": [
+        "أقرأ نصًا وأستخرج المعلومات والفكرة الرئيسية"
+       ],
+       "objectives": [
+        "أقرأ نصًا وأستخرج المعلومات والفكرة الرئيسية"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l6"
+       ],
+       "status": "explained",
+       "note": "نص أصلي من تأليفنا لنفس المهارة، وليس نص الكتاب.",
+       "pdf_pages": "27",
+       "in_current_book": true
+      },
+      {
+       "title": "المفرد والمثنى والجمع",
+       "kind": "grammar",
+       "pages": "33",
+       "skills": [
+        "القاعدة بأمثلة أصلية"
+       ],
+       "objectives": [
+        "القاعدة بأمثلة أصلية"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l3"
+       ],
+       "status": "explained",
+       "pdf_pages": "33",
+       "in_current_book": true
+      },
+      {
+       "title": "تطبيقات على دخول حروف (فـ – بـ – كـ – لـ) على (ال)",
+       "kind": "spelling",
+       "pages": "35",
+       "skills": [
+        "القاعدة الإملائية بأمثلة أصلية"
+       ],
+       "objectives": [
+        "القاعدة الإملائية بأمثلة أصلية"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l2"
+       ],
+       "status": "explained",
+       "note": "يراجع نفس المهارة بأمثلة أصلية.",
+       "pdf_pages": "35",
+       "in_current_book": true
+      },
+      {
+       "title": "تحدث: التحدي الكبير",
+       "kind": "speaking",
+       "pages": "36",
+       "skills": [
+        "تعبير شفهي",
+        "ترتيب الأفكار"
+       ],
+       "objectives": [
+        "تعبير شفهي",
+        "ترتيب الأفكار"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l9"
+       ],
+       "status": "explained",
+       "note": "التحدث الفعلي يراجعه ولي الأمر في النشاط، ولا يقاس بالاختيار.",
+       "pdf_pages": "36",
+       "in_current_book": true
+      },
+      {
+       "title": "كتابة: تطبيقات على كتابة الرسالة الشخصية",
+       "kind": "writing",
+       "pages": "37",
+       "skills": [
+        "تخطيط الكتابة",
+        "كتابة فقرة أو رسالة",
+        "مراجعة الكتابة"
+       ],
+       "objectives": [
+        "تخطيط الكتابة",
+        "كتابة فقرة أو رسالة",
+        "مراجعة الكتابة"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l11"
+       ],
+       "status": "explained",
+       "note": "المهارة الكتابية يمارسها الطفل على الورق ويراجعها ولي الأمر، لا تقييم آلي للخط. يراجع نفس المهارة بأمثلة أصلية.",
+       "pdf_pages": "37",
+       "in_current_book": true
+      },
+      {
+       "title": "تقييم درس: من أنا؟",
+       "kind": "assessment",
+       "pages": "41",
+       "skills": [
+        "التقييم"
+       ],
+       "objectives": [
+        "التقييم"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "أنشطة الكتاب ليست منسوخة؛ متروك للكتاب والمدرسة.",
+       "pdf_pages": "41",
+       "in_current_book": true
+      },
+      {
+       "title": "النص الشعري: اسلمي يا مصر",
+       "kind": "song",
+       "pages": "42",
+       "skills": [
+        "الإلقاء",
+        "فهم معنى النشيد"
+       ],
+       "objectives": [
+        "الإلقاء",
+        "فهم معنى النشيد"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l7"
+       ],
+       "status": "explained",
+       "note": "نشيد أصلي، ليس نص الكتاب الشعري.",
+       "pdf_pages": "42",
+       "in_current_book": true
+      },
+      {
+       "title": "تقييم درس: اسلمي يا مصر",
+       "kind": "assessment",
+       "pages": "48",
+       "skills": [
+        "التقييم"
+       ],
+       "objectives": [
+        "التقييم"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "أنشطة الكتاب ليست منسوخة؛ متروك للكتاب والمدرسة.",
+       "pdf_pages": "48",
+       "in_current_book": true
+      },
+      {
+       "title": "تقييم الوحدة الأولى",
+       "kind": "assessment",
+       "pages": "49",
+       "skills": [
+        "التقييم"
+       ],
+       "objectives": [
+        "التقييم"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "exam_in_app",
+       "note": "امتحان الوحدة في التطبيق بيراجع قواعدها.",
+       "exam": "u1",
+       "pdf_pages": "49",
+       "in_current_book": true
+      },
+      {
+       "title": "قصة للتوعية: تصرفاتنا مع الآخرين",
+       "kind": "awareness_story",
+       "pages": "51",
+       "skills": [
+        "قيم وسلوك"
+       ],
+       "objectives": [
+        "قيم وسلوك"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "قصة الكتاب متروكة للكتاب والأسرة؛ لا ننسخها.",
+       "pdf_pages": "51",
+       "in_current_book": true
+      },
+      {
+       "title": "عودة للقراءة مع الأسرة: جسر الأمل",
+       "kind": "family_reading",
+       "pages": "53",
+       "skills": [
+        "قراءة مشتركة مع الأسرة"
+       ],
+       "objectives": [
+        "قراءة مشتركة مع الأسرة"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "متروك للكتاب والأسرة؛ لا ننسخ نصوص الكتاب.",
+       "pdf_pages": "53",
+       "in_current_book": true
+      }
+     ]
+    },
+    {
+     "title": "أخلاقي.. حياتي",
+     "lessons": [
+      {
+       "title": "استماع: قوة الأخلاق في حياتنا",
+       "kind": "listening",
+       "pages": "56",
+       "skills": [
+        "فهم المسموع",
+        "ترتيب الأحداث",
+        "الاستنتاج"
+       ],
+       "objectives": [
+        "فهم المسموع",
+        "ترتيب الأحداث",
+        "الاستنتاج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l4"
+       ],
+       "status": "explained",
+       "note": "قصة أصلية، ليست قصة الكتاب.",
+       "pdf_pages": "56",
+       "in_current_book": true
+      },
+      {
+       "title": "قراءة: الغالي المجاني",
+       "kind": "reading",
+       "pages": "58",
+       "skills": [
+        "أقرأ نصًا وأستخرج المعلومات والفكرة الرئيسية"
+       ],
+       "objectives": [
+        "أقرأ نصًا وأستخرج المعلومات والفكرة الرئيسية"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l5"
+       ],
+       "status": "explained",
+       "note": "نص أصلي من تأليفنا لنفس المهارة، وليس نص الكتاب.",
+       "pdf_pages": "58",
+       "in_current_book": true
+      },
+      {
+       "title": "الضمائر",
+       "kind": "grammar",
+       "pages": "64",
+       "skills": [
+        "القاعدة بأمثلة أصلية"
+       ],
+       "objectives": [
+        "القاعدة بأمثلة أصلية"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l1"
+       ],
+       "status": "explained",
+       "pdf_pages": "64",
+       "in_current_book": true
+      },
+      {
+       "title": "علامات الترقيم",
+       "kind": "spelling",
+       "pages": "66",
+       "skills": [
+        "القاعدة الإملائية بأمثلة أصلية"
+       ],
+       "objectives": [
+        "القاعدة الإملائية بأمثلة أصلية"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l2"
+       ],
+       "status": "explained",
+       "pdf_pages": "66",
+       "in_current_book": true
+      },
+      {
+       "title": "تحدث: موقف لطيف",
+       "kind": "speaking",
+       "pages": "67",
+       "skills": [
+        "تعبير شفهي",
+        "ترتيب الأفكار"
+       ],
+       "objectives": [
+        "تعبير شفهي",
+        "ترتيب الأفكار"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l8"
+       ],
+       "status": "explained",
+       "note": "التحدث الفعلي يراجعه ولي الأمر في النشاط، ولا يقاس بالاختيار.",
+       "pdf_pages": "67",
+       "in_current_book": true
+      },
+      {
+       "title": "كتابة: مناقشة فكرة",
+       "kind": "writing",
+       "pages": "68",
+       "skills": [
+        "تخطيط الكتابة",
+        "كتابة فقرة أو رسالة",
+        "مراجعة الكتابة"
+       ],
+       "objectives": [
+        "تخطيط الكتابة",
+        "كتابة فقرة أو رسالة",
+        "مراجعة الكتابة"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l10"
+       ],
+       "status": "explained",
+       "note": "المهارة الكتابية يمارسها الطفل على الورق ويراجعها ولي الأمر، لا تقييم آلي للخط.",
+       "pdf_pages": "68",
+       "in_current_book": true
+      },
+      {
+       "title": "تقييم درس: الغالي المجاني",
+       "kind": "assessment",
+       "pages": "72",
+       "skills": [
+        "التقييم"
+       ],
+       "objectives": [
+        "التقييم"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "أنشطة الكتاب ليست منسوخة؛ متروك للكتاب والمدرسة.",
+       "pdf_pages": "72",
+       "in_current_book": true
+      },
+      {
+       "title": "قراءة: فكر قليلًا.. تربح كثيرًا",
+       "kind": "reading",
+       "pages": "73",
+       "skills": [
+        "أقرأ نصًا وأستخرج المعلومات والفكرة الرئيسية"
+       ],
+       "objectives": [
+        "أقرأ نصًا وأستخرج المعلومات والفكرة الرئيسية"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l6"
+       ],
+       "status": "explained",
+       "note": "نص أصلي من تأليفنا لنفس المهارة، وليس نص الكتاب.",
+       "pdf_pages": "73",
+       "in_current_book": true
+      },
+      {
+       "title": "ركنا الجملة الاسمية (المبتدأ والخبر)",
+       "kind": "grammar",
+       "pages": "79",
+       "skills": [
+        "القاعدة بأمثلة أصلية"
+       ],
+       "objectives": [
+        "القاعدة بأمثلة أصلية"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l3"
+       ],
+       "status": "explained",
+       "pdf_pages": "79",
+       "in_current_book": true
+      },
+      {
+       "title": "تطبيقات على علامات الترقيم",
+       "kind": "spelling",
+       "pages": "82",
+       "skills": [
+        "القاعدة الإملائية بأمثلة أصلية"
+       ],
+       "objectives": [
+        "القاعدة الإملائية بأمثلة أصلية"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l2"
+       ],
+       "status": "explained",
+       "note": "يراجع نفس المهارة بأمثلة أصلية.",
+       "pdf_pages": "82",
+       "in_current_book": true
+      },
+      {
+       "title": "تحدث: التحكم في المشاعر",
+       "kind": "speaking",
+       "pages": "83",
+       "skills": [
+        "تعبير شفهي",
+        "ترتيب الأفكار"
+       ],
+       "objectives": [
+        "تعبير شفهي",
+        "ترتيب الأفكار"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l9"
+       ],
+       "status": "explained",
+       "note": "التحدث الفعلي يراجعه ولي الأمر في النشاط، ولا يقاس بالاختيار.",
+       "pdf_pages": "83",
+       "in_current_book": true
+      },
+      {
+       "title": "كتابة: تطبيقات على مناقشة فكرة",
+       "kind": "writing",
+       "pages": "84",
+       "skills": [
+        "تخطيط الكتابة",
+        "كتابة فقرة أو رسالة",
+        "مراجعة الكتابة"
+       ],
+       "objectives": [
+        "تخطيط الكتابة",
+        "كتابة فقرة أو رسالة",
+        "مراجعة الكتابة"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l11"
+       ],
+       "status": "explained",
+       "note": "المهارة الكتابية يمارسها الطفل على الورق ويراجعها ولي الأمر، لا تقييم آلي للخط. يراجع نفس المهارة بأمثلة أصلية.",
+       "pdf_pages": "84",
+       "in_current_book": true
+      },
+      {
+       "title": "قيّم نفسك",
+       "kind": "reflection",
+       "pages": "88",
+       "skills": [
+        "التأمل والتقييم الذاتي"
+       ],
+       "objectives": [
+        "التأمل والتقييم الذاتي"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "أنشطة الكتاب ليست منسوخة؛ متروك للكتاب والمدرسة.",
+       "pdf_pages": "88",
+       "in_current_book": true
+      },
+      {
+       "title": "النص الشعري: طريق السعادة",
+       "kind": "song",
+       "pages": "89",
+       "skills": [
+        "الإلقاء",
+        "فهم معنى النشيد"
+       ],
+       "objectives": [
+        "الإلقاء",
+        "فهم معنى النشيد"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l7"
+       ],
+       "status": "explained",
+       "note": "نشيد أصلي، ليس نص الكتاب الشعري.",
+       "pdf_pages": "89",
+       "in_current_book": true
+      },
+      {
+       "title": "تقييم درس: فكر قليلًا تربح كثيرًا",
+       "kind": "assessment",
+       "pages": "95",
+       "skills": [
+        "التقييم"
+       ],
+       "objectives": [
+        "التقييم"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "أنشطة الكتاب ليست منسوخة؛ متروك للكتاب والمدرسة.",
+       "pdf_pages": "95",
+       "in_current_book": true
+      },
+      {
+       "title": "تقييم الوحدة الثانية",
+       "kind": "assessment",
+       "pages": "96",
+       "skills": [
+        "التقييم"
+       ],
+       "objectives": [
+        "التقييم"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "exam_in_app",
+       "note": "امتحان الوحدة في التطبيق بيراجع قواعدها.",
+       "exam": "u2",
+       "pdf_pages": "96",
+       "in_current_book": true
+      },
+      {
+       "title": "قصة للتوعية: احترام مشاعر الآخرين",
+       "kind": "awareness_story",
+       "pages": "98",
+       "skills": [
+        "قيم وسلوك"
+       ],
+       "objectives": [
+        "قيم وسلوك"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "قصة الكتاب متروكة للكتاب والأسرة؛ لا ننسخها.",
+       "pdf_pages": "98",
+       "in_current_book": true
+      },
+      {
+       "title": "عودة للقراءة مع الأسرة: الكلمة التي غيرت كل شيء",
+       "kind": "family_reading",
+       "pages": "100",
+       "skills": [
+        "قراءة مشتركة مع الأسرة"
+       ],
+       "objectives": [
+        "قراءة مشتركة مع الأسرة"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "متروك للكتاب والأسرة؛ لا ننسخ نصوص الكتاب.",
+       "pdf_pages": "100",
+       "in_current_book": true
+      }
+     ]
+    },
+    {
+     "title": "رسالة من أطفال مصر",
+     "lessons": [
+      {
+       "title": "استماع: رسالة إلى أصدقاء الطبيعة",
+       "kind": "listening",
+       "pages": "103",
+       "skills": [
+        "فهم المسموع",
+        "ترتيب الأحداث",
+        "الاستنتاج"
+       ],
+       "objectives": [
+        "فهم المسموع",
+        "ترتيب الأحداث",
+        "الاستنتاج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l4"
+       ],
+       "status": "explained",
+       "note": "قصة أصلية، ليست قصة الكتاب.",
+       "pdf_pages": "103",
+       "in_current_book": true
+      },
+      {
+       "title": "قراءة: رسالة الشجرة العجوز",
+       "kind": "reading",
+       "pages": "105",
+       "skills": [
+        "أقرأ نصًا وأستخرج المعلومات والفكرة الرئيسية"
+       ],
+       "objectives": [
+        "أقرأ نصًا وأستخرج المعلومات والفكرة الرئيسية"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l5"
+       ],
+       "status": "explained",
+       "note": "نص أصلي من تأليفنا لنفس المهارة، وليس نص الكتاب.",
+       "pdf_pages": "105",
+       "in_current_book": true
+      },
+      {
+       "title": "المبتدأ والخبر المثنى",
+       "kind": "grammar",
+       "pages": "111",
+       "skills": [
+        "القاعدة بأمثلة أصلية"
+       ],
+       "objectives": [
+        "القاعدة بأمثلة أصلية"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l1"
+       ],
+       "status": "explained",
+       "pdf_pages": "111",
+       "in_current_book": true
+      },
+      {
+       "title": "حروف تُنطق ولا تُكتب",
+       "kind": "spelling",
+       "pages": "113",
+       "skills": [
+        "القاعدة الإملائية بأمثلة أصلية"
+       ],
+       "objectives": [
+        "القاعدة الإملائية بأمثلة أصلية"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l2"
+       ],
+       "status": "explained",
+       "pdf_pages": "113",
+       "in_current_book": true
+      },
+      {
+       "title": "تحدث: خطاب إلى الطبيعة",
+       "kind": "speaking",
+       "pages": "114",
+       "skills": [
+        "تعبير شفهي",
+        "ترتيب الأفكار"
+       ],
+       "objectives": [
+        "تعبير شفهي",
+        "ترتيب الأفكار"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l8"
+       ],
+       "status": "explained",
+       "note": "التحدث الفعلي يراجعه ولي الأمر في النشاط، ولا يقاس بالاختيار.",
+       "pdf_pages": "114",
+       "in_current_book": true
+      },
+      {
+       "title": "كتابة: تطبيقات على كتابة الرسالة الشخصية",
+       "kind": "writing",
+       "pages": "115",
+       "skills": [
+        "تخطيط الكتابة",
+        "كتابة فقرة أو رسالة",
+        "مراجعة الكتابة"
+       ],
+       "objectives": [
+        "تخطيط الكتابة",
+        "كتابة فقرة أو رسالة",
+        "مراجعة الكتابة"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l10"
+       ],
+       "status": "explained",
+       "note": "المهارة الكتابية يمارسها الطفل على الورق ويراجعها ولي الأمر، لا تقييم آلي للخط. يراجع نفس المهارة بأمثلة أصلية.",
+       "pdf_pages": "115",
+       "in_current_book": true
+      },
+      {
+       "title": "تقييم درس: رسالة الشجرة العجوز",
+       "kind": "assessment",
+       "pages": "118",
+       "skills": [
+        "التقييم"
+       ],
+       "objectives": [
+        "التقييم"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "أنشطة الكتاب ليست منسوخة؛ متروك للكتاب والمدرسة.",
+       "pdf_pages": "118",
+       "in_current_book": true
+      },
+      {
+       "title": "قراءة: أفعال صغيرة ونتائج كبيرة",
+       "kind": "reading",
+       "pages": "119",
+       "skills": [
+        "أقرأ نصًا وأستخرج المعلومات والفكرة الرئيسية"
+       ],
+       "objectives": [
+        "أقرأ نصًا وأستخرج المعلومات والفكرة الرئيسية"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l6"
+       ],
+       "status": "explained",
+       "note": "نص أصلي من تأليفنا لنفس المهارة، وليس نص الكتاب.",
+       "pdf_pages": "119",
+       "in_current_book": true
+      },
+      {
+       "title": "المبتدأ والخبر جمع المذكر السالم",
+       "kind": "grammar",
+       "pages": "125",
+       "skills": [
+        "القاعدة بأمثلة أصلية"
+       ],
+       "objectives": [
+        "القاعدة بأمثلة أصلية"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l3"
+       ],
+       "status": "explained",
+       "pdf_pages": "125",
+       "in_current_book": true
+      },
+      {
+       "title": "تطبيقات على حروف تُنطق ولا تُكتب",
+       "kind": "spelling",
+       "pages": "127",
+       "skills": [
+        "القاعدة الإملائية بأمثلة أصلية"
+       ],
+       "objectives": [
+        "القاعدة الإملائية بأمثلة أصلية"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l2"
+       ],
+       "status": "explained",
+       "note": "يراجع نفس المهارة بأمثلة أصلية.",
+       "pdf_pages": "127",
+       "in_current_book": true
+      },
+      {
+       "title": "تحدث: أنا حارس البيئة",
+       "kind": "speaking",
+       "pages": "128",
+       "skills": [
+        "تعبير شفهي",
+        "ترتيب الأفكار"
+       ],
+       "objectives": [
+        "تعبير شفهي",
+        "ترتيب الأفكار"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l9"
+       ],
+       "status": "explained",
+       "note": "التحدث الفعلي يراجعه ولي الأمر في النشاط، ولا يقاس بالاختيار.",
+       "pdf_pages": "128",
+       "in_current_book": true
+      },
+      {
+       "title": "كتابة: تطبيقات على مناقشة فكرة",
+       "kind": "writing",
+       "pages": "129",
+       "skills": [
+        "تخطيط الكتابة",
+        "كتابة فقرة أو رسالة",
+        "مراجعة الكتابة"
+       ],
+       "objectives": [
+        "تخطيط الكتابة",
+        "كتابة فقرة أو رسالة",
+        "مراجعة الكتابة"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l11"
+       ],
+       "status": "explained",
+       "note": "المهارة الكتابية يمارسها الطفل على الورق ويراجعها ولي الأمر، لا تقييم آلي للخط. يراجع نفس المهارة بأمثلة أصلية.",
+       "pdf_pages": "129",
+       "in_current_book": true
+      },
+      {
+       "title": "تقييم درس: أفعال صغيرة ونتائج كبيرة",
+       "kind": "assessment",
+       "pages": "133",
+       "skills": [
+        "التقييم"
+       ],
+       "objectives": [
+        "التقييم"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "أنشطة الكتاب ليست منسوخة؛ متروك للكتاب والمدرسة.",
+       "pdf_pages": "133",
+       "in_current_book": true
+      },
+      {
+       "title": "النص الشعري: في البستان",
+       "kind": "song",
+       "pages": "134",
+       "skills": [
+        "الإلقاء",
+        "فهم معنى النشيد"
+       ],
+       "objectives": [
+        "الإلقاء",
+        "فهم معنى النشيد"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l7"
+       ],
+       "status": "explained",
+       "note": "نشيد أصلي، ليس نص الكتاب الشعري.",
+       "pdf_pages": "134",
+       "in_current_book": true
+      },
+      {
+       "title": "تقييم درس: في البستان",
+       "kind": "assessment",
+       "pages": "140",
+       "skills": [
+        "التقييم"
+       ],
+       "objectives": [
+        "التقييم"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "أنشطة الكتاب ليست منسوخة؛ متروك للكتاب والمدرسة.",
+       "pdf_pages": "140",
+       "in_current_book": true
+      },
+      {
+       "title": "تقييم الوحدة الثالثة",
+       "kind": "assessment",
+       "pages": "141",
+       "skills": [
+        "التقييم"
+       ],
+       "objectives": [
+        "التقييم"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "exam_in_app",
+       "note": "امتحان الوحدة في التطبيق بيراجع قواعدها.",
+       "exam": "u3",
+       "pdf_pages": "141",
+       "in_current_book": true
+      },
+      {
+       "title": "قصة للتوعية: أحترم خصوصية زملائي",
+       "kind": "awareness_story",
+       "pages": "143",
+       "skills": [
+        "قيم وسلوك"
+       ],
+       "objectives": [
+        "قيم وسلوك"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "قصة الكتاب متروكة للكتاب والأسرة؛ لا ننسخها.",
+       "pdf_pages": "143",
+       "in_current_book": true
+      },
+      {
+       "title": "عودة للقراءة مع الأسرة: درس لا يُنسى",
+       "kind": "family_reading",
+       "pages": "145",
+       "skills": [
+        "قراءة مشتركة مع الأسرة"
+       ],
+       "objectives": [
+        "قراءة مشتركة مع الأسرة"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "متروك للكتاب والأسرة؛ لا ننسخ نصوص الكتاب.",
+       "pdf_pages": "145",
+       "in_current_book": true
+      }
+     ]
+    },
+    {
+     "title": "ملحق",
+     "lessons": [
+      {
+       "title": "نصوص الاستماع",
+       "kind": "appendix",
+       "pages": "147",
+       "skills": [
+        "نصوص الاستماع للمعلم"
+       ],
+       "objectives": [
+        "نصوص الاستماع للمعلم"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "نصوص الكتاب للمعلم؛ قصص الاستماع في التطبيق من تأليفنا.",
+       "pdf_pages": "147",
+       "in_current_book": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "book": "p4-t1-math",
+   "url": "https://elearnningcontent.blob.core.windows.net/elearnningcontent/2026_2027/Primary/Primary4/Term1/StudentBook/Math_Ar_prim4_t1.pdf",
+   "pages_from": "أرقام صفحات PDF، ابتداءً من الغلاف = 1؛ العربي المطبوع = PDF − 1، والحساب المطبوع = PDF − 8، والإنجليزي المطبوع = PDF",
+   "sha256": "504388e8259623c9dbdef83b885d37b3fa735442fe1b039a53c58580f77174e9",
+   "units": [
+    {
+     "title": "الوحدة الأولى: القيمة المكانية",
+     "lessons": [
+      {
+       "title": "1-1 الأعداد الكبيرة",
+       "kind": "lesson",
+       "pages": "11–12",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l1"
+       ],
+       "status": "explained",
+       "pdf_pages": "11–12",
+       "in_current_book": true
+      },
+      {
+       "title": "1-2 تغيير القيم المكانية",
+       "kind": "lesson",
+       "pages": "13–14",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l4"
+       ],
+       "status": "explained",
+       "pdf_pages": "13–14",
+       "in_current_book": true
+      },
+      {
+       "title": "1-3 صيغ متنوعة لكتابة الأعداد",
+       "kind": "lesson",
+       "pages": "15–16",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l5"
+       ],
+       "status": "explained",
+       "pdf_pages": "15–16",
+       "in_current_book": true
+      },
+      {
+       "title": "1-4 تكوين الأعداد وتحليلها",
+       "kind": "lesson",
+       "pages": "17–19",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l6"
+       ],
+       "status": "explained",
+       "pdf_pages": "17–19",
+       "in_current_book": true
+      },
+      {
+       "title": "1-5 مقارنة الأعداد الكبيرة",
+       "kind": "lesson",
+       "pages": "20–21",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l2"
+       ],
+       "status": "explained",
+       "pdf_pages": "20–21",
+       "in_current_book": true
+      },
+      {
+       "title": "1-6 مقارنة الأعداد في صيغ مختلفة",
+       "kind": "lesson",
+       "pages": "22–24",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l7"
+       ],
+       "status": "explained",
+       "pdf_pages": "22–24",
+       "in_current_book": true
+      },
+      {
+       "title": "1-7 ترتيب الأعداد تنازليًا وتصاعديًا",
+       "kind": "lesson",
+       "pages": "25–27",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l8"
+       ],
+       "status": "explained",
+       "pdf_pages": "25–27",
+       "in_current_book": true
+      },
+      {
+       "title": "1-8 قواعد التقريب",
+       "kind": "lesson",
+       "pages": "28–30",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l3"
+       ],
+       "status": "explained",
+       "pdf_pages": "28–30",
+       "in_current_book": true
+      }
+     ]
+    },
+    {
+     "title": "الوحدة الثانية: إستراتيجيات عمليتي الجمع والطرح",
+     "lessons": [
+      {
+       "title": "2-1 خواص عملية الجمع",
+       "kind": "lesson",
+       "pages": "32–34",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l3"
+       ],
+       "status": "explained",
+       "pdf_pages": "32–34",
+       "in_current_book": true
+      },
+      {
+       "title": "2-2 الجمع مع إعادة التسمية",
+       "kind": "lesson",
+       "pages": "35–36",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l1"
+       ],
+       "status": "explained",
+       "pdf_pages": "35–36",
+       "in_current_book": true
+      },
+      {
+       "title": "2-3 الطرح مع إعادة التسمية",
+       "kind": "lesson",
+       "pages": "37–39",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l5",
+        "u2:l1"
+       ],
+       "status": "explained",
+       "pdf_pages": "37–39",
+       "in_current_book": true
+      },
+      {
+       "title": "2-4 النماذج الشريطية والمتغيرات والمسائل الكلامية",
+       "kind": "lesson",
+       "pages": "40–42",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l4"
+       ],
+       "status": "explained",
+       "pdf_pages": "40–42",
+       "in_current_book": true
+      },
+      {
+       "title": "2-5 حل مسائل كلامية متعددة الخطوات باستخدام الجمع والطرح",
+       "kind": "lesson",
+       "pages": "43–46",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l2"
+       ],
+       "status": "explained",
+       "pdf_pages": "43–46",
+       "in_current_book": true
+      }
+     ]
+    },
+    {
+     "title": "الوحدة الثالثة: مفاهيم القياس",
+     "lessons": [
+      {
+       "title": "3-1 قياس الطول",
+       "kind": "lesson",
+       "pages": "48–50",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l1"
+       ],
+       "status": "explained",
+       "pdf_pages": "48–50",
+       "in_current_book": true
+      },
+      {
+       "title": "3-2 قياس الكتلة",
+       "kind": "lesson",
+       "pages": "51–52",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l3"
+       ],
+       "status": "explained",
+       "pdf_pages": "51–52",
+       "in_current_book": true
+      },
+      {
+       "title": "3-3 وحدات قياس السعة",
+       "kind": "lesson",
+       "pages": "53–55",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l4"
+       ],
+       "status": "explained",
+       "pdf_pages": "53–55",
+       "in_current_book": true
+      },
+      {
+       "title": "3-4 وحدات قياس الوقت",
+       "kind": "lesson",
+       "pages": "56–57",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l2"
+       ],
+       "status": "explained",
+       "pdf_pages": "56–57",
+       "in_current_book": true
+      },
+      {
+       "title": "3-5 الوقت المنقضي",
+       "kind": "lesson",
+       "pages": "58–60",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l5"
+       ],
+       "status": "explained",
+       "pdf_pages": "58–60",
+       "in_current_book": true
+      },
+      {
+       "title": "3-6 تطبيقات القياس 1",
+       "kind": "lesson",
+       "pages": "61–63",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l6"
+       ],
+       "status": "explained",
+       "pdf_pages": "61–63",
+       "in_current_book": true
+      },
+      {
+       "title": "3-7 تطبيقات القياس 2",
+       "kind": "lesson",
+       "pages": "64–65",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l7"
+       ],
+       "status": "explained",
+       "pdf_pages": "64–65",
+       "in_current_book": true
+      }
+     ]
+    },
+    {
+     "title": "الوحدة الرابعة: المساحة والمحيط",
+     "lessons": [
+      {
+       "title": "4-1 إيجاد المحيط",
+       "kind": "lesson",
+       "pages": "67–69",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u4:l1"
+       ],
+       "status": "explained",
+       "pdf_pages": "67–69",
+       "in_current_book": true
+      },
+      {
+       "title": "4-2 إيجاد المساحة",
+       "kind": "lesson",
+       "pages": "70–71",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u4:l2"
+       ],
+       "status": "explained",
+       "pdf_pages": "70–71",
+       "in_current_book": true
+      },
+      {
+       "title": "4-3 أبعاد مجهولة",
+       "kind": "lesson",
+       "pages": "72–73",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u4:l3"
+       ],
+       "status": "explained",
+       "pdf_pages": "72–73",
+       "in_current_book": true
+      },
+      {
+       "title": "4-4 الأشكال الهندسية المركبة",
+       "kind": "lesson",
+       "pages": "74–77",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u4:l4"
+       ],
+       "status": "explained",
+       "pdf_pages": "74–77",
+       "in_current_book": true
+      }
+     ]
+    },
+    {
+     "title": "الوحدة الخامسة: عملية الضرب كعلاقة",
+     "lessons": [
+      {
+       "title": "5-1 مقارنة الأعداد باستخدام عملية الضرب",
+       "kind": "lesson",
+       "pages": "79–80",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u5:l1"
+       ],
+       "status": "explained",
+       "pdf_pages": "79–80",
+       "in_current_book": true
+      },
+      {
+       "title": "5-2 تكوين معادلات للمقارنة باستخدام عملية الضرب",
+       "kind": "lesson",
+       "pages": "81–82",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u5:l3"
+       ],
+       "status": "explained",
+       "pdf_pages": "81–82",
+       "in_current_book": true
+      },
+      {
+       "title": "5-3 حل معادلات للمقارنة باستخدام عملية الضرب",
+       "kind": "lesson",
+       "pages": "83–84",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u5:l3"
+       ],
+       "status": "explained",
+       "pdf_pages": "83–84",
+       "in_current_book": true
+      },
+      {
+       "title": "5-4 خاصية الإبدال في عملية الضرب",
+       "kind": "lesson",
+       "pages": "85–86",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u5:l2"
+       ],
+       "status": "explained",
+       "pdf_pages": "85–86",
+       "in_current_book": true
+      },
+      {
+       "title": "5-5 خاصية العنصر المحايد والضرب في صفر",
+       "kind": "lesson",
+       "pages": "87–88",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u5:l4"
+       ],
+       "status": "explained",
+       "pdf_pages": "87–88",
+       "in_current_book": true
+      },
+      {
+       "title": "5-6 خاصية الدمج في عملية الضرب",
+       "kind": "lesson",
+       "pages": "89–90",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u5:l5"
+       ],
+       "status": "explained",
+       "pdf_pages": "89–90",
+       "in_current_book": true
+      },
+      {
+       "title": "5-7 تطبيق الأنماط في عملية الضرب",
+       "kind": "lesson",
+       "pages": "91–92",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u5:l6"
+       ],
+       "status": "explained",
+       "pdf_pages": "91–92",
+       "in_current_book": true
+      }
+     ]
+    },
+    {
+     "title": "الوحدة السادسة: العوامل والمضاعفات",
+     "lessons": [
+      {
+       "title": "6-1 تحديد عوامل الأعداد الصحيحة",
+       "kind": "lesson",
+       "pages": "94–95",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u6:l1"
+       ],
+       "status": "explained",
+       "pdf_pages": "94–95",
+       "in_current_book": true
+      },
+      {
+       "title": "6-2 الأعداد الأولية والأعداد متعددة العوامل",
+       "kind": "lesson",
+       "pages": "96–98",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u6:l1"
+       ],
+       "status": "explained",
+       "pdf_pages": "96–98",
+       "in_current_book": true
+      },
+      {
+       "title": "6-3 العامل المشترك الأكبر (ع.م.أ)",
+       "kind": "lesson",
+       "pages": "99–100",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u6:l3"
+       ],
+       "status": "explained",
+       "pdf_pages": "99–100",
+       "in_current_book": true
+      },
+      {
+       "title": "6-4 تحديد مضاعفات الأعداد الصحيحة",
+       "kind": "lesson",
+       "pages": "101–102",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u6:l2"
+       ],
+       "status": "explained",
+       "pdf_pages": "101–102",
+       "in_current_book": true
+      },
+      {
+       "title": "6-5 المضاعفات المشتركة",
+       "kind": "lesson",
+       "pages": "103–104",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u6:l4"
+       ],
+       "status": "explained",
+       "pdf_pages": "103–104",
+       "in_current_book": true
+      },
+      {
+       "title": "6-6 العلاقات بين العوامل والمضاعفات",
+       "kind": "lesson",
+       "pages": "105–106",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u6:l5"
+       ],
+       "status": "explained",
+       "pdf_pages": "105–106",
+       "in_current_book": true
+      }
+     ]
+    },
+    {
+     "title": "الوحدة السابعة: عمليتا الضرب والقسمة: الحساب والعلاقات",
+     "lessons": [
+      {
+       "title": "7-1 إستراتيجية نموذج مساحة المستطيل",
+       "kind": "lesson",
+       "pages": "108–109",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u7:l3"
+       ],
+       "status": "explained",
+       "pdf_pages": "108–109",
+       "in_current_book": true
+      },
+      {
+       "title": "7-2 خاصية التوزيع",
+       "kind": "lesson",
+       "pages": "110–111",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u7:l4"
+       ],
+       "status": "explained",
+       "pdf_pages": "110–111",
+       "in_current_book": true
+      },
+      {
+       "title": "7-3 خوارزمية عملية الضرب بالتجزئة",
+       "kind": "lesson",
+       "pages": "112–114",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u7:l5"
+       ],
+       "status": "explained",
+       "pdf_pages": "112–114",
+       "in_current_book": true
+      },
+      {
+       "title": "7-4 الضرب في عدد مكون من رقم واحد",
+       "kind": "lesson",
+       "pages": "115–116",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u7:l1"
+       ],
+       "status": "explained",
+       "pdf_pages": "115–116",
+       "in_current_book": true
+      },
+      {
+       "title": "7-5 ضرب عدد مكون من رقمين في مضاعفات العدد 10",
+       "kind": "lesson",
+       "pages": "117–118",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u7:l1"
+       ],
+       "status": "explained",
+       "pdf_pages": "117–118",
+       "in_current_book": true
+      },
+      {
+       "title": "7-6 استكشاف باقي القسمة",
+       "kind": "lesson",
+       "pages": "119–120",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u7:l6"
+       ],
+       "status": "explained",
+       "pdf_pages": "119–120",
+       "in_current_book": true
+      },
+      {
+       "title": "7-7 الأنماط في عملية القسمة",
+       "kind": "lesson",
+       "pages": "121–123",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u7:l7"
+       ],
+       "status": "explained",
+       "pdf_pages": "121–123",
+       "in_current_book": true
+      },
+      {
+       "title": "7-8 القسمة باستخدام نموذج مساحة المستطيل",
+       "kind": "lesson",
+       "pages": "124",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u7:l8"
+       ],
+       "status": "explained",
+       "pdf_pages": "124",
+       "in_current_book": true
+      },
+      {
+       "title": "7-9 خوارزمية خارج القسمة بالتجزئة",
+       "kind": "lesson",
+       "pages": "125–126",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u7:l9"
+       ],
+       "status": "explained",
+       "pdf_pages": "125–126",
+       "in_current_book": true
+      },
+      {
+       "title": "7-10 خوارزمية القسمة المعيارية",
+       "kind": "lesson",
+       "pages": "127–128",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u7:l10",
+        "u7:l2"
+       ],
+       "status": "explained",
+       "pdf_pages": "127–128",
+       "in_current_book": true
+      },
+      {
+       "title": "7-11 القسمة والضرب",
+       "kind": "lesson",
+       "pages": "129–130",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u7:l11"
+       ],
+       "status": "explained",
+       "pdf_pages": "129–130",
+       "in_current_book": true
+      }
+     ]
+    },
+    {
+     "title": "الوحدة الثامنة: ترتيب العمليات",
+     "lessons": [
+      {
+       "title": "8-1 ترتيب إجراء العمليات الحسابية",
+       "kind": "lesson",
+       "pages": "132–133",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u8:l1"
+       ],
+       "status": "explained",
+       "pdf_pages": "132–133",
+       "in_current_book": true
+      },
+      {
+       "title": "8-2 ترتيب العمليات والمسائل الكلامية",
+       "kind": "lesson",
+       "pages": "134–135",
+       "skills": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives": [
+        "الفكرة بأمثلة أصلية",
+        "التطبيق",
+        "التحقق من الناتج"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u8:l2"
+       ],
+       "status": "explained",
+       "pdf_pages": "134–135",
+       "in_current_book": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "book": "p4-t1-english",
+   "url": "https://elearnningcontent.blob.core.windows.net/elearnningcontent/2026_2027/Primary/Primary4/Term1/StudentBook/English_language_prim4_t1.pdf",
+   "pages_from": "أرقام صفحات PDF، ابتداءً من الغلاف = 1؛ العربي المطبوع = PDF − 1، والحساب المطبوع = PDF − 8، والإنجليزي المطبوع = PDF",
+   "sha256": "e623f75d7be3671ffb9b9acd7f72fdd7cbf1fa6f45aeec11aa99fc5f23da6843",
+   "units": [
+    {
+     "title": "Unit 1: The Five Senses",
+     "lessons": [
+      {
+       "title": "Vocabulary: senses",
+       "kind": "vocabulary",
+       "pages": "7–22",
+       "skills": [
+        "مفردات وسياق"
+       ],
+       "objectives": [
+        "مفردات وسياق"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l2"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "7–22",
+       "in_current_book": true
+      },
+      {
+       "title": "Language in Use: present simple affirmative",
+       "kind": "grammar",
+       "pages": "7–22",
+       "skills": [
+        "فهم جمل",
+        "استخدام القاعدة"
+       ],
+       "objectives": [
+        "فهم جمل",
+        "استخدام القاعدة"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l1"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "7–22",
+       "in_current_book": true
+      },
+      {
+       "title": "Phonics: short and long vowel sounds",
+       "kind": "phonics",
+       "pages": "7–22",
+       "skills": [
+        "صوت الحروف",
+        "قراءة كلمات"
+       ],
+       "objectives": [
+        "صوت الحروف",
+        "قراءة كلمات"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l3"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "7–22",
+       "in_current_book": true
+      },
+      {
+       "title": "Reading and writing: healthy habits, sequence words",
+       "kind": "reading",
+       "pages": "7–22",
+       "skills": [
+        "قراءة نص",
+        "كتابة جمل مرتبة"
+       ],
+       "objectives": [
+        "قراءة نص",
+        "كتابة جمل مرتبة"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l4"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "7–22",
+       "in_current_book": true
+      },
+      {
+       "title": "Self-Assessment (ص 22)",
+       "kind": "assessment",
+       "pages": "22",
+       "skills": [
+        "تقييم ذاتي"
+       ],
+       "objectives": [
+        "تقييم ذاتي"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "متروك لنشاط الكتاب، وليس مرادفًا لامتحان القواعد في التطبيق.",
+       "pdf_pages": "22",
+       "in_current_book": true
+      }
+     ]
+    },
+    {
+     "title": "Unit 2: My Community",
+     "lessons": [
+      {
+       "title": "Vocabulary: community, helping, problems and solutions",
+       "kind": "vocabulary",
+       "pages": "23–38",
+       "skills": [
+        "مفردات وسياق"
+       ],
+       "objectives": [
+        "مفردات وسياق"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l2",
+        "u2:l4"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "23–38",
+       "in_current_book": true
+      },
+      {
+       "title": "Language in Use: present simple negative and questions",
+       "kind": "grammar",
+       "pages": "23–38",
+       "skills": [
+        "فهم جمل",
+        "استخدام القاعدة"
+       ],
+       "objectives": [
+        "فهم جمل",
+        "استخدام القاعدة"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l1"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "23–38",
+       "in_current_book": true
+      },
+      {
+       "title": "Phonics: /f/ and /v/",
+       "kind": "phonics",
+       "pages": "23–38",
+       "skills": [
+        "صوت الحروف",
+        "قراءة كلمات"
+       ],
+       "objectives": [
+        "صوت الحروف",
+        "قراءة كلمات"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l3"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "23–38",
+       "in_current_book": true
+      },
+      {
+       "title": "Writing: a diary entry",
+       "kind": "writing",
+       "pages": "23–38",
+       "skills": [
+        "كتابة يومية"
+       ],
+       "objectives": [
+        "كتابة يومية"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u2:l5"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "23–38",
+       "in_current_book": true
+      },
+      {
+       "title": "Self-Assessment (ص 38)",
+       "kind": "assessment",
+       "pages": "38",
+       "skills": [
+        "تقييم ذاتي"
+       ],
+       "objectives": [
+        "تقييم ذاتي"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "متروك لنشاط الكتاب، وليس مرادفًا لامتحان القواعد في التطبيق.",
+       "pdf_pages": "38",
+       "in_current_book": true
+      }
+     ]
+    },
+    {
+     "title": "Unit 3: Animals in Our World",
+     "lessons": [
+      {
+       "title": "Vocabulary: animals and their habits",
+       "kind": "vocabulary",
+       "pages": "39–56",
+       "skills": [
+        "مفردات وسياق"
+       ],
+       "objectives": [
+        "مفردات وسياق"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l2"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "39–56",
+       "in_current_book": true
+      },
+      {
+       "title": "Language in Use: comparative adjectives",
+       "kind": "grammar",
+       "pages": "39–56",
+       "skills": [
+        "فهم جمل",
+        "استخدام القاعدة"
+       ],
+       "objectives": [
+        "فهم جمل",
+        "استخدام القاعدة"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l1"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "39–56",
+       "in_current_book": true
+      },
+      {
+       "title": "Phonics: blends fr, dr, pl",
+       "kind": "phonics",
+       "pages": "39–56",
+       "skills": [
+        "صوت الحروف",
+        "قراءة كلمات"
+       ],
+       "objectives": [
+        "صوت الحروف",
+        "قراءة كلمات"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l3"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "39–56",
+       "in_current_book": true
+      },
+      {
+       "title": "Reading and writing: endangered animals, a report",
+       "kind": "writing",
+       "pages": "39–56",
+       "skills": [
+        "قراءة نص",
+        "كتابة تقرير"
+       ],
+       "objectives": [
+        "قراءة نص",
+        "كتابة تقرير"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u3:l4"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "39–56",
+       "in_current_book": true
+      },
+      {
+       "title": "Self-Assessment (ص 56)",
+       "kind": "assessment",
+       "pages": "56",
+       "skills": [
+        "تقييم ذاتي"
+       ],
+       "objectives": [
+        "تقييم ذاتي"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "متروك لنشاط الكتاب، وليس مرادفًا لامتحان القواعد في التطبيق.",
+       "pdf_pages": "56",
+       "in_current_book": true
+      }
+     ]
+    },
+    {
+     "title": "Review 1",
+     "lessons": [
+      {
+       "title": "Review: Units 1, 2 and 3",
+       "kind": "review",
+       "pages": "57–60",
+       "skills": [
+        "مراجعة"
+       ],
+       "objectives": [
+        "مراجعة"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u1:l1",
+        "u1:l2",
+        "u2:l1",
+        "u2:l4",
+        "u3:l1",
+        "u3:l2"
+       ],
+       "status": "explained",
+       "note": "مراجعة الوحدات بشرح دروسها في التطبيق؛ تمارين الكتاب ليست منسوخة.",
+       "pdf_pages": "57–60",
+       "in_current_book": true
+      }
+     ]
+    },
+    {
+     "title": "Unit 4: Egypt – My Homeland",
+     "lessons": [
+      {
+       "title": "Vocabulary: places in Egypt",
+       "kind": "vocabulary",
+       "pages": "61–78",
+       "skills": [
+        "مفردات وسياق"
+       ],
+       "objectives": [
+        "مفردات وسياق"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u4:l3"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "61–78",
+       "in_current_book": true
+      },
+      {
+       "title": "Language in Use: prepositions of place",
+       "kind": "grammar",
+       "pages": "61–78",
+       "skills": [
+        "فهم جمل",
+        "استخدام القاعدة"
+       ],
+       "objectives": [
+        "فهم جمل",
+        "استخدام القاعدة"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u4:l1",
+        "u4:l2"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "61–78",
+       "in_current_book": true
+      },
+      {
+       "title": "Phonics: /p/ and /b/",
+       "kind": "phonics",
+       "pages": "61–78",
+       "skills": [
+        "صوت الحروف",
+        "قراءة كلمات"
+       ],
+       "objectives": [
+        "صوت الحروف",
+        "قراءة كلمات"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u4:l4"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "61–78",
+       "in_current_book": true
+      },
+      {
+       "title": "Writing: a blog post",
+       "kind": "writing",
+       "pages": "61–78",
+       "skills": [
+        "كتابة مدونة",
+        "كلمات الحواس"
+       ],
+       "objectives": [
+        "كتابة مدونة",
+        "كلمات الحواس"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u4:l5"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "61–78",
+       "in_current_book": true
+      },
+      {
+       "title": "Self-Assessment (ص 78)",
+       "kind": "assessment",
+       "pages": "78",
+       "skills": [
+        "تقييم ذاتي"
+       ],
+       "objectives": [
+        "تقييم ذاتي"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "متروك لنشاط الكتاب، وليس مرادفًا لامتحان القواعد في التطبيق.",
+       "pdf_pages": "78",
+       "in_current_book": true
+      }
+     ]
+    },
+    {
+     "title": "Unit 5: A Day at Work",
+     "lessons": [
+      {
+       "title": "Vocabulary: jobs",
+       "kind": "vocabulary",
+       "pages": "79–94",
+       "skills": [
+        "مفردات وسياق"
+       ],
+       "objectives": [
+        "مفردات وسياق"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u5:l1"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "79–94",
+       "in_current_book": true
+      },
+      {
+       "title": "Language in Use: superlative adjectives",
+       "kind": "grammar",
+       "pages": "79–94",
+       "skills": [
+        "فهم جمل",
+        "استخدام القاعدة"
+       ],
+       "objectives": [
+        "فهم جمل",
+        "استخدام القاعدة"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u5:l2"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "79–94",
+       "in_current_book": true
+      },
+      {
+       "title": "Phonics: long vowels with silent e",
+       "kind": "phonics",
+       "pages": "79–94",
+       "skills": [
+        "صوت الحروف",
+        "قراءة كلمات"
+       ],
+       "objectives": [
+        "صوت الحروف",
+        "قراءة كلمات"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u5:l3"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "79–94",
+       "in_current_book": true
+      },
+      {
+       "title": "Reading and writing: non-fiction about jobs",
+       "kind": "writing",
+       "pages": "79–94",
+       "skills": [
+        "قراءة نص معلوماتي",
+        "كتابة حقائق"
+       ],
+       "objectives": [
+        "قراءة نص معلوماتي",
+        "كتابة حقائق"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u5:l4"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "79–94",
+       "in_current_book": true
+      },
+      {
+       "title": "Self-Assessment (ص 94)",
+       "kind": "assessment",
+       "pages": "94",
+       "skills": [
+        "تقييم ذاتي"
+       ],
+       "objectives": [
+        "تقييم ذاتي"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "متروك لنشاط الكتاب، وليس مرادفًا لامتحان القواعد في التطبيق.",
+       "pdf_pages": "94",
+       "in_current_book": true
+      }
+     ]
+    },
+    {
+     "title": "Unit 6: The Hundred Dresses",
+     "lessons": [
+      {
+       "title": "Reading: setting, characters and events in a story",
+       "kind": "reading",
+       "pages": "95–108",
+       "skills": [
+        "عناصر القصة"
+       ],
+       "objectives": [
+        "عناصر القصة"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u6:l1",
+        "u6:l2"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا. الوحدة مبنية على رواية منشورة؛ في التطبيق قصة قصيرة من تأليفنا لنفس المهارة، ولا نعيد حكي الرواية.",
+       "pdf_pages": "95–108",
+       "in_current_book": true
+      },
+      {
+       "title": "Vocabulary: story words",
+       "kind": "vocabulary",
+       "pages": "95–108",
+       "skills": [
+        "مفردات وسياق"
+       ],
+       "objectives": [
+        "مفردات وسياق"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u6:l3"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "95–108",
+       "in_current_book": true
+      },
+      {
+       "title": "Writing: a reply based on a story",
+       "kind": "writing",
+       "pages": "95–108",
+       "skills": [
+        "كتابة رد"
+       ],
+       "objectives": [
+        "كتابة رد"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u6:l4"
+       ],
+       "status": "explained",
+       "note": "نماذج أصلية؛ الكتابة والتحدث مع ولي الأمر. المهارات من جدول Scope and Sequence ص 3–5؛ الأهداف بصياغتنا.",
+       "pdf_pages": "95–108",
+       "in_current_book": true
+      }
+     ]
+    },
+    {
+     "title": "Review 2",
+     "lessons": [
+      {
+       "title": "Review: Units 4, 5 and 6",
+       "kind": "review",
+       "pages": "109–113",
+       "skills": [
+        "مراجعة"
+       ],
+       "objectives": [
+        "مراجعة"
+       ],
+       "objectives_from": "ours",
+       "app": [
+        "u4:l3",
+        "u5:l1",
+        "u5:l2",
+        "u6:l3"
+       ],
+       "status": "explained",
+       "note": "مراجعة الوحدات بشرح دروسها في التطبيق؛ تمارين الكتاب ليست منسوخة.",
+       "pdf_pages": "109–113",
+       "in_current_book": true
+      },
+      {
+       "title": "Glossary",
+       "kind": "appendix",
+       "pages": "114–116",
+       "skills": [
+        "قاموس الكلمات"
+       ],
+       "objectives": [
+        "قاموس الكلمات"
+       ],
+       "objectives_from": "ours",
+       "app": [],
+       "status": "not_in_app",
+       "note": "قاموس الكتاب؛ الكلمات نفسها في دروس التطبيق.",
+       "pdf_pages": "114–116",
+       "in_current_book": true
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
