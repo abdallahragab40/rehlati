@@ -2037,7 +2037,7 @@
    "key": "u4:l1",
    "title": "next to, between",
    "goal": "أوصف مكان حاجة بـ next to وbetween وbehind وin front of",
-   "version": 1,
+   "version": 2,
    "review": "draft",
    "blocks": [
     {
@@ -2090,28 +2090,28 @@
      "tasks": [
       {
        "kind": "match",
-       "ask": "وصّل الكلمة بمعناها",
+       "ask": "وصّل الجملة بمعناها",
        "pairs": [
         [
-         "next to",
-         "جنب"
+         "The cat is between the two boxes.",
+         "القطة بين الصندوقين"
         ],
         [
-         "between",
-         "بين"
+         "The bus is in front of the school.",
+         "الأتوبيس قدّام المدرسة"
         ],
         [
-         "behind",
-         "ورا"
+         "The ball is behind the tree.",
+         "الكورة ورا الشجرة"
         ],
         [
-         "in front of",
-         "قدّام"
+         "The bakery is next to the bank.",
+         "المخبز جنب البنك"
         ]
        ],
        "en": true,
-       "hint": "افتكر البطاقة",
-       "why": "كل كلمة بمعناها"
+       "hint": "دوّر على كلمة المكان في كل جملة",
+       "why": "كل جملة قدّامها معناها بالعربي"
       },
       {
        "kind": "order",
