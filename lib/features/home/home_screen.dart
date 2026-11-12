@@ -123,6 +123,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     for (final (i, w) in worlds.indexed)
                       _WorldCard(
                         world: w,
+                        desc: worldDescFor(w, p.grade),
                         stars: p.starsIn(w.id),
                         pct: p.worldPct(w.id),
                         narrow: box.maxWidth <= 430,
@@ -249,8 +250,11 @@ class _DailyStrip extends StatelessWidget {
 
 /// كارت عالم أفقي ومضغوط: أيقونة جنب النص، وشريط لون على الطرف.
 class _WorldCard extends StatelessWidget {
-  const _WorldCard({required this.world, required this.stars, required this.pct, required this.onTap, this.narrow = false});
+  const _WorldCard({required this.world, required this.desc, required this.stars, required this.pct, required this.onTap, this.narrow = false});
   final WorldMeta world;
+
+  /// الوصف على قد صف الطفل ([worldDescFor]).
+  final String desc;
   final int stars;
   final int pct;
   final bool narrow;
@@ -284,7 +288,7 @@ class _WorldCard extends StatelessWidget {
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(world.name, style: kidText(context.clampVw(17, 4, 21), height: 1.2)),
               const SizedBox(height: 2),
-              Text(world.desc,
+              Text(desc,
                   maxLines: narrow ? 1 : 2,
                   overflow: TextOverflow.ellipsis,
                   style: kidText(context.clampVw(11.5, 2.9, 13.5), weight: FontWeight.w600, color: AppColors.inkSoft, height: 1.4)),
