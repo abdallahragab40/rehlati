@@ -18,6 +18,10 @@
 الصوت:
   VOICE=ar-EG-ShakirNeural (الافتراضي، راجل مصري) — نفس الصوت لكل المقاطع العربي
   TEACH_VOICE=VOICE — صوت قسم الحروف (teaching.tsv) لوحده: الفصحى بصوت مش مصري لو العميل اختار كده
+  VOICE=gemini:Charon — جمل العربي بمحرك Gemini (صوت Charon أو Kore…)، والحروف بتفضل بشاكر
+    والإنجليزي بـ Ana. GEMINI_API_KEY في tool/.env، والموديل GEMINI_TTS_MODEL (افتراضي lite).
+    محتاج الباقة المدفوعة (المجانية ١٠ مقاطع في اليوم). --max بيمنع تشغيلة أكبر من العدد ده.
+    تجربة من غير ما نلمس التطبيق: --pack pilot --count 300 ← build/voice-preview/gemini/<voice>/pilot/
   FUSHA_VOICE=VOICE — صوت جمل الفصحى (نصوص القراءة والأناشيد وأمثلة القواعد) — is_fusha()
   EN_VOICE=en-US-AnaNeural (صوت طفلة) على EN_RATE=-15% = سرعة "عادي" في الإعدادات
   RATE=-5%  — أبطأ سنة عشان الأطفال؛ المقاطع لوحدها بتاخد سرعتها من phrases.tsv.
@@ -53,7 +57,10 @@ HUMAN = 'human'
 MANIFEST = ROOT / 'lib/core/audio/clip_manifest.g.dart'
 
 VOICE = os.environ.get('VOICE', 'ar-EG-ShakirNeural')
-TEACH_VOICE = os.environ.get('TEACH_VOICE') or VOICE
+# الحروف والمقاطع: شاكر اتقيّم صح فيها، فبتفضل بيه حتى لو الجمل راحت لـ Gemini
+TEACH_VOICE = os.environ.get('TEACH_VOICE') or ('ar-EG-ShakirNeural' if VOICE.startswith('gemini:') else VOICE)
+GEMINI_KEY = os.environ.get('GEMINI_API_KEY')
+GEMINI_MODEL = os.environ.get('GEMINI_TTS_MODEL', 'gemini-3.8-flash-lite-tts')
 FUSHA_VOICE = os.environ.get('FUSHA_VOICE') or VOICE
 EN_VOICE = os.environ.get('EN_VOICE', 'en-US-AnaNeural')
 EN_RATE = os.environ.get('EN_RATE', '-15%')
@@ -116,6 +123,37 @@ def is_fusha(text):
         return False
     return (any(w in _FUSHA or _FA_VERB.match(w) for w in bare)
             or sum(1 for w in words if _CASE.search(w)) >= 2)
+
+
+GEMINI_STYLE = {
+    'egy': 'Say the following in Egyptian Arabic (Cairo), like a friendly teacher talking to a child, '
+           'at a natural, brisk everyday pace. Say only the text, exactly:\n',
+    'fusha': 'Say the following in Modern Standard Arabic, like a friendly teacher, at a natural, brisk pace, '
+             'with every vowel exactly as marked. Say only the text, exactly:\n',
+}
+
+
+def tts_gemini(text, voice, wav):
+    """voice = 'gemini:Charon' أو 'gemini:Charon|fusha'. الناتج WAV مونو ٢٤ كيلوهرتز."""
+    import base64, json
+    name, _, reg = voice.split(':', 1)[1].partition('|')
+    body = {'contents': [{'parts': [{'text': GEMINI_STYLE[reg or 'egy'] + text}]}],
+            'generationConfig': {'responseModalities': ['AUDIO'],
+                                 'speechConfig': {'voiceConfig': {'prebuiltVoiceConfig': {'voiceName': name}}}}}
+    req = urllib.request.Request(
+        f'https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent',
+        data=json.dumps(body).encode(), headers={'x-goog-api-key': GEMINI_KEY, 'Content-Type': 'application/json'})
+    with urllib.request.urlopen(req, timeout=120) as r:
+        d = json.load(r)
+    pcm = base64.b64decode(d['candidates'][0]['content']['parts'][0]['inlineData']['data'])
+    if pcm[:4] == b'RIFF':
+        wav.write_bytes(pcm)
+    else:
+        with wave.open(str(wav), 'wb') as w:
+            w.setnchannels(1)
+            w.setsampwidth(2)
+            w.setframerate(24000)
+            w.writeframes(pcm)
 
 
 def ssml(text, rate, voice=None):
@@ -187,10 +225,14 @@ async def render(key, spoken, rate, tmp, sem, voice=None):
     if voice == HUMAN:
         return await render_recording(key, tmp, sem)
     mp3 = Path(tmp) / f'{key}.mp3'
+    gemini = (voice or '').startswith('gemini:')
+    raw = Path(tmp) / f'{key}.wav'
     async with sem:
         for attempt in range(6):
             try:
-                if ENGINE == 'azure':
+                if gemini:
+                    await asyncio.to_thread(tts_gemini, spoken, voice, raw)
+                elif ENGINE == 'azure':
                     await asyncio.to_thread(tts_azure, spoken, rate, mp3, voice)
                 else:
                     await tts_edge(spoken, rate, mp3, voice)
@@ -198,9 +240,11 @@ async def render(key, spoken, rate, tmp, sem, voice=None):
             except Exception as e:  # الشبكة بتقع أحيانًا — نحاول تاني
                 if attempt == 5:
                     raise RuntimeError(f'{key}: {spoken}: {e}') from e
-                await asyncio.sleep(3 * (attempt + 1))
-        raw, cut = Path(tmp) / f'{key}.wav', Path(tmp) / f'{key}.cut.wav'
-        await asyncio.to_thread(convert, '-f', 'WAVE', '-d', 'LEI16', mp3, raw)
+                # Gemini بيقول 429 لما الحد يخلص — نستنى أطول
+                await asyncio.sleep((20 if gemini else 3) * (attempt + 1))
+        cut = Path(tmp) / f'{key}.cut.wav'
+        if not gemini:
+            await asyncio.to_thread(convert, '-f', 'WAVE', '-d', 'LEI16', mp3, raw)
         await asyncio.to_thread(trim, raw, cut)
         # AAC ٣٢ كيلوبت مونو: واضح للكلام وحجمه نص الـ mp3
         await asyncio.to_thread(convert, '-f', 'm4af', '-d', 'aac', '-b', '32000', cut, OUT / f'{key}.m4a')
@@ -226,7 +270,9 @@ async def render_recording(key, tmp, sem):
 async def main():
     global OUT, CACHE, VOICE, ENGINE
     parser = argparse.ArgumentParser(description='Render existing app audio or isolated teaching previews.')
-    parser.add_argument('--pack', choices=['existing', 'teaching'], default='existing')
+    parser.add_argument('--pack', choices=['existing', 'teaching', 'pilot'], default='existing')
+    parser.add_argument('--count', type=int, default=300, help='pilot: how many random Arabic lines')
+    parser.add_argument('--max', type=int, default=400, help='refuse a Gemini run larger than this (cost guard)')
     parser.add_argument('--voice', default=None, help='Teaching preview voice; defaults to VOICE')
     parser.add_argument('--engine', choices=['azure', 'edge'], default=None)
     parser.add_argument('--dry-run', action='store_true', help='List inputs without network calls or file writes')
@@ -236,12 +282,23 @@ async def main():
     preview = args.pack != 'existing'
     if preview:
         VOICE = args.voice or VOICE
-        if not all(c.isalnum() or c in '-_' for c in VOICE):
-            sys.exit('voice must contain only letters, digits, hyphens or underscores')
-        OUT = ROOT / 'build/voice-preview' / ENGINE / VOICE / args.pack
+        if not all(c.isalnum() or c in '-_:' for c in VOICE):
+            sys.exit('voice must contain only letters, digits, hyphens, underscores or a gemini: prefix')
+        OUT = ROOT / 'build/voice-preview' / ('gemini' if VOICE.startswith('gemini:') else ENGINE) / VOICE.replace(':', '-') / args.pack
         CACHE = OUT / 'rendered.tsv'
-        clips = read_tsv(ROOT / 'tool/teaching.tsv', 4)
         phrases = english = []
+        if args.pack == 'pilot':
+            # عيّنة عشوائية ثابتة من جمل التطبيق العربي — نفس الجمل في كل تشغيلة عشان المقارنة
+            import random
+            rows = [r for r in read_tsv(ROOT / 'tool/phrases.tsv', 4) if not re.search('[A-Za-z]', r[1])]
+            clips = random.Random(14).sample(rows, min(args.count, len(rows)))
+            lexicon = read_lexicon(ROOT / 'tool/pronounce.tsv')
+            if not VOICE.startswith('gemini:'):
+                clips = [[k, t, s if is_fusha(t) else voiced(s, lexicon), r] for k, t, s, r in clips]
+            fusha_keys = {k for k, t, *_ in clips if is_fusha(t)}
+        else:
+            clips = read_tsv(ROOT / 'tool/teaching.tsv', 4)
+            fusha_keys = set()
     else:
         lexicon = read_lexicon(ROOT / 'tool/pronounce.tsv')
         clips = [[k, t, voiced(s, lexicon), r] for k, t, s, r in read_tsv(ROOT / 'tool/clips.tsv', 4)]
@@ -249,7 +306,9 @@ async def main():
         if not phrases_path.exists():
             sys.exit('tool/phrases.tsv missing — run: flutter test tool/voice_phrases_test.dart')
         # الفصحى مابتعدّيش على قاموس النطق المصري (الموز ← المُوز كان بيبوّظ «والموزَ»)
-        phrases = [[k, t, s if is_fusha(t) else voiced(s, lexicon), r] for k, t, s, r in read_tsv(phrases_path, 4)]
+        # Gemini بيقرا العامية صح من غير القاموس، فالقاموس لصوت Azure بس
+        plain = VOICE.startswith('gemini:')
+        phrases = [[k, t, s if plain or is_fusha(t) else voiced(s, lexicon), r] for k, t, s, r in read_tsv(phrases_path, 4)]
         fusha_keys = {k for k, t, *_ in phrases if is_fusha(t)}
         teaching = read_tsv(ROOT / 'tool/teaching.tsv', 4)
         en_path = ROOT / 'tool/phrases_en.tsv'
@@ -270,12 +329,12 @@ async def main():
     force = os.environ.get('FORCE') == '1'
     wanted = {}
     en_keys = {k for k, *_ in english}
-    if preview:
-        fusha_keys = set()
     teach_keys = set() if preview else {k for k, *_ in teaching}
     for key, _text, spoken, rate in clips + phrases + ([] if preview else teaching) + english:
         voice = (EN_VOICE if key in en_keys else TEACH_VOICE if key in teach_keys
                  else FUSHA_VOICE if key in fusha_keys else VOICE)
+        if voice.startswith('gemini:') and key in fusha_keys:
+            voice += '|fusha'
         rate = rate or RATE
         h = hashlib.sha1(f'{PIPELINE}|{ENGINE}|{voice}|{rate}|{PITCH}|{spoken}'.encode()).hexdigest()
         human = None if preview else recording_hash(key)
@@ -288,6 +347,14 @@ async def main():
         if s is not None and (force or done.get(k) != h or not (OUT / f'{k}.m4a').exists())
     ]
     print(f'{ENGINE} · {VOICE} + {EN_VOICE} · {len(todo)} to render of {len(wanted)}')
+    on_gemini = [t for t in todo if (t[3] or '').startswith('gemini:')]
+    if on_gemini:
+        if not GEMINI_KEY:
+            sys.exit('set GEMINI_API_KEY in tool/.env; never commit it')
+        chars = sum(len(t[1]) for t in on_gemini)
+        print(f'gemini {GEMINI_MODEL}: {len(on_gemini)} clips, {chars} characters')
+        if len(on_gemini) > args.max:
+            sys.exit(f'{len(on_gemini)} Gemini clips is more than --max {args.max}; raise --max on purpose')
     sem = asyncio.Semaphore(6)
     failed = {}
 
