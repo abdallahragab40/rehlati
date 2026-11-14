@@ -18,7 +18,7 @@
 الصوت:
   VOICE=ar-EG-ShakirNeural (الافتراضي، راجل مصري) — نفس الصوت لكل المقاطع العربي
   TEACH_VOICE=VOICE — صوت قسم الحروف (teaching.tsv) لوحده: الفصحى بصوت مش مصري لو العميل اختار كده
-  VOICE=gemini:Charon — جمل العربي بمحرك Gemini (صوت Charon أو Kore…)، والحروف بتفضل بشاكر
+  VOICE=gemini:ar-eg-storyteller-2 — جمل العربي بمحرك Gemini بصوت مصري من مكتبة الأصوات، والحروف بتفضل بشاكر
     والإنجليزي بـ Ana. GEMINI_API_KEY في tool/.env، والموديل GEMINI_TTS_MODEL (افتراضي lite).
     محتاج الباقة المدفوعة (المجانية ١٠ مقاطع في اليوم). --max بيمنع تشغيلة أكبر من العدد ده.
     تجربة من غير ما نلمس التطبيق: --pack pilot --count 300 ← build/voice-preview/gemini/<voice>/pilot/
@@ -125,19 +125,16 @@ def is_fusha(text):
             or sum(1 for w in words if _CASE.search(w)) >= 2)
 
 
-GEMINI_STYLE = {
-    'egy': 'Say the following in Egyptian Arabic (Cairo), like a friendly teacher talking to a child, '
-           'at a natural, brisk everyday pace. Say only the text, exactly:\n',
-    'fusha': 'Say the following in Modern Standard Arabic, like a friendly teacher, at a natural, brisk pace, '
-             'with every vowel exactly as marked. Say only the text, exactly:\n',
-}
+# Gemini 3.8 بيقرا الـ text حرفيًا — أي تعليمات فيه بتتقال بصوت عالي (أول تجربة كانت بتقول
+# «Say the following in Egyptian Arabic…» قبل كل جملة). اللهجة بتيجي من صوت مصري من مكتبة
+# الأصوات (GET /v1beta/voices?language_code=ar-EG)، زي gemini:ar-eg-storyteller-2.
 
 
 def tts_gemini(text, voice, wav):
-    """voice = 'gemini:Charon' أو 'gemini:Charon|fusha'. الناتج WAV مونو ٢٤ كيلوهرتز."""
+    """voice = 'gemini:ar-eg-storyteller-2'. الجملة نفسها بس من غير أي تعليمات. الناتج WAV مونو ٢٤ كيلوهرتز."""
     import base64, json
-    name, _, reg = voice.split(':', 1)[1].partition('|')
-    body = {'contents': [{'parts': [{'text': GEMINI_STYLE[reg or 'egy'] + text}]}],
+    name = voice.split(':', 1)[1].partition('|')[0]
+    body = {'contents': [{'parts': [{'text': text}]}],
             'generationConfig': {'responseModalities': ['AUDIO'],
                                  'speechConfig': {'voiceConfig': {'prebuiltVoiceConfig': {'voiceName': name}}}}}
     req = urllib.request.Request(
@@ -333,8 +330,6 @@ async def main():
     for key, _text, spoken, rate in clips + phrases + ([] if preview else teaching) + english:
         voice = (EN_VOICE if key in en_keys else TEACH_VOICE if key in teach_keys
                  else FUSHA_VOICE if key in fusha_keys else VOICE)
-        if voice.startswith('gemini:') and key in fusha_keys:
-            voice += '|fusha'
         rate = rate or RATE
         h = hashlib.sha1(f'{PIPELINE}|{ENGINE}|{voice}|{rate}|{PITCH}|{spoken}'.encode()).hexdigest()
         human = None if preview else recording_hash(key)
